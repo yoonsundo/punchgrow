@@ -368,6 +368,8 @@ final class LocalUsageReaderTests: XCTestCase {
   func testUnterminatedWriterTailDoesNotRequestImmediateDrain() throws {
     let baseline = try scanner.scan(cache: LocalUsageCache(), now: fixedNow)
     let log = claudeRoot.appending(path: "project/writer-tail.jsonl")
+    try FileManager.default.createDirectory(
+      at: log.deletingLastPathComponent(), withIntermediateDirectories: true)
     try Data().write(to: log)
     try appendRaw(
       claudeLine(messageID: "tail", requestID: "tail", output: 4),
@@ -388,6 +390,8 @@ final class LocalUsageReaderTests: XCTestCase {
       providerBodyReadSoftBudget: 1 * 1_024 * 1_024)
     let baseline = try boundedScanner.scan(cache: LocalUsageCache(), now: fixedNow)
     let log = claudeRoot.appending(path: "project/large-writer-tail.jsonl")
+    try FileManager.default.createDirectory(
+      at: log.deletingLastPathComponent(), withIntermediateDirectories: true)
     try Data().write(to: log)
     try appendRaw(String(repeating: "x", count: 5 * 1_024 * 1_024), to: log)
 
