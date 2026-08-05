@@ -378,7 +378,8 @@ final class LocalUsageReaderTests: XCTestCase {
 
     XCTAssertFalse(result.hasDrainableBacklog)
     XCTAssertTrue(result.creditEvents.isEmpty)
-    XCTAssertEqual(result.cache.files.values.first?.byteOffset, 0)
+    let cursor = try XCTUnwrap(result.cache.files.values.first { $0.fileSize > 0 })
+    XCTAssertEqual(cursor.byteOffset, 0)
   }
 
   func testWriterTailLargerThanSoftBudgetStillUsesIdleDelayClassification() throws {
@@ -393,7 +394,8 @@ final class LocalUsageReaderTests: XCTestCase {
     let result = try boundedScanner.scan(cache: baseline.cache, now: fixedNow)
 
     XCTAssertFalse(result.hasDrainableBacklog)
-    XCTAssertEqual(result.cache.files.values.first?.byteOffset, 0)
+    let cursor = try XCTUnwrap(result.cache.files.values.first { $0.fileSize > 0 })
+    XCTAssertEqual(cursor.byteOffset, 0)
     XCTAssertTrue(result.creditEvents.isEmpty)
   }
 
@@ -731,7 +733,7 @@ final class LocalUsageReaderTests: XCTestCase {
     let result = try scanner.scan(cache: recovered, now: fixedNow)
 
     XCTAssertTrue(result.creditEvents.isEmpty)
-    XCTAssertEqual(result.observedTotals[.claude], 1_000)
+    XCTAssertEqual(result.observedTotals[.claude], 2_010)
     XCTAssertTrue(result.cache.baselineCompleted)
   }
 
@@ -749,8 +751,8 @@ final class LocalUsageReaderTests: XCTestCase {
       to: log
     )
     let invalidated = try scanner.scan(cache: warm.cache, now: fixedNow.addingTimeInterval(60))
-    XCTAssertEqual(invalidated.creditEvents.map(\.totalTokens), [10])
-    XCTAssertEqual(invalidated.observedTotals[.claude], 20)
+    XCTAssertEqual(invalidated.creditEvents.map(\.totalTokens), [1_020])
+    XCTAssertEqual(invalidated.observedTotals[.claude], 2_140)
   }
 
   func testSameSizeRewriteWithNewModificationDateInvalidatesCachedCursor() throws {

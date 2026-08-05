@@ -218,7 +218,9 @@ struct MenuBarStatusPresentation: Equatable {
       return value.formatted()
     }
     let precision = magnitude < 100 ? 1 : 0
-    return String(format: "%.*f%@", precision, magnitude, suffix)
+    return String(
+      format: "%.*f%@", locale: Locale(identifier: "en_US_POSIX"),
+      precision, magnitude, suffix)
   }
 }
 
