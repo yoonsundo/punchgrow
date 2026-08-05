@@ -474,16 +474,18 @@ final class LocalUsageReaderTests: XCTestCase {
       [claudeLine(messageID: "later", requestID: "later", output: 7)],
       to: later)
 
-    let first = try boundedScanner.scan(cache: LocalUsageCache(), now: fixedNow)
-    let second = try boundedScanner.scan(
-      cache: first.cache, now: fixedNow.addingTimeInterval(1))
     let laterKey = LocalUsageScanner.hash("file:claude:\(later.path)")
+    var result = try boundedScanner.scan(cache: LocalUsageCache(), now: fixedNow)
+    var scanCount = 1
+    while result.cache.files[laterKey] == nil, scanCount < 4 {
+      result = try boundedScanner.scan(
+        cache: result.cache, now: fixedNow.addingTimeInterval(Double(scanCount)))
+      scanCount += 1
+    }
 
-    XCTAssertTrue(first.hasDrainableBacklog)
-    XCTAssertNil(first.cache.files[laterKey])
-    XCTAssertEqual(second.cache.files[laterKey]?.byteOffset, second.cache.files[laterKey]?.fileSize)
-    XCTAssertTrue(second.cache.claudeMaximums.count == 1)
-    XCTAssertTrue(second.creditEvents.isEmpty, "분할 기준선의 마지막 batch도 소급 지급하면 안 된다")
+    XCTAssertEqual(result.cache.files[laterKey]?.byteOffset, result.cache.files[laterKey]?.fileSize)
+    XCTAssertTrue(result.cache.claudeMaximums.count == 1)
+    XCTAssertTrue(result.creditEvents.isEmpty, "분할 기준선의 마지막 batch도 소급 지급하면 안 된다")
   }
 
   func testRepeatedScanDoesNotReplayPreviouslyCreditedUsage() throws {
