@@ -32,7 +32,7 @@
 
 ---
 
-> **Project status: v0.1.0 alpha candidate.** This public repository is dedicated to the Apple Silicon macOS 14+ menu-bar app.
+> **Project status: v0.1.1 alpha.** This public repository is dedicated to the Apple Silicon macOS 14+ menu-bar app.
 
 GitHub Actions with Full Xcode passes all 104 Swift tests, the Release build, 240-creature resource assembly, and ad-hoc signature verification. A public Homebrew binary still requires Developer ID signing and Apple notarization.
 
@@ -93,7 +93,7 @@ AI-assisted coding already produces a useful activity signal: token usage. Punch
 
 | Area | Status | Purpose |
 | --- | --- | --- |
-| `macos/` | v0.1.0 | Native SwiftUI menu-bar game for Apple Silicon macOS 14+ |
+| `macos/` | v0.1.1 | Native SwiftUI menu-bar game for Apple Silicon macOS 14+ |
 
 The current game includes a six-tier rarity system (`PROCESS` → `ORIGIN`), activity-based rarity bonuses, a 300-draw ORIGIN pity rule, unique-color variants, feeding, growth, evolution, local save/restore, and a 240-creature catalog.
 

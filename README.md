@@ -32,7 +32,7 @@
 
 ---
 
-> **프로젝트 상태: v0.1.0 알파 준비.** 이 공개 저장소는 Apple Silicon macOS 14+ 메뉴 막대 앱 전용입니다.
+> **프로젝트 상태: v0.1.1 알파.** 이 공개 저장소는 Apple Silicon macOS 14+ 메뉴 막대 앱 전용입니다.
 
 GitHub Actions의 Full Xcode 환경에서 Swift 테스트 104개, Release 빌드, 240개 크리처 리소스 조립과 ad-hoc 코드서명을 확인했습니다. Developer ID 서명과 Apple 공증을 마친 공개 Homebrew 바이너리는 별도의 릴리스 단계입니다.
 
@@ -93,7 +93,7 @@ AI 코딩에는 토큰 사용량이라는 유용한 활동 신호가 이미 존�
 
 | 영역 | 상태 | 용도 |
 | --- | --- | --- |
-| `macos/` | v0.1.0 | Apple Silicon macOS 14+용 네이티브 SwiftUI 메뉴 막대 게임 |
+| `macos/` | v0.1.1 | Apple Silicon macOS 14+용 네이티브 SwiftUI 메뉴 막대 게임 |
 
 현재 게임에는 6단계 등급(`PROCESS` → `ORIGIN`), 활동량 기반 희귀도 보너스, ORIGIN 300회 천장, 유니크 컬러, 먹이 주기, 성장과 진화, 로컬 저장·복원, 240종 크리처 도감이 포함되어 있습니다.
 
