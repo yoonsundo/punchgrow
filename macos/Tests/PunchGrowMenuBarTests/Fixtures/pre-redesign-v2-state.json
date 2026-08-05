@@ -12,9 +12,10 @@
     "food" : 3,
     "trainingTools" : 1
   },
-  "lifetimeUsage" : {
-    "claude" : 1000
-  },
+  "lifetimeUsage" : [
+    "claude",
+    1000
+  ],
   "ownedCreatures" : [
     {
       "acquiredAt" : "2026-07-01T00:00:00Z",
