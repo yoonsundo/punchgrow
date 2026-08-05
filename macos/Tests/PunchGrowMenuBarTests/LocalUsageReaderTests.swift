@@ -379,7 +379,8 @@ final class LocalUsageReaderTests: XCTestCase {
     XCTAssertFalse(result.hasDrainableBacklog)
     XCTAssertTrue(result.creditEvents.isEmpty)
     let cursor = try XCTUnwrap(result.cache.files.values.first { $0.fileSize > 0 })
-    XCTAssertEqual(cursor.byteOffset, 0)
+    let baselineCursor = try XCTUnwrap(baseline.cache.files.values.first { $0.fileSize > 0 })
+    XCTAssertEqual(cursor.byteOffset, baselineCursor.byteOffset)
   }
 
   func testWriterTailLargerThanSoftBudgetStillUsesIdleDelayClassification() throws {
@@ -395,7 +396,8 @@ final class LocalUsageReaderTests: XCTestCase {
 
     XCTAssertFalse(result.hasDrainableBacklog)
     let cursor = try XCTUnwrap(result.cache.files.values.first { $0.fileSize > 0 })
-    XCTAssertEqual(cursor.byteOffset, 0)
+    let baselineCursor = try XCTUnwrap(baseline.cache.files.values.first { $0.fileSize > 0 })
+    XCTAssertEqual(cursor.byteOffset, baselineCursor.byteOffset)
     XCTAssertTrue(result.creditEvents.isEmpty)
   }
 
