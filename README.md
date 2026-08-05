@@ -34,7 +34,7 @@
 
 > **프로젝트 상태: v0.1.0 알파 준비.** 이 공개 저장소는 Apple Silicon macOS 14+ 메뉴 막대 앱 전용입니다.
 
-현재 macOS 15.4 호환 SDK로 Release 빌드, 240개 크리처 리소스 조립, ad-hoc 코드서명과 실제 앱 실행을 확인했습니다. Developer ID 서명과 Apple 공증을 마친 공개 Homebrew 바이너리는 별도의 릴리스 단계입니다. 전체 `swift test`는 Full Xcode 또는 XCTest가 포함된 일치하는 도구 체계에서 최종 확인해야 합니다.
+GitHub Actions의 Full Xcode 환경에서 Swift 테스트 104개, Release 빌드, 240개 크리처 리소스 조립과 ad-hoc 코드서명을 확인했습니다. Developer ID 서명과 Apple 공증을 마친 공개 Homebrew 바이너리는 별도의 릴리스 단계입니다.
 
 ## 핵심 경험
 

@@ -34,7 +34,7 @@
 
 > **Project status: v0.1.0 alpha candidate.** This public repository is dedicated to the Apple Silicon macOS 14+ menu-bar app.
 
-The macOS Release build, 240-creature resource assembly, ad-hoc signature, and native app launch pass with the compatible macOS 15.4 SDK. A public Homebrew binary still requires Developer ID signing and Apple notarization. The complete `swift test` suite must be confirmed with Full Xcode or another matched toolchain that includes XCTest.
+GitHub Actions with Full Xcode passes all 104 Swift tests, the Release build, 240-creature resource assembly, and ad-hoc signature verification. A public Homebrew binary still requires Developer ID signing and Apple notarization.
 
 ## The core experience
 

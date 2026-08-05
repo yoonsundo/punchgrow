@@ -23,5 +23,5 @@ PunchGrow의 첫 macOS 알파 릴리스 후보입니다.
 ### Known limitations
 
 - 공개 바이너리는 Developer ID 서명과 Apple 공증이 필요합니다.
-- 전체 Swift 테스트는 XCTest가 포함된 Full Xcode 또는 일치하는 도구 체계에서 최종 확인해야 합니다.
+- GitHub Actions의 Full Xcode 환경에서 Swift 테스트 104개와 Release 앱 빌드·서명 검증을 통과했습니다.
 - 공급자가 새로운 한도 값을 기록하기 전에는 직전 플랜 사용률이 유지될 수 있습니다.
