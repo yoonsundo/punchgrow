@@ -728,7 +728,18 @@ private struct WeeklyUsageCard: View {
         Text("주간 사용률").font(.system(size: 12, weight: .bold)).tracking(0.2)
           .foregroundStyle(.secondary)
         Spacer()
-        Text("실제 플랜 한도").font(.caption2).foregroundStyle(.secondary)
+        HStack(spacing: 5) {
+          Text("보유 토큰")
+            .font(.system(size: 10, weight: .semibold))
+            .foregroundStyle(.secondary)
+          Text(state.tokenBalance.formatted())
+            .font(.system(size: 13, weight: .bold, design: .monospaced))
+            .foregroundStyle(PunchGrowColors.fuel)
+            .lineLimit(1)
+            .minimumScaleFactor(0.75)
+        }
+        .accessibilityElement(children: .combine)
+        .accessibilityLabel("보유 토큰 \(state.tokenBalance)")
       }
       VStack(spacing: 6) {
         providerProgressButton(.claude, name: "Claude", value: claude, color: PunchGrowColors.calm)
