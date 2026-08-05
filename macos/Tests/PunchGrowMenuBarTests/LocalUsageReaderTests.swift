@@ -368,7 +368,7 @@ final class LocalUsageReaderTests: XCTestCase {
   func testUnterminatedWriterTailDoesNotRequestImmediateDrain() throws {
     let baseline = try scanner.scan(cache: LocalUsageCache(), now: fixedNow)
     let log = claudeRoot.appending(path: "project/writer-tail.jsonl")
-    try write([], to: log)
+    try Data().write(to: log)
     try appendRaw(
       claudeLine(messageID: "tail", requestID: "tail", output: 4),
       to: log
@@ -379,8 +379,7 @@ final class LocalUsageReaderTests: XCTestCase {
     XCTAssertFalse(result.hasDrainableBacklog)
     XCTAssertTrue(result.creditEvents.isEmpty)
     let cursor = try XCTUnwrap(result.cache.files.values.first { $0.fileSize > 0 })
-    let baselineCursor = try XCTUnwrap(baseline.cache.files.values.first { $0.fileSize > 0 })
-    XCTAssertEqual(cursor.byteOffset, baselineCursor.byteOffset)
+    XCTAssertEqual(cursor.byteOffset, 0)
   }
 
   func testWriterTailLargerThanSoftBudgetStillUsesIdleDelayClassification() throws {
@@ -389,15 +388,14 @@ final class LocalUsageReaderTests: XCTestCase {
       providerBodyReadSoftBudget: 1 * 1_024 * 1_024)
     let baseline = try boundedScanner.scan(cache: LocalUsageCache(), now: fixedNow)
     let log = claudeRoot.appending(path: "project/large-writer-tail.jsonl")
-    try write([], to: log)
+    try Data().write(to: log)
     try appendRaw(String(repeating: "x", count: 5 * 1_024 * 1_024), to: log)
 
     let result = try boundedScanner.scan(cache: baseline.cache, now: fixedNow)
 
     XCTAssertFalse(result.hasDrainableBacklog)
     let cursor = try XCTUnwrap(result.cache.files.values.first { $0.fileSize > 0 })
-    let baselineCursor = try XCTUnwrap(baseline.cache.files.values.first { $0.fileSize > 0 })
-    XCTAssertEqual(cursor.byteOffset, baselineCursor.byteOffset)
+    XCTAssertEqual(cursor.byteOffset, 0)
     XCTAssertTrue(result.creditEvents.isEmpty)
   }
 
