@@ -328,6 +328,7 @@ final class G001StateTests: XCTestCase {
     XCTAssertTrue(codex.startCount == 1)
   }
 
+  @MainActor
   func testCollectorCommandUsesLiteralQuotedHeaderAndMetricsEndpoint() {
     let command = LocalCollectorService.command(secret: "test-secret")
     XCTAssertTrue(command.contains("OTEL_EXPORTER_OTLP_METRICS_ENDPOINT=http://127.0.0.1:4318/v1/metrics"))
