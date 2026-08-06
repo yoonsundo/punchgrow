@@ -30,42 +30,56 @@ final class GameEngineTests: XCTestCase {
     }
   }
 
-  func testOriginPityGuaranteesOrigin() throws {
+  func testPullSelectsOnlyStageOneAndLeavesLegacyPityUnchanged() throws {
     var state = GameState()
     state.pullsSinceOrigin = GameState.originPityThreshold
-    let origin = CreatureSpecies(
-      id: "PG-999", koName: "테스트", enName: "Test", rarity: "ORIGIN", stage: 1,
-      category: "start", bodyForm: "test", identity: "test", lore: "test", imagePath: "test"
-    )
+    let start = testSpecies(id: "PG-001", stage: 1, category: "start")
+    let evolved = testSpecies(
+      id: "PG-002", stage: 2, category: "normal_evolution", evolutionFrom: ["PG-001"])
     var generator = SeededGenerator(seed: 42)
-    let creature = try GameEngine.pull(state: &state, catalog: [origin], generator: &generator)
-    XCTAssertTrue(creature.speciesID == origin.id)
-    XCTAssertTrue(state.pullsSinceOrigin == 0)
+    let creature = try GameEngine.pull(
+      state: &state, catalog: [evolved, start], generator: &generator)
+    XCTAssertEqual(creature.speciesID, start.id)
+    XCTAssertEqual(state.pullsSinceOrigin, GameState.originPityThreshold)
   }
 
-  func testOriginPityFailsClosedWithoutOriginCatalogEntry() {
+  func testSeededPullsUseTheExactSixtySpeciesStartPool() throws {
+    let catalog = try CreatureCatalog.load()
+    let expected = Set(catalog.filter { $0.category == "start" && $0.stage == 1 }.map(\.id))
+    var state = GameState()
+    state.tokenBalance = GameState.gachaCost * 6_000
+    var generator = SeededGenerator(seed: 15_25_40)
+    var drawn: Set<String> = []
+
+    for _ in 0..<6_000 {
+      drawn.insert(try GameEngine.pull(
+        state: &state, catalog: catalog, generator: &generator).speciesID)
+    }
+
+    XCTAssertEqual(expected.count, 60)
+    XCTAssertEqual(drawn, expected)
+  }
+
+  func testPullFailsAtomicallyWithoutStageOneCatalogEntry() {
     var state = GameState()
     state.pullsSinceOrigin = GameState.originPityThreshold
-    let process = CreatureSpecies(
-      id: "PG-001", koName: "테스트", enName: "Test", rarity: "PROCESS", stage: 1,
-      category: "start", bodyForm: "test", identity: "test", lore: "test", imagePath: "test"
-    )
+    let before = state
+    let evolved = testSpecies(
+      id: "PG-002", stage: 2, category: "normal_evolution", evolutionFrom: ["PG-001"])
     var generator = SeededGenerator(seed: 42)
     XCTAssertThrowsError(
-      try GameEngine.pull(state: &state, catalog: [process], generator: &generator)
+      try GameEngine.pull(state: &state, catalog: [evolved], generator: &generator)
     ) { error in
       XCTAssertEqual(error as? GameError, .emptyCatalog)
     }
+    XCTAssertEqual(state, before)
   }
 
   func testRepeatedSpeciesAcquisitionsRemainDistinctOwnedInstances() throws {
     var state = GameState()
     state.tokenBalance = GameState.gachaCost * 2
     state.pullsSinceOrigin = GameState.originPityThreshold
-    let origin = CreatureSpecies(
-      id: "PG-999", koName: "테스트", enName: "Test", rarity: "ORIGIN", stage: 1,
-      category: "start", bodyForm: "test", identity: "test", lore: "test", imagePath: "test"
-    )
+    let origin = testSpecies(id: "PG-999", stage: 1, category: "start", rarity: "ORIGIN")
     var generator = SeededGenerator(seed: 42)
 
     let first = try GameEngine.pull(state: &state, catalog: [origin], generator: &generator)
@@ -73,8 +87,63 @@ final class GameEngineTests: XCTestCase {
     let second = try GameEngine.pull(state: &state, catalog: [origin], generator: &generator)
 
     XCTAssertTrue(first.speciesID == second.speciesID)
+    XCTAssertEqual(first.originSpeciesID, origin.id)
+    XCTAssertEqual(second.originSpeciesID, origin.id)
     XCTAssertTrue(first.id != second.id)
     XCTAssertTrue(Set(state.ownedCreatures.map(\.id)).count == 2)
+  }
+
+  func testVisibleCreaturesKeepEarliestInstancePerOriginalGachaSpecies() {
+    let start = testSpecies(id: "PG-001", stage: 1, category: "start", lineageId: "PG-L001")
+    let evolved = testSpecies(
+      id: "PG-061", stage: 2, category: "normal_evolution", lineageId: "PG-L001",
+      evolutionFrom: ["PG-001"])
+    let first = OwnedCreature(
+      id: UUID(), speciesID: evolved.id, originSpeciesID: start.id, level: 15, experience: 0,
+      affection: 0, nickname: nil, uniqueColor: false, acquiredAt: Date(timeIntervalSince1970: 1))
+    let duplicate = OwnedCreature(
+      id: UUID(), speciesID: start.id, originSpeciesID: start.id, level: 1, experience: 0,
+      affection: 0, nickname: nil, uniqueColor: false, acquiredAt: Date(timeIntervalSince1970: 2))
+    var state = GameState()
+    state.ownedCreatures = [duplicate, first]
+
+    let visible = GameEngine.visibleOwnedCreatures(in: state, catalog: [evolved, start])
+
+    XCTAssertEqual(visible.map(\.id), [first.id])
+    XCTAssertEqual(state.ownedCreatures.count, 2)
+  }
+
+  func testLegacyOriginResolutionTraversesCatalogWhenLineageIDChanges() {
+    let start = testSpecies(id: "PG-001", stage: 1, category: "start", lineageId: "PG-L001")
+    let second = testSpecies(
+      id: "PG-061", stage: 2, category: "normal_evolution", lineageId: "PG-L001",
+      evolutionFrom: ["PG-L001:S1"])
+    let third = testSpecies(
+      id: "PG-181", stage: 3, category: "normal_evolution", lineageId: "PG-L099",
+      evolutionFrom: ["PG-061"])
+    let legacy = OwnedCreature(
+      id: UUID(), speciesID: third.id, level: 25, experience: 0, affection: 0,
+      nickname: nil, uniqueColor: false, acquiredAt: .now)
+
+    XCTAssertNil(legacy.originSpeciesID)
+    XCTAssertEqual(
+      GameEngine.originSpeciesID(for: legacy, catalog: [third, start, second]),
+      start.id)
+  }
+
+  func testInvalidExplicitOriginFallsBackToCatalogStartAncestor() {
+    let start = testSpecies(id: "PG-001", stage: 1, category: "start", lineageId: "PG-L001")
+    let evolved = testSpecies(
+      id: "PG-061", stage: 2, category: "normal_evolution", lineageId: "PG-L001",
+      evolutionFrom: [start.id])
+    let creature = OwnedCreature(
+      id: UUID(), speciesID: evolved.id, originSpeciesID: evolved.id,
+      level: 15, experience: 0, affection: 0, nickname: nil, uniqueColor: false,
+      acquiredAt: .now)
+
+    XCTAssertEqual(
+      GameEngine.originSpeciesID(for: creature, catalog: [evolved, start]),
+      start.id)
   }
 
   func testUsageHistoryRetentionIsBounded() throws {
@@ -154,6 +223,187 @@ final class GameEngineTests: XCTestCase {
     XCTAssertEqual(state.ownedCreatures[0].level, 2)
     XCTAssertEqual(state.ownedCreatures[0].experience, 190)
     XCTAssertEqual(state.ownedCreatures[0].affection, 100)
+  }
+
+  func testJephirakEvolvesAtEveryThresholdAndPreservesMetadata() throws {
+    let catalog = try CreatureCatalog.load()
+    let id = UUID()
+    let acquiredAt = Date(timeIntervalSince1970: 123)
+    var state = GameState()
+    state.ownedCreatures = [OwnedCreature(
+      id: id, speciesID: "PG-034", originSpeciesID: "PG-034",
+      level: 14, experience: 1_390,
+      affection: 40, nickname: "바람이", uniqueColor: true, acquiredAt: acquiredAt
+    )]
+    state.representativeCreatureID = id
+
+    var chain = try GameEngine.feed(creatureID: id, state: &state, catalog: catalog)
+    XCTAssertEqual(chain.map(\.toSpeciesID), ["PG-117"])
+    XCTAssertEqual(state.ownedCreatures[0].level, 15)
+
+    state.ownedCreatures[0].level = 24
+    state.ownedCreatures[0].experience = 2_390
+    chain = try GameEngine.feed(creatureID: id, state: &state, catalog: catalog)
+    XCTAssertEqual(chain.map(\.toSpeciesID), ["PG-118"])
+
+    state.ownedCreatures[0].level = 39
+    state.ownedCreatures[0].experience = 3_990
+    chain = try GameEngine.feed(creatureID: id, state: &state, catalog: catalog)
+    XCTAssertEqual(chain.map(\.toSpeciesID), ["PG-119"])
+    let evolved = state.ownedCreatures[0]
+    XCTAssertEqual(evolved.id, id)
+    XCTAssertEqual(evolved.nickname, "바람이")
+    XCTAssertTrue(evolved.uniqueColor)
+    XCTAssertEqual(evolved.originSpeciesID, "PG-034")
+    XCTAssertEqual(evolved.acquiredAt, acquiredAt)
+    XCTAssertEqual(state.representativeCreatureID, id)
+    XCTAssertTrue(state.discoveredSpeciesIDs.isSuperset(of: ["PG-117", "PG-118", "PG-119"]))
+  }
+
+  func testEvolutionDoesNotRunImmediatelyBelowEachThreshold() throws {
+    let catalog = try CreatureCatalog.load()
+    for (speciesID, level) in [("PG-034", 14), ("PG-117", 24), ("PG-118", 39)] {
+      let creature = OwnedCreature(
+        id: UUID(), speciesID: speciesID, level: level, experience: 0,
+        affection: 0, nickname: nil, uniqueColor: false, acquiredAt: .now)
+      var state = GameState()
+      state.ownedCreatures = [creature]
+
+      let chain = try GameEngine.feed(
+        creatureID: creature.id, state: &state, catalog: catalog)
+
+      XCTAssertTrue(chain.isEmpty)
+      XCTAssertEqual(state.ownedCreatures[0].speciesID, speciesID)
+      XCTAssertEqual(state.ownedCreatures[0].level, level)
+    }
+  }
+
+  func testLegacyCreatureCatchesUpAcrossAllEligibleStagesInOrder() throws {
+    let catalog = try CreatureCatalog.load()
+    let creature = OwnedCreature(
+      id: UUID(), speciesID: "PG-034", level: 40, experience: 900,
+      affection: 0, nickname: nil, uniqueColor: false, acquiredAt: .now)
+    var state = GameState()
+    state.ownedCreatures = [creature]
+
+    let chain = try GameEngine.feed(creatureID: creature.id, state: &state, catalog: catalog)
+
+    XCTAssertEqual(chain.map(\.fromSpeciesID), ["PG-034", "PG-117", "PG-118"])
+    XCTAssertEqual(chain.map(\.toSpeciesID), ["PG-117", "PG-118", "PG-119"])
+    XCTAssertEqual(state.ownedCreatures[0].speciesID, "PG-119")
+    XCTAssertEqual(state.ownedCreatures[0].level, 40)
+    XCTAssertEqual(state.ownedCreatures[0].experience, 925)
+  }
+
+  func testLevelCapAndLegacyAboveCapConsumeFoodGainAffectionAndDiscardXP() throws {
+    for level in [50, 51, 100] {
+      let creature = OwnedCreature(
+        id: UUID(), speciesID: "PG-999", level: level, experience: 123,
+        affection: 7, nickname: nil, uniqueColor: false, acquiredAt: .now)
+      var state = GameState()
+      state.ownedCreatures = [creature]
+      let chain = try GameEngine.feed(creatureID: creature.id, state: &state, catalog: [])
+      XCTAssertTrue(chain.isEmpty)
+      XCTAssertEqual(state.inventory.food, 4)
+      XCTAssertEqual(state.ownedCreatures[0].level, level)
+      XCTAssertEqual(state.ownedCreatures[0].experience, 0)
+      XCTAssertEqual(state.ownedCreatures[0].affection, 10)
+    }
+  }
+
+  func testLargeFoodCannotGrowPastLevelFifty() throws {
+    let creature = OwnedCreature(
+      id: UUID(), speciesID: "PG-999", level: 49, experience: 4_899,
+      affection: 0, nickname: nil, uniqueColor: false, acquiredAt: .now)
+    var state = GameState()
+    state.ownedCreatures = [creature]
+    state.inventory.largeFood = 1
+
+    _ = try GameEngine.feedLarge(creatureID: creature.id, state: &state, catalog: [])
+
+    XCTAssertEqual(state.ownedCreatures[0].level, GameState.maximumCreatureLevel)
+    XCTAssertEqual(state.ownedCreatures[0].experience, 0)
+  }
+
+  func testEvolutionResolutionPrefersCategoryThenStableID() throws {
+    let start = testSpecies(id: "PG-001", stage: 1, category: "start", lineageId: "PG-L001")
+    let branch = testSpecies(
+      id: "PG-010", stage: 2, category: "branch", evolutionFrom: ["PG-L001:S1"])
+    let normalB = testSpecies(
+      id: "PG-009", stage: 2, category: "normal_evolution", evolutionFrom: ["PG-001"])
+    let normalA = testSpecies(
+      id: "PG-008", stage: 2, category: "normal_evolution", evolutionFrom: ["PG-001"])
+    let creature = OwnedCreature(
+      id: UUID(), speciesID: start.id, level: 15, experience: 0,
+      affection: 0, nickname: nil, uniqueColor: false, acquiredAt: .now)
+    var state = GameState()
+    state.ownedCreatures = [creature]
+
+    let chain = try GameEngine.feed(
+      creatureID: creature.id, state: &state, catalog: [branch, normalB, start, normalA])
+
+    XCTAssertEqual(chain.map(\.toSpeciesID), ["PG-008"])
+  }
+
+  func testMissingSpeciesOrCandidateStillFeedsNormally() throws {
+    let creature = OwnedCreature(
+      id: UUID(), speciesID: "PG-404", level: 14, experience: 1_390,
+      affection: 0, nickname: nil, uniqueColor: false, acquiredAt: .now)
+    var state = GameState()
+    state.ownedCreatures = [creature]
+
+    let chain = try GameEngine.feed(creatureID: creature.id, state: &state, catalog: [])
+
+    XCTAssertTrue(chain.isEmpty)
+    XCTAssertEqual(state.ownedCreatures[0].level, 15)
+  }
+
+  @MainActor
+  func testStorePublishesEvolutionFeedbackAfterPersistenceAndClearsByIdentity() throws {
+    let directory = FileManager.default.temporaryDirectory.appending(path: UUID().uuidString)
+    let persistence = GamePersistence(fileURL: directory.appending(path: "state.json"))
+    let creature = OwnedCreature(
+      id: UUID(), speciesID: "PG-034", level: 40, experience: 0,
+      affection: 0, nickname: nil, uniqueColor: false, acquiredAt: .now)
+    var initial = GameState()
+    initial.ownedCreatures = [creature]
+    initial.discoveredSpeciesIDs = [creature.speciesID]
+    try persistence.save(initial)
+    let store = GameStore(persistence: persistence)
+
+    store.feedCurrent()
+
+    let feedback = try XCTUnwrap(store.evolutionFeedback)
+    XCTAssertEqual(feedback.fromSpeciesID, "PG-034")
+    XCTAssertEqual(feedback.toSpeciesID, "PG-119")
+    XCTAssertEqual(feedback.stagesCrossed, 3)
+    store.clearEvolutionFeedback(id: UUID())
+    XCTAssertEqual(store.evolutionFeedback, feedback)
+    store.clearEvolutionFeedback(id: feedback.id)
+    XCTAssertNil(store.evolutionFeedback)
+  }
+
+  @MainActor
+  func testStorePersistenceFailureChangesNeitherStateNorFeedback() throws {
+    let directory = FileManager.default.temporaryDirectory.appending(path: UUID().uuidString)
+    let stateURL = directory.appending(path: "state.json")
+    let persistence = GamePersistence(fileURL: stateURL)
+    let creature = OwnedCreature(
+      id: UUID(), speciesID: "PG-034", level: 40, experience: 0,
+      affection: 0, nickname: nil, uniqueColor: false, acquiredAt: .now)
+    var initial = GameState()
+    initial.ownedCreatures = [creature]
+    initial.discoveredSpeciesIDs = [creature.speciesID]
+    try persistence.save(initial)
+    let store = GameStore(persistence: persistence)
+    let before = store.state
+    try FileManager.default.removeItem(at: stateURL)
+    try FileManager.default.createDirectory(at: stateURL, withIntermediateDirectories: true)
+
+    store.feedCurrent()
+
+    XCTAssertEqual(store.state, before)
+    XCTAssertNil(store.evolutionFeedback)
   }
 
   func testLargeFoodPurchaseSpendsTokensAndAddsOneLargeFood() throws {
@@ -314,6 +564,20 @@ final class GameEngineTests: XCTestCase {
 
 private func protoStringField(_ number: UInt64, _ value: String) -> Data {
   protoMessageField(number, Data(value.utf8))
+}
+
+private func testSpecies(
+  id: String,
+  stage: Int,
+  category: String,
+  lineageId: String = "PG-L001",
+  rarity: String = "PROCESS",
+  evolutionFrom: [String] = []
+) -> CreatureSpecies {
+  CreatureSpecies(
+    id: id, koName: id, enName: id, lineageId: lineageId, rarity: rarity, stage: stage,
+    category: category, bodyForm: "test", identity: "test", lore: "test",
+    evolutionFrom: evolutionFrom, imagePath: "test")
 }
 
 private func protoMessageField(_ number: UInt64, _ value: Data) -> Data {

@@ -57,16 +57,9 @@ final class UXPresentationTests: XCTestCase {
     XCTAssertTrue(RarityVisualTier.origin.animates)
   }
 
-  func testRarityProbabilityTableMatchesEngineThresholds() {
-    let base = RarityProbabilityTable.rows(activityBoost: 0)
-    let maximum = RarityProbabilityTable.rows(activityBoost: 1)
-
-    XCTAssertEqual(base.map(\.probability).reduce(0, +), 100, accuracy: 0.0001)
-    XCTAssertEqual(maximum.map(\.probability).reduce(0, +), 100, accuracy: 0.0001)
-    XCTAssertEqual(base.first(where: { $0.rarity == "ORIGIN" })?.probability, 0.2)
-    XCTAssertEqual(maximum.first(where: { $0.rarity == "ORIGIN" })?.probability, 1)
-    XCTAssertEqual(base.first(where: { $0.rarity == "PROCESS" })?.probability, 55)
-    XCTAssertEqual(maximum.first(where: { $0.rarity == "PROCESS" })?.probability, 40)
+  func testEvolutionMilestonesMatchApprovedLevelProgression() {
+    XCTAssertEqual(EvolutionMilestone.all.map(\.stage), [2, 3, 4])
+    XCTAssertEqual(EvolutionMilestone.all.map(\.level), [15, 25, 40])
   }
 
   func testIntegrationStatusPresentationNeverReliesOnColorAlone() {
@@ -199,6 +192,30 @@ final class UXPresentationTests: XCTestCase {
     XCTAssertTrue(presentation.feed.explanation.contains("먹이"))
     XCTAssertTrue(presentation.weeklyClaude == 120)
     XCTAssertTrue(presentation.weeklyCodex == 80)
+  }
+
+  func testCompactViewStateUsesVisibleUniqueCountForNavigation() {
+    let first = OwnedCreature(
+      id: UUID(), speciesID: "PG-001", originSpeciesID: "PG-001",
+      level: 1, experience: 0, affection: 0, nickname: nil, uniqueColor: false,
+      acquiredAt: Date(timeIntervalSince1970: 1))
+    let duplicate = OwnedCreature(
+      id: UUID(), speciesID: "PG-001", originSpeciesID: "PG-001",
+      level: 1, experience: 0, affection: 0, nickname: nil, uniqueColor: false,
+      acquiredAt: Date(timeIntervalSince1970: 2))
+    var state = GameState()
+    state.ownedCreatures = [first, duplicate]
+
+    let presentation = CompactViewState(
+      state: state,
+      currentCreature: first,
+      currentPosition: 1,
+      visibleCreatureCount: 1,
+      catalogIsEmpty: false,
+      weeklyUsage: [:])
+
+    XCTAssertFalse(presentation.showsNavigation)
+    XCTAssertEqual(presentation.positionLabel, "1 / 1")
   }
 
   func testAllOriginRevealPathsConvergeOnTheSameCompletedPhase() {

@@ -15,6 +15,65 @@ struct SeededGenerator: RandomNumberGenerator {
 }
 
 enum GameEngine {
+    private struct OriginResolver {
+        private let speciesByID: [String: CreatureSpecies]
+        private let speciesIDsByLineageStage: [String: [String]]
+        private var rootsBySpeciesID: [String: Set<String>] = [:]
+
+        init(catalog: [CreatureSpecies]) {
+            self.speciesByID = Dictionary(
+                catalog.map { ($0.id, $0) },
+                uniquingKeysWith: { first, _ in first }
+            )
+            self.speciesIDsByLineageStage = Dictionary(grouping: catalog, by: {
+                "\($0.lineageId):S\($0.stage)"
+            }).mapValues { $0.map(\.id).sorted() }
+        }
+
+        mutating func originSpeciesID(for creature: OwnedCreature) -> String {
+            if let explicit = creature.originSpeciesID,
+               let species = speciesByID[explicit],
+               species.stage == 1,
+               species.category == "start" {
+                return explicit
+            }
+            var visiting: Set<String> = []
+            return roots(for: creature.speciesID, visiting: &visiting).sorted().first
+                ?? creature.speciesID
+        }
+
+        private mutating func roots(
+            for speciesID: String,
+            visiting: inout Set<String>
+        ) -> Set<String> {
+            if let cached = rootsBySpeciesID[speciesID] { return cached }
+            guard visiting.insert(speciesID).inserted,
+                  let species = speciesByID[speciesID] else { return [] }
+            defer { visiting.remove(speciesID) }
+
+            if species.stage == 1 && species.category == "start" {
+                let result: Set<String> = [species.id]
+                rootsBySpeciesID[speciesID] = result
+                return result
+            }
+
+            var sourceIDs: Set<String> = []
+            for source in species.evolutionFrom {
+                if speciesByID[source] != nil {
+                    sourceIDs.insert(source)
+                } else {
+                    sourceIDs.formUnion(speciesIDsByLineageStage[source] ?? [])
+                }
+            }
+            var result: Set<String> = []
+            for sourceID in sourceIDs.sorted() {
+                result.formUnion(roots(for: sourceID, visiting: &visiting))
+            }
+            rootsBySpeciesID[speciesID] = result
+            return result
+        }
+    }
+
     static func ingest(_ event: TokenUsageEvent, into state: inout GameState, now: Date = .now) throws {
         try event.validate(now: now)
         let eventKey = "\(event.provider.rawValue):\(event.sourceEventID)"
@@ -74,40 +133,59 @@ enum GameEngine {
         now: Date = .now
     ) throws -> OwnedCreature {
         guard state.tokenBalance >= GameState.gachaCost else { throw GameError.insufficientTokens }
-        guard !catalog.isEmpty else { throw GameError.emptyCatalog }
-
-        let guaranteedOrigin = state.pullsSinceOrigin >= GameState.originPityThreshold
-        let weeklyTotal = weeklyUsage(from: state, now: now).reduce(0) { $0 + $1.value }
-        let activityBoost = min(1, Double(weeklyTotal) / Double(GameState.weeklyUsageForMaximumActivityBonus))
-        let rarity = guaranteedOrigin ? "ORIGIN" : rollRarity(activityBoost: activityBoost, using: &generator)
-        let candidates = catalog.filter { $0.rarity == rarity }
+        let candidates = catalog.filter { $0.category == "start" && $0.stage == 1 }
         guard !candidates.isEmpty else { throw GameError.emptyCatalog }
         let species = candidates[Int.random(in: candidates.indices, using: &generator)]
         state.tokenBalance -= GameState.gachaCost
         let creature = OwnedCreature(
-            id: UUID(), speciesID: species.id, level: 1, experience: 0,
+            id: UUID(), speciesID: species.id, originSpeciesID: species.id,
+            level: 1, experience: 0,
             affection: 0, nickname: nil,
             uniqueColor: Double.random(in: 0..<1, using: &generator) < 0.001,
             acquiredAt: now
         )
         state.ownedCreatures.append(creature)
         state.discoveredSpeciesIDs.insert(species.id)
-        state.pullsSinceOrigin = rarity == "ORIGIN" ? 0 : state.pullsSinceOrigin + 1
         return creature
     }
 
-    static func feed(creatureID: UUID, state: inout GameState) throws {
-        guard state.inventory.food > 0 else { throw GameError.noFood }
-        guard let index = state.ownedCreatures.firstIndex(where: { $0.id == creatureID }) else {
-            throw GameError.creatureNotFound
+    static func visibleOwnedCreatures(
+        in state: GameState,
+        catalog: [CreatureSpecies]
+    ) -> [OwnedCreature] {
+        var resolver = OriginResolver(catalog: catalog)
+        var seenOrigins: Set<String> = []
+        var visible: [OwnedCreature] = []
+        let ordered = state.ownedCreatures.enumerated().sorted {
+            if $0.element.acquiredAt != $1.element.acquiredAt {
+                return $0.element.acquiredAt < $1.element.acquiredAt
+            }
+            return $0.offset < $1.offset
         }
-        state.inventory.food -= 1
-        state.ownedCreatures[index].experience += 25
-        state.ownedCreatures[index].affection = min(100, state.ownedCreatures[index].affection + 3)
-        while state.ownedCreatures[index].experience >= state.ownedCreatures[index].level * 100 {
-            state.ownedCreatures[index].experience -= state.ownedCreatures[index].level * 100
-            state.ownedCreatures[index].level += 1
+        for (_, creature) in ordered {
+            let origin = resolver.originSpeciesID(for: creature)
+            if seenOrigins.insert(origin).inserted { visible.append(creature) }
         }
+        return visible
+    }
+
+    static func originSpeciesID(
+        for creature: OwnedCreature,
+        catalog: [CreatureSpecies]
+    ) -> String {
+        var resolver = OriginResolver(catalog: catalog)
+        return resolver.originSpeciesID(for: creature)
+    }
+
+    static func feed(
+        creatureID: UUID,
+        state: inout GameState,
+        catalog: [CreatureSpecies] = []
+    ) throws -> [EvolutionResult] {
+        try applyFood(
+            creatureID: creatureID, state: &state, catalog: catalog,
+            inventory: \Inventory.food, experience: 25, affection: 3, missingFood: .noFood
+        )
     }
 
     static func purchaseFood(state: inout GameState) throws {
@@ -118,18 +196,16 @@ enum GameEngine {
         state.inventory.food = nextFood.partialValue
     }
 
-    static func feedLarge(creatureID: UUID, state: inout GameState) throws {
-        guard state.inventory.largeFood > 0 else { throw GameError.noLargeFood }
-        guard let index = state.ownedCreatures.firstIndex(where: { $0.id == creatureID }) else {
-            throw GameError.creatureNotFound
-        }
-        state.inventory.largeFood -= 1
-        state.ownedCreatures[index].experience += 200
-        state.ownedCreatures[index].affection = min(100, state.ownedCreatures[index].affection + 10)
-        while state.ownedCreatures[index].experience >= state.ownedCreatures[index].level * 100 {
-            state.ownedCreatures[index].experience -= state.ownedCreatures[index].level * 100
-            state.ownedCreatures[index].level += 1
-        }
+    static func feedLarge(
+        creatureID: UUID,
+        state: inout GameState,
+        catalog: [CreatureSpecies] = []
+    ) throws -> [EvolutionResult] {
+        try applyFood(
+            creatureID: creatureID, state: &state, catalog: catalog,
+            inventory: \Inventory.largeFood, experience: 200, affection: 10,
+            missingFood: .noLargeFood
+        )
     }
 
     static func purchaseLargeFood(state: inout GameState) throws {
@@ -140,16 +216,99 @@ enum GameEngine {
         state.inventory.largeFood = nextFood.partialValue
     }
 
-    private static func rollRarity(activityBoost: Double, using generator: inout some RandomNumberGenerator) -> String {
-        let roll = Double.random(in: 0..<100, using: &generator)
-        let boost = max(0, min(1, activityBoost))
-        return switch roll {
-        case ..<(55 - 15 * boost): "PROCESS"
-        case ..<(80 - 14 * boost): "AGENT"
-        case ..<(92 - 10 * boost): "DAEMON"
-        case ..<(98 - 5 * boost): "ORACLE"
-        case ..<(99.8 - 0.8 * boost): "ARCHITECT"
-        default: "ORIGIN"
+    private static func applyFood(
+        creatureID: UUID,
+        state: inout GameState,
+        catalog: [CreatureSpecies],
+        inventory: WritableKeyPath<Inventory, Int>,
+        experience experienceGain: Int,
+        affection affectionGain: Int,
+        missingFood: GameError
+    ) throws -> [EvolutionResult] {
+        guard state.inventory[keyPath: inventory] > 0 else { throw missingFood }
+        guard let index = state.ownedCreatures.firstIndex(where: { $0.id == creatureID }) else {
+            throw GameError.creatureNotFound
+        }
+
+        state.inventory[keyPath: inventory] -= 1
+        state.ownedCreatures[index].affection = min(
+            100, state.ownedCreatures[index].affection + affectionGain)
+
+        if state.ownedCreatures[index].level >= GameState.maximumCreatureLevel {
+            state.ownedCreatures[index].experience = 0
+        } else {
+            let addition = state.ownedCreatures[index].experience.addingReportingOverflow(experienceGain)
+            state.ownedCreatures[index].experience = addition.overflow ? Int.max : addition.partialValue
+            while state.ownedCreatures[index].level < GameState.maximumCreatureLevel {
+                let required = state.ownedCreatures[index].level * 100
+                guard state.ownedCreatures[index].experience >= required else { break }
+                state.ownedCreatures[index].experience -= required
+                state.ownedCreatures[index].level += 1
+            }
+            if state.ownedCreatures[index].level == GameState.maximumCreatureLevel {
+                state.ownedCreatures[index].experience = 0
+            }
+        }
+
+        return evolveEligibleCreature(at: index, state: &state, catalog: catalog)
+    }
+
+    private static func evolveEligibleCreature(
+        at index: Int,
+        state: inout GameState,
+        catalog: [CreatureSpecies]
+    ) -> [EvolutionResult] {
+        let speciesByID = Dictionary(
+            catalog.map { ($0.id, $0) },
+            uniquingKeysWith: { first, _ in first }
+        )
+        var results: [EvolutionResult] = []
+
+        while let current = speciesByID[state.ownedCreatures[index].speciesID],
+              current.stage < 4,
+              state.ownedCreatures[index].level >= evolutionLevel(for: current.stage + 1),
+              let next = nextEvolution(after: current, in: catalog) {
+            state.ownedCreatures[index].speciesID = next.id
+            state.discoveredSpeciesIDs.insert(next.id)
+            results.append(EvolutionResult(
+                creatureID: state.ownedCreatures[index].id,
+                fromSpeciesID: current.id,
+                toSpeciesID: next.id,
+                level: state.ownedCreatures[index].level
+            ))
+        }
+        return results
+    }
+
+    private static func nextEvolution(
+        after current: CreatureSpecies,
+        in catalog: [CreatureSpecies]
+    ) -> CreatureSpecies? {
+        let lineageReference = "\(current.lineageId):S\(current.stage)"
+        let categoryPriority = [
+            "normal_evolution": 0, "branch": 1, "mixed": 2, "special": 3, "mutant": 4,
+        ]
+        return catalog
+            .filter {
+                $0.stage == current.stage + 1
+                    && ($0.evolutionFrom.contains(current.id)
+                        || (!current.lineageId.isEmpty
+                            && $0.evolutionFrom.contains(lineageReference)))
+            }
+            .sorted {
+                let left = categoryPriority[$0.category, default: Int.max]
+                let right = categoryPriority[$1.category, default: Int.max]
+                return left == right ? $0.id < $1.id : left < right
+            }
+            .first
+    }
+
+    private static func evolutionLevel(for stage: Int) -> Int {
+        switch stage {
+        case 2: 15
+        case 3: 25
+        case 4: 40
+        default: .max
         }
     }
 }

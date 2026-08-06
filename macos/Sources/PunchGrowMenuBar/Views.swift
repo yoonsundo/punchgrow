@@ -54,31 +54,16 @@ struct ActionAvailability: Equatable {
   let explanation: String
 }
 
-struct RarityProbabilityRow: Equatable, Identifiable {
-  let rarity: String
-  let probability: Double
-  let baseProbability: Double
-  let maximumProbability: Double
-  var id: String { rarity }
-}
+struct EvolutionMilestone: Equatable, Identifiable {
+  let stage: Int
+  let level: Int
+  var id: Int { stage }
 
-enum RarityProbabilityTable {
-  static func rows(activityBoost: Double) -> [RarityProbabilityRow] {
-    let boost = max(0, min(1, activityBoost))
-    let values: [(String, Double, Double, Double)] = [
-      ("PROCESS", 55 - 15 * boost, 55, 40),
-      ("AGENT", 25 + boost, 25, 26),
-      ("DAEMON", 12 + 4 * boost, 12, 16),
-      ("ORACLE", 6 + 5 * boost, 6, 11),
-      ("ARCHITECT", 1.8 + 4.2 * boost, 1.8, 6),
-      ("ORIGIN", 0.2 + 0.8 * boost, 0.2, 1),
-    ]
-    return values.map {
-      RarityProbabilityRow(
-        rarity: $0.0, probability: $0.1,
-        baseProbability: $0.2, maximumProbability: $0.3)
-    }
-  }
+  static let all = [
+    Self(stage: 2, level: 15),
+    Self(stage: 3, level: 25),
+    Self(stage: 4, level: 40),
+  ]
 }
 
 struct CompactViewState: Equatable {
@@ -98,15 +83,19 @@ struct CompactViewState: Equatable {
     state: GameState,
     currentCreature: OwnedCreature?,
     currentPosition: Int?,
+    visibleCreatureCount: Int? = nil,
+    isRepresentative representativeOverride: Bool? = nil,
     catalogIsEmpty: Bool,
     weeklyUsage: [TokenProvider: Int]
   ) {
     balance = state.tokenBalance
     weeklyClaude = weeklyUsage[.claude, default: 0]
     weeklyCodex = weeklyUsage[.codex, default: 0]
-    showsNavigation = state.ownedCreatures.count > 1
-    positionLabel = currentPosition.map { "\($0) / \(state.ownedCreatures.count)" }
-    isRepresentative = currentCreature?.id == state.representativeCreatureID
+    let navigationCount = visibleCreatureCount ?? state.ownedCreatures.count
+    showsNavigation = navigationCount > 1
+    positionLabel = currentPosition.map { "\($0) / \(navigationCount)" }
+    isRepresentative = representativeOverride
+      ?? (currentCreature?.id == state.representativeCreatureID)
     if currentCreature == nil {
       feed = ActionAvailability(isEnabled: false, explanation: "먼저 가챠로 크리처를 만나세요.")
       feedLarge = ActionAvailability(isEnabled: false, explanation: "먼저 크리처를 만나세요.")
@@ -378,10 +367,7 @@ struct MenuBarStatusLabel: View {
   @ObservedObject var store: GameStore
 
   private var representativeSpecies: CreatureSpecies? {
-    guard
-      let representativeID = store.state.representativeCreatureID,
-      let creature = store.state.ownedCreatures.first(where: { $0.id == representativeID })
-    else { return store.currentSpecies }
+    guard let creature = store.representativeCreature else { return store.currentSpecies }
     return store.catalog.first(where: { $0.id == creature.speciesID }) ?? store.currentSpecies
   }
 
@@ -484,7 +470,7 @@ struct MenuPopoverView: View {
   @ObservedObject var originReveal: OriginRevealCoordinator
   @Environment(\.openWindow) private var openWindow
   @State private var pullFeedback: PullFeedback?
-  @State private var showsRarityGuide = false
+  @State private var showsEvolutionGuide = false
 
   private var weeklyUsage: [TokenProvider: Int] {
     if !store.observedLocalWeeklyUsage.isEmpty { return store.observedLocalWeeklyUsage }
@@ -495,6 +481,8 @@ struct MenuPopoverView: View {
       state: store.state,
       currentCreature: store.currentCreature,
       currentPosition: store.currentCreaturePosition,
+      visibleCreatureCount: store.currentCreatureCount,
+      isRepresentative: store.currentCreature?.id == store.representativeCreature?.id,
       catalogIsEmpty: store.catalog.isEmpty,
       weeklyUsage: weeklyUsage
     )
@@ -529,11 +517,21 @@ struct MenuPopoverView: View {
     .background(DigitalMythBackground())
     .preferredColorScheme(.dark)
     .overlay(alignment: .top) {
-      if let pullFeedback {
+      if let evolutionFeedback = store.evolutionFeedback {
+        EvolutionResultToast(feedback: evolutionFeedback)
+          .padding(12)
+          .transition(.move(edge: .top).combined(with: .opacity))
+      } else if let pullFeedback {
         PullResultToast(feedback: pullFeedback)
           .padding(12)
           .transition(.move(edge: .top).combined(with: .opacity))
       }
+    }
+    .task(id: store.evolutionFeedback?.id) {
+      guard let id = store.evolutionFeedback?.id else { return }
+      try? await Task.sleep(for: .seconds(2.8))
+      guard !Task.isCancelled else { return }
+      withAnimation { store.clearEvolutionFeedback(id: id) }
     }
   }
 
@@ -648,17 +646,17 @@ struct MenuPopoverView: View {
       }
       Spacer()
       Button {
-        showsRarityGuide.toggle()
+        showsEvolutionGuide.toggle()
       } label: {
-        Label("등급 · 확률", systemImage: "chart.bar.fill")
+        Label("진화 단계", systemImage: "arrow.up.forward.circle.fill")
       }
-      .popover(isPresented: $showsRarityGuide, arrowEdge: .bottom) {
-        RarityProbabilityPopover(
-          weeklyTotal: weeklyUsage.values.reduce(0, +),
-          pullsSinceOrigin: store.state.pullsSinceOrigin
+      .popover(isPresented: $showsEvolutionGuide, arrowEdge: .bottom) {
+        EvolutionGuidePopover(
+          species: store.currentSpecies,
+          level: store.currentCreature?.level
         )
       }
-      .help("몬스터 등급과 현재 가챠 확률 보기")
+      .help("현재 크리처의 진화 레벨 보기")
       Button {
         NSApplication.shared.terminate(nil)
       } label: {
@@ -942,11 +940,12 @@ private struct CreatureHero: View {
       }
 
       if let creature = store.currentCreature {
+        let isMaximumLevel = creature.level >= GameState.maximumCreatureLevel
         VStack(spacing: 7) {
           ProgressMetric(
-            label: "LV. \(creature.level) · XP",
-            value: creature.experience,
-            maximum: max(1, creature.level * 100),
+            label: isMaximumLevel ? "LV. \(creature.level) · MAX" : "LV. \(creature.level) · XP",
+            value: isMaximumLevel ? 1 : creature.experience,
+            maximum: isMaximumLevel ? 1 : max(1, creature.level * 100),
             tint: PunchGrowColors.fuel
           )
           ProgressMetric(
@@ -1177,49 +1176,45 @@ private struct RepeatPressButtonStyle: ButtonStyle {
   }
 }
 
-private struct RarityProbabilityPopover: View {
-  let weeklyTotal: Int
-  let pullsSinceOrigin: Int
-
-  private var boost: Double {
-    min(1, Double(weeklyTotal) / Double(GameState.weeklyUsageForMaximumActivityBonus))
-  }
+private struct EvolutionGuidePopover: View {
+  let species: CreatureSpecies?
+  let level: Int?
 
   var body: some View {
     VStack(alignment: .leading, spacing: 12) {
       VStack(alignment: .leading, spacing: 3) {
-        Text("MONSTER RARITY").font(.headline.weight(.black)).tracking(1.2)
-        Text("현재 활동량이 반영된 가챠 확률")
+        Text("EVOLUTION PATH").font(.headline.weight(.black)).tracking(1.2)
+        Text("계보에 다음 진화체가 있으면 자동으로 진화합니다")
           .font(.caption)
           .foregroundStyle(.secondary)
       }
 
       VStack(spacing: 7) {
-        ForEach(RarityProbabilityTable.rows(activityBoost: boost)) { row in
+        ForEach(EvolutionMilestone.all) { milestone in
           HStack(spacing: 8) {
-            Text(row.rarity)
-              .rarityBadge(row.rarity)
-              .frame(width: 92, alignment: .leading)
+            Image(systemName: (species?.stage ?? 0) >= milestone.stage
+                  ? "checkmark.circle.fill" : "circle")
+              .foregroundStyle((species?.stage ?? 0) >= milestone.stage
+                ? PunchGrowColors.fuel : .secondary)
+            Text("STAGE \(milestone.stage)")
+              .font(.callout.monospaced().weight(.bold))
             Spacer()
-            Text(Self.percent(row.probability))
+            Text("Lv.\(milestone.level)")
               .font(.callout.monospacedDigit().weight(.bold))
-            Text("\(Self.percent(row.baseProbability)) → \(Self.percent(row.maximumProbability))")
-              .font(.caption2.monospacedDigit())
-              .foregroundStyle(.secondary)
-              .frame(width: 82, alignment: .trailing)
           }
+          .padding(.horizontal, 10).padding(.vertical, 7)
+          .background(Color.white.opacity(0.04), in: RoundedRectangle(cornerRadius: 8))
         }
       }
 
       Divider()
-      HStack {
-        Label("활동 보너스 \(Int((boost * 100).rounded()))%", systemImage: "bolt.fill")
-        Spacer()
-        Text("ORIGIN 천장 \(pullsSinceOrigin) / \(GameState.originPityThreshold)")
-      }
+      Label(
+        "현재 \(species?.koName ?? "크리처 없음") · Lv.\(level ?? 0) · STAGE \(species?.stage ?? 0)",
+        systemImage: "pawprint.fill"
+      )
       .font(.caption.weight(.semibold))
       .foregroundStyle(.secondary)
-      Text("오른쪽 숫자는 기본 → 최대 활동 보너스 확률입니다.")
+      Text("Lv.15·25·40은 공통 진화 기준입니다. 계보에 따라 2·3단계에서 완성될 수 있으며, 가챠는 1단계만 등장합니다. 만렙은 Lv.50입니다.")
         .font(.caption2)
         .foregroundStyle(.tertiary)
     }
@@ -1228,9 +1223,35 @@ private struct RarityProbabilityPopover: View {
     .background(DigitalMythBackground())
     .preferredColorScheme(.dark)
   }
+}
 
-  private static func percent(_ value: Double) -> String {
-    value < 1 ? String(format: "%.1f%%", value) : String(format: "%.0f%%", value)
+private struct EvolutionResultToast: View {
+  let feedback: EvolutionFeedback
+
+  var body: some View {
+    HStack(spacing: 10) {
+      Image(systemName: "arrow.up.forward.circle.fill")
+        .foregroundStyle(PunchGrowColors.fuel)
+      VStack(alignment: .leading, spacing: 1) {
+        Text(feedback.stagesCrossed > 1 ? "MULTI EVOLUTION" : "EVOLUTION COMPLETE")
+          .font(.system(size: 9, weight: .bold, design: .monospaced))
+          .foregroundStyle(.secondary)
+        Text("\(feedback.fromName) → \(feedback.toName)")
+          .font(.callout.weight(.bold))
+        if feedback.stagesCrossed > 1 {
+          Text("\(feedback.stagesCrossed)단계 연속 진화")
+            .font(.caption2.weight(.semibold))
+            .foregroundStyle(PunchGrowColors.fuel)
+        }
+      }
+    }
+    .padding(.horizontal, 14).padding(.vertical, 10)
+    .background(.ultraThinMaterial, in: Capsule())
+    .overlay(Capsule().stroke(PunchGrowColors.fuel, lineWidth: 1))
+    .shadow(color: PunchGrowColors.fuel.opacity(0.35), radius: 16)
+    .accessibilityElement(children: .combine)
+    .accessibilityLabel(
+      "진화 완료, \(feedback.fromName)에서 \(feedback.toName), \(feedback.stagesCrossed)단계 진화")
   }
 }
 

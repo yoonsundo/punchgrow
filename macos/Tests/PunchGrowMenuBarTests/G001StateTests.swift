@@ -86,17 +86,151 @@ final class G001StateTests: XCTestCase {
   }
 
   @MainActor
-  func testSuccessfulPullFocusesResultWithoutChangingRepresentative() throws {
+  func testSuccessfulPullFocusesOnlyNewVisibleSpeciesWithoutChangingRepresentative() throws {
     let store = GameStore(persistence: try copiedV2Fixture())
     let representative = store.state.representativeCreatureID
     let priorIDs = Set(store.state.ownedCreatures.map(\.id))
+    let priorVisibleCount = store.currentCreatureCount
 
     store.pull()
 
     let acquired = Set(store.state.ownedCreatures.map(\.id)).subtracting(priorIDs)
     XCTAssertTrue(acquired.count == 1)
-    XCTAssertTrue(acquired.contains(store.currentCreatureID!))
+    if store.currentCreatureCount > priorVisibleCount {
+      XCTAssertTrue(acquired.contains(store.currentCreatureID!))
+    } else {
+      let acquiredCreature = try XCTUnwrap(
+        store.state.ownedCreatures.first(where: { acquired.contains($0.id) }))
+      let origin = GameEngine.originSpeciesID(for: acquiredCreature, catalog: store.catalog)
+      let expected = GameEngine.visibleOwnedCreatures(in: store.state, catalog: store.catalog)
+        .first(where: { GameEngine.originSpeciesID(for: $0, catalog: store.catalog) == origin })
+      XCTAssertEqual(store.currentCreatureID, expected?.id)
+    }
     XCTAssertTrue(store.state.representativeCreatureID == representative)
+  }
+
+  @MainActor
+  func testDuplicatePullPersistsButKeepsEarliestVisibleCreatureFocused() throws {
+    let species = CreatureSpecies(
+      id: "PG-001", koName: "에일루", enName: "Eilu", lineageId: "PG-L001",
+      rarity: "PROCESS", stage: 1, category: "start", bodyForm: "fox",
+      identity: "test", lore: "test", imagePath: "test")
+    let otherSpecies = CreatureSpecies(
+      id: "PG-002", koName: "다른 종", enName: "Other", lineageId: "PG-L002",
+      rarity: "PROCESS", stage: 1, category: "owned_test", bodyForm: "bird",
+      identity: "test", lore: "test", imagePath: "test")
+    let first = OwnedCreature(
+      id: UUID(), speciesID: species.id, originSpeciesID: species.id,
+      level: 1, experience: 0, affection: 0, nickname: nil, uniqueColor: false,
+      acquiredAt: Date(timeIntervalSince1970: 1))
+    let other = OwnedCreature(
+      id: UUID(), speciesID: otherSpecies.id, originSpeciesID: otherSpecies.id,
+      level: 1, experience: 0, affection: 0, nickname: nil, uniqueColor: false,
+      acquiredAt: Date(timeIntervalSince1970: 2))
+    let directory = FileManager.default.temporaryDirectory.appending(path: UUID().uuidString)
+    let persistence = GamePersistence(fileURL: directory.appending(path: "state.json"))
+    var state = GameState()
+    state.tokenBalance = GameState.gachaCost
+    state.ownedCreatures = [first, other]
+    state.discoveredSpeciesIDs = [species.id, otherSpecies.id]
+    state.representativeCreatureID = other.id
+    try persistence.save(state)
+    let store = GameStore(persistence: persistence, catalog: [species, otherSpecies])
+    XCTAssertEqual(store.currentCreatureID, other.id)
+
+    let pulled = try XCTUnwrap(store.pull())
+
+    XCTAssertNotEqual(pulled.id, first.id)
+    XCTAssertEqual(store.state.ownedCreatures.count, 3)
+    XCTAssertEqual(store.currentCreatureCount, 2)
+    XCTAssertEqual(store.currentCreatureID, first.id)
+    XCTAssertEqual(try persistence.load().ownedCreatures.count, 3)
+  }
+
+  @MainActor
+  func testHiddenRepresentativeMapsToEarliestVisibleCreatureOfSameOrigin() throws {
+    let species = CreatureSpecies(
+      id: "PG-001", koName: "에일루", enName: "Eilu", lineageId: "PG-L001",
+      rarity: "PROCESS", stage: 1, category: "start", bodyForm: "fox",
+      identity: "test", lore: "test", imagePath: "test")
+    let first = OwnedCreature(
+      id: UUID(), speciesID: species.id, originSpeciesID: species.id,
+      level: 1, experience: 0, affection: 0, nickname: nil, uniqueColor: false,
+      acquiredAt: Date(timeIntervalSince1970: 1))
+    let hiddenRepresentative = OwnedCreature(
+      id: UUID(), speciesID: species.id, originSpeciesID: species.id,
+      level: 1, experience: 0, affection: 0, nickname: nil, uniqueColor: false,
+      acquiredAt: Date(timeIntervalSince1970: 2))
+    let directory = FileManager.default.temporaryDirectory.appending(path: UUID().uuidString)
+    let persistence = GamePersistence(fileURL: directory.appending(path: "state.json"))
+    var state = GameState()
+    state.ownedCreatures = [hiddenRepresentative, first]
+    state.discoveredSpeciesIDs = [species.id]
+    state.representativeCreatureID = hiddenRepresentative.id
+    try persistence.save(state)
+
+    let store = GameStore(persistence: persistence, catalog: [species])
+
+    XCTAssertEqual(store.currentCreatureID, first.id)
+    XCTAssertEqual(store.representativeCreature?.id, first.id)
+  }
+
+  @MainActor
+  func testEqualAcquisitionTimesPreservePersistedAppendOrderForEarliestCreature() throws {
+    let species = CreatureSpecies(
+      id: "PG-001", koName: "에일루", enName: "Eilu", lineageId: "PG-L001",
+      rarity: "PROCESS", stage: 1, category: "start", bodyForm: "fox",
+      identity: "test", lore: "test", imagePath: "test")
+    let acquiredAt = Date(timeIntervalSince1970: 1)
+    let first = OwnedCreature(
+      id: UUID(uuidString: "FFFFFFFF-FFFF-FFFF-FFFF-FFFFFFFFFFFF")!,
+      speciesID: species.id, originSpeciesID: species.id,
+      level: 1, experience: 0, affection: 0, nickname: nil, uniqueColor: false,
+      acquiredAt: acquiredAt)
+    let laterDuplicate = OwnedCreature(
+      id: UUID(uuidString: "00000000-0000-0000-0000-000000000001")!,
+      speciesID: species.id, originSpeciesID: species.id,
+      level: 1, experience: 0, affection: 0, nickname: nil, uniqueColor: false,
+      acquiredAt: acquiredAt)
+    let directory = FileManager.default.temporaryDirectory.appending(path: UUID().uuidString)
+    let persistence = GamePersistence(fileURL: directory.appending(path: "state.json"))
+    var state = GameState()
+    state.ownedCreatures = [first, laterDuplicate]
+    state.discoveredSpeciesIDs = [species.id]
+    try persistence.save(state)
+
+    let reloaded = GameStore(persistence: persistence, catalog: [species])
+
+    XCTAssertEqual(reloaded.currentCreatureCount, 1)
+    XCTAssertEqual(reloaded.currentCreatureID, first.id)
+  }
+
+  @MainActor
+  func testLegacyV2CreaturesWithoutOriginFieldDedupeAfterEvolution() throws {
+    let directory = FileManager.default.temporaryDirectory.appending(path: UUID().uuidString)
+    let persistence = GamePersistence(fileURL: directory.appending(path: "state.json"))
+    try FileManager.default.createDirectory(at: directory, withIntermediateDirectories: true)
+    let firstID = UUID()
+    let duplicateID = UUID()
+    let json = """
+      {"schemaVersion":2,"tokenBalance":0,"usageEvents":[],"creditedUsageEventKeys":[],
+      "lifetimeUsage":[],"codexCheckpoints":{},"ownedCreatures":[
+      {"id":"\(firstID.uuidString)","speciesID":"PG-061","level":15,"experience":0,
+      "affection":0,"nickname":null,"uniqueColor":false,"acquiredAt":"2026-07-01T00:00:00Z"},
+      {"id":"\(duplicateID.uuidString)","speciesID":"PG-001","level":1,"experience":0,
+      "affection":0,"nickname":null,"uniqueColor":false,"acquiredAt":"2026-07-02T00:00:00Z"}],
+      "discoveredSpeciesIDs":["PG-001","PG-061"],"inventory":{"food":0,"largeFood":0,
+      "trainingTools":0,"evolutionMaterials":0},"pullsSinceOrigin":0,
+      "representativeCreatureID":null}
+      """
+    try Data(json.utf8).write(to: persistence.fileURL)
+
+    let store = GameStore(persistence: persistence)
+
+    XCTAssertNil(store.errorMessage)
+    XCTAssertEqual(store.state.ownedCreatures.count, 2)
+    XCTAssertEqual(store.currentCreatureCount, 1)
+    XCTAssertEqual(store.currentCreatureID, firstID)
   }
 
   @MainActor

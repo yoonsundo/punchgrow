@@ -53,24 +53,140 @@ struct CreatureSpecies: Codable, Identifiable, Hashable, Sendable {
     let id: String
     let koName: String
     let enName: String
+    let lineageId: String
     let rarity: String
     let stage: Int
     let category: String
     let bodyForm: String
     let identity: String
     let lore: String
+    let evolutionFrom: [String]
     let imagePath: String
+
+    init(
+        id: String,
+        koName: String,
+        enName: String,
+        lineageId: String = "",
+        rarity: String,
+        stage: Int,
+        category: String,
+        bodyForm: String,
+        identity: String,
+        lore: String,
+        evolutionFrom: [String] = [],
+        imagePath: String
+    ) {
+        self.id = id
+        self.koName = koName
+        self.enName = enName
+        self.lineageId = lineageId
+        self.rarity = rarity
+        self.stage = stage
+        self.category = category
+        self.bodyForm = bodyForm
+        self.identity = identity
+        self.lore = lore
+        self.evolutionFrom = evolutionFrom
+        self.imagePath = imagePath
+    }
+
+    private enum CodingKeys: String, CodingKey {
+        case id, koName, enName, lineageId, rarity, stage, category, bodyForm, identity, lore
+        case evolutionFrom, imagePath
+    }
+
+    init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        id = try container.decode(String.self, forKey: .id)
+        koName = try container.decode(String.self, forKey: .koName)
+        enName = try container.decode(String.self, forKey: .enName)
+        lineageId = try container.decode(String.self, forKey: .lineageId)
+        rarity = try container.decode(String.self, forKey: .rarity)
+        stage = try container.decode(Int.self, forKey: .stage)
+        category = try container.decode(String.self, forKey: .category)
+        bodyForm = try container.decode(String.self, forKey: .bodyForm)
+        identity = try container.decode(String.self, forKey: .identity)
+        lore = try container.decode(String.self, forKey: .lore)
+        imagePath = try container.decode(String.self, forKey: .imagePath)
+        if try container.decodeNil(forKey: .evolutionFrom) {
+            evolutionFrom = []
+        } else if let source = try? container.decode(String.self, forKey: .evolutionFrom) {
+            evolutionFrom = [source]
+        } else {
+            evolutionFrom = try container.decode([String].self, forKey: .evolutionFrom)
+        }
+    }
 }
 
 struct OwnedCreature: Codable, Identifiable, Hashable, Sendable {
     let id: UUID
-    let speciesID: String
+    var speciesID: String
+    let originSpeciesID: String?
     var level: Int
     var experience: Int
     var affection: Int
     var nickname: String?
     let uniqueColor: Bool
     let acquiredAt: Date
+
+    init(
+        id: UUID,
+        speciesID: String,
+        originSpeciesID: String? = nil,
+        level: Int,
+        experience: Int,
+        affection: Int,
+        nickname: String?,
+        uniqueColor: Bool,
+        acquiredAt: Date
+    ) {
+        self.id = id
+        self.speciesID = speciesID
+        self.originSpeciesID = originSpeciesID
+        self.level = level
+        self.experience = experience
+        self.affection = affection
+        self.nickname = nickname
+        self.uniqueColor = uniqueColor
+        self.acquiredAt = acquiredAt
+    }
+
+    private enum CodingKeys: String, CodingKey {
+        case id, speciesID, originSpeciesID, level, experience, affection, nickname
+        case uniqueColor, acquiredAt
+    }
+
+    init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        id = try container.decode(UUID.self, forKey: .id)
+        speciesID = try container.decode(String.self, forKey: .speciesID)
+        originSpeciesID = try container.decodeIfPresent(String.self, forKey: .originSpeciesID)
+        level = try container.decode(Int.self, forKey: .level)
+        experience = try container.decode(Int.self, forKey: .experience)
+        affection = try container.decode(Int.self, forKey: .affection)
+        nickname = try container.decodeIfPresent(String.self, forKey: .nickname)
+        uniqueColor = try container.decode(Bool.self, forKey: .uniqueColor)
+        acquiredAt = try container.decode(Date.self, forKey: .acquiredAt)
+    }
+}
+
+struct EvolutionResult: Equatable, Sendable {
+    let creatureID: UUID
+    let fromSpeciesID: String
+    let toSpeciesID: String
+    let level: Int
+}
+
+struct EvolutionFeedback: Identifiable, Equatable, Sendable {
+    let id: UUID
+    let creatureID: UUID
+    let fromSpeciesID: String
+    let toSpeciesID: String
+    let fromName: String
+    let toName: String
+    let rarity: String
+    let stagesCrossed: Int
 }
 
 struct Inventory: Codable, Equatable, Sendable {
@@ -104,6 +220,7 @@ struct GameState: Codable, Equatable, Sendable {
     static let gachaCost = 500_000
     static let foodCost = 100_000
     static let largeFoodCost = 500_000
+    static let maximumCreatureLevel = 50
     static let originPityThreshold = 300
     static let weeklyUsageForMaximumActivityBonus = 5_000_000
     static let maximumRetainedUsageEvents = 20_000
@@ -150,6 +267,9 @@ struct GameState: Codable, Equatable, Sendable {
         else { throw GameError.invalidBackup }
         if let catalogIDs {
             guard ownedCreatures.allSatisfy({ catalogIDs.contains($0.speciesID) }),
+                  ownedCreatures.allSatisfy({ creature in
+                      creature.originSpeciesID.map(catalogIDs.contains) ?? true
+                  }),
                   discoveredSpeciesIDs.isSubset(of: catalogIDs)
             else { throw GameError.invalidBackup }
         }
