@@ -34,7 +34,7 @@
 
 > **Project status: v0.1.1 alpha.** This public repository is dedicated to the Apple Silicon macOS 14+ menu-bar app.
 
-GitHub Actions with Full Xcode passes all 104 Swift tests, the Release build, 240-creature resource assembly, and ad-hoc signature verification. A public Homebrew binary still requires Developer ID signing and Apple notarization.
+GitHub Actions with Full Xcode verifies the Swift test suite, Release build, 240-creature resource assembly, and ad-hoc signature. A public Homebrew binary still requires Developer ID signing and Apple notarization.
 
 ## The core experience
 
@@ -64,26 +64,17 @@ GitHub Actions with Full Xcode passes all 104 Swift tests, the Release build, 24
 | Rule | Alpha value |
 | --- | --- |
 | One draw | `500,000` tokens |
+| Draw result | One of 60 stage-one creatures |
 | Normal food | Costs `100,000` tokens · XP `+25` · affinity `+3` |
 | Large food | Costs `500,000` tokens · XP `+200` · affinity `+10` |
-| Activity bonus | Reaches its maximum at `5,000,000` verified weekly tokens |
-| ORIGIN pity | Guaranteed on draw 301 after 300 consecutive misses |
-| Unique color | Independent `0.1%` chance per draw, with no stat advantage or pity |
+| Unique color | Independent `0.1%` chance per draw, with no stat advantage |
 | Duplicate creatures | Kept as separate individuals that can be raised differently |
-| Evolution | Food, training, affinity, items, and time affect candidate odds; completed evolution is irreversible |
+| Automatic evolution | Level 15 → stage 2 · level 25 → stage 3 · level 40 → stage 4 |
+| Maximum level | Level 50. Legacy level 51–100 saves remain valid but cannot grow further |
 
-### Rarity rates
+### Growth and evolution
 
-| Rarity | Base rate | Maximum activity bonus |
-| --- | ---: | ---: |
-| PROCESS | 55% | 40% |
-| AGENT | 25% | 26% |
-| DAEMON | 12% | 16% |
-| ORACLE | 6% | 11% |
-| ARCHITECT | 1.8% | 6% |
-| ORIGIN | 0.2% | 1% |
-
-The activity bonus linearly interpolates between the base and maximum rates using verified weekly usage. These are alpha configuration values and may change after playtesting.
+Draws never grant a higher-stage evolution directly. Every owned creature starts at stage one and evolves automatically through its catalog lineage as feeding raises its level. A lineage with no next-stage catalog entry keeps its current form and can continue growing.
 
 ## Why PunchGrow exists
 
@@ -95,9 +86,9 @@ AI-assisted coding already produces a useful activity signal: token usage. Punch
 | --- | --- | --- |
 | `macos/` | v0.1.1 | Native SwiftUI menu-bar game for Apple Silicon macOS 14+ |
 
-The current game includes a six-tier rarity system (`PROCESS` → `ORIGIN`), activity-based rarity bonuses, a 300-draw ORIGIN pity rule, unique-color variants, feeding, growth, evolution, local save/restore, and a 240-creature catalog.
+The current game includes a 60-species stage-one draw pool, automatic evolution at levels 15, 25, and 40, six evolution tiers (`PROCESS` → `ORIGIN`), unique-color variants, feeding, local save/restore, and a 240-creature catalog.
 
-In the macOS popup, holding a normal/large food purchase or feed button accelerates repeated actions until release. The `Rarity · Rates` popover shows current activity-adjusted rates, and higher tiers receive progressively richer badge, frame, and aura effects.
+In the macOS popup, holding a normal/large food purchase or feed button accelerates repeated actions until release. The `Evolution stages` popover shows the level 15/25/40 milestones and current progress, while higher stages receive progressively richer badge, frame, and aura effects.
 
 ### Actual plan usage
 

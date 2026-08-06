@@ -26,15 +26,19 @@ Claude Code or Codex logs.
 - Normal food costs 100,000 tokens and grants XP +25 / affinity +3. Large food
   is stored separately, costs 500,000 tokens, and grants XP +200 / affinity +10.
   Feed and purchase buttons support one click or accelerating press-and-hold.
+- Draws select uniformly from the 60 stage-one species. Feeding automatically
+  evolves catalog-linked creatures at levels 15, 25, and 40. New growth caps at
+  level 50; legacy level 51–100 saves remain valid but cannot gain more levels.
+- Evolution preserves the owned instance, nickname, affinity, unique color,
+  acquisition time, and representative selection. The popup reports the final
+  result when one feed catches up through several overdue stages.
 - Previous/next browses owned creatures cyclically. The session-only current
   creature is the target for feeding and changes after a successful draw.
 - Browsing and drawing never change the persisted representative. Use **대표로
   지정** to make the current creature the representative for future launches.
-- Non-ORIGIN draw feedback stays in the popup. An ORIGIN draw opens the
-  dedicated `origin-reveal` window. Normal, reduced-effects, and skipped paths
-  reach the same completed reveal. Closing it does not reopen the popup; the
-  acquired ORIGIN remains current and appears when the user next opens the
-  popup.
+- Draw feedback stays in the popup because higher evolution stages are no
+  longer drawn directly. **진화 단계** shows the level 15/25/40 milestones and
+  the selected creature's current progress.
 
 The Claude and Codex badges share four evidence-based states: **중지됨**,
 **로그 감시 중**, **방금 수신**, and **확인 필요**. **방금 수신** appears for ten seconds
