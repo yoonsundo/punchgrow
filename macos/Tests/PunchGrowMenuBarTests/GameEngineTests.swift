@@ -386,7 +386,8 @@ final class GameEngineTests: XCTestCase {
   @MainActor
   func testStorePersistenceFailureChangesNeitherStateNorFeedback() throws {
     let directory = FileManager.default.temporaryDirectory.appending(path: UUID().uuidString)
-    let stateURL = directory.appending(path: "state.json")
+    let stateDirectory = directory.appending(path: "state")
+    let stateURL = stateDirectory.appending(path: "state.json")
     let persistence = GamePersistence(fileURL: stateURL)
     let creature = OwnedCreature(
       id: UUID(), speciesID: "PG-034", level: 40, experience: 0,
@@ -397,8 +398,8 @@ final class GameEngineTests: XCTestCase {
     try persistence.save(initial)
     let store = GameStore(persistence: persistence)
     let before = store.state
-    try FileManager.default.removeItem(at: stateURL)
-    try FileManager.default.createDirectory(at: stateURL, withIntermediateDirectories: true)
+    try FileManager.default.removeItem(at: stateDirectory)
+    try Data("blocked".utf8).write(to: stateDirectory)
 
     store.feedCurrent()
 
