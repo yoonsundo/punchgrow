@@ -147,7 +147,19 @@ macOS 앱은 로컬에서 실행되며 사용자가 명시적으로 활성화하
 
 ## 빠른 시작
 
-### macOS 메뉴 막대 앱
+### Homebrew로 설치 (권장)
+
+Apple Silicon, macOS 14 이상이 필요합니다.
+
+```bash
+brew tap yoonsundo/punchgrow https://github.com/yoonsundo/punchgrow
+brew trust yoonsundo/punchgrow
+brew install --cask --no-quarantine punchgrow
+```
+
+현재 배포 바이너리는 Apple 공증(notarization) 전의 ad-hoc 서명 빌드입니다. `--no-quarantine` 없이 설치했다면 첫 실행 전에 `xattr -d com.apple.quarantine /Applications/PunchGrow.app`을 실행하세요. Homebrew 6 미만은 `brew trust` 단계를 건너뜁니다.
+
+### 소스에서 빌드
 
 Apple Silicon, macOS 14 이상, 버전이 일치하는 Full Xcode와 Command Line Tools가 필요합니다.
 
@@ -159,9 +171,7 @@ cd macos
 open .build/PunchGrow.app
 ```
 
-생성된 앱은 로컬 실행용 ad-hoc 서명을 사용합니다. Developer ID 서명, 공증과 공개 Homebrew Cask는 별도의 릴리스 계정 작업입니다.
-
-> `brew install --cask punchgrow` 공개 설치는 아직 제공하지 않습니다. 현재 v0.2.0은 위 소스 빌드 방식으로 실행하며, Homebrew 배포는 Developer ID 서명·Apple 공증·공개 릴리스 URL이 준비된 뒤 활성화됩니다.
+생성된 앱은 로컬 실행용 ad-hoc 서명을 사용합니다. Developer ID 서명과 Apple 공증은 별도의 릴리스 계정 작업으로 남아 있으며, 완료되면 `--no-quarantine` 단계 없이 설치할 수 있게 됩니다.
 
 ## 검증
 

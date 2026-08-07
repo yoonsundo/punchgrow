@@ -4,7 +4,15 @@
 
 PunchGrow is a local, single-player menu-bar game for Apple Silicon Macs. It turns the numeric Claude Code and Codex usage recorded on your Mac into game tokens, without storing prompts, responses, source code, commands, or raw log paths.
 
-> **Distribution status:** the public Homebrew Cask is not available yet. The instructions below build and run a local app from this source checkout. Homebrew distribution will follow after Developer ID signing, Apple notarization, and a public release artifact are ready.
+> **Distribution status:** you can install PunchGrow with Homebrew or build it from source.
+>
+> ```bash
+> brew tap yoonsundo/punchgrow https://github.com/yoonsundo/punchgrow
+> brew trust yoonsundo/punchgrow
+> brew install --cask --no-quarantine punchgrow
+> ```
+>
+> The published binary is ad-hoc signed and not yet notarized by Apple, so `--no-quarantine` is required (or run `xattr -d com.apple.quarantine /Applications/PunchGrow.app` before the first launch). On Homebrew versions before 6, skip the `brew trust` step. The instructions below cover building from source instead.
 
 ## Requirements
 

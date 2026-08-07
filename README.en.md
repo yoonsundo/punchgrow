@@ -147,7 +147,19 @@ The [complete user guide](docs/USAGE.en.md) covers installation, collection stat
 
 ## Quick start
 
-### macOS menu-bar app
+### Install with Homebrew (recommended)
+
+Requirements: Apple Silicon, macOS 14 or newer.
+
+```bash
+brew tap yoonsundo/punchgrow https://github.com/yoonsundo/punchgrow
+brew trust yoonsundo/punchgrow
+brew install --cask --no-quarantine punchgrow
+```
+
+The published binary is currently ad-hoc signed and not yet notarized by Apple. If you installed without `--no-quarantine`, run `xattr -d com.apple.quarantine /Applications/PunchGrow.app` before the first launch. On Homebrew versions before 6, skip the `brew trust` step.
+
+### Build from source
 
 Requirements: Apple Silicon, macOS 14 or newer, and a matched Full Xcode / Command Line Tools installation.
 
@@ -159,9 +171,7 @@ cd macos
 open .build/PunchGrow.app
 ```
 
-The assembled app is ad-hoc signed for local use. Developer ID signing, notarization, and a public Homebrew Cask are separate release-account steps.
-
-> Public `brew install --cask punchgrow` installation is not available yet. Run v0.2.0 from source for now; Homebrew distribution will be enabled after Developer ID signing, Apple notarization, and a public release URL are ready.
+The assembled app is ad-hoc signed for local use. Developer ID signing and Apple notarization remain separate release-account steps; once complete, the `--no-quarantine` step will no longer be needed.
 
 ## Verification
 

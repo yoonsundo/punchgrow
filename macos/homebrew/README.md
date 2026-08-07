@@ -1,7 +1,27 @@
 # Homebrew release path
 
-The Cask is a release template, not a claim that an unsigned artifact is
-already public. Before publishing:
+## Current distribution (v0.2.0)
+
+PunchGrow is currently distributed through the public repository itself acting
+as a Homebrew tap: the generated Cask lives at `Casks/punchgrow.rb` in the
+public repo, and the release asset (`PunchGrow-<version>-arm64.zip`, ad-hoc
+signed, real SHA-256) is attached to the matching GitHub release. Users install
+with:
+
+```bash
+brew tap yoonsundo/punchgrow https://github.com/yoonsundo/punchgrow
+brew trust yoonsundo/punchgrow
+brew install --cask --no-quarantine punchgrow
+```
+
+Because the binary is not yet notarized, the Cask documents the
+`--no-quarantine` / `xattr` step in its caveats. A dedicated lightweight tap
+repository (`yoonsundo/homebrew-punchgrow`) can replace the URL tap later.
+
+## Notarized release path (target)
+
+The steps below remain the goal for a fully signed distribution. Before
+publishing a notarized build:
 
 1. Build `PunchGrow.app` for arm64.
 2. Sign with Developer ID and hardened runtime.

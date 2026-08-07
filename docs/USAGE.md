@@ -19,9 +19,17 @@ PunchGrow는 Claude Code와 Codex의 **로컬 사용량 숫자**를 게임 토�
 
 ### 현재 설치 방식
 
-공개 Homebrew Cask는 **아직 배포되지 않았습니다**. 따라서 지금은 저장소의 소스로 앱을 빌드해 실행해야 합니다.
+Homebrew로 설치하는 방법과 소스에서 직접 빌드하는 방법이 있습니다.
 
-향후 공개 Cask가 준비되면 `brew install --cask punchgrow` 형식으로 제공할 예정입니다. 현재는 이 명령이 동작한다고 가정하지 마세요.
+Homebrew 설치는 터미널에서 아래 세 줄을 순서대로 실행합니다.
+
+```bash
+brew tap yoonsundo/punchgrow https://github.com/yoonsundo/punchgrow
+brew trust yoonsundo/punchgrow
+brew install --cask --no-quarantine punchgrow
+```
+
+배포 바이너리는 아직 Apple 공증 전의 ad-hoc 서명 빌드라서 `--no-quarantine` 옵션이 필요합니다. 이 옵션 없이 설치했다면 첫 실행 전에 `xattr -d com.apple.quarantine /Applications/PunchGrow.app`을 실행하세요. Homebrew 6 미만 버전은 `brew trust` 명령이 없으므로 그 줄을 건너뜁니다.
 
 ## 소스에서 빌드하고 실행하기
 
