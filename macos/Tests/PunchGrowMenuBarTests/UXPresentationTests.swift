@@ -62,6 +62,189 @@ final class UXPresentationTests: XCTestCase {
     XCTAssertEqual(EvolutionMilestone.all.map(\.level), [15, 25, 40])
   }
 
+  func testAutomaticEvolutionPathFollowsCandidatePriorityAtEveryStage() {
+    let root = potentialSpecies(
+      id: "PG-001", name: "시작형", rarity: "PROCESS", stage: 1, category: "start")
+    let normal = potentialSpecies(
+      id: "PG-061", name: "기본 진화", rarity: "AGENT", stage: 2,
+      category: "normal_evolution", evolutionFrom: [root.id])
+    let branch = potentialSpecies(
+      id: "PG-060", name: "분기 진화", rarity: "ORACLE", stage: 2,
+      category: "branch", evolutionFrom: [root.id])
+    let final = potentialSpecies(
+      id: "PG-181", name: "최종 진화", rarity: "ORIGIN", stage: 3,
+      category: "normal_evolution", evolutionFrom: [normal.id])
+
+    let path = EvolutionCatalog.automaticPath(
+      from: root, in: [branch, final, normal, root])
+
+    XCTAssertEqual(path.map(\.id), [root.id, normal.id, final.id])
+  }
+
+  func testEvolutionPotentialDescribesFinalAutomaticOutcomeWithoutChangingCurrentRarity() {
+    let root = potentialSpecies(
+      id: "PG-001", name: "프라곤", rarity: "PROCESS", stage: 1, category: "start")
+    let middle = potentialSpecies(
+      id: "PG-061", name: "프라곤온", rarity: "AGENT", stage: 2,
+      category: "normal_evolution", evolutionFrom: [root.id])
+    let final = potentialSpecies(
+      id: "PG-181", name: "피티온", rarity: "ORIGIN", stage: 3,
+      category: "normal_evolution", evolutionFrom: [middle.id])
+
+    let potential = EvolutionPotentialPresentation.make(
+      from: root, catalog: [final, root, middle])
+
+    XCTAssertEqual(potential.currentSpecies.id, root.id)
+    XCTAssertEqual(potential.currentRarityLabel, "현재 PROCESS")
+    XCTAssertEqual(potential.finalSpecies.id, final.id)
+    XCTAssertEqual(potential.finalRarityLabel, "성장 잠재력 ORIGIN")
+    XCTAssertEqual(potential.finalSpeciesName, "피티온")
+    XCTAssertEqual(potential.path.map(\.id), [root.id, middle.id, final.id])
+    XCTAssertTrue(potential.pathLabel.contains("프라곤 → 프라곤온 → 피티온"))
+    XCTAssertTrue(potential.reachesOrigin)
+  }
+
+  func testOwnedCreaturePotentialStartsAtTheCurrentStage() throws {
+    let root = potentialSpecies(
+      id: "PG-001", name: "프라곤", rarity: "PROCESS", stage: 1, category: "start")
+    let middle = potentialSpecies(
+      id: "PG-061", name: "프라곤온", rarity: "AGENT", stage: 2,
+      category: "normal_evolution", evolutionFrom: [root.id])
+    let final = potentialSpecies(
+      id: "PG-181", name: "피티온", rarity: "ORIGIN", stage: 3,
+      category: "normal_evolution", evolutionFrom: [middle.id])
+    let creature = OwnedCreature(
+      id: UUID(), speciesID: middle.id, originSpeciesID: root.id, level: 15,
+      experience: 0, affection: 20, nickname: nil, uniqueColor: false, acquiredAt: .now)
+
+    let potential = try XCTUnwrap(
+      EvolutionPotentialPresentation.make(for: creature, catalog: [final, root, middle]))
+
+    XCTAssertEqual(potential.currentSpecies.id, middle.id)
+    XCTAssertEqual(potential.path.map(\.id), [middle.id, final.id])
+  }
+
+  func testBranchCreaturePotentialNeverFallsBackToTheRootAutomaticPath() throws {
+    let root = potentialSpecies(
+      id: "PG-002", name: "모루핀", rarity: "PROCESS", stage: 1, category: "start")
+    let automatic = potentialSpecies(
+      id: "PG-062", name: "모루벨", rarity: "AGENT", stage: 2,
+      category: "normal_evolution", evolutionFrom: [root.id])
+    let branch = potentialSpecies(
+      id: "PG-182", name: "바르켈름", rarity: "DAEMON", stage: 2,
+      category: "branch", evolutionFrom: [root.id])
+    let creature = OwnedCreature(
+      id: UUID(), speciesID: branch.id, originSpeciesID: root.id, level: 18,
+      experience: 0, affection: 20, nickname: nil, uniqueColor: false, acquiredAt: .now)
+
+    let potential = try XCTUnwrap(
+      EvolutionPotentialPresentation.make(for: creature, catalog: [root, automatic, branch]))
+
+    XCTAssertEqual(potential.currentSpecies.id, branch.id)
+    XCTAssertEqual(potential.finalSpecies.id, branch.id)
+    XCTAssertEqual(potential.path.map(\.id), [branch.id])
+    XCTAssertEqual(potential.currentRarityLabel, "현재 DAEMON")
+    XCTAssertEqual(potential.finalRarityLabel, "성장 잠재력 DAEMON")
+  }
+
+  func testEvolutionDexShowsCurrentAutomaticPathAndBranches() throws {
+    let root = CreatureSpecies(
+      id: "PG-001", koName: "시작형", enName: "Root", lineageId: "PG-L001",
+      rarity: "PROCESS", stage: 1, category: "start", bodyForm: "form",
+      identity: "identity", lore: "lore", imagePath: ""
+    )
+    let normal = CreatureSpecies(
+      id: "PG-061", koName: "기본 진화", enName: "Normal", lineageId: "PG-L001",
+      rarity: "AGENT", stage: 2, category: "normal_evolution", bodyForm: "form",
+      identity: "identity", lore: "lore", evolutionFrom: [root.id], imagePath: ""
+    )
+    let branch = CreatureSpecies(
+      id: "PG-216", koName: "분기 진화", enName: "Branch", lineageId: "PG-L001-M",
+      rarity: "DAEMON", stage: 2, category: "mutant", bodyForm: "form",
+      identity: "identity", lore: "lore", evolutionFrom: ["PG-L001:S1"], imagePath: ""
+    )
+    let final = CreatureSpecies(
+      id: "PG-181", koName: "최종 진화", enName: "Final", lineageId: "PG-L001",
+      rarity: "DAEMON", stage: 3, category: "normal_evolution", bodyForm: "form",
+      identity: "identity", lore: "lore", evolutionFrom: [normal.id], imagePath: ""
+    )
+    let otherRoot = CreatureSpecies(
+      id: "PG-002", koName: "다른 시작형", enName: "Other Root", lineageId: "PG-L002",
+      rarity: "PROCESS", stage: 1, category: "start", bodyForm: "form",
+      identity: "identity", lore: "lore", imagePath: ""
+    )
+    let otherNormal = CreatureSpecies(
+      id: "PG-062", koName: "다른 진화", enName: "Other Normal", lineageId: "PG-L002",
+      rarity: "AGENT", stage: 2, category: "normal_evolution", bodyForm: "form",
+      identity: "identity", lore: "lore", evolutionFrom: [otherRoot.id], imagePath: ""
+    )
+    let mixed = CreatureSpecies(
+      id: "PG-196", koName: "혼합 진화", enName: "Mixed", lineageId: "PG-LX",
+      rarity: "ORACLE", stage: 3, category: "mixed", bodyForm: "form",
+      identity: "identity", lore: "lore", evolutionFrom: [normal.id, otherNormal.id], imagePath: ""
+    )
+    let creature = OwnedCreature(
+      id: UUID(), speciesID: final.id, originSpeciesID: root.id, level: 25,
+      experience: 0, affection: 40, nickname: nil, uniqueColor: false, acquiredAt: .now
+    )
+
+    let presentation = try XCTUnwrap(
+      EvolutionDexPresentation.make(
+        creature: creature,
+        catalog: [root, otherRoot, normal, otherNormal, branch, final, mixed],
+        discoveredSpeciesIDs: [root.id, normal.id, final.id]
+      )
+    )
+
+    XCTAssertEqual(presentation.stages.map(\.stage), [1, 2, 3])
+    XCTAssertEqual(presentation.stages[1].entries.map(\.species.id), [normal.id, branch.id])
+    XCTAssertEqual(
+      presentation.stages[1].entries.first(where: { $0.species.id == normal.id })?.parentNames,
+      [root.koName]
+    )
+    XCTAssertEqual(
+      presentation.stages[2].entries.first(where: { $0.species.id == final.id })?.parentNames,
+      [normal.koName]
+    )
+    XCTAssertEqual(
+      presentation.stages[2].entries.first(where: { $0.species.id == mixed.id })?.parentNames,
+      [normal.koName, otherNormal.koName]
+    )
+    XCTAssertTrue(
+      presentation.stages.flatMap(\.entries)
+        .first(where: { $0.species.id == final.id })?.isCurrent == true
+    )
+    XCTAssertFalse(
+      presentation.stages.flatMap(\.entries)
+        .first(where: { $0.species.id == normal.id })?.isAutomaticPath == true
+    )
+    XCTAssertTrue(
+      presentation.stages.flatMap(\.entries)
+        .first(where: { $0.species.id == final.id })?.isAutomaticPath == true
+    )
+    XCTAssertFalse(
+      presentation.stages.flatMap(\.entries)
+        .first(where: { $0.species.id == branch.id })?.isAutomaticPath == true
+    )
+    XCTAssertEqual(presentation.potential.finalSpecies.id, final.id)
+    XCTAssertEqual(presentation.potential.path.map(\.id), [final.id])
+  }
+
+  func testProductionEiluLineageUsesApprovedEilsionFinalEvolution() throws {
+    let catalog = try CreatureCatalog.load()
+    let eilvan = try XCTUnwrap(catalog.first { $0.id == "PG-061" })
+    let eilsion = try XCTUnwrap(catalog.first { $0.id == "PG-181" })
+
+    XCTAssertEqual(eilsion.koName, "에일시온")
+    XCTAssertEqual(eilsion.enName, "Eilsion")
+    XCTAssertEqual(eilsion.lineageId, "PG-L001")
+    XCTAssertEqual(eilsion.rarity, "DAEMON")
+    XCTAssertEqual(eilsion.category, "normal_evolution")
+    XCTAssertEqual(eilsion.evolutionFrom, [eilvan.id])
+    XCTAssertEqual(EvolutionCatalog.candidates(after: eilvan, in: catalog).first?.id, eilsion.id)
+    XCTAssertEqual(eilsion.imagePath, "assets/creatures/generated/PG-181.png")
+  }
+
   func testIntegrationStatusPresentationNeverReliesOnColorAlone() {
     let stopped = IntegrationStatusPresentation(.stopped, provider: .claude)
     let listening = IntegrationStatusPresentation(.listening, provider: .claude)
@@ -299,4 +482,190 @@ final class UXPresentationTests: XCTestCase {
     XCTAssertTrue(MainDestination.allCases == [.collection, .connections, .settings])
   }
 
+  @MainActor
+  func testPopupDockMapsEachManagementButtonToTheRequestedLargeWindowDestination() throws {
+    let navigation = MainWindowNavigation()
+
+    XCTAssertEqual(
+      MenuDockItem.allCases,
+      [.collection, .rarity, .evolution, .settings, .quit]
+    )
+    for item in [MenuDockItem.collection, .settings] {
+      let command = try XCTUnwrap(navigation.command(for: item))
+      XCTAssertEqual(command.windowID, "main")
+      XCTAssertEqual(command.destination, item.destination)
+      XCTAssertEqual(navigation.destination, item.destination)
+    }
+    XCTAssertNil(navigation.command(for: .rarity))
+    XCTAssertNil(navigation.command(for: .evolution))
+    XCTAssertNil(navigation.command(for: .quit))
+  }
+
+  func testRarityGuideShowsPullProbabilityAndOwnedCatalogCounts() throws {
+    let process = CreatureSpecies(
+      id: "PG-P", koName: "프로세스", enName: "Process", rarity: "PROCESS", stage: 1,
+      category: "start", bodyForm: "form", identity: "identity", lore: "lore", imagePath: ""
+    )
+    let agent = CreatureSpecies(
+      id: "PG-A", koName: "에이전트", enName: "Agent", rarity: "AGENT", stage: 2,
+      category: "evolution", bodyForm: "form", identity: "identity", lore: "lore", imagePath: ""
+    )
+    let origin = CreatureSpecies(
+      id: "PG-O", koName: "오리진", enName: "Origin", rarity: "ORIGIN", stage: 4,
+      category: "special", bodyForm: "form", identity: "identity", lore: "lore", imagePath: ""
+    )
+    var state = GameState()
+    state.discoveredSpeciesIDs = [process.id, agent.id]
+    state.ownedCreatures = [
+      OwnedCreature(
+        id: UUID(), speciesID: process.id, level: 1, experience: 0, affection: 0,
+        nickname: nil, uniqueColor: false, acquiredAt: .now
+      ),
+      OwnedCreature(
+        id: UUID(), speciesID: agent.id, level: 15, experience: 0, affection: 20,
+        nickname: nil, uniqueColor: false, acquiredAt: .now
+      ),
+      OwnedCreature(
+        id: UUID(), speciesID: agent.id, level: 16, experience: 0, affection: 25,
+        nickname: nil, uniqueColor: false, acquiredAt: .now
+      ),
+    ]
+
+    let rows = RarityGuidePresentation.rows(state: state, catalog: [process, agent, origin])
+    XCTAssertEqual(rows.map(\.tier), Array(RarityVisualTier.allCases.reversed()))
+
+    let processRow = try XCTUnwrap(rows.first { $0.tier == .process })
+    XCTAssertEqual(processRow.pullProbability, 100)
+    XCTAssertEqual(processRow.pullProbabilityLabel, "100%")
+    XCTAssertEqual(processRow.ownedCount, 1)
+    XCTAssertEqual(processRow.discoveredCount, 1)
+    XCTAssertEqual(processRow.catalogCount, 1)
+
+    let agentRow = try XCTUnwrap(rows.first { $0.tier == .agent })
+    XCTAssertEqual(agentRow.pullProbability, 0)
+    XCTAssertEqual(agentRow.pullProbabilityLabel, "0% · 진화 전용")
+    XCTAssertEqual(agentRow.ownedCount, 2)
+    XCTAssertEqual(agentRow.discoveredCount, 1)
+    XCTAssertEqual(agentRow.catalogCount, 1)
+
+    let originRow = try XCTUnwrap(rows.first { $0.tier == .origin })
+    XCTAssertEqual(originRow.ownedCount, 0)
+    XCTAssertEqual(originRow.discoveredCount, 0)
+    XCTAssertEqual(originRow.catalogCount, 1)
+  }
+
+  func testRarityGuideSeparatesDirectPullProbabilityFromFinalPotentialLineages() throws {
+    let processRoot = potentialSpecies(
+      id: "PG-P", name: "프로세스", rarity: "PROCESS", stage: 1, category: "start")
+    let originRoot = potentialSpecies(
+      id: "PG-O", name: "오리진 계보", rarity: "PROCESS", stage: 1, category: "start")
+    let originFinal = potentialSpecies(
+      id: "PG-OF", name: "오리진", rarity: "ORIGIN", stage: 2,
+      category: "normal_evolution", evolutionFrom: [originRoot.id])
+
+    let rows = RarityGuidePresentation.rows(
+      state: GameState(), catalog: [processRoot, originFinal, originRoot])
+    let processRow = try XCTUnwrap(rows.first { $0.tier == .process })
+    let originRow = try XCTUnwrap(rows.first { $0.tier == .origin })
+
+    XCTAssertEqual(processRow.pullProbability, 100)
+    XCTAssertEqual(originRow.pullProbability, 0)
+    XCTAssertEqual(originRow.finalPotentialLineageCount, 1)
+    XCTAssertEqual(originRow.finalPotentialLineageTotal, 2)
+    XCTAssertEqual(originRow.finalPotentialProbability, 50)
+    XCTAssertEqual(originRow.finalPotentialProbabilityLabel, "50%")
+  }
+
+  func testRarityGuideMatchesProductionCatalogDistribution() throws {
+    let rows = RarityGuidePresentation.rows(
+      state: GameState(),
+      catalog: try CreatureCatalog.load()
+    )
+    let catalogCounts = Dictionary(uniqueKeysWithValues: rows.map { ($0.tier, $0.catalogCount) })
+
+    XCTAssertEqual(catalogCounts[.process], 60)
+    XCTAssertEqual(catalogCounts[.agent], 66)
+    XCTAssertEqual(catalogCounts[.daemon], 51)
+    XCTAssertEqual(catalogCounts[.oracle], 22)
+    XCTAssertEqual(catalogCounts[.architect], 38)
+    XCTAssertEqual(catalogCounts[.origin], 3)
+    XCTAssertEqual(rows.first { $0.tier == .process }?.pullProbability, 100)
+    XCTAssertTrue(
+      rows.filter { $0.tier != .process }.allSatisfy { $0.pullProbability == 0 }
+    )
+  }
+
+  func testProductionCatalogHasExactlyThreeOriginAutomaticLineagesOutOfSixty() throws {
+    let catalog = try CreatureCatalog.load()
+    let starts = catalog.filter { $0.stage == 1 && $0.category == "start" }
+    let originLineages = starts.filter {
+      EvolutionCatalog.automaticPath(from: $0, in: catalog).last?.rarity == "ORIGIN"
+    }
+
+    XCTAssertEqual(starts.count, 60)
+    XCTAssertEqual(originLineages.count, 3)
+  }
+
+  func testRarityGuideReportsFivePercentOriginFinalPotentialForProductionCatalog() throws {
+    let catalog = try CreatureCatalog.load()
+    let originRow = try XCTUnwrap(
+      RarityGuidePresentation.rows(state: GameState(), catalog: catalog)
+        .first { $0.tier == .origin })
+    XCTAssertEqual(originRow.pullProbability, 0)
+    XCTAssertEqual(originRow.finalPotentialLineageCount, 3)
+    XCTAssertEqual(originRow.finalPotentialLineageTotal, 60)
+    XCTAssertEqual(originRow.finalPotentialProbability, 5)
+    XCTAssertEqual(originRow.finalPotentialProbabilityLabel, "5%")
+  }
+
+  func testMenuPopoverReservesAUsableFooterInsideItsFixedCanvas() {
+    XCTAssertEqual(MenuPopoverLayout.width, 398)
+    XCTAssertEqual(MenuPopoverLayout.height, 670)
+    XCTAssertEqual(MenuPopoverLayout.dockHeight, 54)
+    XCTAssertGreaterThanOrEqual(MenuPopoverLayout.dockButtonHeight, 44)
+    XCTAssertLessThanOrEqual(MenuPopoverLayout.dockButtonHeight, MenuPopoverLayout.dockHeight)
+  }
+
+#if DEBUG
+  func testMenuPopoverSnapshotRequestRejectsAMissingOutputPath() throws {
+    XCTAssertNil(try MenuPopoverSnapshotRequest(arguments: ["PunchGrowMenuBar"]))
+    XCTAssertThrowsError(
+      try MenuPopoverSnapshotRequest(
+        arguments: ["PunchGrowMenuBar", MenuPopoverSnapshotRequest.flag]
+      )
+    )
+    XCTAssertEqual(
+      try MenuPopoverSnapshotRequest(
+        arguments: ["PunchGrowMenuBar", MenuPopoverSnapshotRequest.evolutionFlag, "/tmp/evolution.png"]
+      )?.kind,
+      .evolution
+    )
+    XCTAssertEqual(
+      try MenuPopoverSnapshotRequest(
+        arguments: ["PunchGrowMenuBar", MenuPopoverSnapshotRequest.rarityFlag, "/tmp/rarity.png"]
+      )?.kind,
+      .rarity
+    )
+    let freshRequest = try MenuPopoverSnapshotRequest(
+      arguments: ["PunchGrowMenuBar", MenuPopoverSnapshotRequest.menuFreshFlag, "/tmp/menu-fresh.png"]
+    )
+    XCTAssertEqual(freshRequest?.kind, .menuFresh)
+    XCTAssertEqual(freshRequest?.usesFreshSetupFixture, true)
+  }
+#endif
+
+}
+
+private func potentialSpecies(
+  id: String,
+  name: String,
+  rarity: String,
+  stage: Int,
+  category: String,
+  evolutionFrom: [String] = []
+) -> CreatureSpecies {
+  CreatureSpecies(
+    id: id, koName: name, enName: name, lineageId: "TEST-\(id)", rarity: rarity,
+    stage: stage, category: category, bodyForm: "form", identity: "identity", lore: "lore",
+    evolutionFrom: evolutionFrom, imagePath: "")
 }

@@ -5307,32 +5307,32 @@
   },
   {
     "id": "PG-181",
-    "koName": "에일녹스",
-    "enName": "Eilnox",
-    "lineageId": "PG-L001-B",
-    "category": "branch",
+    "koName": "에일시온",
+    "enName": "Eilsion",
+    "lineageId": "PG-L001",
+    "category": "normal_evolution",
     "stage": 3,
-    "rarity": "ORACLE",
+    "rarity": "DAEMON",
     "bodyForm": "네발짐승",
-    "tone": "신비·민첩",
-    "identity": "에일 계열이 밤의 미탐색 경로를 택해 진화한 무광 정찰자",
-    "lore": "밝은 길을 안내하는 대신 누구도 찾지 못한 어둠의 틈을 먼저 밟아 안전 여부를 확인한다.",
+    "tone": "침착·위엄",
+    "identity": "수많은 실행 경로를 하나의 질서로 통제하는 에일 계열의 최종 관리자",
+    "lore": "수많은 선택과 실패를 하나의 질서로 묶어 작업 경로가 충돌하지 않도록 전체 흐름을 통제한다.",
     "shapeDNA": [
-      "큰 삼각 귀 · 분기된 신호형 귀",
-      "두 갈래 분절 꼬리",
-      "가벼운 긴 발"
+      "긴 신호탑형 귀",
+      "통합 금속 외골격",
+      "구형 명령 코어와 질서 있는 빛 경로"
     ],
     "palette": {
-      "primary": "#8EA66A",
-      "secondary": "#30245F",
-      "glow": "#65E9FF"
+      "primary": "#24213F",
+      "secondary": "#E8DCCB",
+      "glow": "#4DE1FF"
     },
     "sharedMotifs": [
       "발광 회로"
     ],
-    "evolutionFrom": "PG-L001:S2",
+    "evolutionFrom": "PG-061",
     "imagePath": "assets/creatures/generated/PG-181.png",
-    "generationPrompt": "에일 계열이 밤의 미탐색 경로를 택해 진화한 무광 정찰자 → 네발짐승 → branch 3단계 → 기존 PNG 실루엣을 유지한 큰 삼각 귀 · 분기된 신호형 귀 · 두 갈래 분절 꼬리 · 가벼운 긴 발 → 신비·민첩 → 계보 공통 문양 발광 회로 → 팔레트 주색 #8EA66A·보조색 #30245F·발광색 #65E9FF → 선명한 2D 셀 셰이딩, 정면 3/4 전신, #08111F 카드 배경 → 텍스트·로고·워터마크·유명 IP 유사성 금지"
+    "generationPrompt": "승인 진화 시트의 에일루·에일반 형태 DNA를 계승한 에일시온 → 네발 여우형 → normal_evolution 3단계 DAEMON → 긴 신호탑형 귀 · 미드나이트 바이올렛 털 · 페일 크림 볼과 가슴 털 · 통합 금속 외골격 · 꼬리와 연결된 구형 다면체 명령 코어 · 질서 있는 시안 발광 경로 → 침착하고 위엄 있는 전신 3/4 게임 렌더 → #08111F 카드 배경 → 초록색 몸·고양이형 실루엣·텍스트·로고·워터마크 금지"
   },
   {
     "id": "PG-182",

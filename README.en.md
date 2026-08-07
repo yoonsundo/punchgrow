@@ -13,6 +13,7 @@
   </p>
 
   <p>
+    <img alt="v0.2.0" src="https://img.shields.io/badge/version-v0.2.0-C6F84E?style=flat-square&logoColor=08111F" />
     <img alt="macOS 14+" src="https://img.shields.io/badge/macOS-14%2B-4DE1FF?style=flat-square&logo=apple&logoColor=white" />
     <img alt="Swift 6" src="https://img.shields.io/badge/Swift-6-FF4D9D?style=flat-square&logo=swift&logoColor=white" />
     <img alt="Local First" src="https://img.shields.io/badge/data-local--first-C6F84E?style=flat-square&logoColor=08111F" />
@@ -22,7 +23,9 @@
   <p>
     <a href="#quick-start">Quick start</a>
     ·
-    <a href="macos/README.md">macOS guide</a>
+    <a href="docs/USAGE.en.md">User guide</a>
+    ·
+    <a href="macos/README.md">Developer guide</a>
     ·
     <a href="#privacy-model">Privacy</a>
     ·
@@ -32,7 +35,7 @@
 
 ---
 
-> **Project status: v0.1.1 alpha.** This public repository is dedicated to the Apple Silicon macOS 14+ menu-bar app.
+> **Project status: v0.2.0 alpha.** The intended public scope of this repository is the Apple Silicon macOS 14+ menu-bar app.
 
 GitHub Actions with Full Xcode verifies the Swift test suite, Release build, 240-creature resource assembly, and ad-hoc signature. A public Homebrew binary still requires Developer ID signing and Apple notarization.
 
@@ -41,6 +44,23 @@ GitHub Actions with Full Xcode verifies the Swift test suite, Release build, 240
 | Code | Collect | Grow | Stay private |
 | --- | --- | --- | --- |
 | Claude Code and Codex usage becomes game tokens. | Discover 240 creatures across six rarity tiers. | Feed, evolve, and find unique-color variants. | Prompts and code stay out of the data model and processing stays on your Mac. |
+
+## Actual app screens
+
+These are captures rendered by the current SwiftUI app. They use fixed documentation sample data and contain no user's private logs, prompts, or source code.
+
+<p align="center">
+  <img src="docs/screenshots/menu-popover.png" width="398" alt="PunchGrow main popup showing current rarity, growth potential, weekly usage, feeding, and draw controls" />
+</p>
+
+<table>
+  <tr>
+    <td align="center"><img src="docs/screenshots/rarity-guide.png" width="360" alt="PunchGrow rarity index showing direct draw odds and final growth-potential lineage proportions" /><br /><strong>Rarity index</strong><br /><sub>Direct draw rarity is separate from final growth potential</sub></td>
+    <td align="center"><img src="docs/screenshots/evolution-dex.png" width="372" alt="PunchGrow evolution dex showing stages, branches, current position, and automatic path" /><br /><strong>Evolution dex</strong><br /><sub>See the full lineage and the automatic path from the current species</sub></td>
+  </tr>
+</table>
+
+[Open the complete user guide →](docs/USAGE.en.md)
 
 ## Featured creatures
 
@@ -64,7 +84,8 @@ GitHub Actions with Full Xcode verifies the Swift test suite, Release build, 240
 | Rule | Alpha value |
 | --- | --- |
 | One draw | `500,000` tokens |
-| Draw result | One of 60 stage-one creatures |
+| Draw result | One of 60 PROCESS stage-one creatures · PROCESS 100% |
+| ORIGIN lineage | 3 of 60 starts · 5% growth potential, not a direct ORIGIN pull |
 | Normal food | Costs `100,000` tokens · XP `+25` · affinity `+3` |
 | Large food | Costs `500,000` tokens · XP `+200` · affinity `+10` |
 | Unique color | Independent `0.1%` chance per draw, with no stat advantage |
@@ -74,7 +95,7 @@ GitHub Actions with Full Xcode verifies the Swift test suite, Release build, 240
 
 ### Growth and evolution
 
-Draws never grant a higher-stage evolution directly. Every owned creature starts at stage one and evolves automatically through its catalog lineage as feeding raises its level. A lineage with no next-stage catalog entry keeps its current form and can continue growing.
+Draws never grant a higher-stage evolution directly. Every owned creature starts as PROCESS and evolves automatically through its catalog lineage as feeding raises its level. The UI separates the actual `Current <rarity>` from `Growth potential <final rarity>`. An ORIGIN-lineage draw is still a current PROCESS creature; the dedicated ORIGIN reveal is reserved for actually owning an ORIGIN species. A lineage with no next-stage catalog entry keeps its current form and can continue growing.
 
 ## Why PunchGrow exists
 
@@ -84,17 +105,17 @@ AI-assisted coding already produces a useful activity signal: token usage. Punch
 
 | Area | Status | Purpose |
 | --- | --- | --- |
-| `macos/` | v0.1.1 | Native SwiftUI menu-bar game for Apple Silicon macOS 14+ |
+| `macos/` | v0.2.0 | Native SwiftUI menu-bar game for Apple Silicon macOS 14+ |
 
 The current game includes a 60-species stage-one draw pool, automatic evolution at levels 15, 25, and 40, six evolution tiers (`PROCESS` → `ORIGIN`), unique-color variants, feeding, local save/restore, and a 240-creature catalog.
 
-In the macOS popup, holding a normal/large food purchase or feed button accelerates repeated actions until release. The `Evolution stages` popover shows the level 15/25/40 milestones and current progress, while higher stages receive progressively richer badge, frame, and aura effects.
+In the macOS popup, holding a normal/large food purchase or feed button accelerates repeated actions until release. Draw feedback and the main card show current rarity and final growth potential separately. The fixed footer's `Rarity` guide separates direct `PROCESS 100%` draws from final-lineage proportions such as `ORIGIN lineage 3/60 (5%)`, plus owned, discovered, and total creature counts by tier. `Collection` and `Settings` open the large window directly, while `Evolution` shows the selected creature's complete image-based lineage, branches, discovery state, level gates, and current-forward automatic path. Higher stages receive progressively richer badge, frame, and aura effects.
 
 ### Actual plan usage
 
 The `C n%` and `X n%` values in the menu bar are not token-based estimates.
 
-- `C` reads Claude's actual weekly percentage from its local OAuth usage cache.
+- In v0.2.0, `C` reads Claude's actual weekly percentage from `~/.claude/plugins/oh-my-claudecode/.usage-cache-anthropic.json`. It remains pending when that cache is unavailable.
 - `X` reads Codex's actual weekly `used_percent` from session rate-limit metadata.
 - With automatic collection enabled, PunchGrow checks approximately every ten seconds.
 - Provider updates automatically reflect both increased usage and weekly resets.
@@ -114,21 +135,33 @@ The macOS app runs locally and collection is off until the user explicitly enabl
 
 See [the macOS documentation](macos/README.md) for the detailed collection and status model.
 
+## Five-minute walkthrough
+
+1. Launch PunchGrow and find its creature in the macOS menu bar rather than the Dock.
+2. Open the popup, choose `Settings` in the footer, then select `Connections` in the large window's sidebar.
+3. Choose `수집 동의 및 시작` to opt into checking numeric Claude Code and Codex usage approximately every ten seconds.
+4. The first scan establishes a non-crediting baseline. Only later increases add spendable tokens.
+5. Buy food, draw creatures, and use `Rarity` and `Evolution` to inspect long-term growth.
+
+The [complete user guide](docs/USAGE.en.md) covers installation, collection states, gameplay, backup, removal, privacy, and troubleshooting with screenshots.
+
 ## Quick start
 
 ### macOS menu-bar app
 
 Requirements: Apple Silicon, macOS 14 or newer, and a matched Full Xcode / Command Line Tools installation.
 
+First-time users can choose **Code → Download ZIP** on the GitHub repository page, extract it, and open the extracted `macos` directory in Terminal. The [user guide](docs/USAGE.en.md) gives the beginner-friendly sequence.
+
 ```bash
 cd macos
-swift test
-swift build -c release
 ./scripts/build-app.sh
 open .build/PunchGrow.app
 ```
 
 The assembled app is ad-hoc signed for local use. Developer ID signing, notarization, and a public Homebrew Cask are separate release-account steps.
+
+> Public `brew install --cask punchgrow` installation is not available yet. Run v0.2.0 from source for now; Homebrew distribution will be enabled after Developer ID signing, Apple notarization, and a public release URL are ready.
 
 ## Verification
 

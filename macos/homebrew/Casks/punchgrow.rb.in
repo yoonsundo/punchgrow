@@ -5,10 +5,10 @@ cask "punchgrow" do
   version "__VERSION__"
   sha256 "__SHA256__"
 
-  url "https://github.com/punchgrow/punchgrow/releases/download/v#{version}/PunchGrow-#{version}-arm64.zip"
+  url "https://github.com/yoonsundo/punchgrow/releases/download/v#{version}/PunchGrow-#{version}-arm64.zip"
   name "PunchGrow"
   desc "Grow digital-myth creatures with local AI coding token usage"
-  homepage "https://github.com/punchgrow/punchgrow"
+  homepage "https://github.com/yoonsundo/punchgrow"
 
   depends_on arch: :arm64
   depends_on macos: :sonoma
@@ -19,4 +19,11 @@ cask "punchgrow" do
     "~/Library/Application Support/PunchGrow",
     "~/Library/Preferences/app.punchgrow.menubar.plist",
   ]
+
+  caveats <<~EOS
+    이 빌드는 아직 Apple 공증(notarization) 전의 ad-hoc 서명 버전입니다.
+    macOS Gatekeeper가 첫 실행을 차단하면 아래 중 하나로 실행하세요.
+      brew install --cask --no-quarantine punchgrow
+      xattr -d com.apple.quarantine /Applications/PunchGrow.app
+  EOS
 end

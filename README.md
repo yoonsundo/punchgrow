@@ -13,6 +13,7 @@
   </p>
 
   <p>
+    <img alt="v0.2.0" src="https://img.shields.io/badge/version-v0.2.0-C6F84E?style=flat-square&logoColor=08111F" />
     <img alt="macOS 14+" src="https://img.shields.io/badge/macOS-14%2B-4DE1FF?style=flat-square&logo=apple&logoColor=white" />
     <img alt="Swift 6" src="https://img.shields.io/badge/Swift-6-FF4D9D?style=flat-square&logo=swift&logoColor=white" />
     <img alt="Local First" src="https://img.shields.io/badge/data-local--first-C6F84E?style=flat-square&logoColor=08111F" />
@@ -22,7 +23,9 @@
   <p>
     <a href="#빠른-시작">빠른 시작</a>
     ·
-    <a href="macos/README.md">macOS 상세 문서</a>
+    <a href="docs/USAGE.md">사용 가이드</a>
+    ·
+    <a href="macos/README.md">개발 문서</a>
     ·
     <a href="#개인정보-보호-구조">개인정보 보호</a>
     ·
@@ -32,7 +35,7 @@
 
 ---
 
-> **프로젝트 상태: v0.1.1 알파.** 이 공개 저장소는 Apple Silicon macOS 14+ 메뉴 막대 앱 전용입니다.
+> **프로젝트 상태: v0.2.0 알파.** 이 저장소의 공개 대상은 Apple Silicon macOS 14+ 메뉴 막대 앱입니다.
 
 GitHub Actions의 Full Xcode 환경에서 Swift 테스트, Release 빌드, 240개 크리처 리소스 조립과 ad-hoc 코드서명을 검증합니다. Developer ID 서명과 Apple 공증을 마친 공개 Homebrew 바이너리는 별도의 릴리스 단계입니다.
 
@@ -41,6 +44,23 @@ GitHub Actions의 Full Xcode 환경에서 Swift 테스트, Release 빌드, 240�
 | 코딩 | 수집 | 성장 | 개인정보 보호 |
 | --- | --- | --- | --- |
 | Claude Code·Codex 사용량이 게임 토큰으로 쌓입니다. | 6단계 등급과 240종 크리처를 발견합니다. | 먹이, 진화와 유니크 컬러로 나만의 도감을 만듭니다. | 프롬프트와 코드는 수집하지 않고 Mac 안에서 처리합니다. |
+
+## 실제 앱 화면
+
+아래 이미지는 현재 앱의 SwiftUI 화면을 그대로 렌더링한 캡처입니다. 문서 전용 고정 샘플 데이터를 사용하며 사용자의 실제 로그·프롬프트·소스 코드는 포함하지 않습니다.
+
+<p align="center">
+  <img src="docs/screenshots/menu-popover.png" width="398" alt="PunchGrow 메인 팝오버: 현재 등급, 성장 잠재력, 주간 사용률, 먹이와 가챠 버튼" />
+</p>
+
+<table>
+  <tr>
+    <td align="center"><img src="docs/screenshots/rarity-guide.png" width="360" alt="PunchGrow 등급표: 직접 획득 확률과 성장 잠재력 계보 비율" /><br /><strong>등급표</strong><br /><sub>직접 가챠와 최종 성장 잠재력을 분리해 표시</sub></td>
+    <td align="center"><img src="docs/screenshots/evolution-dex.png" width="372" alt="PunchGrow 진화도감: 단계, 분기, 현재 위치와 자동 진화 경로" /><br /><strong>진화도감</strong><br /><sub>현재 종부터 이어지는 자동 경로와 전체 계보 확인</sub></td>
+  </tr>
+</table>
+
+[전체 사용 가이드 보기 →](docs/USAGE.md)
 
 ## 대표 크리처
 
@@ -64,7 +84,8 @@ GitHub Actions의 Full Xcode 환경에서 Swift 테스트, Release 빌드, 240�
 | 규칙 | 알파 기준 |
 | --- | --- |
 | 가챠 1회 | `500,000` 토큰 |
-| 가챠 결과 | 60종의 1단계 크리처 중 하나 |
+| 가챠 결과 | 60종 PROCESS 시작형 중 하나 · PROCESS 100% |
+| ORIGIN 계보 | 60개 중 3개 · 성장 잠재력 5% (직접 ORIGIN 뽑기 아님) |
 | 일반 먹이 | 구매 `100,000` 토큰 · XP `+25` · 친밀도 `+3` |
 | 대형 먹이 | 구매 `500,000` 토큰 · XP `+200` · 친밀도 `+10` |
 | 유니크 컬러 | 매 가챠 `0.1%`, 능력 차이 없음 |
@@ -74,7 +95,7 @@ GitHub Actions의 Full Xcode 환경에서 Swift 테스트, Release 빌드, 240�
 
 ### 성장과 진화
 
-가챠에서는 고등급 진화체를 직접 뽑지 않습니다. 모든 개체는 1단계에서 시작하며 먹이로 레벨을 올리면 카탈로그 계보에 따라 자동 진화합니다. 계보에 다음 단계 데이터가 없는 경우 현재 모습으로 계속 성장합니다.
+가챠에서는 고등급 진화체를 직접 뽑지 않습니다. 모든 개체는 PROCESS로 시작하며 먹이로 레벨을 올리면 카탈로그 계보에 따라 자동 진화합니다. 카드는 실제 상태인 `현재 <등급>`과 자동 경로의 최종값인 `성장 잠재력 <최종 등급>`을 분리해 보여줍니다. ORIGIN 계보를 뽑아도 현재는 PROCESS며, ORIGIN 전용 공개는 실제 ORIGIN 종을 보유했을 때에만 적용됩니다. 계보에 다음 단계 데이터가 없는 경우 현재 모습으로 계속 성장합니다.
 
 ## PunchGrow를 만든 이유
 
@@ -84,17 +105,17 @@ AI 코딩에는 토큰 사용량이라는 유용한 활동 신호가 이미 존�
 
 | 영역 | 상태 | 용도 |
 | --- | --- | --- |
-| `macos/` | v0.1.1 | Apple Silicon macOS 14+용 네이티브 SwiftUI 메뉴 막대 게임 |
+| `macos/` | v0.2.0 | Apple Silicon macOS 14+용 네이티브 SwiftUI 메뉴 막대 게임 |
 
 현재 게임에는 60종 시작형 가챠, Lv.15·25·40 자동 진화, 6단계 진화 등급(`PROCESS` → `ORIGIN`), 유니크 컬러, 먹이 주기, 로컬 저장·복원과 240종 크리처 도감이 포함되어 있습니다.
 
-macOS 팝업에서는 일반·대형 먹이의 구매와 급여 버튼을 길게 눌러 가속 연속 실행할 수 있습니다. `진화 단계`에서 15·25·40 레벨 기준과 현재 진행을 확인할 수 있으며, 높은 단계일수록 배지·테두리·오라 효과가 강화됩니다.
+macOS 팝업에서는 일반·대형 먹이의 구매와 급여 버튼을 길게 눌러 가속 연속 실행할 수 있습니다. 가챠 결과와 메인 카드에서 현재 등급과 성장 잠재력을 함께 확인할 수 있습니다. 하단의 `등급표`는 `PROCESS 100%`인 직접 가챠 등급과 `ORIGIN 계보 3/60 (5%)`와 같은 성장 계보 비율, 보유·발견·전체 크리처 수를 분리해 보여줍니다. `진화`에서는 선택한 크리처의 시작형부터 최종형까지 이미지·등급·분기·자동 경로를 진화도감으로 볼 수 있습니다. `도감`과 `설정`은 큰 화면으로 바로 이동하며, 높은 단계일수록 배지·테두리·오라 효과가 강화됩니다.
 
 ### 실제 플랜 사용률
 
 메뉴 막대의 `C n%`와 `X n%`는 토큰량으로 추정한 값이 아닙니다.
 
-- `C`: Claude 로컬 OAuth 사용량 캐시의 실제 주간 사용률
+- `C`: v0.2.0은 `~/.claude/plugins/oh-my-claudecode/.usage-cache-anthropic.json`에 기록된 Claude 실제 주간 사용률을 읽습니다. 이 캐시가 없으면 `확인 대기`로 남습니다.
 - `X`: Codex 세션 로그의 실제 주간 `used_percent`
 - 자동 수집이 켜져 있으면 약 10초 간격으로 확인합니다.
 - 공급자가 새 값을 기록하면 사용 증가와 주간 초기화를 자동 반영합니다.
@@ -114,21 +135,33 @@ macOS 앱은 로컬에서 실행되며 사용자가 명시적으로 활성화하
 
 자세한 수집 방식과 상태 모델은 [macOS 문서](macos/README.md)를 참고하세요.
 
+## 5분 사용 순서
+
+1. 앱을 실행하면 Dock이 아니라 macOS 메뉴 막대에 PunchGrow 크리처가 나타납니다.
+2. 메뉴 막대 아이콘을 눌러 팝업을 열고, 하단 `설정`에서 큰 창을 연 다음 사이드바의 `Connections`로 이동합니다.
+3. `수집 동의 및 시작`을 누르면 Claude Code·Codex 로컬 로그의 숫자형 사용량만 약 10초 간격으로 확인합니다.
+4. 첫 스캔은 기존 기록을 소급 지급하지 않는 기준선입니다. 이후 새 사용량부터 보유 토큰에 반영됩니다.
+5. 토큰으로 먹이를 구매하거나 가챠를 실행하고, `등급표`와 `진화`에서 성장 가능성을 확인합니다.
+
+설치·수집 상태·게임 조작·백업·삭제·문제 해결은 [상세 사용 가이드](docs/USAGE.md)에 화면과 함께 정리했습니다.
+
 ## 빠른 시작
 
 ### macOS 메뉴 막대 앱
 
 Apple Silicon, macOS 14 이상, 버전이 일치하는 Full Xcode와 Command Line Tools가 필요합니다.
 
+처음 받는 사용자는 GitHub 저장소 화면에서 **Code → Download ZIP**을 선택해 압축을 푼 뒤, 터미널에서 압축을 푼 폴더의 `macos` 디렉터리로 이동하세요. 자세한 초보자 순서는 [사용 가이드](docs/USAGE.md)에 있습니다.
+
 ```bash
 cd macos
-swift test
-swift build -c release
 ./scripts/build-app.sh
 open .build/PunchGrow.app
 ```
 
 생성된 앱은 로컬 실행용 ad-hoc 서명을 사용합니다. Developer ID 서명, 공증과 공개 Homebrew Cask는 별도의 릴리스 계정 작업입니다.
+
+> `brew install --cask punchgrow` 공개 설치는 아직 제공하지 않습니다. 현재 v0.2.0은 위 소스 빌드 방식으로 실행하며, Homebrew 배포는 Developer ID 서명·Apple 공증·공개 릴리스 URL이 준비된 뒤 활성화됩니다.
 
 ## 검증
 

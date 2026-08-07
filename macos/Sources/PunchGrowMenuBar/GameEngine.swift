@@ -14,6 +14,71 @@ struct SeededGenerator: RandomNumberGenerator {
     }
 }
 
+enum EvolutionCatalog {
+    private static let categoryPriority = [
+        "normal_evolution": 0, "branch": 1, "mixed": 2, "special": 3, "mutant": 4,
+    ]
+
+    static func candidates(
+        after current: CreatureSpecies,
+        in catalog: [CreatureSpecies]
+    ) -> [CreatureSpecies] {
+        let lineageReference = "\(current.lineageId):S\(current.stage)"
+        return catalog
+            .filter {
+                $0.stage == current.stage + 1
+                    && ($0.evolutionFrom.contains(current.id)
+                        || (!current.lineageId.isEmpty
+                            && $0.evolutionFrom.contains(lineageReference)))
+            }
+            .sorted {
+                let left = categoryPriority[$0.category, default: Int.max]
+                let right = categoryPriority[$1.category, default: Int.max]
+                return left == right ? $0.id < $1.id : left < right
+            }
+    }
+
+    static func parents(
+        of candidate: CreatureSpecies,
+        in catalog: [CreatureSpecies]
+    ) -> [CreatureSpecies] {
+        catalog
+            .filter { parent in
+                guard parent.stage == candidate.stage - 1 else { return false }
+                let lineageReference = "\(parent.lineageId):S\(parent.stage)"
+                return candidate.evolutionFrom.contains(parent.id)
+                    || (!parent.lineageId.isEmpty
+                        && candidate.evolutionFrom.contains(lineageReference))
+            }
+            .sorted { $0.id < $1.id }
+    }
+
+    static func automaticPath(
+        from start: CreatureSpecies,
+        in catalog: [CreatureSpecies]
+    ) -> [CreatureSpecies] {
+        var path = [start]
+        var current = start
+        var visited: Set<String> = [start.id]
+
+        while let next = candidates(after: current, in: catalog).first,
+              visited.insert(next.id).inserted {
+            path.append(next)
+            current = next
+        }
+        return path
+    }
+
+    static func requiredLevel(for stage: Int) -> Int? {
+        switch stage {
+        case 2: 15
+        case 3: 25
+        case 4: 40
+        default: nil
+        }
+    }
+}
+
 enum GameEngine {
     private struct OriginResolver {
         private let speciesByID: [String: CreatureSpecies]
@@ -266,8 +331,9 @@ enum GameEngine {
 
         while let current = speciesByID[state.ownedCreatures[index].speciesID],
               current.stage < 4,
-              state.ownedCreatures[index].level >= evolutionLevel(for: current.stage + 1),
-              let next = nextEvolution(after: current, in: catalog) {
+              let requiredLevel = EvolutionCatalog.requiredLevel(for: current.stage + 1),
+              state.ownedCreatures[index].level >= requiredLevel,
+              let next = EvolutionCatalog.candidates(after: current, in: catalog).first {
             state.ownedCreatures[index].speciesID = next.id
             state.discoveredSpeciesIDs.insert(next.id)
             results.append(EvolutionResult(
@@ -280,35 +346,4 @@ enum GameEngine {
         return results
     }
 
-    private static func nextEvolution(
-        after current: CreatureSpecies,
-        in catalog: [CreatureSpecies]
-    ) -> CreatureSpecies? {
-        let lineageReference = "\(current.lineageId):S\(current.stage)"
-        let categoryPriority = [
-            "normal_evolution": 0, "branch": 1, "mixed": 2, "special": 3, "mutant": 4,
-        ]
-        return catalog
-            .filter {
-                $0.stage == current.stage + 1
-                    && ($0.evolutionFrom.contains(current.id)
-                        || (!current.lineageId.isEmpty
-                            && $0.evolutionFrom.contains(lineageReference)))
-            }
-            .sorted {
-                let left = categoryPriority[$0.category, default: Int.max]
-                let right = categoryPriority[$1.category, default: Int.max]
-                return left == right ? $0.id < $1.id : left < right
-            }
-            .first
-    }
-
-    private static func evolutionLevel(for stage: Int) -> Int {
-        switch stage {
-        case 2: 15
-        case 3: 25
-        case 4: 40
-        default: .max
-        }
-    }
 }

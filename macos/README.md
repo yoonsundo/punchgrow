@@ -4,6 +4,9 @@ Apple Silicon macOS 14+ local single-player app. The menu-bar popup is the
 primary play surface; the large window separates collection browsing,
 integration setup, and local data settings.
 
+Current app version: **v0.2.0**. For player-facing instructions, see the
+[Korean user guide](../docs/USAGE.md) or [English user guide](../docs/USAGE.en.md).
+
 PunchGrow stores normalized numeric token usage and game state under
 Application Support. Claude prompts, responses, source code, commands, paths,
 account IDs, model names, and emails are outside its usage/status data model.
@@ -21,12 +24,15 @@ Claude Code or Codex logs.
   Only increases found after the baseline can increase the token balance.
 - The menu-bar `C n%` and `X n%` values are the providers' actual weekly plan
   percentages, not a conversion from observed token totals. Claude comes from
-  the local OAuth usage cache; Codex comes from `rate_limits.primary.used_percent`.
-  Missing values remain pending rather than being estimated.
+  `~/.claude/plugins/oh-my-claudecode/.usage-cache-anthropic.json` when that
+  local cache exists; Codex comes from `rate_limits.primary.used_percent`.
+  Missing values remain pending rather than being estimated, so Claude stays
+  pending when the oh-my-claudecode cache has not been created.
 - Normal food costs 100,000 tokens and grants XP +25 / affinity +3. Large food
   is stored separately, costs 500,000 tokens, and grants XP +200 / affinity +10.
   Feed and purchase buttons support one click or accelerating press-and-hold.
-- Draws select uniformly from the 60 stage-one species. Feeding automatically
+- Draws select uniformly from the 60 PROCESS stage-one species, so direct draw
+  rarity is PROCESS 100%. Feeding automatically
   evolves catalog-linked creatures at levels 15, 25, and 40. New growth caps at
   level 50; legacy level 51–100 saves remain valid but cannot gain more levels.
 - Evolution preserves the owned instance, nickname, affinity, unique color,
@@ -36,9 +42,23 @@ Claude Code or Codex logs.
   creature is the target for feeding and changes after a successful draw.
 - Browsing and drawing never change the persisted representative. Use **대표로
   지정** to make the current creature the representative for future launches.
+- Draw results and the main creature card separate `현재 <rarity>` from
+  `성장 잠재력 <final rarity>`. The latter is derived from the deterministic
+  catalog evolution path and is not the creature's current rarity.
+- Three of the 60 starting lineages currently end at ORIGIN, so the derived
+  **ORIGIN lineage** chance is 3/60 = 5%. This must never be described as a
+  direct ORIGIN pull: an ORIGIN-lineage draw still awards a PROCESS creature.
 - Draw feedback stays in the popup because higher evolution stages are no
-  longer drawn directly. **진화 단계** shows the level 15/25/40 milestones and
-  the selected creature's current progress.
+  longer drawn directly. **진화** opens a per-creature evolution dex with every
+  reachable stage, image, branch, discovery state, level gate, and automatic path,
+  providing the evidence for the displayed growth potential.
+- The fixed footer keeps **도감**, **등급표**, **진화**, **설정**, and **종료** visible
+  as separate actions. 등급표 separates direct draw rarity (PROCESS 100%) from
+  final-lineage proportions, including ORIGIN lineage 3/60 (5%), and shows
+  owned/discovered/catalog counts for every rarity. 도감 and 설정 open the large
+  window directly.
+- The dedicated ORIGIN reveal remains reserved for owning a creature whose
+  actual current species is ORIGIN. ORIGIN growth potential alone never opens it.
 
 The Claude and Codex badges share four evidence-based states: **중지됨**,
 **로그 감시 중**, **방금 수신**, and **확인 필요**. **방금 수신** appears for ten seconds
@@ -46,7 +66,8 @@ only after a validated event is credited.
 
 ## Large window
 
-Open **도감 · 연결 · 설정** from the popup. The sidebar contains:
+Open **도감** or **설정** from the popup footer. The large window opens directly
+on that destination; **Connections** remains available from its sidebar:
 
 - **Collection**: discovered/owned progress, search, discovered cards, and
   locked silhouettes for undiscovered creatures.
@@ -98,6 +119,19 @@ than updated in place, so removed resources cannot survive as stale files.
 The script creates an ad-hoc signed local app. Developer ID signing,
 notarization, and the public Cask URL are release-account steps documented in
 `homebrew/README.md`.
+
+### Documentation screenshots
+
+The checked-in README images are rendered by the actual SwiftUI views with a
+deterministic documentation fixture, so they do not expose a contributor's
+private logs or game save. Regenerate and dimension-check them with:
+
+```bash
+./scripts/render-popover-snapshot.sh ../docs/screenshots/menu-popover.png menu
+./scripts/render-popover-snapshot.sh .build/menu-popover-fresh.png menu-fresh
+./scripts/render-popover-snapshot.sh ../docs/screenshots/rarity-guide.png rarity
+./scripts/render-popover-snapshot.sh ../docs/screenshots/evolution-dex.png evolution
+```
 
 ## Automatic Claude Code and Codex usage collection
 
