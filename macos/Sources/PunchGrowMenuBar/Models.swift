@@ -127,6 +127,7 @@ struct OwnedCreature: Codable, Identifiable, Hashable, Sendable {
     var experience: Int
     var affection: Int
     var nickname: String?
+    var preferredEvolutionTargetSpeciesID: String?
     let uniqueColor: Bool
     let acquiredAt: Date
 
@@ -138,6 +139,7 @@ struct OwnedCreature: Codable, Identifiable, Hashable, Sendable {
         experience: Int,
         affection: Int,
         nickname: String?,
+        preferredEvolutionTargetSpeciesID: String? = nil,
         uniqueColor: Bool,
         acquiredAt: Date
     ) {
@@ -148,13 +150,14 @@ struct OwnedCreature: Codable, Identifiable, Hashable, Sendable {
         self.experience = experience
         self.affection = affection
         self.nickname = nickname
+        self.preferredEvolutionTargetSpeciesID = preferredEvolutionTargetSpeciesID
         self.uniqueColor = uniqueColor
         self.acquiredAt = acquiredAt
     }
 
     private enum CodingKeys: String, CodingKey {
         case id, speciesID, originSpeciesID, level, experience, affection, nickname
-        case uniqueColor, acquiredAt
+        case preferredEvolutionTargetSpeciesID, uniqueColor, acquiredAt
     }
 
     init(from decoder: Decoder) throws {
@@ -166,6 +169,8 @@ struct OwnedCreature: Codable, Identifiable, Hashable, Sendable {
         experience = try container.decode(Int.self, forKey: .experience)
         affection = try container.decode(Int.self, forKey: .affection)
         nickname = try container.decodeIfPresent(String.self, forKey: .nickname)
+        preferredEvolutionTargetSpeciesID = try container.decodeIfPresent(
+            String.self, forKey: .preferredEvolutionTargetSpeciesID)
         uniqueColor = try container.decode(Bool.self, forKey: .uniqueColor)
         acquiredAt = try container.decode(Date.self, forKey: .acquiredAt)
     }
@@ -176,6 +181,60 @@ struct EvolutionResult: Equatable, Sendable {
     let fromSpeciesID: String
     let toSpeciesID: String
     let level: Int
+}
+
+/// 변이 재도전 한 번의 결과. 성공·실패 어느 쪽이든 토큰을 쓰므로 차감액을 함께 돌려준다.
+struct MutationRetryOutcome: Equatable, Sendable {
+    let succeeded: Bool
+    /// 성공했을 때 새로 만들어진 개체. 실패하면 nil이다.
+    let creatureID: UUID?
+    let tokensSpent: Int
+    /// 판정 뒤 해당 계보의 누적 실패 횟수. 성공하면 0이다.
+    let failureCount: Int
+}
+
+enum PreferenceResolution: Equatable, Sendable {
+    case ready(CreatureSpecies)
+    case pendingDescendant
+    case invalid
+}
+
+struct PendingEvolutionChoice: Identifiable, Equatable, Sendable {
+    let creatureID: UUID
+    let fromSpecies: CreatureSpecies
+    let candidates: [CreatureSpecies]
+    /// 예약해 둔 선호 대상이 종착 종이라 진화 직전 확인만 남은 경우에만 값이 있다.
+    /// 갈림길에서 아직 아무것도 고르지 않은 일반 대기에서는 nil이다.
+    let preferredTargetID: String?
+
+    var id: UUID { creatureID }
+    var confirmsReservedTerminalTarget: Bool { preferredTargetID != nil }
+}
+
+/// 진화 순간 확률로 발동한 변이 제안. 세션 한정이며 **저장하지 않는다.**
+/// 발동 시 진화를 적용하기 전에 멈추므로, 답하기 전에 앱이 죽어도 당첨이 증발하지 않고
+/// 다음 급여에서 같은 지점이 다시 판정된다.
+struct PendingMutationOffer: Identifiable, Equatable, Sendable {
+    let creatureID: UUID
+    /// 발동 시점의 현재 종(stage 1).
+    let fromSpeciesID: String
+    let mutationSpeciesID: String
+    /// 거절하면 진행할 원래 대상. 발동 시점에 선택·예약으로 이미 확정된 값이라
+    /// 해결 시점에 다시 계산하지 않는다.
+    let plannedTargetSpeciesID: String
+
+    var id: UUID { creatureID }
+}
+
+/// 급여·선택의 결과. 변이가 발동하면 진화를 적용하지 않고 `mutationOffer`만 채워 돌아온다.
+struct FeedOutcome: Equatable, Sendable {
+    let evolutions: [EvolutionResult]
+    let mutationOffer: PendingMutationOffer?
+
+    init(evolutions: [EvolutionResult] = [], mutationOffer: PendingMutationOffer? = nil) {
+        self.evolutions = evolutions
+        self.mutationOffer = mutationOffer
+    }
 }
 
 struct EvolutionFeedback: Identifiable, Equatable, Sendable {
@@ -224,6 +283,15 @@ struct GameState: Codable, Equatable, Sendable {
     static let originPityThreshold = 300
     static let weeklyUsageForMaximumActivityBonus = 5_000_000
     static let maximumRetainedUsageEvents = 20_000
+    /// 변이 밸런스 수치는 조정 여지가 있어 한 곳에 모아 둔다. 코드·문구 어디에서도
+    /// 0.1 · 1_000_000 · 30을 직접 쓰지 않는다.
+    static let mutationTriggerRate = 0.1
+    static let mutationRetryCost = 1_000_000
+    static let mutationRetryPityThreshold = 30
+    static let inheritCost = 5_000_000
+    /// `validate`가 거부하는 보유 한도와 같은 값. 개체를 새로 만드는 경로는 이 선을
+    /// 넘기기 전에 멈춰야 한다 — 넘기면 저장 전체가 잠긴다.
+    static let maximumOwnedCreatures = 100_000
 
     var schemaVersion = Self.schemaVersion
     var tokenBalance = 2_000_000
@@ -236,6 +304,30 @@ struct GameState: Codable, Equatable, Sendable {
     var inventory = Inventory()
     var pullsSinceOrigin = 0
     var representativeCreatureID: UUID?
+    /// 계보(시작종 id)별 변이 재도전 누적 실패 횟수.
+    ///
+    /// **반드시 옵셔널이어야 한다.** `GameState`는 커스텀 `init(from:)` 없이 합성 Codable을
+    /// 쓰는데, 합성 디코더는 프로퍼티 기본값을 쓰지 않으므로 비옵셔널 필드를 더하면 이 키가
+    /// 없는 기존 세이브가 전부 디코딩에 실패한다. `nil`은 빈 사전과 같게 다룬다.
+    var mutationRetryFailures: [String: Int]?
+
+    /// `nil`을 빈 사전으로 접어 주는 접근자. 호출부에 `?? [:]`가 흩어지지 않게 한다.
+    func mutationRetryFailureCount(forOrigin originSpeciesID: String) -> Int {
+        mutationRetryFailures?[originSpeciesID] ?? 0
+    }
+
+    mutating func recordMutationRetryFailure(forOrigin originSpeciesID: String) {
+        var failures = mutationRetryFailures ?? [:]
+        failures[originSpeciesID, default: 0] += 1
+        mutationRetryFailures = failures
+    }
+
+    /// 키를 지워 0으로 되돌린다. 값이 없던 계보는 사전을 만들지 않는다.
+    mutating func resetMutationRetryFailures(forOrigin originSpeciesID: String) {
+        guard var failures = mutationRetryFailures, failures[originSpeciesID] != nil else { return }
+        failures[originSpeciesID] = nil
+        mutationRetryFailures = failures
+    }
 
     func validate(now: Date = .now, catalogIDs: Set<String>? = nil) throws {
         guard schemaVersion == Self.schemaVersion,
@@ -292,6 +384,10 @@ enum GameError: LocalizedError, Equatable {
     case noLargeFood
     case inventoryFull
     case invalidBackup
+    case invalidEvolutionChoice
+    case evolutionChoiceRequired
+    case creatureActionUnavailable
+    case creatureLimitReached
 
     var errorDescription: String? {
         switch self {
@@ -304,6 +400,10 @@ enum GameError: LocalizedError, Equatable {
         case .noLargeFood: "대형 먹이가 부족합니다."
         case .inventoryFull: "먹이 보유 한도에 도달했습니다."
         case .invalidBackup: "유효한 PunchGrow 백업 파일이 아닙니다."
+        case .invalidEvolutionChoice: "지금 고를 수 없는 진화 대상입니다."
+        case .evolutionChoiceRequired: "진화 방향을 먼저 선택해 주세요."
+        case .creatureActionUnavailable: "지금 이 크리처로는 할 수 없는 동작입니다."
+        case .creatureLimitReached: "보유 크리처 한도에 도달했습니다."
         }
     }
 }

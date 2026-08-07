@@ -32,10 +32,25 @@ case "$SNAPSHOT_KIND" in
     EXPECTED_WIDTH=372
     EXPECTED_HEIGHT=620
     ;;
+  evolution-choice)
+    SNAPSHOT_FLAG=--snapshot-evolution-choice
+    EXPECTED_WIDTH=372
+    EXPECTED_HEIGHT=520
+    ;;
+  mutation-offer)
+    SNAPSHOT_FLAG=--snapshot-mutation-offer
+    EXPECTED_WIDTH=372
+    EXPECTED_HEIGHT=420
+    ;;
   rarity)
     SNAPSHOT_FLAG=--snapshot-rarity-guide
     EXPECTED_WIDTH=360
     EXPECTED_HEIGHT=490
+    ;;
+  menu-bar-hud)
+    SNAPSHOT_FLAG=--snapshot-menu-bar-hud
+    EXPECTED_WIDTH=852
+    EXPECTED_HEIGHT=352
     ;;
   *)
     echo "Unknown snapshot kind: $SNAPSHOT_KIND" >&2

@@ -1,4 +1,4 @@
-# PunchGrow v0.2.0 User Guide
+# PunchGrow v0.3.0 User Guide
 
 [한국어](USAGE.md) · [English](USAGE.en.md) · [Project README](../README.en.md)
 
@@ -61,7 +61,7 @@ The popup separates three values that serve different purposes:
 | --- | --- |
 | **TOKEN BALANCE / 보유 토큰** | Spendable game currency. Purchases and draws reduce this balance. |
 | **This week / 주간 사용량** | Numeric Claude Code and Codex token usage observed for the current week. Existing usage may appear here after the first scan. |
-| **C n% / X n%** | The providers' actual weekly plan percentages: `C` for Claude and `X` for Codex. In v0.2.0, `C` is available when `~/.claude/plugins/oh-my-claudecode/.usage-cache-anthropic.json` exists. They are not calculated from the game token balance. |
+| **C n% / X n%** | The providers' actual weekly plan percentages: `C` for Claude and `X` for Codex. In v0.3.0, `C` is queried from the Anthropic usage API using Claude Code's stored credentials read-only, falling back to the `~/.claude/plugins/oh-my-claudecode/.usage-cache-anthropic.json` cache. They are not calculated from the game token balance. |
 
 If a provider has not written usable quota metadata, PunchGrow shows a pending state instead of inventing `0%`. While collection is enabled, the app checks for new local values about every 10 seconds and reflects usage increases or weekly resets after the provider records them.
 
@@ -98,24 +98,24 @@ The first scan creates a **non-crediting baseline**. Current-week activity found
 
 Use **일반 구매** or **대형 구매** to add food to inventory, then use **일반 먹이** or **대형 먹이** on the currently displayed creature. A click performs one action. Press and hold a purchase or feed button to repeat the action at an accelerating rate; release to stop.
 
-### Current rarity and growth potential
+### Current rarity and maximum reachable rarity
 
 The creature card deliberately shows two different labels:
 
 - **현재** (Current) is the creature's rarity right now.
-- **성장 잠재력** (Growth potential) is the final rarity on its deterministic automatic evolution path.
+- **최대 도달 등급** (Maximum reachable rarity) is the ceiling rarity reachable by choosing through every selectable evolution fork, excluding mutations. It is paired with a **최소 보장** (Minimum guaranteed) rarity so an unclaimed fork does not read as an optimistic promise.
 
-An **ORIGIN lineage** means that the starting creature can eventually evolve to ORIGIN. Three of the 60 starting lineages currently do so, which is **3/60 = 5%**. This is **not** a 5% direct ORIGIN draw: an ORIGIN-lineage draw still gives you a PROCESS creature.
+An **ORIGIN lineage** means that the starting creature can eventually reach ORIGIN if you pick that direction at every fork. Three of the 60 starting lineages currently do so, which is **3/60 = 5%**. This is **not** a 5% direct ORIGIN draw: an ORIGIN-lineage draw still gives you a PROCESS creature.
 
-Open **등급표** (Rarity index) to compare direct draw rarity with final lineage potential.
+Open **등급표** (Rarity index) to compare direct draw rarity with maximum-reachable-rarity lineage proportions.
 
-![Rarity index separating PROCESS 100 percent direct draws from the 3 of 60 ORIGIN lineage potential](screenshots/rarity-guide.png)
+![Rarity index separating PROCESS 100 percent direct draws from the 3 of 60 ORIGIN lineage maximum reachable rarity](screenshots/rarity-guide.png)
 
 This screenshot also uses deterministic documentation data, not private usage records.
 
 ### Evolution
 
-Creatures evolve automatically when they reach these levels:
+Creatures become eligible for their next stage at these levels:
 
 | Level | Evolution |
 | ---: | --- |
@@ -125,9 +125,13 @@ Creatures evolve automatically when they reach these levels:
 
 The normal level cap is **50**. Older saves containing levels 51–100 remain readable, but those creatures cannot gain additional levels.
 
-Select **진화** (Evolution) to inspect the current creature's starting form, branches, level gates, discovery state, and automatic path. `AUTO` marks the path PunchGrow will choose.
+At an **evolution fork** (level 15 or level 25, once per lifetime) with more than one candidate, you pick the direction yourself instead of it happening automatically. Reserve a target in advance from the evolution dex with **이 모습으로 키우기** (raise into this form) so the fork does not pause; leave it unreserved and evolution stops at the fork with a **진화 선택 대기** (evolution choice pending) badge until you choose.
 
-![Evolution dex showing the current creature, growth potential, branch choices, automatic path, and level gates](screenshots/evolution-dex.png)
+Lineages with a mutation candidate get a 10% chance to trigger a mutation offer at the level-15 evolution, asking you to accept or decline. Accepting ends growth on the spot as a terminal mutant form; declining continues along the chosen or reserved path. A missed chance can be retried with **변이 재도전** (mutation retry, `1,000,000` tokens per attempt, 10% chance); 30 failed retries in the same lineage guarantee the next attempt succeeds. A creature raised to its final stage can use **계승** (inheritance, `5,000,000` tokens) to obtain a new individual of the same starting species for raising a different fork.
+
+Select **진화** (Evolution) to inspect the current creature's starting form, branches, level gates, discovery state, and selectable path. The dex highlights any reserved target.
+
+![Evolution dex showing the current creature, maximum reachable rarity, branch choices, the selectable path, and level gates](screenshots/evolution-dex.png)
 
 The evolution screenshot is generated from deterministic sample state and contains no private log data.
 
@@ -138,7 +142,7 @@ The fixed bottom row keeps the main navigation available:
 | Action | Opens |
 | --- | --- |
 | **도감** | Collection window with owned and discovered progress, search, creature cards, and locked silhouettes |
-| **등급표** | Direct draw rarity and final growth-potential distribution |
+| **등급표** | Direct draw rarity and maximum-reachable-rarity distribution |
 | **진화** | Evolution dex for the currently displayed creature |
 | **설정** | The large window, including Connections and Data & Settings |
 | **종료** | Quits PunchGrow |
@@ -176,7 +180,7 @@ PunchGrow processes usage locally and does not need to launch Claude Code or Cod
 
 It keeps only the numeric usage required for the game, timestamps, opaque hashes, incremental file cursors, provider quota percentages, reset times, and local game state. Its usage/status model excludes prompts, responses, source code, commands, project names, raw paths, email addresses, account or model identifiers, and original message/request IDs.
 
-PunchGrow reads allowed usage fields from the original JSONL files but never edits or deletes those files. No account, cloud synchronization, ranking, or multiplayer service is part of v0.2.0.
+PunchGrow reads allowed usage fields from the original JSONL files but never edits or deletes those files. No account, cloud synchronization, ranking, or multiplayer service is part of v0.3.0.
 
 ## Troubleshooting
 
@@ -198,7 +202,7 @@ This is expected on the first opted-in scan. Existing activity establishes the n
 
 ### C or X shows a pending value
 
-The relevant provider has not written readable weekly quota metadata yet, or PunchGrow needs attention reading the local cache. In v0.2.0, `C —` can remain pending when the `oh-my-claudecode` usage cache has not been created; `X —` can remain pending until Codex writes weekly rate-limit metadata into a local session. PunchGrow does not invent a percentage when either value is unavailable. Check **Connections** for a sanitized error or last-scan time.
+The relevant provider has not written readable weekly quota metadata yet, or PunchGrow needs attention reading the local cache. In v0.3.0, `C —` can remain pending when the `oh-my-claudecode` usage cache has not been created; `X —` can remain pending until Codex writes weekly rate-limit metadata into a local session. PunchGrow does not invent a percentage when either value is unavailable. Check **Connections** for a sanitized error or last-scan time.
 
 ### Collection says stopped or needs attention
 

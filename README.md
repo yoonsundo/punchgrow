@@ -4,7 +4,7 @@
   <h1>PunchGrow</h1>
 
   <p><strong>코딩이 크리처를 키우는 가장 즐거운 방법</strong></p>
-  <p>Claude Code와 Codex 사용량으로 토큰을 얻고,<br />크리처를 부화·육성하며 240종 도감을 완성하세요.</p>
+  <p>Claude Code와 Codex 사용량으로 토큰을 얻고,<br />크리처를 부화·육성하며 240종 도감을 넓혀가세요.</p>
 
   <p>
     <a href="README.md"><strong>한국어</strong></a>
@@ -13,7 +13,7 @@
   </p>
 
   <p>
-    <img alt="v0.2.0" src="https://img.shields.io/badge/version-v0.2.0-C6F84E?style=flat-square&logoColor=08111F" />
+    <img alt="v0.3.0" src="https://img.shields.io/badge/version-v0.3.0-C6F84E?style=flat-square&logoColor=08111F" />
     <img alt="macOS 14+" src="https://img.shields.io/badge/macOS-14%2B-4DE1FF?style=flat-square&logo=apple&logoColor=white" />
     <img alt="Swift 6" src="https://img.shields.io/badge/Swift-6-FF4D9D?style=flat-square&logo=swift&logoColor=white" />
     <img alt="Local First" src="https://img.shields.io/badge/data-local--first-C6F84E?style=flat-square&logoColor=08111F" />
@@ -35,7 +35,7 @@
 
 ---
 
-> **프로젝트 상태: v0.2.0 알파.** 이 저장소의 공개 대상은 Apple Silicon macOS 14+ 메뉴 막대 앱입니다.
+> **프로젝트 상태: v0.3.0 알파.** 이 저장소의 공개 대상은 Apple Silicon macOS 14+ 메뉴 막대 앱입니다.
 
 GitHub Actions의 Full Xcode 환경에서 Swift 테스트, Release 빌드, 240개 크리처 리소스 조립과 ad-hoc 코드서명을 검증합니다. Developer ID 서명과 Apple 공증을 마친 공개 Homebrew 바이너리는 별도의 릴리스 단계입니다.
 
@@ -50,13 +50,13 @@ GitHub Actions의 Full Xcode 환경에서 Swift 테스트, Release 빌드, 240�
 아래 이미지는 현재 앱의 SwiftUI 화면을 그대로 렌더링한 캡처입니다. 문서 전용 고정 샘플 데이터를 사용하며 사용자의 실제 로그·프롬프트·소스 코드는 포함하지 않습니다.
 
 <p align="center">
-  <img src="docs/screenshots/menu-popover.png" width="398" alt="PunchGrow 메인 팝오버: 현재 등급, 성장 잠재력, 주간 사용률, 먹이와 가챠 버튼" />
+  <img src="docs/screenshots/menu-popover.png" width="398" alt="PunchGrow 메인 팝오버: 현재 등급, 최대 도달 등급, 주간 사용률, 먹이와 가챠 버튼" />
 </p>
 
 <table>
   <tr>
-    <td align="center"><img src="docs/screenshots/rarity-guide.png" width="360" alt="PunchGrow 등급표: 직접 획득 확률과 성장 잠재력 계보 비율" /><br /><strong>등급표</strong><br /><sub>직접 가챠와 최종 성장 잠재력을 분리해 표시</sub></td>
-    <td align="center"><img src="docs/screenshots/evolution-dex.png" width="372" alt="PunchGrow 진화도감: 단계, 분기, 현재 위치와 자동 진화 경로" /><br /><strong>진화도감</strong><br /><sub>현재 종부터 이어지는 자동 경로와 전체 계보 확인</sub></td>
+    <td align="center"><img src="docs/screenshots/rarity-guide.png" width="360" alt="PunchGrow 등급표: 직접 획득 확률과 최대 도달 등급 계보 비율" /><br /><strong>등급표</strong><br /><sub>직접 가챠와 최대 도달 등급을 분리해 표시</sub></td>
+    <td align="center"><img src="docs/screenshots/evolution-dex.png" width="372" alt="PunchGrow 진화도감: 단계, 분기, 현재 위치와 선택 가능한 진화 경로" /><br /><strong>진화도감</strong><br /><sub>현재 종부터 이어지는 진화 경로와 예약 대상 확인</sub></td>
   </tr>
 </table>
 
@@ -85,17 +85,27 @@ GitHub Actions의 Full Xcode 환경에서 Swift 테스트, Release 빌드, 240�
 | --- | --- |
 | 가챠 1회 | `500,000` 토큰 |
 | 가챠 결과 | 60종 PROCESS 시작형 중 하나 · PROCESS 100% |
-| ORIGIN 계보 | 60개 중 3개 · 성장 잠재력 5% (직접 ORIGIN 뽑기 아님) |
+| ORIGIN 계보 | 60개 중 3개 · 최대 도달 등급 5% (직접 ORIGIN 뽑기 아님) |
 | 일반 먹이 | 구매 `100,000` 토큰 · XP `+25` · 친밀도 `+3` |
 | 대형 먹이 | 구매 `500,000` 토큰 · XP `+200` · 친밀도 `+10` |
 | 유니크 컬러 | 매 가챠 `0.1%`, 능력 차이 없음 |
 | 중복 크리처 | 자동 분해 없이 별도 개체로 보유하고 서로 다르게 육성 가능 |
-| 자동 진화 | Lv.15 → 2단계 · Lv.25 → 3단계 · Lv.40 → 4단계 |
+| 진화 레벨 | Lv.15 → 2단계 · Lv.25 → 3단계 · Lv.40 → 4단계 |
+| 진화 갈림길 | 평생 최대 1회 · 2지선다 직접 선택(도감에서 미리 예약 가능), 미선택 시 진화 대기 |
+| 변이 발동 | 갈림길 진화 순간 `10%` 확률 · 수락하면 종착, 거절하면 선택·예약 경로로 진화 |
+| 변이 재도전 | 회당 `1,000,000` 토큰 · `10%` 확률, 계보당 `30`회 실패 시 다음 도전에서 확정 |
+| 계승 | `5,000,000` 토큰 · 최종 단계 개체로 같은 시작종 새 개체 획득 |
 | 만렙 | Lv.50. 기존 Lv.51~100 저장은 유지되지만 더 오르지 않음 |
 
 ### 성장과 진화
 
-가챠에서는 고등급 진화체를 직접 뽑지 않습니다. 모든 개체는 PROCESS로 시작하며 먹이로 레벨을 올리면 카탈로그 계보에 따라 자동 진화합니다. 카드는 실제 상태인 `현재 <등급>`과 자동 경로의 최종값인 `성장 잠재력 <최종 등급>`을 분리해 보여줍니다. ORIGIN 계보를 뽑아도 현재는 PROCESS며, ORIGIN 전용 공개는 실제 ORIGIN 종을 보유했을 때에만 적용됩니다. 계보에 다음 단계 데이터가 없는 경우 현재 모습으로 계속 성장합니다.
+가챠에서는 고등급 진화체를 직접 뽑지 않습니다. 모든 개체는 PROCESS로 시작하며 먹이로 레벨을 올려 성장합니다. 카드는 실제 상태인 `현재 <등급>`과, 변이를 제외하고 선택 가능한 경로 기준 상한인 `최대 도달 등급 <등급>`을 분리해 보여주며 낙관 편향을 막기 위해 최소 보장 등급도 함께 표시합니다.
+
+진화 갈림길(Lv.15 또는 Lv.25, 평생 최대 1회)에서는 2지선다로 진화 방향을 직접 고릅니다. 진화도감에서 미리 `이 모습으로 키우기`로 예약해 두면 갈림길에서 멈추지 않고 예약한 모습으로 이어서 진화하며, 예약하지 않은 채 갈림길에 도달하면 진화가 멈추고 배지로 선택을 요청합니다.
+
+변이 후보가 있는 계보는 Lv.15 진화 순간마다 10% 확률로 변이가 발동해 수락/거절을 묻습니다. 수락하면 그 자리에서 변이체로 종착하고, 거절하면 원래 선택·예약해 둔 경로로 진화가 이어집니다. 놓친 변이 기회는 `변이 재도전`(회당 1,000,000 토큰, 10% 확률)으로 다시 노려볼 수 있으며 같은 계보에서 30회 연속 실패하면 다음 도전에서 확정 발동합니다.
+
+최종 단계까지 키운 개체는 `계승`(5,000,000 토큰)으로 같은 시작종의 새 개체를 얻어 다른 갈림길을 재육성할 수 있습니다. ORIGIN 계보를 뽑아도 현재는 PROCESS며, ORIGIN 전용 공개는 실제 ORIGIN 종을 보유했을 때에만 적용됩니다. 계보에 다음 단계 데이터가 없는 경우 현재 모습으로 계속 성장합니다.
 
 ## PunchGrow를 만든 이유
 
@@ -105,17 +115,17 @@ AI 코딩에는 토큰 사용량이라는 유용한 활동 신호가 이미 존�
 
 | 영역 | 상태 | 용도 |
 | --- | --- | --- |
-| `macos/` | v0.2.0 | Apple Silicon macOS 14+용 네이티브 SwiftUI 메뉴 막대 게임 |
+| `macos/` | v0.3.0 | Apple Silicon macOS 14+용 네이티브 SwiftUI 메뉴 막대 게임 |
 
-현재 게임에는 60종 시작형 가챠, Lv.15·25·40 자동 진화, 6단계 진화 등급(`PROCESS` → `ORIGIN`), 유니크 컬러, 먹이 주기, 로컬 저장·복원과 240종 크리처 도감이 포함되어 있습니다.
+현재 게임에는 60종 시작형 가챠, Lv.15·25·40 레벨 진화와 갈림길 선택·변이·계승, 6단계 진화 등급(`PROCESS` → `ORIGIN`), 유니크 컬러, 먹이 주기, 로컬 저장·복원과 240종 크리처 도감이 포함되어 있습니다.
 
-macOS 팝업에서는 일반·대형 먹이의 구매와 급여 버튼을 길게 눌러 가속 연속 실행할 수 있습니다. 가챠 결과와 메인 카드에서 현재 등급과 성장 잠재력을 함께 확인할 수 있습니다. 하단의 `등급표`는 `PROCESS 100%`인 직접 가챠 등급과 `ORIGIN 계보 3/60 (5%)`와 같은 성장 계보 비율, 보유·발견·전체 크리처 수를 분리해 보여줍니다. `진화`에서는 선택한 크리처의 시작형부터 최종형까지 이미지·등급·분기·자동 경로를 진화도감으로 볼 수 있습니다. `도감`과 `설정`은 큰 화면으로 바로 이동하며, 높은 단계일수록 배지·테두리·오라 효과가 강화됩니다.
+macOS 팝업에서는 일반·대형 먹이의 구매와 급여 버튼을 길게 눌러 가속 연속 실행할 수 있습니다. 가챠 결과와 메인 카드에서 현재 등급과 최대 도달 등급을 함께 확인할 수 있습니다. 하단의 `등급표`는 `PROCESS 100%`인 직접 가챠 등급과 `ORIGIN 계보 3/60 (5%)`와 같은 최대 도달 등급 계보 비율, 보유·발견·전체 크리처 수를 분리해 보여줍니다. `진화`에서는 선택한 크리처의 시작형부터 최종형까지 이미지·등급·분기와 예약 가능한 진화 경로를 진화도감으로 볼 수 있습니다. `도감`과 `설정`은 큰 화면으로 바로 이동하며, 높은 단계일수록 배지·테두리·오라 효과가 강화됩니다.
 
 ### 실제 플랜 사용률
 
 메뉴 막대의 `C n%`와 `X n%`는 토큰량으로 추정한 값이 아닙니다.
 
-- `C`: v0.2.0은 `~/.claude/plugins/oh-my-claudecode/.usage-cache-anthropic.json`에 기록된 Claude 실제 주간 사용률을 읽습니다. 이 캐시가 없으면 `확인 대기`로 남습니다.
+- `C`: v0.3.0은 Claude Code가 보관한 로그인 정보를 읽기 전용으로 사용해 Anthropic 사용량 API에서 실제 주간 사용률을 직접 조회합니다. 조회할 수 없으면 `~/.claude/plugins/oh-my-claudecode/.usage-cache-anthropic.json` 캐시 값을 대신 읽고, 둘 다 없으면 `확인 대기`로 남습니다.
 - `X`: Codex 세션 로그의 실제 주간 `used_percent`
 - 자동 수집이 켜져 있으면 약 10초 간격으로 확인합니다.
 - 공급자가 새 값을 기록하면 사용 증가와 주간 초기화를 자동 반영합니다.
@@ -127,7 +137,7 @@ macOS 앱은 로컬에서 실행되며 사용자가 명시적으로 활성화하
 
 - Claude Code 사용량은 `~/.claude/projects/**/*.jsonl`에서 탐색합니다.
 - Codex 사용량은 `~/.codex/sessions/**/*.jsonl`에서 탐색합니다.
-- 플랜 사용률은 Claude의 로컬 사용량 캐시와 Codex 로그의 한도 메타데이터에서 읽으며 인증 토큰은 저장하지 않습니다.
+- Claude 플랜 사용률은 Claude Code의 로그인 정보를 읽기 전용으로 사용해 Anthropic 사용량 API에서 조회하며(실패 시 로컬 캐시 폴백), Codex는 로그의 한도 메타데이터에서 읽습니다. 인증 토큰은 게임 데이터에 저장하지 않습니다.
 - 최초 스캔은 토큰을 지급하지 않는 기준선을 만들며, 이후 증가분만 게임 토큰으로 적립합니다.
 - PunchGrow는 정규화된 토큰 수, 시각, 불투명 해시, 증분 커서와 게임 상태만 저장합니다.
 - 프롬프트, 응답, 소스 코드, 명령어, 프로젝트명, 원본 경로, 이메일, 계정·모델 식별자는 저장하지 않습니다.

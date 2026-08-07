@@ -11,31 +11,45 @@ enum TokenIngestionResult: Equatable {
 
 @MainActor
 final class GameStore: ObservableObject {
+    static let persistenceLockedActionMessage =
+        "저장이 잠겨 있어 진화 선택을 적용할 수 없습니다. Data & Settings에서 백업을 복원해 주세요."
+
     @Published private(set) var state: GameState
     @Published private(set) var catalog: [CreatureSpecies]
     @Published private(set) var currentCreatureID: UUID?
     @Published var errorMessage: String?
     @Published private(set) var evolutionFeedback: EvolutionFeedback?
+    /// 세션 한정. 저장하지 않으므로 앱을 다시 켜면 같은 지점에서 다시 판정된다.
+    @Published private(set) var pendingMutationOffer: PendingMutationOffer?
     @Published private(set) var observedLocalUsage: [TokenProvider: Int] = [:]
     @Published private(set) var observedLocalWeeklyUsage: [TokenProvider: Int] = [:]
     @Published private(set) var observedLocalWeeklyBreakdown: [TokenProvider: LocalUsageCounts] = [:]
     @Published private(set) var observedQuotaSnapshots: [TokenProvider: ProviderQuotaSnapshot] = [:]
+    /// 뷰가 버튼을 비활성화하고 사유를 표시할 수 있도록 잠금 상태를 공개한다.
+    @Published private(set) var isPersistenceLocked = false
 
     private let persistence: GamePersistence
     private let now: () -> Date
     private let onCreditedEvent: (TokenProvider, Date, Int) -> Void
-    private var persistenceLocked = false
+    /// 확률 판정에 쓰는 유일한 난수원. 한 번 만들어 계속 이어 쓰므로 테스트가
+    /// `SeededGenerator`를 주입하면 호출 순서 전체가 결정론적으로 재현된다.
+    private var generator: AnyRandomNumberGenerator
 
     init(
         persistence: GamePersistence = GamePersistence(),
         catalog catalogOverride: [CreatureSpecies]? = nil,
         now: @escaping () -> Date = { .now },
-        onCreditedEvent: @escaping (TokenProvider, Date, Int) -> Void = { _, _, _ in }
+        onCreditedEvent: @escaping (TokenProvider, Date, Int) -> Void = { _, _, _ in },
+        makeGenerator: () -> any RandomNumberGenerator = { SystemRandomNumberGenerator() }
     ) {
         self.persistence = persistence
         self.now = now
         self.onCreditedEvent = onCreditedEvent
+        self.generator = AnyRandomNumberGenerator(makeGenerator())
         var startupErrors: [String] = []
+        // @Published 프로퍼티는 모든 저장 프로퍼티가 초기화된 뒤에야 대입할 수 있어
+        // 지역 변수로 받아 두었다가 init 마지막에 옮긴다.
+        var locked = false
         if let catalogOverride {
             self.catalog = catalogOverride
         } else {
@@ -52,11 +66,12 @@ final class GameStore: ObservableObject {
             if try persistence.requiresMigrationCommit() { try persistence.save(self.state) }
         } catch {
             self.state = GameState()
-            self.persistenceLocked = true
+            locked = true
             startupErrors.append("저장 데이터를 읽지 못했습니다. 원본 파일은 덮어쓰지 않습니다. Data & Settings에서 백업을 복원해 주세요.")
         }
         self.currentCreatureID = Self.initialCurrentCreatureID(in: state, catalog: catalog)
         self.errorMessage = startupErrors.isEmpty ? nil : startupErrors.joined(separator: "\n")
+        self.isPersistenceLocked = locked
     }
 
     var currentCreature: OwnedCreature? {
@@ -76,89 +91,215 @@ final class GameStore: ObservableObject {
 
     var currentCreatureIndex: Int? {
         guard let id = resolvedCurrentCreatureID else { return nil }
-        return visibleOwnedCreatures.firstIndex(where: { $0.id == id })
+        return visibleGroupIndex(forOwnedCreatureID: id)
     }
 
     var currentCreatureCount: Int { visibleOwnedCreatures.count }
     var currentCreaturePosition: Int? { currentCreatureIndex.map { $0 + 1 } }
     var canNavigateCreatures: Bool { currentCreatureCount > 1 }
 
+    var groupMemberPosition: Int? {
+        guard let id = resolvedCurrentCreatureID,
+              let index = currentOriginGroup.firstIndex(where: { $0.id == id }) else { return nil }
+        return index + 1
+    }
+
+    var pendingEvolutionChoice: PendingEvolutionChoice? {
+        guard let currentCreature else { return nil }
+        return GameEngine.pendingEvolutionChoice(for: currentCreature, catalog: catalog)
+    }
+
+    var pendingEvolutionChoices: [PendingEvolutionChoice] {
+        state.ownedCreatures.compactMap {
+            GameEngine.pendingEvolutionChoice(for: $0, catalog: catalog)
+        }
+    }
+
     private var visibleOwnedCreatures: [OwnedCreature] {
         GameEngine.visibleOwnedCreatures(in: state, catalog: catalog)
     }
 
+    private var currentOriginGroup: [OwnedCreature] {
+        guard let id = resolvedCurrentCreatureID else { return [] }
+        return GameEngine.ownedCreatures(inOriginGroupOf: id, state: state, catalog: catalog)
+    }
+
     private var resolvedCurrentCreatureID: UUID? {
-        if let currentCreatureID {
-            if visibleOwnedCreatures.contains(where: { $0.id == currentCreatureID }) {
-                return currentCreatureID
-            }
-            if let resolved = visibleCreatureID(forOwnedCreatureID: currentCreatureID) {
-                return resolved
-            }
+        if let currentCreatureID,
+           state.ownedCreatures.contains(where: { $0.id == currentCreatureID }) {
+            return currentCreatureID
         }
         return Self.initialCurrentCreatureID(in: state, catalog: catalog)
     }
 
     private var resolvedRepresentativeCreatureID: UUID? {
-        guard let representativeCreatureID = state.representativeCreatureID else { return nil }
-        if visibleOwnedCreatures.contains(where: { $0.id == representativeCreatureID }) {
-            return representativeCreatureID
-        }
-        return visibleCreatureID(forOwnedCreatureID: representativeCreatureID)
+        guard let representativeCreatureID = state.representativeCreatureID,
+              state.ownedCreatures.contains(where: { $0.id == representativeCreatureID })
+        else { return nil }
+        return representativeCreatureID
     }
 
-    private func visibleCreatureID(forOwnedCreatureID id: UUID) -> UUID? {
+    private func visibleGroupIndex(forOwnedCreatureID id: UUID) -> Int? {
         guard let owned = state.ownedCreatures.first(where: { $0.id == id }) else { return nil }
         let origin = GameEngine.originSpeciesID(for: owned, catalog: catalog)
-        return visibleOwnedCreatures.first {
+        return visibleOwnedCreatures.firstIndex {
             GameEngine.originSpeciesID(for: $0, catalog: catalog) == origin
-        }?.id
+        }
     }
 
     @discardableResult
     func pull() -> OwnedCreature? {
-        guard !persistenceLocked else { return nil }
+        guard !isPersistenceLocked else { return nil }
         guard let creature: OwnedCreature = performMutation({ state in
-            var generator = SystemRandomNumberGenerator()
-            return try GameEngine.pull(state: &state, catalog: catalog, generator: &generator)
+            try self.advancingGenerator { generator in
+                try GameEngine.pull(state: &state, catalog: self.catalog, generator: &generator)
+            }
         }) else { return nil }
-        let originSpeciesID = GameEngine.originSpeciesID(for: creature, catalog: catalog)
-        currentCreatureID = visibleOwnedCreatures.first {
-            GameEngine.originSpeciesID(for: $0, catalog: catalog) == originSpeciesID
-        }?.id
+        currentCreatureID = creature.id
         return creature
     }
 
     func feedCurrent() {
-        guard !persistenceLocked else { return }
+        guard !isPersistenceLocked else { return }
         guard let creatureID = resolvedCurrentCreatureID else { return }
-        guard let evolutions = performMutation({ state in
-            try GameEngine.feed(creatureID: creatureID, state: &state, catalog: catalog)
+        guard let outcome = performMutation({ state in
+            try self.advancingGenerator { generator in
+                try GameEngine.feed(
+                    creatureID: creatureID, state: &state, catalog: self.catalog,
+                    generator: &generator,
+                    deferringEvolution: self.pendingMutationOffer?.creatureID == creatureID)
+            }
         }) else { return }
-        publishEvolutionFeedback(evolutions)
+        apply(outcome)
     }
 
     func purchaseFood() {
-        guard !persistenceLocked else { return }
+        guard !isPersistenceLocked else { return }
         performMutation { state in try GameEngine.purchaseFood(state: &state) }
     }
 
     func feedLargeCurrent() {
-        guard !persistenceLocked else { return }
+        guard !isPersistenceLocked else { return }
         guard let creatureID = resolvedCurrentCreatureID else { return }
-        guard let evolutions = performMutation({ state in
-            try GameEngine.feedLarge(creatureID: creatureID, state: &state, catalog: catalog)
+        guard let outcome = performMutation({ state in
+            try self.advancingGenerator { generator in
+                try GameEngine.feedLarge(
+                    creatureID: creatureID, state: &state, catalog: self.catalog,
+                    generator: &generator,
+                    deferringEvolution: self.pendingMutationOffer?.creatureID == creatureID)
+            }
         }) else { return }
-        publishEvolutionFeedback(evolutions)
+        apply(outcome)
     }
 
     func purchaseLargeFood() {
-        guard !persistenceLocked else { return }
+        guard !isPersistenceLocked else { return }
         performMutation { state in try GameEngine.purchaseLargeFood(state: &state) }
+    }
+
+    /// 대기 배지에서 해당 개체로 포커스를 옮긴다. 대기 개체가 지금 보고 있는 개체가
+    /// 아닐 수 있으므로 선택 시트를 열기 전에 먼저 부른다.
+    func focusCreature(id: UUID) {
+        guard state.ownedCreatures.contains(where: { $0.id == id }) else { return }
+        currentCreatureID = id
+    }
+
+    func chooseEvolutionCurrent(toSpeciesID speciesID: String) {
+        guard let creatureID = resolvedCurrentCreatureID else { return }
+        chooseEvolution(creatureID: creatureID, toSpeciesID: speciesID)
+    }
+
+    func chooseEvolution(creatureID: UUID, toSpeciesID speciesID: String) {
+        guard !isPersistenceLocked else {
+            errorMessage = Self.persistenceLockedActionMessage
+            return
+        }
+        guard let outcome = performMutation({ state in
+            try self.advancingGenerator { generator in
+                try GameEngine.chooseEvolution(
+                    creatureID: creatureID, toSpeciesID: speciesID, state: &state,
+                    catalog: self.catalog, generator: &generator)
+            }
+        }) else { return }
+        apply(outcome)
+    }
+
+    func resolveMutationOfferCurrent(accept: Bool) {
+        guard let creatureID = resolvedCurrentCreatureID else { return }
+        resolveMutationOffer(creatureID: creatureID, accept: accept)
+    }
+
+    func resolveMutationOffer(creatureID: UUID, accept: Bool) {
+        guard !isPersistenceLocked else {
+            errorMessage = Self.persistenceLockedActionMessage
+            return
+        }
+        guard let offer = pendingMutationOffer, offer.creatureID == creatureID else { return }
+        guard let evolutions = performMutation({ state in
+            try self.advancingGenerator { generator in
+                try GameEngine.resolveMutationOffer(
+                    offer, accept: accept, state: &state, catalog: self.catalog,
+                    generator: &generator)
+            }
+        }) else { return }
+        pendingMutationOffer = nil
+        publishEvolutionFeedback(evolutions)
+    }
+
+    /// 지나친 변이를 토큰으로 다시 노린다. 성공·실패 모두 토큰을 쓰므로 어느 쪽이든 저장한다.
+    func retryMutationCurrent() {
+        guard !isPersistenceLocked else {
+            errorMessage = Self.persistenceLockedActionMessage
+            return
+        }
+        guard let creatureID = resolvedCurrentCreatureID else { return }
+        performMutation { state in
+            try self.advancingGenerator { generator in
+                try GameEngine.retryMutation(
+                    fromCreatureID: creatureID, state: &state, catalog: self.catalog,
+                    generator: &generator, now: self.now())
+            }
+        }
+    }
+
+    func inheritCurrent() {
+        guard !isPersistenceLocked else {
+            errorMessage = Self.persistenceLockedActionMessage
+            return
+        }
+        guard let creatureID = resolvedCurrentCreatureID else { return }
+        performMutation { state in
+            try GameEngine.inherit(
+                fromCreatureID: creatureID, state: &state, catalog: self.catalog, now: self.now())
+        }
+    }
+
+    func setEvolutionPreference(creatureID: UUID, toSpeciesID speciesID: String) {
+        guard !isPersistenceLocked else {
+            errorMessage = Self.persistenceLockedActionMessage
+            return
+        }
+        performMutation { state in
+            try GameEngine.setEvolutionPreference(
+                creatureID: creatureID, toSpeciesID: speciesID, state: &state, catalog: catalog)
+        }
+    }
+
+    func clearEvolutionPreference(creatureID: UUID) {
+        guard !isPersistenceLocked else {
+            errorMessage = Self.persistenceLockedActionMessage
+            return
+        }
+        performMutation { state in
+            try GameEngine.clearEvolutionPreference(creatureID: creatureID, state: &state)
+        }
     }
 
     func selectPreviousCreature() { moveCurrent(by: -1) }
     func selectNextCreature() { moveCurrent(by: 1) }
+
+    func selectPreviousInGroup() { moveWithinGroup(by: -1) }
+    func selectNextInGroup() { moveWithinGroup(by: 1) }
 
     func setCurrentAsRepresentative() {
         guard let creatureID = resolvedCurrentCreatureID else { return }
@@ -167,7 +308,7 @@ final class GameStore: ObservableObject {
 
     func addDemoUsage() {
 #if DEBUG
-        guard !persistenceLocked else { return }
+        guard !isPersistenceLocked else { return }
         let event = TokenUsageEvent(
             id: UUID(), provider: .claude, sourceEventID: UUID().uuidString,
             occurredAt: .now, inputTokens: 42_000, cachedTokens: 12_000, outputTokens: 8_000
@@ -190,7 +331,7 @@ final class GameStore: ObservableObject {
 
     @discardableResult
     func ingestCollectedEvents(_ events: [TokenUsageEvent]) -> TokenIngestionResult {
-        guard !persistenceLocked else {
+        guard !isPersistenceLocked else {
             errorMessage = TokenIngestionResult.persistenceFailureMessage
             return .failed
         }
@@ -217,7 +358,7 @@ final class GameStore: ObservableObject {
 
     @discardableResult
     func ingestCodexSnapshot(_ snapshot: CodexTokenSnapshot) -> TokenIngestionResult {
-        guard !persistenceLocked else {
+        guard !isPersistenceLocked else {
             errorMessage = TokenIngestionResult.persistenceFailureMessage
             return .failed
         }
@@ -242,7 +383,7 @@ final class GameStore: ObservableObject {
     func exportBackup(to url: URL) {
         do {
             try persistence.export(state, to: url)
-            if !persistenceLocked { errorMessage = nil }
+            if !isPersistenceLocked { errorMessage = nil }
         } catch {
             errorMessage = error.localizedDescription
         }
@@ -255,7 +396,8 @@ final class GameStore: ObservableObject {
             try persistence.save(restored)
             state = restored
             currentCreatureID = Self.initialCurrentCreatureID(in: restored, catalog: catalog)
-            persistenceLocked = false
+            pendingMutationOffer = nil
+            isPersistenceLocked = false
             errorMessage = nil
         } catch {
             errorMessage = error.localizedDescription
@@ -269,7 +411,7 @@ final class GameStore: ObservableObject {
 
     @discardableResult
     private func performMutation<Result>(_ mutation: (inout GameState) throws -> Result) -> Result? {
-        guard !persistenceLocked else { return nil }
+        guard !isPersistenceLocked else { return nil }
         do {
             var next = state
             let result = try mutation(&next)
@@ -287,12 +429,40 @@ final class GameStore: ObservableObject {
     private func moveCurrent(by offset: Int) {
         let creatures = visibleOwnedCreatures
         guard creatures.count > 1, let currentID = resolvedCurrentCreatureID,
-              let index = creatures.firstIndex(where: { $0.id == currentID }) else { return }
+              let index = visibleGroupIndex(forOwnedCreatureID: currentID) else { return }
         currentCreatureID = creatures[(index + offset + creatures.count) % creatures.count].id
+    }
+
+    private func moveWithinGroup(by offset: Int) {
+        let group = currentOriginGroup
+        guard group.count > 1, let currentID = resolvedCurrentCreatureID,
+              let index = group.firstIndex(where: { $0.id == currentID }) else { return }
+        currentCreatureID = group[(index + offset + group.count) % group.count].id
     }
 
     private func reconcileCurrentCreature() {
         currentCreatureID = resolvedCurrentCreatureID
+        // 개체가 사라졌거나 이미 다른 종이 됐으면 오퍼는 더 이상 성립하지 않는다.
+        if let offer = pendingMutationOffer,
+           state.ownedCreatures.first(where: { $0.id == offer.creatureID })?.speciesID
+               != offer.fromSpeciesID {
+            pendingMutationOffer = nil
+        }
+    }
+
+    private func apply(_ outcome: FeedOutcome) {
+        if let offer = outcome.mutationOffer { pendingMutationOffer = offer }
+        publishEvolutionFeedback(outcome.evolutions)
+    }
+
+    /// 난수원을 꺼내 쓰고 진행된 상태를 되돌려 놓는다. 클래스 프로퍼티를 직접
+    /// `inout`으로 넘기지 않아 중첩 호출에서도 배타 접근 문제가 생기지 않는다.
+    private func advancingGenerator<Result>(
+        _ body: (inout AnyRandomNumberGenerator) throws -> Result
+    ) rethrows -> Result {
+        var local = generator
+        defer { generator = local }
+        return try body(&local)
     }
 
     private func publishEvolutionFeedback(_ evolutions: [EvolutionResult]) {
@@ -317,20 +487,10 @@ final class GameStore: ObservableObject {
         in state: GameState,
         catalog: [CreatureSpecies]
     ) -> UUID? {
-        let visibleCreatures = GameEngine.visibleOwnedCreatures(in: state, catalog: catalog)
-        if let representativeID = state.representativeCreatureID {
-            if visibleCreatures.contains(where: { $0.id == representativeID }) {
-                return representativeID
-            }
-            if let representative = state.ownedCreatures.first(where: { $0.id == representativeID }) {
-                let origin = GameEngine.originSpeciesID(for: representative, catalog: catalog)
-                if let resolved = visibleCreatures.first(where: {
-                    GameEngine.originSpeciesID(for: $0, catalog: catalog) == origin
-                }) {
-                    return resolved.id
-                }
-            }
+        if let representativeID = state.representativeCreatureID,
+           state.ownedCreatures.contains(where: { $0.id == representativeID }) {
+            return representativeID
         }
-        return visibleCreatures.first?.id
+        return GameEngine.visibleOwnedCreatures(in: state, catalog: catalog).first?.id
     }
 }

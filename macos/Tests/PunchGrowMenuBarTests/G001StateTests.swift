@@ -86,31 +86,21 @@ final class G001StateTests: XCTestCase {
   }
 
   @MainActor
-  func testSuccessfulPullFocusesOnlyNewVisibleSpeciesWithoutChangingRepresentative() throws {
+  func testSuccessfulPullFocusesTheAcquiredCreatureWithoutChangingRepresentative() throws {
     let store = GameStore(persistence: try copiedV2Fixture())
     let representative = store.state.representativeCreatureID
     let priorIDs = Set(store.state.ownedCreatures.map(\.id))
-    let priorVisibleCount = store.currentCreatureCount
 
     store.pull()
 
     let acquired = Set(store.state.ownedCreatures.map(\.id)).subtracting(priorIDs)
     XCTAssertTrue(acquired.count == 1)
-    if store.currentCreatureCount > priorVisibleCount {
-      XCTAssertTrue(acquired.contains(store.currentCreatureID!))
-    } else {
-      let acquiredCreature = try XCTUnwrap(
-        store.state.ownedCreatures.first(where: { acquired.contains($0.id) }))
-      let origin = GameEngine.originSpeciesID(for: acquiredCreature, catalog: store.catalog)
-      let expected = GameEngine.visibleOwnedCreatures(in: store.state, catalog: store.catalog)
-        .first(where: { GameEngine.originSpeciesID(for: $0, catalog: store.catalog) == origin })
-      XCTAssertEqual(store.currentCreatureID, expected?.id)
-    }
+    XCTAssertEqual(store.currentCreatureID, acquired.first)
     XCTAssertTrue(store.state.representativeCreatureID == representative)
   }
 
   @MainActor
-  func testDuplicatePullPersistsButKeepsEarliestVisibleCreatureFocused() throws {
+  func testDuplicatePullPersistsAndFocusesTheNewMemberWithoutGrowingTheVisibleList() throws {
     let species = CreatureSpecies(
       id: "PG-001", koName: "에일루", enName: "Eilu", lineageId: "PG-L001",
       rarity: "PROCESS", stage: 1, category: "start", bodyForm: "fox",
@@ -143,12 +133,18 @@ final class G001StateTests: XCTestCase {
     XCTAssertNotEqual(pulled.id, first.id)
     XCTAssertEqual(store.state.ownedCreatures.count, 3)
     XCTAssertEqual(store.currentCreatureCount, 2)
-    XCTAssertEqual(store.currentCreatureID, first.id)
+    XCTAssertEqual(store.currentCreatureID, pulled.id)
+    XCTAssertEqual(store.groupMemberPosition, 2)
+    XCTAssertEqual(
+      GameEngine.ownedCreatures(
+        inOriginGroupOf: pulled.id, state: store.state, catalog: store.catalog
+      ).map(\.id),
+      [first.id, pulled.id])
     XCTAssertEqual(try persistence.load().ownedCreatures.count, 3)
   }
 
   @MainActor
-  func testHiddenRepresentativeMapsToEarliestVisibleCreatureOfSameOrigin() throws {
+  func testRepresentativeHiddenFromVisibleListStaysOnItsOwnGroupMember() throws {
     let species = CreatureSpecies(
       id: "PG-001", koName: "에일루", enName: "Eilu", lineageId: "PG-L001",
       rarity: "PROCESS", stage: 1, category: "start", bodyForm: "fox",
@@ -171,8 +167,124 @@ final class G001StateTests: XCTestCase {
 
     let store = GameStore(persistence: persistence, catalog: [species])
 
-    XCTAssertEqual(store.currentCreatureID, first.id)
-    XCTAssertEqual(store.representativeCreature?.id, first.id)
+    XCTAssertEqual(store.currentCreatureID, hiddenRepresentative.id)
+    XCTAssertEqual(store.representativeCreature?.id, hiddenRepresentative.id)
+    XCTAssertEqual(store.currentCreatureCount, 1)
+    XCTAssertEqual(store.currentCreaturePosition, 1)
+    XCTAssertEqual(store.groupMemberPosition, 2)
+    XCTAssertEqual(
+      GameEngine.visibleOwnedCreatures(in: store.state, catalog: store.catalog).map(\.id),
+      [first.id])
+  }
+
+  @MainActor
+  func testOriginGroupReturnsEveryMemberInAcquisitionOrderWhileListStaysOnePerOrigin() throws {
+    let fixture = try groupedPersistence()
+    let store = GameStore(persistence: fixture.persistence, catalog: fixture.catalog)
+
+    XCTAssertEqual(
+      GameEngine.ownedCreatures(
+        inOriginGroupOf: fixture.group[0].id, state: store.state, catalog: store.catalog
+      ).map(\.id),
+      fixture.group.map(\.id))
+    XCTAssertEqual(
+      GameEngine.ownedCreatures(
+        inOriginGroupOf: fixture.group[2].id, state: store.state, catalog: store.catalog
+      ).map(\.id),
+      fixture.group.map(\.id))
+    XCTAssertEqual(
+      GameEngine.ownedCreatures(
+        inOriginGroupOf: fixture.other.id, state: store.state, catalog: store.catalog
+      ).map(\.id),
+      [fixture.other.id])
+    XCTAssertEqual(
+      GameEngine.visibleOwnedCreatures(in: store.state, catalog: store.catalog).map(\.id),
+      [fixture.group[0].id, fixture.other.id])
+    XCTAssertEqual(store.currentCreatureCount, 2)
+  }
+
+  @MainActor
+  func testSecondGroupMemberKeepsGroupPositionLabelAndExposesMemberPosition() throws {
+    let fixture = try groupedPersistence()
+    let store = GameStore(persistence: fixture.persistence, catalog: fixture.catalog)
+    XCTAssertEqual(store.currentCreatureID, fixture.group[0].id)
+    XCTAssertEqual(store.groupMemberPosition, 1)
+
+    store.selectNextInGroup()
+
+    XCTAssertEqual(store.currentCreatureID, fixture.group[1].id)
+    XCTAssertEqual(store.currentCreaturePosition, 1)
+    XCTAssertEqual(store.currentCreatureCount, 2)
+    XCTAssertEqual(store.groupMemberPosition, 2)
+    let presentation = CompactViewState(
+      state: store.state,
+      currentCreature: store.currentCreature,
+      currentPosition: store.currentCreaturePosition,
+      visibleCreatureCount: store.currentCreatureCount,
+      catalogIsEmpty: store.catalog.isEmpty,
+      weeklyUsage: [:]
+    )
+    XCTAssertEqual(presentation.positionLabel, "1 / 2")
+
+    let encoded =
+      try JSONSerialization.jsonObject(with: Data(contentsOf: fixture.persistence.fileURL))
+      as? [String: Any]
+    XCTAssertNil(encoded?["currentCreatureID"])
+  }
+
+  @MainActor
+  func testGroupNavigationWrapsAndOuterNavigationStillReachesTheNextGroup() throws {
+    let fixture = try groupedPersistence()
+    let store = GameStore(persistence: fixture.persistence, catalog: fixture.catalog)
+
+    store.selectPreviousInGroup()
+    XCTAssertEqual(store.currentCreatureID, fixture.group[2].id)
+    store.selectNextInGroup()
+    XCTAssertEqual(store.currentCreatureID, fixture.group[0].id)
+    store.selectNextInGroup()
+    XCTAssertEqual(store.currentCreatureID, fixture.group[1].id)
+
+    store.selectNextCreature()
+    XCTAssertEqual(store.currentCreatureID, fixture.other.id)
+    store.selectNextCreature()
+    XCTAssertEqual(store.currentCreatureID, fixture.group[0].id)
+  }
+
+  @MainActor
+  func testFeedingSecondGroupMemberChangesOnlyThatCreature() throws {
+    let fixture = try groupedPersistence()
+    let store = GameStore(persistence: fixture.persistence, catalog: fixture.catalog)
+    store.selectNextInGroup()
+
+    store.feedCurrent()
+
+    XCTAssertNil(store.errorMessage)
+    XCTAssertEqual(store.currentCreatureID, fixture.group[1].id)
+    XCTAssertEqual(
+      store.state.ownedCreatures.first { $0.id == fixture.group[1].id }?.experience, 25)
+    XCTAssertEqual(
+      store.state.ownedCreatures.first { $0.id == fixture.group[0].id }?.experience, 0)
+    XCTAssertEqual(
+      store.state.ownedCreatures.first { $0.id == fixture.group[2].id }?.experience, 0)
+    XCTAssertEqual(store.state.ownedCreatures.first { $0.id == fixture.other.id }?.experience, 0)
+  }
+
+  @MainActor
+  func testSecondGroupMemberBecomesRepresentativeAndSurvivesRelaunch() throws {
+    let fixture = try groupedPersistence()
+    let store = GameStore(persistence: fixture.persistence, catalog: fixture.catalog)
+    store.selectNextInGroup()
+
+    store.setCurrentAsRepresentative()
+
+    XCTAssertEqual(store.state.representativeCreatureID, fixture.group[1].id)
+    XCTAssertEqual(store.representativeCreature?.id, fixture.group[1].id)
+
+    let relaunched = GameStore(persistence: fixture.persistence, catalog: fixture.catalog)
+    XCTAssertEqual(relaunched.currentCreatureID, fixture.group[1].id)
+    XCTAssertEqual(relaunched.representativeCreature?.id, fixture.group[1].id)
+    XCTAssertEqual(relaunched.groupMemberPosition, 2)
+    XCTAssertEqual(relaunched.currentCreaturePosition, 1)
   }
 
   @MainActor
@@ -231,6 +343,149 @@ final class G001StateTests: XCTestCase {
     XCTAssertEqual(store.state.ownedCreatures.count, 2)
     XCTAssertEqual(store.currentCreatureCount, 1)
     XCTAssertEqual(store.currentCreatureID, firstID)
+  }
+
+  @MainActor
+  func testInvalidStoredPreferencesLoadCleanlyAndLeaveTheSaveFileUntouched() throws {
+    for invalidTarget in ["PG-XXX", "PG-062", "PG-041"] {
+      let directory = FileManager.default.temporaryDirectory.appending(path: UUID().uuidString)
+      let persistence = GamePersistence(fileURL: directory.appending(path: "state.json"))
+      let creature = OwnedCreature(
+        id: UUID(), speciesID: "PG-117", originSpeciesID: "PG-034", level: 25, experience: 0,
+        affection: 0, nickname: nil, preferredEvolutionTargetSpeciesID: invalidTarget,
+        uniqueColor: false, acquiredAt: Date(timeIntervalSince1970: 1))
+      var state = GameState()
+      state.ownedCreatures = [creature]
+      state.discoveredSpeciesIDs = ["PG-034", "PG-117"]
+      try persistence.save(state)
+      let saved = try Data(contentsOf: persistence.fileURL)
+
+      let store = GameStore(persistence: persistence)
+
+      XCTAssertNil(store.errorMessage)
+      XCTAssertNoThrow(try store.state.validate(catalogIDs: Set(store.catalog.map(\.id))))
+      XCTAssertEqual(
+        store.state.ownedCreatures[0].preferredEvolutionTargetSpeciesID, invalidTarget)
+      XCTAssertNotNil(store.pendingEvolutionChoice)
+      XCTAssertEqual(try Data(contentsOf: persistence.fileURL), saved)
+
+      store.feedCurrent()
+
+      XCTAssertNil(store.errorMessage)
+      XCTAssertNil(store.state.ownedCreatures[0].preferredEvolutionTargetSpeciesID)
+      XCTAssertNil(
+        try JSONDecoder.punchGrow
+          .decode(GameState.self, from: Data(contentsOf: persistence.fileURL))
+          .ownedCreatures[0].preferredEvolutionTargetSpeciesID)
+    }
+  }
+
+  @MainActor
+  func testLegacyStateWithoutPreferenceKeyLoadsAndStillAcceptsAnExplicitChoice() throws {
+    let directory = FileManager.default.temporaryDirectory.appending(path: UUID().uuidString)
+    let persistence = GamePersistence(fileURL: directory.appending(path: "state.json"))
+    try FileManager.default.createDirectory(at: directory, withIntermediateDirectories: true)
+    let creatureID = UUID()
+    let json = """
+      {"schemaVersion":2,"tokenBalance":0,"usageEvents":[],"creditedUsageEventKeys":[],
+      "lifetimeUsage":[],"codexCheckpoints":{},"ownedCreatures":[
+      {"id":"\(creatureID.uuidString)","speciesID":"PG-117","originSpeciesID":"PG-034",
+      "level":25,"experience":0,"affection":0,"nickname":null,"uniqueColor":false,
+      "acquiredAt":"2026-07-01T00:00:00Z"}],
+      "discoveredSpeciesIDs":["PG-034","PG-117"],"inventory":{"food":5,"largeFood":0,
+      "trainingTools":0,"evolutionMaterials":0},"pullsSinceOrigin":0,
+      "representativeCreatureID":null}
+      """
+    try Data(json.utf8).write(to: persistence.fileURL)
+
+    let store = GameStore(persistence: persistence)
+
+    XCTAssertNil(store.errorMessage)
+    XCTAssertNil(store.state.ownedCreatures[0].preferredEvolutionTargetSpeciesID)
+    XCTAssertEqual(store.pendingEvolutionChoice?.candidates.map(\.id), ["PG-118", "PG-205"])
+
+    store.chooseEvolutionCurrent(toSpeciesID: "PG-205")
+
+    XCTAssertNil(store.errorMessage)
+    XCTAssertEqual(store.state.ownedCreatures[0].speciesID, "PG-205")
+    XCTAssertNil(store.pendingEvolutionChoice)
+    XCTAssertEqual(store.evolutionFeedback?.toSpeciesID, "PG-205")
+    XCTAssertEqual(
+      GameStore(persistence: persistence).state.ownedCreatures[0].speciesID, "PG-205")
+  }
+
+  @MainActor
+  func testReservedPreferenceSurvivesBackupExportAndRestore() throws {
+    let directory = FileManager.default.temporaryDirectory.appending(path: UUID().uuidString)
+    let persistence = GamePersistence(fileURL: directory.appending(path: "state.json"))
+    let creature = OwnedCreature(
+      id: UUID(), speciesID: "PG-034", originSpeciesID: "PG-034", level: 1, experience: 0,
+      affection: 0, nickname: nil, uniqueColor: false, acquiredAt: Date(timeIntervalSince1970: 1))
+    var state = GameState()
+    state.ownedCreatures = [creature]
+    state.discoveredSpeciesIDs = ["PG-034"]
+    try persistence.save(state)
+    let store = GameStore(persistence: persistence)
+    store.setEvolutionPreference(creatureID: creature.id, toSpeciesID: "PG-205")
+    XCTAssertNil(store.errorMessage)
+    XCTAssertEqual(
+      store.state.ownedCreatures[0].preferredEvolutionTargetSpeciesID, "PG-205")
+
+    let backup = directory.appending(path: "backup.pgrow")
+    store.exportBackup(to: backup)
+    store.restoreBackup(from: backup)
+
+    XCTAssertNil(store.errorMessage)
+    XCTAssertEqual(
+      store.state.ownedCreatures[0].preferredEvolutionTargetSpeciesID, "PG-205")
+    XCTAssertEqual(
+      try persistence.restore(from: backup)
+        .ownedCreatures[0].preferredEvolutionTargetSpeciesID, "PG-205")
+  }
+
+  @MainActor
+  func testPendingChoicesCoverWaitingCreaturesBeyondTheCurrentSelection() throws {
+    let directory = FileManager.default.temporaryDirectory.appending(path: UUID().uuidString)
+    let persistence = GamePersistence(fileURL: directory.appending(path: "state.json"))
+    let calm = OwnedCreature(
+      id: UUID(), speciesID: "PG-001", originSpeciesID: "PG-001", level: 1, experience: 0,
+      affection: 0, nickname: nil, uniqueColor: false, acquiredAt: Date(timeIntervalSince1970: 1))
+    let waiting = OwnedCreature(
+      id: UUID(), speciesID: "PG-117", originSpeciesID: "PG-034", level: 25, experience: 0,
+      affection: 0, nickname: nil, uniqueColor: false, acquiredAt: Date(timeIntervalSince1970: 2))
+    var state = GameState()
+    state.ownedCreatures = [calm, waiting]
+    state.discoveredSpeciesIDs = ["PG-001", "PG-034", "PG-117"]
+    try persistence.save(state)
+
+    let store = GameStore(persistence: persistence)
+
+    XCTAssertEqual(store.currentCreatureID, calm.id)
+    XCTAssertNil(store.pendingEvolutionChoice)
+    XCTAssertEqual(store.pendingEvolutionChoices.map(\.creatureID), [waiting.id])
+
+    store.chooseEvolution(creatureID: waiting.id, toSpeciesID: "PG-118")
+
+    XCTAssertNil(store.errorMessage)
+    XCTAssertTrue(store.pendingEvolutionChoices.isEmpty)
+    XCTAssertEqual(store.currentCreatureID, calm.id)
+  }
+
+  @MainActor
+  func testLockedPersistenceReportsAnExplicitReasonForTheNewEvolutionAPIs() throws {
+    let directory = FileManager.default.temporaryDirectory.appending(path: UUID().uuidString)
+    try FileManager.default.createDirectory(at: directory, withIntermediateDirectories: true)
+    let persistence = GamePersistence(fileURL: directory.appending(path: "state.json"))
+    try Data("not json".utf8).write(to: persistence.fileURL)
+    let store = GameStore(persistence: persistence)
+    let creatureID = UUID()
+
+    store.chooseEvolution(creatureID: creatureID, toSpeciesID: "PG-118")
+    XCTAssertEqual(store.errorMessage, GameStore.persistenceLockedActionMessage)
+
+    store.errorMessage = nil
+    store.setEvolutionPreference(creatureID: creatureID, toSpeciesID: "PG-205")
+    XCTAssertEqual(store.errorMessage, GameStore.persistenceLockedActionMessage)
   }
 
   @MainActor
@@ -657,6 +912,44 @@ private func copiedV2Fixture() throws -> GamePersistence {
   let destination = directory.appending(path: "state.json")
   try FileManager.default.copyItem(at: source, to: destination)
   return GamePersistence(fileURL: destination)
+}
+
+private struct GroupedFixture {
+  let persistence: GamePersistence
+  let catalog: [CreatureSpecies]
+  let group: [OwnedCreature]
+  let other: OwnedCreature
+}
+
+/// 시작종 두 계보 — 첫 계보에 3마리, 둘째 계보에 1마리.
+private func groupedPersistence() throws -> GroupedFixture {
+  let species = CreatureSpecies(
+    id: "PG-001", koName: "에일루", enName: "Eilu", lineageId: "PG-L001",
+    rarity: "PROCESS", stage: 1, category: "start", bodyForm: "fox",
+    identity: "test", lore: "test", imagePath: "test")
+  let otherSpecies = CreatureSpecies(
+    id: "PG-002", koName: "다른 종", enName: "Other", lineageId: "PG-L002",
+    rarity: "PROCESS", stage: 1, category: "start", bodyForm: "bird",
+    identity: "test", lore: "test", imagePath: "test")
+  let group = (1...3).map { index in
+    OwnedCreature(
+      id: UUID(), speciesID: species.id, originSpeciesID: species.id,
+      level: 1, experience: 0, affection: 0, nickname: nil, uniqueColor: false,
+      acquiredAt: Date(timeIntervalSince1970: TimeInterval(index)))
+  }
+  let other = OwnedCreature(
+    id: UUID(), speciesID: otherSpecies.id, originSpeciesID: otherSpecies.id,
+    level: 1, experience: 0, affection: 0, nickname: nil, uniqueColor: false,
+    acquiredAt: Date(timeIntervalSince1970: 10))
+  let directory = FileManager.default.temporaryDirectory.appending(path: UUID().uuidString)
+  let persistence = GamePersistence(fileURL: directory.appending(path: "state.json"))
+  var state = GameState()
+  state.inventory.food = 5
+  state.ownedCreatures = group + [other]
+  state.discoveredSpeciesIDs = [species.id, otherSpecies.id]
+  try persistence.save(state)
+  return GroupedFixture(
+    persistence: persistence, catalog: [species, otherSpecies], group: group, other: other)
 }
 
 @MainActor

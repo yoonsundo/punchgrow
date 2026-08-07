@@ -2,8 +2,8 @@
 # frozen_string_literal: true
 
 cask "punchgrow" do
-  version "0.2.0"
-  sha256 "499b6dab867a2c35bb9bab3fe46035a0141702f689ea011185822172a9fa69aa"
+  version "0.3.0"
+  sha256 "758976484afd60e4e586e7710235bf8b29b0451d12d65b6fbffa3bc245861d4a"
 
   url "https://github.com/yoonsundo/punchgrow/releases/download/v#{version}/PunchGrow-#{version}-arm64.zip"
   name "PunchGrow"

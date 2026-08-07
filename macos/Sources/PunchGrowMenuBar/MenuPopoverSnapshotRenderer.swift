@@ -6,7 +6,10 @@ struct MenuPopoverSnapshotRequest: Equatable {
   static let flag = "--snapshot-menu-popover"
   static let menuFreshFlag = "--snapshot-menu-popover-fresh"
   static let evolutionFlag = "--snapshot-evolution-dex"
+  static let evolutionChoiceFlag = "--snapshot-evolution-choice"
+  static let mutationOfferFlag = "--snapshot-mutation-offer"
   static let rarityFlag = "--snapshot-rarity-guide"
+  static let menuBarHUDFlag = "--snapshot-menu-bar-hud"
 
   let kind: Kind
   let outputURL: URL
@@ -19,8 +22,14 @@ struct MenuPopoverSnapshotRequest: Equatable {
       match = (index, .menuFresh, Self.menuFreshFlag)
     } else if let index = arguments.firstIndex(of: Self.evolutionFlag) {
       match = (index, .evolution, Self.evolutionFlag)
+    } else if let index = arguments.firstIndex(of: Self.evolutionChoiceFlag) {
+      match = (index, .evolutionChoice, Self.evolutionChoiceFlag)
+    } else if let index = arguments.firstIndex(of: Self.mutationOfferFlag) {
+      match = (index, .mutationOffer, Self.mutationOfferFlag)
     } else if let index = arguments.firstIndex(of: Self.rarityFlag) {
       match = (index, .rarity, Self.rarityFlag)
+    } else if let index = arguments.firstIndex(of: Self.menuBarHUDFlag) {
+      match = (index, .menuBarHUD, Self.menuBarHUDFlag)
     } else {
       match = nil
     }
@@ -37,7 +46,10 @@ struct MenuPopoverSnapshotRequest: Equatable {
     case menu
     case menuFresh
     case evolution
+    case evolutionChoice
+    case mutationOffer
     case rarity
+    case menuBarHUD
   }
 
   var usesFreshSetupFixture: Bool { kind == .menuFresh }
@@ -72,6 +84,8 @@ struct MenuPopoverSnapshotFixture {
 enum MenuPopoverSnapshotRenderer {
   static let size = NSSize(width: MenuPopoverLayout.width, height: MenuPopoverLayout.height)
   static let evolutionSize = NSSize(width: 372, height: 620)
+  static let evolutionChoiceSize = NSSize(width: 372, height: 520)
+  static let mutationOfferSize = NSSize(width: 372, height: 420)
   static let raritySize = NSSize(width: 360, height: 490)
 
   static func makeFixture(freshSetup: Bool = false) throws -> MenuPopoverSnapshotFixture {
@@ -179,6 +193,156 @@ enum MenuPopoverSnapshotRenderer {
     )
   }
 
+  // 갈림길에서 멈춘 제피락 계보(PG-117 Lv.25)를 쓴다. 후보 PG-118은 발견 상태,
+  // 종착 후보 PG-205는 미발견이라 한 장의 스냅샷에서 두 카드 상태를 모두 확인할 수 있다.
+  static func renderEvolutionChoice(to outputURL: URL) throws {
+    let catalog = try CreatureCatalog.load()
+    let creature = OwnedCreature(
+      id: UUID(uuidString: "00000000-0000-4000-8000-000000000117")!,
+      speciesID: "PG-117",
+      originSpeciesID: "PG-034",
+      level: 25,
+      experience: 0,
+      affection: 100,
+      nickname: nil,
+      uniqueColor: false,
+      acquiredAt: Date(timeIntervalSince1970: 1_754_275_200)
+    )
+    guard let choice = GameEngine.pendingEvolutionChoice(for: creature, catalog: catalog)
+    else { throw SnapshotError.insufficientCatalog }
+    let presentation = EvolutionChoicePresentation.make(
+      choice: choice,
+      catalog: catalog,
+      discoveredSpeciesIDs: ["PG-034", "PG-117", "PG-118"]
+    )
+    try render(
+      EvolutionChoiceSheet(presentation: presentation)
+        .frame(
+          width: evolutionChoiceSize.width,
+          height: evolutionChoiceSize.height
+        )
+        .background(Color(red: 7 / 255, green: 6 / 255, blue: 13 / 255)),
+      size: evolutionChoiceSize,
+      to: outputURL
+    )
+  }
+
+  // 에일루 계보(PG-001 Lv.15)에서 변이 PG-216이 발동한 순간을 쓴다. 거절 대상 PG-061은
+  // 미발견 상태라 은닉 문구까지 한 장에서 확인된다.
+  static func renderMutationOffer(to outputURL: URL) throws {
+    let catalog = try CreatureCatalog.load()
+    let offer = PendingMutationOffer(
+      creatureID: UUID(uuidString: "00000000-0000-4000-8000-000000000216")!,
+      fromSpeciesID: "PG-001",
+      mutationSpeciesID: "PG-216",
+      plannedTargetSpeciesID: "PG-061"
+    )
+    guard let presentation = MutationOfferPresentation.make(
+      offer: offer, catalog: catalog, discoveredSpeciesIDs: ["PG-001"]
+    ) else { throw SnapshotError.insufficientCatalog }
+    try render(
+      MutationOfferSheet(presentation: presentation)
+        .frame(width: mutationOfferSize.width, height: mutationOfferSize.height)
+        .background(Color(red: 7 / 255, green: 6 / 255, blue: 13 / 255)),
+      size: mutationOfferSize,
+      to: outputURL
+    )
+  }
+
+  // 메뉴바 HUD를 구도가 다른 세 스프라이트(세로형·가로형·장신형)로, 어두운/밝은 메뉴바
+  // 배경 위에 렌더한다. 각 배경마다 위 줄은 크롭 없는 기준선, 아래 줄은 현재 썸네일이다.
+  // 비배경 픽셀 비율도 stdout으로 출력해 크롭·밝기 보정 효과를 수치로 확인한다.
+  static func renderMenuBarHUD(to outputURL: URL) throws {
+    let catalog = try CreatureCatalog.load()
+    let entries: [(id: String, current: NSImage, baseline: NSImage)] =
+      try ["PG-001", "PG-044", "PG-130"].map { id in
+        guard let species = catalog.first(where: { $0.id == id }),
+          let url = CreatureAssetLocator.imageURL(for: species),
+          let source = NSImage(contentsOf: url),
+          let current = CreatureImageCache.shared.thumbnail(for: url, points: 20)
+        else { throw SnapshotError.insufficientCatalog }
+        return (id, current, CreatureThumbnailDiagnostics.uncroppedThumbnail(of: source, points: 20))
+      }
+
+    for entry in entries {
+      let line = "HUD-COVERAGE \(entry.id)"
+        + " cropped=\(CreatureThumbnailDiagnostics.contentCoverage(of: entry.current))"
+        + " baseline=\(CreatureThumbnailDiagnostics.contentCoverage(of: entry.baseline))\n"
+      FileHandle.standardOutput.write(Data(line.utf8))
+    }
+
+    struct HUDRow {
+      let background: NSColor
+      let creatures: [NSImage]
+    }
+    let backgrounds = [
+      NSColor(srgbRed: 0.11, green: 0.11, blue: 0.12, alpha: 1),
+      NSColor(srgbRed: 0.55, green: 0.78, blue: 0.80, alpha: 1),
+    ]
+    let rows = backgrounds.flatMap { background in
+      [
+        HUDRow(background: background, creatures: entries.map(\.baseline)),
+        HUDRow(background: background, creatures: entries.map(\.current)),
+      ]
+    }
+    let cell = NSSize(width: MenuBarHUDRenderer.size.width + 24, height: 44)
+    let composite = NSImage(
+      size: NSSize(
+        width: cell.width * CGFloat(entries.count),
+        height: cell.height * CGFloat(rows.count)
+      ),
+      flipped: false
+    ) { bounds in
+      for (rowIndex, row) in rows.enumerated() {
+        let y = cell.height * CGFloat(rows.count - 1 - rowIndex)
+        row.background.setFill()
+        NSRect(x: 0, y: y, width: bounds.width, height: cell.height).fill()
+        for (column, creature) in row.creatures.enumerated() {
+          MenuBarHUDRenderer.render(
+            creature: creature, claudeProgressPercent: 25, codexProgressPercent: 100
+          ).draw(
+            at: NSPoint(x: cell.width * CGFloat(column) + 12, y: y + 11),
+            from: .zero, operation: .sourceOver, fraction: 1
+          )
+        }
+      }
+      return !bounds.isEmpty
+    }
+    try writePNG(composite, scale: 2, to: outputURL)
+  }
+
+  private static func writePNG(_ image: NSImage, scale: CGFloat, to outputURL: URL) throws {
+    guard let bitmap = NSBitmapImageRep(
+      bitmapDataPlanes: nil,
+      pixelsWide: Int((image.size.width * scale).rounded()),
+      pixelsHigh: Int((image.size.height * scale).rounded()),
+      bitsPerSample: 8,
+      samplesPerPixel: 4,
+      hasAlpha: true,
+      isPlanar: false,
+      colorSpaceName: .deviceRGB,
+      bytesPerRow: 0,
+      bitsPerPixel: 0
+    ) else { throw SnapshotError.bitmapCreationFailed }
+    bitmap.size = image.size
+    NSGraphicsContext.saveGraphicsState()
+    NSGraphicsContext.current = NSGraphicsContext(bitmapImageRep: bitmap)
+    image.draw(in: NSRect(origin: .zero, size: image.size))
+    NSGraphicsContext.restoreGraphicsState()
+    try writeSnapshotPNG(bitmap, to: outputURL)
+  }
+
+  private static func writeSnapshotPNG(_ bitmap: NSBitmapImageRep, to outputURL: URL) throws {
+    guard let png = bitmap.representation(using: .png, properties: [:]) else {
+      throw SnapshotError.pngEncodingFailed
+    }
+    try FileManager.default.createDirectory(
+      at: outputURL.deletingLastPathComponent(), withIntermediateDirectories: true
+    )
+    try png.write(to: outputURL, options: .atomic)
+    FileHandle.standardOutput.write(Data("\(outputURL.path)\n".utf8))
+  }
+
   static func renderRarityGuide(to outputURL: URL, store: GameStore) throws {
     let rows = RarityGuidePresentation.rows(state: store.state, catalog: store.catalog)
     try render(
@@ -224,15 +388,8 @@ enum MenuPopoverSnapshotRenderer {
     ) else { throw SnapshotError.bitmapCreationFailed }
     bitmap.size = size
     hostingView.cacheDisplay(in: hostingView.bounds, to: bitmap)
-    guard let png = bitmap.representation(using: .png, properties: [:]) else {
-      throw SnapshotError.pngEncodingFailed
-    }
-    try FileManager.default.createDirectory(
-      at: outputURL.deletingLastPathComponent(), withIntermediateDirectories: true
-    )
-    try png.write(to: outputURL, options: .atomic)
+    try writeSnapshotPNG(bitmap, to: outputURL)
     window.close()
-    FileHandle.standardOutput.write(Data("\(outputURL.path)\n".utf8))
   }
 
   private static func deterministicUUID(index: Int) -> UUID {
@@ -243,6 +400,53 @@ enum MenuPopoverSnapshotRenderer {
     case insufficientCatalog
     case bitmapCreationFailed
     case pngEncodingFailed
+  }
+}
+
+// 스냅샷 CLI와 테스트가 함께 쓰는 썸네일 진단 도구. 로직이 두 곳으로 갈라지지 않도록
+// 여기 한 곳에만 둔다.
+@MainActor
+enum CreatureThumbnailDiagnostics {
+  static let cardBackground = (red: 8, green: 17, blue: 31)
+
+  static func uncroppedThumbnail(of source: NSImage, points: CGFloat) -> NSImage {
+    NSImage(size: NSSize(width: points, height: points), flipped: false) { destination in
+      NSGraphicsContext.current?.imageInterpolation = .high
+      source.draw(
+        in: destination,
+        from: NSRect(origin: .zero, size: source.size),
+        operation: .sourceOver,
+        fraction: 1
+      )
+      return true
+    }
+  }
+
+  static func contentCoverage(of image: NSImage) -> Double {
+    guard let cgImage = image.cgImage(forProposedRect: nil, context: nil, hints: nil),
+      let colorSpace = CGColorSpace(name: CGColorSpace.sRGB),
+      let context = CGContext(
+        data: nil, width: cgImage.width, height: cgImage.height,
+        bitsPerComponent: 8, bytesPerRow: cgImage.width * 4, space: colorSpace,
+        bitmapInfo: CGImageAlphaInfo.premultipliedLast.rawValue
+      )
+    else { return 0 }
+    context.draw(cgImage, in: CGRect(x: 0, y: 0, width: cgImage.width, height: cgImage.height))
+    guard let data = context.data else { return 0 }
+
+    let pixels = data.bindMemory(to: UInt8.self, capacity: cgImage.width * cgImage.height * 4)
+    var contentCount = 0
+    for index in 0..<(cgImage.width * cgImage.height) {
+      let base = index * 4
+      guard pixels[base + 3] >= 32 else { continue }
+      if abs(Int(pixels[base]) - cardBackground.red) > 30
+        || abs(Int(pixels[base + 1]) - cardBackground.green) > 30
+        || abs(Int(pixels[base + 2]) - cardBackground.blue) > 30
+      {
+        contentCount += 1
+      }
+    }
+    return Double(contentCount) / Double(cgImage.width * cgImage.height)
   }
 }
 #endif

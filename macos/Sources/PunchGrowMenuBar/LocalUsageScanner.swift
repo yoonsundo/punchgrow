@@ -2,6 +2,49 @@ import CryptoKit
 import Darwin
 import Foundation
 
+/// Shared by the log scanner and the provider usage API clients, both of which parse
+/// ISO 8601 timestamps off the scan thread.
+final class LockedISO8601Parser: @unchecked Sendable {
+    private let lock = NSLock()
+    private let fractional: ISO8601DateFormatter
+    private let standard = ISO8601DateFormatter()
+
+    init() {
+        fractional = ISO8601DateFormatter()
+        fractional.formatOptions = [.withInternetDateTime, .withFractionalSeconds]
+    }
+
+    func parse(_ value: String) -> Date? {
+        lock.lock()
+        defer { lock.unlock() }
+        return fractional.date(from: value) ?? standard.date(from: value)
+    }
+}
+
+/// Carries a provider reading produced off the scan thread — currently the Claude usage endpoint,
+/// which is polled on its own cadence — into the next synchronous scan.
+final class ProviderQuotaBox: @unchecked Sendable {
+    private let lock = NSLock()
+    private var stored: ProviderQuotaSnapshot?
+
+    init(_ initial: ProviderQuotaSnapshot? = nil) {
+        stored = initial
+    }
+
+    var snapshot: ProviderQuotaSnapshot? {
+        get {
+            lock.lock()
+            defer { lock.unlock() }
+            return stored
+        }
+        set {
+            lock.lock()
+            defer { lock.unlock() }
+            stored = newValue
+        }
+    }
+}
+
 struct LocalUsageScanner: Sendable {
     private static let readChunkSize = 256 * 1024
     private static let maximumLineSize = 8 * 1024 * 1024
@@ -18,23 +61,6 @@ struct LocalUsageScanner: Sendable {
         Data(#""session_meta""#.utf8),
         Data(#""event_msg""#.utf8),
     ]
-
-    private final class LockedISO8601Parser: @unchecked Sendable {
-        private let lock = NSLock()
-        private let fractional: ISO8601DateFormatter
-        private let standard = ISO8601DateFormatter()
-
-        init() {
-            fractional = ISO8601DateFormatter()
-            fractional.formatOptions = [.withInternetDateTime, .withFractionalSeconds]
-        }
-
-        func parse(_ value: String) -> Date? {
-            lock.lock()
-            defer { lock.unlock() }
-            return fractional.date(from: value) ?? standard.date(from: value)
-        }
-    }
 
     private final class LockedJSONDecoder: @unchecked Sendable {
         private let lock = NSLock()
@@ -261,6 +287,8 @@ struct LocalUsageScanner: Sendable {
 
     let claudeRoot: URL
     let codexRoot: URL
+    /// Live Claude reading published by `LocalUsageService`; empty until the first poll lands.
+    let liveClaudeQuota: ProviderQuotaBox
     private let fileLimit: Int
     private let providerBodyReadSoftBudget: Int
 
@@ -378,11 +406,13 @@ struct LocalUsageScanner: Sendable {
     init(
         claudeRoot: URL = FileManager.default.homeDirectoryForCurrentUser.appending(path: ".claude/projects"),
         codexRoot: URL = FileManager.default.homeDirectoryForCurrentUser.appending(path: ".codex/sessions"),
+        liveClaudeQuota: ProviderQuotaBox = ProviderQuotaBox(),
         fileLimit: Int = Self.maximumFilesPerRoot,
         providerBodyReadSoftBudget: Int = Self.defaultProviderBodyReadSoftBudget
     ) {
         self.claudeRoot = claudeRoot
         self.codexRoot = codexRoot
+        self.liveClaudeQuota = liveClaudeQuota
         self.fileLimit = fileLimit
         self.providerBodyReadSoftBudget = max(1, providerBodyReadSoftBudget)
     }
@@ -428,7 +458,12 @@ struct LocalUsageScanner: Sendable {
         let observed = try observedTotals(cache)
         let weeklyBreakdown = try observedWeeklyBreakdown(cache, now: now)
         let weekly = weeklyBreakdown.mapValues(\.totalTokens)
-        if let claudeQuota = try? readClaudeQuotaSnapshot() {
+        // The live endpoint reading and the status-line cache file are both valid sources; take
+        // whichever was observed last so a failing poll cannot roll the value backwards.
+        let claudeQuota = [liveClaudeQuota.snapshot, try? readClaudeQuotaSnapshot()]
+            .compactMap { $0 }
+            .max { $0.observedAt < $1.observedAt }
+        if let claudeQuota {
             var snapshots = cache.quotaSnapshots ?? [:]
             snapshots[.claude] = claudeQuota
             cache.quotaSnapshots = snapshots

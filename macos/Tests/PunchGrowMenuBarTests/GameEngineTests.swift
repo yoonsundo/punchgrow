@@ -3,6 +3,11 @@ import XCTest
 
 @testable import PunchGrowMenuBar
 
+/// 첫 판정이 10%를 넘겨 변이가 발동하지 않는 시드. US-4로 S1→S2 진화 경로에 확률
+/// 판정이 들어왔으므로, 변이와 무관한 진화 계약은 이 시드를 주입해 결정론적으로 본다.
+/// 시드가 어긋나면 각 호출부의 `XCTAssertNil(_.mutationOffer)`가 즉시 실패한다.
+private let mutationFreeSeed: UInt64 = 1
+
 final class GameEngineTests: XCTestCase {
 
   func testUsageIngestionIsIdempotent() throws {
@@ -237,14 +242,28 @@ final class GameEngineTests: XCTestCase {
     )]
     state.representativeCreatureID = id
 
-    var chain = try GameEngine.feed(creatureID: id, state: &state, catalog: catalog)
+    var generator = SeededGenerator(seed: mutationFreeSeed)
+    let stageOne = try GameEngine.feed(
+      creatureID: id, state: &state, catalog: catalog, generator: &generator)
+    XCTAssertNil(stageOne.mutationOffer)
+    var chain = stageOne.evolutions
     XCTAssertEqual(chain.map(\.toSpeciesID), ["PG-117"])
     XCTAssertEqual(state.ownedCreatures[0].level, 15)
+    XCTAssertNil(GameEngine.pendingEvolutionChoice(
+      for: state.ownedCreatures[0], catalog: catalog))
 
     state.ownedCreatures[0].level = 24
     state.ownedCreatures[0].experience = 2_390
     chain = try GameEngine.feed(creatureID: id, state: &state, catalog: catalog)
+    XCTAssertTrue(chain.isEmpty)
+    XCTAssertEqual(state.ownedCreatures[0].speciesID, "PG-117")
+    let pending = try XCTUnwrap(GameEngine.pendingEvolutionChoice(
+      for: state.ownedCreatures[0], catalog: catalog))
+    XCTAssertEqual(pending.candidates.map(\.id), ["PG-118", "PG-205"])
+    chain = try GameEngine.chooseEvolution(
+      creatureID: id, toSpeciesID: "PG-118", state: &state, catalog: catalog)
     XCTAssertEqual(chain.map(\.toSpeciesID), ["PG-118"])
+    XCTAssertNil(state.ownedCreatures[0].preferredEvolutionTargetSpeciesID)
 
     state.ownedCreatures[0].level = 39
     state.ownedCreatures[0].experience = 3_990
@@ -286,13 +305,28 @@ final class GameEngineTests: XCTestCase {
     var state = GameState()
     state.ownedCreatures = [creature]
 
-    let chain = try GameEngine.feed(creatureID: creature.id, state: &state, catalog: catalog)
+    var generator = SeededGenerator(seed: mutationFreeSeed)
+    let outcome = try GameEngine.feed(
+      creatureID: creature.id, state: &state, catalog: catalog, generator: &generator)
+    XCTAssertNil(outcome.mutationOffer)
+    let chain = outcome.evolutions
 
-    XCTAssertEqual(chain.map(\.fromSpeciesID), ["PG-034", "PG-117", "PG-118"])
-    XCTAssertEqual(chain.map(\.toSpeciesID), ["PG-117", "PG-118", "PG-119"])
-    XCTAssertEqual(state.ownedCreatures[0].speciesID, "PG-119")
+    XCTAssertEqual(chain.map(\.fromSpeciesID), ["PG-034"])
+    XCTAssertEqual(chain.map(\.toSpeciesID), ["PG-117"])
+    XCTAssertEqual(state.ownedCreatures[0].speciesID, "PG-117")
     XCTAssertEqual(state.ownedCreatures[0].level, 40)
     XCTAssertEqual(state.ownedCreatures[0].experience, 925)
+    let pending = try XCTUnwrap(GameEngine.pendingEvolutionChoice(
+      for: state.ownedCreatures[0], catalog: catalog))
+    XCTAssertEqual(pending.creatureID, creature.id)
+    XCTAssertEqual(pending.fromSpecies.id, "PG-117")
+    XCTAssertEqual(pending.candidates.map(\.id), ["PG-118", "PG-205"])
+
+    let resumed = try GameEngine.chooseEvolution(
+      creatureID: creature.id, toSpeciesID: "PG-118", state: &state, catalog: catalog)
+
+    XCTAssertEqual(resumed.map(\.toSpeciesID), ["PG-118", "PG-119"])
+    XCTAssertEqual(state.ownedCreatures[0].speciesID, "PG-119")
   }
 
   func testLevelCapAndLegacyAboveCapConsumeFoodGainAffectionAndDiscardXP() throws {
@@ -333,16 +367,287 @@ final class GameEngineTests: XCTestCase {
       id: "PG-009", stage: 2, category: "normal_evolution", evolutionFrom: ["PG-001"])
     let normalA = testSpecies(
       id: "PG-008", stage: 2, category: "normal_evolution", evolutionFrom: ["PG-001"])
+    let mutant = testSpecies(
+      id: "PG-011", stage: 2, category: "mutant", evolutionFrom: ["PG-001"])
+    let catalog = [branch, mutant, normalB, start, normalA]
+
+    XCTAssertEqual(
+      EvolutionCatalog.candidates(after: start, in: catalog).map(\.id),
+      ["PG-008", "PG-009", "PG-010", "PG-011"])
+    XCTAssertEqual(
+      EvolutionCatalog.selectableCandidates(after: start, in: catalog).map(\.id),
+      ["PG-008", "PG-009", "PG-010"])
+    XCTAssertEqual(EvolutionCatalog.mutationCandidate(after: start, in: catalog)?.id, "PG-011")
+  }
+
+  func testStageOneBranchStopsEvolutionAndReportsPendingChoice() throws {
+    let catalog = try CreatureCatalog.load()
     let creature = OwnedCreature(
-      id: UUID(), speciesID: start.id, level: 15, experience: 0,
+      id: UUID(), speciesID: "PG-002", originSpeciesID: "PG-002", level: 14, experience: 1_390,
       affection: 0, nickname: nil, uniqueColor: false, acquiredAt: .now)
     var state = GameState()
     state.ownedCreatures = [creature]
 
-    let chain = try GameEngine.feed(
-      creatureID: creature.id, state: &state, catalog: [branch, normalB, start, normalA])
+    let chain = try GameEngine.feed(creatureID: creature.id, state: &state, catalog: catalog)
 
-    XCTAssertEqual(chain.map(\.toSpeciesID), ["PG-008"])
+    XCTAssertTrue(chain.isEmpty)
+    XCTAssertEqual(state.ownedCreatures[0].speciesID, "PG-002")
+    XCTAssertEqual(state.ownedCreatures[0].level, 15)
+    let pending = try XCTUnwrap(GameEngine.pendingEvolutionChoice(
+      for: state.ownedCreatures[0], catalog: catalog))
+    XCTAssertEqual(pending.candidates.map(\.id), ["PG-062", "PG-182"])
+    XCTAssertFalse(state.discoveredSpeciesIDs.contains("PG-062"))
+    XCTAssertFalse(state.discoveredSpeciesIDs.contains("PG-182"))
+  }
+
+  func testMutationCandidateNeverCreatesAPendingChoice() throws {
+    let catalog = try CreatureCatalog.load()
+    let creature = OwnedCreature(
+      id: UUID(), speciesID: "PG-001", originSpeciesID: "PG-001", level: 14, experience: 1_390,
+      affection: 0, nickname: nil, uniqueColor: false, acquiredAt: .now)
+    var state = GameState()
+    state.ownedCreatures = [creature]
+    let start = try XCTUnwrap(catalog.first { $0.id == "PG-001" })
+    XCTAssertEqual(
+      EvolutionCatalog.candidates(after: start, in: catalog).map(\.id), ["PG-061", "PG-216"])
+    XCTAssertEqual(EvolutionCatalog.mutationCandidate(after: start, in: catalog)?.id, "PG-216")
+
+    var generator = SeededGenerator(seed: mutationFreeSeed)
+    let outcome = try GameEngine.feed(
+      creatureID: creature.id, state: &state, catalog: catalog, generator: &generator)
+    XCTAssertNil(outcome.mutationOffer)
+    let chain = outcome.evolutions
+
+    XCTAssertEqual(chain.map(\.toSpeciesID), ["PG-061"])
+    XCTAssertNil(GameEngine.pendingEvolutionChoice(
+      for: state.ownedCreatures[0], catalog: catalog))
+
+    let startsWithMutation = catalog.filter {
+      $0.category == "start" && $0.stage == 1
+        && EvolutionCatalog.mutationCandidate(after: $0, in: catalog) != nil
+    }
+    XCTAssertEqual(startsWithMutation.count, 25)
+    XCTAssertEqual(
+      startsWithMutation.filter {
+        EvolutionCatalog.selectableCandidates(after: $0, in: catalog).count == 1
+      }.count, 17)
+  }
+
+  func testEvolutionPreferenceRejectsMutationTargetsWithoutChangingState() throws {
+    let catalog = try CreatureCatalog.load()
+    let creature = OwnedCreature(
+      id: UUID(), speciesID: "PG-034", originSpeciesID: "PG-034", level: 1, experience: 0,
+      affection: 0, nickname: nil, uniqueColor: false, acquiredAt: .now)
+    var state = GameState()
+    state.ownedCreatures = [creature]
+    let before = state
+
+    XCTAssertThrowsError(
+      try GameEngine.setEvolutionPreference(
+        creatureID: creature.id, toSpeciesID: "PG-240", state: &state, catalog: catalog)
+    ) { error in
+      XCTAssertEqual(error as? GameError, .invalidEvolutionChoice)
+    }
+
+    XCTAssertEqual(state, before)
+    XCTAssertNil(state.ownedCreatures[0].preferredEvolutionTargetSpeciesID)
+  }
+
+  func testDescendantPreferenceSurvivesAutomaticStagesAndResolvesAtTheBranch() throws {
+    let catalog = try CreatureCatalog.load()
+    let creature = OwnedCreature(
+      id: UUID(), speciesID: "PG-034", originSpeciesID: "PG-034", level: 1, experience: 0,
+      affection: 0, nickname: nil, uniqueColor: false, acquiredAt: .now)
+    var state = GameState()
+    state.ownedCreatures = [creature]
+    state.inventory.food = 10
+
+    try GameEngine.setEvolutionPreference(
+      creatureID: creature.id, toSpeciesID: "PG-205", state: &state, catalog: catalog)
+    XCTAssertEqual(
+      GameEngine.resolvedPreference(for: state.ownedCreatures[0], catalog: catalog),
+      .pendingDescendant)
+
+    state.ownedCreatures[0].level = 14
+    state.ownedCreatures[0].experience = 1_390
+    var generator = SeededGenerator(seed: mutationFreeSeed)
+    let stageOne = try GameEngine.feed(
+      creatureID: creature.id, state: &state, catalog: catalog, generator: &generator)
+    XCTAssertNil(stageOne.mutationOffer)
+    var chain = stageOne.evolutions
+    XCTAssertEqual(chain.map(\.toSpeciesID), ["PG-117"])
+    XCTAssertEqual(state.ownedCreatures[0].preferredEvolutionTargetSpeciesID, "PG-205")
+    XCTAssertNil(GameEngine.pendingEvolutionChoice(
+      for: state.ownedCreatures[0], catalog: catalog))
+
+    state.ownedCreatures[0].level = 24
+    state.ownedCreatures[0].experience = 2_390
+    chain = try GameEngine.feed(creatureID: creature.id, state: &state, catalog: catalog)
+
+    // PG-205는 종착이라 예약만으로 조용히 성장을 끝내지 않고 진화 직전 확인을 한 번 받는다.
+    XCTAssertTrue(chain.isEmpty)
+    XCTAssertEqual(state.ownedCreatures[0].speciesID, "PG-117")
+    XCTAssertEqual(state.ownedCreatures[0].preferredEvolutionTargetSpeciesID, "PG-205")
+    let confirmation = try XCTUnwrap(GameEngine.pendingEvolutionChoice(
+      for: state.ownedCreatures[0], catalog: catalog))
+    XCTAssertEqual(confirmation.preferredTargetID, "PG-205")
+
+    let confirmed = try GameEngine.chooseEvolution(
+      creatureID: creature.id, toSpeciesID: "PG-205", state: &state, catalog: catalog)
+
+    XCTAssertEqual(confirmed.map(\.toSpeciesID), ["PG-205"])
+    XCTAssertNil(state.ownedCreatures[0].preferredEvolutionTargetSpeciesID)
+    XCTAssertNil(GameEngine.pendingEvolutionChoice(
+      for: state.ownedCreatures[0], catalog: catalog))
+  }
+
+  func testNonTerminalReservationEvolvesWithoutAnyConfirmationStop() throws {
+    let catalog = try CreatureCatalog.load()
+    let creature = OwnedCreature(
+      id: UUID(), speciesID: "PG-117", originSpeciesID: "PG-034", level: 24, experience: 2_390,
+      affection: 0, nickname: nil, preferredEvolutionTargetSpeciesID: "PG-118",
+      uniqueColor: false, acquiredAt: .now)
+    var state = GameState()
+    state.ownedCreatures = [creature]
+    state.inventory.food = 10
+
+    let chain = try GameEngine.feed(creatureID: creature.id, state: &state, catalog: catalog)
+
+    XCTAssertEqual(chain.map(\.toSpeciesID), ["PG-118"])
+    XCTAssertNil(GameEngine.pendingEvolutionChoice(
+      for: state.ownedCreatures[0], catalog: catalog))
+  }
+
+  func testChooseEvolutionFailsAtomicallyForUnknownLowLevelAndNonCandidateTargets() throws {
+    let catalog = try CreatureCatalog.load()
+    let creature = OwnedCreature(
+      id: UUID(), speciesID: "PG-117", originSpeciesID: "PG-034", level: 25, experience: 0,
+      affection: 0, nickname: nil, uniqueColor: false, acquiredAt: .now)
+    var state = GameState()
+    state.ownedCreatures = [creature]
+    let before = state
+
+    XCTAssertThrowsError(
+      try GameEngine.chooseEvolution(
+        creatureID: UUID(), toSpeciesID: "PG-118", state: &state, catalog: catalog)
+    ) { XCTAssertEqual($0 as? GameError, .creatureNotFound) }
+    XCTAssertEqual(state, before)
+
+    XCTAssertThrowsError(
+      try GameEngine.chooseEvolution(
+        creatureID: creature.id, toSpeciesID: "PG-119", state: &state, catalog: catalog)
+    ) { XCTAssertEqual($0 as? GameError, .invalidEvolutionChoice) }
+    XCTAssertEqual(state, before)
+
+    state.ownedCreatures[0].level = 24
+    let belowLevel = state
+    XCTAssertThrowsError(
+      try GameEngine.chooseEvolution(
+        creatureID: creature.id, toSpeciesID: "PG-118", state: &state, catalog: catalog)
+    ) { XCTAssertEqual($0 as? GameError, .invalidEvolutionChoice) }
+    XCTAssertEqual(state, belowLevel)
+  }
+
+  func testInvalidStoredPreferenceWaitsAndIsClearedByTheNextRealMutation() throws {
+    let catalog = try CreatureCatalog.load()
+    for invalidTarget in ["PG-XXX", "PG-062", "PG-041"] {
+      let creature = OwnedCreature(
+        id: UUID(), speciesID: "PG-117", originSpeciesID: "PG-034", level: 25, experience: 0,
+        affection: 0, nickname: nil, preferredEvolutionTargetSpeciesID: invalidTarget,
+        uniqueColor: false, acquiredAt: .now)
+      var state = GameState()
+      state.ownedCreatures = [creature]
+
+      XCTAssertNoThrow(try state.validate(catalogIDs: Set(catalog.map(\.id))))
+      XCTAssertEqual(
+        GameEngine.resolvedPreference(for: state.ownedCreatures[0], catalog: catalog), .invalid)
+      XCTAssertNotNil(GameEngine.pendingEvolutionChoice(
+        for: state.ownedCreatures[0], catalog: catalog))
+      XCTAssertEqual(
+        state.ownedCreatures[0].preferredEvolutionTargetSpeciesID, invalidTarget)
+
+      let chain = try GameEngine.feed(creatureID: creature.id, state: &state, catalog: catalog)
+
+      XCTAssertTrue(chain.isEmpty)
+      XCTAssertNil(state.ownedCreatures[0].preferredEvolutionTargetSpeciesID)
+    }
+  }
+
+  func testUnavailableCatalogNeverClearsAStoredPreference() throws {
+    let creature = OwnedCreature(
+      id: UUID(), speciesID: "PG-117", originSpeciesID: "PG-034", level: 25, experience: 0,
+      affection: 0, nickname: nil, preferredEvolutionTargetSpeciesID: "PG-205",
+      uniqueColor: false, acquiredAt: .now)
+    var state = GameState()
+    state.ownedCreatures = [creature]
+
+    _ = try GameEngine.feed(creatureID: creature.id, state: &state, catalog: [])
+
+    XCTAssertEqual(state.ownedCreatures[0].preferredEvolutionTargetSpeciesID, "PG-205")
+  }
+
+  func testMaximumLevelPendingChoiceBlocksFeedingWithoutConsumingFood() throws {
+    let catalog = try CreatureCatalog.load()
+    let waiting = OwnedCreature(
+      id: UUID(), speciesID: "PG-117", originSpeciesID: "PG-034",
+      level: GameState.maximumCreatureLevel, experience: 0,
+      affection: 0, nickname: nil, uniqueColor: false, acquiredAt: .now)
+    var state = GameState()
+    state.ownedCreatures = [waiting]
+    state.inventory.largeFood = 1
+    let before = state
+
+    XCTAssertThrowsError(
+      try GameEngine.feed(creatureID: waiting.id, state: &state, catalog: catalog)
+    ) { XCTAssertEqual($0 as? GameError, .evolutionChoiceRequired) }
+    XCTAssertEqual(state, before)
+    XCTAssertThrowsError(
+      try GameEngine.feedLarge(creatureID: waiting.id, state: &state, catalog: catalog)
+    ) { XCTAssertEqual($0 as? GameError, .evolutionChoiceRequired) }
+    XCTAssertEqual(state, before)
+
+    state.ownedCreatures[0].level = 25
+    _ = try GameEngine.feed(creatureID: waiting.id, state: &state, catalog: catalog)
+    XCTAssertEqual(state.inventory.food, 4)
+    XCTAssertEqual(state.ownedCreatures[0].experience, 25)
+  }
+
+  func testProductionCatalogSplitsStartSpeciesIntoNoChoiceAndTwoBranchTiers() throws {
+    let catalog = try CreatureCatalog.load()
+    let starts = catalog.filter { $0.category == "start" && $0.stage == 1 }
+    var noChoice = 0
+    var choiceAtStageOne = 0
+    var choiceAtStageTwo = 0
+    var choiceBeyondStageTwo = 0
+
+    for start in starts {
+      var current = start
+      var visited: Set<String> = [start.id]
+      var branchStage: Int?
+      while current.stage < 4 {
+        let selectable = EvolutionCatalog.selectableCandidates(after: current, in: catalog)
+        if selectable.count > 1 {
+          branchStage = current.stage
+          break
+        }
+        guard let next = selectable.first, visited.insert(next.id).inserted else { break }
+        current = next
+      }
+      switch branchStage {
+      case .none: noChoice += 1
+      case .some(1): choiceAtStageOne += 1
+      case .some(2): choiceAtStageTwo += 1
+      default: choiceBeyondStageTwo += 1
+      }
+    }
+
+    XCTAssertEqual(starts.count, 60)
+    XCTAssertEqual(noChoice, 32)
+    XCTAssertEqual(choiceAtStageOne, 10)
+    XCTAssertEqual(choiceAtStageTwo, 18)
+    XCTAssertEqual(choiceBeyondStageTwo, 0)
+    XCTAssertEqual(
+      catalog.map { EvolutionCatalog.selectableCandidates(after: $0, in: catalog).count }.max(), 2)
   }
 
   func testMissingSpeciesOrCandidateStillFeedsNormally() throws {
@@ -363,7 +668,7 @@ final class GameEngineTests: XCTestCase {
     let directory = FileManager.default.temporaryDirectory.appending(path: UUID().uuidString)
     let persistence = GamePersistence(fileURL: directory.appending(path: "state.json"))
     let creature = OwnedCreature(
-      id: UUID(), speciesID: "PG-034", level: 40, experience: 0,
+      id: UUID(), speciesID: "PG-041", level: 40, experience: 0,
       affection: 0, nickname: nil, uniqueColor: false, acquiredAt: .now)
     var initial = GameState()
     initial.ownedCreatures = [creature]
@@ -374,8 +679,8 @@ final class GameEngineTests: XCTestCase {
     store.feedCurrent()
 
     let feedback = try XCTUnwrap(store.evolutionFeedback)
-    XCTAssertEqual(feedback.fromSpeciesID, "PG-034")
-    XCTAssertEqual(feedback.toSpeciesID, "PG-119")
+    XCTAssertEqual(feedback.fromSpeciesID, "PG-041")
+    XCTAssertEqual(feedback.toSpeciesID, "PG-211")
     XCTAssertEqual(feedback.stagesCrossed, 3)
     store.clearEvolutionFeedback(id: UUID())
     XCTAssertEqual(store.evolutionFeedback, feedback)
