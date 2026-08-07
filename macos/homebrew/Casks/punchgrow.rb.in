@@ -22,8 +22,7 @@ cask "punchgrow" do
 
   caveats <<~EOS
     이 빌드는 아직 Apple 공증(notarization) 전의 ad-hoc 서명 버전입니다.
-    macOS Gatekeeper가 첫 실행을 차단하면 아래 중 하나로 실행하세요.
-      brew install --cask --no-quarantine punchgrow
+    macOS Gatekeeper가 첫 실행을 차단하면 아래 명령으로 격리 속성을 제거하세요.
       xattr -d com.apple.quarantine /Applications/PunchGrow.app
   EOS
 end

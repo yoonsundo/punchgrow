@@ -11,12 +11,14 @@ with:
 ```bash
 brew tap yoonsundo/punchgrow https://github.com/yoonsundo/punchgrow
 brew trust yoonsundo/punchgrow
-brew install --cask --no-quarantine punchgrow
+brew install --cask punchgrow
+xattr -d com.apple.quarantine /Applications/PunchGrow.app
 ```
 
-Because the binary is not yet notarized, the Cask documents the
-`--no-quarantine` / `xattr` step in its caveats. A dedicated lightweight tap
-repository (`yoonsundo/homebrew-punchgrow`) can replace the URL tap later.
+Because the binary is not yet notarized, the Cask documents the `xattr`
+quarantine-clearing step in its caveats. (`brew install --no-quarantine` was
+removed in Homebrew 6.) A dedicated lightweight tap repository
+(`yoonsundo/homebrew-punchgrow`) can replace the URL tap later.
 
 ## Notarized release path (target)
 

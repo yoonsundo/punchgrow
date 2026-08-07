@@ -9,10 +9,11 @@ PunchGrow is a local, single-player menu-bar game for Apple Silicon Macs. It tur
 > ```bash
 > brew tap yoonsundo/punchgrow https://github.com/yoonsundo/punchgrow
 > brew trust yoonsundo/punchgrow
-> brew install --cask --no-quarantine punchgrow
+> brew install --cask punchgrow
+> xattr -d com.apple.quarantine /Applications/PunchGrow.app
 > ```
 >
-> The published binary is ad-hoc signed and not yet notarized by Apple, so `--no-quarantine` is required (or run `xattr -d com.apple.quarantine /Applications/PunchGrow.app` before the first launch). On Homebrew versions before 6, skip the `brew trust` step. The instructions below cover building from source instead.
+> The published binary is ad-hoc signed and not yet notarized by Apple, so the final `xattr` command is required to clear the quarantine attribute before the first launch. On Homebrew versions before 6, skip the `brew trust` step. The `--no-quarantine` install flag was removed in Homebrew 6 and now fails with `Error: invalid option`. The instructions below cover building from source instead.
 
 ## Requirements
 

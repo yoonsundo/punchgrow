@@ -154,10 +154,11 @@ Apple Silicon, macOS 14 이상이 필요합니다.
 ```bash
 brew tap yoonsundo/punchgrow https://github.com/yoonsundo/punchgrow
 brew trust yoonsundo/punchgrow
-brew install --cask --no-quarantine punchgrow
+brew install --cask punchgrow
+xattr -d com.apple.quarantine /Applications/PunchGrow.app
 ```
 
-현재 배포 바이너리는 Apple 공증(notarization) 전의 ad-hoc 서명 빌드입니다. `--no-quarantine` 없이 설치했다면 첫 실행 전에 `xattr -d com.apple.quarantine /Applications/PunchGrow.app`을 실행하세요. Homebrew 6 미만은 `brew trust` 단계를 건너뜁니다.
+현재 배포 바이너리는 Apple 공증(notarization) 전의 ad-hoc 서명 빌드라서, 마지막 `xattr` 명령으로 격리 속성을 제거해야 첫 실행이 차단되지 않습니다. Homebrew 6 미만은 `brew trust` 단계를 건너뜁니다. 과거 안내에 있던 `--no-quarantine` 옵션은 Homebrew 6에서 제거되어 더 이상 동작하지 않습니다.
 
 ### 소스에서 빌드
 
@@ -171,7 +172,7 @@ cd macos
 open .build/PunchGrow.app
 ```
 
-생성된 앱은 로컬 실행용 ad-hoc 서명을 사용합니다. Developer ID 서명과 Apple 공증은 별도의 릴리스 계정 작업으로 남아 있으며, 완료되면 `--no-quarantine` 단계 없이 설치할 수 있게 됩니다.
+생성된 앱은 로컬 실행용 ad-hoc 서명을 사용합니다. Developer ID 서명과 Apple 공증은 별도의 릴리스 계정 작업으로 남아 있으며, 완료되면 격리 해제(`xattr`) 단계 없이 설치할 수 있게 됩니다.
 
 ## 검증
 
@@ -188,7 +189,7 @@ swift build -c release
 
 ## 기여하기
 
-이슈와 범위가 명확한 풀 리퀘스트를 환영합니다. 풀 리퀘스트를 열기 전에 다음 사항을 확인해 주세요.
+이슈와 범위가 명확한 풀 리퀘스트를 환영합니다. 오픈소스 기여가 처음이라면 포크부터 풀 리퀘스트까지 전체 순서를 담은 [기여 가이드](CONTRIBUTING.md)를 먼저 읽어주세요. 풀 리퀘스트를 열기 전에 다음 사항을 확인해 주세요.
 
 1. [macOS 상세 문서](macos/README.md)에서 수집·개인정보 경계를 확인하세요.
 2. 프롬프트, 응답, 소스 코드, 명령어, 원본 경로, 이메일이나 계정 식별자를 수집하는 기능을 추가하지 마세요.

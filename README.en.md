@@ -154,10 +154,11 @@ Requirements: Apple Silicon, macOS 14 or newer.
 ```bash
 brew tap yoonsundo/punchgrow https://github.com/yoonsundo/punchgrow
 brew trust yoonsundo/punchgrow
-brew install --cask --no-quarantine punchgrow
+brew install --cask punchgrow
+xattr -d com.apple.quarantine /Applications/PunchGrow.app
 ```
 
-The published binary is currently ad-hoc signed and not yet notarized by Apple. If you installed without `--no-quarantine`, run `xattr -d com.apple.quarantine /Applications/PunchGrow.app` before the first launch. On Homebrew versions before 6, skip the `brew trust` step.
+The published binary is currently ad-hoc signed and not yet notarized by Apple, so the final `xattr` command is required to clear the quarantine attribute before the first launch. On Homebrew versions before 6, skip the `brew trust` step. The `--no-quarantine` flag from older guides was removed in Homebrew 6 and no longer works.
 
 ### Build from source
 
@@ -171,7 +172,7 @@ cd macos
 open .build/PunchGrow.app
 ```
 
-The assembled app is ad-hoc signed for local use. Developer ID signing and Apple notarization remain separate release-account steps; once complete, the `--no-quarantine` step will no longer be needed.
+The assembled app is ad-hoc signed for local use. Developer ID signing and Apple notarization remain separate release-account steps; once complete, the quarantine-clearing (`xattr`) step will no longer be needed.
 
 ## Verification
 
@@ -188,7 +189,7 @@ Some macOS checks require a compatible installed Apple SDK. The creature verific
 
 ## Contributing
 
-Issues and focused pull requests are welcome. Before opening a pull request:
+Issues and focused pull requests are welcome. New to open source? The [contributing guide](CONTRIBUTING.en.md) walks through the whole fork-to-PR flow. Before opening a pull request:
 
 1. Read the [macOS guide](macos/README.md) for collection and privacy boundaries.
 2. Never add collection of prompts, responses, source code, commands, raw paths, email addresses, or account identifiers.
