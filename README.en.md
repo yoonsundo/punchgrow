@@ -201,7 +201,7 @@ Please report security or privacy-sensitive findings privately to the repository
 
 Source code is available under the [MIT License](LICENSE).
 
-Creature images and other visual artwork are **not** licensed under MIT. They are provided only so people can run, evaluate, and contribute to PunchGrow locally. Public forks must remove or replace the protected artwork unless they have separate written permission. Read [ASSET-LICENSE.md](ASSET-LICENSE.md) before redistributing a fork.
+Creature images and other visual artwork are **not** licensed under MIT. They are provided only so people can run, evaluate, and contribute to PunchGrow locally. A fork kept to propose changes back to the official repository (pull requests) may keep the artwork as is; any other public redistribution or standalone release must remove or replace the protected artwork unless it has separate written permission. Read [ASSET-LICENSE.md](ASSET-LICENSE.md) for the exact terms.
 
 Third-party acknowledgements are listed in [ATTRIBUTIONS.md](ATTRIBUTIONS.md).
 

@@ -21,6 +21,13 @@ run, evaluate, or contribute to PunchGrow locally. Public distribution of a
 fork must remove or replace the protected visual assets unless separate written
 permission has been obtained.
 
+As a narrow exception, keeping these assets unmodified in a public fork of the
+official PunchGrow repository is permitted while, and only while, that fork
+exists to develop and propose changes back to the official repository (for
+example, through pull requests). This exception does not permit releases or
+binary distributions built from a fork, use of the assets in any other project,
+or promotion of a fork as a standalone product.
+
 Some assets were created with generative-AI assistance. The copyrightability
 of AI-assisted material can vary by jurisdiction and by the degree of human
 creative contribution. This notice reserves every copyright, contractual, and

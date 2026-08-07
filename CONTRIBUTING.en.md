@@ -24,15 +24,52 @@ git remote set-url origin https://github.com/<your-account>/punchgrow.git
 
 4. Push the branch to your fork and open a pull request describing what changed, why, and which checks you ran.
 
-## Requirements
+## Environment setup
 
-- Apple Silicon Mac, macOS 14+
-- Full Xcode with matching Command Line Tools (`xcode-select -p` must point inside Xcode)
+Base requirements: Apple Silicon Mac, macOS 14+.
+
+1. Install **Full Xcode** from the App Store and launch it once to finish component installation and license agreement. Command Line Tools alone cannot produce the release build.
+2. Point Command Line Tools at Xcode (requires an admin password):
+
+   ```bash
+   sudo xcode-select -s /Applications/Xcode.app/Contents/Developer
+   ```
+
+3. Verify the toolchain:
+
+   ```bash
+   xcode-select -p     # must point inside /Applications/Xcode.app
+   xcodebuild -version
+   swift --version     # Swift 6.x
+   ```
+
+4. Build and test (all app code lives under `macos/`):
+
+   ```bash
+   cd macos
+   swift test
+   swift build -c release
+   ./scripts/build-app.sh
+   open .build/PunchGrow.app
+   ```
+
+5. If you touched UI, render snapshots to check for clipping or overlap:
+
+   ```bash
+   ./scripts/render-popover-snapshot.sh                      # default state
+   ./scripts/render-popover-snapshot.sh fresh.png menu-fresh # fresh-setup state
+   ```
+
+If the build fails, check the [user guide troubleshooting](docs/USAGE.en.md) first. SDK mismatch errors can be resolved by pointing `PUNCHGROW_SDKROOT` at a compatible SDK.
+
+## Is it OK that my fork contains the creature artwork?
+
+Yes. The visual assets are not MIT-licensed ([ASSET-LICENSE.md](ASSET-LICENSE.md)), but keeping them unmodified in a fork that exists to propose changes back to the official repository (pull requests) is explicitly permitted. What is not permitted: shipping releases or binaries from a fork, using the assets in another project, or promoting a fork as a standalone product.
 
 ## Boundaries
 
 - Never add features that collect prompts, responses, source code, commands, raw paths, emails, or account identifiers. See the [macOS docs](macos/README.md) for the privacy model.
-- Creature artwork is **not** MIT-licensed; see [ASSET-LICENSE.md](ASSET-LICENSE.md) before redistributing a fork.
+- Redistributing or releasing from a fork requires removing or replacing the protected artwork; a PR-purpose fork may keep it.
 - Behavior changes need new or updated tests.
 
 For features or structural changes, please open an [issue](https://github.com/yoonsundo/punchgrow/issues) first. Report security or privacy concerns privately to the repository owner instead of opening a public issue.
