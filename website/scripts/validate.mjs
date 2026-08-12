@@ -20,13 +20,10 @@ const walk = async (directory) => {
 };
 
 if (failures.length === 0) {
-  const required = ['index.html', 'en/index.html', 'styles.css', 'script.js', 'CNAME', '.nojekyll'];
+  const required = ['index.html', 'en/index.html', 'styles.css', 'script.js', '.nojekyll'];
   for (const path of required) {
     if (!(await exists(join(root, path)))) failures.push(`missing required output: ${path}`);
   }
-
-  const cname = await readFile(join(root, 'CNAME'), 'utf8').catch(() => '');
-  if (cname.trim() !== 'punchgrow.thundo.kr') failures.push('CNAME does not contain punchgrow.thundo.kr');
 
   const htmlFiles = (await walk(root)).filter((path) => extname(path) === '.html');
   const idsByFile = new Map();
@@ -77,5 +74,5 @@ if (failures.length > 0) {
   failures.forEach((failure) => console.error(`- ${failure}`));
   process.exitCode = 1;
 } else {
-  console.log('Website validation passed: locales, assets, fragments, metadata, and CNAME are valid.');
+  console.log('Website validation passed: locales, assets, fragments, and metadata are valid.');
 }

@@ -35,10 +35,6 @@ jobs:
       - name: Build website
         run: npm --prefix website run build
 
-      - name: Include custom domain configuration
-        if: hashFiles('website/CNAME') != ''
-        run: cp website/CNAME website/dist/CNAME
-
       - name: Check generated HTML, locale parity, and internal links
         run: node website/scripts/validate-site.mjs website/dist
 
