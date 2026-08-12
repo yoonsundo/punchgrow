@@ -1,0 +1,110 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://punchgrow.local/contracts/continuity-assignment-v3.schema.json",
+  "title": "Signed canonical G003-v5 continuity obligation assignment v3",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schemaVersion", "contractKind", "counts", "benchmark", "obligations", "delegationOutputSha256", "successorOutputSha256", "outputSha256", "publicSignature"],
+  "properties": {
+    "schemaVersion": { "const": "continuity-assignment-v3" },
+    "contractKind": { "const": "UNSIGNED_CANONICAL_OBLIGATION_ASSIGNMENT" },
+    "counts": { "const": { "queue": 167, "retained": 73, "ordinaryEdges": 170, "obligations": 337, "dependent": 113, "generatedParentEdges": 113, "generatedChildEdges": 128, "retainedChildEdges": 42, "votes": 674, "effectiveRoots": 17 } },
+    "benchmark": { "$ref": "#/$defs/benchmark" },
+    "obligations": { "type": "array", "minItems": 337, "maxItems": 337, "items": { "$ref": "#/$defs/obligation" } },
+    "delegationOutputSha256": { "$ref": "#/$defs/sha" },
+    "successorOutputSha256": { "$ref": "#/$defs/sha" },
+    "outputSha256": { "$ref": "#/$defs/sha" },
+    "publicSignature": { "$ref": "#/$defs/signature" }
+  },
+  "$defs": {
+    "sha": { "type": "string", "pattern": "^[a-f0-9]{64}$" },
+    "signature": {
+      "type": "object", "additionalProperties": false,
+      "required": ["algorithm", "authorityEpoch", "authorityFingerprint", "delegationOutputSha256", "purpose", "schemaSha256", "signatureBase64"],
+      "properties": {
+        "algorithm": { "const": "Ed25519" },
+        "authorityEpoch": { "const": "continuity-authority-epoch-v1" },
+        "authorityFingerprint": { "$ref": "#/$defs/sha" },
+        "delegationOutputSha256": { "$ref": "#/$defs/sha" },
+        "purpose": { "const": "continuity:assignment-v3" },
+        "schemaSha256": { "$ref": "#/$defs/sha" },
+        "signatureBase64": { "type": "string", "minLength": 88, "maxLength": 88 }
+      }
+    },
+    "pgId": { "type": "string", "pattern": "^PG-[0-9]{3}$" },
+    "taxonomy": {
+      "type": "object", "additionalProperties": false,
+      "required": ["biologicalClass", "speciesFamily", "coreAnatomy", "locomotionPlan"],
+      "properties": {
+        "biologicalClass": { "type": "string", "minLength": 1 }, "speciesFamily": { "type": "string", "minLength": 1 },
+        "coreAnatomy": { "type": "string", "minLength": 1 }, "locomotionPlan": { "type": "string", "minLength": 1 }
+      }
+    },
+    "surfaces": {
+      "type": "object", "additionalProperties": false, "required": ["masterSha256", "runtimeSha256"],
+      "properties": { "masterSha256": { "$ref": "#/$defs/sha" }, "runtimeSha256": { "$ref": "#/$defs/sha" } }
+    },
+    "parent": {
+      "type": "object", "additionalProperties": false,
+      "required": ["parentRole", "parentSlotId", "sourcePolicy", "sourceObligationId", "retainedSurfaces"],
+      "properties": {
+        "parentRole": { "type": "string", "pattern": "^parent-[1-9][0-9]*$" }, "parentSlotId": { "$ref": "#/$defs/pgId" },
+        "sourcePolicy": { "enum": ["APPROVED_MATERIAL_V5", "SIGNED_RETAINED_G002"] },
+        "sourceObligationId": { "type": ["string", "null"], "pattern": "^g003-candidate:PG-[0-9]{3}$" },
+        "retainedSurfaces": { "anyOf": [{ "$ref": "#/$defs/surfaces" }, { "type": "null" }] }
+      }
+    },
+    "anchor": {
+      "type": "object", "additionalProperties": false,
+      "required": ["requirementType", "parentRole", "parentSlotId", "anchorId", "description", "sourcePolicy"],
+      "properties": {
+        "requirementType": { "enum": ["VISUAL_ANCHOR", "VISIBILITY"] },
+        "parentRole": { "type": ["string", "null"], "pattern": "^parent-[1-9][0-9]*$" },
+        "parentSlotId": { "anyOf": [{ "$ref": "#/$defs/pgId" }, { "type": "null" }] },
+        "anchorId": { "type": "string", "minLength": 1 }, "description": { "type": "string", "minLength": 1 },
+        "sourcePolicy": { "enum": ["SIGNED_ROOT_DIRECTIVE", "APPROVED_MATERIAL_V5", "SIGNED_RETAINED_G002"] }
+      }
+    },
+    "retainedBinding": {
+      "type": "object", "additionalProperties": false, "required": ["role", "slotId", "masterSha256", "runtimeSha256"],
+      "properties": {
+        "role": { "type": "string", "pattern": "^(?:child|parent-[1-9][0-9]*)$" }, "slotId": { "$ref": "#/$defs/pgId" },
+        "masterSha256": { "$ref": "#/$defs/sha" }, "runtimeSha256": { "$ref": "#/$defs/sha" }
+      }
+    },
+    "benchmarkBinding": {
+      "type": "object", "additionalProperties": false, "required": ["benchmarkId", "benchmarkSha256"],
+      "properties": { "benchmarkId": { "const": "eilu-comparative-visual-v1" }, "benchmarkSha256": { "$ref": "#/$defs/sha" } }
+    },
+    "benchmark": {
+      "type": "object", "additionalProperties": false,
+      "required": ["benchmarkId", "assetIds", "minimumConfidence", "minimumRetainedAnchorCount", "minimumAnchorRetentionRatio", "comparisonRequirements", "pixelBindings"],
+      "properties": {
+        "benchmarkId": { "const": "eilu-comparative-visual-v1" }, "assetIds": { "const": ["PG-001", "PG-061", "PG-181"] },
+        "minimumConfidence": { "const": 0.96 }, "minimumRetainedAnchorCount": { "const": 3 }, "minimumAnchorRetentionRatio": { "const": 1 },
+        "comparisonRequirements": { "const": { "sameCreatureGrownUp": "yes", "compareAgainstBenchmark": true, "candidateConfidenceAtLeastBenchmark": true } },
+        "pixelBindings": {
+          "type": "array", "minItems": 3, "maxItems": 3,
+          "items": { "type": "object", "additionalProperties": false, "required": ["pgId", "masterSha256", "runtimeSha256"],
+            "properties": { "pgId": { "$ref": "#/$defs/pgId" }, "masterSha256": { "$ref": "#/$defs/sha" }, "runtimeSha256": { "$ref": "#/$defs/sha" } } }
+        }
+      }
+    },
+    "obligation": {
+      "type": "object", "additionalProperties": false,
+      "required": ["obligationId", "kind", "childSlotId", "childSourcePolicy", "parents", "requiredParentObligationIds", "requiredChildTaxonomy", "requiredAnchors", "assessmentMode", "benchmarkBinding", "retainedSurfaceBindings"],
+      "properties": {
+        "obligationId": { "type": "string", "pattern": "^g003-(?:candidate:PG-[0-9]{3}|edge:PG-[0-9]{3}:PG-[0-9]{3})$" },
+        "kind": { "enum": ["QUEUE", "EDGE"] }, "childSlotId": { "$ref": "#/$defs/pgId" },
+        "childSourcePolicy": { "enum": ["STAGED_GENERATION", "APPROVED_MATERIAL_V5", "SIGNED_RETAINED_G002"] },
+        "parents": { "type": "array", "maxItems": 2, "items": { "$ref": "#/$defs/parent" } },
+        "requiredParentObligationIds": { "type": "array", "uniqueItems": true, "items": { "type": "string", "pattern": "^g003-candidate:PG-[0-9]{3}$" } },
+        "requiredChildTaxonomy": { "$ref": "#/$defs/taxonomy" },
+        "requiredAnchors": { "type": "array", "minItems": 1, "items": { "$ref": "#/$defs/anchor" } },
+        "assessmentMode": { "enum": ["same-creature-continuity", "canonical-root-replacement"] },
+        "benchmarkBinding": { "$ref": "#/$defs/benchmarkBinding" },
+        "retainedSurfaceBindings": { "type": "array", "maxItems": 3, "items": { "$ref": "#/$defs/retainedBinding" } }
+      }
+    }
+  }
+}

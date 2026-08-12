@@ -1,0 +1,63 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://punchgrow.local/contracts/g003-active-baseline-v3.schema.json",
+  "title": "G003 v4 protocol authority baseline",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schemaVersion", "reviewProtocol", "protocolAuthoritySha256", "priorProtocolAuthoritySha256", "activePack", "protectedFiles", "authority", "signingAuthority", "schemaBindings", "counts", "targetSource", "effectiveRootIds", "supersedes"],
+  "properties": {
+    "schemaVersion": { "const": "continuity-g003-active-baseline-v3" },
+    "reviewProtocol": { "const": "continuity-g003-review-protocol-v4" },
+    "protocolAuthoritySha256": { "const": "e1a569f6cd3351c04db5795acc98762d6f2bfd0596826fc4a0c35fe3f870df5e" },
+    "priorProtocolAuthoritySha256": { "const": "f585f5002c5f173a6a083e4a1d547d6b827d2277f140e94d1b8519d02b0124c7" },
+    "activePack": { "const": "cute-redesign-v2" },
+    "protectedFiles": { "type": "array", "minItems": 4, "maxItems": 4, "items": { "$ref": "#/$defs/file" } },
+    "authority": {
+      "type": "object", "additionalProperties": false,
+      "required": ["publicManifestOutputSha256", "publicManifestFileSha256", "successorOutputSha256", "successorFileSha256", "assignmentSha256", "effectiveAuthoritySha256"],
+      "properties": {
+        "publicManifestOutputSha256": { "$ref": "#/$defs/sha256" }, "publicManifestFileSha256": { "$ref": "#/$defs/sha256" },
+        "successorOutputSha256": { "$ref": "#/$defs/sha256" }, "successorFileSha256": { "$ref": "#/$defs/sha256" },
+        "assignmentSha256": { "$ref": "#/$defs/sha256" }, "effectiveAuthoritySha256": { "$ref": "#/$defs/sha256" }
+      }
+    },
+    "signingAuthority": {
+      "type": "object", "additionalProperties": false,
+      "required": ["algorithm", "authorityEpoch", "authorityFingerprint", "publicKeySpkiDerBase64", "rootKeyCommitmentSha256", "authorityRecordPath", "authorityRecordSha256"],
+      "properties": {
+        "algorithm": { "const": "Ed25519" }, "authorityEpoch": { "const": "g003-authority-epoch-v1" },
+        "authorityFingerprint": { "const": "91336f3180f8cf86cdef4b35f271c1e64eb609cd6b4e7f53360c777fa1a48e54" },
+        "publicKeySpkiDerBase64": { "const": "MCowBQYDK2VwAyEA2hr3xHKrFHs6BKu5uG4l7BjrTqAta3QJDQaHoqcWcgY=" },
+        "rootKeyCommitmentSha256": { "const": "d0dfd57a2b4c273efb9a734ab10cc8ff6c087442e10d8ff50dbb09699f3f43f6" },
+        "authorityRecordPath": { "const": "production/contracts/g003-public-authority-v1.json" },
+        "authorityRecordSha256": { "const": "b8bfa387920542ef4accc420ca7ee0a8217df9edfd6f7ef022c627c5f3232d4b" }
+      }
+    },
+    "schemaBindings": {
+      "type": "array", "minItems": 4, "maxItems": 4,
+      "items": {
+        "type": "object", "additionalProperties": false,
+        "required": ["path", "normalizedSha256"],
+        "properties": {
+          "path": { "enum": ["production/contracts/continuity-candidate-review-v4.schema.json", "production/contracts/g003-public-review-artifact-v4.schema.json", "production/contracts/continuity-pack-lock-v3.schema.json", "production/contracts/g003-active-baseline-v3.schema.json"] },
+          "normalizedSha256": { "$ref": "#/$defs/sha256" }
+        }
+      }
+    },
+    "counts": {
+      "type": "object", "additionalProperties": false,
+      "required": ["regenerate", "retain", "edges", "obligations", "dependentQueue", "generatedParentEdges", "primaryVotes", "effectiveRoots"],
+      "properties": {
+        "regenerate": { "const": 177 }, "retain": { "const": 63 }, "edges": { "const": 190 }, "obligations": { "const": 367 },
+        "dependentQueue": { "const": 123 }, "generatedParentEdges": { "const": 133 }, "primaryVotes": { "const": 734 }, "effectiveRoots": { "const": 15 }
+      }
+    },
+    "targetSource": { "const": "signed-canonical-root-redesign-successor-v2" },
+    "effectiveRootIds": { "type": "array", "minItems": 15, "maxItems": 15, "uniqueItems": true, "items": { "type": "string", "pattern": "^PG-[0-9]{3}$" } },
+    "supersedes": { "const": "production/reports/biological-continuity-v3/g003-evidence-v2/active-baseline.json" }
+  },
+  "$defs": {
+    "sha256": { "type": "string", "pattern": "^[a-f0-9]{64}$" },
+    "file": { "type": "object", "additionalProperties": false, "required": ["path", "sha256"], "properties": { "path": { "type": "string", "minLength": 1 }, "sha256": { "$ref": "#/$defs/sha256" } } }
+  }
+}

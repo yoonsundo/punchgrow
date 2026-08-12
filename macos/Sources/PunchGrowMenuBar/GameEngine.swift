@@ -25,6 +25,7 @@ struct AnyRandomNumberGenerator: RandomNumberGenerator {
 }
 
 enum EvolutionCatalog {
+    static let mixedCategory = "mixed"
     static let mutantCategory = "mutant"
 
     private static let categoryPriority = [
@@ -54,14 +55,29 @@ enum EvolutionCatalog {
         after current: CreatureSpecies,
         in catalog: [CreatureSpecies]
     ) -> [CreatureSpecies] {
-        candidates(after: current, in: catalog).filter { $0.category != mutantCategory }
+        lineageCandidates(after: current, in: catalog).filter {
+            $0.category != mutantCategory
+        }
+    }
+
+    /// macOS의 일반 진화 계보에 속하는 다음 단계다. `mixed`는 두 종의 결합으로 만든
+    /// 별도 수집품이라 단일 개체의 성장 연속선에 넣지 않는다. 변이는 도감과 실제 도달
+    /// 이력에 필요하므로 이 경계에는 남기고, 선택지만 `selectableCandidates`에서 제외한다.
+    static func lineageCandidates(
+        after current: CreatureSpecies,
+        in catalog: [CreatureSpecies]
+    ) -> [CreatureSpecies] {
+        guard current.category != mixedCategory else { return [] }
+        return candidates(after: current, in: catalog).filter {
+            $0.category != mixedCategory
+        }
     }
 
     static func mutationCandidate(
         after current: CreatureSpecies,
         in catalog: [CreatureSpecies]
     ) -> CreatureSpecies? {
-        candidates(after: current, in: catalog).first { $0.category == mutantCategory }
+        lineageCandidates(after: current, in: catalog).first { $0.category == mutantCategory }
     }
 
     static func parents(
@@ -90,7 +106,7 @@ enum EvolutionCatalog {
         var current = start
         var visited: Set<String> = [start.id]
 
-        while let next = candidates(after: current, in: catalog).first,
+        while let next = lineageCandidates(after: current, in: catalog).first,
               visited.insert(next.id).inserted {
             path.append(next)
             current = next
@@ -208,15 +224,28 @@ enum GameEngine {
         }
 
         mutating func originSpeciesID(for creature: OwnedCreature) -> String {
+            // 레거시 세이브의 혼합형은 예전 시작종을 origin으로 저장했을 수 있다. 이제
+            // 일반 진화 계보 밖의 수집품이므로 그 origin으로 다시 접으면 메인 목록에서
+            // 시작종 뒤에 숨는다. 현재 혼합 종 자체를 독립 그룹 키로 사용한다.
+            if speciesByID[creature.speciesID]?.category == EvolutionCatalog.mixedCategory {
+                return creature.speciesID
+            }
+            let possibleOrigins = possibleOriginSpeciesIDs(for: creature.speciesID)
             if let explicit = creature.originSpeciesID,
                let species = speciesByID[explicit],
                species.stage == 1,
-               species.category == "start" {
+               species.category == "start",
+               possibleOrigins.contains(explicit) {
                 return explicit
             }
+            // 레거시 데이터에 origin이 없더라도 카탈로그가 유일한 시작종을 증명할 때만
+            // 복원한다. 둘 이상이면 사전순 하나를 임의로 고르지 않고 현재 종을 독립 그룹으로 둔다.
+            return possibleOrigins.count == 1 ? possibleOrigins.first! : creature.speciesID
+        }
+
+        mutating func possibleOriginSpeciesIDs(for speciesID: String) -> Set<String> {
             var visiting: Set<String> = []
-            return roots(for: creature.speciesID, visiting: &visiting).sorted().first
-                ?? creature.speciesID
+            return roots(for: speciesID, visiting: &visiting)
         }
 
         private mutating func roots(
@@ -445,20 +474,120 @@ enum GameEngine {
         state.inventory.largeFood = nextFood.partialValue
     }
 
-    static func resolvedPreference(
+    /// 시작종에서 뻗어 나가는 모든 종. 변이도 포함한다 — 도감이 한 계보로 묶어 보여 주는
+    /// 범위와 같아야 표시 모습으로 고를 수 있는 후보가 화면과 어긋나지 않는다.
+    static func lineageSpeciesIDs(
+        forOrigin originID: String,
+        catalog: [CreatureSpecies]
+    ) -> Set<String> {
+        guard let origin = catalog.first(where: { $0.id == originID }) else { return [] }
+        var visited: Set<String> = [origin.id]
+        var frontier = [origin]
+        while let current = frontier.popLast() {
+            for next in EvolutionCatalog.lineageCandidates(after: current, in: catalog)
+            where visited.insert(next.id).inserted {
+                frontier.append(next)
+            }
+        }
+        return visited
+    }
+
+    /// 이 개체가 시작형부터 현재 종까지 실제로 지나왔다고 증명할 수 있는 모습들이다.
+    /// 세이브에는 단계별 이력을 중복 저장하지 않으므로 일반 계보 카탈로그 경로를 다시 찾는다.
+    /// `mixed`는 그 경계에 들어오지 않으므로 레거시 세이브에 시작종이 있어도 현재 모습 하나만
+    /// 반환한다. 그 밖에 시작종이 둘 이상 가능한 오류 데이터는 모든 경로의 교집합만 인정한다.
+    static func reachedEvolutionSpeciesIDs(
         for creature: OwnedCreature,
         catalog: [CreatureSpecies]
-    ) -> PreferenceResolution {
-        guard let preferredID = creature.preferredEvolutionTargetSpeciesID,
-              let current = catalog.first(where: { $0.id == creature.speciesID }),
-              let target = catalog.first(where: { $0.id == preferredID })
-        else { return .invalid }
-        if EvolutionCatalog.selectableCandidates(after: current, in: catalog)
-            .contains(where: { $0.id == target.id }) {
-            return .ready(target)
+    ) -> Set<String> {
+        guard let actual = catalog.first(where: { $0.id == creature.speciesID }) else { return [] }
+        let roots: [CreatureSpecies]
+        if let explicitOriginID = creature.originSpeciesID {
+            guard let explicit = catalog.first(where: { $0.id == explicitOriginID }),
+                  explicit.stage == 1,
+                  explicit.category == "start"
+            else { return [actual.id] }
+            roots = [explicit]
+        } else {
+            var resolver = OriginResolver(catalog: catalog)
+            let possibleOriginIDs = resolver.possibleOriginSpeciesIDs(for: actual.id)
+            roots = possibleOriginIDs.compactMap { id in catalog.first { $0.id == id } }
         }
-        return selectableDescendantIDs(from: current, in: catalog).contains(target.id)
-            ? .pendingDescendant : .invalid
+
+        let possiblePaths = roots.flatMap {
+            evolutionPaths(from: $0, to: actual, catalog: catalog)
+        }
+        guard let firstPath = possiblePaths.first else { return [actual.id] }
+        return possiblePaths.dropFirst().reduce(into: Set(firstPath)) { common, path in
+            common.formIntersection(path)
+        }
+    }
+
+    private static func evolutionPaths(
+        from origin: CreatureSpecies,
+        to target: CreatureSpecies,
+        catalog: [CreatureSpecies]
+    ) -> [[String]] {
+        var frontier: [(species: CreatureSpecies, path: [String])] = [(origin, [origin.id])]
+        var cursor = 0
+        var matches: [[String]] = []
+        while cursor < frontier.count {
+            let node = frontier[cursor]
+            cursor += 1
+            if node.species.id == target.id {
+                matches.append(node.path)
+                continue
+            }
+            guard node.species.stage < target.stage else { continue }
+            for candidate in EvolutionCatalog.lineageCandidates(after: node.species, in: catalog)
+            where candidate.stage <= target.stage && !node.path.contains(candidate.id) {
+                frontier.append((candidate, node.path + [candidate.id]))
+            }
+        }
+        return matches
+    }
+
+    /// 화면에 그릴 종. 고정해 둔 모습이 지금도 유효할 때만 그것을 쓰고, 아니면 실제 종으로
+    /// 되돌아간다. 카탈로그가 바뀌어 고정값이 떠도 화면이 비지 않게 하기 위해서다.
+    static func displaySpecies(
+        for creature: OwnedCreature,
+        catalog: [CreatureSpecies]
+    ) -> CreatureSpecies? {
+        let actual = catalog.first { $0.id == creature.speciesID }
+        guard let displayID = creature.displaySpeciesID, displayID != creature.speciesID,
+              let display = catalog.first(where: { $0.id == displayID }),
+              reachedEvolutionSpeciesIDs(for: creature, catalog: catalog).contains(displayID)
+        else { return actual }
+        return display
+    }
+
+    /// 표시 모습을 고정한다. **개체의 종과 성장은 건드리지 않는다** — 이 함수가 바꾸는 것은
+    /// `displaySpeciesID` 하나뿐이다.
+    static func setDisplayForm(
+        creatureID: UUID,
+        toSpeciesID speciesID: String,
+        state: inout GameState,
+        catalog: [CreatureSpecies]
+    ) throws {
+        guard let index = state.ownedCreatures.firstIndex(where: { $0.id == creatureID }) else {
+            throw GameError.creatureNotFound
+        }
+        let creature = state.ownedCreatures[index]
+        // 실제 모습으로 되돌리는 요청은 고정 해제와 같다.
+        guard speciesID != creature.speciesID else {
+            state.ownedCreatures[index].displaySpeciesID = nil
+            return
+        }
+        guard reachedEvolutionSpeciesIDs(for: creature, catalog: catalog).contains(speciesID)
+        else { throw GameError.invalidEvolutionChoice }
+        state.ownedCreatures[index].displaySpeciesID = speciesID
+    }
+
+    static func clearDisplayForm(creatureID: UUID, state: inout GameState) throws {
+        guard let index = state.ownedCreatures.firstIndex(where: { $0.id == creatureID }) else {
+            throw GameError.creatureNotFound
+        }
+        state.ownedCreatures[index].displaySpeciesID = nil
     }
 
     /// 이 종 뒤로 갈 수 있는 곳이 전혀 없으면 종착이다. 변이는 선택할 수 없지만 확률로
@@ -466,16 +595,6 @@ enum GameEngine {
     static func isTerminalSpecies(_ species: CreatureSpecies, catalog: [CreatureSpecies]) -> Bool {
         EvolutionCatalog.selectableCandidates(after: species, in: catalog).isEmpty
             && EvolutionCatalog.mutationCandidate(after: species, in: catalog) == nil
-    }
-
-    /// 지금 이 개체에 선호 대상으로 지정할 수 있는 종의 집합.
-    /// `setEvolutionPreference`의 검증 범위와 같은 계산을 쓴다.
-    static func selectablePreferenceTargetIDs(
-        for creature: OwnedCreature,
-        catalog: [CreatureSpecies]
-    ) -> Set<String> {
-        guard let current = catalog.first(where: { $0.id == creature.speciesID }) else { return [] }
-        return selectableDescendantIDs(from: current, in: catalog)
     }
 
     static func pendingEvolutionChoice(
@@ -489,41 +608,8 @@ enum GameEngine {
         else { return nil }
         let candidates = EvolutionCatalog.selectableCandidates(after: current, in: catalog)
         guard candidates.count > 1 else { return nil }
-        if case .ready(let target) = resolvedPreference(for: creature, catalog: catalog) {
-            // 비종착 예약은 조용히 진행한다. 종착 예약만 진화 직전에 한 번 확인을 받는다.
-            guard isTerminalSpecies(target, catalog: catalog) else { return nil }
-            return PendingEvolutionChoice(
-                creatureID: creature.id, fromSpecies: current, candidates: candidates,
-                preferredTargetID: target.id)
-        }
         return PendingEvolutionChoice(
-            creatureID: creature.id, fromSpecies: current, candidates: candidates,
-            preferredTargetID: nil)
-    }
-
-    static func setEvolutionPreference(
-        creatureID: UUID,
-        toSpeciesID speciesID: String,
-        state: inout GameState,
-        catalog: [CreatureSpecies]
-    ) throws {
-        guard let index = state.ownedCreatures.firstIndex(where: { $0.id == creatureID }) else {
-            throw GameError.creatureNotFound
-        }
-        guard let current = catalog.first(where: { $0.id == state.ownedCreatures[index].speciesID }),
-              selectableDescendantIDs(from: current, in: catalog).contains(speciesID)
-        else { throw GameError.invalidEvolutionChoice }
-        state.ownedCreatures[index].preferredEvolutionTargetSpeciesID = speciesID
-    }
-
-    static func clearEvolutionPreference(
-        creatureID: UUID,
-        state: inout GameState
-    ) throws {
-        guard let index = state.ownedCreatures.firstIndex(where: { $0.id == creatureID }) else {
-            throw GameError.creatureNotFound
-        }
-        state.ownedCreatures[index].preferredEvolutionTargetSpeciesID = nil
+            creatureID: creature.id, fromSpecies: current, candidates: candidates)
     }
 
     @discardableResult
@@ -545,11 +631,11 @@ enum GameEngine {
                   .contains(where: { $0.id == speciesID })
         else { throw GameError.invalidEvolutionChoice }
 
-        state.ownedCreatures[index].preferredEvolutionTargetSpeciesID = speciesID
-        // 명시적 선택은 이미 시트에서 종착 확인을 마친 뒤 도착하므로 다시 멈추지 않는다.
+        // 시트에서 고른 결과는 이번 호출에만 쓰인다. 예약으로 남기지 않으므로 다음 갈림길은
+        // 다시 사용자에게 묻는다.
         return evolveEligibleCreature(
             at: index, state: &state, catalog: catalog, generator: &generator,
-            confirmedTerminalTargetID: speciesID)
+            explicitTargetID: speciesID)
     }
 
     /// 난수와 무관한 호출부를 위한 편의 오버로드.
@@ -623,6 +709,7 @@ enum GameEngine {
         }
         let originID = originSpeciesID(for: creature, catalog: catalog)
         guard let current = catalog.first(where: { $0.id == creature.speciesID }),
+              current.category != EvolutionCatalog.mixedCategory,
               current.stage > 1,
               let origin = catalog.first(where: { $0.id == originID }),
               origin.stage == 1,
@@ -651,7 +738,6 @@ enum GameEngine {
         let offspring = OwnedCreature(
             id: UUID(), speciesID: mutation.id, originSpeciesID: origin.id,
             level: 1, experience: 0, affection: 0, nickname: nil,
-            preferredEvolutionTargetSpeciesID: nil,
             // 가챠가 아니므로 유니크 컬러 판정을 하지 않는다.
             uniqueColor: false, acquiredAt: now)
         state.ownedCreatures.append(offspring)
@@ -676,6 +762,7 @@ enum GameEngine {
         }
         let originID = originSpeciesID(for: creature, catalog: catalog)
         guard let current = catalog.first(where: { $0.id == creature.speciesID }),
+              current.category != EvolutionCatalog.mixedCategory,
               isTerminalSpecies(current, catalog: catalog),
               let origin = catalog.first(where: { $0.id == originID }),
               origin.stage == 1
@@ -691,7 +778,6 @@ enum GameEngine {
         let offspring = OwnedCreature(
             id: UUID(), speciesID: origin.id, originSpeciesID: origin.id,
             level: 1, experience: 0, affection: 0, nickname: nil,
-            preferredEvolutionTargetSpeciesID: nil,
             uniqueColor: false, acquiredAt: now)
         state.ownedCreatures.append(offspring)
         state.discoveredSpeciesIDs.insert(origin.id)
@@ -769,7 +855,7 @@ enum GameEngine {
         state: inout GameState,
         catalog: [CreatureSpecies],
         generator: inout some RandomNumberGenerator,
-        confirmedTerminalTargetID: String? = nil,
+        explicitTargetID: String? = nil,
         offersMutation: Bool = true
     ) -> FeedOutcome {
         let speciesByID = Dictionary(
@@ -778,19 +864,12 @@ enum GameEngine {
         )
         var results: [EvolutionResult] = []
 
-        if speciesByID[state.ownedCreatures[index].speciesID] != nil,
-           state.ownedCreatures[index].preferredEvolutionTargetSpeciesID != nil,
-           resolvedPreference(for: state.ownedCreatures[index], catalog: catalog) == .invalid {
-            state.ownedCreatures[index].preferredEvolutionTargetSpeciesID = nil
-        }
-
         while let current = speciesByID[state.ownedCreatures[index].speciesID],
               current.stage < 4,
               let requiredLevel = EvolutionCatalog.requiredLevel(for: current.stage + 1),
               state.ownedCreatures[index].level >= requiredLevel,
               let next = chosenEvolutionTarget(
-                  for: state.ownedCreatures[index], from: current, catalog: catalog,
-                  confirmedTerminalTargetID: confirmedTerminalTargetID) {
+                  from: current, catalog: catalog, explicitTargetID: explicitTargetID) {
             // 진행 대상이 확정된 뒤에만 판정한다. 변이 후보가 없는 계보에서는 난수를
             // 소비조차 하지 않아야 시드 재현성이 유지된다.
             if offersMutation, current.stage == 1,
@@ -818,9 +897,6 @@ enum GameEngine {
         state: inout GameState
     ) -> EvolutionResult {
         state.ownedCreatures[index].speciesID = next.id
-        if state.ownedCreatures[index].preferredEvolutionTargetSpeciesID == next.id {
-            state.ownedCreatures[index].preferredEvolutionTargetSpeciesID = nil
-        }
         state.discoveredSpeciesIDs.insert(next.id)
         return EvolutionResult(
             creatureID: state.ownedCreatures[index].id,
@@ -830,23 +906,16 @@ enum GameEngine {
         )
     }
 
+    /// 갈림길은 사용자가 고를 때까지 멈춘다. 이번 호출로 전달된 선택만 통과시키므로,
+    /// 여러 단계를 연달아 오를 때 두 번째 갈림길은 다시 멈춘다.
     private static func chosenEvolutionTarget(
-        for creature: OwnedCreature,
         from current: CreatureSpecies,
         catalog: [CreatureSpecies],
-        confirmedTerminalTargetID: String?
+        explicitTargetID: String?
     ) -> CreatureSpecies? {
         let candidates = EvolutionCatalog.selectableCandidates(after: current, in: catalog)
         guard candidates.count > 1 else { return candidates.first }
-        guard case .ready(let target) = resolvedPreference(for: creature, catalog: catalog) else {
-            return nil
-        }
-        // 레벨 1에 찍어둔 예약이 수십 시간 뒤 조용히 성장을 끝내지 않도록, 종착 대상은
-        // 사용자가 진화 직전에 한 번 확인한 뒤에만 적용한다.
-        guard confirmedTerminalTargetID == target.id
-                || !isTerminalSpecies(target, catalog: catalog)
-        else { return nil }
-        return target
+        return explicitTargetID.flatMap { id in candidates.first { $0.id == id } }
     }
 
 }

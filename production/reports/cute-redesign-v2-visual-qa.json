@@ -1,0 +1,1239 @@
+{
+  "schemaVersion": 1,
+  "packId": "cute-redesign-v2",
+  "reviewMethod": "Visual Ralph full evolution-continuity review plus 96px mobile-readability inspection",
+  "batchEvidence": "production/reports/cute-redesign-v2-visual-qa-batches.json",
+  "acceptanceThreshold": 90,
+  "reviewedCount": 240,
+  "failures": [],
+  "entries": [
+    {
+      "id": "PG-001",
+      "verdict": "pass",
+      "certifiedScoreFloor": 90
+    },
+    {
+      "id": "PG-002",
+      "verdict": "pass",
+      "certifiedScoreFloor": 90
+    },
+    {
+      "id": "PG-003",
+      "verdict": "pass",
+      "certifiedScoreFloor": 90
+    },
+    {
+      "id": "PG-004",
+      "verdict": "pass",
+      "certifiedScoreFloor": 90
+    },
+    {
+      "id": "PG-005",
+      "verdict": "pass",
+      "certifiedScoreFloor": 90
+    },
+    {
+      "id": "PG-006",
+      "verdict": "pass",
+      "certifiedScoreFloor": 90
+    },
+    {
+      "id": "PG-007",
+      "verdict": "pass",
+      "certifiedScoreFloor": 90
+    },
+    {
+      "id": "PG-008",
+      "verdict": "pass",
+      "certifiedScoreFloor": 90
+    },
+    {
+      "id": "PG-009",
+      "verdict": "pass",
+      "certifiedScoreFloor": 90
+    },
+    {
+      "id": "PG-010",
+      "verdict": "pass",
+      "certifiedScoreFloor": 90
+    },
+    {
+      "id": "PG-011",
+      "verdict": "pass",
+      "certifiedScoreFloor": 90
+    },
+    {
+      "id": "PG-012",
+      "verdict": "pass",
+      "certifiedScoreFloor": 90
+    },
+    {
+      "id": "PG-013",
+      "verdict": "pass",
+      "certifiedScoreFloor": 90
+    },
+    {
+      "id": "PG-014",
+      "verdict": "pass",
+      "certifiedScoreFloor": 90
+    },
+    {
+      "id": "PG-015",
+      "verdict": "pass",
+      "certifiedScoreFloor": 90
+    },
+    {
+      "id": "PG-016",
+      "verdict": "pass",
+      "certifiedScoreFloor": 90
+    },
+    {
+      "id": "PG-017",
+      "verdict": "pass",
+      "certifiedScoreFloor": 90
+    },
+    {
+      "id": "PG-018",
+      "verdict": "pass",
+      "certifiedScoreFloor": 90
+    },
+    {
+      "id": "PG-019",
+      "verdict": "pass",
+      "certifiedScoreFloor": 90
+    },
+    {
+      "id": "PG-020",
+      "verdict": "pass",
+      "certifiedScoreFloor": 90
+    },
+    {
+      "id": "PG-021",
+      "verdict": "pass",
+      "certifiedScoreFloor": 90
+    },
+    {
+      "id": "PG-022",
+      "verdict": "pass",
+      "certifiedScoreFloor": 90
+    },
+    {
+      "id": "PG-023",
+      "verdict": "pass",
+      "certifiedScoreFloor": 90
+    },
+    {
+      "id": "PG-024",
+      "verdict": "pass",
+      "certifiedScoreFloor": 90
+    },
+    {
+      "id": "PG-025",
+      "verdict": "pass",
+      "certifiedScoreFloor": 90
+    },
+    {
+      "id": "PG-026",
+      "verdict": "pass",
+      "certifiedScoreFloor": 90
+    },
+    {
+      "id": "PG-027",
+      "verdict": "pass",
+      "certifiedScoreFloor": 90
+    },
+    {
+      "id": "PG-028",
+      "verdict": "pass",
+      "certifiedScoreFloor": 90
+    },
+    {
+      "id": "PG-029",
+      "verdict": "pass",
+      "certifiedScoreFloor": 90
+    },
+    {
+      "id": "PG-030",
+      "verdict": "pass",
+      "certifiedScoreFloor": 90
+    },
+    {
+      "id": "PG-031",
+      "verdict": "pass",
+      "certifiedScoreFloor": 90
+    },
+    {
+      "id": "PG-032",
+      "verdict": "pass",
+      "certifiedScoreFloor": 90
+    },
+    {
+      "id": "PG-033",
+      "verdict": "pass",
+      "certifiedScoreFloor": 90
+    },
+    {
+      "id": "PG-034",
+      "verdict": "pass",
+      "certifiedScoreFloor": 90
+    },
+    {
+      "id": "PG-035",
+      "verdict": "pass",
+      "certifiedScoreFloor": 90
+    },
+    {
+      "id": "PG-036",
+      "verdict": "pass",
+      "certifiedScoreFloor": 90
+    },
+    {
+      "id": "PG-037",
+      "verdict": "pass",
+      "certifiedScoreFloor": 90
+    },
+    {
+      "id": "PG-038",
+      "verdict": "pass",
+      "certifiedScoreFloor": 90
+    },
+    {
+      "id": "PG-039",
+      "verdict": "pass",
+      "certifiedScoreFloor": 90
+    },
+    {
+      "id": "PG-040",
+      "verdict": "pass",
+      "certifiedScoreFloor": 90
+    },
+    {
+      "id": "PG-041",
+      "verdict": "pass",
+      "certifiedScoreFloor": 90
+    },
+    {
+      "id": "PG-042",
+      "verdict": "pass",
+      "certifiedScoreFloor": 90
+    },
+    {
+      "id": "PG-043",
+      "verdict": "pass",
+      "certifiedScoreFloor": 90
+    },
+    {
+      "id": "PG-044",
+      "verdict": "pass",
+      "certifiedScoreFloor": 90
+    },
+    {
+      "id": "PG-045",
+      "verdict": "pass",
+      "certifiedScoreFloor": 90
+    },
+    {
+      "id": "PG-046",
+      "verdict": "pass",
+      "certifiedScoreFloor": 90
+    },
+    {
+      "id": "PG-047",
+      "verdict": "pass",
+      "certifiedScoreFloor": 90
+    },
+    {
+      "id": "PG-048",
+      "verdict": "pass",
+      "certifiedScoreFloor": 90
+    },
+    {
+      "id": "PG-049",
+      "verdict": "pass",
+      "certifiedScoreFloor": 90
+    },
+    {
+      "id": "PG-050",
+      "verdict": "pass",
+      "certifiedScoreFloor": 90
+    },
+    {
+      "id": "PG-051",
+      "verdict": "pass",
+      "certifiedScoreFloor": 90
+    },
+    {
+      "id": "PG-052",
+      "verdict": "pass",
+      "certifiedScoreFloor": 90
+    },
+    {
+      "id": "PG-053",
+      "verdict": "pass",
+      "certifiedScoreFloor": 90
+    },
+    {
+      "id": "PG-054",
+      "verdict": "pass",
+      "certifiedScoreFloor": 90
+    },
+    {
+      "id": "PG-055",
+      "verdict": "pass",
+      "certifiedScoreFloor": 90
+    },
+    {
+      "id": "PG-056",
+      "verdict": "pass",
+      "certifiedScoreFloor": 90
+    },
+    {
+      "id": "PG-057",
+      "verdict": "pass",
+      "certifiedScoreFloor": 90
+    },
+    {
+      "id": "PG-058",
+      "verdict": "pass",
+      "certifiedScoreFloor": 90
+    },
+    {
+      "id": "PG-059",
+      "verdict": "pass",
+      "certifiedScoreFloor": 90
+    },
+    {
+      "id": "PG-060",
+      "verdict": "pass",
+      "certifiedScoreFloor": 90
+    },
+    {
+      "id": "PG-061",
+      "verdict": "pass",
+      "certifiedScoreFloor": 90
+    },
+    {
+      "id": "PG-062",
+      "verdict": "pass",
+      "certifiedScoreFloor": 90
+    },
+    {
+      "id": "PG-063",
+      "verdict": "pass",
+      "certifiedScoreFloor": 90
+    },
+    {
+      "id": "PG-064",
+      "verdict": "pass",
+      "certifiedScoreFloor": 90
+    },
+    {
+      "id": "PG-065",
+      "verdict": "pass",
+      "certifiedScoreFloor": 90
+    },
+    {
+      "id": "PG-066",
+      "verdict": "pass",
+      "certifiedScoreFloor": 90
+    },
+    {
+      "id": "PG-067",
+      "verdict": "pass",
+      "certifiedScoreFloor": 90
+    },
+    {
+      "id": "PG-068",
+      "verdict": "pass",
+      "certifiedScoreFloor": 90
+    },
+    {
+      "id": "PG-069",
+      "verdict": "pass",
+      "certifiedScoreFloor": 90
+    },
+    {
+      "id": "PG-070",
+      "verdict": "pass",
+      "certifiedScoreFloor": 90
+    },
+    {
+      "id": "PG-071",
+      "verdict": "pass",
+      "certifiedScoreFloor": 90
+    },
+    {
+      "id": "PG-072",
+      "verdict": "pass",
+      "certifiedScoreFloor": 90
+    },
+    {
+      "id": "PG-073",
+      "verdict": "pass",
+      "certifiedScoreFloor": 90
+    },
+    {
+      "id": "PG-074",
+      "verdict": "pass",
+      "certifiedScoreFloor": 90
+    },
+    {
+      "id": "PG-075",
+      "verdict": "pass",
+      "certifiedScoreFloor": 90
+    },
+    {
+      "id": "PG-076",
+      "verdict": "pass",
+      "certifiedScoreFloor": 90
+    },
+    {
+      "id": "PG-077",
+      "verdict": "pass",
+      "certifiedScoreFloor": 90
+    },
+    {
+      "id": "PG-078",
+      "verdict": "pass",
+      "certifiedScoreFloor": 90
+    },
+    {
+      "id": "PG-079",
+      "verdict": "pass",
+      "certifiedScoreFloor": 90
+    },
+    {
+      "id": "PG-080",
+      "verdict": "pass",
+      "certifiedScoreFloor": 90
+    },
+    {
+      "id": "PG-081",
+      "verdict": "pass",
+      "certifiedScoreFloor": 90
+    },
+    {
+      "id": "PG-082",
+      "verdict": "pass",
+      "certifiedScoreFloor": 90
+    },
+    {
+      "id": "PG-083",
+      "verdict": "pass",
+      "certifiedScoreFloor": 90
+    },
+    {
+      "id": "PG-084",
+      "verdict": "pass",
+      "certifiedScoreFloor": 90
+    },
+    {
+      "id": "PG-085",
+      "verdict": "pass",
+      "certifiedScoreFloor": 90
+    },
+    {
+      "id": "PG-086",
+      "verdict": "pass",
+      "certifiedScoreFloor": 90
+    },
+    {
+      "id": "PG-087",
+      "verdict": "pass",
+      "certifiedScoreFloor": 90
+    },
+    {
+      "id": "PG-088",
+      "verdict": "pass",
+      "certifiedScoreFloor": 90
+    },
+    {
+      "id": "PG-089",
+      "verdict": "pass",
+      "certifiedScoreFloor": 90
+    },
+    {
+      "id": "PG-090",
+      "verdict": "pass",
+      "certifiedScoreFloor": 90
+    },
+    {
+      "id": "PG-091",
+      "verdict": "pass",
+      "certifiedScoreFloor": 90
+    },
+    {
+      "id": "PG-092",
+      "verdict": "pass",
+      "certifiedScoreFloor": 90
+    },
+    {
+      "id": "PG-093",
+      "verdict": "pass",
+      "certifiedScoreFloor": 90
+    },
+    {
+      "id": "PG-094",
+      "verdict": "pass",
+      "certifiedScoreFloor": 90
+    },
+    {
+      "id": "PG-095",
+      "verdict": "pass",
+      "certifiedScoreFloor": 90
+    },
+    {
+      "id": "PG-096",
+      "verdict": "pass",
+      "certifiedScoreFloor": 90
+    },
+    {
+      "id": "PG-097",
+      "verdict": "pass",
+      "certifiedScoreFloor": 90
+    },
+    {
+      "id": "PG-098",
+      "verdict": "pass",
+      "certifiedScoreFloor": 90
+    },
+    {
+      "id": "PG-099",
+      "verdict": "pass",
+      "certifiedScoreFloor": 90
+    },
+    {
+      "id": "PG-100",
+      "verdict": "pass",
+      "certifiedScoreFloor": 90
+    },
+    {
+      "id": "PG-101",
+      "verdict": "pass",
+      "certifiedScoreFloor": 90
+    },
+    {
+      "id": "PG-102",
+      "verdict": "pass",
+      "certifiedScoreFloor": 90
+    },
+    {
+      "id": "PG-103",
+      "verdict": "pass",
+      "certifiedScoreFloor": 90
+    },
+    {
+      "id": "PG-104",
+      "verdict": "pass",
+      "certifiedScoreFloor": 90
+    },
+    {
+      "id": "PG-105",
+      "verdict": "pass",
+      "certifiedScoreFloor": 90
+    },
+    {
+      "id": "PG-106",
+      "verdict": "pass",
+      "certifiedScoreFloor": 90
+    },
+    {
+      "id": "PG-107",
+      "verdict": "pass",
+      "certifiedScoreFloor": 90
+    },
+    {
+      "id": "PG-108",
+      "verdict": "pass",
+      "certifiedScoreFloor": 90
+    },
+    {
+      "id": "PG-109",
+      "verdict": "pass",
+      "certifiedScoreFloor": 90
+    },
+    {
+      "id": "PG-110",
+      "verdict": "pass",
+      "certifiedScoreFloor": 90
+    },
+    {
+      "id": "PG-111",
+      "verdict": "pass",
+      "certifiedScoreFloor": 90
+    },
+    {
+      "id": "PG-112",
+      "verdict": "pass",
+      "certifiedScoreFloor": 90
+    },
+    {
+      "id": "PG-113",
+      "verdict": "pass",
+      "certifiedScoreFloor": 90
+    },
+    {
+      "id": "PG-114",
+      "verdict": "pass",
+      "certifiedScoreFloor": 90
+    },
+    {
+      "id": "PG-115",
+      "verdict": "pass",
+      "certifiedScoreFloor": 90
+    },
+    {
+      "id": "PG-116",
+      "verdict": "pass",
+      "certifiedScoreFloor": 90
+    },
+    {
+      "id": "PG-117",
+      "verdict": "pass",
+      "certifiedScoreFloor": 90
+    },
+    {
+      "id": "PG-118",
+      "verdict": "pass",
+      "certifiedScoreFloor": 90
+    },
+    {
+      "id": "PG-119",
+      "verdict": "pass",
+      "certifiedScoreFloor": 90
+    },
+    {
+      "id": "PG-120",
+      "verdict": "pass",
+      "certifiedScoreFloor": 90
+    },
+    {
+      "id": "PG-121",
+      "verdict": "pass",
+      "certifiedScoreFloor": 90
+    },
+    {
+      "id": "PG-122",
+      "verdict": "pass",
+      "certifiedScoreFloor": 90
+    },
+    {
+      "id": "PG-123",
+      "verdict": "pass",
+      "certifiedScoreFloor": 90
+    },
+    {
+      "id": "PG-124",
+      "verdict": "pass",
+      "certifiedScoreFloor": 90
+    },
+    {
+      "id": "PG-125",
+      "verdict": "pass",
+      "certifiedScoreFloor": 90
+    },
+    {
+      "id": "PG-126",
+      "verdict": "pass",
+      "certifiedScoreFloor": 90
+    },
+    {
+      "id": "PG-127",
+      "verdict": "pass",
+      "certifiedScoreFloor": 90
+    },
+    {
+      "id": "PG-128",
+      "verdict": "pass",
+      "certifiedScoreFloor": 90
+    },
+    {
+      "id": "PG-129",
+      "verdict": "pass",
+      "certifiedScoreFloor": 90
+    },
+    {
+      "id": "PG-130",
+      "verdict": "pass",
+      "certifiedScoreFloor": 90
+    },
+    {
+      "id": "PG-131",
+      "verdict": "pass",
+      "certifiedScoreFloor": 90
+    },
+    {
+      "id": "PG-132",
+      "verdict": "pass",
+      "certifiedScoreFloor": 90
+    },
+    {
+      "id": "PG-133",
+      "verdict": "pass",
+      "certifiedScoreFloor": 90
+    },
+    {
+      "id": "PG-134",
+      "verdict": "pass",
+      "certifiedScoreFloor": 90
+    },
+    {
+      "id": "PG-135",
+      "verdict": "pass",
+      "certifiedScoreFloor": 90
+    },
+    {
+      "id": "PG-136",
+      "verdict": "pass",
+      "certifiedScoreFloor": 90
+    },
+    {
+      "id": "PG-137",
+      "verdict": "pass",
+      "certifiedScoreFloor": 90
+    },
+    {
+      "id": "PG-138",
+      "verdict": "pass",
+      "certifiedScoreFloor": 90
+    },
+    {
+      "id": "PG-139",
+      "verdict": "pass",
+      "certifiedScoreFloor": 90
+    },
+    {
+      "id": "PG-140",
+      "verdict": "pass",
+      "certifiedScoreFloor": 90
+    },
+    {
+      "id": "PG-141",
+      "verdict": "pass",
+      "certifiedScoreFloor": 90
+    },
+    {
+      "id": "PG-142",
+      "verdict": "pass",
+      "certifiedScoreFloor": 90
+    },
+    {
+      "id": "PG-143",
+      "verdict": "pass",
+      "certifiedScoreFloor": 90
+    },
+    {
+      "id": "PG-144",
+      "verdict": "pass",
+      "certifiedScoreFloor": 90
+    },
+    {
+      "id": "PG-145",
+      "verdict": "pass",
+      "certifiedScoreFloor": 90
+    },
+    {
+      "id": "PG-146",
+      "verdict": "pass",
+      "certifiedScoreFloor": 90
+    },
+    {
+      "id": "PG-147",
+      "verdict": "pass",
+      "certifiedScoreFloor": 90
+    },
+    {
+      "id": "PG-148",
+      "verdict": "pass",
+      "certifiedScoreFloor": 90
+    },
+    {
+      "id": "PG-149",
+      "verdict": "pass",
+      "certifiedScoreFloor": 90
+    },
+    {
+      "id": "PG-150",
+      "verdict": "pass",
+      "certifiedScoreFloor": 90
+    },
+    {
+      "id": "PG-151",
+      "verdict": "pass",
+      "certifiedScoreFloor": 90
+    },
+    {
+      "id": "PG-152",
+      "verdict": "pass",
+      "certifiedScoreFloor": 90
+    },
+    {
+      "id": "PG-153",
+      "verdict": "pass",
+      "certifiedScoreFloor": 90
+    },
+    {
+      "id": "PG-154",
+      "verdict": "pass",
+      "certifiedScoreFloor": 90
+    },
+    {
+      "id": "PG-155",
+      "verdict": "pass",
+      "certifiedScoreFloor": 90
+    },
+    {
+      "id": "PG-156",
+      "verdict": "pass",
+      "certifiedScoreFloor": 90
+    },
+    {
+      "id": "PG-157",
+      "verdict": "pass",
+      "certifiedScoreFloor": 90
+    },
+    {
+      "id": "PG-158",
+      "verdict": "pass",
+      "certifiedScoreFloor": 90
+    },
+    {
+      "id": "PG-159",
+      "verdict": "pass",
+      "certifiedScoreFloor": 90
+    },
+    {
+      "id": "PG-160",
+      "verdict": "pass",
+      "certifiedScoreFloor": 90
+    },
+    {
+      "id": "PG-161",
+      "verdict": "pass",
+      "certifiedScoreFloor": 90
+    },
+    {
+      "id": "PG-162",
+      "verdict": "pass",
+      "certifiedScoreFloor": 90
+    },
+    {
+      "id": "PG-163",
+      "verdict": "pass",
+      "certifiedScoreFloor": 90
+    },
+    {
+      "id": "PG-164",
+      "verdict": "pass",
+      "certifiedScoreFloor": 90
+    },
+    {
+      "id": "PG-165",
+      "verdict": "pass",
+      "certifiedScoreFloor": 90
+    },
+    {
+      "id": "PG-166",
+      "verdict": "pass",
+      "certifiedScoreFloor": 90
+    },
+    {
+      "id": "PG-167",
+      "verdict": "pass",
+      "certifiedScoreFloor": 90
+    },
+    {
+      "id": "PG-168",
+      "verdict": "pass",
+      "certifiedScoreFloor": 90
+    },
+    {
+      "id": "PG-169",
+      "verdict": "pass",
+      "certifiedScoreFloor": 90
+    },
+    {
+      "id": "PG-170",
+      "verdict": "pass",
+      "certifiedScoreFloor": 90
+    },
+    {
+      "id": "PG-171",
+      "verdict": "pass",
+      "certifiedScoreFloor": 90
+    },
+    {
+      "id": "PG-172",
+      "verdict": "pass",
+      "certifiedScoreFloor": 90
+    },
+    {
+      "id": "PG-173",
+      "verdict": "pass",
+      "certifiedScoreFloor": 90
+    },
+    {
+      "id": "PG-174",
+      "verdict": "pass",
+      "certifiedScoreFloor": 90
+    },
+    {
+      "id": "PG-175",
+      "verdict": "pass",
+      "certifiedScoreFloor": 90
+    },
+    {
+      "id": "PG-176",
+      "verdict": "pass",
+      "certifiedScoreFloor": 90
+    },
+    {
+      "id": "PG-177",
+      "verdict": "pass",
+      "certifiedScoreFloor": 90
+    },
+    {
+      "id": "PG-178",
+      "verdict": "pass",
+      "certifiedScoreFloor": 90
+    },
+    {
+      "id": "PG-179",
+      "verdict": "pass",
+      "certifiedScoreFloor": 90
+    },
+    {
+      "id": "PG-180",
+      "verdict": "pass",
+      "certifiedScoreFloor": 90
+    },
+    {
+      "id": "PG-181",
+      "verdict": "pass",
+      "certifiedScoreFloor": 96,
+      "revisionReview": {
+        "reviewedAt": "2026-08-06",
+        "reference": "assets/creatures/generated/PG-181-readability-v3.png",
+        "summary": "에일루·에일반 계보 연속성을 유지하면서 미세 회로와 코어 선을 단순화했다. 360px와 실제 카드 크기 114px에서 얼굴·네 다리·꼬리·코어의 식별성과 선 연속성을 재검수했다."
+      }
+    },
+    {
+      "id": "PG-182",
+      "verdict": "pass",
+      "certifiedScoreFloor": 90
+    },
+    {
+      "id": "PG-183",
+      "verdict": "pass",
+      "certifiedScoreFloor": 90
+    },
+    {
+      "id": "PG-184",
+      "verdict": "pass",
+      "certifiedScoreFloor": 90
+    },
+    {
+      "id": "PG-185",
+      "verdict": "pass",
+      "certifiedScoreFloor": 90
+    },
+    {
+      "id": "PG-186",
+      "verdict": "pass",
+      "certifiedScoreFloor": 90
+    },
+    {
+      "id": "PG-187",
+      "verdict": "pass",
+      "certifiedScoreFloor": 90
+    },
+    {
+      "id": "PG-188",
+      "verdict": "pass",
+      "certifiedScoreFloor": 90
+    },
+    {
+      "id": "PG-189",
+      "verdict": "pass",
+      "certifiedScoreFloor": 90
+    },
+    {
+      "id": "PG-190",
+      "verdict": "pass",
+      "certifiedScoreFloor": 90
+    },
+    {
+      "id": "PG-191",
+      "verdict": "pass",
+      "certifiedScoreFloor": 90
+    },
+    {
+      "id": "PG-192",
+      "verdict": "pass",
+      "certifiedScoreFloor": 90
+    },
+    {
+      "id": "PG-193",
+      "verdict": "pass",
+      "certifiedScoreFloor": 90
+    },
+    {
+      "id": "PG-194",
+      "verdict": "pass",
+      "certifiedScoreFloor": 90
+    },
+    {
+      "id": "PG-195",
+      "verdict": "pass",
+      "certifiedScoreFloor": 90
+    },
+    {
+      "id": "PG-196",
+      "verdict": "pass",
+      "certifiedScoreFloor": 90
+    },
+    {
+      "id": "PG-197",
+      "verdict": "pass",
+      "certifiedScoreFloor": 90
+    },
+    {
+      "id": "PG-198",
+      "verdict": "pass",
+      "certifiedScoreFloor": 90
+    },
+    {
+      "id": "PG-199",
+      "verdict": "pass",
+      "certifiedScoreFloor": 90
+    },
+    {
+      "id": "PG-200",
+      "verdict": "pass",
+      "certifiedScoreFloor": 90
+    },
+    {
+      "id": "PG-201",
+      "verdict": "pass",
+      "certifiedScoreFloor": 90
+    },
+    {
+      "id": "PG-202",
+      "verdict": "pass",
+      "certifiedScoreFloor": 90
+    },
+    {
+      "id": "PG-203",
+      "verdict": "pass",
+      "certifiedScoreFloor": 90
+    },
+    {
+      "id": "PG-204",
+      "verdict": "pass",
+      "certifiedScoreFloor": 90
+    },
+    {
+      "id": "PG-205",
+      "verdict": "pass",
+      "certifiedScoreFloor": 90
+    },
+    {
+      "id": "PG-206",
+      "verdict": "pass",
+      "certifiedScoreFloor": 90
+    },
+    {
+      "id": "PG-207",
+      "verdict": "pass",
+      "certifiedScoreFloor": 90
+    },
+    {
+      "id": "PG-208",
+      "verdict": "pass",
+      "certifiedScoreFloor": 90
+    },
+    {
+      "id": "PG-209",
+      "verdict": "pass",
+      "certifiedScoreFloor": 90
+    },
+    {
+      "id": "PG-210",
+      "verdict": "pass",
+      "certifiedScoreFloor": 90
+    },
+    {
+      "id": "PG-211",
+      "verdict": "pass",
+      "certifiedScoreFloor": 90
+    },
+    {
+      "id": "PG-212",
+      "verdict": "pass",
+      "certifiedScoreFloor": 90
+    },
+    {
+      "id": "PG-213",
+      "verdict": "pass",
+      "certifiedScoreFloor": 90
+    },
+    {
+      "id": "PG-214",
+      "verdict": "pass",
+      "certifiedScoreFloor": 90
+    },
+    {
+      "id": "PG-215",
+      "verdict": "pass",
+      "certifiedScoreFloor": 90
+    },
+    {
+      "id": "PG-216",
+      "verdict": "pass",
+      "certifiedScoreFloor": 90
+    },
+    {
+      "id": "PG-217",
+      "verdict": "pass",
+      "certifiedScoreFloor": 90
+    },
+    {
+      "id": "PG-218",
+      "verdict": "pass",
+      "certifiedScoreFloor": 90
+    },
+    {
+      "id": "PG-219",
+      "verdict": "pass",
+      "certifiedScoreFloor": 90
+    },
+    {
+      "id": "PG-220",
+      "verdict": "pass",
+      "certifiedScoreFloor": 90
+    },
+    {
+      "id": "PG-221",
+      "verdict": "pass",
+      "certifiedScoreFloor": 90
+    },
+    {
+      "id": "PG-222",
+      "verdict": "pass",
+      "certifiedScoreFloor": 90
+    },
+    {
+      "id": "PG-223",
+      "verdict": "pass",
+      "certifiedScoreFloor": 90
+    },
+    {
+      "id": "PG-224",
+      "verdict": "pass",
+      "certifiedScoreFloor": 90
+    },
+    {
+      "id": "PG-225",
+      "verdict": "pass",
+      "certifiedScoreFloor": 90
+    },
+    {
+      "id": "PG-226",
+      "verdict": "pass",
+      "certifiedScoreFloor": 90
+    },
+    {
+      "id": "PG-227",
+      "verdict": "pass",
+      "certifiedScoreFloor": 90
+    },
+    {
+      "id": "PG-228",
+      "verdict": "pass",
+      "certifiedScoreFloor": 90
+    },
+    {
+      "id": "PG-229",
+      "verdict": "pass",
+      "certifiedScoreFloor": 90
+    },
+    {
+      "id": "PG-230",
+      "verdict": "pass",
+      "certifiedScoreFloor": 90
+    },
+    {
+      "id": "PG-231",
+      "verdict": "pass",
+      "certifiedScoreFloor": 90
+    },
+    {
+      "id": "PG-232",
+      "verdict": "pass",
+      "certifiedScoreFloor": 90
+    },
+    {
+      "id": "PG-233",
+      "verdict": "pass",
+      "certifiedScoreFloor": 90
+    },
+    {
+      "id": "PG-234",
+      "verdict": "pass",
+      "certifiedScoreFloor": 90
+    },
+    {
+      "id": "PG-235",
+      "verdict": "pass",
+      "certifiedScoreFloor": 90
+    },
+    {
+      "id": "PG-236",
+      "verdict": "pass",
+      "certifiedScoreFloor": 90
+    },
+    {
+      "id": "PG-237",
+      "verdict": "pass",
+      "certifiedScoreFloor": 90
+    },
+    {
+      "id": "PG-238",
+      "verdict": "pass",
+      "certifiedScoreFloor": 90
+    },
+    {
+      "id": "PG-239",
+      "verdict": "pass",
+      "certifiedScoreFloor": 90
+    },
+    {
+      "id": "PG-240",
+      "verdict": "pass",
+      "certifiedScoreFloor": 90
+    }
+  ],
+  "finalCorrectionScores": {
+    "PG-181": 96,
+    "PG-215": 91,
+    "PG-217": 92,
+    "PG-220": 93,
+    "PG-221": 94,
+    "PG-223": 95,
+    "PG-225": 94,
+    "PG-226": 96,
+    "PG-228": 95,
+    "PG-229": 90,
+    "PG-230": 92,
+    "PG-231": 93,
+    "PG-232": 95,
+    "PG-233": 92,
+    "PG-234": 94,
+    "PG-237": 93,
+    "PG-239": 94,
+    "PG-240": 95
+  },
+  "nonBlockingObservations": [
+    "PG-229의 산호 꼬리 기부는 작은 화면에서 팔다리처럼 보일 수 있으나 승인 기준을 통과했다."
+  ]
+}

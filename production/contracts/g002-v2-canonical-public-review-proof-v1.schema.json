@@ -1,0 +1,24 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://punchgrow.local/contracts/g002-v2-canonical-public-review-proof-v1.schema.json",
+  "title": "Public proof for a blinded G002-v2 canonical-root review",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schemaVersion", "rootId", "opaqueTargetId", "target", "targetSha256", "candidate", "packageManifest", "packageManifestSha256", "inputAllowlist", "inputAllowlistSha256", "prompt", "promptSha256", "materialBinding", "materialBindingSha256", "passes", "acceptedAt", "outputSha256", "publicSignature"],
+  "properties": {
+    "schemaVersion": { "const": "g002-v2-canonical-public-review-proof-v1" },
+    "rootId": { "enum": ["PG-024", "PG-029", "PG-047", "PG-052", "PG-053", "PG-056"] },
+    "opaqueTargetId": { "type": "string", "pattern": "^target-[a-f0-9]{24}$" },
+    "target": { "type": "object" }, "targetSha256": { "$ref": "#/$defs/sha256" },
+    "candidate": { "type": "object" }, "packageManifest": { "type": "object" }, "packageManifestSha256": { "$ref": "#/$defs/sha256" },
+    "inputAllowlist": { "type": "object" }, "inputAllowlistSha256": { "$ref": "#/$defs/sha256" },
+    "prompt": { "type": "string", "minLength": 1 }, "promptSha256": { "$ref": "#/$defs/sha256" },
+    "materialBinding": { "type": "object" }, "materialBindingSha256": { "$ref": "#/$defs/sha256" },
+    "passes": { "type": "array", "minItems": 2, "maxItems": 2, "items": { "type": "object", "additionalProperties": false, "required": ["assignment", "run", "raw", "vote"], "properties": { "assignment": { "type": "object" }, "run": { "type": "object" }, "raw": { "type": "object" }, "vote": { "type": "object" } } } },
+    "acceptedAt": { "type": "string", "format": "date-time" }, "outputSha256": { "$ref": "#/$defs/sha256" }, "publicSignature": { "$ref": "#/$defs/publicSignature" }
+  },
+  "$defs": {
+    "sha256": { "type": "string", "pattern": "^[a-f0-9]{64}$" },
+    "publicSignature": { "type": "object", "additionalProperties": false, "required": ["algorithm", "authorityFingerprint", "signatureBase64"], "properties": { "algorithm": { "const": "Ed25519" }, "authorityFingerprint": { "const": "423f474c59667e5eabc13a703b8d7de4e97bcba33cdc22340873866db9d6a53f" }, "signatureBase64": { "type": "string", "minLength": 80 } } }
+  }
+}

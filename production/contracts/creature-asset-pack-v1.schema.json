@@ -1,0 +1,75 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "PunchGrow Creature Asset Pack",
+  "type": "object",
+  "required": ["schemaVersion", "packId", "status", "licenseRef", "activationAllowed"],
+  "properties": {
+    "schemaVersion": {
+      "const": 1
+    },
+    "packId": {
+      "type": "string",
+      "pattern": "^[a-z0-9][a-z0-9-]+$"
+    },
+    "basePackId": {
+      "type": "string"
+    },
+    "status": {
+      "enum": [
+        "draft",
+        "representative-candidates",
+        "representative-approved",
+        "complete",
+        "qa-passed",
+        "active",
+        "retired"
+      ]
+    },
+    "licenseRef": {
+      "const": "ASSET-LICENSE.md"
+    },
+    "activationAllowed": {
+      "type": "boolean"
+    },
+    "activationBlockers": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "representativeCandidates": {
+      "type": "array"
+    },
+    "technicalManifest": {
+      "type": "string"
+    },
+    "entries": {
+      "type": "array",
+      "minItems": 240,
+      "maxItems": 240
+    }
+  },
+  "allOf": [
+    {
+      "if": {
+        "properties": {
+          "activationAllowed": {
+            "const": true
+          }
+        }
+      },
+      "then": {
+        "anyOf": [
+          {"required": ["entries"]},
+          {"required": ["technicalManifest"]}
+        ],
+        "properties": {
+          "status": {
+            "enum": ["qa-passed", "active"]
+          }
+        }
+      }
+    }
+  ],
+  "additionalProperties": true
+}

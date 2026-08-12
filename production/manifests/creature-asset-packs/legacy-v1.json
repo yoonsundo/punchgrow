@@ -1,0 +1,11 @@
+{
+  "schemaVersion": 1,
+  "packId": "legacy-v1",
+  "status": "active",
+  "artDirectionRevision": "legacy-v1",
+  "licenseRef": "ASSET-LICENSE.md",
+  "masterRoot": "assets/creatures/legacy-v1/generated",
+  "mobileRoot": "assets/creatures/legacy-v1/mobile",
+  "technicalManifest": "production/manifests/legacy-v1-image-manifest.json",
+  "activationAllowed": true
+}

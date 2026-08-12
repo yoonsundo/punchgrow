@@ -1,0 +1,51 @@
+{
+  "agentTaskId": "g002-taxonomy-pass1-independent",
+  "anchors": [
+    {
+      "anchorId": "body-silhouette",
+      "description": "Tall, broad four-legged body with thick columnar legs, a rounded belly, and a short tapering tail."
+    },
+    {
+      "anchorId": "face-geometry",
+      "description": "Rounded head with a long curled trunk, very large fan-shaped ears, and wide-set forward-facing eyes."
+    },
+    {
+      "anchorId": "signature-organ",
+      "description": "Long flexible trunk curls upward and inward in front of the face."
+    }
+  ],
+  "assignmentManifestSha256": "503ed28e415061b0c6c954eed3142d204eefba5dc313b9f1d972967c0f2a9713",
+  "blinded": true,
+  "conductorHmacSha256": "29df02306f5629b42e070e329cfce331ea7349a3cc5004d26500c85a9c723cdc",
+  "confidence": 0.99,
+  "contractSha256": "f6d06316ba0ce315a79d3d784abe49f8f80463776ef07f5dbf5372185b9a8a15",
+  "fresh": true,
+  "inputAllowlistSha256": "06c2b46d72a6ea4a952f7aa5008ed1a959572a1d0f2ab4aa1d299e2e8f15876c",
+  "inputAssetSha256s": [
+    "d50888d8c1dc81e8b602541e3357b635e3c68455ad1d6c574d8941792d2db8eb",
+    "1770be67b24e4bec95e0890efaea4e26afb0fc5a67e1b9bb6e190a53212105f2"
+  ],
+  "opaqueTaxonomyTargetId": "taxonomy-e28ebd5f1f7c720c1802edde",
+  "outputSha256": "43cce60280b757f50b7290a02a3cae571e3c76619b262ffbe0f40db528dee63d",
+  "packageManifestSha256": "74751ff2c2b36986b64a8845679f14826de4419a815fd334b5bb9b955992b7f9",
+  "passNumber": 1,
+  "promptSha256": "428e5d281d525d352776ae9950777265519d08f8bad67e50c2ed17b3f5c6e8d4",
+  "publicSignature": {
+    "algorithm": "Ed25519",
+    "authorityFingerprint": "423f474c59667e5eabc13a703b8d7de4e97bcba33cdc22340873866db9d6a53f",
+    "signatureBase64": "ZnEkii3SVhVYurtocKaLF/ZikNOctsiY8EVpKiSuetHtQJ17Cm0gWQUGv4GWZ7V2w2rccmqkXPyGumIzHKmZAQ=="
+  },
+  "reviewId": "taxonomy-review-2b96534ae4f2e94de65662517a248fe9",
+  "reviewerInstanceId": "taxonomy-reviewer-pass1-independent",
+  "reviewerRunAttestationSha256": "5a102c308142f50ac31565c4d2315e13826a1f9d6c04d84d447925a466108b08",
+  "role": "primary",
+  "schemaVersion": "g002-taxonomy-primary-vote-v1",
+  "submittedAt": "2026-08-10T16:39:00.469Z",
+  "taxonomy": {
+    "biologicalClass": "mammal",
+    "coreAnatomy": "quadruped",
+    "locomotionPlan": "quadrupedal",
+    "speciesFamily": "elephantidae"
+  },
+  "voterReviewRunId": "g002-taxonomy-run-pass1"
+}

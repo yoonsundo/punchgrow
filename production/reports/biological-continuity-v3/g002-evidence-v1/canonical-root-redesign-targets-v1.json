@@ -1,0 +1,287 @@
+{
+  "architectApprovalSource": "/root/release_version_review",
+  "contractKind": "CANONICAL_REDESIGN_TARGETS_NOT_PIXEL_TAXONOMY_CONSENSUS",
+  "outputSha256": "8588703a71b4f02411d876eaf4a276d1e0836706fab3428de2509b3849571def",
+  "publicSignature": {
+    "algorithm": "Ed25519",
+    "authorityFingerprint": "423f474c59667e5eabc13a703b8d7de4e97bcba33cdc22340873866db9d6a53f",
+    "signatureBase64": "ETEuP0+vzTwXY9oCVKd/FdThYVngO18pGeJzZqQ68vpCjdL4wnEFSwOQgG5XC422D3WUR9FHAzEYGEbML+WrBQ=="
+  },
+  "reviewerProvenanceIds": [
+    "/root/visual_census_batch_recorder",
+    "/root/release_version_review"
+  ],
+  "runId": "g002-v1",
+  "schemaVersion": "canonical-root-redesign-targets-v1",
+  "state": "APPROVED_FOR_REGENERATION_TARGETING",
+  "targetSource": "signed-canonical-root-redesign-contract",
+  "targets": [
+    {
+      "anchors": [
+        {
+          "anchorId": "leaf-tipped-long-upright-ears",
+          "description": "Long upright ears ending in leaf-shaped tips"
+        },
+        {
+          "anchorId": "oversized-clawed-hind-feet",
+          "description": "Oversized clawed hind feet"
+        },
+        {
+          "anchorId": "thick-upward-curved-tail",
+          "description": "Thick long tail curving upward"
+        }
+      ],
+      "canonicalTarget": {
+        "biologicalClass": "mammalia",
+        "coreAnatomy": "hindlimb-dominant-tetrapod",
+        "locomotionPlan": "saltatorial-bipedal",
+        "speciesFamily": "macropodidae"
+      },
+      "clarificationRequirements": [
+        "Both small forelimbs and both enlarged hindlimbs must read as separate visible limbs",
+        "Use a hop or launch pose",
+        "Reject a generic humanoid standing pose"
+      ],
+      "currentPixelAssessment": "DISPUTED_OR_AMBIGUOUS",
+      "rootId": "PG-016"
+    },
+    {
+      "anchors": [
+        {
+          "anchorId": "diamond-pectoral-disc",
+          "description": "Broad flat diamond-shaped pectoral disc"
+        },
+        {
+          "anchorId": "paired-rolled-cephalic-lobes",
+          "description": "Paired rolled cephalic lobes beside mouth"
+        },
+        {
+          "anchorId": "long-whip-tail-widened-tip",
+          "description": "Very long whip tail with widened tip"
+        }
+      ],
+      "canonicalTarget": {
+        "biologicalClass": "chondrichthyes",
+        "coreAnatomy": "pectoral-fin-disc",
+        "locomotionPlan": "aquatic-pectoral-fin-swimming",
+        "speciesFamily": "mobulidae"
+      },
+      "clarificationRequirements": [
+        "The fin disc must read as one continuous anatomical surface",
+        "Paired cephalic lobes and a gill cue must both remain visible",
+        "Reject any reading as a winged creature"
+      ],
+      "currentPixelAssessment": "DISPUTED_OR_AMBIGUOUS",
+      "rootId": "PG-021"
+    },
+    {
+      "anchors": [
+        {
+          "anchorId": "black-eye-mask-cream-muzzle",
+          "description": "Black eye mask surrounding a cream muzzle"
+        },
+        {
+          "anchorId": "strongly-ringed-bushy-tail",
+          "description": "Strongly ringed bushy tail"
+        },
+        {
+          "anchorId": "small-rounded-ears",
+          "description": "Small rounded ears"
+        }
+      ],
+      "canonicalTarget": {
+        "biologicalClass": "mammalia",
+        "coreAnatomy": "quadrupedal-tetrapod",
+        "locomotionPlan": "terrestrial-quadrupedal",
+        "speciesFamily": "procyonidae"
+      },
+      "clarificationRequirements": [
+        "Use a horizontal spine with four separate ground-contact limbs",
+        "Reject upright posture or arm-like forelimbs"
+      ],
+      "currentPixelAssessment": "DISPUTED_OR_AMBIGUOUS",
+      "rootId": "PG-022"
+    },
+    {
+      "anchors": [
+        {
+          "anchorId": "large-fan-ears",
+          "description": "Large fan-shaped ears"
+        },
+        {
+          "anchorId": "upward-curled-trunk",
+          "description": "Upward-curled trunk"
+        },
+        {
+          "anchorId": "broad-three-toenail-feet",
+          "description": "Broad feet with three visible toenails"
+        }
+      ],
+      "canonicalTarget": {
+        "biologicalClass": "mammalia",
+        "coreAnatomy": "proboscidean-tetrapod",
+        "locomotionPlan": "terrestrial-quadrupedal",
+        "speciesFamily": "elephantidae"
+      },
+      "clarificationRequirements": [
+        "Use a horizontal torso with four separate columnar ground-contact legs",
+        "Reject an upright anthropomorphic body plan"
+      ],
+      "currentPixelAssessment": "DISPUTED_OR_AMBIGUOUS",
+      "rootId": "PG-028"
+    },
+    {
+      "anchors": [
+        {
+          "anchorId": "paired-long-antennae",
+          "description": "Paired long antennae"
+        },
+        {
+          "anchorId": "paired-oversized-yellow-compound-eyes",
+          "description": "Paired oversized yellow compound eyes"
+        },
+        {
+          "anchorId": "paired-serrated-folded-raptorial-forelegs",
+          "description": "Paired serrated folded raptorial forelegs"
+        }
+      ],
+      "canonicalTarget": {
+        "biologicalClass": "insecta",
+        "coreAnatomy": "six-limbed-raptorial-insect",
+        "locomotionPlan": "terrestrial-hexapodal",
+        "speciesFamily": "stylized-mantid"
+      },
+      "clarificationRequirements": [
+        "Preserve the face and compact oval silhouette",
+        "Exactly two raptorial and four walking legs must be visible",
+        "Show thorax-abdomen segmentation and folded wing covers",
+        "Treat locomotion as terrestrial and do not infer flight"
+      ],
+      "currentPixelAssessment": "DISPUTED_OR_AMBIGUOUS",
+      "rootId": "PG-034"
+    },
+    {
+      "anchors": [
+        {
+          "anchorId": "paired-translucent-pink-veined-wings",
+          "description": "Paired translucent pink veined wings"
+        },
+        {
+          "anchorId": "long-abdomen-luminous-pink-bulb",
+          "description": "Long abdomen ending in a luminous pink bulb"
+        },
+        {
+          "anchorId": "paired-huge-black-pink-compound-eyes",
+          "description": "Paired huge black and pink compound eyes"
+        }
+      ],
+      "canonicalTarget": {
+        "biologicalClass": "insecta",
+        "coreAnatomy": "six-limbed-two-winged-insect",
+        "locomotionPlan": "aerial-wing-powered-flight",
+        "speciesFamily": "stylized-luminescent-flyer"
+      },
+      "clarificationRequirements": [
+        "Use a horizontal flying silhouette",
+        "Exactly six countable thoracic legs and exactly two wings must be visible",
+        "Keep thorax and abdomen distinct",
+        "Do not imply Lampyridae or elytra"
+      ],
+      "currentPixelAssessment": "DISPUTED_OR_AMBIGUOUS",
+      "rootId": "PG-041"
+    },
+    {
+      "anchors": [
+        {
+          "anchorId": "domed-polygon-scuted-carapace",
+          "description": "Domed carapace with polygonal scutes"
+        },
+        {
+          "anchorId": "gold-edged-broad-foreflippers",
+          "description": "Broad foreflippers with gold edges"
+        },
+        {
+          "anchorId": "teal-head-cream-underside-gold-eyes",
+          "description": "Teal head, cream underside, and gold eyes"
+        }
+      ],
+      "canonicalTarget": {
+        "biologicalClass": "reptilia",
+        "coreAnatomy": "carapaced-flippered-tetrapod",
+        "locomotionPlan": "aquatic-flipper-swimming",
+        "speciesFamily": "cheloniidae"
+      },
+      "clarificationRequirements": [
+        "All four flippers and their body attachments must be separately visible",
+        "Use a horizontal swimming axis",
+        "Reject land legs or wings"
+      ],
+      "currentPixelAssessment": "DISPUTED_OR_AMBIGUOUS",
+      "rootId": "PG-046"
+    },
+    {
+      "anchors": [
+        {
+          "anchorId": "swept-crescent-pectoral-disc",
+          "description": "Swept crescent-shaped pectoral disc"
+        },
+        {
+          "anchorId": "gold-luminous-disc-edge-lines",
+          "description": "Gold luminous lines along the disc edges"
+        },
+        {
+          "anchorId": "paired-leaf-shaped-posterior-fins",
+          "description": "Paired leaf-shaped posterior fins"
+        }
+      ],
+      "canonicalTarget": {
+        "biologicalClass": "chondrichthyes",
+        "coreAnatomy": "pectoral-fin-disc",
+        "locomotionPlan": "aquatic-pectoral-fin-swimming",
+        "speciesFamily": "mobulidae"
+      },
+      "clarificationRequirements": [
+        "The ray disc must read as one continuous anatomical surface",
+        "Add unmistakable paired cephalic lobes and one central whip tail while preserving posterior fins and face",
+        "Reject wing joints"
+      ],
+      "currentPixelAssessment": "DISPUTED_OR_AMBIGUOUS",
+      "rootId": "PG-050"
+    },
+    {
+      "anchors": [
+        {
+          "anchorId": "faceted-dark-cuboid-body",
+          "description": "Faceted dark cuboid body"
+        },
+        {
+          "anchorId": "paired-three-lobed-lateral-appendages",
+          "description": "Paired three-lobed lateral appendages"
+        },
+        {
+          "anchorId": "raised-forked-posterior-tail",
+          "description": "Raised forked posterior tail"
+        }
+      ],
+      "canonicalTarget": {
+        "biologicalClass": "actinopterygii",
+        "coreAnatomy": "paired-pectoral-and-caudal-fin-body",
+        "locomotionPlan": "aquatic-caudal-fin-swimming",
+        "speciesFamily": "stylized-rockfish"
+      },
+      "clarificationRequirements": [
+        "Reinterpret lateral appendages as pectoral fins with visible membrane or rays",
+        "Add an opercular or gill cue and a caudal peduncle",
+        "Reject claws, hands, or feet"
+      ],
+      "currentPixelAssessment": "DISPUTED_OR_AMBIGUOUS",
+      "rootId": "PG-054"
+    }
+  ],
+  "visibilityPolicy": {
+    "ambiguityRule": "hidden-merged-or-double-readable-is-block",
+    "appendageCountingRule": "count-visible-appendages-only",
+    "preservationRule": "preserve-anchor-shape-relative-placement-and-color-role",
+    "surfaceRequirement": "master-and-runtime-independently-satisfy-canonical-tuple-and-all-three-anchors"
+  }
+}

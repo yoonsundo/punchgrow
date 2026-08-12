@@ -39,7 +39,7 @@ final class MutationRetryTests: XCTestCase {
   ) -> OwnedCreature {
     OwnedCreature(
       id: id, speciesID: speciesID, originSpeciesID: origin, level: level, experience: 7,
-      affection: 42, nickname: nickname, preferredEvolutionTargetSpeciesID: nil,
+      affection: 42, nickname: nickname,
       uniqueColor: false, acquiredAt: acquiredAt)
   }
 
@@ -88,7 +88,6 @@ final class MutationRetryTests: XCTestCase {
     XCTAssertEqual(offspring.experience, 0)
     XCTAssertEqual(offspring.affection, 0)
     XCTAssertNil(offspring.nickname)
-    XCTAssertNil(offspring.preferredEvolutionTargetSpeciesID)
     XCTAssertFalse(offspring.uniqueColor)
     XCTAssertEqual(offspring.acquiredAt, acquiredAt)
     XCTAssertEqual(catalog.first { $0.id == "PG-216" }?.stage, 2)

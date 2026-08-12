@@ -1,0 +1,26 @@
+{
+  "agentTaskId": "g002-taxonomy-pass2-independent-round2",
+  "assignedAt": "2026-08-10T16:39:17.065Z",
+  "assignmentId": "taxonomy-assignment-ef1a10ff19a38e0d7725fe7ab87c1ef0",
+  "conductorHmacSha256": "bd386bb563ab752408a6071ba49c5938ec9d47ed749a08fc7aa885a74f36e11c",
+  "contractSha256": "f6d06316ba0ce315a79d3d784abe49f8f80463776ef07f5dbf5372185b9a8a15",
+  "inputAllowlistSha256": "f6aa3eef9b13490a86e3c3ce44e9a34d42330a68e3f968a86b9c3566fac2e7ec",
+  "inputAssetSha256s": [
+    "e8111483974fd1775ba649b19ae69112ff88d148ce97e56d11c8dac5963374a7",
+    "64a2afbd3e36eb77ca3dba4fd8855603ef204ff70c562137b5d0ad3fe78a6d81"
+  ],
+  "opaqueTaxonomyTargetId": "taxonomy-3a25a9fedff4c88b371abf7c",
+  "outputSha256": "9545fe2d72ce6387d87927e73d7d2b8ed951baeb465dca7bd7c10785182f690f",
+  "packageManifestSha256": "890c213d99cc49e2106817e5d35a5e3d00ee9f985c9b90eac5b5ad00e27e45d4",
+  "passNumber": 2,
+  "promptSha256": "428e5d281d525d352776ae9950777265519d08f8bad67e50c2ed17b3f5c6e8d4",
+  "publicSignature": {
+    "algorithm": "Ed25519",
+    "authorityFingerprint": "423f474c59667e5eabc13a703b8d7de4e97bcba33cdc22340873866db9d6a53f",
+    "signatureBase64": "NrZz6ZXenWbg3E5SpR9LqO5vkJg3vf4LRFIZTggsdXtKCU0fB+CbvIXlPRz3sf/5psJPCgPIVWVTFJU82cNODA=="
+  },
+  "reviewerInstanceId": "taxonomy-reviewer-pass2-independent",
+  "role": "primary",
+  "schemaVersion": "g002-taxonomy-review-assignment-v1",
+  "voterReviewRunId": "g002-taxonomy-run-pass2-round2"
+}

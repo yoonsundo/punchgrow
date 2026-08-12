@@ -1,0 +1,25 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://punchgrow.local/contracts/g003-reviewer-assignment-v5.schema.json",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schemaVersion", "assignmentId", "obligationId", "opaqueCandidateId", "generationRunId", "passNumber", "reviewerInstanceId", "agentTaskId", "voterReviewRunId", "packageManifestSha256", "materialBindingSha256", "inputAllowlistSha256", "promptSha256", "inputAssetSha256s", "childMaterialSha256s", "signedObligationScope", "assignedAt", "requiredChildTaxonomy", "reviewContext", "outputSha256", "publicSignature"],
+  "properties": {
+    "schemaVersion": { "const": "continuity-g003-reviewer-assignment-v5" },
+    "assignmentId": { "type": "string" }, "obligationId": { "$ref": "#/$defs/obligation" }, "opaqueCandidateId": { "type": "string" }, "generationRunId": { "type": "string" },
+    "passNumber": { "enum": [1, 2] }, "reviewerInstanceId": { "type": "string" }, "agentTaskId": { "type": "string" }, "voterReviewRunId": { "type": "string" },
+    "packageManifestSha256": { "$ref": "#/$defs/sha" }, "materialBindingSha256": { "$ref": "#/$defs/sha" }, "inputAllowlistSha256": { "$ref": "#/$defs/sha" }, "promptSha256": { "$ref": "#/$defs/sha" },
+    "inputAssetSha256s": { "type": "array", "minItems": 1, "uniqueItems": true, "items": { "$ref": "#/$defs/sha" } },
+    "childMaterialSha256s": { "$ref": "#/$defs/pair" },
+    "signedObligationScope": { "type": "object", "additionalProperties": false, "required": ["schemaVersion", "scopeSha256", "protocolAuthoritySha256", "terminalOutputSha256"], "properties": { "schemaVersion": { "const": "continuity-signed-obligation-scope-binding-v1" }, "scopeSha256": { "$ref": "#/$defs/sha" }, "protocolAuthoritySha256": { "$ref": "#/$defs/sha" }, "terminalOutputSha256": { "$ref": "#/$defs/sha" } } },
+    "assignedAt": { "type": "string", "format": "date-time" }, "requiredChildTaxonomy": { "$ref": "#/$defs/taxonomy" },
+    "reviewContext": { "type": "object", "additionalProperties": false, "required": ["parentRoles", "requiredAnchors", "eiluBenchmarkId", "canonicalMode"], "properties": { "parentRoles": { "type": "array", "minItems": 1, "maxItems": 2, "uniqueItems": true, "items": { "type": "string", "pattern": "^parent-[12]$" } }, "requiredAnchors": { "type": "array", "items": { "type": "object", "additionalProperties": false, "required": ["parentRole", "anchorId", "description"], "properties": { "parentRole": { "type": "string", "pattern": "^parent-[12]$" }, "anchorId": { "type": "string", "minLength": 1 }, "description": { "type": "string", "minLength": 1 } } } }, "eiluBenchmarkId": { "const": "eilu-comparative-visual-v1" }, "canonicalMode": { "type": "boolean" } } },
+    "outputSha256": { "$ref": "#/$defs/sha" }, "publicSignature": { "type": "object" }
+  },
+  "$defs": {
+    "sha": { "type": "string", "pattern": "^[a-f0-9]{64}$" },
+    "pair": { "type": "array", "minItems": 2, "maxItems": 2, "uniqueItems": true, "items": { "$ref": "#/$defs/sha" } },
+    "obligation": { "type": "string", "pattern": "^g003-(candidate:PG-[0-9]{3}|edge:PG-[0-9]{3}:PG-[0-9]{3})$" },
+    "taxonomy": { "type": "object", "additionalProperties": false, "required": ["biologicalClass", "speciesFamily", "coreAnatomy", "locomotionPlan"], "properties": { "biologicalClass": { "type": "string" }, "speciesFamily": { "type": "string" }, "coreAnatomy": { "type": "string" }, "locomotionPlan": { "type": "string" } } }
+  }
+}

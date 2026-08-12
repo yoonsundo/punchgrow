@@ -1,0 +1,2412 @@
+[
+  {
+    "id": "PG-161",
+    "koName": "다노크라크",
+    "enName": "Danokrak",
+    "lineageId": "PG-L048",
+    "category": "normal_evolution",
+    "stage": 3,
+    "rarity": "AGENT",
+    "bodyForm": "네발짐승",
+    "tone": "균형형·민첩",
+    "identity": "다노크의 사명을 계승하고 긴 초승달 귀·세 갈래 분절 꼬리·마름모 눈 표식 구조로 확장된 AGENT 진화체.",
+    "lore": "중요한 변화가 사라지기 전 발톱으로 단단한 기록층을 만들어 안전하게 묻는다. 다노크라크은 초기형의 세 층 등갑·끌형 앞발톱·짧은 깃발꼬리 신호를 보존하면서 긴 초승달 귀·세 갈래 분절 꼬리·마름모 눈 표식 형태로 성장했다.",
+    "shapeDNA": [
+      "세 층 등갑에서 진화한 긴 초승달 귀",
+      "끌형 앞발톱에서 진화한 세 갈래 분절 꼬리",
+      "짧은 깃발꼬리에서 진화한 마름모 눈 표식"
+    ],
+    "palette": {
+      "primary": "#E4E46C",
+      "secondary": "#3C546C",
+      "glow": "#54DCDC"
+    },
+    "sharedMotifs": [
+      "다각형 신화문자",
+      "발광 회로"
+    ],
+    "evolutionFrom": "PG-158",
+    "imagePath": "assets/creatures/generated/PG-161.png",
+    "generationPrompt": "다노크 계보 3단계 AGENT 진화형 → 실제 실루엣은 네발짐승 → 초기 DNA 계승과 가시적 변형: 세 층 등갑에서 진화한 긴 초승달 귀, 끌형 앞발톱에서 진화한 세 갈래 분절 꼬리, 짧은 깃발꼬리에서 진화한 마름모 눈 표식 → 공통 모티프: 다각형 신화문자, 발광 회로 → 이미지 실측 팔레트 primary #E4E46C, secondary #3C546C, glow #54DCDC → 같은 계보로 인식되는 얼굴 표식과 핵심 기관 유지 → 선명한 2D 셀 셰이딩, 전신 정면 3/4, #08111F 카드 배경, 정사각형 1024px 이상 → 텍스트·풍경·사실주의·고어·유명 IP 모방 금지."
+  },
+  {
+    "id": "PG-162",
+    "koName": "브로키라크",
+    "enName": "Brokirak",
+    "lineageId": "PG-L044",
+    "category": "normal_evolution",
+    "stage": 3,
+    "rarity": "DAEMON",
+    "bodyForm": "두발짐승",
+    "tone": "강인·수호",
+    "identity": "브로키의 사명을 계승하고 갈라진 삽날 뿔·낮은 역삼각 몸통·돌기 달린 굵은 꼬리 구조로 확장된 DAEMON 진화체.",
+    "lore": "문제가 해결될 때까지 꼬리판에서 안정된 구조 조각을 떼어 틈을 받친다. 브로키라크은 초기형의 격자 꼬리판·쐐기 앞니·낮은 등돛 신호를 보존하면서 갈라진 삽날 뿔·낮은 역삼각 몸통·돌기 달린 굵은 꼬리 형태로 성장했다.",
+    "shapeDNA": [
+      "격자 꼬리판에서 진화한 갈라진 삽날 뿔",
+      "쐐기 앞니에서 진화한 낮은 역삼각 몸통",
+      "낮은 등돛에서 진화한 돌기 달린 굵은 꼬리"
+    ],
+    "palette": {
+      "primary": "#0C2424",
+      "secondary": "#543C24",
+      "glow": "#ECBC44"
+    },
+    "sharedMotifs": [
+      "다각형 신화문자",
+      "발광 회로"
+    ],
+    "evolutionFrom": "PG-152",
+    "imagePath": "assets/creatures/generated/PG-162.png",
+    "generationPrompt": "브로키 계보 3단계 DAEMON 진화형 → 실제 실루엣은 두발짐승 → 초기 DNA 계승과 가시적 변형: 격자 꼬리판에서 진화한 갈라진 삽날 뿔, 쐐기 앞니에서 진화한 낮은 역삼각 몸통, 낮은 등돛에서 진화한 돌기 달린 굵은 꼬리 → 공통 모티프: 다각형 신화문자, 발광 회로 → 이미지 실측 팔레트 primary #0C2424, secondary #543C24, glow #ECBC44 → 같은 계보로 인식되는 얼굴 표식과 핵심 기관 유지 → 선명한 2D 셀 셰이딩, 전신 정면 3/4, #08111F 카드 배경, 정사각형 1024px 이상 → 텍스트·풍경·사실주의·고어·유명 IP 모방 금지."
+  },
+  {
+    "id": "PG-163",
+    "koName": "시엘록라크",
+    "enName": "Sielokrak",
+    "lineageId": "PG-L045",
+    "category": "normal_evolution",
+    "stage": 3,
+    "rarity": "AGENT",
+    "bodyForm": "조류",
+    "tone": "귀여움·호기심",
+    "identity": "시엘록의 사명을 계승하고 꺾인 부리 볏·부채형 꼬리깃·동그란 이중 눈테 구조로 확장된 AGENT 진화체.",
+    "lore": "뒤틀린 알림을 검은 부리에 삼킨 뒤 꼬리눈에서 검증된 푸른 점만 내보낸다. 시엘록라크은 초기형의 갈라진 검은 부리·눈동자 꼬리깃·톱니 어깨깃 신호를 보존하면서 꺾인 부리 볏·부채형 꼬리깃·동그란 이중 눈테 형태로 성장했다.",
+    "shapeDNA": [
+      "갈라진 검은 부리에서 진화한 꺾인 부리 볏",
+      "눈동자 꼬리깃에서 진화한 부채형 꼬리깃",
+      "톱니 어깨깃에서 진화한 동그란 이중 눈테"
+    ],
+    "palette": {
+      "primary": "#3C246C",
+      "secondary": "#F09CB4",
+      "glow": "#4C8CEC"
+    },
+    "sharedMotifs": [
+      "발광 회로",
+      "다각형 신화문자"
+    ],
+    "evolutionFrom": "PG-142",
+    "imagePath": "assets/creatures/generated/PG-163.png",
+    "generationPrompt": "시엘록 계보 3단계 AGENT 진화형 → 실제 실루엣은 조류 → 초기 DNA 계승과 가시적 변형: 갈라진 검은 부리에서 진화한 꺾인 부리 볏, 눈동자 꼬리깃에서 진화한 부채형 꼬리깃, 톱니 어깨깃에서 진화한 동그란 이중 눈테 → 공통 모티프: 발광 회로, 다각형 신화문자 → 이미지 실측 팔레트 primary #3C246C, secondary #F09CB4, glow #4C8CEC → 같은 계보로 인식되는 얼굴 표식과 핵심 기관 유지 → 선명한 2D 셀 셰이딩, 전신 정면 3/4, #08111F 카드 배경, 정사각형 1024px 이상 → 텍스트·풍경·사실주의·고어·유명 IP 모방 금지."
+  },
+  {
+    "id": "PG-164",
+    "koName": "메르쿤라크",
+    "enName": "Merkunrak",
+    "lineageId": "PG-L046",
+    "category": "normal_evolution",
+    "stage": 3,
+    "rarity": "ORACLE",
+    "bodyForm": "수생형",
+    "tone": "신비·침착",
+    "identity": "메르쿤의 사명을 계승하고 비대칭 나선 등껍질·초승달 측면 지느러미·세 점 아가미 구조로 확장된 ORACLE 진화체.",
+    "lore": "한꺼번에 밀려든 부담을 등껍질의 여섯 수로로 나눠 주변에 고르게 흘려보낸다. 메르쿤라크은 초기형의 육분 산호등·삽날 앞지느러미·짧은 수문꼬리 신호를 보존하면서 비대칭 나선 등껍질·초승달 측면 지느러미·세 점 아가미 형태로 성장했다.",
+    "shapeDNA": [
+      "육분 산호등에서 진화한 비대칭 나선 등껍질",
+      "삽날 앞지느러미에서 진화한 초승달 측면 지느러미",
+      "짧은 수문꼬리에서 진화한 세 점 아가미"
+    ],
+    "palette": {
+      "primary": "#CCCCCC",
+      "secondary": "#245484",
+      "glow": "#CCA474"
+    },
+    "sharedMotifs": [
+      "발광 회로",
+      "부유 고리"
+    ],
+    "evolutionFrom": "PG-143",
+    "imagePath": "assets/creatures/generated/PG-164.png",
+    "generationPrompt": "메르쿤 계보 3단계 ORACLE 진화형 → 실제 실루엣은 수생형 → 초기 DNA 계승과 가시적 변형: 육분 산호등에서 진화한 비대칭 나선 등껍질, 삽날 앞지느러미에서 진화한 초승달 측면 지느러미, 짧은 수문꼬리에서 진화한 세 점 아가미 → 공통 모티프: 발광 회로, 부유 고리 → 이미지 실측 팔레트 primary #CCCCCC, secondary #245484, glow #CCA474 → 같은 계보로 인식되는 얼굴 표식과 핵심 기관 유지 → 선명한 2D 셀 셰이딩, 전신 정면 3/4, #08111F 카드 배경, 정사각형 1024px 이상 → 텍스트·풍경·사실주의·고어·유명 IP 모방 금지."
+  },
+  {
+    "id": "PG-165",
+    "koName": "노르제드라크",
+    "enName": "Norjedrak",
+    "lineageId": "PG-L059",
+    "category": "normal_evolution",
+    "stage": 3,
+    "rarity": "AGENT",
+    "bodyForm": "두발짐승",
+    "tone": "귀여움·다정",
+    "identity": "노르제드의 사명을 계승하고 물방울형 핵·양옆의 짧은 리본팔·아래로 열린 종 테두리 구조로 확장된 AGENT 진화체.",
+    "lore": "두려움 때문에 멈춘 선택 앞에서 팔의 얼음판을 맞부딪쳐 다시 움직일 첫 균열을 만든다. 노르제드라크은 초기형의 쌍판 얼음팔·절벽형 어깨·짧은 톱꼬리 신호를 보존하면서 물방울형 핵·양옆의 짧은 리본팔·아래로 열린 종 테두리 형태로 성장했다.",
+    "shapeDNA": [
+      "쌍판 얼음팔에서 진화한 물방울형 핵",
+      "절벽형 어깨에서 진화한 양옆의 짧은 리본팔",
+      "짧은 톱꼬리에서 진화한 아래로 열린 종 테두리"
+    ],
+    "palette": {
+      "primary": "#E4CCF0",
+      "secondary": "#84B4CC",
+      "glow": "#6CACCC"
+    },
+    "sharedMotifs": [
+      "발광 회로",
+      "부유 고리"
+    ],
+    "evolutionFrom": "PG-160",
+    "imagePath": "assets/creatures/generated/PG-165.png",
+    "generationPrompt": "노르제드 계보 3단계 AGENT 진화형 → 실제 실루엣은 부유 정령형 → 초기 DNA 계승과 가시적 변형: 쌍판 얼음팔에서 진화한 물방울형 핵, 절벽형 어깨에서 진화한 양옆의 짧은 리본팔, 짧은 톱꼬리에서 진화한 아래로 열린 종 테두리 → 공통 모티프: 발광 회로, 부유 고리 → 이미지 실측 팔레트 primary #E4CCF0, secondary #84B4CC, glow #6CACCC → 같은 계보로 인식되는 얼굴 표식과 핵심 기관 유지 → 선명한 2D 셀 셰이딩, 전신 정면 3/4, #08111F 카드 배경, 정사각형 1024px 이상 → 텍스트·풍경·사실주의·고어·유명 IP 모방 금지."
+  },
+  {
+    "id": "PG-166",
+    "koName": "자르펜라크",
+    "enName": "Jarpenrak",
+    "lineageId": "PG-L047",
+    "category": "normal_evolution",
+    "stage": 3,
+    "rarity": "ARCHITECT",
+    "bodyForm": "곤충·기계구조체",
+    "tone": "강인·정밀",
+    "identity": "자르펜의 사명을 계승하고 자 모양 낫앞다리·육각 겹눈·두 장의 마름모 날개판 구조로 확장된 ARCHITECT 진화체.",
+    "lore": "흔들리는 관계의 양끝을 붙잡아 서로의 박자가 다시 맞을 때까지 놓지 않는다. 자르펜라크은 초기형의 이중 집게턱·마디진 등기둥·램프형 꼬리침 신호를 보존하면서 자 모양 낫앞다리·육각 겹눈·두 장의 마름모 날개판 형태로 성장했다.",
+    "shapeDNA": [
+      "이중 집게턱에서 진화한 자 모양 낫앞다리",
+      "마디진 등기둥에서 진화한 육각 겹눈",
+      "램프형 꼬리침에서 진화한 두 장의 마름모 날개판"
+    ],
+    "palette": {
+      "primary": "#3C5454",
+      "secondary": "#242424",
+      "glow": "#64E4BC"
+    },
+    "sharedMotifs": [
+      "발광 회로",
+      "다각형 신화문자"
+    ],
+    "evolutionFrom": "PG-155",
+    "imagePath": "assets/creatures/generated/PG-166.png",
+    "generationPrompt": "자르펜 계보 3단계 ARCHITECT 진화형 → 실제 실루엣은 곤충·기계구조체 → 초기 DNA 계승과 가시적 변형: 이중 집게턱에서 진화한 자 모양 낫앞다리, 마디진 등기둥에서 진화한 육각 겹눈, 램프형 꼬리침에서 진화한 두 장의 마름모 날개판 → 공통 모티프: 발광 회로, 다각형 신화문자 → 이미지 실측 팔레트 primary #3C5454, secondary #242424, glow #64E4BC → 같은 계보로 인식되는 얼굴 표식과 핵심 기관 유지 → 선명한 2D 셀 셰이딩, 전신 정면 3/4, #08111F 카드 배경, 정사각형 1024px 이상 → 텍스트·풍경·사실주의·고어·유명 IP 모방 금지."
+  },
+  {
+    "id": "PG-167",
+    "koName": "베스칸라크",
+    "enName": "Veskanrak",
+    "lineageId": "PG-L050",
+    "category": "normal_evolution",
+    "stage": 3,
+    "rarity": "DAEMON",
+    "bodyForm": "조류",
+    "tone": "균형형·대담",
+    "identity": "베스칸의 사명을 계승하고 갈고리형 날개 끝·씨앗 모양 가슴 반점·두 갈래 긴 꼬리깃 구조로 확장된 DAEMON 진화체.",
+    "lore": "하늘을 찢는 과잉 명령을 날개 끝으로 붙잡아 땅에 닿지 않는 방향으로 방출한다. 베스칸라크은 초기형의 갈고리 날개끝·세로 번개볏·갈라진 접지꼬리 신호를 보존하면서 갈고리형 날개 끝·씨앗 모양 가슴 반점·두 갈래 긴 꼬리깃 형태로 성장했다.",
+    "shapeDNA": [
+      "갈고리 날개끝에서 진화한 갈고리형 날개 끝",
+      "세로 번개볏에서 진화한 씨앗 모양 가슴 반점",
+      "갈라진 접지꼬리에서 진화한 두 갈래 긴 꼬리깃"
+    ],
+    "palette": {
+      "primary": "#243C6C",
+      "secondary": "#F06C24",
+      "glow": "#F4BC44"
+    },
+    "sharedMotifs": [
+      "발광 회로"
+    ],
+    "evolutionFrom": "PG-156",
+    "imagePath": "assets/creatures/generated/PG-167.png",
+    "generationPrompt": "베스칸 계보 3단계 DAEMON 진화형 → 실제 실루엣은 조류 → 초기 DNA 계승과 가시적 변형: 갈고리 날개끝에서 진화한 갈고리형 날개 끝, 세로 번개볏에서 진화한 씨앗 모양 가슴 반점, 갈라진 접지꼬리에서 진화한 두 갈래 긴 꼬리깃 → 공통 모티프: 발광 회로 → 이미지 실측 팔레트 primary #243C6C, secondary #F06C24, glow #F4BC44 → 같은 계보로 인식되는 얼굴 표식과 핵심 기관 유지 → 선명한 2D 셀 셰이딩, 전신 정면 3/4, #08111F 카드 배경, 정사각형 1024px 이상 → 텍스트·풍경·사실주의·고어·유명 IP 모방 금지."
+  },
+  {
+    "id": "PG-168",
+    "koName": "카르모스라크",
+    "enName": "Karmosrak",
+    "lineageId": "PG-L060",
+    "category": "normal_evolution",
+    "stage": 3,
+    "rarity": "ORACLE",
+    "bodyForm": "기타 무정형·식물형",
+    "tone": "신성·고요",
+    "identity": "카르모스의 사명을 계승하고 세 겹 왕관 꽃잎·뿌리처럼 갈라진 다리·씨방 모양 중앙 눈 구조로 확장된 ORACLE 진화체.",
+    "lore": "메마른 영역에 뿌리를 박아 남은 에너지를 한곳에 모으고 새싹이 날 때까지 방벽이 된다. 카르모스라크은 초기형의 갈래진 철근뿔·판근 네다리·씨앗창 가슴 신호를 보존하면서 세 겹 왕관 꽃잎·뿌리처럼 갈라진 다리·씨방 모양 중앙 눈 형태로 성장했다.",
+    "shapeDNA": [
+      "갈래진 철근뿔에서 진화한 세 겹 왕관 꽃잎",
+      "판근 네다리에서 진화한 뿌리처럼 갈라진 다리",
+      "씨앗창 가슴에서 진화한 씨방 모양 중앙 눈"
+    ],
+    "palette": {
+      "primary": "#3C3C24",
+      "secondary": "#845484",
+      "glow": "#9CA444"
+    },
+    "sharedMotifs": [
+      "발광 회로",
+      "다각형 신화문자"
+    ],
+    "evolutionFrom": "PG-144",
+    "imagePath": "assets/creatures/generated/PG-168.png",
+    "generationPrompt": "카르모스 계보 3단계 ORACLE 진화형 → 실제 실루엣은 기타 무정형·식물형 → 초기 DNA 계승과 가시적 변형: 갈래진 철근뿔에서 진화한 세 겹 왕관 꽃잎, 판근 네다리에서 진화한 뿌리처럼 갈라진 다리, 씨앗창 가슴에서 진화한 씨방 모양 중앙 눈 → 공통 모티프: 발광 회로, 다각형 신화문자 → 이미지 실측 팔레트 primary #3C3C24, secondary #845484, glow #9CA444 → 같은 계보로 인식되는 얼굴 표식과 핵심 기관 유지 → 선명한 2D 셀 셰이딩, 전신 정면 3/4, #08111F 카드 배경, 정사각형 1024px 이상 → 텍스트·풍경·사실주의·고어·유명 IP 모방 금지."
+  },
+  {
+    "id": "PG-169",
+    "koName": "칼드록라크",
+    "enName": "Kaldrokrak",
+    "lineageId": "PG-L049",
+    "category": "normal_evolution",
+    "stage": 3,
+    "rarity": "DAEMON",
+    "bodyForm": "네발짐승",
+    "tone": "강인·열정",
+    "identity": "칼드록의 사명을 계승하고 망치형 아래턱·등의 사각 열판·짧고 넓은 닻꼬리 구조로 확장된 DAEMON 진화체.",
+    "lore": "과열된 흐름 앞에 먼저 서서 열을 등판으로 분산하고 길이 식을 때까지 버틴다. 칼드록라크은 초기형의 방벽형 넓은 뿔·균열 등판·쐐기굽 신호를 보존하면서 망치형 아래턱·등의 사각 열판·짧고 넓은 닻꼬리 형태로 성장했다.",
+    "shapeDNA": [
+      "방벽형 넓은 뿔에서 진화한 망치형 아래턱",
+      "균열 등판에서 진화한 등의 사각 열판",
+      "쐐기굽에서 진화한 짧고 넓은 닻꼬리"
+    ],
+    "palette": {
+      "primary": "#242424",
+      "secondary": "#9C3C24",
+      "glow": "#CC6444"
+    },
+    "sharedMotifs": [
+      "발광 회로"
+    ],
+    "evolutionFrom": "PG-147",
+    "imagePath": "assets/creatures/generated/PG-169.png",
+    "generationPrompt": "칼드록 계보 3단계 DAEMON 진화형 → 실제 실루엣은 두발짐승 → 초기 DNA 계승과 가시적 변형: 방벽형 넓은 뿔에서 진화한 망치형 아래턱, 균열 등판에서 진화한 등의 사각 열판, 쐐기굽에서 진화한 짧고 넓은 닻꼬리 → 공통 모티프: 발광 회로 → 이미지 실측 팔레트 primary #242424, secondary #9C3C24, glow #CC6444 → 같은 계보로 인식되는 얼굴 표식과 핵심 기관 유지 → 선명한 2D 셀 셰이딩, 전신 정면 3/4, #08111F 카드 배경, 정사각형 1024px 이상 → 텍스트·풍경·사실주의·고어·유명 IP 모방 금지."
+  },
+  {
+    "id": "PG-170",
+    "koName": "드라멜라크",
+    "enName": "Dramelrak",
+    "lineageId": "PG-L051",
+    "category": "normal_evolution",
+    "stage": 3,
+    "rarity": "ORACLE",
+    "bodyForm": "수생형",
+    "tone": "우아·신비",
+    "identity": "드라멜의 사명을 계승하고 직조기형 머리 앞판·물결치는 사각 날개·실타래 끝 꼬리 구조로 확장된 ORACLE 진화체.",
+    "lore": "위험을 알리지 못한 채 가라앉은 신호를 가슴판의 저음으로 멀리 퍼뜨린다. 드라멜라크은 초기형의 북갑 가슴판·톱선 등지느러미·망치형 꼬리 신호를 보존하면서 직조기형 머리 앞판·물결치는 사각 날개·실타래 끝 꼬리 형태로 성장했다.",
+    "shapeDNA": [
+      "북갑 가슴판에서 진화한 직조기형 머리 앞판",
+      "톱선 등지느러미에서 진화한 물결치는 사각 날개",
+      "망치형 꼬리에서 진화한 실타래 끝 꼬리"
+    ],
+    "palette": {
+      "primary": "#245484",
+      "secondary": "#E4CCB4",
+      "glow": "#64C4C4"
+    },
+    "sharedMotifs": [
+      "다각형 신화문자",
+      "발광 회로"
+    ],
+    "evolutionFrom": "PG-157",
+    "imagePath": "assets/creatures/generated/PG-170.png",
+    "generationPrompt": "드라멜 계보 3단계 ORACLE 진화형 → 실제 실루엣은 수생형 → 초기 DNA 계승과 가시적 변형: 북갑 가슴판에서 진화한 직조기형 머리 앞판, 톱선 등지느러미에서 진화한 물결치는 사각 날개, 망치형 꼬리에서 진화한 실타래 끝 꼬리 → 공통 모티프: 다각형 신화문자, 발광 회로 → 이미지 실측 팔레트 primary #245484, secondary #E4CCB4, glow #64C4C4 → 같은 계보로 인식되는 얼굴 표식과 핵심 기관 유지 → 선명한 2D 셀 셰이딩, 전신 정면 3/4, #08111F 카드 배경, 정사각형 1024px 이상 → 텍스트·풍경·사실주의·고어·유명 IP 모방 금지."
+  },
+  {
+    "id": "PG-171",
+    "koName": "에코담라크",
+    "enName": "Ekodamrak",
+    "lineageId": "PG-L042",
+    "category": "normal_evolution",
+    "stage": 3,
+    "rarity": "AGENT",
+    "bodyForm": "네발짐승",
+    "tone": "귀여움·장난",
+    "identity": "에코담의 사명을 계승하고 톱니 가장자리 귀·넓은 줄무늬 주둥이·짧은 브러시 꼬리 구조로 확장된 AGENT 진화체.",
+    "lore": "사라진 조언을 뿔의 빈 공간에 모았다가 필요한 이에게 낮은 울림으로 들려준다. 에코담라크은 초기형의 빈틀 사각뿔·파문 가슴판·갈라진 산꼬리 신호를 보존하면서 톱니 가장자리 귀·넓은 줄무늬 주둥이·짧은 브러시 꼬리 형태로 성장했다.",
+    "shapeDNA": [
+      "빈틀 사각뿔에서 진화한 톱니 가장자리 귀",
+      "파문 가슴판에서 진화한 넓은 줄무늬 주둥이",
+      "갈라진 산꼬리에서 진화한 짧은 브러시 꼬리"
+    ],
+    "palette": {
+      "primary": "#54546C",
+      "secondary": "#24243C",
+      "glow": "#A4948C"
+    },
+    "sharedMotifs": [
+      "부유 고리",
+      "다각형 신화문자"
+    ],
+    "evolutionFrom": "PG-141",
+    "imagePath": "assets/creatures/generated/PG-171.png",
+    "generationPrompt": "에코담 계보 3단계 AGENT 진화형 → 실제 실루엣은 네발짐승 → 초기 DNA 계승과 가시적 변형: 빈틀 사각뿔에서 진화한 톱니 가장자리 귀, 파문 가슴판에서 진화한 넓은 줄무늬 주둥이, 갈라진 산꼬리에서 진화한 짧은 브러시 꼬리 → 공통 모티프: 부유 고리, 다각형 신화문자 → 이미지 실측 팔레트 primary #54546C, secondary #24243C, glow #A4948C → 같은 계보로 인식되는 얼굴 표식과 핵심 기관 유지 → 선명한 2D 셀 셰이딩, 전신 정면 3/4, #08111F 카드 배경, 정사각형 1024px 이상 → 텍스트·풍경·사실주의·고어·유명 IP 모방 금지."
+  },
+  {
+    "id": "PG-172",
+    "koName": "크라실라크",
+    "enName": "Krasilrak",
+    "lineageId": "PG-L052",
+    "category": "normal_evolution",
+    "stage": 3,
+    "rarity": "ARCHITECT",
+    "bodyForm": "곤충·기계구조체",
+    "tone": "위엄·냉정",
+    "identity": "크라실의 사명을 계승하고 갈라진 열쇠뿔·겹친 방패 딱지날개·세 마디 집게발 구조로 확장된 ARCHITECT 진화체.",
+    "lore": "세계의 이음새가 벌어지면 몸을 쐐기처럼 밀어 넣고 동료가 빠져나갈 시간을 번다. 크라실라크은 초기형의 아치형 쇠뿔·기둥 여섯다리·잠금판 등껍질 신호를 보존하면서 갈라진 열쇠뿔·겹친 방패 딱지날개·세 마디 집게발 형태로 성장했다.",
+    "shapeDNA": [
+      "아치형 쇠뿔에서 진화한 갈라진 열쇠뿔",
+      "기둥 여섯다리에서 진화한 겹친 방패 딱지날개",
+      "잠금판 등껍질에서 진화한 세 마디 집게발"
+    ],
+    "palette": {
+      "primary": "#243C54",
+      "secondary": "#6C543C",
+      "glow": "#4CDCF4"
+    },
+    "sharedMotifs": [
+      "발광 회로",
+      "다각형 신화문자"
+    ],
+    "evolutionFrom": "PG-151",
+    "imagePath": "assets/creatures/generated/PG-172.png",
+    "generationPrompt": "크라실 계보 3단계 ARCHITECT 진화형 → 실제 실루엣은 곤충·기계구조체 → 초기 DNA 계승과 가시적 변형: 아치형 쇠뿔에서 진화한 갈라진 열쇠뿔, 기둥 여섯다리에서 진화한 겹친 방패 딱지날개, 잠금판 등껍질에서 진화한 세 마디 집게발 → 공통 모티프: 발광 회로, 다각형 신화문자 → 이미지 실측 팔레트 primary #243C54, secondary #6C543C, glow #4CDCF4 → 같은 계보로 인식되는 얼굴 표식과 핵심 기관 유지 → 선명한 2D 셀 셰이딩, 전신 정면 3/4, #08111F 카드 배경, 정사각형 1024px 이상 → 텍스트·풍경·사실주의·고어·유명 IP 모방 금지."
+  },
+  {
+    "id": "PG-173",
+    "koName": "루메칸라크",
+    "enName": "Lumekanrak",
+    "lineageId": "PG-L043",
+    "category": "normal_evolution",
+    "stage": 3,
+    "rarity": "DAEMON",
+    "bodyForm": "부유 정령형",
+    "tone": "균형형·영리",
+    "identity": "루메칸의 사명을 계승하고 마름모 거울 핵·세 장의 부유 귀판·아래로 휘는 빛꼬리 구조로 확장된 DAEMON 진화체.",
+    "lore": "막막한 공간에 세 개의 빛자를 펼쳐 어디부터 시작할지 작은 구획을 만든다. 루메칸라크은 초기형의 각진 등불핵·세 자 촉수·수평 눈선 신호를 보존하면서 마름모 거울 핵·세 장의 부유 귀판·아래로 휘는 빛꼬리 형태로 성장했다.",
+    "shapeDNA": [
+      "각진 등불핵에서 진화한 마름모 거울 핵",
+      "세 자 촉수에서 진화한 세 장의 부유 귀판",
+      "수평 눈선에서 진화한 아래로 휘는 빛꼬리"
+    ],
+    "palette": {
+      "primary": "#849CCC",
+      "secondary": "#543C84",
+      "glow": "#847474"
+    },
+    "sharedMotifs": [
+      "부유 고리",
+      "다각형 신화문자"
+    ],
+    "evolutionFrom": "PG-154",
+    "imagePath": "assets/creatures/generated/PG-173.png",
+    "generationPrompt": "루메칸 계보 3단계 DAEMON 진화형 → 실제 실루엣은 부유 정령형 → 초기 DNA 계승과 가시적 변형: 각진 등불핵에서 진화한 마름모 거울 핵, 세 자 촉수에서 진화한 세 장의 부유 귀판, 수평 눈선에서 진화한 아래로 휘는 빛꼬리 → 공통 모티프: 부유 고리, 다각형 신화문자 → 이미지 실측 팔레트 primary #849CCC, secondary #543C84, glow #847474 → 같은 계보로 인식되는 얼굴 표식과 핵심 기관 유지 → 선명한 2D 셀 셰이딩, 전신 정면 3/4, #08111F 카드 배경, 정사각형 1024px 이상 → 텍스트·풍경·사실주의·고어·유명 IP 모방 금지."
+  },
+  {
+    "id": "PG-174",
+    "koName": "테르곤라크",
+    "enName": "Tergonrak",
+    "lineageId": "PG-L055",
+    "category": "normal_evolution",
+    "stage": 3,
+    "rarity": "DAEMON",
+    "bodyForm": "네발짐승",
+    "tone": "강인·충직",
+    "identity": "테르곤의 사명을 계승하고 두 겹 ㄷ자 뿔·기둥 마디 등선·납작한 쐐기 발굽 구조로 확장된 DAEMON 진화체.",
+    "lore": "불안정한 공간에서 네 발의 무게를 조절해 주변 존재가 설 수 있는 평면을 만든다. 테르곤라크은 초기형의 분리 원뿔뿔·사각 중력발·겹판 목선 신호를 보존하면서 두 겹 ㄷ자 뿔·기둥 마디 등선·납작한 쐐기 발굽 형태로 성장했다.",
+    "shapeDNA": [
+      "분리 원뿔뿔에서 진화한 두 겹 ㄷ자 뿔",
+      "사각 중력발에서 진화한 기둥 마디 등선",
+      "겹판 목선에서 진화한 납작한 쐐기 발굽"
+    ],
+    "palette": {
+      "primary": "#242424",
+      "secondary": "#6C543C",
+      "glow": "#84846C"
+    },
+    "sharedMotifs": [
+      "부유 고리",
+      "발광 회로"
+    ],
+    "evolutionFrom": "PG-153",
+    "imagePath": "assets/creatures/generated/PG-174.png",
+    "generationPrompt": "테르곤 계보 3단계 DAEMON 진화형 → 실제 실루엣은 네발짐승 → 초기 DNA 계승과 가시적 변형: 분리 원뿔뿔에서 진화한 두 겹 ㄷ자 뿔, 사각 중력발에서 진화한 기둥 마디 등선, 겹판 목선에서 진화한 납작한 쐐기 발굽 → 공통 모티프: 부유 고리, 발광 회로 → 이미지 실측 팔레트 primary #242424, secondary #6C543C, glow #84846C → 같은 계보로 인식되는 얼굴 표식과 핵심 기관 유지 → 선명한 2D 셀 셰이딩, 전신 정면 3/4, #08111F 카드 배경, 정사각형 1024px 이상 → 텍스트·풍경·사실주의·고어·유명 IP 모방 금지."
+  },
+  {
+    "id": "PG-175",
+    "koName": "제르칸라크",
+    "enName": "Jerkanrak",
+    "lineageId": "PG-L058",
+    "category": "normal_evolution",
+    "stage": 3,
+    "rarity": "AGENT",
+    "bodyForm": "곤충·기계구조체",
+    "tone": "귀여움·낙천",
+    "identity": "제르칸의 사명을 계승하고 별 모양 씨앗머리·두 잎 망토 실루엣·용수철 뿌리발 구조로 확장된 AGENT 진화체.",
+    "lore": "낯선 위협을 넓은 턱 사이에 가둔 뒤 몸 전체의 압력으로 안전 영역 밖까지 운반한다. 제르칸라크은 초기형의 성문형 큰턱·벽돌 분절등·버팀못 다리 신호를 보존하면서 별 모양 씨앗머리·두 잎 망토 실루엣·용수철 뿌리발 형태로 성장했다.",
+    "shapeDNA": [
+      "성문형 큰턱에서 진화한 별 모양 씨앗머리",
+      "벽돌 분절등에서 진화한 두 잎 망토 실루엣",
+      "버팀못 다리에서 진화한 용수철 뿌리발"
+    ],
+    "palette": {
+      "primary": "#F0E46C",
+      "secondary": "#9CB454",
+      "glow": "#94B444"
+    },
+    "sharedMotifs": [
+      "다각형 신화문자"
+    ],
+    "evolutionFrom": "PG-159",
+    "imagePath": "assets/creatures/generated/PG-175.png",
+    "generationPrompt": "제르칸 계보 3단계 AGENT 진화형 → 실제 실루엣은 기타 무정형·식물형 → 초기 DNA 계승과 가시적 변형: 성문형 큰턱에서 진화한 별 모양 씨앗머리, 벽돌 분절등에서 진화한 두 잎 망토 실루엣, 버팀못 다리에서 진화한 용수철 뿌리발 → 공통 모티프: 다각형 신화문자 → 이미지 실측 팔레트 primary #F0E46C, secondary #9CB454, glow #94B444 → 같은 계보로 인식되는 얼굴 표식과 핵심 기관 유지 → 선명한 2D 셀 셰이딩, 전신 정면 3/4, #08111F 카드 배경, 정사각형 1024px 이상 → 텍스트·풍경·사실주의·고어·유명 IP 모방 금지."
+  },
+  {
+    "id": "PG-176",
+    "koName": "라그센라크",
+    "enName": "Ragsenrak",
+    "lineageId": "PG-L056",
+    "category": "normal_evolution",
+    "stage": 3,
+    "rarity": "ORACLE",
+    "bodyForm": "조류",
+    "tone": "신성·예리",
+    "identity": "라그센의 사명을 계승하고 쌍곡선 부리·세 겹 투명 날개판·추 모양 꼬리깃 구조로 확장된 ORACLE 진화체.",
+    "lore": "수많은 목소리가 충돌하면 긴 부리와 등깃으로 한 줄의 조용한 통로를 벤다. 라그센라크은 초기형의 쐐기형 긴 부리·칼등 볏깃·삼분 꼬리 신호를 보존하면서 쌍곡선 부리·세 겹 투명 날개판·추 모양 꼬리깃 형태로 성장했다.",
+    "shapeDNA": [
+      "쐐기형 긴 부리에서 진화한 쌍곡선 부리",
+      "칼등 볏깃에서 진화한 세 겹 투명 날개판",
+      "삼분 꼬리에서 진화한 추 모양 꼬리깃"
+    ],
+    "palette": {
+      "primary": "#F0E4E4",
+      "secondary": "#B4B4E4",
+      "glow": "#84A4CC"
+    },
+    "sharedMotifs": [
+      "발광 회로",
+      "부유 고리"
+    ],
+    "evolutionFrom": "PG-148",
+    "imagePath": "assets/creatures/generated/PG-176.png",
+    "generationPrompt": "라그센 계보 3단계 ORACLE 진화형 → 실제 실루엣은 조류 → 초기 DNA 계승과 가시적 변형: 쐐기형 긴 부리에서 진화한 쌍곡선 부리, 칼등 볏깃에서 진화한 세 겹 투명 날개판, 삼분 꼬리에서 진화한 추 모양 꼬리깃 → 공통 모티프: 발광 회로, 부유 고리 → 이미지 실측 팔레트 primary #F0E4E4, secondary #B4B4E4, glow #84A4CC → 같은 계보로 인식되는 얼굴 표식과 핵심 기관 유지 → 선명한 2D 셀 셰이딩, 전신 정면 3/4, #08111F 카드 배경, 정사각형 1024px 이상 → 텍스트·풍경·사실주의·고어·유명 IP 모방 금지."
+  },
+  {
+    "id": "PG-177",
+    "koName": "볼카딘라크",
+    "enName": "Volkadinrak",
+    "lineageId": "PG-L057",
+    "category": "normal_evolution",
+    "stage": 3,
+    "rarity": "DAEMON",
+    "bodyForm": "수생형",
+    "tone": "균형형·활발",
+    "identity": "볼카딘의 사명을 계승하고 세 갈래 감지 수염·노 모양 넓은 앞발·납작한 타원 꼬리 구조로 확장된 DAEMON 진화체.",
+    "lore": "오염된 흐름을 삼켜 등마디의 열로 분해하고 무해한 빛모래로 배출한다. 볼카딘라크은 초기형의 용광로 등마디·삽형 주둥이·톱니 지느러미 신호를 보존하면서 세 갈래 감지 수염·노 모양 넓은 앞발·납작한 타원 꼬리 형태로 성장했다.",
+    "shapeDNA": [
+      "용광로 등마디에서 진화한 세 갈래 감지 수염",
+      "삽형 주둥이에서 진화한 노 모양 넓은 앞발",
+      "톱니 지느러미에서 진화한 납작한 타원 꼬리"
+    ],
+    "palette": {
+      "primary": "#6C543C",
+      "secondary": "#3C6C6C",
+      "glow": "#CC8C54"
+    },
+    "sharedMotifs": [
+      "발광 회로"
+    ],
+    "evolutionFrom": "PG-150",
+    "imagePath": "assets/creatures/generated/PG-177.png",
+    "generationPrompt": "볼카딘 계보 3단계 DAEMON 진화형 → 실제 실루엣은 수생형 → 초기 DNA 계승과 가시적 변형: 용광로 등마디에서 진화한 세 갈래 감지 수염, 삽형 주둥이에서 진화한 노 모양 넓은 앞발, 톱니 지느러미에서 진화한 납작한 타원 꼬리 → 공통 모티프: 발광 회로 → 이미지 실측 팔레트 primary #6C543C, secondary #3C6C6C, glow #CC8C54 → 같은 계보로 인식되는 얼굴 표식과 핵심 기관 유지 → 선명한 2D 셀 셰이딩, 전신 정면 3/4, #08111F 카드 배경, 정사각형 1024px 이상 → 텍스트·풍경·사실주의·고어·유명 IP 모방 금지."
+  },
+  {
+    "id": "PG-178",
+    "koName": "프라곤라크",
+    "enName": "Pragonrak",
+    "lineageId": "PG-L041",
+    "category": "normal_evolution",
+    "stage": 3,
+    "rarity": "ARCHITECT",
+    "bodyForm": "곤충·기계구조체",
+    "tone": "위엄·치밀",
+    "identity": "프라곤의 사명을 계승하고 육각 왕관 머리판·서랍형 복부 마디·네 장의 짧은 격자날개 구조로 확장된 ARCHITECT 진화체.",
+    "lore": "맞물리지 않던 움직임 사이를 날며 날개 진동으로 공통된 박자를 만든다. 프라곤라크은 초기형의 톱니 겹눈·네 장 격자날개·포크형 꼬리 신호를 보존하면서 육각 왕관 머리판·서랍형 복부 마디·네 장의 짧은 격자날개 형태로 성장했다.",
+    "shapeDNA": [
+      "톱니 겹눈에서 진화한 육각 왕관 머리판",
+      "네 장 격자날개에서 진화한 서랍형 복부 마디",
+      "포크형 꼬리에서 진화한 네 장의 짧은 격자날개"
+    ],
+    "palette": {
+      "primary": "#242424",
+      "secondary": "#B4B49C",
+      "glow": "#B4ACA4"
+    },
+    "sharedMotifs": [
+      "발광 회로",
+      "다각형 신화문자"
+    ],
+    "evolutionFrom": "PG-149",
+    "imagePath": "assets/creatures/generated/PG-178.png",
+    "generationPrompt": "프라곤 계보 3단계 ARCHITECT 진화형 → 실제 실루엣은 곤충·기계구조체 → 초기 DNA 계승과 가시적 변형: 톱니 겹눈에서 진화한 육각 왕관 머리판, 네 장 격자날개에서 진화한 서랍형 복부 마디, 포크형 꼬리에서 진화한 네 장의 짧은 격자날개 → 공통 모티프: 발광 회로, 다각형 신화문자 → 이미지 실측 팔레트 primary #242424, secondary #B4B49C, glow #B4ACA4 → 같은 계보로 인식되는 얼굴 표식과 핵심 기관 유지 → 선명한 2D 셀 셰이딩, 전신 정면 3/4, #08111F 카드 배경, 정사각형 1024px 이상 → 텍스트·풍경·사실주의·고어·유명 IP 모방 금지."
+  },
+  {
+    "id": "PG-179",
+    "koName": "모르가트라크",
+    "enName": "Morgatrak",
+    "lineageId": "PG-L053",
+    "category": "normal_evolution",
+    "stage": 3,
+    "rarity": "DAEMON",
+    "bodyForm": "두발짐승",
+    "tone": "강인·낙천",
+    "identity": "모르가트의 사명을 계승하고 반원형 등돛·둥근 주먹 앞발·짧은 갈래턱 구조로 확장된 DAEMON 진화체.",
+    "lore": "도망칠수록 커지는 공포 앞에서 발톱의 빛못을 박아 그림자가 더 번지지 않게 한다. 모르가트라크은 초기형의 낫형 귀·못빛 발톱·분절 철꼬리 신호를 보존하면서 반원형 등돛·둥근 주먹 앞발·짧은 갈래턱 형태로 성장했다.",
+    "shapeDNA": [
+      "낫형 귀에서 진화한 반원형 등돛",
+      "못빛 발톱에서 진화한 둥근 주먹 앞발",
+      "분절 철꼬리에서 진화한 짧은 갈래턱"
+    ],
+    "palette": {
+      "primary": "#F08424",
+      "secondary": "#843C54",
+      "glow": "#D45C4C"
+    },
+    "sharedMotifs": [
+      "발광 회로"
+    ],
+    "evolutionFrom": "PG-145",
+    "imagePath": "assets/creatures/generated/PG-179.png",
+    "generationPrompt": "모르가트 계보 3단계 DAEMON 진화형 → 실제 실루엣은 두발짐승 → 초기 DNA 계승과 가시적 변형: 낫형 귀에서 진화한 반원형 등돛, 못빛 발톱에서 진화한 둥근 주먹 앞발, 분절 철꼬리에서 진화한 짧은 갈래턱 → 공통 모티프: 발광 회로 → 이미지 실측 팔레트 primary #F08424, secondary #843C54, glow #D45C4C → 같은 계보로 인식되는 얼굴 표식과 핵심 기관 유지 → 선명한 2D 셀 셰이딩, 전신 정면 3/4, #08111F 카드 배경, 정사각형 1024px 이상 → 텍스트·풍경·사실주의·고어·유명 IP 모방 금지."
+  },
+  {
+    "id": "PG-180",
+    "koName": "하르벡라크",
+    "enName": "Harvekrak",
+    "lineageId": "PG-L054",
+    "category": "normal_evolution",
+    "stage": 3,
+    "rarity": "ORIGIN",
+    "bodyForm": "부유 정령형",
+    "tone": "신성·초연",
+    "identity": "하르벡의 사명을 계승하고 씨앗형 검은 핵·분리된 네 손·세로로 선 타원 관 구조로 확장된 ORIGIN 진화체.",
+    "lore": "넘어서는 안 될 선이 깨지면 돌핵의 면을 펼쳐 접근 경로 자체를 접어 닫는다. 하르벡라크은 초기형의 육면 돌핵·갈퀴형 분리손·끊긴 띠꼬리 신호를 보존하면서 씨앗형 검은 핵·분리된 네 손·세로로 선 타원 관 형태로 성장했다.",
+    "shapeDNA": [
+      "육면 돌핵에서 진화한 씨앗형 검은 핵",
+      "갈퀴형 분리손에서 진화한 분리된 네 손",
+      "끊긴 띠꼬리에서 진화한 세로로 선 타원 관"
+    ],
+    "palette": {
+      "primary": "#F0F0E4",
+      "secondary": "#B4B49C",
+      "glow": "#D4AC6C"
+    },
+    "sharedMotifs": [
+      "부유 고리",
+      "다각형 신화문자"
+    ],
+    "evolutionFrom": "PG-146",
+    "imagePath": "assets/creatures/generated/PG-180.png",
+    "generationPrompt": "하르벡 계보 3단계 ORIGIN 진화형 → 실제 실루엣은 부유 정령형 → 초기 DNA 계승과 가시적 변형: 육면 돌핵에서 진화한 씨앗형 검은 핵, 갈퀴형 분리손에서 진화한 분리된 네 손, 끊긴 띠꼬리에서 진화한 세로로 선 타원 관 → 공통 모티프: 부유 고리, 다각형 신화문자 → 이미지 실측 팔레트 primary #F0F0E4, secondary #B4B49C, glow #D4AC6C → 같은 계보로 인식되는 얼굴 표식과 핵심 기관 유지 → 선명한 2D 셀 셰이딩, 전신 정면 3/4, #08111F 카드 배경, 정사각형 1024px 이상 → 텍스트·풍경·사실주의·고어·유명 IP 모방 금지."
+  },
+  {
+    "id": "PG-181",
+    "koName": "에일시온",
+    "enName": "Eilsion",
+    "lineageId": "PG-L001",
+    "category": "normal_evolution",
+    "stage": 3,
+    "rarity": "DAEMON",
+    "bodyForm": "네발짐승",
+    "tone": "침착·위엄",
+    "identity": "수많은 실행 경로를 하나의 질서로 통제하는 에일 계열의 최종 관리자",
+    "lore": "수많은 선택과 실패를 하나의 질서로 묶어 작업 경로가 충돌하지 않도록 전체 흐름을 통제한다.",
+    "shapeDNA": [
+      "긴 신호탑형 귀",
+      "통합 금속 외골격",
+      "구형 명령 코어와 질서 있는 빛 경로"
+    ],
+    "palette": {
+      "primary": "#24213F",
+      "secondary": "#E8DCCB",
+      "glow": "#4DE1FF"
+    },
+    "sharedMotifs": [
+      "발광 회로"
+    ],
+    "evolutionFrom": "PG-061",
+    "imagePath": "assets/creatures/generated/PG-181.png",
+    "generationPrompt": "승인 진화 시트의 에일루·에일반 형태 DNA를 계승한 에일시온 → 네발 여우형 → normal_evolution 3단계 DAEMON → 긴 신호탑형 귀 · 미드나이트 바이올렛 털 · 페일 크림 볼과 가슴 털 · 통합 금속 외골격 · 꼬리와 연결된 구형 다면체 명령 코어 · 질서 있는 시안 발광 경로 → 침착하고 위엄 있는 전신 3/4 게임 렌더 → #08111F 카드 배경 → 초록색 몸·고양이형 실루엣·텍스트·로고·워터마크 금지"
+  },
+  {
+    "id": "PG-182",
+    "koName": "바르켈름",
+    "enName": "Barkelm",
+    "lineageId": "PG-L002-B",
+    "category": "branch",
+    "stage": 2,
+    "rarity": "DAEMON",
+    "bodyForm": "두발짐승",
+    "tone": "강인·방어",
+    "identity": "추적 대신 거점을 선택해 껍질 성벽을 키운 수목 파수꾼",
+    "lore": "움직임을 포기한 시간만큼 등껍질의 방이 늘어나 작은 생명들의 피난처가 된다.",
+    "shapeDNA": [
+      "갈라진 잎귀 · 삽 모양 부리",
+      "층층이 겹친 등껍질",
+      "뿌리 갈고리 꼬리 · 둥근 배 주머니"
+    ],
+    "palette": {
+      "primary": "#66835B",
+      "secondary": "#7B5A47",
+      "glow": "#D7F06A"
+    },
+    "sharedMotifs": [
+      "다각형 신화문자"
+    ],
+    "evolutionFrom": "PG-L002:S1",
+    "imagePath": "assets/creatures/generated/PG-182.png",
+    "generationPrompt": "추적 대신 거점을 선택해 껍질 성벽을 키운 수목 파수꾼 → 네발짐승 → branch 2단계 → 기존 PNG 실루엣을 유지한 갈라진 잎귀 · 삽 모양 부리 · 층층이 겹친 등껍질 · 뿌리 갈고리 꼬리 · 둥근 배 주머니 → 강인·방어 → 계보 공통 문양 다각형 신화문자 → 팔레트 주색 #66835B·보조색 #7B5A47·발광색 #D7F06A → 선명한 2D 셀 셰이딩, 정면 3/4 전신, #08111F 카드 배경 → 텍스트·로고·워터마크·유명 IP 유사성 금지"
+  },
+  {
+    "id": "PG-183",
+    "koName": "시르카엘",
+    "enName": "Cirkael",
+    "lineageId": "PG-L003-B",
+    "category": "branch",
+    "stage": 3,
+    "rarity": "ARCHITECT",
+    "bodyForm": "조류",
+    "tone": "위엄·정밀",
+    "identity": "메시지 전달 대신 신호의 진위를 판결하는 원형 날개 재판자",
+    "lore": "거짓 신호가 섞이면 날개판이 서로 반대 방향으로 돌며 오염된 문장을 잘라낸다.",
+    "shapeDNA": [
+      "꺾인 날개 끝",
+      "단일 세로 눈 표식",
+      "고리형 꼬리깃"
+    ],
+    "palette": {
+      "primary": "#DCE8F2",
+      "secondary": "#463B65",
+      "glow": "#F5CB5C"
+    },
+    "sharedMotifs": [
+      "부유하는 고리",
+      "다각형 신화문자"
+    ],
+    "evolutionFrom": "PG-L003:S2",
+    "imagePath": "assets/creatures/generated/PG-183.png",
+    "generationPrompt": "메시지 전달 대신 신호의 진위를 판결하는 원형 날개 재판자 → 조류 → branch 3단계 → 기존 PNG 실루엣을 유지한 꺾인 날개 끝 · 단일 세로 눈 표식 · 고리형 꼬리깃 → 위엄·정밀 → 계보 공통 문양 부유하는 고리·다각형 신화문자 → 팔레트 주색 #DCE8F2·보조색 #463B65·발광색 #F5CB5C → 선명한 2D 셀 셰이딩, 정면 3/4 전신, #08111F 카드 배경 → 텍스트·로고·워터마크·유명 IP 유사성 금지"
+  },
+  {
+    "id": "PG-184",
+    "koName": "델피류",
+    "enName": "Delphiryu",
+    "lineageId": "PG-L004-B",
+    "category": "branch",
+    "stage": 2,
+    "rarity": "DAEMON",
+    "bodyForm": "수생형",
+    "tone": "활발·장난",
+    "identity": "깊은 물 대신 급류의 압축 신호를 타는 돌고래형 질주자",
+    "lore": "좁은 수로를 통과할수록 몸의 물결날이 얇아져 막힌 통신을 순식간에 뚫는다.",
+    "shapeDNA": [
+      "쐐기 이마지느러미",
+      "세 줄 측면 홈 · 물방울 귀",
+      "갈라진 초승달 꼬리"
+    ],
+    "palette": {
+      "primary": "#4A8FA3",
+      "secondary": "#233D61",
+      "glow": "#F47BD6"
+    },
+    "sharedMotifs": [
+      "부유 고리",
+      "발광 회로"
+    ],
+    "evolutionFrom": "PG-L004:S1",
+    "imagePath": "assets/creatures/generated/PG-184.png",
+    "generationPrompt": "깊은 물 대신 급류의 압축 신호를 타는 돌고래형 질주자 → 수생형 → branch 2단계 → 기존 PNG 실루엣을 유지한 쐐기 이마지느러미 · 세 줄 측면 홈 · 물방울 귀 · 갈라진 초승달 꼬리 → 활발·장난 → 계보 공통 문양 부유 고리·발광 회로 → 팔레트 주색 #4A8FA3·보조색 #233D61·발광색 #F47BD6 → 선명한 2D 셀 셰이딩, 정면 3/4 전신, #08111F 카드 배경 → 텍스트·로고·워터마크·유명 IP 유사성 금지"
+  },
+  {
+    "id": "PG-185",
+    "koName": "오르벨릭",
+    "enName": "Orbelic",
+    "lineageId": "PG-L005-B",
+    "category": "branch",
+    "stage": 3,
+    "rarity": "ORACLE",
+    "bodyForm": "곤충·기계구조체",
+    "tone": "신비·장난",
+    "identity": "가능한 미래를 숨기는 대신 엉뚱한 한 갈래만 크게 보여 주는 역설 관측자",
+    "lore": "정답을 말하지 않지만 일부러 틀린 예측을 보여 사람들이 스스로 다른 길을 찾게 한다.",
+    "shapeDNA": [
+      "둥근 핵 · 확장 육각 등판",
+      "분리된 세 손 · 다관절 집게 더듬이",
+      "비스듬한 이중 고리"
+    ],
+    "palette": {
+      "primary": "#C6A9E8",
+      "secondary": "#473E62",
+      "glow": "#FFDF6B"
+    },
+    "sharedMotifs": [
+      "발광 회로",
+      "부유하는 고리"
+    ],
+    "evolutionFrom": "PG-L005:S2",
+    "imagePath": "assets/creatures/generated/PG-185.png",
+    "generationPrompt": "가능한 미래를 숨기는 대신 엉뚱한 한 갈래만 크게 보여 주는 역설 관측자 → 부유 정령형 → branch 3단계 → 기존 PNG 실루엣을 유지한 둥근 핵 · 확장 육각 등판 · 분리된 세 손 · 다관절 집게 더듬이 · 비스듬한 이중 고리 → 신비·장난 → 계보 공통 문양 발광 회로·부유하는 고리 → 팔레트 주색 #C6A9E8·보조색 #473E62·발광색 #FFDF6B → 선명한 2D 셀 셰이딩, 정면 3/4 전신, #08111F 카드 배경 → 텍스트·로고·워터마크·유명 IP 유사성 금지"
+  },
+  {
+    "id": "PG-186",
+    "koName": "테셀칸",
+    "enName": "Tesselkan",
+    "lineageId": "PG-L006-B",
+    "category": "branch",
+    "stage": 3,
+    "rarity": "ARCHITECT",
+    "bodyForm": "부유 정령형",
+    "tone": "냉정·정밀",
+    "identity": "건설 대신 모든 구조를 조각 단위로 해체하는 역설계 사마귀",
+    "lore": "잘못 세운 탑을 한 번도 무너뜨리지 않고 접합 순서의 역순으로 조용히 분리한다.",
+    "shapeDNA": [
+      "톱니형 앞다리 · 세 장 렌즈잎귀",
+      "삼각 겹눈 · 등대형 길쭉한 빛핵",
+      "접이식 사각 날개판"
+    ],
+    "palette": {
+      "primary": "#76659B",
+      "secondary": "#2B2B38",
+      "glow": "#FF8A5B"
+    },
+    "sharedMotifs": [
+      "부유 고리",
+      "다각형 신화문자"
+    ],
+    "evolutionFrom": "PG-L006:S2",
+    "imagePath": "assets/creatures/generated/PG-186.png",
+    "generationPrompt": "건설 대신 모든 구조를 조각 단위로 해체하는 역설계 사마귀 → 곤충·기계구조체 → branch 3단계 → 기존 PNG 실루엣을 유지한 톱니형 앞다리 · 세 장 렌즈잎귀 · 삼각 겹눈 · 등대형 길쭉한 빛핵 · 접이식 사각 날개판 → 냉정·정밀 → 계보 공통 문양 부유 고리·다각형 신화문자 → 팔레트 주색 #76659B·보조색 #2B2B38·발광색 #FF8A5B → 선명한 2D 셀 셰이딩, 정면 3/4 전신, #08111F 카드 배경 → 텍스트·로고·워터마크·유명 IP 유사성 금지"
+  },
+  {
+    "id": "PG-187",
+    "koName": "루프세라",
+    "enName": "Loopsera",
+    "lineageId": "PG-L007-B",
+    "category": "branch",
+    "stage": 2,
+    "rarity": "DAEMON",
+    "bodyForm": "네발짐승",
+    "tone": "귀여움·집중",
+    "identity": "멀리 날기보다 한 장소를 돌며 작은 변화만 기록하는 순환새",
+    "lore": "같은 나뭇가지를 수천 번 돌아도 어제와 달라진 잎맥 하나를 반드시 찾아낸다.",
+    "shapeDNA": [
+      "고리형 볏 · 매듭형 등돌기",
+      "짧고 둥근 날개",
+      "나선 꼬리깃 · 짧은 반달 엄니"
+    ],
+    "palette": {
+      "primary": "#E6B665",
+      "secondary": "#5B416D",
+      "glow": "#8CFFD2"
+    },
+    "sharedMotifs": [
+      "다각형 신화문자",
+      "부유하는 고리"
+    ],
+    "evolutionFrom": "PG-L007:S1",
+    "imagePath": "assets/creatures/generated/PG-187.png",
+    "generationPrompt": "멀리 날기보다 한 장소를 돌며 작은 변화만 기록하는 순환새 → 조류 → branch 2단계 → 기존 PNG 실루엣을 유지한 고리형 볏 · 매듭형 등돌기 · 짧고 둥근 날개 · 나선 꼬리깃 · 짧은 반달 엄니 → 귀여움·집중 → 계보 공통 문양 다각형 신화문자·부유하는 고리 → 팔레트 주색 #E6B665·보조색 #5B416D·발광색 #8CFFD2 → 선명한 2D 셀 셰이딩, 정면 3/4 전신, #08111F 카드 배경 → 텍스트·로고·워터마크·유명 IP 유사성 금지"
+  },
+  {
+    "id": "PG-188",
+    "koName": "크래글로",
+    "enName": "Cragglo",
+    "lineageId": "PG-L008-B",
+    "category": "branch",
+    "stage": 3,
+    "rarity": "DAEMON",
+    "bodyForm": "조류",
+    "tone": "강인·고독",
+    "identity": "무리를 떠나 균열 속 광석 신호를 먹고 자란 동굴 추적자",
+    "lore": "등의 광맥뼈가 희미하게 울리면 누구도 들어갈 수 없는 좁은 틈으로 몸을 접어 사라진다.",
+    "shapeDNA": [
+      "갈라진 바위 귀 · 쌍리본 귀깃",
+      "접히는 긴 몸통 · 겹초승달 날개",
+      "곡괭이형 꼬리끝"
+    ],
+    "palette": {
+      "primary": "#345D82",
+      "secondary": "#2C3844",
+      "glow": "#6EE7FF"
+    },
+    "sharedMotifs": [
+      "발광 회로"
+    ],
+    "evolutionFrom": "PG-L008:S2",
+    "imagePath": "assets/creatures/generated/PG-188.png",
+    "generationPrompt": "무리를 떠나 균열 속 광석 신호를 먹고 자란 동굴 추적자 → 네발짐승 → branch 3단계 → 기존 PNG 실루엣을 유지한 갈라진 바위 귀 · 쌍리본 귀깃 · 접히는 긴 몸통 · 겹초승달 날개 · 곡괭이형 꼬리끝 → 강인·고독 → 계보 공통 문양 발광 회로 → 팔레트 주색 #345D82·보조색 #2C3844·발광색 #6EE7FF → 선명한 2D 셀 셰이딩, 정면 3/4 전신, #08111F 카드 배경 → 텍스트·로고·워터마크·유명 IP 유사성 금지"
+  },
+  {
+    "id": "PG-189",
+    "koName": "벨로슈",
+    "enName": "Veloshu",
+    "lineageId": "PG-L009-B",
+    "category": "branch",
+    "stage": 2,
+    "rarity": "AGENT",
+    "bodyForm": "기타 무정형·식물형",
+    "tone": "귀여움·수줍음",
+    "identity": "싸우는 대신 충격을 포근한 공기층으로 바꾸는 완충 짐승",
+    "lore": "놀라면 몸이 부풀어 주변의 충돌을 모두 받아내고 천천히 한숨처럼 흘려보낸다.",
+    "shapeDNA": [
+      "접힌 둥근 귀 · 자루형 몸통",
+      "주머니형 가슴막",
+      "넓적한 잎꼬리 · 별구멍 버섯갓"
+    ],
+    "palette": {
+      "primary": "#E7D8C9",
+      "secondary": "#697B87",
+      "glow": "#B8FF7A"
+    },
+    "sharedMotifs": [
+      "다각형 신화문자",
+      "발광 회로"
+    ],
+    "evolutionFrom": "PG-L009:S1",
+    "imagePath": "assets/creatures/generated/PG-189.png",
+    "generationPrompt": "싸우는 대신 충격을 포근한 공기층으로 바꾸는 완충 짐승 → 두발짐승 → branch 2단계 → 기존 PNG 실루엣을 유지한 접힌 둥근 귀 · 자루형 몸통 · 주머니형 가슴막 · 넓적한 잎꼬리 · 별구멍 버섯갓 → 귀여움·수줍음 → 계보 공통 문양 다각형 신화문자·발광 회로 → 팔레트 주색 #E7D8C9·보조색 #697B87·발광색 #B8FF7A → 선명한 2D 셀 셰이딩, 정면 3/4 전신, #08111F 카드 배경 → 텍스트·로고·워터마크·유명 IP 유사성 금지"
+  },
+  {
+    "id": "PG-190",
+    "koName": "마레지스",
+    "enName": "Maregis",
+    "lineageId": "PG-L010-B",
+    "category": "branch",
+    "stage": 3,
+    "rarity": "ORACLE",
+    "bodyForm": "수생형",
+    "tone": "신성·단호",
+    "identity": "해류를 따르지 않고 바다의 금지 구역을 원형 벽으로 감싸는 봉인어",
+    "lore": "침입자가 다가오면 지느러미 사이의 물을 굳혀 소리 없는 경계 돔을 만든다.",
+    "shapeDNA": [
+      "왕관형 등지느러미",
+      "원반형 가슴지느러미",
+      "고리 마디 꼬리"
+    ],
+    "palette": {
+      "primary": "#294966",
+      "secondary": "#CABD9C",
+      "glow": "#C39BFF"
+    },
+    "sharedMotifs": [
+      "발광 회로",
+      "부유하는 고리"
+    ],
+    "evolutionFrom": "PG-L010:S2",
+    "imagePath": "assets/creatures/generated/PG-190.png",
+    "generationPrompt": "해류를 따르지 않고 바다의 금지 구역을 원형 벽으로 감싸는 봉인어 → 수생형 → branch 3단계 → 기존 PNG 실루엣을 유지한 왕관형 등지느러미 · 원반형 가슴지느러미 · 고리 마디 꼬리 → 신성·단호 → 계보 공통 문양 발광 회로·부유하는 고리 → 팔레트 주색 #294966·보조색 #CABD9C·발광색 #C39BFF → 선명한 2D 셀 셰이딩, 정면 3/4 전신, #08111F 카드 배경 → 텍스트·로고·워터마크·유명 IP 유사성 금지"
+  },
+  {
+    "id": "PG-191",
+    "koName": "브릭사드",
+    "enName": "Brixard",
+    "lineageId": "PG-L011-B",
+    "category": "branch",
+    "stage": 3,
+    "rarity": "ARCHITECT",
+    "bodyForm": "두발짐승",
+    "tone": "강인·실용",
+    "identity": "정교한 탑 대신 어디서나 버티는 임시 구조를 짓는 딱정벌레",
+    "lore": "완벽함을 기다리지 않고 복부에서 가벼운 골격 마디를 꺼내 무너지는 길을 즉시 받친다.",
+    "shapeDNA": [
+      "벽돌형 머리판 · 삼분기 긴 귀",
+      "격자 딱지날개 · 각진 나침반 코",
+      "집게형 뒷다리"
+    ],
+    "palette": {
+      "primary": "#A05F45",
+      "secondary": "#59446F",
+      "glow": "#E9F36A"
+    },
+    "sharedMotifs": [
+      "부유 고리",
+      "발광 회로"
+    ],
+    "evolutionFrom": "PG-L011:S2",
+    "imagePath": "assets/creatures/generated/PG-191.png",
+    "generationPrompt": "정교한 탑 대신 어디서나 버티는 임시 구조를 짓는 딱정벌레 → 곤충·기계구조체 → branch 3단계 → 기존 PNG 실루엣을 유지한 벽돌형 머리판 · 삼분기 긴 귀 · 격자 딱지날개 · 각진 나침반 코 · 집게형 뒷다리 → 강인·실용 → 계보 공통 문양 부유 고리·발광 회로 → 팔레트 주색 #A05F45·보조색 #59446F·발광색 #E9F36A → 선명한 2D 셀 셰이딩, 정면 3/4 전신, #08111F 카드 배경 → 텍스트·로고·워터마크·유명 IP 유사성 금지"
+  },
+  {
+    "id": "PG-192",
+    "koName": "세피로크",
+    "enName": "Sephirok",
+    "lineageId": "PG-L012-B",
+    "category": "branch",
+    "stage": 2,
+    "rarity": "DAEMON",
+    "bodyForm": "네발짐승",
+    "tone": "강인·거침",
+    "identity": "높은 하늘 대신 지면 가까이 폭풍을 긁어 모으는 달리기새",
+    "lore": "날개를 접고 달릴 때 생기는 소용돌이로 모래 속 오래된 신호를 드러낸다.",
+    "shapeDNA": [
+      "뒤로 눕는 창볏 · 물갈퀴 앞발",
+      "낫형 접힌 날개 · 말린 콧수염",
+      "세 갈래 발가락"
+    ],
+    "palette": {
+      "primary": "#B57C55",
+      "secondary": "#4B7DB8",
+      "glow": "#6EFFF0"
+    },
+    "sharedMotifs": [
+      "발광 회로"
+    ],
+    "evolutionFrom": "PG-L012:S1",
+    "imagePath": "assets/creatures/generated/PG-192.png",
+    "generationPrompt": "높은 하늘 대신 지면 가까이 폭풍을 긁어 모으는 달리기새 → 조류 → branch 2단계 → 기존 PNG 실루엣을 유지한 뒤로 눕는 창볏 · 물갈퀴 앞발 · 낫형 접힌 날개 · 말린 콧수염 · 세 갈래 발가락 → 강인·거침 → 계보 공통 문양 발광 회로 → 팔레트 주색 #B57C55·보조색 #4B7DB8·발광색 #6EFFF0 → 선명한 2D 셀 셰이딩, 정면 3/4 전신, #08111F 카드 배경 → 텍스트·로고·워터마크·유명 IP 유사성 금지"
+  },
+  {
+    "id": "PG-193",
+    "koName": "퀴논",
+    "enName": "Quinon",
+    "lineageId": "PG-L013-B",
+    "category": "branch",
+    "stage": 3,
+    "rarity": "ORACLE",
+    "bodyForm": "기타 무정형·식물형",
+    "tone": "귀여움·초연",
+    "identity": "거대한 답을 버리고 가장 작은 질문 하나만 지키는 점핵 정령",
+    "lore": "몸집은 줄었지만 주변의 공간이 질문 모양으로 접히며 누구도 함부로 답을 강요할 수 없다.",
+    "shapeDNA": [
+      "점 모양 중앙 핵 · 가지친 이끼뿔",
+      "물음표형 짧은 촉수",
+      "분리된 두 손 · 층탑형 돌몸"
+    ],
+    "palette": {
+      "primary": "#F0DDE8",
+      "secondary": "#2E3150",
+      "glow": "#75F3D0"
+    },
+    "sharedMotifs": [
+      "발광 회로",
+      "부유하는 고리"
+    ],
+    "evolutionFrom": "PG-L013:S2",
+    "imagePath": "assets/creatures/generated/PG-193.png",
+    "generationPrompt": "거대한 답을 버리고 가장 작은 질문 하나만 지키는 점핵 정령 → 부유 정령형 → branch 3단계 → 기존 PNG 실루엣을 유지한 점 모양 중앙 핵 · 가지친 이끼뿔 · 물음표형 짧은 촉수 · 분리된 두 손 · 층탑형 돌몸 → 귀여움·초연 → 계보 공통 문양 발광 회로·부유하는 고리 → 팔레트 주색 #F0DDE8·보조색 #2E3150·발광색 #75F3D0 → 선명한 2D 셀 셰이딩, 정면 3/4 전신, #08111F 카드 배경 → 텍스트·로고·워터마크·유명 IP 유사성 금지"
+  },
+  {
+    "id": "PG-194",
+    "koName": "코르바렉",
+    "enName": "Korvarek",
+    "lineageId": "PG-L014-B",
+    "category": "branch",
+    "stage": 3,
+    "rarity": "DAEMON",
+    "bodyForm": "곤충·기계구조체",
+    "tone": "강인·사나움",
+    "identity": "보호보다 오염원을 추격하는 뿔갑옷 사냥꾼",
+    "lore": "등갑을 얇게 버린 대신 네 개의 감지뿔을 키워 도망치는 오류 냄새를 끝까지 좇는다.",
+    "shapeDNA": [
+      "네 갈래 감지뿔 · 쌍실패 뿔",
+      "사선 어깨 골판 · 이중 감개형 배",
+      "채찍형 마디 꼬리"
+    ],
+    "palette": {
+      "primary": "#6F4A8E",
+      "secondary": "#293D45",
+      "glow": "#FF6F8C"
+    },
+    "sharedMotifs": [
+      "발광 회로"
+    ],
+    "evolutionFrom": "PG-L014:S2",
+    "imagePath": "assets/creatures/generated/PG-194.png",
+    "generationPrompt": "보호보다 오염원을 추격하는 뿔갑옷 사냥꾼 → 네발짐승 → branch 3단계 → 기존 PNG 실루엣을 유지한 네 갈래 감지뿔 · 쌍실패 뿔 · 사선 어깨 골판 · 이중 감개형 배 · 채찍형 마디 꼬리 → 강인·사나움 → 계보 공통 문양 발광 회로 → 팔레트 주색 #6F4A8E·보조색 #293D45·발광색 #FF6F8C → 선명한 2D 셀 셰이딩, 정면 3/4 전신, #08111F 카드 배경 → 텍스트·로고·워터마크·유명 IP 유사성 금지"
+  },
+  {
+    "id": "PG-195",
+    "koName": "이오라켄",
+    "enName": "Ioraken",
+    "lineageId": "PG-L015-B",
+    "category": "branch",
+    "stage": 2,
+    "rarity": "DAEMON",
+    "bodyForm": "부유 정령형",
+    "tone": "신비·유연",
+    "identity": "빛나는 수면 대신 검은 압력층에서 소리를 읽는 심해 연체수",
+    "lore": "눈을 닫고 촉수막의 떨림만으로 멀리서 무너지는 데이터층의 위치를 알아낸다.",
+    "shapeDNA": [
+      "접힌 우산형 머리막",
+      "네 가닥 리본촉수 · 복숭아형 핵",
+      "눈 대신 세로 감각홈"
+    ],
+    "palette": {
+      "primary": "#6A5475",
+      "secondary": "#241F35",
+      "glow": "#E6A6FF"
+    },
+    "sharedMotifs": [
+      "부유 고리",
+      "다각형 신화문자"
+    ],
+    "evolutionFrom": "PG-L015:S1",
+    "imagePath": "assets/creatures/generated/PG-195.png",
+    "generationPrompt": "빛나는 수면 대신 검은 압력층에서 소리를 읽는 심해 연체수 → 수생형 → branch 2단계 → 기존 PNG 실루엣을 유지한 접힌 우산형 머리막 · 네 가닥 리본촉수 · 복숭아형 핵 · 눈 대신 세로 감각홈 → 신비·유연 → 계보 공통 문양 부유 고리·다각형 신화문자 → 팔레트 주색 #6A5475·보조색 #241F35·발광색 #E6A6FF → 선명한 2D 셀 셰이딩, 정면 3/4 전신, #08111F 카드 배경 → 텍스트·로고·워터마크·유명 IP 유사성 금지"
+  },
+  {
+    "id": "PG-196",
+    "koName": "펄스그로브",
+    "enName": "Pulsegrove",
+    "lineageId": "PG-LM001",
+    "category": "mixed",
+    "stage": 3,
+    "rarity": "ARCHITECT",
+    "bodyForm": "기타 무정형·식물형",
+    "tone": "신성·활기",
+    "identity": "숲의 성장 박자와 번개 신호가 결합한 이동형 회로수",
+    "lore": "뿌리를 내릴 때마다 잠든 네트워크가 싹트며 가지 끝에서 새 길의 신호가 열린다.",
+    "shapeDNA": [
+      "맥박형 나선 줄기 · 겹우산형 머리막",
+      "세 갈래 번개 가지 · 분기 구슬촉수 여덟 개",
+      "네 개의 뿌리발 · 다층 흙주머니 배"
+    ],
+    "palette": {
+      "primary": "#5F8E58",
+      "secondary": "#7B72C9",
+      "glow": "#EED8A7"
+    },
+    "sharedMotifs": [
+      "다각형 신화문자",
+      "부유 고리"
+    ],
+    "evolutionFrom": [
+      "PG-L016:S2",
+      "PG-L017:S2"
+    ],
+    "imagePath": "assets/creatures/generated/PG-196.png",
+    "generationPrompt": "숲의 성장 박자와 번개 신호가 결합한 이동형 회로수 → 기타 무정형·식물형 → mixed 3단계 → 기존 PNG 실루엣을 유지한 맥박형 나선 줄기 · 겹우산형 머리막 · 세 갈래 번개 가지 · 분기 구슬촉수 여덟 개 · 네 개의 뿌리발 · 다층 흙주머니 배 → 신성·활기 → 계보 공통 문양 다각형 신화문자·부유 고리 → 팔레트 주색 #5F8E58·보조색 #7B72C9·발광색 #EED8A7 → 선명한 2D 셀 셰이딩, 정면 3/4 전신, #08111F 카드 배경 → 텍스트·로고·워터마크·유명 IP 유사성 금지"
+  },
+  {
+    "id": "PG-197",
+    "koName": "아비스핀",
+    "enName": "Abyspin",
+    "lineageId": "PG-LM002",
+    "category": "mixed",
+    "stage": 3,
+    "rarity": "ORACLE",
+    "bodyForm": "수생형",
+    "tone": "신비·정밀",
+    "identity": "심해의 압력 감각과 하늘의 방향 감각을 하나로 접은 나침가오리",
+    "lore": "날개판의 위아래가 동시에 진동해 바다와 하늘 어느 쪽에서도 잃어버린 좌표를 찾는다.",
+    "shapeDNA": [
+      "나침반형 이마판 · 이중 나선 귀",
+      "깃맥 가진 가오리날개 · 쌍갈래 열쇠부리",
+      "추 모양 꼬리 · 층구름 가시털"
+    ],
+    "palette": {
+      "primary": "#3E7591",
+      "secondary": "#FFD65A",
+      "glow": "#8DEBFF"
+    },
+    "sharedMotifs": [
+      "발광 회로",
+      "다각형 신화문자"
+    ],
+    "evolutionFrom": [
+      "PG-L018:S2",
+      "PG-L019:S2"
+    ],
+    "imagePath": "assets/creatures/generated/PG-197.png",
+    "generationPrompt": "심해의 압력 감각과 하늘의 방향 감각을 하나로 접은 나침가오리 → 수생형 → mixed 3단계 → 기존 PNG 실루엣을 유지한 나침반형 이마판 · 이중 나선 귀 · 깃맥 가진 가오리날개 · 쌍갈래 열쇠부리 · 추 모양 꼬리 · 층구름 가시털 → 신비·정밀 → 계보 공통 문양 발광 회로·다각형 신화문자 → 팔레트 주색 #3E7591·보조색 #FFD65A·발광색 #8DEBFF → 선명한 2D 셀 셰이딩, 정면 3/4 전신, #08111F 카드 배경 → 텍스트·로고·워터마크·유명 IP 유사성 금지"
+  },
+  {
+    "id": "PG-198",
+    "koName": "메모릭스",
+    "enName": "Memorix",
+    "lineageId": "PG-LM003",
+    "category": "mixed",
+    "stage": 3,
+    "rarity": "ARCHITECT",
+    "bodyForm": "곤충·기계구조체",
+    "tone": "냉정·지혜",
+    "identity": "정령의 기억핵을 벌집형 외골격으로 보호하는 이동 기록고",
+    "lore": "감정을 잃지 않도록 각 기억을 다른 온도의 육각 방에 넣어 안전하게 운반한다.",
+    "shapeDNA": [
+      "물방울 기억핵 · 가지친 덩굴 귀",
+      "육각 겹갑 복부 · 아홉 알 빛열매",
+      "두 쌍의 집게팔 · 우산형 등판에서 진화한 별점 수염"
+    ],
+    "palette": {
+      "primary": "#849CB4",
+      "secondary": "#455B52",
+      "glow": "#FFCF62"
+    },
+    "sharedMotifs": [
+      "발광 회로",
+      "다각형 신화문자"
+    ],
+    "evolutionFrom": [
+      "PG-L020:S2",
+      "PG-L021:S2"
+    ],
+    "imagePath": "assets/creatures/generated/PG-198.png",
+    "generationPrompt": "정령의 기억핵을 벌집형 외골격으로 보호하는 이동 기록고 → 곤충·기계구조체 → mixed 3단계 → 기존 PNG 실루엣을 유지한 물방울 기억핵 · 가지친 덩굴 귀 · 육각 겹갑 복부 · 아홉 알 빛열매 · 두 쌍의 집게팔 · 우산형 등판에서 진화한 별점 수염 → 냉정·지혜 → 계보 공통 문양 발광 회로·다각형 신화문자 → 팔레트 주색 #849CB4·보조색 #455B52·발광색 #FFCF62 → 선명한 2D 셀 셰이딩, 정면 3/4 전신, #08111F 카드 배경 → 텍스트·로고·워터마크·유명 IP 유사성 금지"
+  },
+  {
+    "id": "PG-199",
+    "koName": "코럴기어",
+    "enName": "Coralgear",
+    "lineageId": "PG-LM004",
+    "category": "mixed",
+    "stage": 3,
+    "rarity": "DAEMON",
+    "bodyForm": "수생형",
+    "tone": "강인·협동",
+    "identity": "산호의 성장성과 기계 절지의 정밀함을 결합한 암초 수리공",
+    "lore": "부러진 산호를 복제하지 않고 주변 흐름에 맞춘 새 골격을 자라게 해 생태 통로를 복원한다.",
+    "shapeDNA": [
+      "톱니 산호뿔 · 서랍형 배주머니에서 진화한 왕관형 목볏",
+      "여섯 개의 관절지느러미",
+      "부채형 꼬리판"
+    ],
+    "palette": {
+      "primary": "#E45424",
+      "secondary": "#287878",
+      "glow": "#E86858"
+    },
+    "sharedMotifs": [
+      "다각형 신화문자",
+      "발광 회로"
+    ],
+    "evolutionFrom": [
+      "PG-L022:S2",
+      "PG-L023:S2"
+    ],
+    "imagePath": "assets/creatures/generated/PG-199.png",
+    "generationPrompt": "산호의 성장성과 기계 절지의 정밀함을 결합한 암초 수리공 → 수생형 → mixed 3단계 → 기존 PNG 실루엣을 유지한 톱니 산호뿔 · 서랍형 배주머니에서 진화한 왕관형 목볏 · 여섯 개의 관절지느러미 · 부채형 꼬리판 → 강인·협동 → 계보 공통 문양 다각형 신화문자·발광 회로 → 팔레트 주색 #E45424·보조색 #287878·발광색 #E86858 → 선명한 2D 셀 셰이딩, 정면 3/4 전신, #08111F 카드 배경 → 텍스트·로고·워터마크·유명 IP 유사성 금지"
+  },
+  {
+    "id": "PG-200",
+    "koName": "볼트러쉬",
+    "enName": "Voltrush",
+    "lineageId": "PG-LM005",
+    "category": "mixed",
+    "stage": 2,
+    "rarity": "DAEMON",
+    "bodyForm": "두발짐승",
+    "tone": "활발·대담",
+    "identity": "초원의 도약력과 회로수의 전도성을 합친 번개 발굽 주자",
+    "lore": "달릴수록 등의 잎도선이 펼쳐져 뒤따르는 무리에게 안전한 전력길을 남긴다.",
+    "shapeDNA": [
+      "잎날형 긴 귀 · 네구멍 등판",
+      "코일 모양 뒷다리 · 접힌 책등 날개",
+      "갈라진 도선 꼬리"
+    ],
+    "palette": {
+      "primary": "#91A84F",
+      "secondary": "#7F4B57",
+      "glow": "#E8B66D"
+    },
+    "sharedMotifs": [
+      "발광 회로",
+      "다각형 신화문자"
+    ],
+    "evolutionFrom": [
+      "PG-L024:S1",
+      "PG-L025:S1"
+    ],
+    "imagePath": "assets/creatures/generated/PG-200.png",
+    "generationPrompt": "초원의 도약력과 회로수의 전도성을 합친 번개 발굽 주자 → 두발짐승 → mixed 2단계 → 기존 PNG 실루엣을 유지한 잎날형 긴 귀 · 네구멍 등판 · 코일 모양 뒷다리 · 접힌 책등 날개 · 갈라진 도선 꼬리 → 활발·대담 → 계보 공통 문양 발광 회로·다각형 신화문자 → 팔레트 주색 #91A84F·보조색 #7F4B57·발광색 #E8B66D → 선명한 2D 셀 셰이딩, 정면 3/4 전신, #08111F 카드 배경 → 텍스트·로고·워터마크·유명 IP 유사성 금지"
+  },
+  {
+    "id": "PG-201",
+    "koName": "드림포지",
+    "enName": "Dreamforge",
+    "lineageId": "PG-LM006",
+    "category": "mixed",
+    "stage": 3,
+    "rarity": "ARCHITECT",
+    "bodyForm": "부유 정령형",
+    "tone": "신비·정밀",
+    "identity": "꿈의 안개와 구조 골격을 엮어 임시 피난처를 만드는 공방핵",
+    "lore": "잠든 이의 불안을 투명한 방으로 빚어 아침이 오면 해가 없는 빛가루로 돌려보낸다.",
+    "shapeDNA": [
+      "구름형 중앙 핵",
+      "집게 모양 분리손",
+      "아치형 등골격 · 둥근 쌍뿔에서 진화한 갈라진 초승달 귀"
+    ],
+    "palette": {
+      "primary": "#9C9C54",
+      "secondary": "#543C6C",
+      "glow": "#78F5D5"
+    },
+    "sharedMotifs": [
+      "발광 회로",
+      "다각형 신화문자"
+    ],
+    "evolutionFrom": [
+      "PG-L026:S2",
+      "PG-L027:S2"
+    ],
+    "imagePath": "assets/creatures/generated/PG-201.png",
+    "generationPrompt": "꿈의 안개와 구조 골격을 엮어 임시 피난처를 만드는 공방핵 → 부유 정령형 → mixed 3단계 → 기존 PNG 실루엣을 유지한 구름형 중앙 핵 · 집게 모양 분리손 · 아치형 등골격 · 둥근 쌍뿔에서 진화한 갈라진 초승달 귀 → 신비·정밀 → 계보 공통 문양 발광 회로·다각형 신화문자 → 팔레트 주색 #9C9C54·보조색 #543C6C·발광색 #78F5D5 → 선명한 2D 셀 셰이딩, 정면 3/4 전신, #08111F 카드 배경 → 텍스트·로고·워터마크·유명 IP 유사성 금지"
+  },
+  {
+    "id": "PG-202",
+    "koName": "리프마레",
+    "enName": "Leafmare",
+    "lineageId": "PG-LM007",
+    "category": "mixed",
+    "stage": 2,
+    "rarity": "DAEMON",
+    "bodyForm": "수생형",
+    "tone": "귀여움·온화",
+    "identity": "연못의 물결과 씨앗의 부력을 합친 떠다니는 묘목고래",
+    "lore": "등의 잎배에 작은 씨앗들을 태워 물이 마른 지역까지 안전하게 옮긴다.",
+    "shapeDNA": [
+      "잎배 모양 등판 · 북면형 배",
+      "둥근 고래 주둥이 · 조개형 볼판",
+      "뿌리술 꼬리 · 말린 짧은 코"
+    ],
+    "palette": {
+      "primary": "#65A77A",
+      "secondary": "#406B78",
+      "glow": "#E6B46E"
+    },
+    "sharedMotifs": [
+      "발광 회로",
+      "부유 고리"
+    ],
+    "evolutionFrom": [
+      "PG-L028:S1",
+      "PG-L029:S1"
+    ],
+    "imagePath": "assets/creatures/generated/PG-202.png",
+    "generationPrompt": "연못의 물결과 씨앗의 부력을 합친 떠다니는 묘목고래 → 수생형 → mixed 2단계 → 기존 PNG 실루엣을 유지한 잎배 모양 등판 · 북면형 배 · 둥근 고래 주둥이 · 조개형 볼판 · 뿌리술 꼬리 · 말린 짧은 코 → 귀여움·온화 → 계보 공통 문양 발광 회로·부유 고리 → 팔레트 주색 #65A77A·보조색 #406B78·발광색 #E6B46E → 선명한 2D 셀 셰이딩, 정면 3/4 전신, #08111F 카드 배경 → 텍스트·로고·워터마크·유명 IP 유사성 금지"
+  },
+  {
+    "id": "PG-203",
+    "koName": "스칼라핀",
+    "enName": "Scalarfin",
+    "lineageId": "PG-LM008",
+    "category": "mixed",
+    "stage": 3,
+    "rarity": "ORACLE",
+    "bodyForm": "조류",
+    "tone": "신성·유연",
+    "identity": "물고기의 압력 감각과 새의 고도 감각으로 공간 경사를 읽는 활공자",
+    "lore": "공기와 물의 경계가 뒤틀린 곳에서만 나타나 두 환경의 균형점을 꼬리로 표시한다.",
+    "shapeDNA": [
+      "지느러미 볏 · 씨눈형 중심핵에서 진화한 꽃봉오리 뿔",
+      "막날개와 깃끝",
+      "눈금형 꼬리"
+    ],
+    "palette": {
+      "primary": "#548454",
+      "secondary": "#B8D8C8",
+      "glow": "#82F5E4"
+    },
+    "sharedMotifs": [
+      "발광 회로",
+      "다각형 신화문자"
+    ],
+    "evolutionFrom": [
+      "PG-L030:S2",
+      "PG-L031:S2"
+    ],
+    "imagePath": "assets/creatures/generated/PG-203.png",
+    "generationPrompt": "물고기의 압력 감각과 새의 고도 감각으로 공간 경사를 읽는 활공자 → 조류 → mixed 3단계 → 기존 PNG 실루엣을 유지한 지느러미 볏 · 씨눈형 중심핵에서 진화한 꽃봉오리 뿔 · 막날개와 깃끝 · 눈금형 꼬리 → 신성·유연 → 계보 공통 문양 발광 회로·다각형 신화문자 → 팔레트 주색 #548454·보조색 #B8D8C8·발광색 #82F5E4 → 선명한 2D 셀 셰이딩, 정면 3/4 전신, #08111F 카드 배경 → 텍스트·로고·워터마크·유명 IP 유사성 금지"
+  },
+  {
+    "id": "PG-204",
+    "koName": "크로노몰",
+    "enName": "Chronomole",
+    "lineageId": "PG-LM009",
+    "category": "mixed",
+    "stage": 3,
+    "rarity": "ORACLE",
+    "bodyForm": "네발짐승",
+    "tone": "침착·끈기",
+    "identity": "땅굴 감각과 시간 고리를 결합해 잃어버린 순간을 파내는 탐색자",
+    "lore": "땅속에 묻힌 과거의 흔적을 찾되 사건 자체는 바꾸지 않고 증거만 현재로 가져온다.",
+    "shapeDNA": [
+      "삽형 앞발 · 갈고리 볏에서 진화한 접힌 화살촉 부리",
+      "동심원 코판",
+      "마디형 짧은 꼬리"
+    ],
+    "palette": {
+      "primary": "#B4846C",
+      "secondary": "#684838",
+      "glow": "#B7F06F"
+    },
+    "sharedMotifs": [
+      "다각형 신화문자",
+      "부유하는 고리"
+    ],
+    "evolutionFrom": [
+      "PG-L032:S2",
+      "PG-L033:S2"
+    ],
+    "imagePath": "assets/creatures/generated/PG-204.png",
+    "generationPrompt": "땅굴 감각과 시간 고리를 결합해 잃어버린 순간을 파내는 탐색자 → 네발짐승 → mixed 3단계 → 기존 PNG 실루엣을 유지한 삽형 앞발 · 갈고리 볏에서 진화한 접힌 화살촉 부리 · 동심원 코판 · 마디형 짧은 꼬리 → 침착·끈기 → 계보 공통 문양 다각형 신화문자·부유하는 고리 → 팔레트 주색 #B4846C·보조색 #684838·발광색 #B7F06F → 선명한 2D 셀 셰이딩, 정면 3/4 전신, #08111F 카드 배경 → 텍스트·로고·워터마크·유명 IP 유사성 금지"
+  },
+  {
+    "id": "PG-205",
+    "koName": "아이언블룸",
+    "enName": "Ironbloom",
+    "lineageId": "PG-LM010",
+    "category": "mixed",
+    "stage": 3,
+    "rarity": "ARCHITECT",
+    "bodyForm": "곤충·기계구조체",
+    "tone": "강인·신성",
+    "identity": "꽃의 재생 기관과 곤충 외골격이 융합된 전장 복구자",
+    "lore": "상처 입은 대지에 금속 꽃가루를 심어 무너진 기반을 살아 있는 격자로 되살린다.",
+    "shapeDNA": [
+      "꽃받침 흉갑 · 소라 나선뿔에서 진화한 열쇠구멍 이마무늬",
+      "꽃잎형 대칭 날개판",
+      "뿌리 집게 앞다리"
+    ],
+    "palette": {
+      "primary": "#9A6C85",
+      "secondary": "#6C3C24",
+      "glow": "#FFB84F"
+    },
+    "sharedMotifs": [
+      "발광 회로",
+      "다각형 신화문자"
+    ],
+    "evolutionFrom": [
+      "PG-L034:S2",
+      "PG-L035:S2"
+    ],
+    "imagePath": "assets/creatures/generated/PG-205.png",
+    "generationPrompt": "꽃의 재생 기관과 곤충 외골격이 융합된 전장 복구자 → 곤충·기계구조체 → mixed 3단계 → 기존 PNG 실루엣을 유지한 꽃받침 흉갑 · 소라 나선뿔에서 진화한 열쇠구멍 이마무늬 · 꽃잎형 대칭 날개판 · 뿌리 집게 앞다리 → 강인·신성 → 계보 공통 문양 발광 회로·다각형 신화문자 → 팔레트 주색 #9A6C85·보조색 #6C3C24·발광색 #FFB84F → 선명한 2D 셀 셰이딩, 정면 3/4 전신, #08111F 카드 배경 → 텍스트·로고·워터마크·유명 IP 유사성 금지"
+  },
+  {
+    "id": "PG-206",
+    "koName": "세이브라",
+    "enName": "Savebra",
+    "lineageId": "PG-LS001",
+    "category": "special",
+    "stage": 3,
+    "rarity": "ORACLE",
+    "bodyForm": "부유 정령형",
+    "tone": "침착·다정",
+    "identity": "오래 돌본 기억이 임계에 닿을 때 탄생하는 보존의 리본핵",
+    "lore": "친밀한 순간을 잊지 않도록 리본팔에 새기며 주인이 흔들릴 때 가장 따뜻한 장면을 비춘다.",
+    "shapeDNA": [
+      "심장형 투명 핵 · 삼면 렌즈핵에서 진화한 종형 둥근 핵",
+      "네 갈래 리본팔",
+      "수평 타원 고리"
+    ],
+    "palette": {
+      "primary": "#E7AFC8",
+      "secondary": "#3C6C9C",
+      "glow": "#9CFFCE"
+    },
+    "sharedMotifs": [
+      "부유하는 고리",
+      "다각형 신화문자"
+    ],
+    "evolutionFrom": "PG-L036:S2",
+    "imagePath": "assets/creatures/generated/PG-206.png",
+    "generationPrompt": "오래 돌본 기억이 임계에 닿을 때 탄생하는 보존의 리본핵 → 부유 정령형 → special 3단계 → 기존 PNG 실루엣을 유지한 심장형 투명 핵 · 삼면 렌즈핵에서 진화한 종형 둥근 핵 · 네 갈래 리본팔 · 수평 타원 고리 → 침착·다정 → 계보 공통 문양 부유하는 고리·다각형 신화문자 → 팔레트 주색 #E7AFC8·보조색 #3C6C9C·발광색 #9CFFCE → 선명한 2D 셀 셰이딩, 정면 3/4 전신, #08111F 카드 배경 → 텍스트·로고·워터마크·유명 IP 유사성 금지"
+  },
+  {
+    "id": "PG-207",
+    "koName": "노크턴벨",
+    "enName": "Nocturnbell",
+    "lineageId": "PG-LS002",
+    "category": "special",
+    "stage": 3,
+    "rarity": "ORACLE",
+    "bodyForm": "네발짐승",
+    "tone": "신비·고요",
+    "identity": "자정에만 진화해 소음으로부터 잠든 도시를 감싸는 종날개 새",
+    "lore": "날개를 접을 때 나는 무음의 종파가 악성 알림을 잠재워 모두에게 깊은 잠을 돌려준다.",
+    "shapeDNA": [
+      "종형 머리깃 · 층암 어깨에서 진화한 계단형 굽은 뿔",
+      "넓은 방음 날개",
+      "초승달 꼬리깃"
+    ],
+    "palette": {
+      "primary": "#54543C",
+      "secondary": "#C2B9A2",
+      "glow": "#8DEBFF"
+    },
+    "sharedMotifs": [
+      "발광 회로"
+    ],
+    "evolutionFrom": "PG-L037:S2",
+    "imagePath": "assets/creatures/generated/PG-207.png",
+    "generationPrompt": "자정에만 진화해 소음으로부터 잠든 도시를 감싸는 종날개 새 → 조류 → special 3단계 → 기존 PNG 실루엣을 유지한 종형 머리깃 · 층암 어깨에서 진화한 계단형 굽은 뿔 · 넓은 방음 날개 · 초승달 꼬리깃 → 신비·고요 → 계보 공통 문양 발광 회로 → 팔레트 주색 #54543C·보조색 #C2B9A2·발광색 #8DEBFF → 선명한 2D 셀 셰이딩, 정면 3/4 전신, #08111F 카드 배경 → 텍스트·로고·워터마크·유명 IP 유사성 금지"
+  },
+  {
+    "id": "PG-208",
+    "koName": "라디언트",
+    "enName": "Radianthe",
+    "lineageId": "PG-LS003",
+    "category": "special",
+    "stage": 3,
+    "rarity": "ARCHITECT",
+    "bodyForm": "조류",
+    "tone": "신성·희망",
+    "identity": "백 번의 회복을 마친 개체가 피워 내는 재생의 광화수",
+    "lore": "자신이 받은 돌봄을 꽃잎 광자로 바꾸어 상처 난 땅과 동료에게 똑같이 나눈다.",
+    "shapeDNA": [
+      "육각 광화관 · 쌍갈래 눈볏에서 진화한 넓은 삼각 귀",
+      "세 기둥 줄기다리",
+      "씨앗형 중앙 눈"
+    ],
+    "palette": {
+      "primary": "#79A85A",
+      "secondary": "#CC9CCC",
+      "glow": "#FFF07A"
+    },
+    "sharedMotifs": [
+      "다각형 신화문자",
+      "발광 회로"
+    ],
+    "evolutionFrom": "PG-L038:S2",
+    "imagePath": "assets/creatures/generated/PG-208.png",
+    "generationPrompt": "백 번의 회복을 마친 개체가 피워 내는 재생의 광화수 → 기타 무정형·식물형 → special 3단계 → 기존 PNG 실루엣을 유지한 육각 광화관 · 쌍갈래 눈볏에서 진화한 넓은 삼각 귀 · 세 기둥 줄기다리 · 씨앗형 중앙 눈 → 신성·희망 → 계보 공통 문양 다각형 신화문자·발광 회로 → 팔레트 주색 #79A85A·보조색 #CC9CCC·발광색 #FFF07A → 선명한 2D 셀 셰이딩, 정면 3/4 전신, #08111F 카드 배경 → 텍스트·로고·워터마크·유명 IP 유사성 금지"
+  },
+  {
+    "id": "PG-209",
+    "koName": "아레노스",
+    "enName": "Arenos",
+    "lineageId": "PG-LS004",
+    "category": "special",
+    "stage": 3,
+    "rarity": "ARCHITECT",
+    "bodyForm": "두발짐승",
+    "tone": "강인·명예",
+    "identity": "패배를 거듭해도 동료를 지킨 개체가 도달하는 공명 투사",
+    "lore": "승리 횟수보다 대신 맞은 충격을 기억하며 가슴판은 공격이 아닌 방어 순간에 가장 밝게 빛난다.",
+    "shapeDNA": [
+      "갈라진 투구뿔",
+      "원형 공명 가슴판",
+      "쐐기형 굵은 다리"
+    ],
+    "palette": {
+      "primary": "#6C543C",
+      "secondary": "#3D4B65",
+      "glow": "#F6CE58"
+    },
+    "sharedMotifs": [
+      "발광 회로",
+      "부유하는 고리"
+    ],
+    "evolutionFrom": "PG-L039:S2",
+    "imagePath": "assets/creatures/generated/PG-209.png",
+    "generationPrompt": "패배를 거듭해도 동료를 지킨 개체가 도달하는 공명 투사 → 두발짐승 → special 3단계 → 기존 PNG 실루엣을 유지한 갈라진 투구뿔 · 원형 공명 가슴판 · 쐐기형 굵은 다리 → 강인·명예 → 계보 공통 문양 발광 회로·부유하는 고리 → 팔레트 주색 #6C543C·보조색 #3D4B65·발광색 #F6CE58 → 선명한 2D 셀 셰이딩, 정면 3/4 전신, #08111F 카드 배경 → 텍스트·로고·워터마크·유명 IP 유사성 금지"
+  },
+  {
+    "id": "PG-210",
+    "koName": "제로윈",
+    "enName": "Zerowyn",
+    "lineageId": "PG-LS005",
+    "category": "special",
+    "stage": 3,
+    "rarity": "ORACLE",
+    "bodyForm": "수생형",
+    "tone": "신비·절제",
+    "identity": "토큰 잔액이 정확히 비워진 순간 진화하는 무소유의 바람짐승",
+    "lore": "아무것도 저장하지 않기에 몸의 빈 관을 지나간 모든 신호가 왜곡 없이 통과한다.",
+    "shapeDNA": [
+      "속 빈 관형 귀 · 붓촉 팔에서 진화한 반달 옆지느러미",
+      "갈비 사이 열린 몸통",
+      "두 갈래 바람꼬리"
+    ],
+    "palette": {
+      "primary": "#D9D6CD",
+      "secondary": "#4C6170",
+      "glow": "#6FFFD2"
+    },
+    "sharedMotifs": [
+      "다각형 신화문자",
+      "부유하는 고리"
+    ],
+    "evolutionFrom": "PG-L040:S2",
+    "imagePath": "assets/creatures/generated/PG-210.png",
+    "generationPrompt": "토큰 잔액이 정확히 비워진 순간 진화하는 무소유의 바람짐승 → 네발짐승 → special 3단계 → 기존 PNG 실루엣을 유지한 속 빈 관형 귀 · 붓촉 팔에서 진화한 반달 옆지느러미 · 갈비 사이 열린 몸통 · 두 갈래 바람꼬리 → 신비·절제 → 계보 공통 문양 다각형 신화문자·부유하는 고리 → 팔레트 주색 #D9D6CD·보조색 #4C6170·발광색 #6FFFD2 → 선명한 2D 셀 셰이딩, 정면 3/4 전신, #08111F 카드 배경 → 텍스트·로고·워터마크·유명 IP 유사성 금지"
+  },
+  {
+    "id": "PG-211",
+    "koName": "피티온",
+    "enName": "Pityon",
+    "lineageId": "PG-LS006",
+    "category": "special",
+    "stage": 4,
+    "rarity": "ORIGIN",
+    "bodyForm": "곤충·기계구조체",
+    "tone": "신성·자비",
+    "identity": "오랜 불운 끝에 반드시 나타나 다음 가능성을 열어 주는 확률의 용",
+    "lore": "삼백 번 닫힌 문을 기억하는 날개마다 하나의 새 입구가 생겨 누구도 영원히 배제되지 않게 한다.",
+    "shapeDNA": [
+      "계단형 관뿔",
+      "세 층의 문날개",
+      "매듭 마디 긴 꼬리"
+    ],
+    "palette": {
+      "primary": "#B4B49C",
+      "secondary": "#403A63",
+      "glow": "#FFCF5C"
+    },
+    "sharedMotifs": [
+      "부유하는 고리",
+      "다각형 신화문자"
+    ],
+    "evolutionFrom": "PG-L041:S3",
+    "imagePath": "assets/creatures/generated/PG-211.png",
+    "generationPrompt": "오랜 불운 끝에 반드시 나타나 다음 가능성을 열어 주는 확률의 용 → 거대 용형 → special 4단계 → 기존 PNG 실루엣을 유지한 계단형 관뿔 · 세 층의 문날개 · 매듭 마디 긴 꼬리 → 신성·자비 → 계보 공통 문양 부유하는 고리·다각형 신화문자 → 팔레트 주색 #B4B49C·보조색 #403A63·발광색 #FFCF5C → 선명한 2D 셀 셰이딩, 정면 3/4 전신, #08111F 카드 배경 → 텍스트·로고·워터마크·유명 IP 유사성 금지"
+  },
+  {
+    "id": "PG-212",
+    "koName": "에코리스",
+    "enName": "Echolisse",
+    "lineageId": "PG-LS007",
+    "category": "special",
+    "stage": 3,
+    "rarity": "ORACLE",
+    "bodyForm": "네발짐승",
+    "tone": "고요·그리움",
+    "identity": "같은 먹이를 오래 나눈 기억이 물결 기관으로 굳은 공명 수생수",
+    "lore": "주인의 손길과 같은 박동을 만나면 등지느러미에서 오래된 기쁨의 파문이 번진다.",
+    "shapeDNA": [
+      "물결형 이마 볏",
+      "겹친 공명 지느러미",
+      "진자형 꼬리"
+    ],
+    "palette": {
+      "primary": "#618EB0",
+      "secondary": "#B4B49C",
+      "glow": "#9BF4E0"
+    },
+    "sharedMotifs": [
+      "발광 회로"
+    ],
+    "evolutionFrom": "PG-L042:S2",
+    "imagePath": "assets/creatures/generated/PG-212.png",
+    "generationPrompt": "같은 먹이를 오래 나눈 기억이 물결 기관으로 굳은 공명 수생수 → 수생형 → special 3단계 → 기존 PNG 실루엣을 유지한 물결형 이마 볏 · 겹친 공명 지느러미 · 진자형 꼬리 → 고요·그리움 → 계보 공통 문양 발광 회로 → 팔레트 주색 #618EB0·보조색 #B4B49C·발광색 #9BF4E0 → 선명한 2D 셀 셰이딩, 정면 3/4 전신, #08111F 카드 배경 → 텍스트·로고·워터마크·유명 IP 유사성 금지"
+  },
+  {
+    "id": "PG-213",
+    "koName": "코덱사",
+    "enName": "Codexa",
+    "lineageId": "PG-LS008",
+    "category": "special",
+    "stage": 4,
+    "rarity": "ARCHITECT",
+    "bodyForm": "부유 정령형",
+    "tone": "위엄·지혜",
+    "identity": "모든 계열의 기록을 읽은 개체가 변하는 살아 있는 색인자",
+    "lore": "무엇이든 기억하지만 답을 대신 내리지 않고 필요한 기록이 있는 방향만 날개판으로 가리킨다.",
+    "shapeDNA": [
+      "책갈피형 머리뿔 · 각진 등불핵에서 진화한 마름모 거울 핵",
+      "층층 색인 날개판",
+      "다섯 마디 포인터팔"
+    ],
+    "palette": {
+      "primary": "#627A70",
+      "secondary": "#543C84",
+      "glow": "#F5D960"
+    },
+    "sharedMotifs": [
+      "다각형 신화문자",
+      "발광 회로"
+    ],
+    "evolutionFrom": "PG-L043:S3",
+    "imagePath": "assets/creatures/generated/PG-213.png",
+    "generationPrompt": "모든 계열의 기록을 읽은 개체가 변하는 살아 있는 색인자 → 곤충·기계구조체 → special 4단계 → 기존 PNG 실루엣을 유지한 책갈피형 머리뿔 · 각진 등불핵에서 진화한 마름모 거울 핵 · 층층 색인 날개판 · 다섯 마디 포인터팔 → 위엄·지혜 → 계보 공통 문양 다각형 신화문자·발광 회로 → 팔레트 주색 #627A70·보조색 #543C84·발광색 #F5D960 → 선명한 2D 셀 셰이딩, 정면 3/4 전신, #08111F 카드 배경 → 텍스트·로고·워터마크·유명 IP 유사성 금지"
+  },
+  {
+    "id": "PG-214",
+    "koName": "솔스티아",
+    "enName": "Solstia",
+    "lineageId": "PG-LS009",
+    "category": "special",
+    "stage": 3,
+    "rarity": "ORACLE",
+    "bodyForm": "두발짐승",
+    "tone": "신성·환희",
+    "identity": "계절 전환의 첫 햇빛에서 진화하는 양면 깃의 축제새",
+    "lore": "한쪽 날개는 지난 계절을 접고 다른 날개는 새 계절의 첫 신호를 펼친다.",
+    "shapeDNA": [
+      "반쪽 원반 볏 · 격자 꼬리판에서 진화한 겹마름모 등비늘",
+      "서로 다른 길이의 쌍날개",
+      "네 갈래 축제 꼬리깃"
+    ],
+    "palette": {
+      "primary": "#FFD44F",
+      "secondary": "#496D7A",
+      "glow": "#FFF28A"
+    },
+    "sharedMotifs": [
+      "다각형 신화문자"
+    ],
+    "evolutionFrom": "PG-L044:S2",
+    "imagePath": "assets/creatures/generated/PG-214.png",
+    "generationPrompt": "계절 전환의 첫 햇빛에서 진화하는 양면 깃의 축제새 → 조류 → special 3단계 → 기존 PNG 실루엣을 유지한 반쪽 원반 볏 · 격자 꼬리판에서 진화한 겹마름모 등비늘 · 서로 다른 길이의 쌍날개 · 네 갈래 축제 꼬리깃 → 신성·환희 → 계보 공통 문양 다각형 신화문자 → 팔레트 주색 #FFD44F·보조색 #496D7A·발광색 #FFF28A → 선명한 2D 셀 셰이딩, 정면 3/4 전신, #08111F 카드 배경 → 텍스트·로고·워터마크·유명 IP 유사성 금지"
+  },
+  {
+    "id": "PG-215",
+    "koName": "리부테라",
+    "enName": "Rebutera",
+    "lineageId": "PG-LS010",
+    "category": "special",
+    "stage": 4,
+    "rarity": "ORIGIN",
+    "bodyForm": "조류",
+    "tone": "초연·강인",
+    "identity": "완전한 소멸 직전의 세계 상태를 새 시작점으로 재고정하는 재기동핵",
+    "lore": "모든 빛이 꺼진 뒤 한 번만 눈을 뜨며 지나간 실패를 지우지 않고 새 규칙의 토대로 삼는다.",
+    "shapeDNA": [
+      "두 겹 씨앗핵 · 갈라진 검은 부리에서 진화한 꺾인 부리 볏",
+      "분리된 여섯 손",
+      "끊어진 세로 관"
+    ],
+    "palette": {
+      "primary": "#EDE9DF",
+      "secondary": "#26233E",
+      "glow": "#F09CB4"
+    },
+    "sharedMotifs": [
+      "부유하는 고리",
+      "발광 회로"
+    ],
+    "evolutionFrom": "PG-L045:S3",
+    "imagePath": "assets/creatures/generated/PG-215.png",
+    "generationPrompt": "완전한 소멸 직전의 세계 상태를 새 시작점으로 재고정하는 재기동핵 → 부유 정령형 → special 4단계 → 기존 PNG 실루엣을 유지한 두 겹 씨앗핵 · 갈라진 검은 부리에서 진화한 꺾인 부리 볏 · 분리된 여섯 손 · 끊어진 세로 관 → 초연·강인 → 계보 공통 문양 부유하는 고리·발광 회로 → 팔레트 주색 #EDE9DF·보조색 #26233E·발광색 #F09CB4 → 선명한 2D 셀 셰이딩, 정면 3/4 전신, #08111F 카드 배경 → 텍스트·로고·워터마크·유명 IP 유사성 금지"
+  },
+  {
+    "id": "PG-216",
+    "koName": "에일크래그",
+    "enName": "Eilcrag",
+    "lineageId": "PG-L001-M",
+    "category": "mutant",
+    "stage": 2,
+    "rarity": "DAEMON",
+    "bodyForm": "네발짐승",
+    "tone": "거칠음·충직",
+    "identity": "에일루의 여우형 몸과 회로 꼬리를 유지한 채 어깨·앞다리·꼬리 일부에 광물 장갑이 자란 변이",
+    "lore": "색만 달라진 개체가 아니라 털이 암질 섬유로, 가벼운 발이 굴착 관절로 바뀌어 붕괴 지대를 연다.",
+    "shapeDNA": [
+      "에일루의 큰 직립 여우 귀",
+      "다면체 회로 꼬리에서 자란 광물 분절",
+      "앞다리와 어깨의 부분 광물 장갑"
+    ],
+    "palette": {
+      "primary": "#7C786C",
+      "secondary": "#30245F",
+      "glow": "#72E9FF"
+    },
+    "sharedMotifs": [
+      "발광 회로"
+    ],
+    "evolutionFrom": "PG-L001:S1",
+    "imagePath": "assets/creatures/generated/PG-216.png",
+    "generationPrompt": "에일루의 몸 일부가 광물화된 충직한 여우 변이 → 네발짐승 → mutant 2단계 → 부모 PG-001의 큰 직립 여우 귀·크림색 볼과 가슴·가느다란 네 발·보라색 털·청록 회로·가지형 다면체 꼬리를 유지 → 어깨·앞다리·꼬리 일부에만 회색 광물 장갑과 시안 결정이 자람 → 전체 몸의 절반 이상은 털로 유지하고 같은 여우 얼굴과 실루엣 보존 → 팔레트 주색 #30245F·보조색 #7C786C·발광색 #72E9FF → 선명한 2D 셀 셰이딩, 정면 3/4 전신, #08111F 카드 배경 → 토끼형 귀·거대 암석발·전신 석화·텍스트·로고·워터마크·유명 IP 유사성 금지"
+  },
+  {
+    "id": "PG-217",
+    "koName": "바크플로트",
+    "enName": "Barkfloat",
+    "lineageId": "PG-L002-M",
+    "category": "mutant",
+    "stage": 2,
+    "rarity": "DAEMON",
+    "bodyForm": "두발짐승",
+    "tone": "고요·기묘",
+    "identity": "뿌리 다리가 소실되고 속 빈 목질 부낭과 네 개의 씨앗손이 자란 수목 변이",
+    "lore": "걷는 식물에서 공중 부유체로 구조가 바뀌고 껍질도 코르크에서 반투명 수지로 변했다.",
+    "shapeDNA": [
+      "갈라진 잎귀 · 둥근 배 주머니",
+      "속 빈 목질 부낭",
+      "네 씨앗손 · 삽 모양 부리"
+    ],
+    "palette": {
+      "primary": "#75906A",
+      "secondary": "#7B5A47",
+      "glow": "#E6F36C"
+    },
+    "sharedMotifs": [
+      "다각형 신화문자",
+      "부유하는 고리"
+    ],
+    "evolutionFrom": "PG-L002:S1",
+    "imagePath": "assets/creatures/generated/PG-217.png",
+    "generationPrompt": "뿌리 다리가 소실되고 속 빈 목질 부낭과 네 개의 씨앗손이 자란 수목 변이 → 부유 정령형 → mutant 2단계 → 기존 PNG 실루엣을 유지한 갈라진 잎귀 · 둥근 배 주머니 · 속 빈 목질 부낭 · 네 씨앗손 · 삽 모양 부리 → 고요·기묘 → 계보 공통 문양 다각형 신화문자·부유하는 고리 → 팔레트 주색 #75906A·보조색 #7B5A47·발광색 #E6F36C → 선명한 2D 셀 셰이딩, 정면 3/4 전신, #08111F 카드 배경 → 텍스트·로고·워터마크·유명 IP 유사성 금지"
+  },
+  {
+    "id": "PG-218",
+    "koName": "시르그라운",
+    "enName": "Cirground",
+    "lineageId": "PG-L003-M",
+    "category": "mutant",
+    "stage": 2,
+    "rarity": "DAEMON",
+    "bodyForm": "조류",
+    "tone": "강인·집중",
+    "identity": "날개가 퇴화해 탄성 다리판이 되고 깃털이 고무질 비늘로 바뀐 지상 조류 변이",
+    "lore": "비행 능력을 잃은 대신 신호를 지면 진동으로 읽어 먼 곳의 움직임까지 정확히 찾는다.",
+    "shapeDNA": [
+      "꺾인 머리볏 · 구름형 머리깃",
+      "탄성 다리판",
+      "짧은 꼬리깃"
+    ],
+    "palette": {
+      "primary": "#C7A46A",
+      "secondary": "#384B62",
+      "glow": "#63E7FF"
+    },
+    "sharedMotifs": [
+      "다각형 신화문자"
+    ],
+    "evolutionFrom": "PG-L003:S1",
+    "imagePath": "assets/creatures/generated/PG-218.png",
+    "generationPrompt": "날개가 퇴화해 탄성 다리판이 되고 깃털이 고무질 비늘로 바뀐 지상 조류 변이 → 두발짐승 → mutant 2단계 → 기존 PNG 실루엣을 유지한 꺾인 머리볏 · 구름형 머리깃 · 탄성 다리판 · 짧은 꼬리깃 → 강인·집중 → 계보 공통 문양 다각형 신화문자 → 팔레트 주색 #C7A46A·보조색 #384B62·발광색 #63E7FF → 선명한 2D 셀 셰이딩, 정면 3/4 전신, #08111F 카드 배경 → 텍스트·로고·워터마크·유명 IP 유사성 금지"
+  },
+  {
+    "id": "PG-219",
+    "koName": "델프리프",
+    "enName": "Delphreef",
+    "lineageId": "PG-L004-M",
+    "category": "mutant",
+    "stage": 2,
+    "rarity": "DAEMON",
+    "bodyForm": "수생형",
+    "tone": "온화·방어",
+    "identity": "유선형 몸이 산호 격자 몸통으로 넓어지고 꼬리가 여과 기관으로 갈라진 수생 변이",
+    "lore": "속도는 느려졌지만 석회 격자와 여과꼬리로 오염된 물을 지나갈 수 있는 흐름으로 바꾼다.",
+    "shapeDNA": [
+      "쐐기 이마지느러미",
+      "산호 격자 몸통 · 물방울 귀",
+      "세 갈래 여과꼬리"
+    ],
+    "palette": {
+      "primary": "#D07A70",
+      "secondary": "#4A8FA3",
+      "glow": "#388888"
+    },
+    "sharedMotifs": [
+      "부유 고리",
+      "발광 회로"
+    ],
+    "evolutionFrom": "PG-L004:S1",
+    "imagePath": "assets/creatures/generated/PG-219.png",
+    "generationPrompt": "유선형 몸이 산호 격자 몸통으로 넓어지고 꼬리가 여과 기관으로 갈라진 수생 변이 → 수생형 → mutant 2단계 → 기존 PNG 실루엣을 유지한 쐐기 이마지느러미 · 산호 격자 몸통 · 물방울 귀 · 세 갈래 여과꼬리 → 온화·방어 → 계보 공통 문양 부유 고리·발광 회로 → 팔레트 주색 #D07A70·보조색 #4A8FA3·발광색 #388888 → 선명한 2D 셀 셰이딩, 정면 3/4 전신, #08111F 카드 배경 → 텍스트·로고·워터마크·유명 IP 유사성 금지"
+  },
+  {
+    "id": "PG-220",
+    "koName": "오르블레이드",
+    "enName": "Orblade",
+    "lineageId": "PG-L005-M",
+    "category": "mutant",
+    "stage": 2,
+    "rarity": "ORACLE",
+    "bodyForm": "곤충·기계구조체",
+    "tone": "냉정·예리",
+    "identity": "둥근 젤핵이 얇은 수정 원반으로 압축되고 촉수가 절단광 판으로 변한 관측 변이",
+    "lore": "미래를 넓게 보는 대신 단 하나의 가능성을 극도로 선명하게 잘라 본다.",
+    "shapeDNA": [
+      "수정 원반 핵 · 육각 등껍질",
+      "세 절단광 판 · 집게형 더듬이",
+      "비스듬한 고리"
+    ],
+    "palette": {
+      "primary": "#8A9DB6",
+      "secondary": "#473E62",
+      "glow": "#FF8ED1"
+    },
+    "sharedMotifs": [
+      "발광 회로",
+      "부유하는 고리"
+    ],
+    "evolutionFrom": "PG-L005:S1",
+    "imagePath": "assets/creatures/generated/PG-220.png",
+    "generationPrompt": "둥근 젤핵이 얇은 수정 원반으로 압축되고 촉수가 절단광 판으로 변한 관측 변이 → 부유 정령형 → mutant 2단계 → 기존 PNG 실루엣을 유지한 수정 원반 핵 · 육각 등껍질 · 세 절단광 판 · 집게형 더듬이 · 비스듬한 고리 → 냉정·예리 → 계보 공통 문양 발광 회로·부유하는 고리 → 팔레트 주색 #8A9DB6·보조색 #473E62·발광색 #FF8ED1 → 선명한 2D 셀 셰이딩, 정면 3/4 전신, #08111F 카드 배경 → 텍스트·로고·워터마크·유명 IP 유사성 금지"
+  },
+  {
+    "id": "PG-221",
+    "koName": "테셀루트",
+    "enName": "Tesselroot",
+    "lineageId": "PG-L006-M",
+    "category": "mutant",
+    "stage": 2,
+    "rarity": "ARCHITECT",
+    "bodyForm": "부유 정령형",
+    "tone": "정밀·인내",
+    "identity": "곤충 다리가 뿌리 도구로 융합되고 키틴 날개가 살아 있는 격자잎으로 바뀐 건축 변이",
+    "lore": "날 수 없지만 땅에 고정된 채 주변 구조를 천천히 자라게 해 가장 오래 버티는 기반을 만든다.",
+    "shapeDNA": [
+      "육각 머리판 · 배 모양 빛핵",
+      "뿌리 도구다리",
+      "격자잎 날개 · 두 장 잎귀"
+    ],
+    "palette": {
+      "primary": "#66845E",
+      "secondary": "#4A5148",
+      "glow": "#FFF76A"
+    },
+    "sharedMotifs": [
+      "부유 고리",
+      "다각형 신화문자"
+    ],
+    "evolutionFrom": "PG-L006:S1",
+    "imagePath": "assets/creatures/generated/PG-221.png",
+    "generationPrompt": "곤충 다리가 뿌리 도구로 융합되고 키틴 날개가 살아 있는 격자잎으로 바뀐 건축 변이 → 기타 무정형·식물형 → mutant 2단계 → 기존 PNG 실루엣을 유지한 육각 머리판 · 배 모양 빛핵 · 뿌리 도구다리 · 격자잎 날개 · 두 장 잎귀 → 정밀·인내 → 계보 공통 문양 부유 고리·다각형 신화문자 → 팔레트 주색 #66845E·보조색 #4A5148·발광색 #FFF76A → 선명한 2D 셀 셰이딩, 정면 3/4 전신, #08111F 카드 배경 → 텍스트·로고·워터마크·유명 IP 유사성 금지"
+  },
+  {
+    "id": "PG-222",
+    "koName": "루프펄",
+    "enName": "Looperl",
+    "lineageId": "PG-L007-M",
+    "category": "mutant",
+    "stage": 2,
+    "rarity": "DAEMON",
+    "bodyForm": "네발짐승",
+    "tone": "귀여움·신비",
+    "identity": "깃털이 진주 비늘로 바뀌고 날개가 둥근 추진지느러미로 재편된 순환새 변이",
+    "lore": "하늘 대신 소용돌이 웅덩이를 돌며 매 회전마다 물속의 작은 변화를 기록한다.",
+    "shapeDNA": [
+      "고리형 볏 · 매듭형 등돌기",
+      "둥근 추진지느러미",
+      "나선 진주꼬리 · 짧은 반달 엄니"
+    ],
+    "palette": {
+      "primary": "#D9B77B",
+      "secondary": "#536C83",
+      "glow": "#8CFFD2"
+    },
+    "sharedMotifs": [
+      "다각형 신화문자",
+      "부유하는 고리"
+    ],
+    "evolutionFrom": "PG-L007:S1",
+    "imagePath": "assets/creatures/generated/PG-222.png",
+    "generationPrompt": "깃털이 진주 비늘로 바뀌고 날개가 둥근 추진지느러미로 재편된 순환새 변이 → 수생형 → mutant 2단계 → 기존 PNG 실루엣을 유지한 고리형 볏 · 매듭형 등돌기 · 둥근 추진지느러미 · 나선 진주꼬리 · 짧은 반달 엄니 → 귀여움·신비 → 계보 공통 문양 다각형 신화문자·부유하는 고리 → 팔레트 주색 #D9B77B·보조색 #536C83·발광색 #8CFFD2 → 선명한 2D 셀 셰이딩, 정면 3/4 전신, #08111F 카드 배경 → 텍스트·로고·워터마크·유명 IP 유사성 금지"
+  },
+  {
+    "id": "PG-223",
+    "koName": "크랙베인",
+    "enName": "Cragvein",
+    "lineageId": "PG-L008-M",
+    "category": "mutant",
+    "stage": 2,
+    "rarity": "DAEMON",
+    "bodyForm": "조류",
+    "tone": "강인·기묘",
+    "identity": "등뼈가 외부 광맥 다리로 갈라지고 털이 자성 금속실로 변한 암굴 변이",
+    "lore": "네 다리 외에 두 광맥 지지지가 자라 수직 균열을 거꾸로 기어오른다.",
+    "shapeDNA": [
+      "바위 귀 · 긴 리본 귀깃",
+      "여섯 지지다리",
+      "곡괭이 꼬리 · 초승달 날개"
+    ],
+    "palette": {
+      "primary": "#6D6470",
+      "secondary": "#345D82",
+      "glow": "#63E8FF"
+    },
+    "sharedMotifs": [
+      "발광 회로"
+    ],
+    "evolutionFrom": "PG-L008:S1",
+    "imagePath": "assets/creatures/generated/PG-223.png",
+    "generationPrompt": "등뼈가 외부 광맥 다리로 갈라지고 털이 자성 금속실로 변한 암굴 변이 → 네발짐승 → mutant 2단계 → 기존 PNG 실루엣을 유지한 바위 귀 · 긴 리본 귀깃 · 여섯 지지다리 · 곡괭이 꼬리 · 초승달 날개 → 강인·기묘 → 계보 공통 문양 발광 회로 → 팔레트 주색 #6D6470·보조색 #345D82·발광색 #63E8FF → 선명한 2D 셀 셰이딩, 정면 3/4 전신, #08111F 카드 배경 → 텍스트·로고·워터마크·유명 IP 유사성 금지"
+  },
+  {
+    "id": "PG-224",
+    "koName": "벨로셸",
+    "enName": "Veloshell",
+    "lineageId": "PG-L009-M",
+    "category": "mutant",
+    "stage": 2,
+    "rarity": "DAEMON",
+    "bodyForm": "기타 무정형·식물형",
+    "tone": "방어·다정",
+    "identity": "공기주머니 몸통이 겹껍질 돔으로 굳고 짧은 팔이 네 지지다리로 분화한 완충 변이",
+    "lore": "부드러운 충격 흡수 대신 단단한 겹껍질 사이에서 진동을 소멸시켜 피난처가 된다.",
+    "shapeDNA": [
+      "접힌 둥근 귀 · 별구멍 버섯갓",
+      "겹껍질 돔 몸통",
+      "네 쐐기 지지발"
+    ],
+    "palette": {
+      "primary": "#E7D8C9",
+      "secondary": "#586675",
+      "glow": "#B8F56E"
+    },
+    "sharedMotifs": [
+      "다각형 신화문자",
+      "발광 회로"
+    ],
+    "evolutionFrom": "PG-L009:S1",
+    "imagePath": "assets/creatures/generated/PG-224.png",
+    "generationPrompt": "공기주머니 몸통이 겹껍질 돔으로 굳고 짧은 팔이 네 지지다리로 분화한 완충 변이 → 네발짐승 → mutant 2단계 → 기존 PNG 실루엣을 유지한 접힌 둥근 귀 · 별구멍 버섯갓 · 겹껍질 돔 몸통 · 네 쐐기 지지발 → 방어·다정 → 계보 공통 문양 다각형 신화문자·발광 회로 → 팔레트 주색 #E7D8C9·보조색 #586675·발광색 #B8F56E → 선명한 2D 셀 셰이딩, 정면 3/4 전신, #08111F 카드 배경 → 텍스트·로고·워터마크·유명 IP 유사성 금지"
+  },
+  {
+    "id": "PG-225",
+    "koName": "마레브룸",
+    "enName": "Marebroom",
+    "lineageId": "PG-L010-M",
+    "category": "mutant",
+    "stage": 2,
+    "rarity": "ORACLE",
+    "bodyForm": "수생형",
+    "tone": "신성·유연",
+    "identity": "지느러미가 물을 머금은 깃날개로 갈라지고 비늘이 방수 깃으로 바뀐 바다새 변이",
+    "lore": "헤엄치지 않고 해수 덩어리를 날개 아래 품어 메마른 상공으로 운반한다.",
+    "shapeDNA": [
+      "왕관형 볏",
+      "물주머니 깃날개",
+      "고리 마디 꼬리"
+    ],
+    "palette": {
+      "primary": "#294966",
+      "secondary": "#C7BA9E",
+      "glow": "#B58FFF"
+    },
+    "sharedMotifs": [
+      "발광 회로",
+      "부유하는 고리"
+    ],
+    "evolutionFrom": "PG-L010:S1",
+    "imagePath": "assets/creatures/generated/PG-225.png",
+    "generationPrompt": "지느러미가 물을 머금은 깃날개로 갈라지고 비늘이 방수 깃으로 바뀐 바다새 변이 → 조류 → mutant 2단계 → 기존 PNG 실루엣을 유지한 왕관형 볏 · 물주머니 깃날개 · 고리 마디 꼬리 → 신성·유연 → 계보 공통 문양 발광 회로·부유하는 고리 → 팔레트 주색 #294966·보조색 #C7BA9E·발광색 #B58FFF → 선명한 2D 셀 셰이딩, 정면 3/4 전신, #08111F 카드 배경 → 텍스트·로고·워터마크·유명 IP 유사성 금지"
+  },
+  {
+    "id": "PG-226",
+    "koName": "브릭위브",
+    "enName": "Brixweave",
+    "lineageId": "PG-L011-M",
+    "category": "mutant",
+    "stage": 2,
+    "rarity": "ARCHITECT",
+    "bodyForm": "두발짐승",
+    "tone": "정밀·유연",
+    "identity": "단단한 딱지날개가 섬유 격자막으로 풀리고 집게발이 직조기관으로 합쳐진 건축 변이",
+    "lore": "벽돌을 쌓지 않고 가벼운 장력망을 짜서 흔들리는 길을 유연하게 붙든다.",
+    "shapeDNA": [
+      "벽돌형 머리판 · 갈라진 긴 귀",
+      "섬유 격자날개 · 나침반 코",
+      "합쳐진 직조 앞다리"
+    ],
+    "palette": {
+      "primary": "#A96A55",
+      "secondary": "#59446F",
+      "glow": "#E5F16C"
+    },
+    "sharedMotifs": [
+      "부유 고리",
+      "다각형 신화문자"
+    ],
+    "evolutionFrom": "PG-L011:S1",
+    "imagePath": "assets/creatures/generated/PG-226.png",
+    "generationPrompt": "단단한 딱지날개가 섬유 격자막으로 풀리고 집게발이 직조기관으로 합쳐진 건축 변이 → 곤충·기계구조체 → mutant 2단계 → 기존 PNG 실루엣을 유지한 벽돌형 머리판 · 갈라진 긴 귀 · 섬유 격자날개 · 나침반 코 · 합쳐진 직조 앞다리 → 정밀·유연 → 계보 공통 문양 부유 고리·다각형 신화문자 → 팔레트 주색 #A96A55·보조색 #59446F·발광색 #E5F16C → 선명한 2D 셀 셰이딩, 정면 3/4 전신, #08111F 카드 배경 → 텍스트·로고·워터마크·유명 IP 유사성 금지"
+  },
+  {
+    "id": "PG-227",
+    "koName": "세피드릴",
+    "enName": "Sephidrill",
+    "lineageId": "PG-L012-M",
+    "category": "mutant",
+    "stage": 2,
+    "rarity": "DAEMON",
+    "bodyForm": "네발짐승",
+    "tone": "거침·집중",
+    "identity": "날개뼈가 나선 굴착팔로 전환되고 깃이 모래를 튕기는 규사판으로 변한 조류 변이",
+    "lore": "비행을 포기하고 폭풍 아래로 파고들어 묻힌 신호를 손상 없이 끌어올린다.",
+    "shapeDNA": [
+      "창볏 · 물갈퀴 앞발",
+      "나선 굴착팔 · 말린 콧수염",
+      "세 갈래 발가락"
+    ],
+    "palette": {
+      "primary": "#AD825E",
+      "secondary": "#4B7DB8",
+      "glow": "#70F4E1"
+    },
+    "sharedMotifs": [
+      "발광 회로"
+    ],
+    "evolutionFrom": "PG-L012:S1",
+    "imagePath": "assets/creatures/generated/PG-227.png",
+    "generationPrompt": "날개뼈가 나선 굴착팔로 전환되고 깃이 모래를 튕기는 규사판으로 변한 조류 변이 → 두발짐승 → mutant 2단계 → 기존 PNG 실루엣을 유지한 창볏 · 물갈퀴 앞발 · 나선 굴착팔 · 말린 콧수염 · 세 갈래 발가락 → 거침·집중 → 계보 공통 문양 발광 회로 → 팔레트 주색 #AD825E·보조색 #4B7DB8·발광색 #70F4E1 → 선명한 2D 셀 셰이딩, 정면 3/4 전신, #08111F 카드 배경 → 텍스트·로고·워터마크·유명 IP 유사성 금지"
+  },
+  {
+    "id": "PG-228",
+    "koName": "퀴노렉",
+    "enName": "Quinorec",
+    "lineageId": "PG-L013-M",
+    "category": "mutant",
+    "stage": 2,
+    "rarity": "ORACLE",
+    "bodyForm": "기타 무정형·식물형",
+    "tone": "기묘·분석",
+    "identity": "부유 핵이 분절 외골격에 들어가고 촉수가 여섯 감지다리로 재구성된 관측 변이",
+    "lore": "공중의 가능성 대신 지면의 미세한 확률 흔들림을 여섯 다리로 동시에 측정한다.",
+    "shapeDNA": [
+      "점 모양 중앙 핵",
+      "육각 외골격 · 양갈래 이끼뿔",
+      "여섯 감지다리"
+    ],
+    "palette": {
+      "primary": "#BDAE8B",
+      "secondary": "#30384B",
+      "glow": "#78F0D1"
+    },
+    "sharedMotifs": [
+      "발광 회로",
+      "다각형 신화문자"
+    ],
+    "evolutionFrom": "PG-L013:S1",
+    "imagePath": "assets/creatures/generated/PG-228.png",
+    "generationPrompt": "부유 핵이 분절 외골격에 들어가고 촉수가 여섯 감지다리로 재구성된 관측 변이 → 곤충·기계구조체 → mutant 2단계 → 기존 PNG 실루엣을 유지한 점 모양 중앙 핵 · 육각 외골격 · 양갈래 이끼뿔 · 여섯 감지다리 → 기묘·분석 → 계보 공통 문양 발광 회로·다각형 신화문자 → 팔레트 주색 #BDAE8B·보조색 #30384B·발광색 #78F0D1 → 선명한 2D 셀 셰이딩, 정면 3/4 전신, #08111F 카드 배경 → 텍스트·로고·워터마크·유명 IP 유사성 금지"
+  },
+  {
+    "id": "PG-229",
+    "koName": "코르바펄",
+    "enName": "Korvapearl",
+    "lineageId": "PG-L014-M",
+    "category": "mutant",
+    "stage": 2,
+    "rarity": "DAEMON",
+    "bodyForm": "곤충·기계구조체",
+    "tone": "강인·침착",
+    "identity": "뿔이 진주 감각수염으로 연화되고 갑피가 유연한 겹지느러미로 바뀐 수생 변이",
+    "lore": "육지의 돌진 대신 심해 압력을 몸 전체로 흘려보내 오염원을 조용히 포위한다.",
+    "shapeDNA": [
+      "네 갈래 감각수염",
+      "겹지느러미 몸통 · 감개형 배",
+      "채찍형 꼬리 · 실패 모양 뿔"
+    ],
+    "palette": {
+      "primary": "#6F4A8E",
+      "secondary": "#315666",
+      "glow": "#F184AC"
+    },
+    "sharedMotifs": [
+      "발광 회로"
+    ],
+    "evolutionFrom": "PG-L014:S1",
+    "imagePath": "assets/creatures/generated/PG-229.png",
+    "generationPrompt": "뿔이 진주 감각수염으로 연화되고 갑피가 유연한 겹지느러미로 바뀐 수생 변이 → 수생형 → mutant 2단계 → 기존 PNG 실루엣을 유지한 네 갈래 감각수염 · 겹지느러미 몸통 · 감개형 배 · 채찍형 꼬리 · 실패 모양 뿔 → 강인·침착 → 계보 공통 문양 발광 회로 → 팔레트 주색 #6F4A8E·보조색 #315666·발광색 #F184AC → 선명한 2D 셀 셰이딩, 정면 3/4 전신, #08111F 카드 배경 → 텍스트·로고·워터마크·유명 IP 유사성 금지"
+  },
+  {
+    "id": "PG-230",
+    "koName": "이오라크",
+    "enName": "Iorark",
+    "lineageId": "PG-L015-M",
+    "category": "mutant",
+    "stage": 2,
+    "rarity": "DAEMON",
+    "bodyForm": "부유 정령형",
+    "tone": "기묘·민첩",
+    "identity": "우산 머리막이 활공 등막으로 이동하고 촉수가 네 관절다리로 굳은 육상 변이",
+    "lore": "물 없이도 압력 차를 읽으며 얇은 등막으로 협곡 사이를 짧게 활공한다.",
+    "shapeDNA": [
+      "세로 감각홈",
+      "활공 등막 · 복숭아형 핵",
+      "네 촉수 관절다리"
+    ],
+    "palette": {
+      "primary": "#6A5475",
+      "secondary": "#302942",
+      "glow": "#E2A0FF"
+    },
+    "sharedMotifs": [
+      "부유 고리",
+      "다각형 신화문자"
+    ],
+    "evolutionFrom": "PG-L015:S1",
+    "imagePath": "assets/creatures/generated/PG-230.png",
+    "generationPrompt": "우산 머리막이 활공 등막으로 이동하고 촉수가 네 관절다리로 굳은 육상 변이 → 네발짐승 → mutant 2단계 → 기존 PNG 실루엣을 유지한 세로 감각홈 · 활공 등막 · 복숭아형 핵 · 네 촉수 관절다리 → 기묘·민첩 → 계보 공통 문양 부유 고리·다각형 신화문자 → 팔레트 주색 #6A5475·보조색 #302942·발광색 #E2A0FF → 선명한 2D 셀 셰이딩, 정면 3/4 전신, #08111F 카드 배경 → 텍스트·로고·워터마크·유명 IP 유사성 금지"
+  },
+  {
+    "id": "PG-231",
+    "koName": "펄스캐버",
+    "enName": "Pulsecaver",
+    "lineageId": "PG-L016-M",
+    "category": "mutant",
+    "stage": 2,
+    "rarity": "ARCHITECT",
+    "bodyForm": "두발짐승",
+    "tone": "강인·인내",
+    "identity": "나선 줄기가 척추형 몸통으로 굳고 뿌리가 두 굴착다리로 합쳐진 회로수 변이",
+    "lore": "빛을 향해 자라는 대신 지하 전력맥을 따라 걸으며 끊긴 회로를 뿌리발로 잇는다.",
+    "shapeDNA": [
+      "맥박 나선 척추 · 흙주머니 배",
+      "번개 가지뿔 · 씨앗 귀끝",
+      "두 굴착 뿌리다리"
+    ],
+    "palette": {
+      "primary": "#607B54",
+      "secondary": "#3E4E66",
+      "glow": "#EED8A7"
+    },
+    "sharedMotifs": [
+      "다각형 신화문자",
+      "발광 회로"
+    ],
+    "evolutionFrom": "PG-L016:S1",
+    "imagePath": "assets/creatures/generated/PG-231.png",
+    "generationPrompt": "나선 줄기가 척추형 몸통으로 굳고 뿌리가 두 굴착다리로 합쳐진 회로수 변이 → 두발짐승 → mutant 2단계 → 기존 PNG 실루엣을 유지한 맥박 나선 척추 · 흙주머니 배 · 번개 가지뿔 · 씨앗 귀끝 · 두 굴착 뿌리다리 → 강인·인내 → 계보 공통 문양 다각형 신화문자·발광 회로 → 팔레트 주색 #607B54·보조색 #3E4E66·발광색 #EED8A7 → 선명한 2D 셀 셰이딩, 정면 3/4 전신, #08111F 카드 배경 → 텍스트·로고·워터마크·유명 IP 유사성 금지"
+  },
+  {
+    "id": "PG-232",
+    "koName": "아비스크롤",
+    "enName": "Abycroll",
+    "lineageId": "PG-L018-M",
+    "category": "mutant",
+    "stage": 2,
+    "rarity": "ORACLE",
+    "bodyForm": "네발짐승",
+    "tone": "신비·고요",
+    "identity": "가오리 몸이 두루마리형 압력막으로 접히고 꼬리가 분리된 기록손으로 바뀐 심해 변이",
+    "lore": "헤엄치는 대신 바다의 압력 기록을 몸에 감아 공중으로 가져온다.",
+    "shapeDNA": [
+      "나침 이마판 · 구름 가시털",
+      "두루마리 압력막",
+      "분리된 꼬리손 · 나선 귀"
+    ],
+    "palette": {
+      "primary": "#47768F",
+      "secondary": "#BFAE89",
+      "glow": "#8DEBFF"
+    },
+    "sharedMotifs": [
+      "발광 회로",
+      "부유하는 고리"
+    ],
+    "evolutionFrom": "PG-L018:S1",
+    "imagePath": "assets/creatures/generated/PG-232.png",
+    "generationPrompt": "가오리 몸이 두루마리형 압력막으로 접히고 꼬리가 분리된 기록손으로 바뀐 심해 변이 → 부유 정령형 → mutant 2단계 → 기존 PNG 실루엣을 유지한 나침 이마판 · 구름 가시털 · 두루마리 압력막 · 분리된 꼬리손 · 나선 귀 → 신비·고요 → 계보 공통 문양 발광 회로·부유하는 고리 → 팔레트 주색 #47768F·보조색 #BFAE89·발광색 #8DEBFF → 선명한 2D 셀 셰이딩, 정면 3/4 전신, #08111F 카드 배경 → 텍스트·로고·워터마크·유명 IP 유사성 금지"
+  },
+  {
+    "id": "PG-233",
+    "koName": "메모브램",
+    "enName": "Memobram",
+    "lineageId": "PG-L020-M",
+    "category": "mutant",
+    "stage": 2,
+    "rarity": "ARCHITECT",
+    "bodyForm": "기타 무정형·식물형",
+    "tone": "강인·지혜",
+    "identity": "기억핵이 네 갈래 뿔기관으로 분산되고 젤막이 두꺼운 섬유피부로 변한 짐승 변이",
+    "lore": "기억을 한곳에 모으지 않아 충격을 받아도 네 뿔 중 남은 조각으로 전체를 복구한다.",
+    "shapeDNA": [
+      "네 기억뿔 · 덩굴 귀",
+      "낮은 섬유 몸통",
+      "서랍 마디 꼬리"
+    ],
+    "palette": {
+      "primary": "#776D9A",
+      "secondary": "#4C6259",
+      "glow": "#FFCF62"
+    },
+    "sharedMotifs": [
+      "발광 회로",
+      "다각형 신화문자"
+    ],
+    "evolutionFrom": "PG-L020:S1",
+    "imagePath": "assets/creatures/generated/PG-233.png",
+    "generationPrompt": "기억핵이 네 갈래 뿔기관으로 분산되고 젤막이 두꺼운 섬유피부로 변한 짐승 변이 → 네발짐승 → mutant 2단계 → 기존 PNG 실루엣을 유지한 네 기억뿔 · 덩굴 귀 · 낮은 섬유 몸통 · 서랍 마디 꼬리 → 강인·지혜 → 계보 공통 문양 발광 회로·다각형 신화문자 → 팔레트 주색 #776D9A·보조색 #4C6259·발광색 #FFCF62 → 선명한 2D 셀 셰이딩, 정면 3/4 전신, #08111F 카드 배경 → 텍스트·로고·워터마크·유명 IP 유사성 금지"
+  },
+  {
+    "id": "PG-234",
+    "koName": "코럴윙",
+    "enName": "Coralwing",
+    "lineageId": "PG-L022-M",
+    "category": "mutant",
+    "stage": 2,
+    "rarity": "DAEMON",
+    "bodyForm": "두발짐승",
+    "tone": "활발·협동",
+    "identity": "산호뿔이 속 빈 공명볏으로 가벼워지고 관절지느러미가 여섯 깃날개로 바뀐 암초 변이",
+    "lore": "바다를 떠나 산호 포자를 바람길에 뿌리며 새 암초의 시작점을 찾는다.",
+    "shapeDNA": [
+      "공명 산호볏 · 서랍형 배주머니",
+      "여섯 깃날개",
+      "부채 꼬리판"
+    ],
+    "palette": {
+      "primary": "#CD756E",
+      "secondary": "#58605E",
+      "glow": "#ADF16A"
+    },
+    "sharedMotifs": [
+      "다각형 신화문자",
+      "발광 회로"
+    ],
+    "evolutionFrom": "PG-L022:S1",
+    "imagePath": "assets/creatures/generated/PG-234.png",
+    "generationPrompt": "산호뿔이 속 빈 공명볏으로 가벼워지고 관절지느러미가 여섯 깃날개로 바뀐 암초 변이 → 조류 → mutant 2단계 → 기존 PNG 실루엣을 유지한 공명 산호볏 · 서랍형 배주머니 · 여섯 깃날개 · 부채 꼬리판 → 활발·협동 → 계보 공통 문양 다각형 신화문자·발광 회로 → 팔레트 주색 #CD756E·보조색 #58605E·발광색 #ADF16A → 선명한 2D 셀 셰이딩, 정면 3/4 전신, #08111F 카드 배경 → 텍스트·로고·워터마크·유명 IP 유사성 금지"
+  },
+  {
+    "id": "PG-235",
+    "koName": "볼트슬러그",
+    "enName": "Voltslug",
+    "lineageId": "PG-L024-M",
+    "category": "mutant",
+    "stage": 2,
+    "rarity": "DAEMON",
+    "bodyForm": "곤충·기계구조체",
+    "tone": "느긋·끈기",
+    "identity": "코일 다리가 소실되고 넓은 전도성 점액발과 등 잎축전판이 자란 주자 변이",
+    "lore": "속도를 잃었지만 지나간 자리 전체를 끊기지 않는 저전력 회로길로 바꾼다.",
+    "shapeDNA": [
+      "잎날 긴 귀 · 실고리 다리",
+      "축전 잎등판",
+      "전도성 점액발"
+    ],
+    "palette": {
+      "primary": "#91A653",
+      "secondary": "#3E6574",
+      "glow": "#FFF15C"
+    },
+    "sharedMotifs": [
+      "발광 회로"
+    ],
+    "evolutionFrom": "PG-L024:S1",
+    "imagePath": "assets/creatures/generated/PG-235.png",
+    "generationPrompt": "코일 다리가 소실되고 넓은 전도성 점액발과 등 잎축전판이 자란 주자 변이 → 기타 무정형·식물형 → mutant 2단계 → 기존 PNG 실루엣을 유지한 잎날 긴 귀 · 실고리 다리 · 축전 잎등판 · 전도성 점액발 → 느긋·끈기 → 계보 공통 문양 발광 회로 → 팔레트 주색 #91A653·보조색 #3E6574·발광색 #FFF15C → 선명한 2D 셀 셰이딩, 정면 3/4 전신, #08111F 카드 배경 → 텍스트·로고·워터마크·유명 IP 유사성 금지"
+  },
+  {
+    "id": "PG-236",
+    "koName": "드림크래들",
+    "enName": "Dreamcradle",
+    "lineageId": "PG-L026-M",
+    "category": "mutant",
+    "stage": 2,
+    "rarity": "ORACLE",
+    "bodyForm": "네발짐승",
+    "tone": "다정·고요",
+    "identity": "구름핵이 복부의 요람기관으로 내려가고 리본팔이 네 쿠션다리로 굳은 꿈 변이",
+    "lore": "떠다니지 않고 잠든 이 곁에 누워 복부 요람막으로 불안한 꿈을 흡수한다.",
+    "shapeDNA": [
+      "구름 요람복부 · 불씨 코끝",
+      "네 쿠션다리 · 둥근 쌍뿔",
+      "아치형 등골격"
+    ],
+    "palette": {
+      "primary": "#AB9DD0",
+      "secondary": "#6C4A3A",
+      "glow": "#7CF2D4"
+    },
+    "sharedMotifs": [
+      "발광 회로",
+      "다각형 신화문자"
+    ],
+    "evolutionFrom": "PG-L026:S1",
+    "imagePath": "assets/creatures/generated/PG-236.png",
+    "generationPrompt": "구름핵이 복부의 요람기관으로 내려가고 리본팔이 네 쿠션다리로 굳은 꿈 변이 → 네발짐승 → mutant 2단계 → 기존 PNG 실루엣을 유지한 구름 요람복부 · 불씨 코끝 · 네 쿠션다리 · 둥근 쌍뿔 · 아치형 등골격 → 다정·고요 → 계보 공통 문양 발광 회로·다각형 신화문자 → 팔레트 주색 #AB9DD0·보조색 #6C4A3A·발광색 #7CF2D4 → 선명한 2D 셀 셰이딩, 정면 3/4 전신, #08111F 카드 배경 → 텍스트·로고·워터마크·유명 IP 유사성 금지"
+  },
+  {
+    "id": "PG-237",
+    "koName": "리프서지",
+    "enName": "Leafsurge",
+    "lineageId": "PG-L028-M",
+    "category": "mutant",
+    "stage": 2,
+    "rarity": "DAEMON",
+    "bodyForm": "두발짐승",
+    "tone": "활발·강인",
+    "identity": "우루팡의 직립 아기코끼리 몸과 북면형 배를 유지한 채 귀 안쪽과 어깨에 잎맥 갑주가 자란 식물 변이",
+    "lore": "깊게 헤엄치지 않고 수면을 연속 도약해 씨앗을 폭풍 너머로 튕겨 보낸다.",
+    "shapeDNA": [
+      "말린 짧은 코와 부채 귀",
+      "잎맥이 자란 황금 귀막",
+      "북면형 배를 감싼 덩굴 회로"
+    ],
+    "palette": {
+      "primary": "#68A879",
+      "secondary": "#7186A0",
+      "glow": "#F4DC72"
+    },
+    "sharedMotifs": [
+      "발광 회로"
+    ],
+    "evolutionFrom": "PG-L028:S1",
+    "imagePath": "assets/creatures/generated/PG-237.png",
+    "generationPrompt": "우루팡의 귀와 북면 배에서 잎맥이 자란 식물 변이 → 두발짐승 → mutant 2단계 → 부모 PG-028의 둥근 아기코끼리 얼굴·말린 짧은 코·부채 귀·직립 두발 자세·굵은 코끼리발·황금 북면형 배와 산호 회로를 유지 → 잎맥은 기존 황금 귀막 안쪽에 자라고 어깨와 등에는 낮은 잎 갑주, 배 회로에는 가는 덩굴만 추가 → 같은 직립 코끼리 실루엣 보존 → 팔레트 주색 #7186A0·보조색 #68A879·발광색 #F4DC72 → 선명한 2D 셀 셰이딩, 정면 3/4 전신, #08111F 카드 배경 → 네발짐승·쥐·맥·잎으로 완전히 치환된 귀·텍스트·로고·워터마크·유명 IP 유사성 금지"
+  },
+  {
+    "id": "PG-238",
+    "koName": "스칼라크",
+    "enName": "Scalarach",
+    "lineageId": "PG-L030-M",
+    "category": "mutant",
+    "stage": 2,
+    "rarity": "ORACLE",
+    "bodyForm": "기타 무정형·식물형",
+    "tone": "정밀·기묘",
+    "identity": "막날개가 네 격자 다리로 접히고 깃털이 압력 감지 키틴으로 변한 경계 변이",
+    "lore": "날지 않고 경계면을 기어 다니며 네 다리의 높이 차로 공간 경사를 측정한다.",
+    "shapeDNA": [
+      "지느러미 볏 · 씨눈형 중심핵",
+      "네 격자다리 · 세 점 촉수",
+      "눈금형 복부꼬리"
+    ],
+    "palette": {
+      "primary": "#65A6A0",
+      "secondary": "#B19B98",
+      "glow": "#82F2E1"
+    },
+    "sharedMotifs": [
+      "부유 고리",
+      "다각형 신화문자"
+    ],
+    "evolutionFrom": "PG-L030:S1",
+    "imagePath": "assets/creatures/generated/PG-238.png",
+    "generationPrompt": "막날개가 네 격자 다리로 접히고 깃털이 압력 감지 키틴으로 변한 경계 변이 → 곤충·기계구조체 → mutant 2단계 → 기존 PNG 실루엣을 유지한 지느러미 볏 · 씨눈형 중심핵 · 네 격자다리 · 세 점 촉수 · 눈금형 복부꼬리 → 정밀·기묘 → 계보 공통 문양 부유 고리·다각형 신화문자 → 팔레트 주색 #65A6A0·보조색 #B19B98·발광색 #82F2E1 → 선명한 2D 셀 셰이딩, 정면 3/4 전신, #08111F 카드 배경 → 텍스트·로고·워터마크·유명 IP 유사성 금지"
+  },
+  {
+    "id": "PG-239",
+    "koName": "크로노핀",
+    "enName": "Chronofin",
+    "lineageId": "PG-L032-M",
+    "category": "mutant",
+    "stage": 2,
+    "rarity": "ORACLE",
+    "bodyForm": "조류",
+    "tone": "침착·신비",
+    "identity": "삽 앞발이 시간막 지느러미로 합쳐지고 털이 유체 수정으로 바뀐 탐색 변이",
+    "lore": "땅속 과거 대신 물에 남은 순간의 잔향을 투명 지느러미 층에서 분리한다.",
+    "shapeDNA": [
+      "동심원 코판 · 갈고리 볏",
+      "겹친 시간막 지느러미",
+      "마디형 짧은 꼬리"
+    ],
+    "palette": {
+      "primary": "#6F7890",
+      "secondary": "#8A705B",
+      "glow": "#D1B06C"
+    },
+    "sharedMotifs": [
+      "다각형 신화문자",
+      "부유하는 고리"
+    ],
+    "evolutionFrom": "PG-L032:S1",
+    "imagePath": "assets/creatures/generated/PG-239.png",
+    "generationPrompt": "삽 앞발이 시간막 지느러미로 합쳐지고 털이 유체 수정으로 바뀐 탐색 변이 → 수생형 → mutant 2단계 → 기존 PNG 실루엣을 유지한 동심원 코판 · 갈고리 볏 · 겹친 시간막 지느러미 · 마디형 짧은 꼬리 → 침착·신비 → 계보 공통 문양 다각형 신화문자·부유하는 고리 → 팔레트 주색 #6F7890·보조색 #8A705B·발광색 #D1B06C → 선명한 2D 셀 셰이딩, 정면 3/4 전신, #08111F 카드 배경 → 텍스트·로고·워터마크·유명 IP 유사성 금지"
+  },
+  {
+    "id": "PG-240",
+    "koName": "아이언스포어",
+    "enName": "Ironspore",
+    "lineageId": "PG-L034-M",
+    "category": "mutant",
+    "stage": 2,
+    "rarity": "ARCHITECT",
+    "bodyForm": "곤충·기계구조체",
+    "tone": "신성·끈기",
+    "identity": "곤충 외골격이 해체되어 부유 씨앗판이 되고 집게발이 빛뿌리 촉수로 변한 복구 변이",
+    "lore": "단단한 몸을 버린 수백 개의 금속 포자가 흩어져 넓은 지역을 동시에 복원한다.",
+    "shapeDNA": [
+      "꽃받침 중앙 핵 · 삼각 머리판",
+      "여섯 부유 씨앗판",
+      "빛뿌리 촉수 · 엇갈린 가위팔"
+    ],
+    "palette": {
+      "primary": "#98738A",
+      "secondary": "#507348",
+      "glow": "#F3D966"
+    },
+    "sharedMotifs": [
+      "부유하는 고리",
+      "발광 회로"
+    ],
+    "evolutionFrom": "PG-L034:S1",
+    "imagePath": "assets/creatures/generated/PG-240.png",
+    "generationPrompt": "곤충 외골격이 해체되어 부유 씨앗판이 되고 집게발이 빛뿌리 촉수로 변한 복구 변이 → 부유 정령형 → mutant 2단계 → 기존 PNG 실루엣을 유지한 꽃받침 중앙 핵 · 삼각 머리판 · 여섯 부유 씨앗판 · 빛뿌리 촉수 · 엇갈린 가위팔 → 신성·끈기 → 계보 공통 문양 부유하는 고리·발광 회로 → 팔레트 주색 #98738A·보조색 #507348·발광색 #F3D966 → 선명한 2D 셀 셰이딩, 정면 3/4 전신, #08111F 카드 배경 → 텍스트·로고·워터마크·유명 IP 유사성 금지"
+  }
+]

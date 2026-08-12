@@ -345,43 +345,9 @@ final class G001StateTests: XCTestCase {
     XCTAssertEqual(store.currentCreatureID, firstID)
   }
 
-  @MainActor
-  func testInvalidStoredPreferencesLoadCleanlyAndLeaveTheSaveFileUntouched() throws {
-    for invalidTarget in ["PG-XXX", "PG-062", "PG-041"] {
-      let directory = FileManager.default.temporaryDirectory.appending(path: UUID().uuidString)
-      let persistence = GamePersistence(fileURL: directory.appending(path: "state.json"))
-      let creature = OwnedCreature(
-        id: UUID(), speciesID: "PG-117", originSpeciesID: "PG-034", level: 25, experience: 0,
-        affection: 0, nickname: nil, preferredEvolutionTargetSpeciesID: invalidTarget,
-        uniqueColor: false, acquiredAt: Date(timeIntervalSince1970: 1))
-      var state = GameState()
-      state.ownedCreatures = [creature]
-      state.discoveredSpeciesIDs = ["PG-034", "PG-117"]
-      try persistence.save(state)
-      let saved = try Data(contentsOf: persistence.fileURL)
-
-      let store = GameStore(persistence: persistence)
-
-      XCTAssertNil(store.errorMessage)
-      XCTAssertNoThrow(try store.state.validate(catalogIDs: Set(store.catalog.map(\.id))))
-      XCTAssertEqual(
-        store.state.ownedCreatures[0].preferredEvolutionTargetSpeciesID, invalidTarget)
-      XCTAssertNotNil(store.pendingEvolutionChoice)
-      XCTAssertEqual(try Data(contentsOf: persistence.fileURL), saved)
-
-      store.feedCurrent()
-
-      XCTAssertNil(store.errorMessage)
-      XCTAssertNil(store.state.ownedCreatures[0].preferredEvolutionTargetSpeciesID)
-      XCTAssertNil(
-        try JSONDecoder.punchGrow
-          .decode(GameState.self, from: Data(contentsOf: persistence.fileURL))
-          .ownedCreatures[0].preferredEvolutionTargetSpeciesID)
-    }
-  }
 
   @MainActor
-  func testLegacyStateWithoutPreferenceKeyLoadsAndStillAcceptsAnExplicitChoice() throws {
+  func testLegacyStateWithoutPreferenceKeyLoadsButCannotChooseAQuarantinedFusion() throws {
     let directory = FileManager.default.temporaryDirectory.appending(path: UUID().uuidString)
     let persistence = GamePersistence(fileURL: directory.appending(path: "state.json"))
     try FileManager.default.createDirectory(at: directory, withIntermediateDirectories: true)
@@ -401,47 +367,24 @@ final class G001StateTests: XCTestCase {
     let store = GameStore(persistence: persistence)
 
     XCTAssertNil(store.errorMessage)
-    XCTAssertNil(store.state.ownedCreatures[0].preferredEvolutionTargetSpeciesID)
-    XCTAssertEqual(store.pendingEvolutionChoice?.candidates.map(\.id), ["PG-118", "PG-205"])
+    XCTAssertNil(store.pendingEvolutionChoice)
 
     store.chooseEvolutionCurrent(toSpeciesID: "PG-205")
 
-    XCTAssertNil(store.errorMessage)
-    XCTAssertEqual(store.state.ownedCreatures[0].speciesID, "PG-205")
+    XCTAssertNotNil(store.errorMessage)
+    XCTAssertEqual(store.state.ownedCreatures[0].speciesID, "PG-117")
     XCTAssertNil(store.pendingEvolutionChoice)
-    XCTAssertEqual(store.evolutionFeedback?.toSpeciesID, "PG-205")
-    XCTAssertEqual(
-      GameStore(persistence: persistence).state.ownedCreatures[0].speciesID, "PG-205")
-  }
+    XCTAssertNil(store.evolutionFeedback)
 
-  @MainActor
-  func testReservedPreferenceSurvivesBackupExportAndRestore() throws {
-    let directory = FileManager.default.temporaryDirectory.appending(path: UUID().uuidString)
-    let persistence = GamePersistence(fileURL: directory.appending(path: "state.json"))
-    let creature = OwnedCreature(
-      id: UUID(), speciesID: "PG-034", originSpeciesID: "PG-034", level: 1, experience: 0,
-      affection: 0, nickname: nil, uniqueColor: false, acquiredAt: Date(timeIntervalSince1970: 1))
-    var state = GameState()
-    state.ownedCreatures = [creature]
-    state.discoveredSpeciesIDs = ["PG-034"]
-    try persistence.save(state)
-    let store = GameStore(persistence: persistence)
-    store.setEvolutionPreference(creatureID: creature.id, toSpeciesID: "PG-205")
-    XCTAssertNil(store.errorMessage)
-    XCTAssertEqual(
-      store.state.ownedCreatures[0].preferredEvolutionTargetSpeciesID, "PG-205")
-
-    let backup = directory.appending(path: "backup.pgrow")
-    store.exportBackup(to: backup)
-    store.restoreBackup(from: backup)
+    store.chooseEvolutionCurrent(toSpeciesID: "PG-118")
 
     XCTAssertNil(store.errorMessage)
+    XCTAssertEqual(store.state.ownedCreatures[0].speciesID, "PG-118")
+    XCTAssertEqual(store.evolutionFeedback?.toSpeciesID, "PG-118")
     XCTAssertEqual(
-      store.state.ownedCreatures[0].preferredEvolutionTargetSpeciesID, "PG-205")
-    XCTAssertEqual(
-      try persistence.restore(from: backup)
-        .ownedCreatures[0].preferredEvolutionTargetSpeciesID, "PG-205")
+      GameStore(persistence: persistence).state.ownedCreatures[0].speciesID, "PG-118")
   }
+
 
   @MainActor
   func testPendingChoicesCoverWaitingCreaturesBeyondTheCurrentSelection() throws {
@@ -484,7 +427,6 @@ final class G001StateTests: XCTestCase {
     XCTAssertEqual(store.errorMessage, GameStore.persistenceLockedActionMessage)
 
     store.errorMessage = nil
-    store.setEvolutionPreference(creatureID: creatureID, toSpeciesID: "PG-205")
     XCTAssertEqual(store.errorMessage, GameStore.persistenceLockedActionMessage)
   }
 

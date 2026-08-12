@@ -19,6 +19,7 @@ final class GameStore: ObservableObject {
     @Published private(set) var currentCreatureID: UUID?
     @Published var errorMessage: String?
     @Published private(set) var evolutionFeedback: EvolutionFeedback?
+    @Published private(set) var grantFeedback: CreatureGrantFeedback?
     /// 세션 한정. 저장하지 않으므로 앱을 다시 켜면 같은 지점에서 다시 판정된다.
     @Published private(set) var pendingMutationOffer: PendingMutationOffer?
     @Published private(set) var observedLocalUsage: [TokenProvider: Int] = [:]
@@ -82,6 +83,12 @@ final class GameStore: ObservableObject {
     var currentSpecies: CreatureSpecies? {
         guard let currentCreature else { return nil }
         return catalog.first(where: { $0.id == currentCreature.speciesID })
+    }
+
+    /// 화면에 그릴 현재 개체의 모습. 고정해 둔 모습이 있으면 그것을 쓴다.
+    var currentDisplaySpecies: CreatureSpecies? {
+        guard let currentCreature else { return nil }
+        return GameEngine.displaySpecies(for: currentCreature, catalog: catalog)
     }
 
     var representativeCreature: OwnedCreature? {
@@ -253,13 +260,22 @@ final class GameStore: ObservableObject {
             return
         }
         guard let creatureID = resolvedCurrentCreatureID else { return }
-        performMutation { state in
+        guard let outcome = performMutation({ state in
             try self.advancingGenerator { generator in
                 try GameEngine.retryMutation(
                     fromCreatureID: creatureID, state: &state, catalog: self.catalog,
                     generator: &generator, now: self.now())
             }
-        }
+        }) else { return }
+        grantFeedback = CreatureGrantFeedback(
+            id: UUID(),
+            kind: .mutationRetry,
+            succeeded: outcome.succeeded,
+            grantedSpeciesID: outcome.creatureID
+                .flatMap { id in state.ownedCreatures.first { $0.id == id }?.speciesID },
+            tokensSpent: outcome.tokensSpent,
+            failureCount: outcome.failureCount
+        )
     }
 
     func inheritCurrent() {
@@ -268,30 +284,44 @@ final class GameStore: ObservableObject {
             return
         }
         guard let creatureID = resolvedCurrentCreatureID else { return }
-        performMutation { state in
+        guard let offspring = performMutation({ state in
             try GameEngine.inherit(
                 fromCreatureID: creatureID, state: &state, catalog: self.catalog, now: self.now())
-        }
+        }) else { return }
+        grantFeedback = CreatureGrantFeedback(
+            id: UUID(),
+            kind: .inheritance,
+            // 계승은 확률 판정이 없어 반환되었다는 사실 자체가 성공이다.
+            succeeded: true,
+            grantedSpeciesID: offspring.speciesID,
+            tokensSpent: GameState.inheritCost,
+            failureCount: 0
+        )
     }
 
-    func setEvolutionPreference(creatureID: UUID, toSpeciesID speciesID: String) {
+
+    /// 도감에서 고른 모습을 현재 개체의 표시 모습으로 고정한다. 실제 종과 성장은 그대로다.
+    func setDisplayForm(toSpeciesID speciesID: String) {
         guard !isPersistenceLocked else {
             errorMessage = Self.persistenceLockedActionMessage
             return
         }
+        guard let creatureID = resolvedCurrentCreatureID else { return }
         performMutation { state in
-            try GameEngine.setEvolutionPreference(
-                creatureID: creatureID, toSpeciesID: speciesID, state: &state, catalog: catalog)
+            try GameEngine.setDisplayForm(
+                creatureID: creatureID, toSpeciesID: speciesID, state: &state,
+                catalog: self.catalog)
         }
     }
 
-    func clearEvolutionPreference(creatureID: UUID) {
+    func clearDisplayForm() {
         guard !isPersistenceLocked else {
             errorMessage = Self.persistenceLockedActionMessage
             return
         }
+        guard let creatureID = resolvedCurrentCreatureID else { return }
         performMutation { state in
-            try GameEngine.clearEvolutionPreference(creatureID: creatureID, state: &state)
+            try GameEngine.clearDisplayForm(creatureID: creatureID, state: &state)
         }
     }
 
@@ -407,6 +437,11 @@ final class GameStore: ObservableObject {
     func clearEvolutionFeedback(id: UUID) {
         guard evolutionFeedback?.id == id else { return }
         evolutionFeedback = nil
+    }
+
+    func clearGrantFeedback(id: UUID) {
+        guard grantFeedback?.id == id else { return }
+        grantFeedback = nil
     }
 
     @discardableResult

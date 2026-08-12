@@ -1,0 +1,138 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://punchgrow.local/contracts/continuity-assignment-v1.schema.json",
+  "title": "PunchGrow continuity assignment manifest v1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schemaVersion", "runId", "verdict", "reviewCoverageManifest", "assignments"],
+  "properties": {
+    "schemaVersion": { "const": "continuity-assignment-v1" },
+    "runId": { "type": "string", "minLength": 1 },
+    "verdict": { "enum": ["FEASIBLE", "FEASIBLE_WITH_REGENERATION", "INFEASIBLE"] },
+    "reviewCoverageManifest": { "$ref": "#/$defs/reviewCoverage" },
+    "assignments": {
+      "type": "array",
+      "minItems": 240,
+      "maxItems": 240,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["slotId", "source", "sourceKind", "assetSha256", "targetStatus", "targetTaxonomy", "targetEvidence"],
+        "properties": {
+          "slotId": { "type": "string", "pattern": "^PG-[0-9]{3}$" },
+          "source": { "type": "string", "minLength": 1 },
+          "sourceKind": { "enum": ["existing", "regenerate"] },
+          "assetSha256": { "type": ["string", "null"], "pattern": "^[a-f0-9]{64}$" },
+          "targetStatus": { "enum": ["exact", "pending-pixel-taxonomy"] },
+          "targetTaxonomy": { "oneOf": [{ "$ref": "#/$defs/taxonomy" }, { "type": "null" }] },
+          "targetEvidence": {
+            "type": "object", "additionalProperties": true,
+            "required": ["pixelEntryPgId", "masterSha256", "runtimeSha256", "visualReviewIds"],
+            "properties": {
+              "pixelEntryPgId": { "type": "string", "pattern": "^PG-[0-9]{3}$" },
+              "masterSha256": { "type": "string", "pattern": "^[a-f0-9]{64}$" },
+              "runtimeSha256": { "type": "string", "pattern": "^[a-f0-9]{64}$" },
+              "visualReviewIds": { "type": "array", "minItems": 2, "uniqueItems": true, "items": { "type": "string", "minLength": 1 } }
+            }
+          }
+        },
+        "allOf": [
+          { "if": { "properties": { "sourceKind": { "const": "regenerate" } } }, "then": { "properties": { "assetSha256": { "type": "null" }, "source": { "pattern": "^REGEN\\(PG-[0-9]{3}\\)$" } } } },
+          { "if": { "properties": { "sourceKind": { "const": "existing" } } }, "then": { "properties": { "assetSha256": { "type": "string" }, "source": { "pattern": "^PG-[0-9]{3}$" }, "targetStatus": { "const": "exact" } } } },
+          { "if": { "properties": { "targetStatus": { "const": "pending-pixel-taxonomy" } } }, "then": { "properties": { "targetTaxonomy": { "type": "null" }, "sourceKind": { "const": "regenerate" } } } }
+        ]
+      }
+    }
+  },
+  "$defs": {
+    "concrete": { "type": "string", "minLength": 1, "not": { "pattern": "^(?:unknown(?:-|$)|designed-)" } },
+    "taxonomy": {
+      "type": "object", "additionalProperties": false,
+      "required": ["biologicalClass", "speciesFamily", "coreAnatomy", "locomotionPlan"],
+      "properties": {
+        "biologicalClass": { "$ref": "#/$defs/concrete" },
+        "speciesFamily": { "$ref": "#/$defs/concrete" },
+        "coreAnatomy": { "$ref": "#/$defs/concrete" },
+        "locomotionPlan": { "$ref": "#/$defs/concrete" }
+      }
+    },
+    "reviewCoverage": {
+      "type": "object", "additionalProperties": false,
+      "required": ["schemaVersion", "state", "completionAllowed", "eiluBenchmark", "queueCandidates", "edgeCandidates", "coverage"],
+      "properties": {
+        "schemaVersion": { "const": "continuity-g003-review-gate-v1" },
+        "state": { "const": "PENDING_G003_REVIEW" },
+        "completionAllowed": { "const": false },
+        "eiluBenchmark": { "type": "object" },
+        "queueCandidates": {
+          "type": "array", "minItems": 175, "maxItems": 175,
+          "items": {
+            "type": "object", "additionalProperties": false,
+            "required": ["candidateId", "slotId", "status", "allowedAnchorIds", "allowedAnchors", "requiredParentCandidateIds", "eiluBenchmarkId", "comparisonThresholds", "reviewEvidence"],
+            "properties": {
+              "candidateId": { "type": "string", "pattern": "^g003-candidate:PG-[0-9]{3}$" },
+              "slotId": { "type": "string", "pattern": "^PG-[0-9]{3}$" },
+              "status": { "enum": ["PENDING_COMPARATIVE_VISUAL_REVIEW", "PASS"] },
+              "allowedAnchorIds": { "type": "array", "minItems": 3, "uniqueItems": true, "items": { "type": "string", "minLength": 1 } },
+              "allowedAnchors": { "type": "array", "minItems": 2, "items": { "type": "object" } },
+              "requiredParentCandidateIds": { "type": "array", "maxItems": 2, "uniqueItems": true, "items": { "type": "string", "pattern": "^g003-candidate:PG-[0-9]{3}$" } },
+              "eiluBenchmarkId": { "const": "eilu-comparative-visual-v1" },
+              "comparisonThresholds": { "$ref": "#/$defs/comparisonThresholds" },
+              "reviewEvidence": { "type": ["object", "null"] }
+            }
+          }
+        },
+        "edgeCandidates": {
+          "type": "array", "minItems": 190, "maxItems": 190,
+          "items": {
+            "type": "object", "additionalProperties": true,
+            "required": ["edgeId", "parentId", "childId", "status", "allowedParentAnchorIds", "allowedParentAnchors", "eiluBenchmarkId", "comparisonThresholds"],
+            "properties": {
+              "edgeId": { "type": "string", "pattern": "^g003-edge:PG-[0-9]{3}:PG-[0-9]{3}$" },
+              "parentId": { "type": "string", "pattern": "^PG-[0-9]{3}$" },
+              "childId": { "type": "string", "pattern": "^PG-[0-9]{3}$" },
+              "status": { "enum": ["PENDING_COMPARATIVE_VISUAL_REVIEW", "PASS"] },
+              "allowedParentAnchorIds": { "type": "array", "minItems": 1, "maxItems": 2 },
+              "allowedParentAnchors": {
+                "type": "array", "minItems": 1, "maxItems": 2,
+                "items": { "type": "object" }
+              },
+              "eiluBenchmarkId": { "const": "eilu-comparative-visual-v1" },
+              "comparisonThresholds": { "$ref": "#/$defs/comparisonThresholds" }
+            }
+          }
+        },
+        "coverage": {
+          "type": "object", "additionalProperties": false,
+          "required": ["requiredQueueCandidates", "passedQueueCandidates", "requiredFinalEdges", "passedFinalEdges", "missingCoverage"],
+          "properties": {
+            "requiredQueueCandidates": { "const": 175 },
+            "passedQueueCandidates": { "const": 0 },
+            "requiredFinalEdges": { "const": 190 },
+            "passedFinalEdges": { "const": 0 },
+            "missingCoverage": { "const": 365 }
+          }
+        }
+      }
+    },
+    "visualAnchor": {
+      "type": "object", "additionalProperties": false,
+      "required": ["anchorId", "description", "sourceReviewId", "sourceConfidence"],
+      "properties": {
+        "anchorId": { "type": "string", "minLength": 1 },
+        "description": { "type": "string", "minLength": 1 },
+        "sourceReviewId": { "type": "string", "minLength": 1 },
+        "sourceConfidence": { "type": "number", "minimum": 0.85, "maximum": 1 }
+      }
+    },
+    "comparisonThresholds": {
+      "type": "object", "additionalProperties": false,
+      "required": ["minimumConfidence", "minimumAnchorRetentionRatio", "sameCreatureGrownUp"],
+      "properties": {
+        "minimumConfidence": { "type": "number", "minimum": 0.85, "maximum": 1 },
+        "minimumAnchorRetentionRatio": { "const": 1 },
+        "sameCreatureGrownUp": { "const": "yes" }
+      }
+    }
+  }
+}

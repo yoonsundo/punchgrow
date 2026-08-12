@@ -1,0 +1,33 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://punchgrow.local/contracts/g003-reviewer-verdict-v2.schema.json",
+  "title": "Reviewer-authored G003 verdict v2",
+  "type": "object", "additionalProperties": false,
+  "required": ["schemaVersion", "assignmentId", "assignmentRawSha256", "reviewerInstanceId", "agentTaskId", "voterReviewRunId", "passNumber", "opaqueCandidateId", "generationRunId", "packageManifestSha256", "materialBindingSha256", "inputAllowlistSha256", "promptSha256", "inputAssetSha256s", "requiredChildTaxonomy", "verdict", "passEvidence", "failureFindings", "explanation", "confidence", "observedAt"],
+  "properties": {
+    "schemaVersion": { "const": "continuity-g003-reviewer-verdict-v2" },
+    "assignmentId": { "type": "string", "minLength": 16 }, "assignmentRawSha256": { "$ref": "#/$defs/sha256" },
+    "reviewerInstanceId": { "type": "string", "minLength": 8 }, "agentTaskId": { "type": "string", "minLength": 8 }, "voterReviewRunId": { "type": "string", "minLength": 8 }, "passNumber": { "enum": [1, 2] },
+    "opaqueCandidateId": { "type": "string", "pattern": "^candidate-[a-f0-9]{24}$" }, "generationRunId": { "type": "string", "pattern": "^[A-Za-z0-9][A-Za-z0-9._-]{0,127}$" },
+    "packageManifestSha256": { "$ref": "#/$defs/sha256" }, "materialBindingSha256": { "$ref": "#/$defs/sha256" }, "inputAllowlistSha256": { "$ref": "#/$defs/sha256" }, "promptSha256": { "$ref": "#/$defs/sha256" },
+    "inputAssetSha256s": { "type": "array", "minItems": 1, "uniqueItems": true, "items": { "$ref": "#/$defs/sha256" } },
+    "requiredChildTaxonomy": { "$ref": "#/$defs/taxonomy" }, "verdict": { "enum": ["PASS", "REJECT"] },
+    "passEvidence": { "oneOf": [{ "type": "null" }, { "$ref": "#/$defs/passEvidence" }] }, "failureFindings": { "type": "array", "items": { "$ref": "g003-rejection-observation-v2.schema.json#/$defs/finding" } },
+    "explanation": { "type": "string" }, "confidence": { "type": "number", "minimum": 0, "maximum": 1 }, "observedAt": { "type": "string", "format": "date-time" }
+  },
+  "allOf": [
+    { "if": { "properties": { "verdict": { "const": "PASS" } } }, "then": { "properties": { "passEvidence": { "type": "object", "minProperties": 1 }, "failureFindings": { "maxItems": 0 }, "confidence": { "minimum": 0.96 } } } },
+    { "if": { "properties": { "verdict": { "const": "REJECT" } } }, "then": { "properties": { "passEvidence": { "type": "null" }, "failureFindings": { "minItems": 1 } } } }
+  ],
+  "$defs": {
+    "sha256": { "type": "string", "pattern": "^[a-f0-9]{64}$" },
+    "taxonomy": { "type": "object", "additionalProperties": false, "required": ["biologicalClass", "speciesFamily", "coreAnatomy", "locomotionPlan"], "properties": { "biologicalClass": { "type": "string", "minLength": 1 }, "speciesFamily": { "type": "string", "minLength": 1 }, "coreAnatomy": { "type": "string", "minLength": 1 }, "locomotionPlan": { "type": "string", "minLength": 1 } } },
+    "passEvidence": { "type": "object", "additionalProperties": false, "required": ["childTaxonomy", "sameCreatureObservations", "anchorObservations", "eiluObservation", "canonicalSurfaceObservations"], "properties": {
+      "childTaxonomy": { "$ref": "#/$defs/taxonomy" },
+      "sameCreatureObservations": { "type": "array", "minItems": 1, "maxItems": 2, "items": { "type": "object", "additionalProperties": false, "required": ["parentRole", "sameCreatureGrownUp", "observation"], "properties": { "parentRole": { "pattern": "^parent-[12]$" }, "sameCreatureGrownUp": { "const": "yes" }, "observation": { "type": "string", "minLength": 1 } } } },
+      "anchorObservations": { "type": "array", "minItems": 1, "items": { "type": "object", "additionalProperties": false, "required": ["parentRole", "anchorId", "requiredDescription", "satisfied", "observation"], "properties": { "parentRole": { "pattern": "^parent-[12]$" }, "anchorId": { "type": "string", "minLength": 1 }, "requiredDescription": { "type": "string", "minLength": 1 }, "satisfied": { "const": true }, "observation": { "type": "string", "minLength": 1 } } } },
+      "eiluObservation": { "type": "object", "additionalProperties": false, "required": ["benchmarkId", "continuityScore", "anchorRetentionRatio", "retainedAnchorCount", "observation"], "properties": { "benchmarkId": { "const": "eilu-comparative-visual-v1" }, "continuityScore": { "type": "number", "minimum": 0.96, "maximum": 1 }, "anchorRetentionRatio": { "type": "number", "minimum": 1 }, "retainedAnchorCount": { "type": "integer", "minimum": 3 }, "observation": { "type": "string", "minLength": 1 } } },
+      "canonicalSurfaceObservations": { "type": "array", "maxItems": 2, "items": { "type": "object", "additionalProperties": false, "required": ["surface", "taxonomyMatches", "anchorsSatisfied", "appendageAmbiguity", "observation"], "properties": { "surface": { "enum": ["master", "runtime"] }, "taxonomyMatches": { "const": true }, "anchorsSatisfied": { "const": true }, "appendageAmbiguity": { "const": false }, "observation": { "type": "string", "minLength": 1 } } } }
+    } }
+  }
+}

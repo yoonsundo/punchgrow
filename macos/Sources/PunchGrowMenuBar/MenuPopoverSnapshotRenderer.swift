@@ -10,6 +10,7 @@ struct MenuPopoverSnapshotRequest: Equatable {
   static let mutationOfferFlag = "--snapshot-mutation-offer"
   static let rarityFlag = "--snapshot-rarity-guide"
   static let menuBarHUDFlag = "--snapshot-menu-bar-hud"
+  static let grantToastFlag = "--snapshot-grant-toast"
 
   let kind: Kind
   let outputURL: URL
@@ -30,6 +31,8 @@ struct MenuPopoverSnapshotRequest: Equatable {
       match = (index, .rarity, Self.rarityFlag)
     } else if let index = arguments.firstIndex(of: Self.menuBarHUDFlag) {
       match = (index, .menuBarHUD, Self.menuBarHUDFlag)
+    } else if let index = arguments.firstIndex(of: Self.grantToastFlag) {
+      match = (index, .grantToast, Self.grantToastFlag)
     } else {
       match = nil
     }
@@ -50,6 +53,7 @@ struct MenuPopoverSnapshotRequest: Equatable {
     case mutationOffer
     case rarity
     case menuBarHUD
+    case grantToast
   }
 
   var usesFreshSetupFixture: Bool { kind == .menuFresh }
@@ -87,6 +91,7 @@ enum MenuPopoverSnapshotRenderer {
   static let evolutionChoiceSize = NSSize(width: 372, height: 520)
   static let mutationOfferSize = NSSize(width: 372, height: 420)
   static let raritySize = NSSize(width: 360, height: 490)
+  static let grantToastSize = NSSize(width: 380, height: 260)
 
   static func makeFixture(freshSetup: Bool = false) throws -> MenuPopoverSnapshotFixture {
     let catalog = try CreatureCatalog.load()
@@ -162,30 +167,47 @@ enum MenuPopoverSnapshotRenderer {
       originReveal: originReveal,
       mainNavigation: mainNavigation
     )
-    try render(rootView, size: size, to: outputURL)
+    try render(rootView, size: size, to: outputURL, forbidsScrollView: true)
   }
 
   static func renderEvolutionDex(to outputURL: URL) throws {
     let catalog = try CreatureCatalog.load()
-    guard catalog.contains(where: { $0.id == "PG-001" }),
-          catalog.contains(where: { $0.id == "PG-181" })
+    guard catalog.contains(where: { $0.id == "PG-024" }),
+          catalog.contains(where: { $0.id == "PG-092" })
     else { throw SnapshotError.insufficientCatalog }
     let creature = OwnedCreature(
-      id: UUID(uuidString: "00000000-0000-4000-8000-000000000181")!,
-      speciesID: "PG-181",
-      originSpeciesID: "PG-001",
-      level: 25,
+      id: UUID(uuidString: "00000000-0000-4000-8000-000000000092")!,
+      speciesID: "PG-092",
+      originSpeciesID: "PG-024",
+      level: 40,
       experience: 0,
       affection: 100,
       nickname: nil,
       uniqueColor: false,
       acquiredAt: Date(timeIntervalSince1970: 1_754_275_200)
     )
-    let presentation = EvolutionDexPresentation.make(
+    guard let presentation = EvolutionDexPresentation.make(
       creature: creature,
       catalog: catalog,
-      discoveredSpeciesIDs: ["PG-001", "PG-061", "PG-181"]
-    )
+      discoveredSpeciesIDs: ["PG-024", "PG-090", "PG-091", "PG-092"]
+    ) else { throw SnapshotError.insufficientCatalog }
+    let entries = Dictionary(
+      uniqueKeysWithValues: presentation.stages.flatMap(\.entries).map { ($0.id, $0) })
+    guard presentation.stages.count == 4,
+          presentation.stages.first(where: { $0.stage == 2 })?.entries.count == 3,
+          entries.count == 6,
+          entries["PG-024"]?.isFormOwned == true,
+          entries["PG-024"]?.canPreviewForm == true,
+          entries["PG-090"]?.isFormOwned == true,
+          entries["PG-091"]?.isFormOwned == true,
+          entries["PG-091"]?.canPreviewForm == true,
+          entries["PG-092"]?.isCurrent == true,
+          entries["PG-092"]?.canPreviewForm == false,
+          entries["PG-200"]?.isFormOwned == false,
+          entries["PG-200"]?.canPreviewForm == false,
+          entries["PG-235"]?.isFormOwned == false,
+          entries["PG-235"]?.canPreviewForm == false
+    else { throw SnapshotError.insufficientCatalog }
     try render(
       EvolutionGuidePopover(presentation: presentation),
       size: evolutionSize,
@@ -229,6 +251,37 @@ enum MenuPopoverSnapshotRenderer {
 
   // 에일루 계보(PG-001 Lv.15)에서 변이 PG-216이 발동한 순간을 쓴다. 거절 대상 PG-061은
   // 미발견 상태라 은닉 문구까지 한 장에서 확인된다.
+  /// 재도전 성공·실패와 계승을 한 장에 세로로 쌓아, 세 결과가 서로 구분되는지 한눈에 본다.
+  static func renderGrantToast(to outputURL: URL) throws {
+    let catalog = try CreatureCatalog.load()
+    guard let mutation = catalog.first(where: { $0.id == "PG-216" }),
+          let origin = catalog.first(where: { $0.id == "PG-001" })
+    else { throw SnapshotError.insufficientCatalog }
+    let samples = [
+      CreatureGrantFeedback(
+        id: UUID(), kind: .mutationRetry, succeeded: true,
+        grantedSpeciesID: mutation.id, tokensSpent: GameState.mutationRetryCost,
+        failureCount: 0),
+      CreatureGrantFeedback(
+        id: UUID(), kind: .mutationRetry, succeeded: false,
+        grantedSpeciesID: nil, tokensSpent: GameState.mutationRetryCost,
+        failureCount: 7),
+      CreatureGrantFeedback(
+        id: UUID(), kind: .inheritance, succeeded: true,
+        grantedSpeciesID: origin.id, tokensSpent: GameState.inheritCost,
+        failureCount: 0),
+    ]
+    try render(
+      VStack(spacing: 16) {
+        ForEach(samples) { CreatureGrantToast(feedback: $0, catalog: catalog) }
+      }
+      .frame(width: grantToastSize.width, height: grantToastSize.height)
+      .background(Color(red: 7 / 255, green: 6 / 255, blue: 13 / 255)),
+      size: grantToastSize,
+      to: outputURL
+    )
+  }
+
   static func renderMutationOffer(to outputURL: URL) throws {
     let catalog = try CreatureCatalog.load()
     let offer = PendingMutationOffer(
@@ -356,7 +409,8 @@ enum MenuPopoverSnapshotRenderer {
   private static func render<Content: View>(
     _ rootView: Content,
     size: NSSize,
-    to outputURL: URL
+    to outputURL: URL,
+    forbidsScrollView: Bool = false
   ) throws {
     let hostingView = NSHostingView(rootView: rootView)
     hostingView.frame = NSRect(origin: .zero, size: size)
@@ -373,6 +427,10 @@ enum MenuPopoverSnapshotRenderer {
     window.layoutIfNeeded()
     hostingView.layoutSubtreeIfNeeded()
     hostingView.displayIfNeeded()
+
+    if forbidsScrollView, containsScrollView(in: hostingView) {
+      throw SnapshotError.unexpectedScrollView
+    }
 
     guard let bitmap = NSBitmapImageRep(
       bitmapDataPlanes: nil,
@@ -392,6 +450,10 @@ enum MenuPopoverSnapshotRenderer {
     window.close()
   }
 
+  private static func containsScrollView(in view: NSView) -> Bool {
+    view is NSScrollView || view.subviews.contains { containsScrollView(in: $0) }
+  }
+
   private static func deterministicUUID(index: Int) -> UUID {
     UUID(uuidString: String(format: "00000000-0000-4000-8000-%012d", index + 1))!
   }
@@ -400,6 +462,7 @@ enum MenuPopoverSnapshotRenderer {
     case insufficientCatalog
     case bitmapCreationFailed
     case pngEncodingFailed
+    case unexpectedScrollView
   }
 }
 

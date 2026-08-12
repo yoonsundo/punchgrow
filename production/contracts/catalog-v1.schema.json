@@ -1,0 +1,32 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://punchgrow.app/contracts/catalog-v1.schema.json",
+  "title": "PunchGrow creature catalog v1",
+  "type": "array",
+  "minItems": 240,
+  "maxItems": 240,
+  "items": {
+    "type": "object",
+    "required": ["id", "koName", "enName", "lineageId", "category", "stage", "rarity", "bodyForm", "identity", "lore", "evolutionFrom", "imagePath"],
+    "properties": {
+      "id": { "type": "string", "pattern": "^PG-[0-9]{3}$" },
+      "koName": { "type": "string", "minLength": 1 },
+      "enName": { "type": "string", "minLength": 1 },
+      "lineageId": { "type": "string", "minLength": 1 },
+      "category": { "enum": ["start", "normal_evolution", "branch", "mixed", "special", "mutant"] },
+      "stage": { "type": "integer", "minimum": 1, "maximum": 4 },
+      "rarity": { "enum": ["PROCESS", "AGENT", "DAEMON", "ORACLE", "ARCHITECT", "ORIGIN"] },
+      "bodyForm": { "type": "string", "minLength": 1 },
+      "identity": { "type": "string", "minLength": 1 },
+      "lore": { "type": "string", "minLength": 1 },
+      "evolutionFrom": {
+        "oneOf": [
+          { "type": "null" },
+          { "type": "string", "pattern": "^PG-(?:[0-9]{3}|L[0-9]{3}:S[1-4])$" },
+          { "type": "array", "minItems": 2, "items": { "type": "string", "pattern": "^PG-(?:[0-9]{3}|L[0-9]{3}:S[1-4])$" }, "uniqueItems": true }
+        ]
+      },
+      "imagePath": { "type": "string", "pattern": "^assets/creatures/generated/PG-[0-9]{3}\\.png$" }
+    }
+  }
+}

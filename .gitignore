@@ -40,7 +40,52 @@ web/.build/
 # local and generated work products
 tmp/
 output/
-production/reports/
+docs/qa/evolution-continuity/*.png
+docs/qa/evolution-continuity/evolution-audit-manifest.json
+production/reports/*
+!production/reports/biological-continuity-v3/
+production/reports/biological-continuity-v3/*
+!production/reports/biological-continuity-v3/g001-unblinded-image-first-census-v1.json
+!production/reports/biological-continuity-v3/g001-unblinded-conflict-ledger-v1.json
+!production/reports/biological-continuity-v3/g001-unblinded-census-summary-v1.md
+!production/reports/biological-continuity-v3/g001-primary-pixel-anchor-consensus-v1.json
+!production/reports/biological-continuity-v3/g002-evidence-v1/
+!production/reports/biological-continuity-v3/g002-evidence-v1/**
+!production/reports/biological-continuity-v3/g002-evidence-v2/
+production/reports/biological-continuity-v3/g002-evidence-v2/*
+!production/reports/biological-continuity-v3/g002-evidence-v2/assignment-manifest.json
+!production/reports/biological-continuity-v3/g002-evidence-v2/canonical-root-redesign-targets-v2.json
+!production/reports/biological-continuity-v3/g002-evidence-v2/compatibility-ledger.json
+!production/reports/biological-continuity-v3/g002-evidence-v2/feasibility-report.json
+!production/reports/biological-continuity-v3/g002-evidence-v2/inputs.lock.json
+!production/reports/biological-continuity-v3/g002-evidence-v2/output-attestation.json
+!production/reports/biological-continuity-v3/g002-evidence-v2/public-evidence-manifest.json
+!production/reports/biological-continuity-v3/g002-evidence-v2/public-evidence-manifest.unsigned.json
+!production/reports/biological-continuity-v3/g002-evidence-v2/regeneration-queue.json
+!production/reports/biological-continuity-v3/g002-evidence-v2/save-revision-map.json
+!production/reports/biological-continuity-v3/g002-evidence-v2/topology-after.json
+!production/reports/biological-continuity-v3/g002-evidence-v2/canonical-root-reviews/
+production/reports/biological-continuity-v3/g002-evidence-v2/canonical-root-reviews/*
+!production/reports/biological-continuity-v3/g002-evidence-v2/canonical-root-reviews/architect-approval.json
+!production/reports/biological-continuity-v3/g002-evidence-v2/canonical-root-reviews/proofs/
+production/reports/biological-continuity-v3/g002-evidence-v2/canonical-root-reviews/proofs/*
+!production/reports/biological-continuity-v3/g002-evidence-v2/canonical-root-reviews/proofs/PG-024.json
+!production/reports/biological-continuity-v3/g002-evidence-v2/canonical-root-reviews/proofs/PG-029.json
+!production/reports/biological-continuity-v3/g002-evidence-v2/canonical-root-reviews/proofs/PG-047.json
+!production/reports/biological-continuity-v3/g002-evidence-v2/canonical-root-reviews/proofs/PG-052.json
+!production/reports/biological-continuity-v3/g002-evidence-v2/canonical-root-reviews/proofs/PG-053.json
+!production/reports/biological-continuity-v3/g002-evidence-v2/canonical-root-reviews/proofs/PG-056.json
+!production/reports/biological-continuity-v3/g003-evidence-v3/
+production/reports/biological-continuity-v3/g003-evidence-v3/*
+!production/reports/biological-continuity-v3/g003-evidence-v3/active-baseline.json
+!production/reports/biological-continuity-v3/G003_AUTHORITY_V4.md
+!production/reports/cute-redesign-v2-visual-qa.json
+!production/reports/cute-redesign-v2-visual-qa-batches.json
+!production/reports/evolution-continuity-audit-20260810.md
+!production/reports/evolution-runtime-adjudications.json
+!production/reports/evolution-runtime-visual-audit.json
+!production/reports/evolution-runtime-audit-lanes/
+!production/reports/evolution-runtime-audit-lanes/*.json
 scripts/build-inline-encyclopedia.py
 
 # creature source artwork and generation history (runtime-sized exports remain tracked)
@@ -48,6 +93,9 @@ assets/creatures/concepts/
 assets/creatures/generated/
 assets/creatures/legacy-v1/
 assets/creatures/redesign-v2/
+assets/creatures/biological-continuity-v3/candidates/
+assets/creatures/biological-continuity-v3/rejected/
+assets/creatures/biological-continuity-v3/workspace-masters/
 
 # local environment and package-manager credentials
 .env
@@ -62,3 +110,6 @@ assets/creatures/redesign-v2/
 # generated native folders
 /ios
 /android
+
+__pycache__/
+*.pyc

@@ -1,0 +1,66 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://punchgrow.local/contracts/g001-pixel-anchor-consensus-v1.schema.json",
+  "title": "Authenticated G001 primary pixel anchor consensus v1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schemaVersion", "runId", "sourceCensusSha256", "policy", "counts", "assets", "outputSha256", "publicSignature"],
+  "properties": {
+    "schemaVersion": { "const": "g001-pixel-anchor-consensus-v1" },
+    "runId": { "const": "g001-baseline-v1" },
+    "sourceCensusSha256": { "$ref": "#/$defs/sha256" },
+    "policy": {
+      "type": "object", "additionalProperties": false,
+      "required": ["pixelsOnly", "catalogMetadataAllowed", "requiredPrimaryReviews", "minimumCommonVisibleAnchors", "publicRebuildSource"],
+      "properties": {
+        "pixelsOnly": { "const": true }, "catalogMetadataAllowed": { "const": false },
+        "requiredPrimaryReviews": { "const": 2 }, "minimumCommonVisibleAnchors": { "const": 3 }, "publicRebuildSource": { "const": "TRACKED_G001_CENSUS_ONLY" }
+      }
+    },
+    "counts": {
+      "type": "object", "additionalProperties": false, "required": ["assets", "withAnchorConsensus"],
+      "properties": { "assets": { "const": 240 }, "withAnchorConsensus": { "type": "integer", "minimum": 0, "maximum": 240 } }
+    },
+    "assets": { "type": "array", "minItems": 240, "maxItems": 240, "items": { "$ref": "#/$defs/asset" } },
+    "outputSha256": { "$ref": "#/$defs/sha256" }, "publicSignature": { "$ref": "#/$defs/publicSignature" }
+  },
+  "$defs": {
+    "sha256": { "type": "string", "pattern": "^[a-f0-9]{64}$" },
+    "surface": {
+      "type": "object", "additionalProperties": false, "required": ["sha256", "width", "height"],
+      "properties": { "sha256": { "$ref": "#/$defs/sha256" }, "width": { "type": "integer", "minimum": 1 }, "height": { "type": "integer", "minimum": 1 } }
+    },
+    "source": {
+      "type": "object", "additionalProperties": false,
+      "required": ["reviewId", "reviewerInstanceId", "voterReviewRunId", "confidence", "censusObservationSha256"],
+      "properties": {
+        "reviewId": { "type": "string", "minLength": 8 }, "reviewerInstanceId": { "type": "string", "minLength": 8 },
+        "voterReviewRunId": { "type": "string", "minLength": 8 }, "confidence": { "type": "number", "minimum": 0, "maximum": 1 },
+        "censusObservationSha256": { "$ref": "#/$defs/sha256" }
+      }
+    },
+    "anchorSource": {
+      "type": "object", "additionalProperties": false, "required": ["reviewId", "censusObservationSha256", "description"],
+      "properties": { "reviewId": { "type": "string", "minLength": 8 }, "censusObservationSha256": { "$ref": "#/$defs/sha256" }, "description": { "type": "string", "minLength": 3 } }
+    },
+    "anchor": {
+      "type": "object", "additionalProperties": false, "required": ["anchorId", "sources"],
+      "properties": { "anchorId": { "type": "string", "minLength": 1 }, "sources": { "type": "array", "minItems": 2, "maxItems": 2, "items": { "$ref": "#/$defs/anchorSource" } } }
+    },
+    "publicSignature": {
+      "type": "object", "additionalProperties": false, "required": ["algorithm", "authorityFingerprint", "signatureBase64"],
+      "properties": { "algorithm": { "const": "Ed25519" }, "authorityFingerprint": { "const": "423f474c59667e5eabc13a703b8d7de4e97bcba33cdc22340873866db9d6a53f" }, "signatureBase64": { "type": "string", "minLength": 80 } }
+    },
+    "asset": {
+      "type": "object", "additionalProperties": false,
+      "required": ["pgId", "surfaces", "status", "sourceReviews", "anchors"],
+      "properties": {
+        "pgId": { "type": "string", "pattern": "^PG-[0-9]{3}$" },
+        "surfaces": { "type": "object", "additionalProperties": false, "required": ["master", "runtime"], "properties": { "master": { "$ref": "#/$defs/surface" }, "runtime": { "$ref": "#/$defs/surface" } } },
+        "status": { "enum": ["TWO_PRIMARY_PIXEL_ANCHOR_CONSENSUS", "BLOCKED_INSUFFICIENT_COMMON_ANCHORS"] },
+        "sourceReviews": { "type": "array", "minItems": 2, "maxItems": 2, "items": { "$ref": "#/$defs/source" } },
+        "anchors": { "type": "array", "uniqueItems": true, "items": { "$ref": "#/$defs/anchor" } }
+      }
+    }
+  }
+}

@@ -1,0 +1,28 @@
+{
+  "version": 1,
+  "gachaCost": 500000,
+  "originPityMisses": 300,
+  "uniqueColorProbability": 0.001,
+  "weeklyUsageForMaximumActivityBonus": 5000000,
+  "baseRarityWeights": {
+    "PROCESS": 55,
+    "AGENT": 25,
+    "DAEMON": 12,
+    "ORACLE": 6,
+    "ARCHITECT": 1.8,
+    "ORIGIN": 0.2
+  },
+  "maximumActivityRarityWeights": {
+    "PROCESS": 40,
+    "AGENT": 26,
+    "DAEMON": 16,
+    "ORACLE": 11,
+    "ARCHITECT": 6,
+    "ORIGIN": 1
+  },
+  "usageEvent": {
+    "maximumTokens": 50000000,
+    "maximumFutureSkewSeconds": 300,
+    "maximumAgeDays": 366
+  }
+}

@@ -1,0 +1,61 @@
+services:
+  postgres:
+    image: postgres:17-alpine
+    environment:
+      POSTGRES_DB: punchgrow
+      POSTGRES_USER: punchgrow
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-punchgrow_dev}
+    volumes:
+      - punchgrow_postgres:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U punchgrow -d punchgrow"]
+      interval: 3s
+      timeout: 3s
+      retries: 20
+    ports:
+      - "127.0.0.1:5434:5432"
+
+  migrate:
+    build:
+      context: .
+      dockerfile: server/Dockerfile
+    environment:
+      DATABASE_URL: postgres://punchgrow:${POSTGRES_PASSWORD:-punchgrow_dev}@postgres:5432/punchgrow
+      CATALOG_PATH: /catalog/creatures.json
+    command: ["sh", "-c", "node dist/scripts/migrate.js && node dist/scripts/seed.js"]
+    depends_on:
+      postgres:
+        condition: service_healthy
+
+  server:
+    build:
+      context: .
+      dockerfile: server/Dockerfile
+    environment:
+      DATABASE_URL: postgres://punchgrow:${POSTGRES_PASSWORD:-punchgrow_dev}@postgres:5432/punchgrow
+      CORS_ORIGIN: http://localhost:5173
+      NODE_ENV: production
+      AUTH_MODE: local
+      COLLECTOR_SECRET: ${COLLECTOR_SECRET:-punchgrow-local-collector}
+    depends_on:
+      migrate:
+        condition: service_completed_successfully
+    ports:
+      - "127.0.0.1:4001:4000"
+    read_only: true
+    tmpfs: [/tmp]
+    security_opt: ["no-new-privileges:true"]
+
+  web:
+    build:
+      context: .
+      dockerfile: web/Dockerfile
+    depends_on: [server]
+    ports:
+      - "127.0.0.1:5173:80"
+    read_only: true
+    tmpfs: [/var/cache/nginx, /var/run]
+    security_opt: ["no-new-privileges:true"]
+
+volumes:
+  punchgrow_postgres:

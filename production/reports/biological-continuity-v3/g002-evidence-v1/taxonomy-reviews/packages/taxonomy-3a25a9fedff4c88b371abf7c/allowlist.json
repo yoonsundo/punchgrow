@@ -1,0 +1,18 @@
+{
+  "files": [
+    {
+      "height": 1254,
+      "path": "inputs/master.png",
+      "sha256": "e8111483974fd1775ba649b19ae69112ff88d148ce97e56d11c8dac5963374a7",
+      "width": 1254
+    },
+    {
+      "height": 360,
+      "path": "inputs/runtime.png",
+      "sha256": "64a2afbd3e36eb77ca3dba4fd8855603ef204ff70c562137b5d0ad3fe78a6d81",
+      "width": 360
+    }
+  ],
+  "opaqueTaxonomyTargetId": "taxonomy-3a25a9fedff4c88b371abf7c",
+  "schemaVersion": "g002-taxonomy-allowlist-v1"
+}

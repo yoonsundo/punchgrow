@@ -1,0 +1,725 @@
+{
+  "acceptedAt": "2026-08-10T22:21:37.807Z",
+  "candidate": {
+    "master": {
+      "bytes": 1569180,
+      "height": 1254,
+      "sha256": "5f463145a5811b4731c102b721d3ff1355ecd1e29f8b124147ede22f465548d9",
+      "width": 1254
+    },
+    "runtime": {
+      "bytes": 153707,
+      "height": 360,
+      "sha256": "cb061e0b12bc962c024a53cd8903b425ccd1deb74728842c09a9d9d82df6e9b2",
+      "width": 360
+    }
+  },
+  "inputAllowlist": {
+    "files": [
+      {
+        "bytes": 1569180,
+        "height": 1254,
+        "path": "inputs/master.png",
+        "sha256": "5f463145a5811b4731c102b721d3ff1355ecd1e29f8b124147ede22f465548d9",
+        "width": 1254
+      },
+      {
+        "bytes": 153707,
+        "height": 360,
+        "path": "inputs/runtime.png",
+        "sha256": "cb061e0b12bc962c024a53cd8903b425ccd1deb74728842c09a9d9d82df6e9b2",
+        "width": 360
+      }
+    ],
+    "schemaVersion": "g002-v2-canonical-review-allowlist-v1"
+  },
+  "inputAllowlistSha256": "47a034d2296e20034c378b9709424f9c215f3f52cd9437d45b2d7ab90215289c",
+  "materialBinding": {
+    "allowlistSha256": "47a034d2296e20034c378b9709424f9c215f3f52cd9437d45b2d7ab90215289c",
+    "candidate": {
+      "master": {
+        "bytes": 1569180,
+        "height": 1254,
+        "sha256": "5f463145a5811b4731c102b721d3ff1355ecd1e29f8b124147ede22f465548d9",
+        "width": 1254
+      },
+      "runtime": {
+        "bytes": 153707,
+        "height": 360,
+        "sha256": "cb061e0b12bc962c024a53cd8903b425ccd1deb74728842c09a9d9d82df6e9b2",
+        "width": 360
+      }
+    },
+    "conductorHmacSha256": "8dd6b787bb32dc09a716a692cadbcf39c7267b19932791196e5e03828c9a243c",
+    "opaqueTargetId": "target-0ab0f7aac6be521a343a1eb1",
+    "outputSha256": "92dfa494ca153117cb8acdd1c96c1ded13eaa222f254ffd3dbcfbf8e3d799c40",
+    "packageManifestSha256": "6a5db04e1f8a41c9462ce9430ad3937eed4ab795eaead9bf66133eca2d4d3906",
+    "promptSha256": "5fecf89de7885e5bb4fc6d843d051da5f214b6538242308e002cbca0f8bf6336",
+    "rootId": "PG-029",
+    "schemaVersion": "g002-v2-canonical-private-binding-v1",
+    "sourcePaths": {
+      "master": "assets/creatures/biological-continuity-v3/candidates/g003-w0-pg029-r2/PG-029/master.png",
+      "runtime": "assets/creatures/biological-continuity-v3/candidates/g003-w0-pg029-r2/PG-029/runtime.png"
+    },
+    "targetSha256": "a5c0ad2121e5c75f5fbe8bf3b7f8b2c12df3d1f59214d3c3620b591c20d9a35c"
+  },
+  "materialBindingSha256": "92dfa494ca153117cb8acdd1c96c1ded13eaa222f254ffd3dbcfbf8e3d799c40",
+  "opaqueTargetId": "target-0ab0f7aac6be521a343a1eb1",
+  "outputSha256": "1ede4e41ef406754640adad90d7a37c37344ce902ac25f89ef700185c8d2bb63",
+  "packageManifest": {
+    "candidate": {
+      "master": {
+        "bytes": 1569180,
+        "height": 1254,
+        "sha256": "5f463145a5811b4731c102b721d3ff1355ecd1e29f8b124147ede22f465548d9",
+        "width": 1254
+      },
+      "runtime": {
+        "bytes": 153707,
+        "height": 360,
+        "sha256": "cb061e0b12bc962c024a53cd8903b425ccd1deb74728842c09a9d9d82df6e9b2",
+        "width": 360
+      }
+    },
+    "opaqueTargetId": "target-0ab0f7aac6be521a343a1eb1",
+    "schemaVersion": "g002-v2-canonical-review-package-v1",
+    "target": {
+      "anchors": [
+        {
+          "anchorId": "six-legs-two-crystal-wings-no-antennae",
+          "description": "Exactly six separate insectoid legs and exactly two independently visible icy crystalline wings, with no antennae"
+        },
+        {
+          "anchorId": "silver-segmented-insect-body",
+          "description": "Silver segmented insect body with a clearly readable head, thorax, and abdomen"
+        },
+        {
+          "anchorId": "paired-diamond-eyes-pearl-tail",
+          "description": "Paired diamond-shaped eyes and a luminous pearl-like abdomen tip"
+        }
+      ],
+      "canonicalTarget": {
+        "biologicalClass": "insecta",
+        "coreAnatomy": "six-legged-two-winged-insect",
+        "locomotionPlan": "aerial-wing-powered-flight",
+        "speciesFamily": "stylized-crystalline-flyer"
+      },
+      "clarificationRequirements": [
+        "Master and runtime must independently show exactly six legs and exactly two wings with no overlap ambiguity",
+        "Preserve the silver segmented body, paired diamond eyes, and luminous pearl tail tip in their original color roles and placement",
+        "Reject antennae or any antenna-like silhouette; wing veins and tail ornaments must never be readable as extra legs or wings"
+      ],
+      "currentPixelAssessment": "DISPUTED_OR_AMBIGUOUS"
+    },
+    "visibleAppendageRequirements": {
+      "antennae": 0,
+      "pearlTips": 1,
+      "walkingLegs": 6,
+      "wings": 2
+    }
+  },
+  "packageManifestSha256": "6a5db04e1f8a41c9462ce9430ad3937eed4ab795eaead9bf66133eca2d4d3906",
+  "passes": [
+    {
+      "assignment": {
+        "agentTaskId": "/root/g002_v2_blind_pass1",
+        "assignedAt": "2026-08-10T22:18:04.000Z",
+        "assignmentId": "assignment-b056eed6e18f51c7b77eca0c",
+        "conductorHmacSha256": "696f6760898d9444d65c3ad671281ecdab4c7f4953cbea2c54a569376c9a7d7e",
+        "inputAllowlistSha256": "47a034d2296e20034c378b9709424f9c215f3f52cd9437d45b2d7ab90215289c",
+        "inputAssetSha256s": [
+          "5f463145a5811b4731c102b721d3ff1355ecd1e29f8b124147ede22f465548d9",
+          "cb061e0b12bc962c024a53cd8903b425ccd1deb74728842c09a9d9d82df6e9b2"
+        ],
+        "materialBindingSha256": "92dfa494ca153117cb8acdd1c96c1ded13eaa222f254ffd3dbcfbf8e3d799c40",
+        "opaqueTargetId": "target-0ab0f7aac6be521a343a1eb1",
+        "outputSha256": "da37610fba9048817f88e5beeafdfd1530955314c9b9f26e16a2bf06990d3608",
+        "packageManifestSha256": "6a5db04e1f8a41c9462ce9430ad3937eed4ab795eaead9bf66133eca2d4d3906",
+        "passNumber": 1,
+        "promptSha256": "5fecf89de7885e5bb4fc6d843d051da5f214b6538242308e002cbca0f8bf6336",
+        "reviewRunId": "g002-v2-canonical-pass-1-20260810",
+        "reviewerInstanceId": "blind-primary-reviewer-1-20260810",
+        "schemaVersion": "g002-v2-canonical-review-assignment-v1"
+      },
+      "raw": {
+        "agentTaskId": "/root/g002_v2_blind_pass1",
+        "assignmentId": "assignment-b056eed6e18f51c7b77eca0c",
+        "confidence": 0.98,
+        "observedAt": "2026-08-10T22:19:29.000Z",
+        "passNumber": 1,
+        "reviewRunId": "g002-v2-canonical-pass-1-20260810",
+        "reviewerInstanceId": "blind-primary-reviewer-1-20260810",
+        "surfaces": [
+          {
+            "ambiguity": false,
+            "anchors": [
+              {
+                "anchorId": "six-legs-two-crystal-wings-no-antennae",
+                "evidence": "Six silver jointed legs end in six isolated crystal feet; two large translucent veined wings rise separately and no antenna is visible.",
+                "visible": true
+              },
+              {
+                "anchorId": "silver-segmented-insect-body",
+                "evidence": "A round silver head, compact thorax, and long ring-segmented silver-blue abdomen are visually distinct.",
+                "visible": true
+              },
+              {
+                "anchorId": "paired-diamond-eyes-pearl-tail",
+                "evidence": "Two blue diamond eyes face forward and one luminous round pearl terminates the abdomen.",
+                "visible": true
+              }
+            ],
+            "clarifications": [
+              {
+                "evidence": "Six leg chains and two wing blades have separate outlines and endpoints.",
+                "passed": true,
+                "requirement": "Master and runtime must independently show exactly six legs and exactly two wings with no overlap ambiguity"
+              },
+              {
+                "evidence": "Silver body rings, two blue diamond eyes, and one pale glowing tail sphere occupy plainly distinct positions.",
+                "passed": true,
+                "requirement": "Preserve the silver segmented body, paired diamond eyes, and luminous pearl tail tip in their original color roles and placement"
+              },
+              {
+                "evidence": "The head has no projecting antenna silhouette; internal wing veins stay inside two wing boundaries and the tail ends in one sphere.",
+                "passed": true,
+                "requirement": "Reject antennae or any antenna-like silhouette; wing veins and tail ornaments must never be readable as extra legs or wings"
+              }
+            ],
+            "confidence": 0.99,
+            "inputSha256": "5f463145a5811b4731c102b721d3ff1355ecd1e29f8b124147ede22f465548d9",
+            "surface": "master",
+            "taxonomy": {
+              "biologicalClass": "insecta",
+              "coreAnatomy": "six-legged-two-winged-insect",
+              "locomotionPlan": "aerial-wing-powered-flight",
+              "speciesFamily": "stylized-crystalline-flyer"
+            },
+            "visibleAppendageCounts": {
+              "antennae": 0,
+              "pearlTips": 1,
+              "walkingLegs": 6,
+              "wings": 2
+            }
+          },
+          {
+            "ambiguity": false,
+            "anchors": [
+              {
+                "anchorId": "six-legs-two-crystal-wings-no-antennae",
+                "evidence": "Six separate silver legs with crystal tips and two separate icy wings remain countable; the head has no antennae.",
+                "visible": true
+              },
+              {
+                "anchorId": "silver-segmented-insect-body",
+                "evidence": "Head, thorax, and tapering ringed abdomen remain clearly partitioned in silver-blue tones.",
+                "visible": true
+              },
+              {
+                "anchorId": "paired-diamond-eyes-pearl-tail",
+                "evidence": "Both blue diamond eyes and the single bright round tail tip remain visible.",
+                "visible": true
+              }
+            ],
+            "clarifications": [
+              {
+                "evidence": "All six feet and their connecting legs are individually outlined below two non-overlapping wing silhouettes.",
+                "passed": true,
+                "requirement": "Master and runtime must independently show exactly six legs and exactly two wings with no overlap ambiguity"
+              },
+              {
+                "evidence": "The silver segmented body visually connects the paired blue face diamonds to one pale pearl at the tail end.",
+                "passed": true,
+                "requirement": "Preserve the silver segmented body, paired diamond eyes, and luminous pearl tail tip in their original color roles and placement"
+              },
+              {
+                "evidence": "No antenna projection appears, veins remain enclosed within two wings, and the tail ornament is a compact sphere.",
+                "passed": true,
+                "requirement": "Reject antennae or any antenna-like silhouette; wing veins and tail ornaments must never be readable as extra legs or wings"
+              }
+            ],
+            "confidence": 0.98,
+            "inputSha256": "cb061e0b12bc962c024a53cd8903b425ccd1deb74728842c09a9d9d82df6e9b2",
+            "surface": "runtime",
+            "taxonomy": {
+              "biologicalClass": "insecta",
+              "coreAnatomy": "six-legged-two-winged-insect",
+              "locomotionPlan": "aerial-wing-powered-flight",
+              "speciesFamily": "stylized-crystalline-flyer"
+            },
+            "visibleAppendageCounts": {
+              "antennae": 0,
+              "pearlTips": 1,
+              "walkingLegs": 6,
+              "wings": 2
+            }
+          }
+        ]
+      },
+      "run": {
+        "agentTaskId": "/root/g002_v2_blind_pass1",
+        "assignmentFileSha256": "b1fb74ea42922cc080781f0dfb01c310e7e6dee205360f5a47af9a43640c1d9c",
+        "assignmentId": "assignment-b056eed6e18f51c7b77eca0c",
+        "conductorHmacSha256": "75aa3d1643292985dfa2cf225125ed78afe19ab2fccb0ad1aef753052345e223",
+        "createdAt": "2026-08-10T22:19:29.000Z",
+        "opaqueTargetId": "target-0ab0f7aac6be521a343a1eb1",
+        "outputSha256": "bfd30be035aef58b1a4542bdaa20979b425bf5f262a0881c52167ea19dc2f358",
+        "passNumber": 1,
+        "rawSha256": "b912a2c6710410b9931a8b3f8f723521fdd61df524051497493f23e1a35a70df",
+        "reviewRunId": "g002-v2-canonical-pass-1-20260810",
+        "reviewerInstanceId": "blind-primary-reviewer-1-20260810",
+        "schemaVersion": "g002-v2-canonical-review-run-v1"
+      },
+      "vote": {
+        "agentTaskId": "/root/g002_v2_blind_pass1",
+        "assignmentFileSha256": "b1fb74ea42922cc080781f0dfb01c310e7e6dee205360f5a47af9a43640c1d9c",
+        "assignmentId": "assignment-b056eed6e18f51c7b77eca0c",
+        "conductorHmacSha256": "5642d7a7216f4e61c73edad0d8d45aa35f3f6663858ff4e4020069b8d2997e5a",
+        "confidence": 0.98,
+        "inputAllowlistSha256": "47a034d2296e20034c378b9709424f9c215f3f52cd9437d45b2d7ab90215289c",
+        "inputAssetSha256s": [
+          "5f463145a5811b4731c102b721d3ff1355ecd1e29f8b124147ede22f465548d9",
+          "cb061e0b12bc962c024a53cd8903b425ccd1deb74728842c09a9d9d82df6e9b2"
+        ],
+        "materialBindingSha256": "92dfa494ca153117cb8acdd1c96c1ded13eaa222f254ffd3dbcfbf8e3d799c40",
+        "observation": [
+          {
+            "ambiguity": false,
+            "anchors": [
+              {
+                "anchorId": "six-legs-two-crystal-wings-no-antennae",
+                "evidence": "Six silver jointed legs end in six isolated crystal feet; two large translucent veined wings rise separately and no antenna is visible.",
+                "visible": true
+              },
+              {
+                "anchorId": "silver-segmented-insect-body",
+                "evidence": "A round silver head, compact thorax, and long ring-segmented silver-blue abdomen are visually distinct.",
+                "visible": true
+              },
+              {
+                "anchorId": "paired-diamond-eyes-pearl-tail",
+                "evidence": "Two blue diamond eyes face forward and one luminous round pearl terminates the abdomen.",
+                "visible": true
+              }
+            ],
+            "clarifications": [
+              {
+                "evidence": "Six leg chains and two wing blades have separate outlines and endpoints.",
+                "passed": true,
+                "requirement": "Master and runtime must independently show exactly six legs and exactly two wings with no overlap ambiguity"
+              },
+              {
+                "evidence": "Silver body rings, two blue diamond eyes, and one pale glowing tail sphere occupy plainly distinct positions.",
+                "passed": true,
+                "requirement": "Preserve the silver segmented body, paired diamond eyes, and luminous pearl tail tip in their original color roles and placement"
+              },
+              {
+                "evidence": "The head has no projecting antenna silhouette; internal wing veins stay inside two wing boundaries and the tail ends in one sphere.",
+                "passed": true,
+                "requirement": "Reject antennae or any antenna-like silhouette; wing veins and tail ornaments must never be readable as extra legs or wings"
+              }
+            ],
+            "confidence": 0.99,
+            "inputSha256": "5f463145a5811b4731c102b721d3ff1355ecd1e29f8b124147ede22f465548d9",
+            "surface": "master",
+            "taxonomy": {
+              "biologicalClass": "insecta",
+              "coreAnatomy": "six-legged-two-winged-insect",
+              "locomotionPlan": "aerial-wing-powered-flight",
+              "speciesFamily": "stylized-crystalline-flyer"
+            },
+            "visibleAppendageCounts": {
+              "antennae": 0,
+              "pearlTips": 1,
+              "walkingLegs": 6,
+              "wings": 2
+            }
+          },
+          {
+            "ambiguity": false,
+            "anchors": [
+              {
+                "anchorId": "six-legs-two-crystal-wings-no-antennae",
+                "evidence": "Six separate silver legs with crystal tips and two separate icy wings remain countable; the head has no antennae.",
+                "visible": true
+              },
+              {
+                "anchorId": "silver-segmented-insect-body",
+                "evidence": "Head, thorax, and tapering ringed abdomen remain clearly partitioned in silver-blue tones.",
+                "visible": true
+              },
+              {
+                "anchorId": "paired-diamond-eyes-pearl-tail",
+                "evidence": "Both blue diamond eyes and the single bright round tail tip remain visible.",
+                "visible": true
+              }
+            ],
+            "clarifications": [
+              {
+                "evidence": "All six feet and their connecting legs are individually outlined below two non-overlapping wing silhouettes.",
+                "passed": true,
+                "requirement": "Master and runtime must independently show exactly six legs and exactly two wings with no overlap ambiguity"
+              },
+              {
+                "evidence": "The silver segmented body visually connects the paired blue face diamonds to one pale pearl at the tail end.",
+                "passed": true,
+                "requirement": "Preserve the silver segmented body, paired diamond eyes, and luminous pearl tail tip in their original color roles and placement"
+              },
+              {
+                "evidence": "No antenna projection appears, veins remain enclosed within two wings, and the tail ornament is a compact sphere.",
+                "passed": true,
+                "requirement": "Reject antennae or any antenna-like silhouette; wing veins and tail ornaments must never be readable as extra legs or wings"
+              }
+            ],
+            "confidence": 0.98,
+            "inputSha256": "cb061e0b12bc962c024a53cd8903b425ccd1deb74728842c09a9d9d82df6e9b2",
+            "surface": "runtime",
+            "taxonomy": {
+              "biologicalClass": "insecta",
+              "coreAnatomy": "six-legged-two-winged-insect",
+              "locomotionPlan": "aerial-wing-powered-flight",
+              "speciesFamily": "stylized-crystalline-flyer"
+            },
+            "visibleAppendageCounts": {
+              "antennae": 0,
+              "pearlTips": 1,
+              "walkingLegs": 6,
+              "wings": 2
+            }
+          }
+        ],
+        "opaqueTargetId": "target-0ab0f7aac6be521a343a1eb1",
+        "outputSha256": "7dab2cd33b310713bf8b29f405f82fe212f13f06c0b332ae66bf8ba9ca3496d1",
+        "packageManifestSha256": "6a5db04e1f8a41c9462ce9430ad3937eed4ab795eaead9bf66133eca2d4d3906",
+        "passNumber": 1,
+        "promptSha256": "5fecf89de7885e5bb4fc6d843d051da5f214b6538242308e002cbca0f8bf6336",
+        "rawSha256": "b912a2c6710410b9931a8b3f8f723521fdd61df524051497493f23e1a35a70df",
+        "reviewRunId": "g002-v2-canonical-pass-1-20260810",
+        "reviewerInstanceId": "blind-primary-reviewer-1-20260810",
+        "runOutputSha256": "bfd30be035aef58b1a4542bdaa20979b425bf5f262a0881c52167ea19dc2f358",
+        "schemaVersion": "g002-v2-canonical-review-vote-v1",
+        "voteId": "vote-82bd69cab2927c8fca8e216a"
+      }
+    },
+    {
+      "assignment": {
+        "agentTaskId": "/root/g002_v2_blind_pass2",
+        "assignedAt": "2026-08-10T22:18:04.000Z",
+        "assignmentId": "assignment-f9212a6731363cd19dddd655",
+        "conductorHmacSha256": "8cff698728a8e8ee1e1352117f6bd3f35a5a7ac70d60bdc5f990e149ab55f697",
+        "inputAllowlistSha256": "47a034d2296e20034c378b9709424f9c215f3f52cd9437d45b2d7ab90215289c",
+        "inputAssetSha256s": [
+          "5f463145a5811b4731c102b721d3ff1355ecd1e29f8b124147ede22f465548d9",
+          "cb061e0b12bc962c024a53cd8903b425ccd1deb74728842c09a9d9d82df6e9b2"
+        ],
+        "materialBindingSha256": "92dfa494ca153117cb8acdd1c96c1ded13eaa222f254ffd3dbcfbf8e3d799c40",
+        "opaqueTargetId": "target-0ab0f7aac6be521a343a1eb1",
+        "outputSha256": "28647ee98362c08d72185139534f70d8056471eb6784bb0a95739b2f15018a95",
+        "packageManifestSha256": "6a5db04e1f8a41c9462ce9430ad3937eed4ab795eaead9bf66133eca2d4d3906",
+        "passNumber": 2,
+        "promptSha256": "5fecf89de7885e5bb4fc6d843d051da5f214b6538242308e002cbca0f8bf6336",
+        "reviewRunId": "g002-v2-canonical-pass-2-20260810",
+        "reviewerInstanceId": "blind-primary-reviewer-2-20260810",
+        "schemaVersion": "g002-v2-canonical-review-assignment-v1"
+      },
+      "raw": {
+        "agentTaskId": "/root/g002_v2_blind_pass2",
+        "assignmentId": "assignment-f9212a6731363cd19dddd655",
+        "confidence": 0.98,
+        "observedAt": "2026-08-10T22:19:37.000Z",
+        "passNumber": 2,
+        "reviewRunId": "g002-v2-canonical-pass-2-20260810",
+        "reviewerInstanceId": "blind-primary-reviewer-2-20260810",
+        "surfaces": [
+          {
+            "ambiguity": false,
+            "anchors": [
+              {
+                "anchorId": "six-legs-two-crystal-wings-no-antennae",
+                "evidence": "Six separate silver jointed legs end in six crystal points; two isolated crystalline wings rise above the body and no antenna is visible.",
+                "visible": true
+              },
+              {
+                "anchorId": "silver-segmented-insect-body",
+                "evidence": "A silver head, central wing-bearing body section, and ringed tapered abdomen are individually readable.",
+                "visible": true
+              },
+              {
+                "anchorId": "paired-diamond-eyes-pearl-tail",
+                "evidence": "Two blue diamond eyes occupy the face and one luminous pearl terminates the abdomen.",
+                "visible": true
+              }
+            ],
+            "clarifications": [
+              {
+                "evidence": "All six legs have isolated body attachments and tips, while both wings have complete separate outlines.",
+                "passed": true,
+                "requirement": "Master and runtime must independently show exactly six legs and exactly two wings with no overlap ambiguity"
+              },
+              {
+                "evidence": "Silver body rings, two blue diamond eyes, and one pale luminous tail pearl are plainly positioned from front to rear.",
+                "passed": true,
+                "requirement": "Preserve the silver segmented body, paired diamond eyes, and luminous pearl tail tip in their original color roles and placement"
+              },
+              {
+                "evidence": "No projection leaves the head as an antenna; internal wing veins stay enclosed and the tail pearl sits on the axial tail stem.",
+                "passed": true,
+                "requirement": "Reject antennae or any antenna-like silhouette; wing veins and tail ornaments must never be readable as extra legs or wings"
+              }
+            ],
+            "confidence": 0.99,
+            "inputSha256": "5f463145a5811b4731c102b721d3ff1355ecd1e29f8b124147ede22f465548d9",
+            "surface": "master",
+            "taxonomy": {
+              "biologicalClass": "insecta",
+              "coreAnatomy": "six-legged-two-winged-insect",
+              "locomotionPlan": "aerial-wing-powered-flight",
+              "speciesFamily": "stylized-crystalline-flyer"
+            },
+            "visibleAppendageCounts": {
+              "antennae": 0,
+              "pearlTips": 1,
+              "walkingLegs": 6,
+              "wings": 2
+            }
+          },
+          {
+            "ambiguity": false,
+            "anchors": [
+              {
+                "anchorId": "six-legs-two-crystal-wings-no-antennae",
+                "evidence": "Six pointed legs and two separately outlined ice-like wings remain directly countable; the head has no antenna.",
+                "visible": true
+              },
+              {
+                "anchorId": "silver-segmented-insect-body",
+                "evidence": "The silver head, central body, and multiple abdominal rings remain visually distinct.",
+                "visible": true
+              },
+              {
+                "anchorId": "paired-diamond-eyes-pearl-tail",
+                "evidence": "Two blue diamond eyes and the single bright round tail tip remain visible.",
+                "visible": true
+              }
+            ],
+            "clarifications": [
+              {
+                "evidence": "Three legs on each side retain separate attachments and pointed ends; the two wings have separated silhouettes.",
+                "passed": true,
+                "requirement": "Master and runtime must independently show exactly six legs and exactly two wings with no overlap ambiguity"
+              },
+              {
+                "evidence": "The reduced figure retains the silver segments, blue eye pair, and one pale terminal pearl.",
+                "passed": true,
+                "requirement": "Preserve the silver segmented body, paired diamond eyes, and luminous pearl tail tip in their original color roles and placement"
+              },
+              {
+                "evidence": "There is no head antenna silhouette, and the enclosed veins and axial tail tip cannot be confused with limbs or wings.",
+                "passed": true,
+                "requirement": "Reject antennae or any antenna-like silhouette; wing veins and tail ornaments must never be readable as extra legs or wings"
+              }
+            ],
+            "confidence": 0.98,
+            "inputSha256": "cb061e0b12bc962c024a53cd8903b425ccd1deb74728842c09a9d9d82df6e9b2",
+            "surface": "runtime",
+            "taxonomy": {
+              "biologicalClass": "insecta",
+              "coreAnatomy": "six-legged-two-winged-insect",
+              "locomotionPlan": "aerial-wing-powered-flight",
+              "speciesFamily": "stylized-crystalline-flyer"
+            },
+            "visibleAppendageCounts": {
+              "antennae": 0,
+              "pearlTips": 1,
+              "walkingLegs": 6,
+              "wings": 2
+            }
+          }
+        ]
+      },
+      "run": {
+        "agentTaskId": "/root/g002_v2_blind_pass2",
+        "assignmentFileSha256": "c02fb9c171b77dc2a51678197b75215da4c9110894638964abcdce441483e93c",
+        "assignmentId": "assignment-f9212a6731363cd19dddd655",
+        "conductorHmacSha256": "7fd22a4ee12ccfa622b271d890c009790b2604edcefe321d41f84c1a74386c9a",
+        "createdAt": "2026-08-10T22:19:37.000Z",
+        "opaqueTargetId": "target-0ab0f7aac6be521a343a1eb1",
+        "outputSha256": "4a3ca38ce0c2bb1a8c56c62c42786660684f5ea10f0f87225f5edb8bb75ff753",
+        "passNumber": 2,
+        "rawSha256": "b2a2c4453596ba92ef728ae4634b10903b56e2827ab3a7edb26bcbbf98e9264f",
+        "reviewRunId": "g002-v2-canonical-pass-2-20260810",
+        "reviewerInstanceId": "blind-primary-reviewer-2-20260810",
+        "schemaVersion": "g002-v2-canonical-review-run-v1"
+      },
+      "vote": {
+        "agentTaskId": "/root/g002_v2_blind_pass2",
+        "assignmentFileSha256": "c02fb9c171b77dc2a51678197b75215da4c9110894638964abcdce441483e93c",
+        "assignmentId": "assignment-f9212a6731363cd19dddd655",
+        "conductorHmacSha256": "96943a7e8d13eac04ee2c25dc26cca0073a7fd9d0d96d7550192fa912846038d",
+        "confidence": 0.98,
+        "inputAllowlistSha256": "47a034d2296e20034c378b9709424f9c215f3f52cd9437d45b2d7ab90215289c",
+        "inputAssetSha256s": [
+          "5f463145a5811b4731c102b721d3ff1355ecd1e29f8b124147ede22f465548d9",
+          "cb061e0b12bc962c024a53cd8903b425ccd1deb74728842c09a9d9d82df6e9b2"
+        ],
+        "materialBindingSha256": "92dfa494ca153117cb8acdd1c96c1ded13eaa222f254ffd3dbcfbf8e3d799c40",
+        "observation": [
+          {
+            "ambiguity": false,
+            "anchors": [
+              {
+                "anchorId": "six-legs-two-crystal-wings-no-antennae",
+                "evidence": "Six separate silver jointed legs end in six crystal points; two isolated crystalline wings rise above the body and no antenna is visible.",
+                "visible": true
+              },
+              {
+                "anchorId": "silver-segmented-insect-body",
+                "evidence": "A silver head, central wing-bearing body section, and ringed tapered abdomen are individually readable.",
+                "visible": true
+              },
+              {
+                "anchorId": "paired-diamond-eyes-pearl-tail",
+                "evidence": "Two blue diamond eyes occupy the face and one luminous pearl terminates the abdomen.",
+                "visible": true
+              }
+            ],
+            "clarifications": [
+              {
+                "evidence": "All six legs have isolated body attachments and tips, while both wings have complete separate outlines.",
+                "passed": true,
+                "requirement": "Master and runtime must independently show exactly six legs and exactly two wings with no overlap ambiguity"
+              },
+              {
+                "evidence": "Silver body rings, two blue diamond eyes, and one pale luminous tail pearl are plainly positioned from front to rear.",
+                "passed": true,
+                "requirement": "Preserve the silver segmented body, paired diamond eyes, and luminous pearl tail tip in their original color roles and placement"
+              },
+              {
+                "evidence": "No projection leaves the head as an antenna; internal wing veins stay enclosed and the tail pearl sits on the axial tail stem.",
+                "passed": true,
+                "requirement": "Reject antennae or any antenna-like silhouette; wing veins and tail ornaments must never be readable as extra legs or wings"
+              }
+            ],
+            "confidence": 0.99,
+            "inputSha256": "5f463145a5811b4731c102b721d3ff1355ecd1e29f8b124147ede22f465548d9",
+            "surface": "master",
+            "taxonomy": {
+              "biologicalClass": "insecta",
+              "coreAnatomy": "six-legged-two-winged-insect",
+              "locomotionPlan": "aerial-wing-powered-flight",
+              "speciesFamily": "stylized-crystalline-flyer"
+            },
+            "visibleAppendageCounts": {
+              "antennae": 0,
+              "pearlTips": 1,
+              "walkingLegs": 6,
+              "wings": 2
+            }
+          },
+          {
+            "ambiguity": false,
+            "anchors": [
+              {
+                "anchorId": "six-legs-two-crystal-wings-no-antennae",
+                "evidence": "Six pointed legs and two separately outlined ice-like wings remain directly countable; the head has no antenna.",
+                "visible": true
+              },
+              {
+                "anchorId": "silver-segmented-insect-body",
+                "evidence": "The silver head, central body, and multiple abdominal rings remain visually distinct.",
+                "visible": true
+              },
+              {
+                "anchorId": "paired-diamond-eyes-pearl-tail",
+                "evidence": "Two blue diamond eyes and the single bright round tail tip remain visible.",
+                "visible": true
+              }
+            ],
+            "clarifications": [
+              {
+                "evidence": "Three legs on each side retain separate attachments and pointed ends; the two wings have separated silhouettes.",
+                "passed": true,
+                "requirement": "Master and runtime must independently show exactly six legs and exactly two wings with no overlap ambiguity"
+              },
+              {
+                "evidence": "The reduced figure retains the silver segments, blue eye pair, and one pale terminal pearl.",
+                "passed": true,
+                "requirement": "Preserve the silver segmented body, paired diamond eyes, and luminous pearl tail tip in their original color roles and placement"
+              },
+              {
+                "evidence": "There is no head antenna silhouette, and the enclosed veins and axial tail tip cannot be confused with limbs or wings.",
+                "passed": true,
+                "requirement": "Reject antennae or any antenna-like silhouette; wing veins and tail ornaments must never be readable as extra legs or wings"
+              }
+            ],
+            "confidence": 0.98,
+            "inputSha256": "cb061e0b12bc962c024a53cd8903b425ccd1deb74728842c09a9d9d82df6e9b2",
+            "surface": "runtime",
+            "taxonomy": {
+              "biologicalClass": "insecta",
+              "coreAnatomy": "six-legged-two-winged-insect",
+              "locomotionPlan": "aerial-wing-powered-flight",
+              "speciesFamily": "stylized-crystalline-flyer"
+            },
+            "visibleAppendageCounts": {
+              "antennae": 0,
+              "pearlTips": 1,
+              "walkingLegs": 6,
+              "wings": 2
+            }
+          }
+        ],
+        "opaqueTargetId": "target-0ab0f7aac6be521a343a1eb1",
+        "outputSha256": "048e3caea6593fe43942d8b09d32dcda2088852a45910d97f12ab593a946c3ee",
+        "packageManifestSha256": "6a5db04e1f8a41c9462ce9430ad3937eed4ab795eaead9bf66133eca2d4d3906",
+        "passNumber": 2,
+        "promptSha256": "5fecf89de7885e5bb4fc6d843d051da5f214b6538242308e002cbca0f8bf6336",
+        "rawSha256": "b2a2c4453596ba92ef728ae4634b10903b56e2827ab3a7edb26bcbbf98e9264f",
+        "reviewRunId": "g002-v2-canonical-pass-2-20260810",
+        "reviewerInstanceId": "blind-primary-reviewer-2-20260810",
+        "runOutputSha256": "4a3ca38ce0c2bb1a8c56c62c42786660684f5ea10f0f87225f5edb8bb75ff753",
+        "schemaVersion": "g002-v2-canonical-review-vote-v1",
+        "voteId": "vote-169bb12481f2c7afa3baad7d"
+      }
+    }
+  ],
+  "prompt": "PunchGrow blinded G002-v2 canonical replacement review.\nJudge only the two supplied candidate surfaces. Root ID, names, lineage, prior verdicts, and historical pixels are forbidden evidence.\nExact four-field taxonomy: {\n  \"biologicalClass\": \"insecta\",\n  \"coreAnatomy\": \"six-legged-two-winged-insect\",\n  \"locomotionPlan\": \"aerial-wing-powered-flight\",\n  \"speciesFamily\": \"stylized-crystalline-flyer\"\n}\nExact three identity anchors: [\n  {\n    \"anchorId\": \"six-legs-two-crystal-wings-no-antennae\",\n    \"description\": \"Exactly six separate insectoid legs and exactly two independently visible icy crystalline wings, with no antennae\"\n  },\n  {\n    \"anchorId\": \"silver-segmented-insect-body\",\n    \"description\": \"Silver segmented insect body with a clearly readable head, thorax, and abdomen\"\n  },\n  {\n    \"anchorId\": \"paired-diamond-eyes-pearl-tail\",\n    \"description\": \"Paired diamond-shaped eyes and a luminous pearl-like abdomen tip\"\n  }\n]\nExact visibility clarifications: [\n  \"Master and runtime must independently show exactly six legs and exactly two wings with no overlap ambiguity\",\n  \"Preserve the silver segmented body, paired diamond eyes, and luminous pearl tail tip in their original color roles and placement\",\n  \"Reject antennae or any antenna-like silhouette; wing veins and tail ornaments must never be readable as extra legs or wings\"\n]\nExact independently visible counts on BOTH surfaces: {\n  \"antennae\": 0,\n  \"pearlTips\": 1,\n  \"walkingLegs\": 6,\n  \"wings\": 2\n}\nFor master and runtime separately, record taxonomy, visible evidence for every anchor and clarification, exact counts, ambiguity=false, and confidence >=0.96. Hidden, merged, occluded, or double-readable structures are a failure.\n",
+  "promptSha256": "5fecf89de7885e5bb4fc6d843d051da5f214b6538242308e002cbca0f8bf6336",
+  "publicSignature": {
+    "algorithm": "Ed25519",
+    "authorityFingerprint": "423f474c59667e5eabc13a703b8d7de4e97bcba33cdc22340873866db9d6a53f",
+    "signatureBase64": "yldlCHF6MTqUtfhADRT96vpMpBV2LH6kP5W39e+uZ+HmyRc6W5JiRXzx36HqL0nggbnQHgeUcyiRO3lEDRL0CQ=="
+  },
+  "rootId": "PG-029",
+  "schemaVersion": "g002-v2-canonical-public-review-proof-v1",
+  "target": {
+    "anchors": [
+      {
+        "anchorId": "six-legs-two-crystal-wings-no-antennae",
+        "description": "Exactly six separate insectoid legs and exactly two independently visible icy crystalline wings, with no antennae"
+      },
+      {
+        "anchorId": "silver-segmented-insect-body",
+        "description": "Silver segmented insect body with a clearly readable head, thorax, and abdomen"
+      },
+      {
+        "anchorId": "paired-diamond-eyes-pearl-tail",
+        "description": "Paired diamond-shaped eyes and a luminous pearl-like abdomen tip"
+      }
+    ],
+    "canonicalTarget": {
+      "biologicalClass": "insecta",
+      "coreAnatomy": "six-legged-two-winged-insect",
+      "locomotionPlan": "aerial-wing-powered-flight",
+      "speciesFamily": "stylized-crystalline-flyer"
+    },
+    "clarificationRequirements": [
+      "Master and runtime must independently show exactly six legs and exactly two wings with no overlap ambiguity",
+      "Preserve the silver segmented body, paired diamond eyes, and luminous pearl tail tip in their original color roles and placement",
+      "Reject antennae or any antenna-like silhouette; wing veins and tail ornaments must never be readable as extra legs or wings"
+    ],
+    "currentPixelAssessment": "DISPUTED_OR_AMBIGUOUS",
+    "rootId": "PG-029"
+  },
+  "targetSha256": "a5c0ad2121e5c75f5fbe8bf3b7f8b2c12df3d1f59214d3c3620b591c20d9a35c"
+}

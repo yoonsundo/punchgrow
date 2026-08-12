@@ -18,6 +18,14 @@ jobs:
         working-directory: macos
     steps:
       - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+          cache-dependency-path: package-lock.json
+      - name: Install audit dependencies
+        working-directory: .
+        run: npm ci
       - name: Show toolchain
         run: |
           xcode-select -p
@@ -27,5 +35,20 @@ jobs:
         run: swift test
       - name: Build release app
         run: ./scripts/build-app.sh
+      - name: Verify runtime evolution audit
+        working-directory: .
+        run: npm run creatures:audit:runtime:ci
+      - name: Verify source-free G002 continuity evidence gate
+        working-directory: .
+        run: npm run continuity:g002:ci
+      - name: Reject deterministic G002 evidence drift
+        working-directory: .
+        run: |
+          git diff --exit-code -- production/reports/biological-continuity-v3/g002-evidence-v1
+          g002_status="$(git status --porcelain --untracked-files=all -- production/reports/biological-continuity-v3/g002-evidence-v1)"
+          if [ -n "$g002_status" ]; then
+            printf '%s\n' "$g002_status"
+            exit 1
+          fi
       - name: Verify signature
         run: codesign --verify --deep --strict .build/PunchGrow.app

@@ -1,0 +1,51 @@
+{
+  "agentTaskId": "g002-taxonomy-pass1-independent-round2",
+  "anchors": [
+    {
+      "anchorId": "body-silhouette",
+      "description": "Heavy four-legged barrel body with thick short legs and block-like toes."
+    },
+    {
+      "anchorId": "face-geometry",
+      "description": "Broad rounded muzzle with two nostril openings, one large blue eye, upright ears, and a single conical horn."
+    },
+    {
+      "anchorId": "signature-organ",
+      "description": "Single prominent horn projects from the center of the forehead, encircled by a blue band."
+    }
+  ],
+  "assignmentManifestSha256": "02782e882a379a145da5b9eeb63398706f054f158eb8b8679f8cf105881299de",
+  "blinded": true,
+  "conductorHmacSha256": "f98eba54e221dcf2b617993400396c1bb8648da6e16cd6bd1f0769579361036a",
+  "confidence": 0.99,
+  "contractSha256": "f6d06316ba0ce315a79d3d784abe49f8f80463776ef07f5dbf5372185b9a8a15",
+  "fresh": true,
+  "inputAllowlistSha256": "f6aa3eef9b13490a86e3c3ce44e9a34d42330a68e3f968a86b9c3566fac2e7ec",
+  "inputAssetSha256s": [
+    "e8111483974fd1775ba649b19ae69112ff88d148ce97e56d11c8dac5963374a7",
+    "64a2afbd3e36eb77ca3dba4fd8855603ef204ff70c562137b5d0ad3fe78a6d81"
+  ],
+  "opaqueTaxonomyTargetId": "taxonomy-3a25a9fedff4c88b371abf7c",
+  "outputSha256": "be409dbf379309f92a4f10ebe340db45099f428ad44995115acc4f9d93a88d8d",
+  "packageManifestSha256": "890c213d99cc49e2106817e5d35a5e3d00ee9f985c9b90eac5b5ad00e27e45d4",
+  "passNumber": 1,
+  "promptSha256": "428e5d281d525d352776ae9950777265519d08f8bad67e50c2ed17b3f5c6e8d4",
+  "publicSignature": {
+    "algorithm": "Ed25519",
+    "authorityFingerprint": "423f474c59667e5eabc13a703b8d7de4e97bcba33cdc22340873866db9d6a53f",
+    "signatureBase64": "v3VrKdXZQjf6Py5YHjkyQrzZPY46Gy9CKjxVQNZ5ypE5fhsc4dQKA0nB/1sXpjR+WPIbRXiXxMNPCVN9HZKuDg=="
+  },
+  "reviewId": "taxonomy-review-90b65e1b8ca4852e31f7d489c4ac6a3d",
+  "reviewerInstanceId": "taxonomy-reviewer-pass1-independent",
+  "reviewerRunAttestationSha256": "bb44c3d86c5f5b4481209096b09a862615e66d01a95b1415920ac5499aaee21a",
+  "role": "primary",
+  "schemaVersion": "g002-taxonomy-primary-vote-v1",
+  "submittedAt": "2026-08-10T16:39:14.699Z",
+  "taxonomy": {
+    "biologicalClass": "mammal",
+    "coreAnatomy": "quadruped",
+    "locomotionPlan": "quadrupedal",
+    "speciesFamily": "rhinocerotidae"
+  },
+  "voterReviewRunId": "g002-taxonomy-run-pass1-round2"
+}

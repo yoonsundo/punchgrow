@@ -1,0 +1,16 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://punchgrow.local/contracts/continuity-public-authority-v1.schema.json",
+  "title": "Delegated continuity public authority",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["algorithm", "authorityEpoch", "authorityFingerprint", "publicKeySpkiDerBase64", "rootKeyCommitmentSha256"],
+  "properties": {
+    "algorithm": { "const": "Ed25519" },
+    "authorityEpoch": { "const": "continuity-authority-epoch-v1" },
+    "authorityFingerprint": { "$ref": "#/$defs/sha256" },
+    "publicKeySpkiDerBase64": { "type": "string", "minLength": 60 },
+    "rootKeyCommitmentSha256": { "$ref": "#/$defs/sha256" }
+  },
+  "$defs": { "sha256": { "type": "string", "pattern": "^[a-f0-9]{64}$" } }
+}

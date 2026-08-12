@@ -1,0 +1,14 @@
+{
+  "name": "punchgrow-web",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "build": "tsc -p tsconfig.json && node scripts/build.mjs",
+    "dev": "node scripts/dev-server.mjs",
+    "test": "npm run build"
+  },
+  "devDependencies": {
+    "typescript": "6.0.3"
+  }
+}

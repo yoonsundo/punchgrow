@@ -226,44 +226,169 @@ final class UXPresentationTests: XCTestCase {
       presentation.stages[2].entries.first(where: { $0.species.id == final.id })?.parentNames,
       [normal.koName]
     )
-    XCTAssertEqual(
-      presentation.stages[2].entries.first(where: { $0.species.id == mixed.id })?.parentNames,
-      [normal.koName, otherNormal.koName]
-    )
     let entries = presentation.stages.flatMap(\.entries)
+    XCTAssertFalse(entries.contains(where: { $0.species.id == mixed.id }))
     XCTAssertTrue(entries.first(where: { $0.species.id == final.id })?.isCurrent == true)
     // 선호를 지정하지 않았으므로 도감의 어떤 항목도 강조되지 않는다.
-    XCTAssertTrue(entries.allSatisfy { !$0.isPreferredTarget })
     // 카테고리는 원래 값 그대로 보여준다. "자동 진화"로 덮어쓰지 않는다.
     XCTAssertEqual(entries.first(where: { $0.species.id == normal.id })?.categoryLabel, "기본")
-    XCTAssertEqual(entries.first(where: { $0.species.id == mixed.id })?.categoryLabel, "혼합")
     XCTAssertEqual(entries.first(where: { $0.species.id == branch.id })?.categoryLabel, "변이")
     XCTAssertEqual(presentation.potential.finalSpecies.id, final.id)
     XCTAssertEqual(presentation.potential.path.map(\.id), [final.id])
   }
 
-  func testEvolutionDexMarksOnlyTheReservedTargetAndNeverOffersMutations() throws {
-    let catalog = try CreatureCatalog.load()
+  func testExistingMixedCreatureIsPresentedOnlyAsItsCurrentStandaloneFusionForm() throws {
+    let root = potentialSpecies(
+      id: "PG-M01", name: "부모", rarity: "PROCESS", stage: 1, category: "start")
+    let parent = potentialSpecies(
+      id: "PG-M02", name: "과거 후보", rarity: "AGENT", stage: 2,
+      category: "normal_evolution", evolutionFrom: [root.id])
+    let mixed = potentialSpecies(
+      id: "PG-M03", name: "융합 수집품", rarity: "ORACLE", stage: 3,
+      category: "mixed", evolutionFrom: [parent.id])
     let creature = OwnedCreature(
-      id: UUID(), speciesID: "PG-034", originSpeciesID: "PG-034", level: 1, experience: 0,
-      affection: 0, nickname: nil, preferredEvolutionTargetSpeciesID: "PG-205",
-      uniqueColor: false, acquiredAt: .now)
+      id: UUID(), speciesID: mixed.id, originSpeciesID: root.id, level: 25,
+      experience: 0, affection: 0, nickname: nil, uniqueColor: false, acquiredAt: .now)
 
-    let presentation = try XCTUnwrap(
-      EvolutionDexPresentation.make(
-        creature: creature, catalog: catalog, discoveredSpeciesIDs: ["PG-034"]))
-    let entries = presentation.stages.flatMap(\.entries)
-    let mutation = try XCTUnwrap(entries.first { $0.species.id == "PG-240" })
+    let presentation = try XCTUnwrap(EvolutionDexPresentation.make(
+      creature: creature,
+      catalog: [root, parent, mixed],
+      discoveredSpeciesIDs: [root.id, parent.id, mixed.id],
+      ownedCreatures: [creature]
+    ))
 
-    XCTAssertEqual(entries.filter(\.isPreferredTarget).map(\.id), ["PG-205"])
-    XCTAssertTrue(mutation.isMutation)
-    XCTAssertFalse(mutation.canBecomePreferredTarget)
-    XCTAssertEqual(mutation.mutationNotice, "Lv15 진화 시 10% 확률로 만납니다")
-    XCTAssertEqual(mutation.categoryLabel, "변이")
-    XCTAssertTrue(entries.first(where: { $0.species.id == "PG-117" })?.canBecomePreferredTarget == true)
-    XCTAssertTrue(presentation.lineageHasMutation)
+    XCTAssertEqual(presentation.rootSpecies.id, mixed.id)
+    XCTAssertEqual(presentation.stages.count, 1)
+    XCTAssertEqual(presentation.stages[0].entries.map(\.species.id), [mixed.id])
+    XCTAssertEqual(presentation.stages[0].entries[0].parentNames, [])
+    XCTAssertTrue(presentation.stages[0].entries[0].isCurrent)
+    XCTAssertTrue(presentation.stages[0].entries[0].isFormOwned)
+    XCTAssertEqual(
+      presentation.lineageNotice,
+      "혼합형은 일반 진화 계보 밖의 융합 수집품입니다. 현재 모습만 표시합니다.")
+    XCTAssertNil(presentation.mutationLineageNotice)
+    XCTAssertEqual(presentation.potential.path.map(\.id), [mixed.id])
+
+    var state = GameState()
+    state.ownedCreatures = [creature]
+    state.tokenBalance = max(GameState.inheritCost, GameState.mutationRetryCost)
+    let compact = CompactViewState(
+      state: state,
+      currentCreature: creature,
+      currentPosition: 1,
+      catalogIsEmpty: false,
+      weeklyUsage: [:],
+      catalog: [root, parent, mixed]
+    )
+    XCTAssertFalse(compact.retryMutation.isEnabled)
+    XCTAssertFalse(compact.inherit.isEnabled)
+    XCTAssertTrue(compact.retryMutation.explanation.contains("융합 수집품"))
+    XCTAssertTrue(compact.inherit.explanation.contains("융합 수집품"))
+  }
+
+  func testAmbiguousLegacyLineageShowsOnlyTheCurrentForm() throws {
+    let firstRoot = potentialSpecies(
+      id: "PG-A01", name: "첫 시작", rarity: "PROCESS", stage: 1, category: "start")
+    let secondRoot = potentialSpecies(
+      id: "PG-A02", name: "둘째 시작", rarity: "PROCESS", stage: 1, category: "start")
+    let current = potentialSpecies(
+      id: "PG-A03", name: "현재 모습", rarity: "AGENT", stage: 2,
+      category: "normal_evolution", evolutionFrom: [firstRoot.id, secondRoot.id])
+    let creature = OwnedCreature(
+      id: UUID(), speciesID: current.id, level: 15, experience: 0,
+      affection: 0, nickname: nil, uniqueColor: false, acquiredAt: .now)
+
+    let presentation = try XCTUnwrap(EvolutionDexPresentation.make(
+      creature: creature,
+      catalog: [firstRoot, secondRoot, current],
+      discoveredSpeciesIDs: [firstRoot.id, secondRoot.id, current.id],
+      ownedCreatures: [creature]
+    ))
+
+    XCTAssertTrue(presentation.isStandalone)
+    XCTAssertEqual(presentation.rootSpecies.id, current.id)
+    XCTAssertEqual(presentation.stages.flatMap(\.entries).map(\.species.id), [current.id])
+    XCTAssertEqual(presentation.potential.path.map(\.id), [current.id])
+    XCTAssertEqual(
+      presentation.lineageNotice,
+      EvolutionDexPresentation.unresolvedLineageNotice)
     XCTAssertNil(presentation.mutationLineageNotice)
   }
+
+  func testEvolutionDexUnlocksOnlyFormsReachedByTheCurrentCreature() throws {
+    let root = potentialSpecies(
+      id: "PG-T01", name: "1단계", rarity: "PROCESS", stage: 1, category: "start")
+    let chosenStageTwo = potentialSpecies(
+      id: "PG-T02", name: "선택한 2단계", rarity: "AGENT", stage: 2,
+      category: "normal_evolution", evolutionFrom: [root.id])
+    let siblingStageTwo = potentialSpecies(
+      id: "PG-T12", name: "선택하지 않은 2단계", rarity: "DAEMON", stage: 2,
+      category: "branch", evolutionFrom: [root.id])
+    let stageThree = potentialSpecies(
+      id: "PG-T03", name: "3단계", rarity: "ORACLE", stage: 3,
+      category: "normal_evolution", evolutionFrom: [chosenStageTwo.id])
+    let stageFour = potentialSpecies(
+      id: "PG-T04", name: "4단계", rarity: "ORIGIN", stage: 4,
+      category: "normal_evolution", evolutionFrom: [stageThree.id])
+    let catalog = [root, chosenStageTwo, siblingStageTwo, stageThree, stageFour]
+    let globallyDiscovered = Set(catalog.map(\.id))
+
+    for (current, expectedReached) in [
+      (chosenStageTwo, Set([root.id, chosenStageTwo.id])),
+      (stageFour, Set([root.id, chosenStageTwo.id, stageThree.id, stageFour.id])),
+    ] {
+      let creature = OwnedCreature(
+        id: UUID(), speciesID: current.id, originSpeciesID: root.id,
+        level: current.stage == 4 ? 40 : 15, experience: 0, affection: 0,
+        nickname: nil, uniqueColor: false, acquiredAt: .now)
+      let presentation = try XCTUnwrap(
+        EvolutionDexPresentation.make(
+          creature: creature,
+          catalog: catalog,
+          discoveredSpeciesIDs: globallyDiscovered))
+      let entries = Dictionary(
+        uniqueKeysWithValues: presentation.stages.flatMap(\.entries).map { ($0.id, $0) })
+
+      for species in catalog {
+        let entry = try XCTUnwrap(entries[species.id])
+        XCTAssertEqual(entry.isFormOwned, expectedReached.contains(species.id), species.id)
+        XCTAssertEqual(
+          entry.canPreviewForm,
+          expectedReached.contains(species.id) && species.id != current.id,
+          species.id)
+      }
+    }
+  }
+
+  func testCreaturePreviewSelectionDoesNotLeakIntoAnotherCreature() throws {
+    let firstID = UUID()
+    let secondID = UUID()
+    let root = potentialSpecies(
+      id: "PG-P01", name: "시작형", rarity: "PROCESS", stage: 1, category: "start")
+    let past = potentialSpecies(
+      id: "PG-P02", name: "과거 모습", rarity: "AGENT", stage: 2,
+      category: "normal_evolution", evolutionFrom: [root.id])
+    let current = potentialSpecies(
+      id: "PG-P03", name: "현재 모습", rarity: "DAEMON", stage: 3,
+      category: "normal_evolution", evolutionFrom: [past.id])
+    let catalog = [root, past, current]
+    let initial = OwnedCreature(
+      id: firstID, speciesID: current.id, originSpeciesID: root.id, level: 25,
+      experience: 0, affection: 0, nickname: nil, uniqueColor: false, acquiredAt: .now)
+    let another = OwnedCreature(
+      id: secondID, speciesID: current.id, originSpeciesID: root.id, level: 25,
+      experience: 0, affection: 0, nickname: nil, uniqueColor: false, acquiredAt: .now)
+    let restoredAtStageOne = OwnedCreature(
+      id: firstID, speciesID: root.id, originSpeciesID: root.id, level: 1,
+      experience: 0, affection: 0, nickname: nil, uniqueColor: false, acquiredAt: .now)
+    let selection = CreaturePreviewSelection(creatureID: firstID, speciesID: past.id)
+
+    XCTAssertEqual(selection.species(for: initial, in: catalog), past)
+    XCTAssertNil(selection.species(for: another, in: catalog))
+    XCTAssertNil(selection.species(for: restoredAtStageOne, in: catalog))
+    XCTAssertNil(selection.species(for: nil, in: catalog))
+  }
+
 
   func testEvolutionDexStatesWhenALineageHasNoMutationAtAll() throws {
     let catalog = try CreatureCatalog.load()
@@ -280,13 +405,87 @@ final class UXPresentationTests: XCTestCase {
     XCTAssertEqual(presentation.mutationLineageNotice, "이 계열에는 변이형이 없습니다")
   }
 
+  func testEvolutionDexMarksSeparatelyOwnedSpeciesApartFromTheCurrentOne() throws {
+    let catalog = try CreatureCatalog.load()
+    let current = OwnedCreature(
+      id: UUID(), speciesID: "PG-181", originSpeciesID: "PG-001", level: 25, experience: 0,
+      affection: 0, nickname: nil, uniqueColor: false, acquiredAt: .now)
+    let inherited = OwnedCreature(
+      id: UUID(), speciesID: "PG-001", originSpeciesID: "PG-001", level: 1, experience: 0,
+      affection: 0, nickname: nil, uniqueColor: false, acquiredAt: .now)
+
+    let presentation = try XCTUnwrap(
+      EvolutionDexPresentation.make(
+        creature: current, catalog: catalog, discoveredSpeciesIDs: ["PG-001", "PG-181"],
+        ownedCreatures: [current, inherited]))
+    let entries = presentation.stages.flatMap(\.entries)
+
+    let owned = try XCTUnwrap(entries.first { $0.species.id == "PG-001" })
+    XCTAssertEqual(owned.ownedCreatureID, inherited.id)
+    XCTAssertTrue(owned.isOwnedApartFromCurrent)
+
+    // 보고 있는 개체는 바꿀 것이 없으므로 보유하고 있어도 선택 대상이 아니다.
+    let currentEntry = try XCTUnwrap(entries.first { $0.species.id == "PG-181" })
+    XCTAssertEqual(currentEntry.ownedCreatureID, current.id)
+    XCTAssertTrue(currentEntry.isCurrent)
+    XCTAssertFalse(currentEntry.isOwnedApartFromCurrent)
+
+    let unowned = entries.filter { !["PG-001", "PG-181"].contains($0.species.id) }
+    XCTAssertFalse(unowned.isEmpty)
+    XCTAssertTrue(unowned.allSatisfy { $0.ownedCreatureID == nil && !$0.isOwnedApartFromCurrent })
+  }
+
+  func testEvolutionDexPicksTheSameOwnedCreatureRegardlessOfInputOrder() throws {
+    let catalog = try CreatureCatalog.load()
+    let base = Date(timeIntervalSince1970: 1_754_275_200)
+    let current = OwnedCreature(
+      id: UUID(), speciesID: "PG-181", originSpeciesID: "PG-001", level: 25, experience: 0,
+      affection: 0, nickname: nil, uniqueColor: false, acquiredAt: base)
+    // 같은 종을 세 마리 보유한다. 먼저 얻은 개체가 뽑혀야 하며, 입력 순서는 결과를 바꾸지 못한다.
+    let earliest = OwnedCreature(
+      id: UUID(), speciesID: "PG-001", originSpeciesID: "PG-001", level: 1, experience: 0,
+      affection: 0, nickname: nil, uniqueColor: false, acquiredAt: base)
+    let middle = OwnedCreature(
+      id: UUID(), speciesID: "PG-001", originSpeciesID: "PG-001", level: 1, experience: 0,
+      affection: 0, nickname: nil, uniqueColor: false, acquiredAt: base.addingTimeInterval(60))
+    let latest = OwnedCreature(
+      id: UUID(), speciesID: "PG-001", originSpeciesID: "PG-001", level: 1, experience: 0,
+      affection: 0, nickname: nil, uniqueColor: false, acquiredAt: base.addingTimeInterval(120))
+
+    for owned in [[current, latest, middle, earliest], [earliest, middle, latest, current]] {
+      let presentation = try XCTUnwrap(
+        EvolutionDexPresentation.make(
+          creature: current, catalog: catalog, discoveredSpeciesIDs: ["PG-001"],
+          ownedCreatures: owned))
+      let entry = try XCTUnwrap(
+        presentation.stages.flatMap(\.entries).first { $0.species.id == "PG-001" })
+      XCTAssertEqual(entry.ownedCreatureID, earliest.id)
+    }
+  }
+
+  func testEvolutionDexReportsNoOwnershipWhenTheCallerPassesNoCreatures() throws {
+    let catalog = try CreatureCatalog.load()
+    let creature = OwnedCreature(
+      id: UUID(), speciesID: "PG-181", originSpeciesID: "PG-001", level: 25, experience: 0,
+      affection: 0, nickname: nil, uniqueColor: false, acquiredAt: .now)
+
+    let presentation = try XCTUnwrap(
+      EvolutionDexPresentation.make(
+        creature: creature, catalog: catalog, discoveredSpeciesIDs: ["PG-181"]))
+
+    XCTAssertTrue(
+      presentation.stages.flatMap(\.entries).allSatisfy {
+        $0.ownedCreatureID == nil && !$0.isOwnedApartFromCurrent
+      })
+  }
+
   func testPendingChoiceBadgeStaysVisibleForCreaturesOtherThanTheCurrentOne() throws {
     let catalog = try CreatureCatalog.load()
     let calm = OwnedCreature(
       id: UUID(), speciesID: "PG-001", originSpeciesID: "PG-001", level: 1, experience: 0,
       affection: 0, nickname: nil, uniqueColor: false, acquiredAt: .now)
     let waiting = OwnedCreature(
-      id: UUID(), speciesID: "PG-117", originSpeciesID: "PG-034", level: 25, experience: 0,
+      id: UUID(), speciesID: "PG-002", originSpeciesID: "PG-002", level: 15, experience: 0,
       affection: 0, nickname: nil, uniqueColor: false, acquiredAt: .now)
     let waitingChoice = try XCTUnwrap(
       GameEngine.pendingEvolutionChoice(for: waiting, catalog: catalog))
@@ -298,7 +497,6 @@ final class UXPresentationTests: XCTestCase {
     XCTAssertTrue(badge.isVisible)
     XCTAssertEqual(badge.creatureID, waiting.id)
     XCTAssertEqual(badge.label, "진화 선택 대기")
-    XCTAssertFalse(badge.confirmsReservedTerminalTarget)
     XCTAssertEqual(
       PendingEvolutionBadgePresentation(choices: [waitingChoice, waitingChoice]).label,
       "진화 선택 대기 2마리")
@@ -307,73 +505,40 @@ final class UXPresentationTests: XCTestCase {
   func testEvolutionChoiceOffersAtMostTwoCardsAndHidesUndiscoveredIdentity() throws {
     let catalog = try CreatureCatalog.load()
     let creature = OwnedCreature(
-      id: UUID(), speciesID: "PG-117", originSpeciesID: "PG-034", level: 25, experience: 0,
+      id: UUID(), speciesID: "PG-002", originSpeciesID: "PG-002", level: 15, experience: 0,
       affection: 0, nickname: nil, uniqueColor: false, acquiredAt: .now)
     let choice = try XCTUnwrap(GameEngine.pendingEvolutionChoice(for: creature, catalog: catalog))
 
     let presentation = EvolutionChoicePresentation.make(
-      choice: choice, catalog: catalog, discoveredSpeciesIDs: ["PG-034", "PG-117", "PG-118"])
-    let known = try XCTUnwrap(presentation.cards.first { $0.id == "PG-118" })
-    let hidden = try XCTUnwrap(presentation.cards.first { $0.id == "PG-205" })
+      choice: choice, catalog: catalog, discoveredSpeciesIDs: ["PG-002", "PG-062"])
+    let known = try XCTUnwrap(presentation.cards.first { $0.id == "PG-062" })
+    let hidden = try XCTUnwrap(presentation.cards.first { $0.id == "PG-182" })
 
     XCTAssertEqual(presentation.cards.count, 2)
     XCTAssertTrue(presentation.cards.count <= 2)
-    XCTAssertFalse(presentation.confirmsReservedTerminalTarget)
     XCTAssertEqual(presentation.title, "진화 방향 선택")
 
-    XCTAssertEqual(known.displayName, "제피락라크")
+    XCTAssertEqual(known.displayName, "모루벨")
     XCTAssertTrue(known.showsArtwork)
     XCTAssertEqual(known.categoryLabel, "기본")
-    XCTAssertEqual(known.maximumRarityLabel, "최대 도달 ARCHITECT")
-    XCTAssertFalse(known.isTerminal)
-    XCTAssertNil(known.terminalLabel)
-    XCTAssertNil(known.confirmationMessage)
+    XCTAssertEqual(known.maximumRarityLabel, "최대 도달 AGENT")
+    XCTAssertTrue(known.isTerminal)
+    XCTAssertEqual(known.terminalLabel, "이후 성장 없음")
+    XCTAssertNotNil(known.confirmationMessage)
 
     XCTAssertFalse(hidden.showsArtwork)
     XCTAssertEqual(hidden.displayName, "미발견 진화체")
     XCTAssertNotEqual(hidden.displayName, hidden.species.koName)
     XCTAssertFalse(hidden.displayName.contains(hidden.species.imagePath))
     XCTAssertNil(hidden.maximumRarityLabel)
-    XCTAssertEqual(hidden.species.rarity, "ARCHITECT")
-    XCTAssertEqual(hidden.categoryLabel, "혼합")
+    XCTAssertEqual(hidden.species.rarity, "DAEMON")
+    XCTAssertEqual(hidden.categoryLabel, "분기")
     XCTAssertEqual(hidden.terminalLabel, "이후 성장 없음")
     XCTAssertEqual(
       hidden.confirmationMessage,
       "미발견 진화체(으)로 진화하면 이 진화 이후로는 더 성장하지 않습니다. 그래도 진행할까요?")
   }
 
-  func testReservedTerminalTargetAsksForOneConfirmationBeforeEvolving() throws {
-    let catalog = try CreatureCatalog.load()
-    let terminalReservation = OwnedCreature(
-      id: UUID(), speciesID: "PG-117", originSpeciesID: "PG-034", level: 25, experience: 0,
-      affection: 0, nickname: nil, preferredEvolutionTargetSpeciesID: "PG-205",
-      uniqueColor: false, acquiredAt: .now)
-    let openReservation = OwnedCreature(
-      id: UUID(), speciesID: "PG-117", originSpeciesID: "PG-034", level: 25, experience: 0,
-      affection: 0, nickname: nil, preferredEvolutionTargetSpeciesID: "PG-118",
-      uniqueColor: false, acquiredAt: .now)
-
-    // 비종착 예약은 확인 없이 진행하므로 대기 자체가 생기지 않는다.
-    XCTAssertNil(GameEngine.pendingEvolutionChoice(for: openReservation, catalog: catalog))
-
-    let choice = try XCTUnwrap(
-      GameEngine.pendingEvolutionChoice(for: terminalReservation, catalog: catalog))
-    XCTAssertEqual(choice.preferredTargetID, "PG-205")
-
-    let presentation = EvolutionChoicePresentation.make(
-      choice: choice, catalog: catalog, discoveredSpeciesIDs: ["PG-034", "PG-117", "PG-118", "PG-205"])
-
-    XCTAssertTrue(presentation.confirmsReservedTerminalTarget)
-    XCTAssertEqual(presentation.title, "예약한 종착 진화 확인")
-    XCTAssertEqual(presentation.reservedCard?.id, "PG-205")
-    XCTAssertEqual(
-      presentation.reservedCard?.confirmationMessage,
-      "아이언블룸(으)로 진화하면 이 진화 이후로는 더 성장하지 않습니다. 그래도 진행할까요?")
-    XCTAssertTrue(GameEngine.isTerminalSpecies(
-      try XCTUnwrap(catalog.first { $0.id == "PG-205" }), catalog: catalog))
-    XCTAssertFalse(GameEngine.isTerminalSpecies(
-      try XCTUnwrap(catalog.first { $0.id == "PG-118" }), catalog: catalog))
-  }
 
   func testProductionEiluLineageUsesApprovedEilsionFinalEvolution() throws {
     let catalog = try CreatureCatalog.load()
@@ -735,12 +900,12 @@ final class UXPresentationTests: XCTestCase {
     )
     let catalogCounts = Dictionary(uniqueKeysWithValues: rows.map { ($0.tier, $0.catalogCount) })
 
-    XCTAssertEqual(catalogCounts[.process], 60)
-    XCTAssertEqual(catalogCounts[.agent], 66)
-    XCTAssertEqual(catalogCounts[.daemon], 51)
+    XCTAssertEqual(catalogCounts[.process], 64)
+    XCTAssertEqual(catalogCounts[.agent], 70)
+    XCTAssertEqual(catalogCounts[.daemon], 55)
     XCTAssertEqual(catalogCounts[.oracle], 22)
     XCTAssertEqual(catalogCounts[.architect], 38)
-    XCTAssertEqual(catalogCounts[.origin], 3)
+    XCTAssertEqual(catalogCounts[.origin], 7)
     XCTAssertEqual(rows.first { $0.tier == .process }?.pullProbability, 100)
     XCTAssertTrue(
       rows.filter { $0.tier != .process }.allSatisfy { $0.pullProbability == 0 }
@@ -754,15 +919,15 @@ final class UXPresentationTests: XCTestCase {
     XCTAssertEqual(ceilingCounts[.daemon], 13)
     XCTAssertEqual(ceilingCounts[.oracle], 11)
     XCTAssertEqual(ceilingCounts[.architect], 29)
-    XCTAssertEqual(ceilingCounts[.origin], 3)
-    XCTAssertEqual(ceilingCounts.values.reduce(0, +), 60)
+    XCTAssertEqual(ceilingCounts[.origin], 7)
+    XCTAssertEqual(ceilingCounts.values.reduce(0, +), 64)
   }
 
-  func testProductionCatalogMaxReachableAndGuaranteedRarityDistributionsCoverSixtyLineages() throws
+  func testProductionCatalogMaxReachableAndGuaranteedRarityDistributionsCoverSixtyFourLineages() throws
   {
     let catalog = try CreatureCatalog.load()
     let starts = catalog.filter { $0.stage == 1 && $0.category == "start" }
-    XCTAssertEqual(starts.count, 60)
+    XCTAssertEqual(starts.count, 64)
 
     func distribution(_ rarity: (CreatureSpecies) -> String) -> [String: Int] {
       starts.reduce(into: [:]) { counts, species in counts[rarity(species), default: 0] += 1 }
@@ -774,8 +939,8 @@ final class UXPresentationTests: XCTestCase {
     XCTAssertEqual(ceiling["DAEMON"], 13)
     XCTAssertEqual(ceiling["ORACLE"], 11)
     XCTAssertEqual(ceiling["ARCHITECT"], 29)
-    XCTAssertEqual(ceiling["ORIGIN"], 3)
-    XCTAssertEqual(ceiling.values.reduce(0, +), 60)
+    XCTAssertEqual(ceiling["ORIGIN"], 7)
+    XCTAssertEqual(ceiling.values.reduce(0, +), 64)
 
     // 변이를 섞어 계산하면 DAEMON 16 · ORACLE 17 · ARCHITECT 14가 되므로 이 단언이 잡아낸다.
     let floor = distribution { EvolutionCatalog.minGuaranteedRarity(from: $0, in: catalog) }
@@ -784,8 +949,8 @@ final class UXPresentationTests: XCTestCase {
     XCTAssertEqual(floor["DAEMON"], 15)
     XCTAssertEqual(floor["ORACLE"], 16)
     XCTAssertEqual(floor["ARCHITECT"], 16)
-    XCTAssertEqual(floor["ORIGIN"], 3)
-    XCTAssertEqual(floor.values.reduce(0, +), 60)
+    XCTAssertEqual(floor["ORIGIN"], 7)
+    XCTAssertEqual(floor.values.reduce(0, +), 64)
   }
 
   func testProductionCatalogNeverCountsAMutationOnlyRarityAsReachable() throws {
@@ -826,7 +991,7 @@ final class UXPresentationTests: XCTestCase {
     let presentation = EvolutionChoicePresentation.make(
       choice: PendingEvolutionChoice(
         creatureID: UUID(), fromSpecies: root, candidates: [lowBranch, highBranch],
-        preferredTargetID: nil),
+),
       catalog: catalog,
       discoveredSpeciesIDs: [lowBranch.id, highBranch.id]
     )
@@ -839,16 +1004,16 @@ final class UXPresentationTests: XCTestCase {
     XCTAssertEqual(cards[highBranch.id]?.maximumRarityLabel, "최대 도달 ARCHITECT")
   }
 
-  func testProductionCatalogKeepsTheSameThreeOriginLineagesUnderEveryCriterion() throws {
+  func testProductionCatalogKeepsTheSameSevenOriginLineagesUnderEveryCriterion() throws {
     let catalog = try CreatureCatalog.load()
     let starts = catalog.filter { $0.stage == 1 && $0.category == "start" }
-    let expected = ["PG-041", "PG-045", "PG-054"]
+    let expected = ["PG-041", "PG-045", "PG-054", "PG-241", "PG-245", "PG-249", "PG-253"]
 
     func originLineageIDs(_ rarity: (CreatureSpecies) -> String) -> [String] {
       starts.filter { rarity($0).uppercased() == "ORIGIN" }.map(\.id).sorted()
     }
 
-    XCTAssertEqual(starts.count, 60)
+    XCTAssertEqual(starts.count, 64)
     XCTAssertEqual(
       originLineageIDs { EvolutionCatalog.automaticPath(from: $0, in: catalog).last?.rarity ?? "" },
       expected)
@@ -864,24 +1029,28 @@ final class UXPresentationTests: XCTestCase {
       expected)
   }
 
-  func testRarityGuideReportsFivePercentOriginFinalPotentialForProductionCatalog() throws {
+  func testRarityGuideReportsElementalOriginFinalPotentialForProductionCatalog() throws {
     let catalog = try CreatureCatalog.load()
     let originRow = try XCTUnwrap(
       RarityGuidePresentation.rows(state: GameState(), catalog: catalog)
         .first { $0.tier == .origin })
     XCTAssertEqual(originRow.pullProbability, 0)
-    XCTAssertEqual(originRow.finalPotentialLineageCount, 3)
-    XCTAssertEqual(originRow.finalPotentialLineageTotal, 60)
-    XCTAssertEqual(originRow.finalPotentialProbability, 5)
-    XCTAssertEqual(originRow.finalPotentialProbabilityLabel, "5%")
+    XCTAssertEqual(originRow.finalPotentialLineageCount, 7)
+    XCTAssertEqual(originRow.finalPotentialLineageTotal, 64)
+    XCTAssertEqual(originRow.finalPotentialProbability, 10.9375)
+    XCTAssertEqual(originRow.finalPotentialProbabilityLabel, "10.9%")
   }
 
-  func testMenuPopoverReservesAUsableFooterInsideItsFixedCanvas() {
+  func testMenuPopoverReservesAScrollFreePlayAreaAndUsableFooterInsideItsFixedCanvas() {
     XCTAssertEqual(MenuPopoverLayout.width, 398)
     XCTAssertEqual(MenuPopoverLayout.height, 670)
     XCTAssertEqual(MenuPopoverLayout.dockHeight, 54)
+    XCTAssertEqual(MenuPopoverLayout.contentHeight, 616)
+    XCTAssertEqual(MenuPopoverLayout.contentHeight + MenuPopoverLayout.dockHeight, MenuPopoverLayout.height)
     XCTAssertGreaterThanOrEqual(MenuPopoverLayout.dockButtonHeight, 44)
     XCTAssertLessThanOrEqual(MenuPopoverLayout.dockButtonHeight, MenuPopoverLayout.dockHeight)
+    XCTAssertGreaterThanOrEqual(MenuPopoverLayout.heroArtworkSize, 128)
+    XCTAssertGreaterThan(MenuPopoverLayout.heroAuraSize, MenuPopoverLayout.heroArtworkSize)
   }
 
 #if DEBUG

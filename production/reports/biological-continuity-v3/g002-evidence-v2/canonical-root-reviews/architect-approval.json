@@ -1,0 +1,22 @@
+{
+  "approvedAt": "2026-08-10T22:22:51.127Z",
+  "approvedTargetIds": [
+    "PG-024",
+    "PG-029",
+    "PG-047",
+    "PG-052",
+    "PG-053",
+    "PG-056"
+  ],
+  "decision": "APPROVE",
+  "evidenceSha256": "5f03cbcaf9a123d2e3ba4b57abc749c2952fa34848f667d2b17050fafb56cd32",
+  "outputSha256": "d229c780d09d6317af7116edd94b34868cd95687aeb2a2365f1d175e923c076e",
+  "publicSignature": {
+    "algorithm": "Ed25519",
+    "authorityFingerprint": "423f474c59667e5eabc13a703b8d7de4e97bcba33cdc22340873866db9d6a53f",
+    "signatureBase64": "4CAW1K9HaZYYHJhJbkO+n8lbXGe/raHDVYEgBD92ETpmx+cblDi9o0qyb1Z515bCEjgmjA3uyUgtczBTzTf4Bw=="
+  },
+  "reviewerId": "architect-reviewer-g002-v2-20260810",
+  "schemaVersion": "g002-v2-canonical-architect-approval-v1",
+  "source": "independent-architect-review"
+}

@@ -1,0 +1,39 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://punchgrow.local/contracts/visual-review-batch-v1.schema.json",
+  "title": "PunchGrow blinded visual review batch observations v1",
+  "description": "Untrusted reviewer input. Identity, provenance, hashes, product IDs, names, graph data, and verdicts are intentionally forbidden.",
+  "type": "array",
+  "minItems": 1,
+  "uniqueItems": true,
+  "items": {
+    "type": "object",
+    "additionalProperties": false,
+    "required": ["opaqueInputId", "confidence"],
+    "properties": {
+      "opaqueInputId": {
+        "type": "string",
+        "minLength": 8,
+        "maxLength": 128,
+        "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]*$"
+      },
+      "confidence": { "type": "number", "minimum": 0, "maximum": 1 },
+      "assetObservation": {
+        "$ref": "visual-review-v1.schema.json#/$defs/assetObservation"
+      },
+      "edgeObservation": {
+        "$ref": "visual-review-v1.schema.json#/$defs/edgeObservation"
+      }
+    },
+    "oneOf": [
+      {
+        "required": ["assetObservation"],
+        "not": { "required": ["edgeObservation"] }
+      },
+      {
+        "required": ["edgeObservation"],
+        "not": { "required": ["assetObservation"] }
+      }
+    ]
+  }
+}

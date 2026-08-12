@@ -1,0 +1,20 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://punchgrow.local/contracts/g003-reviewer-authority-v1.schema.json",
+  "title": "G003 separately-issued reviewer assignment/run authority v1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["assignment", "runAttestation"],
+  "properties": {
+    "assignment": { "$ref": "#/$defs/assignment" },
+    "runAttestation": { "$ref": "#/$defs/run" }
+  },
+  "$defs": {
+    "sha256": { "type": "string", "pattern": "^[a-f0-9]{64}$" },
+    "generationRunId": { "type": "string", "pattern": "^[A-Za-z0-9][A-Za-z0-9._-]{0,127}$" },
+    "signature": { "type": "object", "additionalProperties": false, "required": ["algorithm", "authorityFingerprint", "signatureBase64"], "properties": { "algorithm": { "const": "Ed25519" }, "authorityFingerprint": { "$ref": "#/$defs/sha256" }, "signatureBase64": { "type": "string", "minLength": 80 } } },
+    "authorityTail": { "type": "object", "required": ["outputSha256", "conductorHmacSha256", "publicSignature"], "properties": { "outputSha256": { "$ref": "#/$defs/sha256" }, "conductorHmacSha256": { "$ref": "#/$defs/sha256" }, "publicSignature": { "$ref": "#/$defs/signature" } } },
+    "assignment": { "allOf": [{ "$ref": "#/$defs/authorityTail" }, { "type": "object", "required": ["schemaVersion", "assignmentId", "opaqueCandidateId", "generationRunId", "passNumber", "reviewerInstanceId", "agentTaskId", "voterReviewRunId", "packageManifestSha256", "materialBindingSha256", "inputAllowlistSha256", "promptSha256", "inputAssetSha256s", "assignedAt"], "properties": { "schemaVersion": { "const": "continuity-g003-reviewer-assignment-v1" }, "generationRunId": { "$ref": "#/$defs/generationRunId" }, "passNumber": { "enum": [1, 2] } } }] },
+    "run": { "allOf": [{ "$ref": "#/$defs/authorityTail" }, { "type": "object", "required": ["schemaVersion", "assignmentId", "assignmentManifestSha256", "opaqueCandidateId", "generationRunId", "passNumber", "reviewerInstanceId", "agentTaskId", "voterReviewRunId", "packageManifestSha256", "rawObservationSha256", "fresh", "blinded", "createdAt"], "properties": { "schemaVersion": { "const": "continuity-g003-reviewer-run-attestation-v1" }, "generationRunId": { "$ref": "#/$defs/generationRunId" }, "passNumber": { "enum": [1, 2] }, "fresh": { "const": true }, "blinded": { "const": true } } }] }
+  }
+}

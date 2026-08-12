@@ -1,0 +1,32 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://punchgrow.local/contracts/visual-review-run-attestation-v1.schema.json",
+  "title": "PunchGrow signed blinded reviewer batch attestation v1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schemaVersion", "authorizationId", "bundleGenerationRunId", "reviewerInstanceId", "agentTaskId", "voterReviewRunId", "role", "passId", "attempt", "assignmentSha256", "batchId", "assignedOpaqueInputIds", "batchPackageManifestSha256", "fileSetSha256", "targetManifestSha256s", "createdAt", "outputSha256", "conductorHmacSha256"],
+  "properties": {
+    "schemaVersion": { "const": "blinded-visual-review-run-attestation-v1" },
+    "authorizationId": { "$ref": "#/$defs/opaqueIdentifier" },
+    "bundleGenerationRunId": { "$ref": "#/$defs/opaqueIdentifier" },
+    "reviewerInstanceId": { "$ref": "#/$defs/opaqueIdentifier" },
+    "agentTaskId": { "$ref": "#/$defs/opaqueIdentifier" },
+    "voterReviewRunId": { "$ref": "#/$defs/opaqueIdentifier" },
+    "role": { "enum": ["primary", "adjudicator"] },
+    "passId": { "type": "string", "pattern": "^pass-[1-9][0-9]*$" },
+    "attempt": { "type": "integer", "minimum": 1 },
+    "assignmentSha256": { "$ref": "#/$defs/sha256" },
+    "batchId": { "$ref": "#/$defs/opaqueIdentifier" },
+    "assignedOpaqueInputIds": { "type": "array", "minItems": 1, "uniqueItems": true, "items": { "$ref": "#/$defs/opaqueIdentifier" } },
+    "batchPackageManifestSha256": { "$ref": "#/$defs/sha256" },
+    "fileSetSha256": { "$ref": "#/$defs/sha256" },
+    "targetManifestSha256s": { "type": "object", "minProperties": 1, "additionalProperties": { "$ref": "#/$defs/sha256" } },
+    "createdAt": { "type": "string", "format": "date-time", "pattern": "^\\d{4}-\\d{2}-\\d{2}T\\d{2}:\\d{2}:\\d{2}(?:\\.\\d+)?(?:Z|[+-]\\d{2}:\\d{2})$" },
+    "outputSha256": { "$ref": "#/$defs/sha256" },
+    "conductorHmacSha256": { "$ref": "#/$defs/sha256" }
+  },
+  "$defs": {
+    "sha256": { "type": "string", "pattern": "^[a-f0-9]{64}$" },
+    "opaqueIdentifier": { "type": "string", "minLength": 8, "maxLength": 128, "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]*$" }
+  }
+}

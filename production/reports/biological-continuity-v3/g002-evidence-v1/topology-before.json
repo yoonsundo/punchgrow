@@ -1,0 +1,2606 @@
+{
+  "constraints": {
+    "maxCardsPerStage": 3,
+    "maxCardsTotal": 6,
+    "maxChoiceNodesPerPath": 1,
+    "maxSelectableCandidates": 2,
+    "maxStages": 4,
+    "mixedSemantics": "either-parent"
+  },
+  "counts": {
+    "categories": {
+      "branch": 14,
+      "mixed": 10,
+      "mutant": 25,
+      "normal_evolution": 121,
+      "special": 10,
+      "start": 60
+    },
+    "choiceProfile": {
+      "noChoice": 32,
+      "stageOneChoice": 10,
+      "stageTwoChoice": 18
+    },
+    "edges": 190,
+    "roots": 60,
+    "slots": 240
+  },
+  "edges": [
+    {
+      "category": "normal_evolution",
+      "childId": "PG-061",
+      "eitherParentEligible": false,
+      "parentId": "PG-001",
+      "parentPort": "PG-L001:S1"
+    },
+    {
+      "category": "normal_evolution",
+      "childId": "PG-062",
+      "eitherParentEligible": false,
+      "parentId": "PG-002",
+      "parentPort": "PG-L002:S1"
+    },
+    {
+      "category": "normal_evolution",
+      "childId": "PG-063",
+      "eitherParentEligible": false,
+      "parentId": "PG-003",
+      "parentPort": "PG-L003:S1"
+    },
+    {
+      "category": "normal_evolution",
+      "childId": "PG-064",
+      "eitherParentEligible": false,
+      "parentId": "PG-004",
+      "parentPort": "PG-L004:S1"
+    },
+    {
+      "category": "normal_evolution",
+      "childId": "PG-065",
+      "eitherParentEligible": false,
+      "parentId": "PG-005",
+      "parentPort": "PG-L005:S1"
+    },
+    {
+      "category": "normal_evolution",
+      "childId": "PG-066",
+      "eitherParentEligible": false,
+      "parentId": "PG-006",
+      "parentPort": "PG-L006:S1"
+    },
+    {
+      "category": "normal_evolution",
+      "childId": "PG-067",
+      "eitherParentEligible": false,
+      "parentId": "PG-007",
+      "parentPort": "PG-L007:S1"
+    },
+    {
+      "category": "normal_evolution",
+      "childId": "PG-068",
+      "eitherParentEligible": false,
+      "parentId": "PG-008",
+      "parentPort": "PG-L008:S1"
+    },
+    {
+      "category": "normal_evolution",
+      "childId": "PG-069",
+      "eitherParentEligible": false,
+      "parentId": "PG-009",
+      "parentPort": "PG-L009:S1"
+    },
+    {
+      "category": "normal_evolution",
+      "childId": "PG-070",
+      "eitherParentEligible": false,
+      "parentId": "PG-010",
+      "parentPort": "PG-L010:S1"
+    },
+    {
+      "category": "normal_evolution",
+      "childId": "PG-071",
+      "eitherParentEligible": false,
+      "parentId": "PG-011",
+      "parentPort": "PG-L011:S1"
+    },
+    {
+      "category": "normal_evolution",
+      "childId": "PG-072",
+      "eitherParentEligible": false,
+      "parentId": "PG-012",
+      "parentPort": "PG-L012:S1"
+    },
+    {
+      "category": "normal_evolution",
+      "childId": "PG-073",
+      "eitherParentEligible": false,
+      "parentId": "PG-013",
+      "parentPort": "PG-L013:S1"
+    },
+    {
+      "category": "normal_evolution",
+      "childId": "PG-074",
+      "eitherParentEligible": false,
+      "parentId": "PG-014",
+      "parentPort": "PG-L014:S1"
+    },
+    {
+      "category": "normal_evolution",
+      "childId": "PG-075",
+      "eitherParentEligible": false,
+      "parentId": "PG-015",
+      "parentPort": "PG-L015:S1"
+    },
+    {
+      "category": "normal_evolution",
+      "childId": "PG-076",
+      "eitherParentEligible": false,
+      "parentId": "PG-016",
+      "parentPort": "PG-L016:S1"
+    },
+    {
+      "category": "normal_evolution",
+      "childId": "PG-077",
+      "eitherParentEligible": false,
+      "parentId": "PG-017",
+      "parentPort": "PG-L017:S1"
+    },
+    {
+      "category": "normal_evolution",
+      "childId": "PG-078",
+      "eitherParentEligible": false,
+      "parentId": "PG-018",
+      "parentPort": "PG-L018:S1"
+    },
+    {
+      "category": "normal_evolution",
+      "childId": "PG-079",
+      "eitherParentEligible": false,
+      "parentId": "PG-019",
+      "parentPort": "PG-L019:S1"
+    },
+    {
+      "category": "normal_evolution",
+      "childId": "PG-080",
+      "eitherParentEligible": false,
+      "parentId": "PG-020",
+      "parentPort": "PG-L020:S1"
+    },
+    {
+      "category": "normal_evolution",
+      "childId": "PG-081",
+      "eitherParentEligible": false,
+      "parentId": "PG-026",
+      "parentPort": "PG-L026:S1"
+    },
+    {
+      "category": "normal_evolution",
+      "childId": "PG-082",
+      "eitherParentEligible": false,
+      "parentId": "PG-081",
+      "parentPort": "PG-L026:S2"
+    },
+    {
+      "category": "normal_evolution",
+      "childId": "PG-083",
+      "eitherParentEligible": false,
+      "parentId": "PG-082",
+      "parentPort": "PG-L026:S3"
+    },
+    {
+      "category": "normal_evolution",
+      "childId": "PG-084",
+      "eitherParentEligible": false,
+      "parentId": "PG-032",
+      "parentPort": "PG-L032:S1"
+    },
+    {
+      "category": "normal_evolution",
+      "childId": "PG-085",
+      "eitherParentEligible": false,
+      "parentId": "PG-084",
+      "parentPort": "PG-L032:S2"
+    },
+    {
+      "category": "normal_evolution",
+      "childId": "PG-086",
+      "eitherParentEligible": false,
+      "parentId": "PG-085",
+      "parentPort": "PG-L032:S3"
+    },
+    {
+      "category": "normal_evolution",
+      "childId": "PG-087",
+      "eitherParentEligible": false,
+      "parentId": "PG-040",
+      "parentPort": "PG-L040:S1"
+    },
+    {
+      "category": "normal_evolution",
+      "childId": "PG-088",
+      "eitherParentEligible": false,
+      "parentId": "PG-087",
+      "parentPort": "PG-L040:S2"
+    },
+    {
+      "category": "normal_evolution",
+      "childId": "PG-089",
+      "eitherParentEligible": false,
+      "parentId": "PG-088",
+      "parentPort": "PG-L040:S3"
+    },
+    {
+      "category": "normal_evolution",
+      "childId": "PG-090",
+      "eitherParentEligible": false,
+      "parentId": "PG-024",
+      "parentPort": "PG-L024:S1"
+    },
+    {
+      "category": "normal_evolution",
+      "childId": "PG-091",
+      "eitherParentEligible": false,
+      "parentId": "PG-090",
+      "parentPort": "PG-L024:S2"
+    },
+    {
+      "category": "normal_evolution",
+      "childId": "PG-092",
+      "eitherParentEligible": false,
+      "parentId": "PG-091",
+      "parentPort": "PG-L024:S3"
+    },
+    {
+      "category": "normal_evolution",
+      "childId": "PG-093",
+      "eitherParentEligible": false,
+      "parentId": "PG-022",
+      "parentPort": "PG-L022:S1"
+    },
+    {
+      "category": "normal_evolution",
+      "childId": "PG-094",
+      "eitherParentEligible": false,
+      "parentId": "PG-093",
+      "parentPort": "PG-L022:S2"
+    },
+    {
+      "category": "normal_evolution",
+      "childId": "PG-095",
+      "eitherParentEligible": false,
+      "parentId": "PG-094",
+      "parentPort": "PG-L022:S3"
+    },
+    {
+      "category": "normal_evolution",
+      "childId": "PG-096",
+      "eitherParentEligible": false,
+      "parentId": "PG-036",
+      "parentPort": "PG-L036:S1"
+    },
+    {
+      "category": "normal_evolution",
+      "childId": "PG-097",
+      "eitherParentEligible": false,
+      "parentId": "PG-096",
+      "parentPort": "PG-L036:S2"
+    },
+    {
+      "category": "normal_evolution",
+      "childId": "PG-098",
+      "eitherParentEligible": false,
+      "parentId": "PG-097",
+      "parentPort": "PG-L036:S3"
+    },
+    {
+      "category": "normal_evolution",
+      "childId": "PG-099",
+      "eitherParentEligible": false,
+      "parentId": "PG-031",
+      "parentPort": "PG-L031:S1"
+    },
+    {
+      "category": "normal_evolution",
+      "childId": "PG-100",
+      "eitherParentEligible": false,
+      "parentId": "PG-099",
+      "parentPort": "PG-L031:S2"
+    },
+    {
+      "category": "normal_evolution",
+      "childId": "PG-101",
+      "eitherParentEligible": false,
+      "parentId": "PG-100",
+      "parentPort": "PG-L031:S3"
+    },
+    {
+      "category": "normal_evolution",
+      "childId": "PG-102",
+      "eitherParentEligible": false,
+      "parentId": "PG-025",
+      "parentPort": "PG-L025:S1"
+    },
+    {
+      "category": "normal_evolution",
+      "childId": "PG-103",
+      "eitherParentEligible": false,
+      "parentId": "PG-102",
+      "parentPort": "PG-L025:S2"
+    },
+    {
+      "category": "normal_evolution",
+      "childId": "PG-104",
+      "eitherParentEligible": false,
+      "parentId": "PG-103",
+      "parentPort": "PG-L025:S3"
+    },
+    {
+      "category": "normal_evolution",
+      "childId": "PG-105",
+      "eitherParentEligible": false,
+      "parentId": "PG-027",
+      "parentPort": "PG-L027:S1"
+    },
+    {
+      "category": "normal_evolution",
+      "childId": "PG-106",
+      "eitherParentEligible": false,
+      "parentId": "PG-105",
+      "parentPort": "PG-L027:S2"
+    },
+    {
+      "category": "normal_evolution",
+      "childId": "PG-107",
+      "eitherParentEligible": false,
+      "parentId": "PG-106",
+      "parentPort": "PG-L027:S3"
+    },
+    {
+      "category": "normal_evolution",
+      "childId": "PG-108",
+      "eitherParentEligible": false,
+      "parentId": "PG-033",
+      "parentPort": "PG-L033:S1"
+    },
+    {
+      "category": "normal_evolution",
+      "childId": "PG-109",
+      "eitherParentEligible": false,
+      "parentId": "PG-108",
+      "parentPort": "PG-L033:S2"
+    },
+    {
+      "category": "normal_evolution",
+      "childId": "PG-110",
+      "eitherParentEligible": false,
+      "parentId": "PG-109",
+      "parentPort": "PG-L033:S3"
+    },
+    {
+      "category": "normal_evolution",
+      "childId": "PG-111",
+      "eitherParentEligible": false,
+      "parentId": "PG-035",
+      "parentPort": "PG-L035:S1"
+    },
+    {
+      "category": "normal_evolution",
+      "childId": "PG-112",
+      "eitherParentEligible": false,
+      "parentId": "PG-111",
+      "parentPort": "PG-L035:S2"
+    },
+    {
+      "category": "normal_evolution",
+      "childId": "PG-113",
+      "eitherParentEligible": false,
+      "parentId": "PG-112",
+      "parentPort": "PG-L035:S3"
+    },
+    {
+      "category": "normal_evolution",
+      "childId": "PG-114",
+      "eitherParentEligible": false,
+      "parentId": "PG-028",
+      "parentPort": "PG-L028:S1"
+    },
+    {
+      "category": "normal_evolution",
+      "childId": "PG-115",
+      "eitherParentEligible": false,
+      "parentId": "PG-114",
+      "parentPort": "PG-L028:S2"
+    },
+    {
+      "category": "normal_evolution",
+      "childId": "PG-116",
+      "eitherParentEligible": false,
+      "parentId": "PG-115",
+      "parentPort": "PG-L028:S3"
+    },
+    {
+      "category": "normal_evolution",
+      "childId": "PG-117",
+      "eitherParentEligible": false,
+      "parentId": "PG-034",
+      "parentPort": "PG-L034:S1"
+    },
+    {
+      "category": "normal_evolution",
+      "childId": "PG-118",
+      "eitherParentEligible": false,
+      "parentId": "PG-117",
+      "parentPort": "PG-L034:S2"
+    },
+    {
+      "category": "normal_evolution",
+      "childId": "PG-119",
+      "eitherParentEligible": false,
+      "parentId": "PG-118",
+      "parentPort": "PG-L034:S3"
+    },
+    {
+      "category": "normal_evolution",
+      "childId": "PG-120",
+      "eitherParentEligible": false,
+      "parentId": "PG-030",
+      "parentPort": "PG-L030:S1"
+    },
+    {
+      "category": "normal_evolution",
+      "childId": "PG-121",
+      "eitherParentEligible": false,
+      "parentId": "PG-120",
+      "parentPort": "PG-L030:S2"
+    },
+    {
+      "category": "normal_evolution",
+      "childId": "PG-122",
+      "eitherParentEligible": false,
+      "parentId": "PG-121",
+      "parentPort": "PG-L030:S3"
+    },
+    {
+      "category": "normal_evolution",
+      "childId": "PG-123",
+      "eitherParentEligible": false,
+      "parentId": "PG-023",
+      "parentPort": "PG-L023:S1"
+    },
+    {
+      "category": "normal_evolution",
+      "childId": "PG-124",
+      "eitherParentEligible": false,
+      "parentId": "PG-123",
+      "parentPort": "PG-L023:S2"
+    },
+    {
+      "category": "normal_evolution",
+      "childId": "PG-125",
+      "eitherParentEligible": false,
+      "parentId": "PG-124",
+      "parentPort": "PG-L023:S3"
+    },
+    {
+      "category": "normal_evolution",
+      "childId": "PG-126",
+      "eitherParentEligible": false,
+      "parentId": "PG-037",
+      "parentPort": "PG-L037:S1"
+    },
+    {
+      "category": "normal_evolution",
+      "childId": "PG-127",
+      "eitherParentEligible": false,
+      "parentId": "PG-126",
+      "parentPort": "PG-L037:S2"
+    },
+    {
+      "category": "normal_evolution",
+      "childId": "PG-128",
+      "eitherParentEligible": false,
+      "parentId": "PG-127",
+      "parentPort": "PG-L037:S3"
+    },
+    {
+      "category": "normal_evolution",
+      "childId": "PG-129",
+      "eitherParentEligible": false,
+      "parentId": "PG-021",
+      "parentPort": "PG-L021:S1"
+    },
+    {
+      "category": "normal_evolution",
+      "childId": "PG-130",
+      "eitherParentEligible": false,
+      "parentId": "PG-129",
+      "parentPort": "PG-L021:S2"
+    },
+    {
+      "category": "normal_evolution",
+      "childId": "PG-131",
+      "eitherParentEligible": false,
+      "parentId": "PG-130",
+      "parentPort": "PG-L021:S3"
+    },
+    {
+      "category": "normal_evolution",
+      "childId": "PG-132",
+      "eitherParentEligible": false,
+      "parentId": "PG-038",
+      "parentPort": "PG-L038:S1"
+    },
+    {
+      "category": "normal_evolution",
+      "childId": "PG-133",
+      "eitherParentEligible": false,
+      "parentId": "PG-132",
+      "parentPort": "PG-L038:S2"
+    },
+    {
+      "category": "normal_evolution",
+      "childId": "PG-134",
+      "eitherParentEligible": false,
+      "parentId": "PG-133",
+      "parentPort": "PG-L038:S3"
+    },
+    {
+      "category": "normal_evolution",
+      "childId": "PG-135",
+      "eitherParentEligible": false,
+      "parentId": "PG-039",
+      "parentPort": "PG-L039:S1"
+    },
+    {
+      "category": "normal_evolution",
+      "childId": "PG-136",
+      "eitherParentEligible": false,
+      "parentId": "PG-135",
+      "parentPort": "PG-L039:S2"
+    },
+    {
+      "category": "normal_evolution",
+      "childId": "PG-137",
+      "eitherParentEligible": false,
+      "parentId": "PG-136",
+      "parentPort": "PG-L039:S3"
+    },
+    {
+      "category": "normal_evolution",
+      "childId": "PG-138",
+      "eitherParentEligible": false,
+      "parentId": "PG-029",
+      "parentPort": "PG-L029:S1"
+    },
+    {
+      "category": "normal_evolution",
+      "childId": "PG-139",
+      "eitherParentEligible": false,
+      "parentId": "PG-138",
+      "parentPort": "PG-L029:S2"
+    },
+    {
+      "category": "normal_evolution",
+      "childId": "PG-140",
+      "eitherParentEligible": false,
+      "parentId": "PG-139",
+      "parentPort": "PG-L029:S3"
+    },
+    {
+      "category": "normal_evolution",
+      "childId": "PG-141",
+      "eitherParentEligible": false,
+      "parentId": "PG-042",
+      "parentPort": "PG-L042:S1"
+    },
+    {
+      "category": "normal_evolution",
+      "childId": "PG-142",
+      "eitherParentEligible": false,
+      "parentId": "PG-045",
+      "parentPort": "PG-L045:S1"
+    },
+    {
+      "category": "normal_evolution",
+      "childId": "PG-143",
+      "eitherParentEligible": false,
+      "parentId": "PG-046",
+      "parentPort": "PG-L046:S1"
+    },
+    {
+      "category": "normal_evolution",
+      "childId": "PG-144",
+      "eitherParentEligible": false,
+      "parentId": "PG-060",
+      "parentPort": "PG-L060:S1"
+    },
+    {
+      "category": "normal_evolution",
+      "childId": "PG-145",
+      "eitherParentEligible": false,
+      "parentId": "PG-053",
+      "parentPort": "PG-L053:S1"
+    },
+    {
+      "category": "normal_evolution",
+      "childId": "PG-146",
+      "eitherParentEligible": false,
+      "parentId": "PG-054",
+      "parentPort": "PG-L054:S1"
+    },
+    {
+      "category": "normal_evolution",
+      "childId": "PG-147",
+      "eitherParentEligible": false,
+      "parentId": "PG-049",
+      "parentPort": "PG-L049:S1"
+    },
+    {
+      "category": "normal_evolution",
+      "childId": "PG-148",
+      "eitherParentEligible": false,
+      "parentId": "PG-056",
+      "parentPort": "PG-L056:S1"
+    },
+    {
+      "category": "normal_evolution",
+      "childId": "PG-149",
+      "eitherParentEligible": false,
+      "parentId": "PG-041",
+      "parentPort": "PG-L041:S1"
+    },
+    {
+      "category": "normal_evolution",
+      "childId": "PG-150",
+      "eitherParentEligible": false,
+      "parentId": "PG-057",
+      "parentPort": "PG-L057:S1"
+    },
+    {
+      "category": "normal_evolution",
+      "childId": "PG-151",
+      "eitherParentEligible": false,
+      "parentId": "PG-052",
+      "parentPort": "PG-L052:S1"
+    },
+    {
+      "category": "normal_evolution",
+      "childId": "PG-152",
+      "eitherParentEligible": false,
+      "parentId": "PG-044",
+      "parentPort": "PG-L044:S1"
+    },
+    {
+      "category": "normal_evolution",
+      "childId": "PG-153",
+      "eitherParentEligible": false,
+      "parentId": "PG-055",
+      "parentPort": "PG-L055:S1"
+    },
+    {
+      "category": "normal_evolution",
+      "childId": "PG-154",
+      "eitherParentEligible": false,
+      "parentId": "PG-043",
+      "parentPort": "PG-L043:S1"
+    },
+    {
+      "category": "normal_evolution",
+      "childId": "PG-155",
+      "eitherParentEligible": false,
+      "parentId": "PG-047",
+      "parentPort": "PG-L047:S1"
+    },
+    {
+      "category": "normal_evolution",
+      "childId": "PG-156",
+      "eitherParentEligible": false,
+      "parentId": "PG-050",
+      "parentPort": "PG-L050:S1"
+    },
+    {
+      "category": "normal_evolution",
+      "childId": "PG-157",
+      "eitherParentEligible": false,
+      "parentId": "PG-051",
+      "parentPort": "PG-L051:S1"
+    },
+    {
+      "category": "normal_evolution",
+      "childId": "PG-158",
+      "eitherParentEligible": false,
+      "parentId": "PG-048",
+      "parentPort": "PG-L048:S1"
+    },
+    {
+      "category": "normal_evolution",
+      "childId": "PG-159",
+      "eitherParentEligible": false,
+      "parentId": "PG-058",
+      "parentPort": "PG-L058:S1"
+    },
+    {
+      "category": "normal_evolution",
+      "childId": "PG-160",
+      "eitherParentEligible": false,
+      "parentId": "PG-059",
+      "parentPort": "PG-L059:S1"
+    },
+    {
+      "category": "normal_evolution",
+      "childId": "PG-161",
+      "eitherParentEligible": false,
+      "parentId": "PG-158",
+      "parentPort": "PG-L048:S2"
+    },
+    {
+      "category": "normal_evolution",
+      "childId": "PG-162",
+      "eitherParentEligible": false,
+      "parentId": "PG-152",
+      "parentPort": "PG-L044:S2"
+    },
+    {
+      "category": "normal_evolution",
+      "childId": "PG-163",
+      "eitherParentEligible": false,
+      "parentId": "PG-142",
+      "parentPort": "PG-L045:S2"
+    },
+    {
+      "category": "normal_evolution",
+      "childId": "PG-164",
+      "eitherParentEligible": false,
+      "parentId": "PG-143",
+      "parentPort": "PG-L046:S2"
+    },
+    {
+      "category": "normal_evolution",
+      "childId": "PG-165",
+      "eitherParentEligible": false,
+      "parentId": "PG-160",
+      "parentPort": "PG-L059:S2"
+    },
+    {
+      "category": "normal_evolution",
+      "childId": "PG-166",
+      "eitherParentEligible": false,
+      "parentId": "PG-155",
+      "parentPort": "PG-L047:S2"
+    },
+    {
+      "category": "normal_evolution",
+      "childId": "PG-167",
+      "eitherParentEligible": false,
+      "parentId": "PG-156",
+      "parentPort": "PG-L050:S2"
+    },
+    {
+      "category": "normal_evolution",
+      "childId": "PG-168",
+      "eitherParentEligible": false,
+      "parentId": "PG-144",
+      "parentPort": "PG-L060:S2"
+    },
+    {
+      "category": "normal_evolution",
+      "childId": "PG-169",
+      "eitherParentEligible": false,
+      "parentId": "PG-147",
+      "parentPort": "PG-L049:S2"
+    },
+    {
+      "category": "normal_evolution",
+      "childId": "PG-170",
+      "eitherParentEligible": false,
+      "parentId": "PG-157",
+      "parentPort": "PG-L051:S2"
+    },
+    {
+      "category": "normal_evolution",
+      "childId": "PG-171",
+      "eitherParentEligible": false,
+      "parentId": "PG-141",
+      "parentPort": "PG-L042:S2"
+    },
+    {
+      "category": "normal_evolution",
+      "childId": "PG-172",
+      "eitherParentEligible": false,
+      "parentId": "PG-151",
+      "parentPort": "PG-L052:S2"
+    },
+    {
+      "category": "normal_evolution",
+      "childId": "PG-173",
+      "eitherParentEligible": false,
+      "parentId": "PG-154",
+      "parentPort": "PG-L043:S2"
+    },
+    {
+      "category": "normal_evolution",
+      "childId": "PG-174",
+      "eitherParentEligible": false,
+      "parentId": "PG-153",
+      "parentPort": "PG-L055:S2"
+    },
+    {
+      "category": "normal_evolution",
+      "childId": "PG-175",
+      "eitherParentEligible": false,
+      "parentId": "PG-159",
+      "parentPort": "PG-L058:S2"
+    },
+    {
+      "category": "normal_evolution",
+      "childId": "PG-176",
+      "eitherParentEligible": false,
+      "parentId": "PG-148",
+      "parentPort": "PG-L056:S2"
+    },
+    {
+      "category": "normal_evolution",
+      "childId": "PG-177",
+      "eitherParentEligible": false,
+      "parentId": "PG-150",
+      "parentPort": "PG-L057:S2"
+    },
+    {
+      "category": "normal_evolution",
+      "childId": "PG-178",
+      "eitherParentEligible": false,
+      "parentId": "PG-149",
+      "parentPort": "PG-L041:S2"
+    },
+    {
+      "category": "normal_evolution",
+      "childId": "PG-179",
+      "eitherParentEligible": false,
+      "parentId": "PG-145",
+      "parentPort": "PG-L053:S2"
+    },
+    {
+      "category": "normal_evolution",
+      "childId": "PG-180",
+      "eitherParentEligible": false,
+      "parentId": "PG-146",
+      "parentPort": "PG-L054:S2"
+    },
+    {
+      "category": "normal_evolution",
+      "childId": "PG-181",
+      "eitherParentEligible": false,
+      "parentId": "PG-061",
+      "parentPort": "PG-L001:S2"
+    },
+    {
+      "category": "branch",
+      "childId": "PG-182",
+      "eitherParentEligible": false,
+      "parentId": "PG-002",
+      "parentPort": "PG-L002:S1"
+    },
+    {
+      "category": "branch",
+      "childId": "PG-183",
+      "eitherParentEligible": false,
+      "parentId": "PG-063",
+      "parentPort": "PG-L003:S2"
+    },
+    {
+      "category": "branch",
+      "childId": "PG-184",
+      "eitherParentEligible": false,
+      "parentId": "PG-004",
+      "parentPort": "PG-L004:S1"
+    },
+    {
+      "category": "branch",
+      "childId": "PG-185",
+      "eitherParentEligible": false,
+      "parentId": "PG-065",
+      "parentPort": "PG-L005:S2"
+    },
+    {
+      "category": "branch",
+      "childId": "PG-186",
+      "eitherParentEligible": false,
+      "parentId": "PG-066",
+      "parentPort": "PG-L006:S2"
+    },
+    {
+      "category": "branch",
+      "childId": "PG-187",
+      "eitherParentEligible": false,
+      "parentId": "PG-007",
+      "parentPort": "PG-L007:S1"
+    },
+    {
+      "category": "branch",
+      "childId": "PG-188",
+      "eitherParentEligible": false,
+      "parentId": "PG-068",
+      "parentPort": "PG-L008:S2"
+    },
+    {
+      "category": "branch",
+      "childId": "PG-189",
+      "eitherParentEligible": false,
+      "parentId": "PG-009",
+      "parentPort": "PG-L009:S1"
+    },
+    {
+      "category": "branch",
+      "childId": "PG-190",
+      "eitherParentEligible": false,
+      "parentId": "PG-070",
+      "parentPort": "PG-L010:S2"
+    },
+    {
+      "category": "branch",
+      "childId": "PG-191",
+      "eitherParentEligible": false,
+      "parentId": "PG-071",
+      "parentPort": "PG-L011:S2"
+    },
+    {
+      "category": "branch",
+      "childId": "PG-192",
+      "eitherParentEligible": false,
+      "parentId": "PG-012",
+      "parentPort": "PG-L012:S1"
+    },
+    {
+      "category": "branch",
+      "childId": "PG-193",
+      "eitherParentEligible": false,
+      "parentId": "PG-073",
+      "parentPort": "PG-L013:S2"
+    },
+    {
+      "category": "branch",
+      "childId": "PG-194",
+      "eitherParentEligible": false,
+      "parentId": "PG-074",
+      "parentPort": "PG-L014:S2"
+    },
+    {
+      "category": "branch",
+      "childId": "PG-195",
+      "eitherParentEligible": false,
+      "parentId": "PG-015",
+      "parentPort": "PG-L015:S1"
+    },
+    {
+      "category": "mixed",
+      "childId": "PG-196",
+      "eitherParentEligible": true,
+      "parentId": "PG-076",
+      "parentPort": "PG-L016:S2"
+    },
+    {
+      "category": "mixed",
+      "childId": "PG-196",
+      "eitherParentEligible": true,
+      "parentId": "PG-077",
+      "parentPort": "PG-L017:S2"
+    },
+    {
+      "category": "mixed",
+      "childId": "PG-197",
+      "eitherParentEligible": true,
+      "parentId": "PG-078",
+      "parentPort": "PG-L018:S2"
+    },
+    {
+      "category": "mixed",
+      "childId": "PG-197",
+      "eitherParentEligible": true,
+      "parentId": "PG-079",
+      "parentPort": "PG-L019:S2"
+    },
+    {
+      "category": "mixed",
+      "childId": "PG-198",
+      "eitherParentEligible": true,
+      "parentId": "PG-080",
+      "parentPort": "PG-L020:S2"
+    },
+    {
+      "category": "mixed",
+      "childId": "PG-198",
+      "eitherParentEligible": true,
+      "parentId": "PG-129",
+      "parentPort": "PG-L021:S2"
+    },
+    {
+      "category": "mixed",
+      "childId": "PG-199",
+      "eitherParentEligible": true,
+      "parentId": "PG-093",
+      "parentPort": "PG-L022:S2"
+    },
+    {
+      "category": "mixed",
+      "childId": "PG-199",
+      "eitherParentEligible": true,
+      "parentId": "PG-123",
+      "parentPort": "PG-L023:S2"
+    },
+    {
+      "category": "mixed",
+      "childId": "PG-200",
+      "eitherParentEligible": true,
+      "parentId": "PG-024",
+      "parentPort": "PG-L024:S1"
+    },
+    {
+      "category": "mixed",
+      "childId": "PG-200",
+      "eitherParentEligible": true,
+      "parentId": "PG-025",
+      "parentPort": "PG-L025:S1"
+    },
+    {
+      "category": "mixed",
+      "childId": "PG-201",
+      "eitherParentEligible": true,
+      "parentId": "PG-081",
+      "parentPort": "PG-L026:S2"
+    },
+    {
+      "category": "mixed",
+      "childId": "PG-201",
+      "eitherParentEligible": true,
+      "parentId": "PG-105",
+      "parentPort": "PG-L027:S2"
+    },
+    {
+      "category": "mixed",
+      "childId": "PG-202",
+      "eitherParentEligible": true,
+      "parentId": "PG-028",
+      "parentPort": "PG-L028:S1"
+    },
+    {
+      "category": "mixed",
+      "childId": "PG-202",
+      "eitherParentEligible": true,
+      "parentId": "PG-029",
+      "parentPort": "PG-L029:S1"
+    },
+    {
+      "category": "mixed",
+      "childId": "PG-203",
+      "eitherParentEligible": true,
+      "parentId": "PG-120",
+      "parentPort": "PG-L030:S2"
+    },
+    {
+      "category": "mixed",
+      "childId": "PG-203",
+      "eitherParentEligible": true,
+      "parentId": "PG-099",
+      "parentPort": "PG-L031:S2"
+    },
+    {
+      "category": "mixed",
+      "childId": "PG-204",
+      "eitherParentEligible": true,
+      "parentId": "PG-084",
+      "parentPort": "PG-L032:S2"
+    },
+    {
+      "category": "mixed",
+      "childId": "PG-204",
+      "eitherParentEligible": true,
+      "parentId": "PG-108",
+      "parentPort": "PG-L033:S2"
+    },
+    {
+      "category": "mixed",
+      "childId": "PG-205",
+      "eitherParentEligible": true,
+      "parentId": "PG-117",
+      "parentPort": "PG-L034:S2"
+    },
+    {
+      "category": "mixed",
+      "childId": "PG-205",
+      "eitherParentEligible": true,
+      "parentId": "PG-111",
+      "parentPort": "PG-L035:S2"
+    },
+    {
+      "category": "special",
+      "childId": "PG-206",
+      "eitherParentEligible": false,
+      "parentId": "PG-096",
+      "parentPort": "PG-L036:S2"
+    },
+    {
+      "category": "special",
+      "childId": "PG-207",
+      "eitherParentEligible": false,
+      "parentId": "PG-126",
+      "parentPort": "PG-L037:S2"
+    },
+    {
+      "category": "special",
+      "childId": "PG-208",
+      "eitherParentEligible": false,
+      "parentId": "PG-132",
+      "parentPort": "PG-L038:S2"
+    },
+    {
+      "category": "special",
+      "childId": "PG-209",
+      "eitherParentEligible": false,
+      "parentId": "PG-135",
+      "parentPort": "PG-L039:S2"
+    },
+    {
+      "category": "special",
+      "childId": "PG-210",
+      "eitherParentEligible": false,
+      "parentId": "PG-087",
+      "parentPort": "PG-L040:S2"
+    },
+    {
+      "category": "special",
+      "childId": "PG-211",
+      "eitherParentEligible": false,
+      "parentId": "PG-178",
+      "parentPort": "PG-L041:S3"
+    },
+    {
+      "category": "special",
+      "childId": "PG-212",
+      "eitherParentEligible": false,
+      "parentId": "PG-141",
+      "parentPort": "PG-L042:S2"
+    },
+    {
+      "category": "special",
+      "childId": "PG-213",
+      "eitherParentEligible": false,
+      "parentId": "PG-173",
+      "parentPort": "PG-L043:S3"
+    },
+    {
+      "category": "special",
+      "childId": "PG-214",
+      "eitherParentEligible": false,
+      "parentId": "PG-152",
+      "parentPort": "PG-L044:S2"
+    },
+    {
+      "category": "special",
+      "childId": "PG-215",
+      "eitherParentEligible": false,
+      "parentId": "PG-163",
+      "parentPort": "PG-L045:S3"
+    },
+    {
+      "category": "mutant",
+      "childId": "PG-216",
+      "eitherParentEligible": false,
+      "parentId": "PG-001",
+      "parentPort": "PG-L001:S1"
+    },
+    {
+      "category": "mutant",
+      "childId": "PG-217",
+      "eitherParentEligible": false,
+      "parentId": "PG-002",
+      "parentPort": "PG-L002:S1"
+    },
+    {
+      "category": "mutant",
+      "childId": "PG-218",
+      "eitherParentEligible": false,
+      "parentId": "PG-003",
+      "parentPort": "PG-L003:S1"
+    },
+    {
+      "category": "mutant",
+      "childId": "PG-219",
+      "eitherParentEligible": false,
+      "parentId": "PG-004",
+      "parentPort": "PG-L004:S1"
+    },
+    {
+      "category": "mutant",
+      "childId": "PG-220",
+      "eitherParentEligible": false,
+      "parentId": "PG-005",
+      "parentPort": "PG-L005:S1"
+    },
+    {
+      "category": "mutant",
+      "childId": "PG-221",
+      "eitherParentEligible": false,
+      "parentId": "PG-006",
+      "parentPort": "PG-L006:S1"
+    },
+    {
+      "category": "mutant",
+      "childId": "PG-222",
+      "eitherParentEligible": false,
+      "parentId": "PG-007",
+      "parentPort": "PG-L007:S1"
+    },
+    {
+      "category": "mutant",
+      "childId": "PG-223",
+      "eitherParentEligible": false,
+      "parentId": "PG-008",
+      "parentPort": "PG-L008:S1"
+    },
+    {
+      "category": "mutant",
+      "childId": "PG-224",
+      "eitherParentEligible": false,
+      "parentId": "PG-009",
+      "parentPort": "PG-L009:S1"
+    },
+    {
+      "category": "mutant",
+      "childId": "PG-225",
+      "eitherParentEligible": false,
+      "parentId": "PG-010",
+      "parentPort": "PG-L010:S1"
+    },
+    {
+      "category": "mutant",
+      "childId": "PG-226",
+      "eitherParentEligible": false,
+      "parentId": "PG-011",
+      "parentPort": "PG-L011:S1"
+    },
+    {
+      "category": "mutant",
+      "childId": "PG-227",
+      "eitherParentEligible": false,
+      "parentId": "PG-012",
+      "parentPort": "PG-L012:S1"
+    },
+    {
+      "category": "mutant",
+      "childId": "PG-228",
+      "eitherParentEligible": false,
+      "parentId": "PG-013",
+      "parentPort": "PG-L013:S1"
+    },
+    {
+      "category": "mutant",
+      "childId": "PG-229",
+      "eitherParentEligible": false,
+      "parentId": "PG-014",
+      "parentPort": "PG-L014:S1"
+    },
+    {
+      "category": "mutant",
+      "childId": "PG-230",
+      "eitherParentEligible": false,
+      "parentId": "PG-015",
+      "parentPort": "PG-L015:S1"
+    },
+    {
+      "category": "mutant",
+      "childId": "PG-231",
+      "eitherParentEligible": false,
+      "parentId": "PG-016",
+      "parentPort": "PG-L016:S1"
+    },
+    {
+      "category": "mutant",
+      "childId": "PG-232",
+      "eitherParentEligible": false,
+      "parentId": "PG-018",
+      "parentPort": "PG-L018:S1"
+    },
+    {
+      "category": "mutant",
+      "childId": "PG-233",
+      "eitherParentEligible": false,
+      "parentId": "PG-020",
+      "parentPort": "PG-L020:S1"
+    },
+    {
+      "category": "mutant",
+      "childId": "PG-234",
+      "eitherParentEligible": false,
+      "parentId": "PG-022",
+      "parentPort": "PG-L022:S1"
+    },
+    {
+      "category": "mutant",
+      "childId": "PG-235",
+      "eitherParentEligible": false,
+      "parentId": "PG-024",
+      "parentPort": "PG-L024:S1"
+    },
+    {
+      "category": "mutant",
+      "childId": "PG-236",
+      "eitherParentEligible": false,
+      "parentId": "PG-026",
+      "parentPort": "PG-L026:S1"
+    },
+    {
+      "category": "mutant",
+      "childId": "PG-237",
+      "eitherParentEligible": false,
+      "parentId": "PG-028",
+      "parentPort": "PG-L028:S1"
+    },
+    {
+      "category": "mutant",
+      "childId": "PG-238",
+      "eitherParentEligible": false,
+      "parentId": "PG-030",
+      "parentPort": "PG-L030:S1"
+    },
+    {
+      "category": "mutant",
+      "childId": "PG-239",
+      "eitherParentEligible": false,
+      "parentId": "PG-032",
+      "parentPort": "PG-L032:S1"
+    },
+    {
+      "category": "mutant",
+      "childId": "PG-240",
+      "eitherParentEligible": false,
+      "parentId": "PG-034",
+      "parentPort": "PG-L034:S1"
+    }
+  ],
+  "rootSlotIds": [
+    "PG-001",
+    "PG-002",
+    "PG-003",
+    "PG-004",
+    "PG-005",
+    "PG-006",
+    "PG-007",
+    "PG-008",
+    "PG-009",
+    "PG-010",
+    "PG-011",
+    "PG-012",
+    "PG-013",
+    "PG-014",
+    "PG-015",
+    "PG-016",
+    "PG-017",
+    "PG-018",
+    "PG-019",
+    "PG-020",
+    "PG-021",
+    "PG-022",
+    "PG-023",
+    "PG-024",
+    "PG-025",
+    "PG-026",
+    "PG-027",
+    "PG-028",
+    "PG-029",
+    "PG-030",
+    "PG-031",
+    "PG-032",
+    "PG-033",
+    "PG-034",
+    "PG-035",
+    "PG-036",
+    "PG-037",
+    "PG-038",
+    "PG-039",
+    "PG-040",
+    "PG-041",
+    "PG-042",
+    "PG-043",
+    "PG-044",
+    "PG-045",
+    "PG-046",
+    "PG-047",
+    "PG-048",
+    "PG-049",
+    "PG-050",
+    "PG-051",
+    "PG-052",
+    "PG-053",
+    "PG-054",
+    "PG-055",
+    "PG-056",
+    "PG-057",
+    "PG-058",
+    "PG-059",
+    "PG-060"
+  ],
+  "roots": [
+    {
+      "cardsPerStage": {
+        "1": 1,
+        "2": 1,
+        "3": 1,
+        "4": 0
+      },
+      "cardsTotal": 3,
+      "choiceStages": [],
+      "maxStage": 3,
+      "profile": "noChoice",
+      "reachableSlotIds": [
+        "PG-001",
+        "PG-061",
+        "PG-181"
+      ],
+      "rootId": "PG-001"
+    },
+    {
+      "cardsPerStage": {
+        "1": 1,
+        "2": 2,
+        "3": 0,
+        "4": 0
+      },
+      "cardsTotal": 3,
+      "choiceStages": [
+        1
+      ],
+      "maxStage": 2,
+      "profile": "stageOneChoice",
+      "reachableSlotIds": [
+        "PG-002",
+        "PG-062",
+        "PG-182"
+      ],
+      "rootId": "PG-002"
+    },
+    {
+      "cardsPerStage": {
+        "1": 1,
+        "2": 1,
+        "3": 1,
+        "4": 0
+      },
+      "cardsTotal": 3,
+      "choiceStages": [],
+      "maxStage": 3,
+      "profile": "noChoice",
+      "reachableSlotIds": [
+        "PG-003",
+        "PG-063",
+        "PG-183"
+      ],
+      "rootId": "PG-003"
+    },
+    {
+      "cardsPerStage": {
+        "1": 1,
+        "2": 2,
+        "3": 0,
+        "4": 0
+      },
+      "cardsTotal": 3,
+      "choiceStages": [
+        1
+      ],
+      "maxStage": 2,
+      "profile": "stageOneChoice",
+      "reachableSlotIds": [
+        "PG-004",
+        "PG-064",
+        "PG-184"
+      ],
+      "rootId": "PG-004"
+    },
+    {
+      "cardsPerStage": {
+        "1": 1,
+        "2": 1,
+        "3": 1,
+        "4": 0
+      },
+      "cardsTotal": 3,
+      "choiceStages": [],
+      "maxStage": 3,
+      "profile": "noChoice",
+      "reachableSlotIds": [
+        "PG-005",
+        "PG-065",
+        "PG-185"
+      ],
+      "rootId": "PG-005"
+    },
+    {
+      "cardsPerStage": {
+        "1": 1,
+        "2": 1,
+        "3": 1,
+        "4": 0
+      },
+      "cardsTotal": 3,
+      "choiceStages": [],
+      "maxStage": 3,
+      "profile": "noChoice",
+      "reachableSlotIds": [
+        "PG-006",
+        "PG-066",
+        "PG-186"
+      ],
+      "rootId": "PG-006"
+    },
+    {
+      "cardsPerStage": {
+        "1": 1,
+        "2": 2,
+        "3": 0,
+        "4": 0
+      },
+      "cardsTotal": 3,
+      "choiceStages": [
+        1
+      ],
+      "maxStage": 2,
+      "profile": "stageOneChoice",
+      "reachableSlotIds": [
+        "PG-007",
+        "PG-067",
+        "PG-187"
+      ],
+      "rootId": "PG-007"
+    },
+    {
+      "cardsPerStage": {
+        "1": 1,
+        "2": 1,
+        "3": 1,
+        "4": 0
+      },
+      "cardsTotal": 3,
+      "choiceStages": [],
+      "maxStage": 3,
+      "profile": "noChoice",
+      "reachableSlotIds": [
+        "PG-008",
+        "PG-068",
+        "PG-188"
+      ],
+      "rootId": "PG-008"
+    },
+    {
+      "cardsPerStage": {
+        "1": 1,
+        "2": 2,
+        "3": 0,
+        "4": 0
+      },
+      "cardsTotal": 3,
+      "choiceStages": [
+        1
+      ],
+      "maxStage": 2,
+      "profile": "stageOneChoice",
+      "reachableSlotIds": [
+        "PG-009",
+        "PG-069",
+        "PG-189"
+      ],
+      "rootId": "PG-009"
+    },
+    {
+      "cardsPerStage": {
+        "1": 1,
+        "2": 1,
+        "3": 1,
+        "4": 0
+      },
+      "cardsTotal": 3,
+      "choiceStages": [],
+      "maxStage": 3,
+      "profile": "noChoice",
+      "reachableSlotIds": [
+        "PG-010",
+        "PG-070",
+        "PG-190"
+      ],
+      "rootId": "PG-010"
+    },
+    {
+      "cardsPerStage": {
+        "1": 1,
+        "2": 1,
+        "3": 1,
+        "4": 0
+      },
+      "cardsTotal": 3,
+      "choiceStages": [],
+      "maxStage": 3,
+      "profile": "noChoice",
+      "reachableSlotIds": [
+        "PG-011",
+        "PG-071",
+        "PG-191"
+      ],
+      "rootId": "PG-011"
+    },
+    {
+      "cardsPerStage": {
+        "1": 1,
+        "2": 2,
+        "3": 0,
+        "4": 0
+      },
+      "cardsTotal": 3,
+      "choiceStages": [
+        1
+      ],
+      "maxStage": 2,
+      "profile": "stageOneChoice",
+      "reachableSlotIds": [
+        "PG-012",
+        "PG-072",
+        "PG-192"
+      ],
+      "rootId": "PG-012"
+    },
+    {
+      "cardsPerStage": {
+        "1": 1,
+        "2": 1,
+        "3": 1,
+        "4": 0
+      },
+      "cardsTotal": 3,
+      "choiceStages": [],
+      "maxStage": 3,
+      "profile": "noChoice",
+      "reachableSlotIds": [
+        "PG-013",
+        "PG-073",
+        "PG-193"
+      ],
+      "rootId": "PG-013"
+    },
+    {
+      "cardsPerStage": {
+        "1": 1,
+        "2": 1,
+        "3": 1,
+        "4": 0
+      },
+      "cardsTotal": 3,
+      "choiceStages": [],
+      "maxStage": 3,
+      "profile": "noChoice",
+      "reachableSlotIds": [
+        "PG-014",
+        "PG-074",
+        "PG-194"
+      ],
+      "rootId": "PG-014"
+    },
+    {
+      "cardsPerStage": {
+        "1": 1,
+        "2": 2,
+        "3": 0,
+        "4": 0
+      },
+      "cardsTotal": 3,
+      "choiceStages": [
+        1
+      ],
+      "maxStage": 2,
+      "profile": "stageOneChoice",
+      "reachableSlotIds": [
+        "PG-015",
+        "PG-075",
+        "PG-195"
+      ],
+      "rootId": "PG-015"
+    },
+    {
+      "cardsPerStage": {
+        "1": 1,
+        "2": 1,
+        "3": 1,
+        "4": 0
+      },
+      "cardsTotal": 3,
+      "choiceStages": [],
+      "maxStage": 3,
+      "profile": "noChoice",
+      "reachableSlotIds": [
+        "PG-016",
+        "PG-076",
+        "PG-196"
+      ],
+      "rootId": "PG-016"
+    },
+    {
+      "cardsPerStage": {
+        "1": 1,
+        "2": 1,
+        "3": 1,
+        "4": 0
+      },
+      "cardsTotal": 3,
+      "choiceStages": [],
+      "maxStage": 3,
+      "profile": "noChoice",
+      "reachableSlotIds": [
+        "PG-017",
+        "PG-077",
+        "PG-196"
+      ],
+      "rootId": "PG-017"
+    },
+    {
+      "cardsPerStage": {
+        "1": 1,
+        "2": 1,
+        "3": 1,
+        "4": 0
+      },
+      "cardsTotal": 3,
+      "choiceStages": [],
+      "maxStage": 3,
+      "profile": "noChoice",
+      "reachableSlotIds": [
+        "PG-018",
+        "PG-078",
+        "PG-197"
+      ],
+      "rootId": "PG-018"
+    },
+    {
+      "cardsPerStage": {
+        "1": 1,
+        "2": 1,
+        "3": 1,
+        "4": 0
+      },
+      "cardsTotal": 3,
+      "choiceStages": [],
+      "maxStage": 3,
+      "profile": "noChoice",
+      "reachableSlotIds": [
+        "PG-019",
+        "PG-079",
+        "PG-197"
+      ],
+      "rootId": "PG-019"
+    },
+    {
+      "cardsPerStage": {
+        "1": 1,
+        "2": 1,
+        "3": 1,
+        "4": 0
+      },
+      "cardsTotal": 3,
+      "choiceStages": [],
+      "maxStage": 3,
+      "profile": "noChoice",
+      "reachableSlotIds": [
+        "PG-020",
+        "PG-080",
+        "PG-198"
+      ],
+      "rootId": "PG-020"
+    },
+    {
+      "cardsPerStage": {
+        "1": 1,
+        "2": 1,
+        "3": 2,
+        "4": 1
+      },
+      "cardsTotal": 5,
+      "choiceStages": [
+        2
+      ],
+      "maxStage": 4,
+      "profile": "stageTwoChoice",
+      "reachableSlotIds": [
+        "PG-021",
+        "PG-129",
+        "PG-130",
+        "PG-131",
+        "PG-198"
+      ],
+      "rootId": "PG-021"
+    },
+    {
+      "cardsPerStage": {
+        "1": 1,
+        "2": 1,
+        "3": 2,
+        "4": 1
+      },
+      "cardsTotal": 5,
+      "choiceStages": [
+        2
+      ],
+      "maxStage": 4,
+      "profile": "stageTwoChoice",
+      "reachableSlotIds": [
+        "PG-022",
+        "PG-093",
+        "PG-094",
+        "PG-095",
+        "PG-199"
+      ],
+      "rootId": "PG-022"
+    },
+    {
+      "cardsPerStage": {
+        "1": 1,
+        "2": 1,
+        "3": 2,
+        "4": 1
+      },
+      "cardsTotal": 5,
+      "choiceStages": [
+        2
+      ],
+      "maxStage": 4,
+      "profile": "stageTwoChoice",
+      "reachableSlotIds": [
+        "PG-023",
+        "PG-123",
+        "PG-124",
+        "PG-125",
+        "PG-199"
+      ],
+      "rootId": "PG-023"
+    },
+    {
+      "cardsPerStage": {
+        "1": 1,
+        "2": 2,
+        "3": 1,
+        "4": 1
+      },
+      "cardsTotal": 5,
+      "choiceStages": [
+        1
+      ],
+      "maxStage": 4,
+      "profile": "stageOneChoice",
+      "reachableSlotIds": [
+        "PG-024",
+        "PG-090",
+        "PG-091",
+        "PG-092",
+        "PG-200"
+      ],
+      "rootId": "PG-024"
+    },
+    {
+      "cardsPerStage": {
+        "1": 1,
+        "2": 2,
+        "3": 1,
+        "4": 1
+      },
+      "cardsTotal": 5,
+      "choiceStages": [
+        1
+      ],
+      "maxStage": 4,
+      "profile": "stageOneChoice",
+      "reachableSlotIds": [
+        "PG-025",
+        "PG-102",
+        "PG-103",
+        "PG-104",
+        "PG-200"
+      ],
+      "rootId": "PG-025"
+    },
+    {
+      "cardsPerStage": {
+        "1": 1,
+        "2": 1,
+        "3": 2,
+        "4": 1
+      },
+      "cardsTotal": 5,
+      "choiceStages": [
+        2
+      ],
+      "maxStage": 4,
+      "profile": "stageTwoChoice",
+      "reachableSlotIds": [
+        "PG-026",
+        "PG-081",
+        "PG-082",
+        "PG-083",
+        "PG-201"
+      ],
+      "rootId": "PG-026"
+    },
+    {
+      "cardsPerStage": {
+        "1": 1,
+        "2": 1,
+        "3": 2,
+        "4": 1
+      },
+      "cardsTotal": 5,
+      "choiceStages": [
+        2
+      ],
+      "maxStage": 4,
+      "profile": "stageTwoChoice",
+      "reachableSlotIds": [
+        "PG-027",
+        "PG-105",
+        "PG-106",
+        "PG-107",
+        "PG-201"
+      ],
+      "rootId": "PG-027"
+    },
+    {
+      "cardsPerStage": {
+        "1": 1,
+        "2": 2,
+        "3": 1,
+        "4": 1
+      },
+      "cardsTotal": 5,
+      "choiceStages": [
+        1
+      ],
+      "maxStage": 4,
+      "profile": "stageOneChoice",
+      "reachableSlotIds": [
+        "PG-028",
+        "PG-114",
+        "PG-115",
+        "PG-116",
+        "PG-202"
+      ],
+      "rootId": "PG-028"
+    },
+    {
+      "cardsPerStage": {
+        "1": 1,
+        "2": 2,
+        "3": 1,
+        "4": 1
+      },
+      "cardsTotal": 5,
+      "choiceStages": [
+        1
+      ],
+      "maxStage": 4,
+      "profile": "stageOneChoice",
+      "reachableSlotIds": [
+        "PG-029",
+        "PG-138",
+        "PG-139",
+        "PG-140",
+        "PG-202"
+      ],
+      "rootId": "PG-029"
+    },
+    {
+      "cardsPerStage": {
+        "1": 1,
+        "2": 1,
+        "3": 2,
+        "4": 1
+      },
+      "cardsTotal": 5,
+      "choiceStages": [
+        2
+      ],
+      "maxStage": 4,
+      "profile": "stageTwoChoice",
+      "reachableSlotIds": [
+        "PG-030",
+        "PG-120",
+        "PG-121",
+        "PG-122",
+        "PG-203"
+      ],
+      "rootId": "PG-030"
+    },
+    {
+      "cardsPerStage": {
+        "1": 1,
+        "2": 1,
+        "3": 2,
+        "4": 1
+      },
+      "cardsTotal": 5,
+      "choiceStages": [
+        2
+      ],
+      "maxStage": 4,
+      "profile": "stageTwoChoice",
+      "reachableSlotIds": [
+        "PG-031",
+        "PG-099",
+        "PG-100",
+        "PG-101",
+        "PG-203"
+      ],
+      "rootId": "PG-031"
+    },
+    {
+      "cardsPerStage": {
+        "1": 1,
+        "2": 1,
+        "3": 2,
+        "4": 1
+      },
+      "cardsTotal": 5,
+      "choiceStages": [
+        2
+      ],
+      "maxStage": 4,
+      "profile": "stageTwoChoice",
+      "reachableSlotIds": [
+        "PG-032",
+        "PG-084",
+        "PG-085",
+        "PG-086",
+        "PG-204"
+      ],
+      "rootId": "PG-032"
+    },
+    {
+      "cardsPerStage": {
+        "1": 1,
+        "2": 1,
+        "3": 2,
+        "4": 1
+      },
+      "cardsTotal": 5,
+      "choiceStages": [
+        2
+      ],
+      "maxStage": 4,
+      "profile": "stageTwoChoice",
+      "reachableSlotIds": [
+        "PG-033",
+        "PG-108",
+        "PG-109",
+        "PG-110",
+        "PG-204"
+      ],
+      "rootId": "PG-033"
+    },
+    {
+      "cardsPerStage": {
+        "1": 1,
+        "2": 1,
+        "3": 2,
+        "4": 1
+      },
+      "cardsTotal": 5,
+      "choiceStages": [
+        2
+      ],
+      "maxStage": 4,
+      "profile": "stageTwoChoice",
+      "reachableSlotIds": [
+        "PG-034",
+        "PG-117",
+        "PG-118",
+        "PG-119",
+        "PG-205"
+      ],
+      "rootId": "PG-034"
+    },
+    {
+      "cardsPerStage": {
+        "1": 1,
+        "2": 1,
+        "3": 2,
+        "4": 1
+      },
+      "cardsTotal": 5,
+      "choiceStages": [
+        2
+      ],
+      "maxStage": 4,
+      "profile": "stageTwoChoice",
+      "reachableSlotIds": [
+        "PG-035",
+        "PG-111",
+        "PG-112",
+        "PG-113",
+        "PG-205"
+      ],
+      "rootId": "PG-035"
+    },
+    {
+      "cardsPerStage": {
+        "1": 1,
+        "2": 1,
+        "3": 2,
+        "4": 1
+      },
+      "cardsTotal": 5,
+      "choiceStages": [
+        2
+      ],
+      "maxStage": 4,
+      "profile": "stageTwoChoice",
+      "reachableSlotIds": [
+        "PG-036",
+        "PG-096",
+        "PG-097",
+        "PG-098",
+        "PG-206"
+      ],
+      "rootId": "PG-036"
+    },
+    {
+      "cardsPerStage": {
+        "1": 1,
+        "2": 1,
+        "3": 2,
+        "4": 1
+      },
+      "cardsTotal": 5,
+      "choiceStages": [
+        2
+      ],
+      "maxStage": 4,
+      "profile": "stageTwoChoice",
+      "reachableSlotIds": [
+        "PG-037",
+        "PG-126",
+        "PG-127",
+        "PG-128",
+        "PG-207"
+      ],
+      "rootId": "PG-037"
+    },
+    {
+      "cardsPerStage": {
+        "1": 1,
+        "2": 1,
+        "3": 2,
+        "4": 1
+      },
+      "cardsTotal": 5,
+      "choiceStages": [
+        2
+      ],
+      "maxStage": 4,
+      "profile": "stageTwoChoice",
+      "reachableSlotIds": [
+        "PG-038",
+        "PG-132",
+        "PG-133",
+        "PG-134",
+        "PG-208"
+      ],
+      "rootId": "PG-038"
+    },
+    {
+      "cardsPerStage": {
+        "1": 1,
+        "2": 1,
+        "3": 2,
+        "4": 1
+      },
+      "cardsTotal": 5,
+      "choiceStages": [
+        2
+      ],
+      "maxStage": 4,
+      "profile": "stageTwoChoice",
+      "reachableSlotIds": [
+        "PG-039",
+        "PG-135",
+        "PG-136",
+        "PG-137",
+        "PG-209"
+      ],
+      "rootId": "PG-039"
+    },
+    {
+      "cardsPerStage": {
+        "1": 1,
+        "2": 1,
+        "3": 2,
+        "4": 1
+      },
+      "cardsTotal": 5,
+      "choiceStages": [
+        2
+      ],
+      "maxStage": 4,
+      "profile": "stageTwoChoice",
+      "reachableSlotIds": [
+        "PG-040",
+        "PG-087",
+        "PG-088",
+        "PG-089",
+        "PG-210"
+      ],
+      "rootId": "PG-040"
+    },
+    {
+      "cardsPerStage": {
+        "1": 1,
+        "2": 1,
+        "3": 1,
+        "4": 1
+      },
+      "cardsTotal": 4,
+      "choiceStages": [],
+      "maxStage": 4,
+      "profile": "noChoice",
+      "reachableSlotIds": [
+        "PG-041",
+        "PG-149",
+        "PG-178",
+        "PG-211"
+      ],
+      "rootId": "PG-041"
+    },
+    {
+      "cardsPerStage": {
+        "1": 1,
+        "2": 1,
+        "3": 2,
+        "4": 0
+      },
+      "cardsTotal": 4,
+      "choiceStages": [
+        2
+      ],
+      "maxStage": 3,
+      "profile": "stageTwoChoice",
+      "reachableSlotIds": [
+        "PG-042",
+        "PG-141",
+        "PG-171",
+        "PG-212"
+      ],
+      "rootId": "PG-042"
+    },
+    {
+      "cardsPerStage": {
+        "1": 1,
+        "2": 1,
+        "3": 1,
+        "4": 1
+      },
+      "cardsTotal": 4,
+      "choiceStages": [],
+      "maxStage": 4,
+      "profile": "noChoice",
+      "reachableSlotIds": [
+        "PG-043",
+        "PG-154",
+        "PG-173",
+        "PG-213"
+      ],
+      "rootId": "PG-043"
+    },
+    {
+      "cardsPerStage": {
+        "1": 1,
+        "2": 1,
+        "3": 2,
+        "4": 0
+      },
+      "cardsTotal": 4,
+      "choiceStages": [
+        2
+      ],
+      "maxStage": 3,
+      "profile": "stageTwoChoice",
+      "reachableSlotIds": [
+        "PG-044",
+        "PG-152",
+        "PG-162",
+        "PG-214"
+      ],
+      "rootId": "PG-044"
+    },
+    {
+      "cardsPerStage": {
+        "1": 1,
+        "2": 1,
+        "3": 1,
+        "4": 1
+      },
+      "cardsTotal": 4,
+      "choiceStages": [],
+      "maxStage": 4,
+      "profile": "noChoice",
+      "reachableSlotIds": [
+        "PG-045",
+        "PG-142",
+        "PG-163",
+        "PG-215"
+      ],
+      "rootId": "PG-045"
+    },
+    {
+      "cardsPerStage": {
+        "1": 1,
+        "2": 1,
+        "3": 1,
+        "4": 0
+      },
+      "cardsTotal": 3,
+      "choiceStages": [],
+      "maxStage": 3,
+      "profile": "noChoice",
+      "reachableSlotIds": [
+        "PG-046",
+        "PG-143",
+        "PG-164"
+      ],
+      "rootId": "PG-046"
+    },
+    {
+      "cardsPerStage": {
+        "1": 1,
+        "2": 1,
+        "3": 1,
+        "4": 0
+      },
+      "cardsTotal": 3,
+      "choiceStages": [],
+      "maxStage": 3,
+      "profile": "noChoice",
+      "reachableSlotIds": [
+        "PG-047",
+        "PG-155",
+        "PG-166"
+      ],
+      "rootId": "PG-047"
+    },
+    {
+      "cardsPerStage": {
+        "1": 1,
+        "2": 1,
+        "3": 1,
+        "4": 0
+      },
+      "cardsTotal": 3,
+      "choiceStages": [],
+      "maxStage": 3,
+      "profile": "noChoice",
+      "reachableSlotIds": [
+        "PG-048",
+        "PG-158",
+        "PG-161"
+      ],
+      "rootId": "PG-048"
+    },
+    {
+      "cardsPerStage": {
+        "1": 1,
+        "2": 1,
+        "3": 1,
+        "4": 0
+      },
+      "cardsTotal": 3,
+      "choiceStages": [],
+      "maxStage": 3,
+      "profile": "noChoice",
+      "reachableSlotIds": [
+        "PG-049",
+        "PG-147",
+        "PG-169"
+      ],
+      "rootId": "PG-049"
+    },
+    {
+      "cardsPerStage": {
+        "1": 1,
+        "2": 1,
+        "3": 1,
+        "4": 0
+      },
+      "cardsTotal": 3,
+      "choiceStages": [],
+      "maxStage": 3,
+      "profile": "noChoice",
+      "reachableSlotIds": [
+        "PG-050",
+        "PG-156",
+        "PG-167"
+      ],
+      "rootId": "PG-050"
+    },
+    {
+      "cardsPerStage": {
+        "1": 1,
+        "2": 1,
+        "3": 1,
+        "4": 0
+      },
+      "cardsTotal": 3,
+      "choiceStages": [],
+      "maxStage": 3,
+      "profile": "noChoice",
+      "reachableSlotIds": [
+        "PG-051",
+        "PG-157",
+        "PG-170"
+      ],
+      "rootId": "PG-051"
+    },
+    {
+      "cardsPerStage": {
+        "1": 1,
+        "2": 1,
+        "3": 1,
+        "4": 0
+      },
+      "cardsTotal": 3,
+      "choiceStages": [],
+      "maxStage": 3,
+      "profile": "noChoice",
+      "reachableSlotIds": [
+        "PG-052",
+        "PG-151",
+        "PG-172"
+      ],
+      "rootId": "PG-052"
+    },
+    {
+      "cardsPerStage": {
+        "1": 1,
+        "2": 1,
+        "3": 1,
+        "4": 0
+      },
+      "cardsTotal": 3,
+      "choiceStages": [],
+      "maxStage": 3,
+      "profile": "noChoice",
+      "reachableSlotIds": [
+        "PG-053",
+        "PG-145",
+        "PG-179"
+      ],
+      "rootId": "PG-053"
+    },
+    {
+      "cardsPerStage": {
+        "1": 1,
+        "2": 1,
+        "3": 1,
+        "4": 0
+      },
+      "cardsTotal": 3,
+      "choiceStages": [],
+      "maxStage": 3,
+      "profile": "noChoice",
+      "reachableSlotIds": [
+        "PG-054",
+        "PG-146",
+        "PG-180"
+      ],
+      "rootId": "PG-054"
+    },
+    {
+      "cardsPerStage": {
+        "1": 1,
+        "2": 1,
+        "3": 1,
+        "4": 0
+      },
+      "cardsTotal": 3,
+      "choiceStages": [],
+      "maxStage": 3,
+      "profile": "noChoice",
+      "reachableSlotIds": [
+        "PG-055",
+        "PG-153",
+        "PG-174"
+      ],
+      "rootId": "PG-055"
+    },
+    {
+      "cardsPerStage": {
+        "1": 1,
+        "2": 1,
+        "3": 1,
+        "4": 0
+      },
+      "cardsTotal": 3,
+      "choiceStages": [],
+      "maxStage": 3,
+      "profile": "noChoice",
+      "reachableSlotIds": [
+        "PG-056",
+        "PG-148",
+        "PG-176"
+      ],
+      "rootId": "PG-056"
+    },
+    {
+      "cardsPerStage": {
+        "1": 1,
+        "2": 1,
+        "3": 1,
+        "4": 0
+      },
+      "cardsTotal": 3,
+      "choiceStages": [],
+      "maxStage": 3,
+      "profile": "noChoice",
+      "reachableSlotIds": [
+        "PG-057",
+        "PG-150",
+        "PG-177"
+      ],
+      "rootId": "PG-057"
+    },
+    {
+      "cardsPerStage": {
+        "1": 1,
+        "2": 1,
+        "3": 1,
+        "4": 0
+      },
+      "cardsTotal": 3,
+      "choiceStages": [],
+      "maxStage": 3,
+      "profile": "noChoice",
+      "reachableSlotIds": [
+        "PG-058",
+        "PG-159",
+        "PG-175"
+      ],
+      "rootId": "PG-058"
+    },
+    {
+      "cardsPerStage": {
+        "1": 1,
+        "2": 1,
+        "3": 1,
+        "4": 0
+      },
+      "cardsTotal": 3,
+      "choiceStages": [],
+      "maxStage": 3,
+      "profile": "noChoice",
+      "reachableSlotIds": [
+        "PG-059",
+        "PG-160",
+        "PG-165"
+      ],
+      "rootId": "PG-059"
+    },
+    {
+      "cardsPerStage": {
+        "1": 1,
+        "2": 1,
+        "3": 1,
+        "4": 0
+      },
+      "cardsTotal": 3,
+      "choiceStages": [],
+      "maxStage": 3,
+      "profile": "noChoice",
+      "reachableSlotIds": [
+        "PG-060",
+        "PG-144",
+        "PG-168"
+      ],
+      "rootId": "PG-060"
+    }
+  ],
+  "schemaVersion": "continuity-topology-before-v1"
+}

@@ -1,0 +1,24 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://punchgrow.local/contracts/continuity-signed-obligation-scope-v1.schema.json",
+  "title": "Cross-authority G002-v2 obligation scope",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schemaVersion", "authority", "exclusionPolicy", "queueSlotIds", "ordinaryEdges", "excludedMixedSlotIds", "excludedMixedIncidentEdges", "fusionProvenance", "effectiveRootIds", "counts"],
+  "properties": {
+    "schemaVersion": { "const": "continuity-signed-obligation-scope-v1" },
+    "authority": { "const": "continuity-g002-v2-supersession-v1" },
+    "exclusionPolicy": { "const": "EXCLUDE_MIXED_CHILD_OBLIGATIONS_PRESERVE_FUSION_PROVENANCE" },
+    "queueSlotIds": { "type": "array", "minItems": 167, "maxItems": 167, "uniqueItems": true, "items": { "$ref": "#/$defs/pgId" } },
+    "ordinaryEdges": { "type": "array", "minItems": 170, "maxItems": 170, "items": { "$ref": "#/$defs/edge" } },
+    "excludedMixedSlotIds": { "const": ["PG-196", "PG-197", "PG-198", "PG-199", "PG-200", "PG-201", "PG-202", "PG-203", "PG-204", "PG-205"] },
+    "excludedMixedIncidentEdges": { "type": "array", "minItems": 20, "maxItems": 20, "items": { "$ref": "#/$defs/edge" } },
+    "fusionProvenance": { "type": "array", "minItems": 10, "maxItems": 10 },
+    "effectiveRootIds": { "type": "array", "minItems": 17, "maxItems": 17, "uniqueItems": true, "items": { "$ref": "#/$defs/pgId" } },
+    "counts": { "const": { "queue": 167, "retained": 73, "ordinaryEdges": 170, "obligations": 337, "dependent": 113, "generatedParentEdges": 113, "generatedChildEdges": 128, "retainedChildEdges": 42, "votes": 674, "effectiveRoots": 17 } }
+  },
+  "$defs": {
+    "pgId": { "type": "string", "pattern": "^PG-[0-9]{3}$" },
+    "edge": { "type": "object", "additionalProperties": false, "required": ["parentId", "childId"], "properties": { "parentId": { "$ref": "#/$defs/pgId" }, "childId": { "$ref": "#/$defs/pgId" } } }
+  }
+}

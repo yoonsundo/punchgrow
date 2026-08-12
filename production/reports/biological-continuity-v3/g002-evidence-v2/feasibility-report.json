@@ -1,0 +1,44 @@
+{
+  "schemaVersion": "continuity-feasibility-g002-v2",
+  "runId": "g002-v2",
+  "effectiveAuthoritySha256": "22cf282dd777c8bf5239b8a6e4d56572143f314b983a189a5b0eb589308d1f92",
+  "verdict": "FEASIBLE_WITH_REGENERATION",
+  "assignmentReadiness": "ASSIGNMENT_READY_PENDING_VISUAL_REVIEW",
+  "artVerificationState": "PENDING_G003_REVIEW",
+  "regenerationCount": 177,
+  "retainedCount": 63,
+  "exactTargetCount": 240,
+  "pendingPixelTaxonomySlotCount": 0,
+  "pendingPixelTaxonomyFamilyCount": 0,
+  "reviewedTaxonomyRootCount": 5,
+  "canonicalRedesignRootCount": 15,
+  "incompatibleEdgeCount": 0,
+  "exactCompatibleEdgeCount": 190,
+  "pendingTaxonomyEdgeCount": 0,
+  "objectiveOrder": [
+    "biological-proof",
+    "minimum-confidence",
+    "total-confidence",
+    "minimum-regeneration",
+    "retain-clean-adjacency",
+    "minimum-operations",
+    "source-equals-slot",
+    "canonical-tuple"
+  ],
+  "objectiveVector": {
+    "biologicalProof": 1,
+    "minimumRetainedConfidence": 0.9,
+    "totalRetainedConfidence": 61.05999999999998,
+    "regenerationCount": 177
+  },
+  "fixedPointReached": true,
+  "visualReviewGate": {
+    "state": "PENDING_G003_REVIEW",
+    "completionAllowed": false,
+    "requiredQueueCandidates": 177,
+    "passedQueueCandidates": 0,
+    "requiredFinalEdges": 190,
+    "passedFinalEdges": 0,
+    "missingCoverage": 367
+  }
+}

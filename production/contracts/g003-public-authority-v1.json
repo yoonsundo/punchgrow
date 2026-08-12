@@ -1,0 +1,10 @@
+{
+  "schemaVersion": "g003-public-authority-v1",
+  "algorithm": "Ed25519",
+  "authorityEpoch": "g003-authority-epoch-v1",
+  "authorityFingerprint": "91336f3180f8cf86cdef4b35f271c1e64eb609cd6b4e7f53360c777fa1a48e54",
+  "publicKeySpkiDerBase64": "MCowBQYDK2VwAyEA2hr3xHKrFHs6BKu5uG4l7BjrTqAta3QJDQaHoqcWcgY=",
+  "rootKeyCommitmentSha256": "d0dfd57a2b4c273efb9a734ab10cc8ff6c087442e10d8ff50dbb09699f3f43f6",
+  "derivationPolicy": "HIDDEN_G003_CONDUCTOR_KEY_DOMAIN_SEPARATED_V1",
+  "mutableArtifactOverrideAllowed": false
+}

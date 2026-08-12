@@ -1,0 +1,51 @@
+{
+  "agentTaskId": "g002-taxonomy-pass2-independent",
+  "anchors": [
+    {
+      "anchorId": "body-silhouette",
+      "description": "Low compact barrel-shaped body on four short legs ending in split hooves, with small tail."
+    },
+    {
+      "anchorId": "face-geometry",
+      "description": "Broad rounded muzzle with two visible nostrils, small tusks at mouth sides, upright triangular ears."
+    },
+    {
+      "anchorId": "signature-organ",
+      "description": "Curled layered mane/shell-like appendage covers back and carries bright diamond-shaped mark."
+    }
+  ],
+  "assignmentManifestSha256": "0da9d834b013460085ecea5d846e972750623288fa72754f0b5a564b23d6e800",
+  "blinded": true,
+  "conductorHmacSha256": "94d14d0a563315797fa9b6e6c9d87166c819929866965eda16b529c366ecf224",
+  "confidence": 0.94,
+  "contractSha256": "f6d06316ba0ce315a79d3d784abe49f8f80463776ef07f5dbf5372185b9a8a15",
+  "fresh": true,
+  "inputAllowlistSha256": "9492811f7893ff3be29c71373976cf13582b0cfc3afe412297fec6926702cd85",
+  "inputAssetSha256s": [
+    "180cc13ea3c7f90530abc5320d99dad0167893d33d7abbabf470149d59a29fcb",
+    "f14f417c99cb4d27aca4c4293e19b5d36db6b2b32e4cf1f8c4293d19aad75e54"
+  ],
+  "opaqueTaxonomyTargetId": "taxonomy-1fb3e4099e1105270ba89d27",
+  "outputSha256": "a4829dac40fd46192aea5c0663b0e217582c5d2036cb252f8cca2a365d42427a",
+  "packageManifestSha256": "a7d201d806b883f0f5306c8eef93642176f00b29ab4d2eec74fe04201551d333",
+  "passNumber": 2,
+  "promptSha256": "428e5d281d525d352776ae9950777265519d08f8bad67e50c2ed17b3f5c6e8d4",
+  "publicSignature": {
+    "algorithm": "Ed25519",
+    "authorityFingerprint": "423f474c59667e5eabc13a703b8d7de4e97bcba33cdc22340873866db9d6a53f",
+    "signatureBase64": "Euct+2Fz4X0w23L0gAigz1ADw2VxfQGT3TwfuKqWA2hlyx0fIMsetDnykt5kJNqM+2JQHBYh2RJTKnrh1jQABA=="
+  },
+  "reviewId": "taxonomy-review-fa76f4920ea6ce307e6c74fdf352f0fe",
+  "reviewerInstanceId": "taxonomy-reviewer-pass2-independent",
+  "reviewerRunAttestationSha256": "66376bef02d108069d36590ab707756f259a2d9f0686efb68a2853477655df9b",
+  "role": "primary",
+  "schemaVersion": "g002-taxonomy-primary-vote-v1",
+  "submittedAt": "2026-08-10T16:38:58.057Z",
+  "taxonomy": {
+    "biologicalClass": "mammal",
+    "coreAnatomy": "quadruped",
+    "locomotionPlan": "quadrupedal",
+    "speciesFamily": "suidae"
+  },
+  "voterReviewRunId": "g002-taxonomy-run-pass2"
+}

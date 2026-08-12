@@ -56,7 +56,7 @@ These are captures rendered by the current SwiftUI app. They use fixed documenta
 <table>
   <tr>
     <td align="center"><img src="docs/screenshots/rarity-guide.png" width="360" alt="PunchGrow rarity index showing direct draw odds and maximum-reachable-rarity lineage proportions" /><br /><strong>Rarity index</strong><br /><sub>Direct draw rarity is separate from maximum reachable rarity</sub></td>
-    <td align="center"><img src="docs/screenshots/evolution-dex.png" width="372" alt="PunchGrow evolution dex showing stages, branches, current position, and selectable evolution paths" /><br /><strong>Evolution dex</strong><br /><sub>See the full lineage, the selectable path, and any reserved target from the current species</sub></td>
+    <td align="center"><img src="docs/screenshots/evolution-dex.png" width="372" alt="PunchGrow evolution dex showing owned past forms, the current form, and locked future branches" /><br /><strong>Evolution dex</strong><br /><sub>Preview owned past forms while future stages stay locked</sub></td>
   </tr>
 </table>
 
@@ -91,8 +91,9 @@ These are captures rendered by the current SwiftUI app. They use fixed documenta
 | Unique color | Independent `0.1%` chance per draw, with no stat advantage |
 | Duplicate creatures | Kept as separate individuals that can be raised differently |
 | Evolution levels | Level 15 → stage 2 · level 25 → stage 3 · level 40 → stage 4 |
-| Evolution fork | Once per lifetime · pick one of 2 paths yourself (reservable in advance); pauses if unset |
-| Mutation trigger | `10%` chance at the level-15 evolution · accept ends growth, decline keeps the chosen/reserved path |
+| Evolution fork | Once per lifetime · pick one of 2 paths yourself; pauses until you choose |
+| Fusion collectibles | The 10 `mixed` species stay outside ordinary evolution; legacy owned fusions remain available as current-form-only collectibles |
+| Mutation trigger | `10%` chance at the level-15 evolution · accept ends growth, decline returns to the fork choice |
 | Mutation retry | `1,000,000` tokens per attempt · `10%` chance, guaranteed after `30` failures in a lineage |
 | Inheritance | `5,000,000` tokens · get a new same-lineage individual from a fully grown creature |
 | Maximum level | Level 50. Legacy level 51–100 saves remain valid but cannot grow further |
@@ -101,9 +102,11 @@ These are captures rendered by the current SwiftUI app. They use fixed documenta
 
 Draws never grant a higher-stage evolution directly. Every owned creature starts as PROCESS and grows as feeding raises its level. The UI separates the actual `Current <rarity>` from `Maximum reachable rarity <rarity>` — the ceiling reachable through selectable paths, excluding mutations — and pairs it with a minimum guaranteed rarity so an unclaimed fork does not read as a promise.
 
-At an evolution fork (level 15 or level 25, once per lifetime), you choose the evolution direction yourself from 2 options. Reserve a target in advance from the evolution dex with `이 모습으로 키우기` (raise into this form) so the creature evolves straight through the fork; leave it unreserved and evolution pauses at the fork with a badge until you choose.
+At an evolution fork (level 15 or level 25, once per lifetime), you choose the evolution direction yourself from 2 options. Evolution pauses at the fork with a badge until you choose, and the choice applies to that evolution only — the next fork asks again.
 
-Lineages with a mutation candidate get a 10% chance to trigger a mutation offer at the level-15 evolution, asking you to accept or decline. Accepting ends growth on the spot as a terminal mutant form; declining continues along the chosen or reserved path. A missed chance can be retried with `변이 재도전` (mutation retry, 1,000,000 tokens per attempt, 10% chance); 30 failed retries in the same lineage guarantee the next attempt succeeds.
+The 10 `mixed` species combine unrelated creature families, so they are treated as fusion collectibles rather than same-individual growth. They never appear in automatic evolution, fork choices, potential calculations, or ordinary Evolution Dex ancestry. Existing saves that already own one keep it safely; its Evolution Dex shows only the actual current fusion form and does not invent a parent history.
+
+Lineages with a mutation candidate get a 10% chance to trigger a mutation offer at the level-15 evolution, asking you to accept or decline. Accepting ends growth on the spot as a terminal mutant form; declining returns you to the fork choice. A missed chance can be retried with `변이 재도전` (mutation retry, 1,000,000 tokens per attempt, 10% chance); 30 failed retries in the same lineage guarantee the next attempt succeeds.
 
 A creature raised to its final stage can use `계승` (inheritance, 5,000,000 tokens) to obtain a new individual of the same starting species for raising a different fork. An ORIGIN-lineage draw is still a current PROCESS creature; the dedicated ORIGIN reveal is reserved for actually owning an ORIGIN species. A lineage with no next-stage catalog entry keeps its current form and can continue growing.
 
@@ -117,15 +120,15 @@ AI-assisted coding already produces a useful activity signal: token usage. Punch
 | --- | --- | --- |
 | `macos/` | v0.3.0 | Native SwiftUI menu-bar game for Apple Silicon macOS 14+ |
 
-The current game includes a 60-species stage-one draw pool, level 15/25/40 evolution with fork choices, mutations, and inheritance, six evolution tiers (`PROCESS` → `ORIGIN`), unique-color variants, feeding, local save/restore, and a 240-creature catalog.
+The current game includes a 60-species stage-one draw pool, level 15/25/40 evolution with fork choices, mutations, inheritance, and standalone fusion collectibles, six evolution tiers (`PROCESS` → `ORIGIN`), unique-color variants, feeding, local save/restore, and a 240-creature catalog.
 
-In the macOS popup, holding a normal/large food purchase or feed button accelerates repeated actions until release. Draw feedback and the main card show current rarity and maximum reachable rarity separately. The fixed footer's `Rarity` guide separates direct `PROCESS 100%` draws from maximum-reachable-rarity lineage proportions such as `ORIGIN lineage 3/60 (5%)`, plus owned, discovered, and total creature counts by tier. `Collection` and `Settings` open the large window directly, while `Evolution` shows the selected creature's complete image-based lineage, branches, discovery state, level gates, and the current-forward selectable path, including any reserved target. Higher stages receive progressively richer badge, frame, and aura effects.
+In the macOS popup, holding a normal/large food purchase or feed button accelerates repeated actions until release. Draw feedback and the main card show current rarity and maximum reachable rarity separately. The fixed footer's `Rarity` guide separates direct `PROCESS 100%` draws from maximum-reachable-rarity lineage proportions such as `ORIGIN lineage 3/60 (5%)`, plus owned, discovered, and total creature counts by tier. `Collection` and `Settings` open the large window directly. `Evolution` shows the selected creature's complete image-based lineage and marks only the forms that this individual actually passed through as owned and previewable; future stages and unchosen sibling branches remain locked. Higher stages receive progressively richer badge, frame, and aura effects.
 
 ### Actual plan usage
 
 The `C n%` and `X n%` values in the menu bar are not token-based estimates.
 
-- In v0.3.0, `C` queries the Anthropic usage API directly, using Claude Code's stored login credentials read-only. When that lookup fails it falls back to the `~/.claude/plugins/oh-my-claudecode/.usage-cache-anthropic.json` cache, and remains pending when neither is available.
+- `C` reads Claude's actual weekly percentage from the `~/.claude/plugins/oh-my-claudecode/.usage-cache-anthropic.json` cache. Only Claude Code writes that cache, so PunchGrow runs its status-line script once a minute to keep the value from going stale. It stays pending when the cache is absent.
 - `X` reads Codex's actual weekly `used_percent` from session rate-limit metadata.
 - With automatic collection enabled, PunchGrow checks approximately every ten seconds.
 - Provider updates automatically reflect both increased usage and weekly resets.
@@ -137,7 +140,7 @@ The macOS app runs locally and collection is off until the user explicitly enabl
 
 - Claude Code usage is discovered from `~/.claude/projects/**/*.jsonl`.
 - Codex usage is discovered from `~/.codex/sessions/**/*.jsonl`.
-- Claude's plan percentage is queried from the Anthropic usage API using Claude Code's credentials read-only (falling back to the local cache); Codex comes from log rate-limit metadata. PunchGrow does not store authentication tokens in game data.
+- Claude's plan percentage is read from the local cache Claude Code writes; PunchGrow only runs Claude Code's status-line script to keep that cache fresh. Codex comes from log rate-limit metadata. PunchGrow neither reads nor stores authentication tokens.
 - The first scan establishes a non-crediting baseline; only later increases earn game tokens.
 - PunchGrow stores normalized token counts, timestamps, opaque hashes, incremental cursors, and game state.
 - It does **not** store prompts, responses, source code, commands, project names, raw paths, emails, or account/model identifiers.

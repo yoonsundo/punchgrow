@@ -127,7 +127,14 @@ struct OwnedCreature: Codable, Identifiable, Hashable, Sendable {
     var experience: Int
     var affection: Int
     var nickname: String?
-    var preferredEvolutionTargetSpeciesID: String?
+    /// 화면에 그릴 모습. 진화는 개체 하나가 모습을 바꾸는 것이라 과거 형태가 개체로 남지
+    /// 않으므로, 지나온 모습으로 보고 싶다는 요구를 종을 되돌리지 않고 표시에서만 받는다.
+    /// nil이면 실제 종을 그린다. 성장·진화 계산은 언제나 speciesID만 본다.
+    ///
+    /// `GameState.validate`가 이 값은 검사하지 않는다. 다른 종 참조와 달리 순수한 표시용이라,
+    /// 카탈로그에서 사라진 종을 가리키게 됐다고 세이브 전체를 거부하면 잃는 것이 훨씬 크다.
+    /// 대신 `GameEngine.displaySpecies`가 읽는 쪽에서 실제 종으로 되돌린다.
+    var displaySpeciesID: String?
     let uniqueColor: Bool
     let acquiredAt: Date
 
@@ -139,7 +146,7 @@ struct OwnedCreature: Codable, Identifiable, Hashable, Sendable {
         experience: Int,
         affection: Int,
         nickname: String?,
-        preferredEvolutionTargetSpeciesID: String? = nil,
+        displaySpeciesID: String? = nil,
         uniqueColor: Bool,
         acquiredAt: Date
     ) {
@@ -150,14 +157,14 @@ struct OwnedCreature: Codable, Identifiable, Hashable, Sendable {
         self.experience = experience
         self.affection = affection
         self.nickname = nickname
-        self.preferredEvolutionTargetSpeciesID = preferredEvolutionTargetSpeciesID
+        self.displaySpeciesID = displaySpeciesID
         self.uniqueColor = uniqueColor
         self.acquiredAt = acquiredAt
     }
 
     private enum CodingKeys: String, CodingKey {
         case id, speciesID, originSpeciesID, level, experience, affection, nickname
-        case preferredEvolutionTargetSpeciesID, uniqueColor, acquiredAt
+        case displaySpeciesID, uniqueColor, acquiredAt
     }
 
     init(from decoder: Decoder) throws {
@@ -169,8 +176,7 @@ struct OwnedCreature: Codable, Identifiable, Hashable, Sendable {
         experience = try container.decode(Int.self, forKey: .experience)
         affection = try container.decode(Int.self, forKey: .affection)
         nickname = try container.decodeIfPresent(String.self, forKey: .nickname)
-        preferredEvolutionTargetSpeciesID = try container.decodeIfPresent(
-            String.self, forKey: .preferredEvolutionTargetSpeciesID)
+        displaySpeciesID = try container.decodeIfPresent(String.self, forKey: .displaySpeciesID)
         uniqueColor = try container.decode(Bool.self, forKey: .uniqueColor)
         acquiredAt = try container.decode(Date.self, forKey: .acquiredAt)
     }
@@ -193,22 +199,34 @@ struct MutationRetryOutcome: Equatable, Sendable {
     let failureCount: Int
 }
 
-enum PreferenceResolution: Equatable, Sendable {
-    case ready(CreatureSpecies)
-    case pendingDescendant
-    case invalid
+/// 재도전·계승처럼 원 개체를 그대로 둔 채 **새 개체를 받아오는** 행동의 결과.
+///
+/// 진화가 아니라 획득이므로 `EvolutionFeedback`의 from→to 구조로는 표현되지 않는다. 두 행동 모두
+/// 실패하든 성공하든 토큰을 소모하기 때문에, 결과를 알리지 않으면 잔액만 줄고 화면은 그대로여서
+/// 사용자가 버튼이 먹지 않았다고 읽게 된다.
+struct CreatureGrantFeedback: Identifiable, Equatable, Sendable {
+    enum Kind: Equatable, Sendable {
+        case mutationRetry
+        case inheritance
+    }
+
+    let id: UUID
+    let kind: Kind
+    let succeeded: Bool
+    /// 성공해서 새로 얻은 종. 실패하면 nil이다.
+    let grantedSpeciesID: String?
+    let tokensSpent: Int
+    /// 판정 뒤 해당 계보의 누적 실패 횟수. 천장까지 남은 거리를 보여주기 위한 값으로,
+    /// 성공했거나 계승이면 0이다.
+    let failureCount: Int
 }
 
 struct PendingEvolutionChoice: Identifiable, Equatable, Sendable {
     let creatureID: UUID
     let fromSpecies: CreatureSpecies
     let candidates: [CreatureSpecies]
-    /// 예약해 둔 선호 대상이 종착 종이라 진화 직전 확인만 남은 경우에만 값이 있다.
-    /// 갈림길에서 아직 아무것도 고르지 않은 일반 대기에서는 nil이다.
-    let preferredTargetID: String?
 
     var id: UUID { creatureID }
-    var confirmsReservedTerminalTarget: Bool { preferredTargetID != nil }
 }
 
 /// 진화 순간 확률로 발동한 변이 제안. 세션 한정이며 **저장하지 않는다.**

@@ -1,0 +1,47 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://punchgrow.local/contracts/g003-review-coverage-v2.schema.json",
+  "title": "G003 review coverage gate bound to G002-v2",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schemaVersion", "state", "completionAllowed", "eiluBenchmark", "queueCandidates", "edgeCandidates", "coverage", "authority"],
+  "properties": {
+    "schemaVersion": { "const": "continuity-g003-review-gate-v2" },
+    "state": { "const": "PENDING_G003_REVIEW" },
+    "completionAllowed": { "const": false },
+    "eiluBenchmark": { "type": "object" },
+    "queueCandidates": { "type": "array", "minItems": 177, "maxItems": 177, "items": { "$ref": "#/$defs/candidate" } },
+    "edgeCandidates": { "type": "array", "minItems": 190, "maxItems": 190, "items": { "$ref": "#/$defs/candidate" } },
+    "coverage": {
+      "type": "object", "additionalProperties": false,
+      "required": ["requiredQueueCandidates", "passedQueueCandidates", "requiredFinalEdges", "passedFinalEdges", "missingCoverage"],
+      "properties": {
+        "requiredQueueCandidates": { "const": 177 }, "passedQueueCandidates": { "const": 0 },
+        "requiredFinalEdges": { "const": 190 }, "passedFinalEdges": { "const": 0 }, "missingCoverage": { "const": 367 }
+      }
+    },
+    "authority": {
+      "type": "object", "additionalProperties": false,
+      "required": ["effectiveAuthoritySha256", "canonicalSuccessorOutputSha256"],
+      "properties": {
+        "effectiveAuthoritySha256": { "type": "string", "pattern": "^[a-f0-9]{64}$" },
+        "canonicalSuccessorOutputSha256": { "type": "string", "pattern": "^[a-f0-9]{64}$" }
+      }
+    }
+  },
+  "$defs": {
+    "candidate": {
+      "type": "object", "additionalProperties": true,
+      "required": ["status", "comparisonThresholds", "reviewEvidence"],
+      "properties": {
+        "status": { "const": "PENDING_COMPARATIVE_VISUAL_REVIEW" },
+        "comparisonThresholds": {
+          "type": "object", "additionalProperties": true,
+          "required": ["minimumAnchorRetentionRatio", "sameCreatureGrownUp"],
+          "properties": { "minimumAnchorRetentionRatio": { "const": 1 }, "sameCreatureGrownUp": { "const": "yes" } }
+        },
+        "reviewEvidence": { "type": "null" }
+      }
+    }
+  }
+}

@@ -50,8 +50,13 @@ Claude Code or Codex logs.
   direct ORIGIN pull: an ORIGIN-lineage draw still awards a PROCESS creature.
 - Draw feedback stays in the popup because higher evolution stages are no
   longer drawn directly. **진화** opens a per-creature evolution dex with every
-  reachable stage, image, branch, discovery state, level gate, and automatic path,
-  providing the evidence for the displayed growth potential.
+  reachable stage, image, branch, discovery state, and level gate. Only the
+  forms that the selected individual actually passed through are owned and
+  previewable; future stages and unchosen branches stay locked.
+- The 10 `mixed` catalog species are standalone fusion collectibles, not
+  same-individual evolution stages. They are excluded from automatic evolution,
+  choices, potential, and lineage traversal. Existing saves keep an owned mixed
+  creature safely, but its Evolution Dex shows only that current form.
 - The fixed footer keeps **도감**, **등급표**, **진화**, **설정**, and **종료** visible
   as separate actions. 등급표 separates direct draw rarity (PROCESS 100%) from
   final-lineage proportions, including ORIGIN lineage 3/60 (5%), and shows

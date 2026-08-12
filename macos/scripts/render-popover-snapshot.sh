@@ -52,6 +52,11 @@ case "$SNAPSHOT_KIND" in
     EXPECTED_WIDTH=852
     EXPECTED_HEIGHT=352
     ;;
+  grant-toast)
+    SNAPSHOT_FLAG=--snapshot-grant-toast
+    EXPECTED_WIDTH=380
+    EXPECTED_HEIGHT=260
+    ;;
   *)
     echo "Unknown snapshot kind: $SNAPSHOT_KIND" >&2
     exit 2
@@ -69,5 +74,8 @@ PIXEL_HEIGHT=$(sips -g pixelHeight "$OUTPUT_PATH" | awk '/pixelHeight/ { print $
 }
 if [[ "$SNAPSHOT_KIND" == evolution ]]; then
   node "$ROOT_DIR/scripts/verify-evolution-dex-snapshot.mjs" "$OUTPUT_PATH"
+fi
+if [[ "$SNAPSHOT_KIND" == menu || "$SNAPSHOT_KIND" == menu-fresh ]]; then
+  node "$ROOT_DIR/scripts/verify-menu-popover-snapshot.mjs" "$OUTPUT_PATH"
 fi
 echo "Rendered $OUTPUT_PATH (${PIXEL_WIDTH}x${PIXEL_HEIGHT})"

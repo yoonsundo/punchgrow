@@ -1,0 +1,725 @@
+{
+  "acceptedAt": "2026-08-10T22:21:38.015Z",
+  "candidate": {
+    "master": {
+      "bytes": 1072952,
+      "height": 1254,
+      "sha256": "0ce636b2befa32198619c47a308a005bf02a71c401cd51399d5aad2a7a1257bb",
+      "width": 1254
+    },
+    "runtime": {
+      "bytes": 134298,
+      "height": 360,
+      "sha256": "b4e8fe700abecc58f2200fa1e51c232958471fe27cff17e5723ea83863444bb7",
+      "width": 360
+    }
+  },
+  "inputAllowlist": {
+    "files": [
+      {
+        "bytes": 1072952,
+        "height": 1254,
+        "path": "inputs/master.png",
+        "sha256": "0ce636b2befa32198619c47a308a005bf02a71c401cd51399d5aad2a7a1257bb",
+        "width": 1254
+      },
+      {
+        "bytes": 134298,
+        "height": 360,
+        "path": "inputs/runtime.png",
+        "sha256": "b4e8fe700abecc58f2200fa1e51c232958471fe27cff17e5723ea83863444bb7",
+        "width": 360
+      }
+    ],
+    "schemaVersion": "g002-v2-canonical-review-allowlist-v1"
+  },
+  "inputAllowlistSha256": "9c32637b9bbfdc714dc70d29cbe7f734a9308e2ce07badf4de9e73ddc60a52be",
+  "materialBinding": {
+    "allowlistSha256": "9c32637b9bbfdc714dc70d29cbe7f734a9308e2ce07badf4de9e73ddc60a52be",
+    "candidate": {
+      "master": {
+        "bytes": 1072952,
+        "height": 1254,
+        "sha256": "0ce636b2befa32198619c47a308a005bf02a71c401cd51399d5aad2a7a1257bb",
+        "width": 1254
+      },
+      "runtime": {
+        "bytes": 134298,
+        "height": 360,
+        "sha256": "b4e8fe700abecc58f2200fa1e51c232958471fe27cff17e5723ea83863444bb7",
+        "width": 360
+      }
+    },
+    "conductorHmacSha256": "7ecca89722e442a8675d0774fa2844448fda4fdc655e8fe3b55a237ff7150ca7",
+    "opaqueTargetId": "target-86d9ff8023f8b9794f0e2312",
+    "outputSha256": "b8611bcab2b3caf68b59190585f52fc7e89a14f700ade09f0e82c5c2117f12da",
+    "packageManifestSha256": "7923fa751ca54e1464b334b318b184d762579eef4e4ae38638e90ec50acd0a2b",
+    "promptSha256": "022ce82ebfb11682c566816376f5272a00be528c55dd2435c1857e77834e183c",
+    "rootId": "PG-056",
+    "schemaVersion": "g002-v2-canonical-private-binding-v1",
+    "sourcePaths": {
+      "master": "assets/creatures/biological-continuity-v3/candidates/g003-w0-pg056-r2/PG-056/master.png",
+      "runtime": "assets/creatures/biological-continuity-v3/candidates/g003-w0-pg056-r2/PG-056/runtime.png"
+    },
+    "targetSha256": "5eec1b50f2f32544829d33c954f9558a9262401adc2a573601ae735df6eb97be"
+  },
+  "materialBindingSha256": "b8611bcab2b3caf68b59190585f52fc7e89a14f700ade09f0e82c5c2117f12da",
+  "opaqueTargetId": "target-86d9ff8023f8b9794f0e2312",
+  "outputSha256": "bb5a63d9b15d5f704a0cfb98204c180e6f446306a8ff818d59f0cb1549d66c50",
+  "packageManifest": {
+    "candidate": {
+      "master": {
+        "bytes": 1072952,
+        "height": 1254,
+        "sha256": "0ce636b2befa32198619c47a308a005bf02a71c401cd51399d5aad2a7a1257bb",
+        "width": 1254
+      },
+      "runtime": {
+        "bytes": 134298,
+        "height": 360,
+        "sha256": "b4e8fe700abecc58f2200fa1e51c232958471fe27cff17e5723ea83863444bb7",
+        "width": 360
+      }
+    },
+    "opaqueTargetId": "target-86d9ff8023f8b9794f0e2312",
+    "schemaVersion": "g002-v2-canonical-review-package-v1",
+    "target": {
+      "anchors": [
+        {
+          "anchorId": "charcoal-body-teal-eyes-red-facial-stripe",
+          "description": "Charcoal swimming-fish body with teal eyes and details plus one red facial stripe"
+        },
+        {
+          "anchorId": "exactly-four-red-lobed-fins",
+          "description": "Exactly four separately readable red lobed fins attached to the charcoal body, with no weight-bearing legs"
+        },
+        {
+          "anchorId": "red-dorsal-mint-edge-red-forked-tail",
+          "description": "Tall red dorsal fin with a mint edge and a red forked tail on a true horizontal fish profile"
+        }
+      ],
+      "canonicalTarget": {
+        "biologicalClass": "actinopterygii",
+        "coreAnatomy": "finned-gilled-vertebrate",
+        "locomotionPlan": "aquatic-caudal-fin-swimming",
+        "speciesFamily": "stylized-bony-fish"
+      },
+      "clarificationRequirements": [
+        "Use an unmistakable horizontal swimming-fish silhouette on both master and runtime",
+        "Preserve the charcoal body, teal eyes/details, red facial stripe, exactly four red lobed fins, tall red dorsal fin with mint edge, and red forked tail",
+        "Reject altered charcoal-teal-red color roles, missing facial stripe, extra or merged lobed fins, non-forked tail, feet, toes, ground contact, limb joints, or any weight-bearing appendage"
+      ],
+      "currentPixelAssessment": "DISPUTED_OR_AMBIGUOUS"
+    },
+    "visibleAppendageRequirements": {
+      "dorsalFins": 1,
+      "forkedTails": 1,
+      "redLobedFins": 4,
+      "weightBearingLegs": 0
+    }
+  },
+  "packageManifestSha256": "7923fa751ca54e1464b334b318b184d762579eef4e4ae38638e90ec50acd0a2b",
+  "passes": [
+    {
+      "assignment": {
+        "agentTaskId": "/root/g002_v2_blind_pass1",
+        "assignedAt": "2026-08-10T22:18:04.000Z",
+        "assignmentId": "assignment-929305aa8e48064226252118",
+        "conductorHmacSha256": "95a7b4ed887335df23e9c9b278315afa1a5d9edde59b149786d6ba93e7557aeb",
+        "inputAllowlistSha256": "9c32637b9bbfdc714dc70d29cbe7f734a9308e2ce07badf4de9e73ddc60a52be",
+        "inputAssetSha256s": [
+          "0ce636b2befa32198619c47a308a005bf02a71c401cd51399d5aad2a7a1257bb",
+          "b4e8fe700abecc58f2200fa1e51c232958471fe27cff17e5723ea83863444bb7"
+        ],
+        "materialBindingSha256": "b8611bcab2b3caf68b59190585f52fc7e89a14f700ade09f0e82c5c2117f12da",
+        "opaqueTargetId": "target-86d9ff8023f8b9794f0e2312",
+        "outputSha256": "4bd1145261ad00de59eaebb79e7c7c1926e830fe60921e7634bba4f1b12026b5",
+        "packageManifestSha256": "7923fa751ca54e1464b334b318b184d762579eef4e4ae38638e90ec50acd0a2b",
+        "passNumber": 1,
+        "promptSha256": "022ce82ebfb11682c566816376f5272a00be528c55dd2435c1857e77834e183c",
+        "reviewRunId": "g002-v2-canonical-pass-1-20260810",
+        "reviewerInstanceId": "blind-primary-reviewer-1-20260810",
+        "schemaVersion": "g002-v2-canonical-review-assignment-v1"
+      },
+      "raw": {
+        "agentTaskId": "/root/g002_v2_blind_pass1",
+        "assignmentId": "assignment-929305aa8e48064226252118",
+        "confidence": 0.98,
+        "observedAt": "2026-08-10T22:19:29.000Z",
+        "passNumber": 1,
+        "reviewRunId": "g002-v2-canonical-pass-1-20260810",
+        "reviewerInstanceId": "blind-primary-reviewer-1-20260810",
+        "surfaces": [
+          {
+            "ambiguity": false,
+            "anchors": [
+              {
+                "anchorId": "charcoal-body-teal-eyes-red-facial-stripe",
+                "evidence": "The horizontal charcoal fish has teal eyes and a single red stripe running along the upper face.",
+                "visible": true
+              },
+              {
+                "anchorId": "exactly-four-red-lobed-fins",
+                "evidence": "Four separate small red lobed fins are visible: one upper near fin and three lower fins; none contacts ground.",
+                "visible": true
+              },
+              {
+                "anchorId": "red-dorsal-mint-edge-red-forked-tail",
+                "evidence": "One tall red dorsal fin has a mint outer edge and the horizontal body ends in one red forked tail.",
+                "visible": true
+              }
+            ],
+            "clarifications": [
+              {
+                "evidence": "The tapered body runs horizontally from pointed head through narrow caudal base to a forked tail, with fins suspended around it.",
+                "passed": true,
+                "requirement": "Use an unmistakable horizontal swimming-fish silhouette on both master and runtime"
+              },
+              {
+                "evidence": "Every stated colored feature is directly visible and the four small lobed fins are individually separated from the dorsal fin and tail.",
+                "passed": true,
+                "requirement": "Preserve the charcoal body, teal eyes/details, red facial stripe, exactly four red lobed fins, tall red dorsal fin with mint edge, and red forked tail"
+              },
+              {
+                "evidence": "The charcoal, teal, and red roles are intact; the four lobed fins do not merge, the tail forks, and no foot, toe, jointed limb, or ground contact appears.",
+                "passed": true,
+                "requirement": "Reject altered charcoal-teal-red color roles, missing facial stripe, extra or merged lobed fins, non-forked tail, feet, toes, ground contact, limb joints, or any weight-bearing appendage"
+              }
+            ],
+            "confidence": 0.99,
+            "inputSha256": "0ce636b2befa32198619c47a308a005bf02a71c401cd51399d5aad2a7a1257bb",
+            "surface": "master",
+            "taxonomy": {
+              "biologicalClass": "actinopterygii",
+              "coreAnatomy": "finned-gilled-vertebrate",
+              "locomotionPlan": "aquatic-caudal-fin-swimming",
+              "speciesFamily": "stylized-bony-fish"
+            },
+            "visibleAppendageCounts": {
+              "dorsalFins": 1,
+              "forkedTails": 1,
+              "redLobedFins": 4,
+              "weightBearingLegs": 0
+            }
+          },
+          {
+            "ambiguity": false,
+            "anchors": [
+              {
+                "anchorId": "charcoal-body-teal-eyes-red-facial-stripe",
+                "evidence": "The reduced horizontal charcoal body retains visible teal eyes and one red facial stripe.",
+                "visible": true
+              },
+              {
+                "anchorId": "exactly-four-red-lobed-fins",
+                "evidence": "One upper-front and three lower red lobed fins remain independently outlined with no leg-like structure.",
+                "visible": true
+              },
+              {
+                "anchorId": "red-dorsal-mint-edge-red-forked-tail",
+                "evidence": "The tall red dorsal fin retains its mint edge and the red tail remains clearly forked.",
+                "visible": true
+              }
+            ],
+            "clarifications": [
+              {
+                "evidence": "A pointed head, streamlined horizontal body, fins, narrow tail base, and forked tail form an unambiguous swimming silhouette.",
+                "passed": true,
+                "requirement": "Use an unmistakable horizontal swimming-fish silhouette on both master and runtime"
+              },
+              {
+                "evidence": "All requested color-role features and exact fin shapes remain legible at the smaller scale.",
+                "passed": true,
+                "requirement": "Preserve the charcoal body, teal eyes/details, red facial stripe, exactly four red lobed fins, tall red dorsal fin with mint edge, and red forked tail"
+              },
+              {
+                "evidence": "Exactly four separated red lobes accompany one dorsal fin and one forked tail; no foot, toe, joint, or weight-bearing contact is visible.",
+                "passed": true,
+                "requirement": "Reject altered charcoal-teal-red color roles, missing facial stripe, extra or merged lobed fins, non-forked tail, feet, toes, ground contact, limb joints, or any weight-bearing appendage"
+              }
+            ],
+            "confidence": 0.98,
+            "inputSha256": "b4e8fe700abecc58f2200fa1e51c232958471fe27cff17e5723ea83863444bb7",
+            "surface": "runtime",
+            "taxonomy": {
+              "biologicalClass": "actinopterygii",
+              "coreAnatomy": "finned-gilled-vertebrate",
+              "locomotionPlan": "aquatic-caudal-fin-swimming",
+              "speciesFamily": "stylized-bony-fish"
+            },
+            "visibleAppendageCounts": {
+              "dorsalFins": 1,
+              "forkedTails": 1,
+              "redLobedFins": 4,
+              "weightBearingLegs": 0
+            }
+          }
+        ]
+      },
+      "run": {
+        "agentTaskId": "/root/g002_v2_blind_pass1",
+        "assignmentFileSha256": "8a1e16e5ab4934c106435aece13ce57ab8e2f890bee1f71451a555356860f43f",
+        "assignmentId": "assignment-929305aa8e48064226252118",
+        "conductorHmacSha256": "ab03ca77a42901c4bcb569ea432f4b76e7938f325856173b97a3dda29ab75d38",
+        "createdAt": "2026-08-10T22:19:29.000Z",
+        "opaqueTargetId": "target-86d9ff8023f8b9794f0e2312",
+        "outputSha256": "d78df35c66546c4e6571c51757e16a696b11d28ed92b6d2ea00eb169e70076c1",
+        "passNumber": 1,
+        "rawSha256": "b729f81543ae5c6f9ab6f4db0016c41ac8fd1ce691b18a741d792140f295d2fc",
+        "reviewRunId": "g002-v2-canonical-pass-1-20260810",
+        "reviewerInstanceId": "blind-primary-reviewer-1-20260810",
+        "schemaVersion": "g002-v2-canonical-review-run-v1"
+      },
+      "vote": {
+        "agentTaskId": "/root/g002_v2_blind_pass1",
+        "assignmentFileSha256": "8a1e16e5ab4934c106435aece13ce57ab8e2f890bee1f71451a555356860f43f",
+        "assignmentId": "assignment-929305aa8e48064226252118",
+        "conductorHmacSha256": "2ed81e923e7b8738bdf61696f4c3d1755b07144923e2cbb9f3331322763e00f7",
+        "confidence": 0.98,
+        "inputAllowlistSha256": "9c32637b9bbfdc714dc70d29cbe7f734a9308e2ce07badf4de9e73ddc60a52be",
+        "inputAssetSha256s": [
+          "0ce636b2befa32198619c47a308a005bf02a71c401cd51399d5aad2a7a1257bb",
+          "b4e8fe700abecc58f2200fa1e51c232958471fe27cff17e5723ea83863444bb7"
+        ],
+        "materialBindingSha256": "b8611bcab2b3caf68b59190585f52fc7e89a14f700ade09f0e82c5c2117f12da",
+        "observation": [
+          {
+            "ambiguity": false,
+            "anchors": [
+              {
+                "anchorId": "charcoal-body-teal-eyes-red-facial-stripe",
+                "evidence": "The horizontal charcoal fish has teal eyes and a single red stripe running along the upper face.",
+                "visible": true
+              },
+              {
+                "anchorId": "exactly-four-red-lobed-fins",
+                "evidence": "Four separate small red lobed fins are visible: one upper near fin and three lower fins; none contacts ground.",
+                "visible": true
+              },
+              {
+                "anchorId": "red-dorsal-mint-edge-red-forked-tail",
+                "evidence": "One tall red dorsal fin has a mint outer edge and the horizontal body ends in one red forked tail.",
+                "visible": true
+              }
+            ],
+            "clarifications": [
+              {
+                "evidence": "The tapered body runs horizontally from pointed head through narrow caudal base to a forked tail, with fins suspended around it.",
+                "passed": true,
+                "requirement": "Use an unmistakable horizontal swimming-fish silhouette on both master and runtime"
+              },
+              {
+                "evidence": "Every stated colored feature is directly visible and the four small lobed fins are individually separated from the dorsal fin and tail.",
+                "passed": true,
+                "requirement": "Preserve the charcoal body, teal eyes/details, red facial stripe, exactly four red lobed fins, tall red dorsal fin with mint edge, and red forked tail"
+              },
+              {
+                "evidence": "The charcoal, teal, and red roles are intact; the four lobed fins do not merge, the tail forks, and no foot, toe, jointed limb, or ground contact appears.",
+                "passed": true,
+                "requirement": "Reject altered charcoal-teal-red color roles, missing facial stripe, extra or merged lobed fins, non-forked tail, feet, toes, ground contact, limb joints, or any weight-bearing appendage"
+              }
+            ],
+            "confidence": 0.99,
+            "inputSha256": "0ce636b2befa32198619c47a308a005bf02a71c401cd51399d5aad2a7a1257bb",
+            "surface": "master",
+            "taxonomy": {
+              "biologicalClass": "actinopterygii",
+              "coreAnatomy": "finned-gilled-vertebrate",
+              "locomotionPlan": "aquatic-caudal-fin-swimming",
+              "speciesFamily": "stylized-bony-fish"
+            },
+            "visibleAppendageCounts": {
+              "dorsalFins": 1,
+              "forkedTails": 1,
+              "redLobedFins": 4,
+              "weightBearingLegs": 0
+            }
+          },
+          {
+            "ambiguity": false,
+            "anchors": [
+              {
+                "anchorId": "charcoal-body-teal-eyes-red-facial-stripe",
+                "evidence": "The reduced horizontal charcoal body retains visible teal eyes and one red facial stripe.",
+                "visible": true
+              },
+              {
+                "anchorId": "exactly-four-red-lobed-fins",
+                "evidence": "One upper-front and three lower red lobed fins remain independently outlined with no leg-like structure.",
+                "visible": true
+              },
+              {
+                "anchorId": "red-dorsal-mint-edge-red-forked-tail",
+                "evidence": "The tall red dorsal fin retains its mint edge and the red tail remains clearly forked.",
+                "visible": true
+              }
+            ],
+            "clarifications": [
+              {
+                "evidence": "A pointed head, streamlined horizontal body, fins, narrow tail base, and forked tail form an unambiguous swimming silhouette.",
+                "passed": true,
+                "requirement": "Use an unmistakable horizontal swimming-fish silhouette on both master and runtime"
+              },
+              {
+                "evidence": "All requested color-role features and exact fin shapes remain legible at the smaller scale.",
+                "passed": true,
+                "requirement": "Preserve the charcoal body, teal eyes/details, red facial stripe, exactly four red lobed fins, tall red dorsal fin with mint edge, and red forked tail"
+              },
+              {
+                "evidence": "Exactly four separated red lobes accompany one dorsal fin and one forked tail; no foot, toe, joint, or weight-bearing contact is visible.",
+                "passed": true,
+                "requirement": "Reject altered charcoal-teal-red color roles, missing facial stripe, extra or merged lobed fins, non-forked tail, feet, toes, ground contact, limb joints, or any weight-bearing appendage"
+              }
+            ],
+            "confidence": 0.98,
+            "inputSha256": "b4e8fe700abecc58f2200fa1e51c232958471fe27cff17e5723ea83863444bb7",
+            "surface": "runtime",
+            "taxonomy": {
+              "biologicalClass": "actinopterygii",
+              "coreAnatomy": "finned-gilled-vertebrate",
+              "locomotionPlan": "aquatic-caudal-fin-swimming",
+              "speciesFamily": "stylized-bony-fish"
+            },
+            "visibleAppendageCounts": {
+              "dorsalFins": 1,
+              "forkedTails": 1,
+              "redLobedFins": 4,
+              "weightBearingLegs": 0
+            }
+          }
+        ],
+        "opaqueTargetId": "target-86d9ff8023f8b9794f0e2312",
+        "outputSha256": "dc09140b9fe2010d2c46d4a9fa281e79d48e912014fb6763fe45ee6aff7aee87",
+        "packageManifestSha256": "7923fa751ca54e1464b334b318b184d762579eef4e4ae38638e90ec50acd0a2b",
+        "passNumber": 1,
+        "promptSha256": "022ce82ebfb11682c566816376f5272a00be528c55dd2435c1857e77834e183c",
+        "rawSha256": "b729f81543ae5c6f9ab6f4db0016c41ac8fd1ce691b18a741d792140f295d2fc",
+        "reviewRunId": "g002-v2-canonical-pass-1-20260810",
+        "reviewerInstanceId": "blind-primary-reviewer-1-20260810",
+        "runOutputSha256": "d78df35c66546c4e6571c51757e16a696b11d28ed92b6d2ea00eb169e70076c1",
+        "schemaVersion": "g002-v2-canonical-review-vote-v1",
+        "voteId": "vote-c249f9265a712e96ae41cd06"
+      }
+    },
+    {
+      "assignment": {
+        "agentTaskId": "/root/g002_v2_blind_pass2",
+        "assignedAt": "2026-08-10T22:18:04.000Z",
+        "assignmentId": "assignment-9c5219064c5c0a7a92caa03e",
+        "conductorHmacSha256": "6ca8263976012e27849263563c2f0cee92995f76570b5ca63970468a8080db1a",
+        "inputAllowlistSha256": "9c32637b9bbfdc714dc70d29cbe7f734a9308e2ce07badf4de9e73ddc60a52be",
+        "inputAssetSha256s": [
+          "0ce636b2befa32198619c47a308a005bf02a71c401cd51399d5aad2a7a1257bb",
+          "b4e8fe700abecc58f2200fa1e51c232958471fe27cff17e5723ea83863444bb7"
+        ],
+        "materialBindingSha256": "b8611bcab2b3caf68b59190585f52fc7e89a14f700ade09f0e82c5c2117f12da",
+        "opaqueTargetId": "target-86d9ff8023f8b9794f0e2312",
+        "outputSha256": "cefd2cdfe68ac8d5dc432d35205ba74533d3c93e8dc7b5c29f6a65ef43a28fc4",
+        "packageManifestSha256": "7923fa751ca54e1464b334b318b184d762579eef4e4ae38638e90ec50acd0a2b",
+        "passNumber": 2,
+        "promptSha256": "022ce82ebfb11682c566816376f5272a00be528c55dd2435c1857e77834e183c",
+        "reviewRunId": "g002-v2-canonical-pass-2-20260810",
+        "reviewerInstanceId": "blind-primary-reviewer-2-20260810",
+        "schemaVersion": "g002-v2-canonical-review-assignment-v1"
+      },
+      "raw": {
+        "agentTaskId": "/root/g002_v2_blind_pass2",
+        "assignmentId": "assignment-9c5219064c5c0a7a92caa03e",
+        "confidence": 0.98,
+        "observedAt": "2026-08-10T22:19:37.000Z",
+        "passNumber": 2,
+        "reviewRunId": "g002-v2-canonical-pass-2-20260810",
+        "reviewerInstanceId": "blind-primary-reviewer-2-20260810",
+        "surfaces": [
+          {
+            "ambiguity": false,
+            "anchors": [
+              {
+                "anchorId": "charcoal-body-teal-eyes-red-facial-stripe",
+                "evidence": "The horizontal charcoal fish has teal eyes and accents plus one red stripe running over the face.",
+                "visible": true
+              },
+              {
+                "anchorId": "exactly-four-red-lobed-fins",
+                "evidence": "Four small red lobed fins are separately outlined on the body, with no leg or foot structures.",
+                "visible": true
+              },
+              {
+                "anchorId": "red-dorsal-mint-edge-red-forked-tail",
+                "evidence": "One tall red dorsal fin has a mint leading edge, and the rear terminates in one clearly forked red tail.",
+                "visible": true
+              }
+            ],
+            "clarifications": [
+              {
+                "evidence": "A streamlined head-to-forked-tail body is suspended horizontally without ground contact.",
+                "passed": true,
+                "requirement": "Use an unmistakable horizontal swimming-fish silhouette on both master and runtime"
+              },
+              {
+                "evidence": "Every specified charcoal, teal, mint, and red feature is directly visible, including four separately contoured lobed fins.",
+                "passed": true,
+                "requirement": "Preserve the charcoal body, teal eyes/details, red facial stripe, exactly four red lobed fins, tall red dorsal fin with mint edge, and red forked tail"
+              },
+              {
+                "evidence": "Colors retain their roles, the stripe is present, four lobed fins remain discrete, the tail is forked, and no leg, foot, joint, or ground contact appears.",
+                "passed": true,
+                "requirement": "Reject altered charcoal-teal-red color roles, missing facial stripe, extra or merged lobed fins, non-forked tail, feet, toes, ground contact, limb joints, or any weight-bearing appendage"
+              }
+            ],
+            "confidence": 0.99,
+            "inputSha256": "0ce636b2befa32198619c47a308a005bf02a71c401cd51399d5aad2a7a1257bb",
+            "surface": "master",
+            "taxonomy": {
+              "biologicalClass": "actinopterygii",
+              "coreAnatomy": "finned-gilled-vertebrate",
+              "locomotionPlan": "aquatic-caudal-fin-swimming",
+              "speciesFamily": "stylized-bony-fish"
+            },
+            "visibleAppendageCounts": {
+              "dorsalFins": 1,
+              "forkedTails": 1,
+              "redLobedFins": 4,
+              "weightBearingLegs": 0
+            }
+          },
+          {
+            "ambiguity": false,
+            "anchors": [
+              {
+                "anchorId": "charcoal-body-teal-eyes-red-facial-stripe",
+                "evidence": "The reduced horizontal charcoal fish retains visible teal eyes and one red facial stripe.",
+                "visible": true
+              },
+              {
+                "anchorId": "exactly-four-red-lobed-fins",
+                "evidence": "Four separate small red lobes remain countable along the body and none bears a foot.",
+                "visible": true
+              },
+              {
+                "anchorId": "red-dorsal-mint-edge-red-forked-tail",
+                "evidence": "The tall red dorsal fin retains its mint edge and the red tail retains a distinct fork.",
+                "visible": true
+              }
+            ],
+            "clarifications": [
+              {
+                "evidence": "The compact rendering remains a horizontal streamlined swimmer ending in a forked tail.",
+                "passed": true,
+                "requirement": "Use an unmistakable horizontal swimming-fish silhouette on both master and runtime"
+              },
+              {
+                "evidence": "The reduced surface preserves the required colors and allows all four lobed fins, the dorsal fin, and forked tail to be separately read.",
+                "passed": true,
+                "requirement": "Preserve the charcoal body, teal eyes/details, red facial stripe, exactly four red lobed fins, tall red dorsal fin with mint edge, and red forked tail"
+              },
+              {
+                "evidence": "The charcoal, teal, and red regions remain correct, four lobes are discrete, the tail is forked, and no weight-bearing anatomy or ground contact is visible.",
+                "passed": true,
+                "requirement": "Reject altered charcoal-teal-red color roles, missing facial stripe, extra or merged lobed fins, non-forked tail, feet, toes, ground contact, limb joints, or any weight-bearing appendage"
+              }
+            ],
+            "confidence": 0.98,
+            "inputSha256": "b4e8fe700abecc58f2200fa1e51c232958471fe27cff17e5723ea83863444bb7",
+            "surface": "runtime",
+            "taxonomy": {
+              "biologicalClass": "actinopterygii",
+              "coreAnatomy": "finned-gilled-vertebrate",
+              "locomotionPlan": "aquatic-caudal-fin-swimming",
+              "speciesFamily": "stylized-bony-fish"
+            },
+            "visibleAppendageCounts": {
+              "dorsalFins": 1,
+              "forkedTails": 1,
+              "redLobedFins": 4,
+              "weightBearingLegs": 0
+            }
+          }
+        ]
+      },
+      "run": {
+        "agentTaskId": "/root/g002_v2_blind_pass2",
+        "assignmentFileSha256": "638783d5f6e4628bf8ee402cfbfa3dc3b2ddc72fcb6455727bf3aee2a7b18b4a",
+        "assignmentId": "assignment-9c5219064c5c0a7a92caa03e",
+        "conductorHmacSha256": "af48a61b3ccd64027e09174c6c0b7b437a1a67c2c00e47c43c497387a7f1576b",
+        "createdAt": "2026-08-10T22:19:37.000Z",
+        "opaqueTargetId": "target-86d9ff8023f8b9794f0e2312",
+        "outputSha256": "fcaa4f21d4acf79ab3f98a37175770538264d6d8010b41a06b25594ca7358bc6",
+        "passNumber": 2,
+        "rawSha256": "542967fc3833595d4294043dea30a44e8dd974e84af0cb3dd77a97009a731d0c",
+        "reviewRunId": "g002-v2-canonical-pass-2-20260810",
+        "reviewerInstanceId": "blind-primary-reviewer-2-20260810",
+        "schemaVersion": "g002-v2-canonical-review-run-v1"
+      },
+      "vote": {
+        "agentTaskId": "/root/g002_v2_blind_pass2",
+        "assignmentFileSha256": "638783d5f6e4628bf8ee402cfbfa3dc3b2ddc72fcb6455727bf3aee2a7b18b4a",
+        "assignmentId": "assignment-9c5219064c5c0a7a92caa03e",
+        "conductorHmacSha256": "fab8ba4415443afdb35b7ae6b3e20a331495f67c0d7d5ceb182c79070436e983",
+        "confidence": 0.98,
+        "inputAllowlistSha256": "9c32637b9bbfdc714dc70d29cbe7f734a9308e2ce07badf4de9e73ddc60a52be",
+        "inputAssetSha256s": [
+          "0ce636b2befa32198619c47a308a005bf02a71c401cd51399d5aad2a7a1257bb",
+          "b4e8fe700abecc58f2200fa1e51c232958471fe27cff17e5723ea83863444bb7"
+        ],
+        "materialBindingSha256": "b8611bcab2b3caf68b59190585f52fc7e89a14f700ade09f0e82c5c2117f12da",
+        "observation": [
+          {
+            "ambiguity": false,
+            "anchors": [
+              {
+                "anchorId": "charcoal-body-teal-eyes-red-facial-stripe",
+                "evidence": "The horizontal charcoal fish has teal eyes and accents plus one red stripe running over the face.",
+                "visible": true
+              },
+              {
+                "anchorId": "exactly-four-red-lobed-fins",
+                "evidence": "Four small red lobed fins are separately outlined on the body, with no leg or foot structures.",
+                "visible": true
+              },
+              {
+                "anchorId": "red-dorsal-mint-edge-red-forked-tail",
+                "evidence": "One tall red dorsal fin has a mint leading edge, and the rear terminates in one clearly forked red tail.",
+                "visible": true
+              }
+            ],
+            "clarifications": [
+              {
+                "evidence": "A streamlined head-to-forked-tail body is suspended horizontally without ground contact.",
+                "passed": true,
+                "requirement": "Use an unmistakable horizontal swimming-fish silhouette on both master and runtime"
+              },
+              {
+                "evidence": "Every specified charcoal, teal, mint, and red feature is directly visible, including four separately contoured lobed fins.",
+                "passed": true,
+                "requirement": "Preserve the charcoal body, teal eyes/details, red facial stripe, exactly four red lobed fins, tall red dorsal fin with mint edge, and red forked tail"
+              },
+              {
+                "evidence": "Colors retain their roles, the stripe is present, four lobed fins remain discrete, the tail is forked, and no leg, foot, joint, or ground contact appears.",
+                "passed": true,
+                "requirement": "Reject altered charcoal-teal-red color roles, missing facial stripe, extra or merged lobed fins, non-forked tail, feet, toes, ground contact, limb joints, or any weight-bearing appendage"
+              }
+            ],
+            "confidence": 0.99,
+            "inputSha256": "0ce636b2befa32198619c47a308a005bf02a71c401cd51399d5aad2a7a1257bb",
+            "surface": "master",
+            "taxonomy": {
+              "biologicalClass": "actinopterygii",
+              "coreAnatomy": "finned-gilled-vertebrate",
+              "locomotionPlan": "aquatic-caudal-fin-swimming",
+              "speciesFamily": "stylized-bony-fish"
+            },
+            "visibleAppendageCounts": {
+              "dorsalFins": 1,
+              "forkedTails": 1,
+              "redLobedFins": 4,
+              "weightBearingLegs": 0
+            }
+          },
+          {
+            "ambiguity": false,
+            "anchors": [
+              {
+                "anchorId": "charcoal-body-teal-eyes-red-facial-stripe",
+                "evidence": "The reduced horizontal charcoal fish retains visible teal eyes and one red facial stripe.",
+                "visible": true
+              },
+              {
+                "anchorId": "exactly-four-red-lobed-fins",
+                "evidence": "Four separate small red lobes remain countable along the body and none bears a foot.",
+                "visible": true
+              },
+              {
+                "anchorId": "red-dorsal-mint-edge-red-forked-tail",
+                "evidence": "The tall red dorsal fin retains its mint edge and the red tail retains a distinct fork.",
+                "visible": true
+              }
+            ],
+            "clarifications": [
+              {
+                "evidence": "The compact rendering remains a horizontal streamlined swimmer ending in a forked tail.",
+                "passed": true,
+                "requirement": "Use an unmistakable horizontal swimming-fish silhouette on both master and runtime"
+              },
+              {
+                "evidence": "The reduced surface preserves the required colors and allows all four lobed fins, the dorsal fin, and forked tail to be separately read.",
+                "passed": true,
+                "requirement": "Preserve the charcoal body, teal eyes/details, red facial stripe, exactly four red lobed fins, tall red dorsal fin with mint edge, and red forked tail"
+              },
+              {
+                "evidence": "The charcoal, teal, and red regions remain correct, four lobes are discrete, the tail is forked, and no weight-bearing anatomy or ground contact is visible.",
+                "passed": true,
+                "requirement": "Reject altered charcoal-teal-red color roles, missing facial stripe, extra or merged lobed fins, non-forked tail, feet, toes, ground contact, limb joints, or any weight-bearing appendage"
+              }
+            ],
+            "confidence": 0.98,
+            "inputSha256": "b4e8fe700abecc58f2200fa1e51c232958471fe27cff17e5723ea83863444bb7",
+            "surface": "runtime",
+            "taxonomy": {
+              "biologicalClass": "actinopterygii",
+              "coreAnatomy": "finned-gilled-vertebrate",
+              "locomotionPlan": "aquatic-caudal-fin-swimming",
+              "speciesFamily": "stylized-bony-fish"
+            },
+            "visibleAppendageCounts": {
+              "dorsalFins": 1,
+              "forkedTails": 1,
+              "redLobedFins": 4,
+              "weightBearingLegs": 0
+            }
+          }
+        ],
+        "opaqueTargetId": "target-86d9ff8023f8b9794f0e2312",
+        "outputSha256": "e3022391c89403f6f4cf4e4e2dc1bbf8268fcec4e7a30af4b7e5917701b10a11",
+        "packageManifestSha256": "7923fa751ca54e1464b334b318b184d762579eef4e4ae38638e90ec50acd0a2b",
+        "passNumber": 2,
+        "promptSha256": "022ce82ebfb11682c566816376f5272a00be528c55dd2435c1857e77834e183c",
+        "rawSha256": "542967fc3833595d4294043dea30a44e8dd974e84af0cb3dd77a97009a731d0c",
+        "reviewRunId": "g002-v2-canonical-pass-2-20260810",
+        "reviewerInstanceId": "blind-primary-reviewer-2-20260810",
+        "runOutputSha256": "fcaa4f21d4acf79ab3f98a37175770538264d6d8010b41a06b25594ca7358bc6",
+        "schemaVersion": "g002-v2-canonical-review-vote-v1",
+        "voteId": "vote-ca8a518f443f81cb884e1b5f"
+      }
+    }
+  ],
+  "prompt": "PunchGrow blinded G002-v2 canonical replacement review.\nJudge only the two supplied candidate surfaces. Root ID, names, lineage, prior verdicts, and historical pixels are forbidden evidence.\nExact four-field taxonomy: {\n  \"biologicalClass\": \"actinopterygii\",\n  \"coreAnatomy\": \"finned-gilled-vertebrate\",\n  \"locomotionPlan\": \"aquatic-caudal-fin-swimming\",\n  \"speciesFamily\": \"stylized-bony-fish\"\n}\nExact three identity anchors: [\n  {\n    \"anchorId\": \"charcoal-body-teal-eyes-red-facial-stripe\",\n    \"description\": \"Charcoal swimming-fish body with teal eyes and details plus one red facial stripe\"\n  },\n  {\n    \"anchorId\": \"exactly-four-red-lobed-fins\",\n    \"description\": \"Exactly four separately readable red lobed fins attached to the charcoal body, with no weight-bearing legs\"\n  },\n  {\n    \"anchorId\": \"red-dorsal-mint-edge-red-forked-tail\",\n    \"description\": \"Tall red dorsal fin with a mint edge and a red forked tail on a true horizontal fish profile\"\n  }\n]\nExact visibility clarifications: [\n  \"Use an unmistakable horizontal swimming-fish silhouette on both master and runtime\",\n  \"Preserve the charcoal body, teal eyes/details, red facial stripe, exactly four red lobed fins, tall red dorsal fin with mint edge, and red forked tail\",\n  \"Reject altered charcoal-teal-red color roles, missing facial stripe, extra or merged lobed fins, non-forked tail, feet, toes, ground contact, limb joints, or any weight-bearing appendage\"\n]\nExact independently visible counts on BOTH surfaces: {\n  \"dorsalFins\": 1,\n  \"forkedTails\": 1,\n  \"redLobedFins\": 4,\n  \"weightBearingLegs\": 0\n}\nFor master and runtime separately, record taxonomy, visible evidence for every anchor and clarification, exact counts, ambiguity=false, and confidence >=0.96. Hidden, merged, occluded, or double-readable structures are a failure.\n",
+  "promptSha256": "022ce82ebfb11682c566816376f5272a00be528c55dd2435c1857e77834e183c",
+  "publicSignature": {
+    "algorithm": "Ed25519",
+    "authorityFingerprint": "423f474c59667e5eabc13a703b8d7de4e97bcba33cdc22340873866db9d6a53f",
+    "signatureBase64": "btHsy6XHjzHMAD8+n8/a1QmjP2ekkCJ/HkkAMFmJ7SS7pShcT5VKG6xc7vjDRI6RZ0X6kFxJ3AzmooMTHPqNAg=="
+  },
+  "rootId": "PG-056",
+  "schemaVersion": "g002-v2-canonical-public-review-proof-v1",
+  "target": {
+    "anchors": [
+      {
+        "anchorId": "charcoal-body-teal-eyes-red-facial-stripe",
+        "description": "Charcoal swimming-fish body with teal eyes and details plus one red facial stripe"
+      },
+      {
+        "anchorId": "exactly-four-red-lobed-fins",
+        "description": "Exactly four separately readable red lobed fins attached to the charcoal body, with no weight-bearing legs"
+      },
+      {
+        "anchorId": "red-dorsal-mint-edge-red-forked-tail",
+        "description": "Tall red dorsal fin with a mint edge and a red forked tail on a true horizontal fish profile"
+      }
+    ],
+    "canonicalTarget": {
+      "biologicalClass": "actinopterygii",
+      "coreAnatomy": "finned-gilled-vertebrate",
+      "locomotionPlan": "aquatic-caudal-fin-swimming",
+      "speciesFamily": "stylized-bony-fish"
+    },
+    "clarificationRequirements": [
+      "Use an unmistakable horizontal swimming-fish silhouette on both master and runtime",
+      "Preserve the charcoal body, teal eyes/details, red facial stripe, exactly four red lobed fins, tall red dorsal fin with mint edge, and red forked tail",
+      "Reject altered charcoal-teal-red color roles, missing facial stripe, extra or merged lobed fins, non-forked tail, feet, toes, ground contact, limb joints, or any weight-bearing appendage"
+    ],
+    "currentPixelAssessment": "DISPUTED_OR_AMBIGUOUS",
+    "rootId": "PG-056"
+  },
+  "targetSha256": "5eec1b50f2f32544829d33c954f9558a9262401adc2a573601ae735df6eb97be"
+}

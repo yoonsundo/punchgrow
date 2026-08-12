@@ -1,0 +1,40 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://punchgrow.local/contracts/continuity-candidate-provenance-v1.schema.json",
+  "title": "PunchGrow local ImageGen candidate provenance v1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schemaVersion", "slotId", "generationRunId", "sourceKind", "promptSha256", "workspaceMaster", "candidateMaster", "runtime", "derivation"],
+  "properties": {
+    "schemaVersion": { "const": "continuity-candidate-provenance-v1" },
+    "slotId": { "$ref": "#/$defs/pgId" },
+    "generationRunId": { "type": "string", "pattern": "^[A-Za-z0-9][A-Za-z0-9._-]{0,127}$" },
+    "sourceKind": { "const": "local-built-in-imagegen-png" },
+    "promptSha256": { "$ref": "#/$defs/sha256" },
+    "workspaceMaster": { "$ref": "#/$defs/png" },
+    "candidateMaster": { "$ref": "#/$defs/png" },
+    "runtime": { "$ref": "#/$defs/png" },
+    "derivation": {
+      "type": "object", "additionalProperties": false,
+      "required": ["engine", "engineVersion", "resampler", "width", "height", "mode", "colorSpace", "pngCompressionLevel", "metadataPolicy"],
+      "properties": {
+        "engine": { "const": "pngjs" }, "engineVersion": { "const": "3.4.0" },
+        "resampler": { "const": "LANCZOS3-premultiplied-alpha" }, "width": { "const": 360 }, "height": { "const": 360 },
+        "mode": { "const": "RGBA" }, "colorSpace": { "const": "sRGB" }, "pngCompressionLevel": { "const": 9 },
+        "metadataPolicy": { "const": "strip-and-write-srgb-rendering-intent-0" }
+      }
+    }
+  },
+  "$defs": {
+    "pgId": { "type": "string", "pattern": "^PG-[0-9]{3}$" },
+    "sha256": { "type": "string", "pattern": "^[a-f0-9]{64}$" },
+    "png": {
+      "type": "object", "additionalProperties": false, "required": ["path", "sha256", "bytes", "width", "height"],
+      "properties": {
+        "path": { "type": "string", "pattern": "^assets/creatures/biological-continuity-v3/.+\\.png$" },
+        "sha256": { "$ref": "#/$defs/sha256" }, "bytes": { "type": "integer", "minimum": 1 },
+        "width": { "type": "integer", "minimum": 1 }, "height": { "type": "integer", "minimum": 1 }
+      }
+    }
+  }
+}

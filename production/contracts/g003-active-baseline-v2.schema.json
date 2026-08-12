@@ -1,0 +1,39 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://punchgrow.local/contracts/g003-active-baseline-v2.schema.json",
+  "title": "G003 v3 protocol authority baseline",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schemaVersion", "reviewProtocol", "protocolAuthoritySha256", "activePack", "protectedFiles", "authority", "counts", "targetSource", "effectiveRootIds", "supersedes"],
+  "properties": {
+    "schemaVersion": { "const": "continuity-g003-active-baseline-v2" },
+    "reviewProtocol": { "const": "continuity-g003-review-protocol-v3" },
+    "protocolAuthoritySha256": { "const": "f585f5002c5f173a6a083e4a1d547d6b827d2277f140e94d1b8519d02b0124c7" },
+    "activePack": { "const": "cute-redesign-v2" },
+    "protectedFiles": { "type": "array", "minItems": 4, "maxItems": 4, "items": { "$ref": "#/$defs/file" } },
+    "authority": {
+      "type": "object", "additionalProperties": false,
+      "required": ["publicManifestOutputSha256", "publicManifestFileSha256", "successorOutputSha256", "successorFileSha256", "assignmentSha256", "effectiveAuthoritySha256"],
+      "properties": {
+        "publicManifestOutputSha256": { "$ref": "#/$defs/sha256" }, "publicManifestFileSha256": { "$ref": "#/$defs/sha256" },
+        "successorOutputSha256": { "$ref": "#/$defs/sha256" }, "successorFileSha256": { "$ref": "#/$defs/sha256" },
+        "assignmentSha256": { "$ref": "#/$defs/sha256" }, "effectiveAuthoritySha256": { "$ref": "#/$defs/sha256" }
+      }
+    },
+    "counts": {
+      "type": "object", "additionalProperties": false,
+      "required": ["regenerate", "retain", "edges", "obligations", "dependentQueue", "generatedParentEdges", "primaryVotes", "effectiveRoots"],
+      "properties": {
+        "regenerate": { "const": 177 }, "retain": { "const": 63 }, "edges": { "const": 190 }, "obligations": { "const": 367 },
+        "dependentQueue": { "const": 123 }, "generatedParentEdges": { "const": 133 }, "primaryVotes": { "const": 734 }, "effectiveRoots": { "const": 15 }
+      }
+    },
+    "targetSource": { "const": "signed-canonical-root-redesign-successor-v2" },
+    "effectiveRootIds": { "type": "array", "minItems": 15, "maxItems": 15, "uniqueItems": true, "items": { "type": "string", "pattern": "^PG-[0-9]{3}$" } },
+    "supersedes": { "type": "string", "minLength": 1 }
+  },
+  "$defs": {
+    "sha256": { "type": "string", "pattern": "^[a-f0-9]{64}$" },
+    "file": { "type": "object", "additionalProperties": false, "required": ["path", "sha256"], "properties": { "path": { "type": "string", "minLength": 1 }, "sha256": { "$ref": "#/$defs/sha256" } } }
+  }
+}

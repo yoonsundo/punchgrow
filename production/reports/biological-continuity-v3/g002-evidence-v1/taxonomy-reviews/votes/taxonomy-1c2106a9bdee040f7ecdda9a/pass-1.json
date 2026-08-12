@@ -1,0 +1,51 @@
+{
+  "agentTaskId": "g002-taxonomy-pass1-independent-round2",
+  "anchors": [
+    {
+      "anchorId": "body-silhouette",
+      "description": "Compact segmented green body with two prominent folded wing covers and paired bent forelimbs held forward."
+    },
+    {
+      "anchorId": "face-geometry",
+      "description": "Large rounded green head with two oversized golden compound eyes, small curved mouth, and two long arched antennae."
+    },
+    {
+      "anchorId": "signature-organ",
+      "description": "Two elongated serrated-looking grasping forelegs with dark inner edges."
+    }
+  ],
+  "assignmentManifestSha256": "3b41f92a8af5057c763aae7e027b1a63921e5dc72630ebe4b3202875a3584f33",
+  "blinded": true,
+  "conductorHmacSha256": "4dda5120c0cf4386f6a40d2ed50fee7bbc8f8f98bac3aa1a0b5cb7af50252287",
+  "confidence": 0.9,
+  "contractSha256": "f6d06316ba0ce315a79d3d784abe49f8f80463776ef07f5dbf5372185b9a8a15",
+  "fresh": true,
+  "inputAllowlistSha256": "b2cd522396d3cdd6f53e17bfd6ab8afde830ba84a3df17f3e7e64ea3499180d6",
+  "inputAssetSha256s": [
+    "ffcfce46ce84f6b1a621c3ed171777cc9c02f465cbd60aa3dd16f62f8c7bc3a3",
+    "4a6362a8e702425ad71860d2bff053a5ca65a71e1c5fe66482d2374c15fb09a7"
+  ],
+  "opaqueTaxonomyTargetId": "taxonomy-1c2106a9bdee040f7ecdda9a",
+  "outputSha256": "35b37e459dc2efdad8db7acf5fb66bf32d55d3b75368c6ad9c3cf27b884b4979",
+  "packageManifestSha256": "4235912f5f0ee09fe3fb2cd005e6ef964a62129b593a3b37e1bcf65150745065",
+  "passNumber": 1,
+  "promptSha256": "428e5d281d525d352776ae9950777265519d08f8bad67e50c2ed17b3f5c6e8d4",
+  "publicSignature": {
+    "algorithm": "Ed25519",
+    "authorityFingerprint": "423f474c59667e5eabc13a703b8d7de4e97bcba33cdc22340873866db9d6a53f",
+    "signatureBase64": "gvB09RsbIUxnL9TNoLMxIujLaMariJX6BM9Fo2PD6OD7P3jWsXqANSiY2dM69b71RzP6eqxdq3WNhrqvEfdHCw=="
+  },
+  "reviewId": "taxonomy-review-509e7fd225047e7bc14302787905d2db",
+  "reviewerInstanceId": "taxonomy-reviewer-pass1-independent",
+  "reviewerRunAttestationSha256": "fb43f250c7b2dd539e6b7df1c220c0e215b32d5dcc0a2adaf1ff40ae4212104d",
+  "role": "primary",
+  "schemaVersion": "g002-taxonomy-primary-vote-v1",
+  "submittedAt": "2026-08-10T16:39:05.210Z",
+  "taxonomy": {
+    "biologicalClass": "insect",
+    "coreAnatomy": "hexapod",
+    "locomotionPlan": "flight",
+    "speciesFamily": "mantodea"
+  },
+  "voterReviewRunId": "g002-taxonomy-run-pass1-round2"
+}

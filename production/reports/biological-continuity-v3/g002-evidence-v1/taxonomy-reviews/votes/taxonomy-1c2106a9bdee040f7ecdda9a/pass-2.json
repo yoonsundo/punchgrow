@@ -1,0 +1,51 @@
+{
+  "agentTaskId": "g002-taxonomy-pass2-independent-round2",
+  "anchors": [
+    {
+      "anchorId": "body-silhouette",
+      "description": "Compact segmented body with paired green wing covers and multiple thin appendages beneath the thorax."
+    },
+    {
+      "anchorId": "face-geometry",
+      "description": "Oval green head with two very large amber compound-looking eyes, a small curved mouth, and two long dark antennae."
+    },
+    {
+      "anchorId": "signature-organ",
+      "description": "Large overlapping green wing-like plates extend from the back, with a narrow gold line along the outer plate."
+    }
+  ],
+  "assignmentManifestSha256": "0987044a6f092427fbbe70d1ca546adb64900ff64717c3e75835731db507c3ae",
+  "blinded": true,
+  "conductorHmacSha256": "7ef7ad271a239d5914cd30fcbfa6882ca77b7002a95898fcb94d95d982fc3e70",
+  "confidence": 0.88,
+  "contractSha256": "f6d06316ba0ce315a79d3d784abe49f8f80463776ef07f5dbf5372185b9a8a15",
+  "fresh": true,
+  "inputAllowlistSha256": "b2cd522396d3cdd6f53e17bfd6ab8afde830ba84a3df17f3e7e64ea3499180d6",
+  "inputAssetSha256s": [
+    "ffcfce46ce84f6b1a621c3ed171777cc9c02f465cbd60aa3dd16f62f8c7bc3a3",
+    "4a6362a8e702425ad71860d2bff053a5ca65a71e1c5fe66482d2374c15fb09a7"
+  ],
+  "opaqueTaxonomyTargetId": "taxonomy-1c2106a9bdee040f7ecdda9a",
+  "outputSha256": "7a00f4e82e1750161ad2ba8b0fc8ebc6dbfdb0ae98342ecb01082194fdefcaf8",
+  "packageManifestSha256": "4235912f5f0ee09fe3fb2cd005e6ef964a62129b593a3b37e1bcf65150745065",
+  "passNumber": 2,
+  "promptSha256": "428e5d281d525d352776ae9950777265519d08f8bad67e50c2ed17b3f5c6e8d4",
+  "publicSignature": {
+    "algorithm": "Ed25519",
+    "authorityFingerprint": "423f474c59667e5eabc13a703b8d7de4e97bcba33cdc22340873866db9d6a53f",
+    "signatureBase64": "6Y2Hvktk7iuEIWbVjfmw2ciqWxHuBFICo2P0I7b4U1iRlYKH/c6iARnw5yC91NfAhA1pRIrW6veWnJKbVZoSDQ=="
+  },
+  "reviewId": "taxonomy-review-153082aab8e7c49c24bf96a99733c806",
+  "reviewerInstanceId": "taxonomy-reviewer-pass2-independent",
+  "reviewerRunAttestationSha256": "9ff3cc76a323190ed60e77a1ec76c426ab7634093e5af65e514e562ca2f4c62b",
+  "role": "primary",
+  "schemaVersion": "g002-taxonomy-primary-vote-v1",
+  "submittedAt": "2026-08-10T16:39:07.581Z",
+  "taxonomy": {
+    "biologicalClass": "insecta",
+    "coreAnatomy": "hexapod",
+    "locomotionPlan": "flight",
+    "speciesFamily": "beetle-like"
+  },
+  "voterReviewRunId": "g002-taxonomy-run-pass2-round2"
+}

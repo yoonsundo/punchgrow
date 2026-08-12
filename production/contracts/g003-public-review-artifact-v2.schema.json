@@ -1,0 +1,127 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://punchgrow.local/contracts/g003-public-review-artifact-v2.schema.json",
+  "title": "G003 persisted public candidate review artifact v2",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schemaVersion", "requirementId", "generationRunId", "candidateId", "opaqueCandidateId", "reviewKind", "edgeId", "review", "privateMaterialBinding", "packageManifest", "materialBinding", "inputAllowlist", "prompt", "childPixels", "eiluPixels", "reviewPolicy", "comparisonThresholds", "votes", "reviewerAssignments", "reviewerRunAttestations", "rawObservations", "parentEvidence", "supersession", "outputSha256", "publicSignature"],
+  "properties": {
+    "schemaVersion": { "const": "continuity-g003-public-review-artifact-v2" },
+    "requirementId": { "type": "string", "pattern": "^(g003-candidate:PG-[0-9]{3}|g003-edge:PG-[0-9]{3}:PG-[0-9]{3})$" },
+    "generationRunId": { "$ref": "#/$defs/generationRunId" },
+    "candidateId": { "type": "string", "pattern": "^g003-candidate:PG-[0-9]{3}$" },
+    "opaqueCandidateId": { "type": "string", "pattern": "^candidate-[a-f0-9]{24}$" },
+    "reviewKind": { "enum": ["queue", "edge"] },
+    "edgeId": { "type": ["string", "null"], "pattern": "^g003-edge:PG-[0-9]{3}:PG-[0-9]{3}$" },
+    "review": { "$ref": "#/$defs/file" }, "privateMaterialBinding": { "$ref": "#/$defs/privateBinding" },
+    "packageManifest": { "$ref": "#/$defs/file" }, "materialBinding": { "$ref": "#/$defs/file" },
+    "inputAllowlist": { "$ref": "#/$defs/file" }, "prompt": { "$ref": "#/$defs/file" },
+    "childPixels": { "type": "array", "minItems": 2, "maxItems": 2, "items": { "$ref": "#/$defs/surfaceFile" } },
+    "eiluPixels": { "type": "array", "minItems": 6, "maxItems": 6, "items": { "$ref": "#/$defs/eiluFile" } },
+    "reviewPolicy": { "$ref": "#/$defs/reviewPolicy" },
+    "comparisonThresholds": {
+      "type": "object", "additionalProperties": false,
+      "required": ["minimumConfidence", "minimumAnchorRetentionRatio", "sameCreatureGrownUp"],
+      "properties": { "minimumConfidence": { "const": 0.96 }, "minimumAnchorRetentionRatio": { "const": 1 }, "sameCreatureGrownUp": { "const": "yes" } }
+    },
+    "votes": { "type": "array", "minItems": 2, "maxItems": 2, "items": { "$ref": "#/$defs/file" } },
+    "reviewerAssignments": { "type": "array", "minItems": 2, "maxItems": 2, "items": { "$ref": "#/$defs/file" } },
+    "reviewerRunAttestations": { "type": "array", "minItems": 2, "maxItems": 2, "items": { "$ref": "#/$defs/file" } },
+    "rawObservations": { "type": "array", "minItems": 2, "maxItems": 2, "items": { "$ref": "#/$defs/file" } },
+    "parentEvidence": { "type": "array", "minItems": 1, "maxItems": 2, "items": { "$ref": "#/$defs/parentEvidence" } },
+    "supersession": { "anyOf": [{ "type": "null" }, { "$ref": "#/$defs/supersession" }] },
+    "outputSha256": { "$ref": "#/$defs/sha256" }, "publicSignature": { "$ref": "#/$defs/publicSignature" }
+  },
+  "$defs": {
+    "sha256": { "type": "string", "pattern": "^[a-f0-9]{64}$" },
+    "generationRunId": { "type": "string", "pattern": "^[A-Za-z0-9][A-Za-z0-9._-]{0,127}$" },
+    "pgId": { "type": "string", "pattern": "^PG-[0-9]{3}$" },
+    "path": { "type": "string", "pattern": "^production/reports/biological-continuity-v3/g003-evidence-v1/.+" },
+    "taxonomy": {
+      "type": "object", "additionalProperties": false,
+      "required": ["biologicalClass", "speciesFamily", "coreAnatomy", "locomotionPlan"],
+      "properties": {
+        "biologicalClass": { "type": "string", "minLength": 1 }, "speciesFamily": { "type": "string", "minLength": 1 },
+        "coreAnatomy": { "type": "string", "minLength": 1 }, "locomotionPlan": { "type": "string", "minLength": 1 }
+      }
+    },
+    "reviewPolicy": {
+      "type": "object", "additionalProperties": false,
+      "required": ["assessmentMode", "continuitySubject", "taxonomyTargetSource", "requiredChildTaxonomy", "canonicalContractOutputSha256", "historicalParentPixelsOnly", "visibilityPolicy", "clarificationRequirements"],
+      "properties": {
+        "assessmentMode": { "enum": ["same-creature-continuity", "canonical-root-replacement"] },
+        "continuitySubject": { "enum": ["prior-parent-pixels", "signed-canonical-root-contract"] },
+        "taxonomyTargetSource": { "type": "string", "minLength": 1 }, "requiredChildTaxonomy": { "$ref": "#/$defs/taxonomy" },
+        "canonicalContractOutputSha256": { "anyOf": [{ "$ref": "#/$defs/sha256" }, { "type": "null" }] },
+        "historicalParentPixelsOnly": { "type": "boolean" },
+        "visibilityPolicy": { "anyOf": [{ "$ref": "#/$defs/visibilityPolicy" }, { "type": "null" }] },
+        "clarificationRequirements": { "type": "array", "uniqueItems": true, "items": { "type": "string", "minLength": 8 } }
+      }
+    },
+    "visibilityPolicy": {
+      "type": "object", "additionalProperties": false,
+      "required": ["surfaceRequirement", "appendageCountingRule", "ambiguityRule", "preservationRule"],
+      "properties": {
+        "surfaceRequirement": { "const": "master-and-runtime-independently-satisfy-canonical-tuple-and-all-three-anchors" },
+        "appendageCountingRule": { "const": "count-visible-appendages-only" },
+        "ambiguityRule": { "const": "hidden-merged-or-double-readable-is-block" },
+        "preservationRule": { "const": "preserve-anchor-shape-relative-placement-and-color-role" }
+      }
+    },
+    "file": {
+      "type": "object", "additionalProperties": false, "required": ["path", "sha256"],
+      "properties": { "path": { "$ref": "#/$defs/path" }, "sha256": { "$ref": "#/$defs/sha256" } }
+    },
+    "privateBinding": {
+      "type": "object", "additionalProperties": false, "required": ["path", "sha256", "materialBindingSha256"],
+      "properties": {
+        "path": { "type": "string", "pattern": "^\\.omx/evidence/continuity-candidates/.+/private-binding\\.json$" },
+        "sha256": { "$ref": "#/$defs/sha256" }, "materialBindingSha256": { "$ref": "#/$defs/sha256" }
+      }
+    },
+    "supersession": {
+      "type": "object", "additionalProperties": false, "required": ["path", "sha256", "priorArtifactSha256"],
+      "properties": { "path": { "$ref": "#/$defs/path" }, "sha256": { "$ref": "#/$defs/sha256" }, "priorArtifactSha256": { "$ref": "#/$defs/sha256" } }
+    },
+    "parentAnchor": {
+      "type": "object", "additionalProperties": false,
+      "required": ["anchorKey", "parentRole", "parentId", "anchorId", "description", "sourceReviewId", "sourceConfidence", "resolutionState", "dependencyCandidateId"],
+      "properties": {
+        "anchorKey": { "type": "string", "pattern": "^PG-[0-9]{3}:.+$" }, "parentRole": { "type": "string", "pattern": "^parent-[12]$" },
+        "parentId": { "$ref": "#/$defs/pgId" }, "anchorId": { "type": "string", "pattern": "^[A-Za-z0-9][A-Za-z0-9._-]*$" },
+        "description": { "type": "string", "minLength": 3 }, "sourceReviewId": { "type": "string", "minLength": 8 },
+        "sourceConfidence": { "type": "number", "minimum": 0.85, "maximum": 1 },
+        "resolutionState": { "enum": ["RESOLVED_AUTHENTICATED_PIXELS", "RESOLVED_SIGNED_CANONICAL_REDESIGN_TARGET"] },
+        "dependencyCandidateId": { "type": ["string", "null"], "pattern": "^g003-candidate:PG-[0-9]{3}$" }
+      }
+    },
+    "parentEvidence": {
+      "type": "object", "additionalProperties": false,
+      "required": ["evidenceRole", "parentRole", "parentId", "pixelSha256s", "approvedParentCandidateId", "approvedParentReviewSha256", "anchors"],
+      "properties": {
+        "evidenceRole": { "enum": ["continuity-parent", "historical-reference-only"] },
+        "parentRole": { "type": "string", "pattern": "^parent-[12]$" }, "parentId": { "$ref": "#/$defs/pgId" },
+        "pixelSha256s": { "type": "array", "minItems": 2, "maxItems": 2, "uniqueItems": true, "items": { "$ref": "#/$defs/sha256" } },
+        "approvedParentCandidateId": { "type": ["string", "null"], "pattern": "^g003-candidate:PG-[0-9]{3}$" },
+        "approvedParentReviewSha256": { "anyOf": [{ "$ref": "#/$defs/sha256" }, { "type": "null" }] },
+        "anchors": { "type": "array", "uniqueItems": true, "items": { "$ref": "#/$defs/parentAnchor" } }
+      },
+      "oneOf": [
+        { "properties": { "approvedParentCandidateId": { "type": "null" }, "approvedParentReviewSha256": { "type": "null" } } },
+        { "properties": { "approvedParentCandidateId": { "type": "string", "pattern": "^g003-candidate:PG-[0-9]{3}$" }, "approvedParentReviewSha256": { "$ref": "#/$defs/sha256" } } }
+      ]
+    },
+    "surfaceFile": {
+      "type": "object", "additionalProperties": false, "required": ["surface", "path", "sha256"],
+      "properties": { "surface": { "enum": ["master", "runtime"] }, "path": { "$ref": "#/$defs/path" }, "sha256": { "$ref": "#/$defs/sha256" } }
+    },
+    "eiluFile": {
+      "type": "object", "additionalProperties": false, "required": ["pgId", "surface", "path", "sha256"],
+      "properties": { "pgId": { "enum": ["PG-001", "PG-061", "PG-181"] }, "surface": { "enum": ["master", "runtime"] }, "path": { "$ref": "#/$defs/path" }, "sha256": { "$ref": "#/$defs/sha256" } }
+    },
+    "publicSignature": {
+      "type": "object", "additionalProperties": false, "required": ["algorithm", "authorityFingerprint", "signatureBase64"],
+      "properties": { "algorithm": { "const": "Ed25519" }, "authorityFingerprint": { "$ref": "#/$defs/sha256" }, "signatureBase64": { "type": "string", "minLength": 80 } }
+    }
+  }
+}

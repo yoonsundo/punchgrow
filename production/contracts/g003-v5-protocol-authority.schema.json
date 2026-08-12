@@ -1,0 +1,44 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://punchgrow.local/contracts/g003-v5-protocol-authority.schema.json",
+  "title": "G003 v5 publicly verified protocol authority",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["protocol", "priorProtocolAuthoritySha256", "continuityAuthority", "schemaBindings", "protocolAuthoritySha256"],
+  "properties": {
+    "protocol": { "const": "continuity-g003-review-protocol-v5" },
+    "priorProtocolAuthoritySha256": { "$ref": "#/$defs/sha256" },
+    "continuityAuthority": {
+      "type": "object", "additionalProperties": false,
+      "required": ["delegationOutputSha256", "delegationFileSha256", "supersessionOutputSha256", "supersessionFileSha256", "freezeOutputSha256", "freezeFileSha256", "freezeTreeSha256"],
+      "properties": {
+        "delegationOutputSha256": { "$ref": "#/$defs/sha256" }, "delegationFileSha256": { "$ref": "#/$defs/sha256" },
+        "supersessionOutputSha256": { "$ref": "#/$defs/sha256" }, "supersessionFileSha256": { "$ref": "#/$defs/sha256" },
+        "freezeOutputSha256": { "$ref": "#/$defs/sha256" }, "freezeFileSha256": { "$ref": "#/$defs/sha256" }, "freezeTreeSha256": { "$ref": "#/$defs/sha256" }
+      }
+    },
+    "schemaBindings": { "type": "array", "minItems": 16, "maxItems": 16, "prefixItems": [
+      { "$ref": "#/$defs/binding", "properties": { "path": { "const": "production/contracts/g003-v5-protocol-authority.schema.json" } } },
+      { "$ref": "#/$defs/binding", "properties": { "path": { "const": "production/contracts/g003-v5-terminal-activation-v1.schema.json" } } },
+      { "$ref": "#/$defs/binding", "properties": { "path": { "const": "production/contracts/g003-reviewer-verdict-v2.schema.json" } } },
+      { "$ref": "#/$defs/binding", "properties": { "path": { "const": "production/contracts/g003-reviewer-assignment-v5.schema.json" } } },
+      { "$ref": "#/$defs/binding", "properties": { "path": { "const": "production/contracts/g003-primary-vote-v5.schema.json" } } },
+      { "$ref": "#/$defs/binding", "properties": { "path": { "const": "production/contracts/continuity-candidate-review-v5.schema.json" } } },
+      { "$ref": "#/$defs/binding", "properties": { "path": { "const": "production/contracts/g003-public-review-artifact-v5.schema.json" } } },
+      { "$ref": "#/$defs/binding", "properties": { "path": { "const": "production/contracts/g003-review-coverage-v5.schema.json" } } },
+      { "$ref": "#/$defs/binding", "properties": { "path": { "const": "production/contracts/g003-rejection-archive-v5.schema.json" } } },
+      { "$ref": "#/$defs/binding", "properties": { "path": { "const": "production/contracts/g003-rejection-observation-v2.schema.json" } } },
+      { "$ref": "#/$defs/binding", "properties": { "path": { "const": "production/contracts/g003-review-invalidity-v1.schema.json" } } },
+      { "$ref": "#/$defs/binding", "properties": { "path": { "const": "production/contracts/g003-rejection-tombstone-v2.schema.json" } } },
+      { "$ref": "#/$defs/binding", "properties": { "path": { "const": "production/contracts/g003-rejection-tombstone-supersession-v1.schema.json" } } },
+      { "$ref": "#/$defs/binding", "properties": { "path": { "const": "production/contracts/g003-quarantine-assignment-v1.schema.json" } } },
+      { "$ref": "#/$defs/binding", "properties": { "path": { "const": "production/contracts/g003-quarantine-invalidity-attestation-v1.schema.json" } } },
+      { "$ref": "#/$defs/binding", "properties": { "path": { "const": "production/contracts/g003-quarantine-adjudication-v1.schema.json" } } }
+    ], "items": false },
+    "protocolAuthoritySha256": { "$ref": "#/$defs/sha256" }
+  },
+  "$defs": {
+    "sha256": { "type": "string", "pattern": "^[a-f0-9]{64}$" },
+    "binding": { "type": "object", "additionalProperties": false, "required": ["path", "sha256"], "properties": { "path": { "type": "string", "minLength": 1 }, "sha256": { "$ref": "#/$defs/sha256" } } }
+  }
+}

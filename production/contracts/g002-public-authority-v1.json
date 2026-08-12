@@ -1,0 +1,8 @@
+{
+  "schemaVersion": "g002-public-authority-v1",
+  "algorithm": "Ed25519",
+  "authorityFingerprint": "423f474c59667e5eabc13a703b8d7de4e97bcba33cdc22340873866db9d6a53f",
+  "publicKeySpkiDerBase64": "MCowBQYDK2VwAyEAcsAwlczpwUiSV+AyD4X1bttFytshhlq6M1RWU1RWXdE=",
+  "derivationPolicy": "HIDDEN_CONDUCTOR_KEY_DOMAIN_SEPARATED_V1",
+  "mutableArtifactOverrideAllowed": false
+}

@@ -1,0 +1,60 @@
+{
+  "schemaVersion": "continuity-output-attestation-g002-v1",
+  "runId": "g002-v1",
+  "inputHashes": {
+    "catalog": {
+      "path": "production/catalog/creatures.json",
+      "sha256": "d9a3265d8e8f07d9ce7f3de52affe3420df4d2aa3406a7f4f364ae1380e9e8a0"
+    },
+    "census": {
+      "path": "production/reports/biological-continuity-v3/g001-unblinded-image-first-census-v1.json",
+      "sha256": "5d9f46f487f86217c78219a9c3be215ddbcf9f88d07dbfdfa2da4c67ec3f5279"
+    },
+    "conflictLedger": {
+      "path": "production/reports/biological-continuity-v3/g001-unblinded-conflict-ledger-v1.json",
+      "sha256": "aae0c87f3368c816cc37551ac86f455517f1a89793b7368dcb3e02b6c48e4231"
+    },
+    "inputLock": {
+      "path": "production/reports/biological-continuity-v3/g002-evidence-v1/inputs.lock.json",
+      "sha256": "835935abfc8d86f54cc46017b208202882bfff24c348639a31fa32d9f9155531"
+    },
+    "taxonomyConsensus": {
+      "path": "production/reports/biological-continuity-v3/g002-evidence-v1/asset-census.json",
+      "sha256": "ce3185b485698dcd4d4bd965c6d13bf3bcfc67d72938918094b395482f285996"
+    },
+    "pixelClusters": {
+      "path": "production/reports/biological-continuity-v3/g002-evidence-v1/pixel-clusters.json",
+      "sha256": "93f6eab9d5cb9f0a4aedec6a1d9079384f6c30f188ed1717a8645968cd32a4b2"
+    },
+    "anchorConsensus": {
+      "path": "production/reports/biological-continuity-v3/g001-primary-pixel-anchor-consensus-v1.json",
+      "sha256": "e2195597da77130e613699a6b72cce1d4009876097838f519ecba8f54c5ea069"
+    },
+    "lockedTaxonomyConsensus": {
+      "path": "production/reports/biological-continuity-v3/g002-evidence-v1/taxonomy-reviews/consensus.json",
+      "sha256": "89c0881bb9acf25abfde0e2e2fe4166b55d0bae59cc23c5f2f3132a0b51d1274"
+    },
+    "canonicalRootRedesignTargets": {
+      "path": "production/reports/biological-continuity-v3/g002-evidence-v1/canonical-root-redesign-targets-v1.json",
+      "sha256": "ede8e2a728c588cafc4f614e7858495f138cf7b208b7048166b66610fd5c6de1"
+    },
+    "topologyContract": {
+      "path": "production/reports/biological-continuity-v3/g002-evidence-v1/topology-before.json",
+      "sha256": "f247b7d476b0f699831edba60bc10b877d482d0e56f3924a9e305ef08f5e1c51"
+    },
+    "pins": {
+      "path": "production/reports/biological-continuity-v3/g002-evidence-v1/pins.json",
+      "sha256": "4ee4c290db7d7ffebd6bbfb836e39adb451afac66301b6b707e6bed9a2f24864"
+    }
+  },
+  "outputHashes": {
+    "compatibility-ledger.json": "a3d85aad38f635633a454be87e5ead896a70c41461710cb7ce47558c45efeb18",
+    "topology-after.json": "af6a7063e651e0a5d8fa4cbeeb6d7fd3d6de3b714ecd3da28d4657a7c12fd771",
+    "assignment-manifest.json": "fef50aa919ac362d15c0f594e9b78e3173f2b544f379a12502a786ab186db5af",
+    "save-revision-map.json": "68339434822c3f4a72cfeb9c242d161223b0962925fc2a84a279a083e1a18704",
+    "regeneration-queue.json": "f907e637eef1da01190b6dac0feba6381062537262faba660f18b92e4910d743",
+    "feasibility-report.json": "8ccb97f460e985f0ec1c4f32dc025656a576e14a037eb8692e92948af72b70ea"
+  },
+  "declaredVerdict": "FEASIBLE_WITH_REGENERATION",
+  "generationPolicy": "deterministic-fail-closed-public-atomic-no-active-mutation"
+}

@@ -1,0 +1,44 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://punchgrow.local/contracts/catalog-revision-map-v1.schema.json",
+  "title": "PunchGrow lossless catalog/save revision map v1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schemaVersion", "fromRevision", "toRevision", "domains", "mixedOrigins", "owned", "progress", "display", "collection", "mutationRetryRoots", "receipts"],
+  "properties": {
+    "schemaVersion": { "const": "catalog-revision-map-v1" },
+    "fromRevision": { "const": "cute-redesign-v2" },
+    "toRevision": { "const": "biological-continuity-v3" },
+    "domains": {
+      "type": "object", "additionalProperties": false,
+      "required": ["oldReachableOwnedStates", "newReachableOwnedStates", "invalidOldStates", "missingNewStates"],
+      "properties": {
+        "oldReachableOwnedStates": { "type": "integer", "minimum": 240 },
+        "newReachableOwnedStates": { "type": "integer", "minimum": 240 },
+        "invalidOldStates": { "const": 0 },
+        "missingNewStates": { "const": 0 }
+      }
+    },
+    "mixedOrigins": { "type": "array", "minItems": 20, "maxItems": 20, "items": { "type": "object", "required": ["speciesId", "oldOrigin", "newOrigin", "changed"] } },
+    "owned": { "type": "array", "minItems": 700, "items": { "$ref": "#/$defs/mapEntry" } },
+    "progress": { "type": "array", "minItems": 240, "items": { "$ref": "#/$defs/mapEntry" } },
+    "display": { "type": "array", "minItems": 242, "maxItems": 242, "items": { "$ref": "#/$defs/mapEntry" } },
+    "collection": { "type": "array", "minItems": 240, "maxItems": 240, "items": { "$ref": "#/$defs/stringMapEntry" } },
+    "mutationRetryRoots": { "type": "array", "minItems": 60, "maxItems": 60, "items": { "$ref": "#/$defs/stringMapEntry" } },
+    "receipts": { "type": "array", "minItems": 241, "items": { "type": "object" } }
+  },
+  "$defs": {
+    "mapEntry": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["from", "to"],
+      "properties": { "from": { "type": "object" }, "to": { "type": "object" } }
+    },
+    "stringMapEntry": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["from", "to"],
+      "properties": { "from": { "type": "string" }, "to": { "type": "string" } }
+    }
+  }
+}

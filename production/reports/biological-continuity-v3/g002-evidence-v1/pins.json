@@ -1,0 +1,248 @@
+{
+  "fixtures": [
+    {
+      "fixtureId": "norzed",
+      "rootId": "PG-059",
+      "screenshotPath": "production/reports/biological-continuity-v3/g002-evidence-v1/screenshots/norzed.png",
+      "screenshotSha256": "3470b42077bfb4d8bb45f31da1e15c080c128b56eb284c261bb9f3cf20040e2c",
+      "slotIds": [
+        "PG-059",
+        "PG-160",
+        "PG-165"
+      ],
+      "slots": [
+        {
+          "masterSha256": "62f86eb9131975e902ea2a369605e99b57dbbd4c6e810dff95d758ef795c77e9",
+          "pgId": "PG-059",
+          "runtimeSha256": "87708c0f1fab419f0207be746f8a3f62be1b2345848435a73831508ca53afb27"
+        },
+        {
+          "masterSha256": "c5f322cb6f5f37d4e680a9f8fc914222587d55f5962ff5128acc78bb82a2a500",
+          "pgId": "PG-160",
+          "runtimeSha256": "ee7a491ed1189a46b0d324d8e220aa7a6a5fe64fd8dfcdaf12d909084a2c76e3"
+        },
+        {
+          "masterSha256": "bddbba09af3b62f8f40c1fa852f72e121036aa20dc97b370a39a06ec2cbc4cb1",
+          "pgId": "PG-165",
+          "runtimeSha256": "2d074a2695c794948d4784f8d3349d02ad603d120711a0665fedf2aa234b6c16"
+        }
+      ]
+    },
+    {
+      "fixtureId": "conipo",
+      "rootId": "PG-010",
+      "screenshotPath": "production/reports/biological-continuity-v3/g002-evidence-v1/screenshots/conipo.png",
+      "screenshotSha256": "ab427afe3d004dc14d83fc8e2c6bcb981acca3f3dcbc6f025ee5ebfbd28831a2",
+      "slotIds": [
+        "PG-010",
+        "PG-070",
+        "PG-225",
+        "PG-190"
+      ],
+      "slots": [
+        {
+          "masterSha256": "98055978b3aa11ba153dd6b87838d5273136c98c47ae5e7c2af1b75f51d933fd",
+          "pgId": "PG-010",
+          "runtimeSha256": "19cb9988dd0e0bb34a3fbbf6453c71bea2e5556fced29f0d772471a4bb96e0ae"
+        },
+        {
+          "masterSha256": "59a4a5fbb3babcd6efe3e83c76c9a1f72e958c90187e58ddf39bf9900208c881",
+          "pgId": "PG-070",
+          "runtimeSha256": "26b858add8b58835a229f6399ffd92453fbd96965f2e383ee5bdd616da10ed05"
+        },
+        {
+          "masterSha256": "72698fe5b629142229164d96bd176d824b61952589105e9658322a9496f68285",
+          "pgId": "PG-225",
+          "runtimeSha256": "01c2bf70e8488f8803e0677b9851c95f9a494e9ca58bd2201c40ca8523bf4ed5"
+        },
+        {
+          "masterSha256": "b452cbfe5045e89ab8089f2ae015847462ba5bec95727f8076c3c010c76c3255",
+          "pgId": "PG-190",
+          "runtimeSha256": "025c82b5480d4259f06a60eb0f887877e2bc78b91deab2f74818daf56832753c"
+        }
+      ]
+    },
+    {
+      "fixtureId": "tirsha",
+      "rootId": "PG-038",
+      "screenshotPath": "production/reports/biological-continuity-v3/g002-evidence-v1/screenshots/tirsha.png",
+      "screenshotSha256": "0b0dbc615c701241557840a09dc73d894a57a0e624003d55c77933c84bc3743d",
+      "slotIds": [
+        "PG-038",
+        "PG-132",
+        "PG-133",
+        "PG-208",
+        "PG-134"
+      ],
+      "slots": [
+        {
+          "masterSha256": "e530315d703795063ea95613d6ccf8252278588897440f415148a739029921ce",
+          "pgId": "PG-038",
+          "runtimeSha256": "078e713b94371f6bac13be885592ef59e23afba25990423df68e3464a6b7b08f"
+        },
+        {
+          "masterSha256": "6b6c117bde183885c5414c39450407fe5d49a0e69f06ddd7048293182cd81f3f",
+          "pgId": "PG-132",
+          "runtimeSha256": "d629ae201c7c01a9bba3e4d738aa98862dbef91232bb324a8cc93b023ad09a82"
+        },
+        {
+          "masterSha256": "d9920c019afbe5d7d8103ba90ab95c2bb6834237c34347af0e51098c700618e5",
+          "pgId": "PG-133",
+          "runtimeSha256": "eee18ac037d06bddf1f4f285fd433eba259dd9944fee0222d928dc1eba46dff5"
+        },
+        {
+          "masterSha256": "814a3ae3bd28011c10dbff1137dff9aee144d746fee6a099453a6a90b2b1cc32",
+          "pgId": "PG-208",
+          "runtimeSha256": "4a437708639c84e324e201ba332138a9597f2680e3eec55d916ba6bc6a230977"
+        },
+        {
+          "masterSha256": "0a24996d5bc0714cfee24a287482a352a843e93094de3018e510b7bd73b09b83",
+          "pgId": "PG-134",
+          "runtimeSha256": "62bdbcda946bcb1907c251e6b8c068c869d149779f74c49b0209789febad05da"
+        }
+      ]
+    },
+    {
+      "fixtureId": "danjuri",
+      "rootId": "PG-024",
+      "screenshotPath": "production/reports/biological-continuity-v3/g002-evidence-v1/screenshots/danjuri.png",
+      "screenshotSha256": "9905afcae32c0738804bdff929c658fba70ebf299f1058f2ab0bd4ce71a43799",
+      "slotIds": [
+        "PG-024",
+        "PG-090",
+        "PG-200",
+        "PG-235",
+        "PG-091",
+        "PG-092"
+      ],
+      "slots": [
+        {
+          "masterSha256": "1e8d9410a63aa4b53a56c51739cf4e2fc87e32165a30b0f0d498f4172b139e38",
+          "pgId": "PG-024",
+          "runtimeSha256": "0b7c69f97a6500bdbc2b442d6dcb1ab6a20f0c996d52402e41aafa89cb797b8f"
+        },
+        {
+          "masterSha256": "a33df82c0ac2d1bfa20f8f13428741b7f0caa6adba049841de8ce489b6024711",
+          "pgId": "PG-090",
+          "runtimeSha256": "a70f2ff94aa71415e137896236f39835b183daf5bd75bd4b8afd3b7f58fb9098"
+        },
+        {
+          "masterSha256": "9d3938b15b9b522190c364a29d8106abafb2bc2f1571f52bfee1245476f61d92",
+          "pgId": "PG-200",
+          "runtimeSha256": "787f7c96bdd0610cb73c57927537720c2a31d1216d74875fe03292481de8612a"
+        },
+        {
+          "masterSha256": "a6b272ced7b3e8adddf371a60dbe887464bffb7d140224f7fadb0d2440103121",
+          "pgId": "PG-235",
+          "runtimeSha256": "da8776b18e7b79b77ca6210b5d70896ee73eea676d600bd059dae9471ac185d2"
+        },
+        {
+          "masterSha256": "90642f24a09367790721a9ddaf35fe1fbb3acfe38c61a169177a2e57f4da4f48",
+          "pgId": "PG-091",
+          "runtimeSha256": "52cf19e45a73b0869412e387f9b3c154263cd64d536ba8e903a0d1f2db4e8944"
+        },
+        {
+          "masterSha256": "97d32b0ed16c9da30f10947977f3b1c7b726d09bc7dd2582903017db123047de",
+          "pgId": "PG-092",
+          "runtimeSha256": "a239f7b89df236fe49031a39a75327c6e2b9cc7498c05f507195aa6fc4c56795"
+        }
+      ]
+    },
+    {
+      "fixtureId": "kirikong",
+      "rootId": "PG-019",
+      "screenshotPath": "production/reports/biological-continuity-v3/g002-evidence-v1/screenshots/kirikong.png",
+      "screenshotSha256": "70acaf1912cff093a4056049fb08c0591f732bbf541e1a97d9613f70ec6f736d",
+      "slotIds": [
+        "PG-019",
+        "PG-079",
+        "PG-197"
+      ],
+      "slots": [
+        {
+          "masterSha256": "df851561f0fac73d57c0c39971d708dc9485dddb33889ca97e7b212fed716b3f",
+          "pgId": "PG-019",
+          "runtimeSha256": "c5d570115820f063b55fd48b211dd120c3d7c9d549a92a01408662fb6d217a25"
+        },
+        {
+          "masterSha256": "a45bc0cd1af83838450581f5427406c589395de957e2788f315c2a8fc54505b6",
+          "pgId": "PG-079",
+          "runtimeSha256": "390d7975ba3f0548df7498f8df72539c6af38f46eb85c4ba8e5dd8f871929be4"
+        },
+        {
+          "masterSha256": "3cfedffb5496a641c11a27c7a3ca43c64b3d27a7b766fc85f0d9787b32d5ff59",
+          "pgId": "PG-197",
+          "runtimeSha256": "0f50b2db8af53e1ac2d5b194e5641712abd3e3c25a5fce323420389f8f965411"
+        }
+      ]
+    },
+    {
+      "fixtureId": "ritoni",
+      "rootId": "PG-025",
+      "screenshotPath": "production/reports/biological-continuity-v3/g002-evidence-v1/screenshots/ritoni.png",
+      "screenshotSha256": "1362360eec93ef650e99f0d96c90035a4de4a84bd6711aaff1a8466abaeef194",
+      "slotIds": [
+        "PG-025",
+        "PG-102",
+        "PG-200",
+        "PG-103",
+        "PG-104"
+      ],
+      "slots": [
+        {
+          "masterSha256": "1ae288768acf94603aa10f934dcd498c9c4ac787c1f1a5eb88701862cb4b8d6e",
+          "pgId": "PG-025",
+          "runtimeSha256": "46124aa5407c870ce41908359cdc569883b794b5311edcbe18252f1923243c59"
+        },
+        {
+          "masterSha256": "0af972a208b21c5dc578fe66f81a89bf0fc1f9956205271b6050972839b55c68",
+          "pgId": "PG-102",
+          "runtimeSha256": "b78a45b4285d8893f1a572933d45e12939791763f77ca98ae89a3401623a1d96"
+        },
+        {
+          "masterSha256": "9d3938b15b9b522190c364a29d8106abafb2bc2f1571f52bfee1245476f61d92",
+          "pgId": "PG-200",
+          "runtimeSha256": "787f7c96bdd0610cb73c57927537720c2a31d1216d74875fe03292481de8612a"
+        },
+        {
+          "masterSha256": "f23d342bcd253af888da0e8c611a707a58e7d2d1911d41925ec54f8a25f58363",
+          "pgId": "PG-103",
+          "runtimeSha256": "94eeedf7c1148100b0a15a51ca6f9959a2a6ac6ebac23b5c9e9d4c6cdffe5235"
+        },
+        {
+          "masterSha256": "0c82a0515968ec68354274b01482404273f9d28816cdcc049ecb18f4e8d3bc16",
+          "pgId": "PG-104",
+          "runtimeSha256": "8d3cbb35ed17142e2feb1c1cc0ef0e166c06528f42207b905d228ea572d10fa8"
+        }
+      ]
+    }
+  ],
+  "positiveControl": {
+    "controlId": "eilu",
+    "rootId": "PG-001",
+    "slotIds": [
+      "PG-001",
+      "PG-061",
+      "PG-181"
+    ],
+    "slots": [
+      {
+        "masterSha256": "1af39c2c4e9e4f720f727538e6613d6aea694ba4adb44237eac9a2b2ff63cfe4",
+        "pgId": "PG-001",
+        "runtimeSha256": "b28a12a0c10f99a9233dcd5c7bfd07a8a43c84cdc73dbfe577ebb1c72c9d2d9f"
+      },
+      {
+        "masterSha256": "fb6ac47ae7232d35dea2d07fec07ff15737301a093a05ae98398ec567ea24ebc",
+        "pgId": "PG-061",
+        "runtimeSha256": "a9fe99f86514b7e0b08975fffb1bb264083696f9939100fbe68d3f5e669aa1d7"
+      },
+      {
+        "masterSha256": "08915496d0b8f7c7498fb7d6baf8c19b34adbae83a666a8e473007cc2f366516",
+        "pgId": "PG-181",
+        "runtimeSha256": "62fd62a9681a7f816e675c70aced5722d432a5b3d49c1cccc4ead8e60eb841db"
+      }
+    ]
+  },
+  "runId": "g002-v1",
+  "schemaVersion": "continuity-pins-v1"
+}

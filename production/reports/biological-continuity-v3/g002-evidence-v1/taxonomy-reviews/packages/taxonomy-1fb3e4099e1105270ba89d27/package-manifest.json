@@ -1,0 +1,11 @@
+{
+  "contractSha256": "f6d06316ba0ce315a79d3d784abe49f8f80463776ef07f5dbf5372185b9a8a15",
+  "inputAllowlistSha256": "9492811f7893ff3be29c71373976cf13582b0cfc3afe412297fec6926702cd85",
+  "inputAssetSha256s": [
+    "180cc13ea3c7f90530abc5320d99dad0167893d33d7abbabf470149d59a29fcb",
+    "f14f417c99cb4d27aca4c4293e19b5d36db6b2b32e4cf1f8c4293d19aad75e54"
+  ],
+  "opaqueTaxonomyTargetId": "taxonomy-1fb3e4099e1105270ba89d27",
+  "promptSha256": "428e5d281d525d352776ae9950777265519d08f8bad67e50c2ed17b3f5c6e8d4",
+  "schemaVersion": "g002-taxonomy-package-v1"
+}

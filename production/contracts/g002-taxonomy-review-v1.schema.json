@@ -1,0 +1,38 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://punchgrow.local/contracts/g002-taxonomy-review-v1.schema.json",
+  "title": "G002 blinded root taxonomy primary vote v1",
+  "type": "object", "additionalProperties": false,
+  "required": ["schemaVersion", "reviewId", "reviewerInstanceId", "agentTaskId", "voterReviewRunId", "passNumber", "role", "fresh", "blinded", "opaqueTaxonomyTargetId", "packageManifestSha256", "inputAllowlistSha256", "promptSha256", "contractSha256", "inputAssetSha256s", "assignmentManifestSha256", "reviewerRunAttestationSha256", "taxonomy", "anchors", "confidence", "submittedAt", "outputSha256", "conductorHmacSha256", "publicSignature"],
+  "properties": {
+    "schemaVersion": { "const": "g002-taxonomy-primary-vote-v1" },
+    "reviewId": { "type": "string", "minLength": 8 }, "reviewerInstanceId": { "type": "string", "minLength": 8 },
+    "agentTaskId": { "type": "string", "minLength": 8 }, "voterReviewRunId": { "type": "string", "minLength": 8 },
+    "passNumber": { "enum": [1, 2] }, "role": { "const": "primary" }, "fresh": { "const": true }, "blinded": { "const": true },
+    "opaqueTaxonomyTargetId": { "type": "string", "pattern": "^taxonomy-[a-f0-9]{24}$" },
+    "packageManifestSha256": { "$ref": "#/$defs/sha256" }, "inputAllowlistSha256": { "$ref": "#/$defs/sha256" }, "promptSha256": { "$ref": "#/$defs/sha256" }, "contractSha256": { "$ref": "#/$defs/sha256" },
+    "inputAssetSha256s": { "type": "array", "minItems": 2, "maxItems": 2, "uniqueItems": true, "items": { "$ref": "#/$defs/sha256" } },
+    "assignmentManifestSha256": { "$ref": "#/$defs/sha256" }, "reviewerRunAttestationSha256": { "$ref": "#/$defs/sha256" },
+    "taxonomy": {
+      "type": "object", "additionalProperties": false,
+      "required": ["biologicalClass", "speciesFamily", "coreAnatomy", "locomotionPlan"],
+      "properties": {
+        "biologicalClass": { "type": "string", "minLength": 2, "not": { "pattern": "^unknown" } },
+        "speciesFamily": { "type": "string", "minLength": 2, "not": { "pattern": "^unknown" } },
+        "coreAnatomy": { "type": "string", "minLength": 2, "not": { "pattern": "^unknown" } },
+        "locomotionPlan": { "type": "string", "minLength": 2, "not": { "pattern": "^unknown" } }
+      }
+    },
+    "anchors": {
+      "type": "array", "minItems": 3, "maxItems": 3, "uniqueItems": true,
+      "items": { "type": "object", "additionalProperties": false, "required": ["anchorId", "description"], "properties": { "anchorId": { "enum": ["face-geometry", "body-silhouette", "signature-organ"] }, "description": { "type": "string", "minLength": 3 } } }
+    },
+    "confidence": { "type": "number", "minimum": 0.85, "maximum": 1 }, "submittedAt": { "type": "string", "format": "date-time" },
+    "outputSha256": { "$ref": "#/$defs/sha256" }, "conductorHmacSha256": { "$ref": "#/$defs/sha256" },
+    "publicSignature": { "$ref": "#/$defs/publicSignature" }
+  },
+  "$defs": {
+    "sha256": { "type": "string", "pattern": "^[a-f0-9]{64}$" },
+    "publicSignature": { "type": "object", "additionalProperties": false, "required": ["algorithm", "authorityFingerprint", "signatureBase64"], "properties": { "algorithm": { "const": "Ed25519" }, "authorityFingerprint": { "const": "423f474c59667e5eabc13a703b8d7de4e97bcba33cdc22340873866db9d6a53f" }, "signatureBase64": { "type": "string", "minLength": 80 } } }
+  }
+}

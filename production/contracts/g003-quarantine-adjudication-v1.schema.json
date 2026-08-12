@@ -1,0 +1,7 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema", "$id": "https://punchgrow.local/contracts/g003-quarantine-adjudication-v1.schema.json",
+  "title": "Two-reviewer zero-credit quarantine adjudication proof v1", "type": "object", "additionalProperties": false,
+  "required": ["schemaVersion", "materialKey", "priorTombstoneSha256", "priorTombstoneFileSha256", "assignmentRawSha256s", "attestationRawSha256s", "invalidityProofSha256", "obligationCredit", "pixelDisposition", "requiredFreshContinuityReviews"],
+  "properties": { "schemaVersion": { "const": "continuity-g003-quarantine-adjudication-v1" }, "materialKey": { "$ref": "#/$defs/sha" }, "priorTombstoneSha256": { "$ref": "#/$defs/sha" }, "priorTombstoneFileSha256": { "$ref": "#/$defs/sha" }, "assignmentRawSha256s": { "$ref": "#/$defs/pair" }, "attestationRawSha256s": { "$ref": "#/$defs/pair" }, "invalidityProofSha256": { "$ref": "#/$defs/sha" }, "obligationCredit": { "const": 0 }, "pixelDisposition": { "const": "UNCHANGED" }, "requiredFreshContinuityReviews": { "const": 2 } },
+  "$defs": { "sha": { "type": "string", "pattern": "^[a-f0-9]{64}$" }, "pair": { "type": "array", "minItems": 2, "maxItems": 2, "uniqueItems": true, "items": { "$ref": "#/$defs/sha" } } }
+}

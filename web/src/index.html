@@ -1,0 +1,67 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#0b0910" />
+  <meta name="description" content="코딩 활동으로 크리처를 수집하고 성장시키는 PunchGrow 웹 MVP" />
+  <title>PunchGrow — Code. Hatch. Grow.</title>
+  <link rel="stylesheet" href="/styles.css" />
+  <script type="module" src="/app.js"></script>
+</head>
+<body>
+  <div class="noise"></div>
+  <header class="topbar">
+    <a class="brand" href="#home" aria-label="PunchGrow 홈"><span class="brand-mark">PG</span><span>PUNCH<span>GROW</span></span></a>
+    <div class="balance"><span>보유 토큰</span><strong id="balance">—</strong></div>
+  </header>
+  <main>
+    <section id="home-view" class="view active" aria-labelledby="home-title">
+      <div class="hero-grid">
+        <article class="hero-copy">
+          <p class="eyebrow">// YOUR CODE HAS A PULSE</p>
+          <h1 id="home-title">코드가 쌓이면,<br/><em>신화가 깨어난다.</em></h1>
+          <p class="hero-desc">Claude Code와 Codex 사용량이 토큰이 됩니다. 크리처를 뽑고, 돌보고, 240종의 디지털 신화를 완성하세요.</p>
+          <div class="week-card">
+            <div><span>이번 주 실제 사용량</span><strong id="weekly-total">0</strong></div>
+            <div class="usage-track"><i id="claude-bar"></i><i id="codex-bar"></i></div>
+            <div class="legend"><span><b class="dot calm"></b>Claude Code <strong id="claude-total">0</strong></span><span><b class="dot rival"></b>Codex <strong id="codex-total">0</strong></span></div>
+          </div>
+        </article>
+        <article class="incubator" id="incubator">
+          <div class="scanline"></div>
+          <div id="featured-creature" class="featured-empty"><span>NO CREATURE</span><small>첫 크리처를 깨워보세요</small></div>
+          <div class="gacha-info"><span>1회 <strong>500,000</strong></span><span>ORIGIN 천장 <strong id="pity">0 / 300</strong></span></div>
+          <button id="gacha-button" class="primary">크리처 깨우기 <span>↗</span></button>
+          <p class="odds">확률: PROCESS 55% · AGENT 25% · DAEMON 12% · ORACLE 6% · ARCHITECT 1.8% · ORIGIN 0.2%</p>
+        </article>
+      </div>
+      <section class="collection-preview">
+        <div class="section-heading"><div><p class="eyebrow">// MY NEST</p><h2>내 크리처</h2></div><button class="text-button" data-nav="catalog">전체 도감 보기 →</button></div>
+        <div id="my-creatures" class="card-row"></div>
+      </section>
+    </section>
+
+    <section id="catalog-view" class="view" aria-labelledby="catalog-title">
+      <div class="catalog-head"><div><p class="eyebrow">// ARCHIVE 001—240</p><h1 id="catalog-title">디지털 신화 도감</h1><p><span id="catalog-count">240</span>개의 존재, 하나의 연결된 세계.</p></div></div>
+      <div class="filters">
+        <label class="search"><span>⌕</span><input id="search" type="search" maxlength="60" placeholder="이름 또는 ID 검색" /></label>
+        <select id="rarity-filter" aria-label="등급 필터"><option value="">모든 등급</option><option>PROCESS</option><option>AGENT</option><option>DAEMON</option><option>ORACLE</option><option>ARCHITECT</option><option>ORIGIN</option></select>
+        <select id="category-filter" aria-label="종류 필터"><option value="">모든 유형</option><option value="start">시작형</option><option value="normal_evolution">일반 진화</option><option value="branch">분기 진화</option><option value="mixed">혼합 진화</option><option value="special">특수 진화</option><option value="mutant">변이형</option></select>
+      </div>
+      <div id="catalog-grid" class="catalog-grid" aria-live="polite"></div>
+      <button id="load-more" class="secondary">더 불러오기</button>
+    </section>
+
+    <section id="inventory-view" class="view" aria-labelledby="inventory-title">
+      <p class="eyebrow">// CARE PROTOCOL</p><h1 id="inventory-title">성장 연구소</h1>
+      <p class="subcopy">크리처를 선택하고 먹이를 사용해 경험치와 친밀도를 높이세요.</p>
+      <div class="lab-grid"><div id="growth-creatures" class="growth-list"></div><aside class="item-panel"><h2>인벤토리</h2><div id="items"></div><p class="muted">MVP에서는 먹이 사용이 활성화되어 있습니다. 나머지 8개 범주는 서버 스키마에 준비되어 있습니다.</p></aside></div>
+    </section>
+  </main>
+  <nav class="bottom-nav" aria-label="주요 메뉴">
+    <button class="active" data-nav="home"><span>⌂</span>둥지</button><button data-nav="inventory"><span>◈</span>성장</button><button data-nav="catalog"><span>▦</span>도감</button>
+  </nav>
+  <div id="toast" class="toast" role="status" aria-live="polite"></div>
+</body>
+</html>

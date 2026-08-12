@@ -1,0 +1,66 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://punchgrow.local/contracts/canonical-root-redesign-targets-v2.schema.json",
+  "title": "Signed additive canonical root redesign authority successor v2",
+  "type": "object", "additionalProperties": false,
+  "required": ["schemaVersion", "runId", "state", "contractKind", "targetSource", "baseAuthority", "newTargetIds", "visibilityPolicy", "targets", "reviewProofs", "architectApproval", "outputSha256", "publicSignature"],
+  "properties": {
+    "schemaVersion": { "const": "canonical-root-redesign-targets-v2" }, "runId": { "const": "g002-v2" },
+    "state": { "const": "APPROVED_FOR_REGENERATION_TARGETING" }, "contractKind": { "const": "ADDITIVE_CANONICAL_ROOT_AUTHORITY_SUCCESSOR" },
+    "targetSource": { "const": "signed-canonical-root-redesign-successor-v2" },
+    "baseAuthority": { "$ref": "#/$defs/baseAuthority" },
+    "newTargetIds": { "const": ["PG-024", "PG-029", "PG-047", "PG-052", "PG-053", "PG-056"] },
+    "visibilityPolicy": { "$ref": "#/$defs/visibilityPolicy" },
+    "targets": { "type": "array", "minItems": 6, "maxItems": 6, "items": { "$ref": "#/$defs/target" } },
+    "reviewProofs": { "type": "array", "minItems": 6, "maxItems": 6, "items": { "$ref": "#/$defs/reviewProof" } },
+    "architectApproval": { "$ref": "#/$defs/architectApproval" }, "outputSha256": { "$ref": "#/$defs/sha256" }, "publicSignature": { "$ref": "#/$defs/publicSignature" }
+  },
+  "$defs": {
+    "sha256": { "type": "string", "pattern": "^[a-f0-9]{64}$" },
+    "baseAuthority": { "type": "object", "additionalProperties": false, "required": ["publicManifestPath", "publicManifestFileSha256", "publicManifestOutputSha256", "canonicalContractPath", "canonicalContractFileSha256", "canonicalContractOutputSha256"], "properties": {
+      "publicManifestPath": { "const": "production/reports/biological-continuity-v3/g002-evidence-v1/public-evidence-manifest.json" }, "publicManifestFileSha256": { "const": "ea86e51a1fc21eaaad708e256bf3348480fa284d201814ec71f89fec128889af" }, "publicManifestOutputSha256": { "const": "5b29298aaf917955ac8f094552948ee4093be363a478e92d987fc5b13d88e01c" },
+      "canonicalContractPath": { "const": "production/reports/biological-continuity-v3/g002-evidence-v1/canonical-root-redesign-targets-v1.json" }, "canonicalContractFileSha256": { "const": "ede8e2a728c588cafc4f614e7858495f138cf7b208b7048166b66610fd5c6de1" }, "canonicalContractOutputSha256": { "const": "8588703a71b4f02411d876eaf4a276d1e0836706fab3428de2509b3849571def" }
+    } },
+    "visibilityPolicy": { "type": "object", "additionalProperties": false, "required": ["surfaceRequirement", "appendageCountingRule", "ambiguityRule", "preservationRule"], "properties": { "surfaceRequirement": { "const": "master-and-runtime-independently-satisfy-canonical-tuple-and-all-three-anchors" }, "appendageCountingRule": { "const": "count-visible-appendages-only" }, "ambiguityRule": { "const": "hidden-merged-or-double-readable-is-block" }, "preservationRule": { "const": "preserve-anchor-shape-relative-placement-and-color-role" } } },
+    "taxonomy": { "type": "object", "additionalProperties": false, "required": ["biologicalClass", "speciesFamily", "coreAnatomy", "locomotionPlan"], "properties": { "biologicalClass": { "type": "string", "minLength": 2 }, "speciesFamily": { "type": "string", "minLength": 2 }, "coreAnatomy": { "type": "string", "minLength": 2 }, "locomotionPlan": { "type": "string", "minLength": 2 } } },
+    "anchor": { "type": "object", "additionalProperties": false, "required": ["anchorId", "description"], "properties": { "anchorId": { "type": "string", "minLength": 3 }, "description": { "type": "string", "minLength": 8 } } },
+    "target": { "type": "object", "additionalProperties": false, "required": ["rootId", "currentPixelAssessment", "canonicalTarget", "anchors", "clarificationRequirements"], "properties": { "rootId": { "enum": ["PG-024", "PG-029", "PG-047", "PG-052", "PG-053", "PG-056"] }, "currentPixelAssessment": { "const": "DISPUTED_OR_AMBIGUOUS" }, "canonicalTarget": { "$ref": "#/$defs/taxonomy" }, "anchors": { "type": "array", "minItems": 3, "maxItems": 3, "items": { "$ref": "#/$defs/anchor" } }, "clarificationRequirements": { "type": "array", "minItems": 2, "uniqueItems": true, "items": { "type": "string", "minLength": 8 } } }, "allOf": [
+      { "if": { "properties": { "rootId": { "const": "PG-024" } } }, "then": { "properties": { "anchors": { "prefixItems": [
+        { "properties": { "anchorId": { "const": "eight-separate-mechanical-walking-legs" } } },
+        { "properties": { "anchorId": { "const": "four-pink-eyes-and-paired-gold-fangs" } } },
+        { "properties": { "anchorId": { "const": "four-pink-rimmed-dorsal-ports-and-gold-braces" } } }
+      ] } } } },
+      { "if": { "properties": { "rootId": { "const": "PG-029" } } }, "then": { "properties": { "anchors": { "prefixItems": [
+        { "properties": { "anchorId": { "const": "six-legs-two-crystal-wings-no-antennae" } } },
+        { "properties": { "anchorId": { "const": "silver-segmented-insect-body" } } },
+        { "properties": { "anchorId": { "const": "paired-diamond-eyes-pearl-tail" } } }
+      ] } } } },
+      { "if": { "properties": { "rootId": { "const": "PG-047" } } }, "then": { "properties": { "anchors": { "prefixItems": [
+        { "properties": { "anchorId": { "const": "four-separate-walking-leg-pairs" } } },
+        { "properties": { "anchorId": { "const": "separate-pincer-pedipalp-pair" } } },
+        { "properties": { "anchorId": { "const": "burgundy-armor-cyan-striped-tail-and-bulb-stinger" } } }
+      ] } } } },
+      { "if": { "properties": { "rootId": { "const": "PG-052" } } }, "then": { "properties": { "anchors": { "prefixItems": [
+        { "properties": { "anchorId": { "const": "eight-separate-spider-legs" } } },
+        { "properties": { "anchorId": { "const": "two-huge-cyan-eyes-single-gold-forehead-horn" } } },
+        { "properties": { "anchorId": { "const": "thin-gold-dorsal-stripe-over-rounded-black-abdomen" } } }
+      ] } } } },
+      { "if": { "properties": { "rootId": { "const": "PG-053" } } }, "then": { "properties": { "anchors": { "prefixItems": [
+        { "properties": { "anchorId": { "const": "black-head-red-eyes-three-red-gills-per-side" } } },
+        { "properties": { "anchorId": { "const": "black-body-red-underside-four-short-legs" } } },
+        { "properties": { "anchorId": { "const": "black-paddle-tail-red-dorsal-seam" } } }
+      ] } } } },
+      { "if": { "properties": { "rootId": { "const": "PG-056" } } }, "then": { "properties": { "anchors": { "prefixItems": [
+        { "properties": { "anchorId": { "const": "charcoal-body-teal-eyes-red-facial-stripe" } } },
+        { "properties": { "anchorId": { "const": "exactly-four-red-lobed-fins" } } },
+        { "properties": { "anchorId": { "const": "red-dorsal-mint-edge-red-forked-tail" } } }
+      ] } } } }
+    ] },
+    "surfaceBinding": { "type": "object", "additionalProperties": false, "required": ["masterSha256", "runtimeSha256"], "properties": { "masterSha256": { "$ref": "#/$defs/sha256" }, "runtimeSha256": { "$ref": "#/$defs/sha256" } } },
+    "verdicts": { "type": "object", "additionalProperties": false, "required": ["target", "anchors", "visibility", "clarifications"], "properties": { "target": { "const": "PASS" }, "anchors": { "const": "PASS" }, "visibility": { "const": "PASS" }, "clarifications": { "const": "PASS" } } },
+    "primaryReview": { "type": "object", "additionalProperties": false, "required": ["reviewerInstanceId", "agentTaskId", "reviewRunId", "passNumber", "assignmentSha256", "packageManifestSha256", "materialBindingSha256", "promptSha256", "inputAllowlistSha256", "rawVoteSha256", "reviewOutputSha256", "observedSurfaces", "verdicts", "blinded"], "properties": { "reviewerInstanceId": { "type": "string", "minLength": 4 }, "agentTaskId": { "type": "string", "minLength": 4 }, "reviewRunId": { "type": "string", "minLength": 4 }, "passNumber": { "enum": [1, 2] }, "assignmentSha256": { "$ref": "#/$defs/sha256" }, "packageManifestSha256": { "$ref": "#/$defs/sha256" }, "materialBindingSha256": { "$ref": "#/$defs/sha256" }, "promptSha256": { "$ref": "#/$defs/sha256" }, "inputAllowlistSha256": { "$ref": "#/$defs/sha256" }, "rawVoteSha256": { "$ref": "#/$defs/sha256" }, "reviewOutputSha256": { "$ref": "#/$defs/sha256" }, "observedSurfaces": { "$ref": "#/$defs/surfaceBinding" }, "verdicts": { "$ref": "#/$defs/verdicts" }, "blinded": { "const": true } } },
+    "reviewProof": { "type": "object", "additionalProperties": false, "required": ["rootId", "targetSha256", "publicProofPath", "publicProofFileSha256", "publicProofOutputSha256", "publicProofSignatureSha256", "primaryReviews", "consensusSha256"], "properties": { "rootId": { "enum": ["PG-024", "PG-029", "PG-047", "PG-052", "PG-053", "PG-056"] }, "targetSha256": { "$ref": "#/$defs/sha256" }, "publicProofPath": { "type": "string", "pattern": "^production/reports/biological-continuity-v3/g002-evidence-v2/canonical-root-reviews/proofs/PG-[0-9]{3}\\.json$" }, "publicProofFileSha256": { "$ref": "#/$defs/sha256" }, "publicProofOutputSha256": { "$ref": "#/$defs/sha256" }, "publicProofSignatureSha256": { "$ref": "#/$defs/sha256" }, "primaryReviews": { "type": "array", "minItems": 2, "maxItems": 2, "items": { "$ref": "#/$defs/primaryReview" } }, "consensusSha256": { "$ref": "#/$defs/sha256" } } },
+    "architectApproval": { "type": "object", "additionalProperties": false, "required": ["schemaVersion", "source", "reviewerId", "decision", "approvedTargetIds", "evidenceSha256", "approvedAt", "outputSha256", "publicSignature"], "properties": { "schemaVersion": { "const": "g002-v2-canonical-architect-approval-v1" }, "source": { "const": "independent-architect-review" }, "reviewerId": { "type": "string", "minLength": 4 }, "decision": { "const": "APPROVE" }, "approvedTargetIds": { "const": ["PG-024", "PG-029", "PG-047", "PG-052", "PG-053", "PG-056"] }, "evidenceSha256": { "$ref": "#/$defs/sha256" }, "approvedAt": { "type": "string", "format": "date-time" }, "outputSha256": { "$ref": "#/$defs/sha256" }, "publicSignature": { "$ref": "#/$defs/publicSignature" } } },
+    "publicSignature": { "type": "object", "additionalProperties": false, "required": ["algorithm", "authorityFingerprint", "signatureBase64"], "properties": { "algorithm": { "const": "Ed25519" }, "authorityFingerprint": { "const": "423f474c59667e5eabc13a703b8d7de4e97bcba33cdc22340873866db9d6a53f" }, "signatureBase64": { "type": "string", "minLength": 80 } } }
+  }
+}

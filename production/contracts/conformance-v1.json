@@ -1,0 +1,21 @@
+{
+  "version": 1,
+  "pityCases": [
+    { "missesBeforePull": 299, "forcedOrigin": false },
+    { "missesBeforePull": 300, "forcedOrigin": true }
+  ],
+  "rarityBoundaryCases": [
+    { "roll": 0, "rarity": "PROCESS" },
+    { "roll": 0.549999, "rarity": "PROCESS" },
+    { "roll": 0.55, "rarity": "AGENT" },
+    { "roll": 0.799999, "rarity": "AGENT" },
+    { "roll": 0.8, "rarity": "DAEMON" },
+    { "roll": 0.92, "rarity": "ORACLE" },
+    { "roll": 0.98, "rarity": "ARCHITECT" },
+    { "roll": 0.998, "rarity": "ORIGIN" }
+  ],
+  "usageCases": [
+    { "input": 100, "cached": 20, "output": 30, "total": 150 },
+    { "input": 0, "cached": 1, "output": 0, "total": 1 }
+  ]
+}

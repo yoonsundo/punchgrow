@@ -1,0 +1,51 @@
+{
+  "agentTaskId": "g002-taxonomy-pass2-independent-round2",
+  "anchors": [
+    {
+      "anchorId": "body-silhouette",
+      "description": "Heavy barrel-shaped body supported by four stout legs ending in blocky split hooves."
+    },
+    {
+      "anchorId": "face-geometry",
+      "description": "Rounded gray head with one visible blue eye, broad snout with two nostrils, upright ears, and a single large conical horn with a blue band."
+    },
+    {
+      "anchorId": "signature-organ",
+      "description": "A thick segmented brown collar encircles the neck and continues as a pronounced ring around the shoulder area."
+    }
+  ],
+  "assignmentManifestSha256": "6cc4f6f756ff1bd97a08f9edd6257a74e569a38dfc76359001905da740914472",
+  "blinded": true,
+  "conductorHmacSha256": "91440a179c16f535a7c3bd082c8696bcb2d08068e8f8f25cbd552b7d9487be2b",
+  "confidence": 0.97,
+  "contractSha256": "f6d06316ba0ce315a79d3d784abe49f8f80463776ef07f5dbf5372185b9a8a15",
+  "fresh": true,
+  "inputAllowlistSha256": "f6aa3eef9b13490a86e3c3ce44e9a34d42330a68e3f968a86b9c3566fac2e7ec",
+  "inputAssetSha256s": [
+    "e8111483974fd1775ba649b19ae69112ff88d148ce97e56d11c8dac5963374a7",
+    "64a2afbd3e36eb77ca3dba4fd8855603ef204ff70c562137b5d0ad3fe78a6d81"
+  ],
+  "opaqueTaxonomyTargetId": "taxonomy-3a25a9fedff4c88b371abf7c",
+  "outputSha256": "3d4676d626973d564812228d52ca82a3a29e9ca4eb108086cf56ba724b1d3984",
+  "packageManifestSha256": "890c213d99cc49e2106817e5d35a5e3d00ee9f985c9b90eac5b5ad00e27e45d4",
+  "passNumber": 2,
+  "promptSha256": "428e5d281d525d352776ae9950777265519d08f8bad67e50c2ed17b3f5c6e8d4",
+  "publicSignature": {
+    "algorithm": "Ed25519",
+    "authorityFingerprint": "423f474c59667e5eabc13a703b8d7de4e97bcba33cdc22340873866db9d6a53f",
+    "signatureBase64": "gPXZMchyqh3HnrqKHe5oDKKleW17N7S2CrdiODoo5O83yTCN84ICEsGXiL3ZGM7TfP9BJTXAtVW6d82D+ipqCg=="
+  },
+  "reviewId": "taxonomy-review-775a50d20e5cd3ffff84ae4217d838d5",
+  "reviewerInstanceId": "taxonomy-reviewer-pass2-independent",
+  "reviewerRunAttestationSha256": "793cc90f259aa45e55f165147aeeaf2205079720fd674cd952b8101950d7b484",
+  "role": "primary",
+  "schemaVersion": "g002-taxonomy-primary-vote-v1",
+  "submittedAt": "2026-08-10T16:39:17.065Z",
+  "taxonomy": {
+    "biologicalClass": "mammalia",
+    "coreAnatomy": "quadruped",
+    "locomotionPlan": "quadrupedal",
+    "speciesFamily": "rhinocerotidae"
+  },
+  "voterReviewRunId": "g002-taxonomy-run-pass2-round2"
+}

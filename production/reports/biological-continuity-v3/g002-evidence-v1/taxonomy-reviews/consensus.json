@@ -1,0 +1,595 @@
+{
+  "assets": [
+    {
+      "adjudication": null,
+      "anchors": [
+        {
+          "anchorId": "body-silhouette",
+          "sources": [
+            {
+              "description": "Compact, heavy four-legged body with a shaggy brown coat, arched back, and prominent rounded shoulder/back mass.",
+              "rawVoteSha256": "ae84802beb86c0213092bc4a87559d62535f02d27b8670b6bbf9413e1f5c1580",
+              "reviewId": "taxonomy-review-c14a74107ddfe2806bef62f827719265",
+              "reviewOutputSha256": "7278014139562fdba438930036c4048b251b4fb85baef0d6877865a3a61c5bed",
+              "reviewSignatureSha256": "abd6c727489aa0aee7ef6defabd7ef3450b9f0efbbe3ba49d97166891f656bf9"
+            },
+            {
+              "description": "Low compact barrel-shaped body on four short legs ending in split hooves, with small tail.",
+              "rawVoteSha256": "6d50a2dca92ba9c8b114ed4f50eee52ac65dd53dd0d2d3241aa185c872a57d71",
+              "reviewId": "taxonomy-review-fa76f4920ea6ce307e6c74fdf352f0fe",
+              "reviewOutputSha256": "a4829dac40fd46192aea5c0663b0e217582c5d2036cb252f8cca2a365d42427a",
+              "reviewSignatureSha256": "def8a46df327ed342067baba207010c0e1df2aa36cb9d2556b2e28fb48f8375e"
+            }
+          ]
+        },
+        {
+          "anchorId": "face-geometry",
+          "sources": [
+            {
+              "description": "Broad rounded snout with two visible nostrils, two curved pale tusks, large forward-facing eyes, and pointed upright ears.",
+              "rawVoteSha256": "ae84802beb86c0213092bc4a87559d62535f02d27b8670b6bbf9413e1f5c1580",
+              "reviewId": "taxonomy-review-c14a74107ddfe2806bef62f827719265",
+              "reviewOutputSha256": "7278014139562fdba438930036c4048b251b4fb85baef0d6877865a3a61c5bed",
+              "reviewSignatureSha256": "abd6c727489aa0aee7ef6defabd7ef3450b9f0efbbe3ba49d97166891f656bf9"
+            },
+            {
+              "description": "Broad rounded muzzle with two visible nostrils, small tusks at mouth sides, upright triangular ears.",
+              "rawVoteSha256": "6d50a2dca92ba9c8b114ed4f50eee52ac65dd53dd0d2d3241aa185c872a57d71",
+              "reviewId": "taxonomy-review-fa76f4920ea6ce307e6c74fdf352f0fe",
+              "reviewOutputSha256": "a4829dac40fd46192aea5c0663b0e217582c5d2036cb252f8cca2a365d42427a",
+              "reviewSignatureSha256": "def8a46df327ed342067baba207010c0e1df2aa36cb9d2556b2e28fb48f8375e"
+            }
+          ]
+        },
+        {
+          "anchorId": "signature-organ",
+          "sources": [
+            {
+              "description": "Two short ivory tusks project upward from the sides of the broad muzzle.",
+              "rawVoteSha256": "ae84802beb86c0213092bc4a87559d62535f02d27b8670b6bbf9413e1f5c1580",
+              "reviewId": "taxonomy-review-c14a74107ddfe2806bef62f827719265",
+              "reviewOutputSha256": "7278014139562fdba438930036c4048b251b4fb85baef0d6877865a3a61c5bed",
+              "reviewSignatureSha256": "abd6c727489aa0aee7ef6defabd7ef3450b9f0efbbe3ba49d97166891f656bf9"
+            },
+            {
+              "description": "Curled layered mane/shell-like appendage covers back and carries bright diamond-shaped mark.",
+              "rawVoteSha256": "6d50a2dca92ba9c8b114ed4f50eee52ac65dd53dd0d2d3241aa185c872a57d71",
+              "reviewId": "taxonomy-review-fa76f4920ea6ce307e6c74fdf352f0fe",
+              "reviewOutputSha256": "a4829dac40fd46192aea5c0663b0e217582c5d2036cb252f8cca2a365d42427a",
+              "reviewSignatureSha256": "def8a46df327ed342067baba207010c0e1df2aa36cb9d2556b2e28fb48f8375e"
+            }
+          ]
+        }
+      ],
+      "opaqueTaxonomyTargetId": "taxonomy-1fb3e4099e1105270ba89d27",
+      "packageManifestSha256": "a7d201d806b883f0f5306c8eef93642176f00b29ab4d2eec74fe04201551d333",
+      "pgId": "PG-007",
+      "primaryTaxonomies": [
+        {
+          "normalizedTaxonomy": {
+            "biologicalClass": "mammal",
+            "coreAnatomy": "quadruped",
+            "locomotionPlan": "quadrupedal",
+            "speciesFamily": "suidae"
+          },
+          "rawTaxonomy": {
+            "biologicalClass": "mammal",
+            "coreAnatomy": "quadruped",
+            "locomotionPlan": "quadrupedal",
+            "speciesFamily": "suidae"
+          },
+          "reviewId": "taxonomy-review-c14a74107ddfe2806bef62f827719265"
+        },
+        {
+          "normalizedTaxonomy": {
+            "biologicalClass": "mammal",
+            "coreAnatomy": "quadruped",
+            "locomotionPlan": "quadrupedal",
+            "speciesFamily": "suidae"
+          },
+          "rawTaxonomy": {
+            "biologicalClass": "mammal",
+            "coreAnatomy": "quadruped",
+            "locomotionPlan": "quadrupedal",
+            "speciesFamily": "suidae"
+          },
+          "reviewId": "taxonomy-review-fa76f4920ea6ce307e6c74fdf352f0fe"
+        }
+      ],
+      "sourceReviewIds": [
+        "taxonomy-review-c14a74107ddfe2806bef62f827719265",
+        "taxonomy-review-fa76f4920ea6ce307e6c74fdf352f0fe"
+      ],
+      "sourceReviewOutputSha256s": [
+        "7278014139562fdba438930036c4048b251b4fb85baef0d6877865a3a61c5bed",
+        "a4829dac40fd46192aea5c0663b0e217582c5d2036cb252f8cca2a365d42427a"
+      ],
+      "status": "PASS",
+      "taxonomy": {
+        "biologicalClass": "mammal",
+        "coreAnatomy": "quadruped",
+        "locomotionPlan": "quadrupedal",
+        "speciesFamily": "suidae"
+      }
+    },
+    {
+      "adjudication": null,
+      "anchors": [
+        {
+          "anchorId": "body-silhouette",
+          "sources": [
+            {
+              "description": "Tall, broad four-legged body with thick columnar legs, a rounded belly, and a short tapering tail.",
+              "rawVoteSha256": "12d15638cf360c01816f449c0e724792011d1897f16f85dff5915eb1786efec3",
+              "reviewId": "taxonomy-review-2b96534ae4f2e94de65662517a248fe9",
+              "reviewOutputSha256": "43cce60280b757f50b7290a02a3cae571e3c76619b262ffbe0f40db528dee63d",
+              "reviewSignatureSha256": "d85d395aa8f5a25d961e53d4fabb16f9b5de540e0c509864bb293d5665747b41"
+            },
+            {
+              "description": "Upright bulky body with four thick legs, rounded feet, and short tufted tail.",
+              "rawVoteSha256": "e447376abebd0d279cd68502d680e5110d1d2656f137706bea714f51c3b67288",
+              "reviewId": "taxonomy-review-a042b58fb4ae48592665be7750fc3866",
+              "reviewOutputSha256": "fa18a7cd3cce845d4e8070b28220acab4903c74c4a46ebfcefc9baea89b6c0c2",
+              "reviewSignatureSha256": "aa78179facd59c36e4db85a8f2c9292af36ec9f4154b7dc47aa888a5e5b52672"
+            }
+          ]
+        },
+        {
+          "anchorId": "face-geometry",
+          "sources": [
+            {
+              "description": "Rounded head with a long curled trunk, very large fan-shaped ears, and wide-set forward-facing eyes.",
+              "rawVoteSha256": "12d15638cf360c01816f449c0e724792011d1897f16f85dff5915eb1786efec3",
+              "reviewId": "taxonomy-review-2b96534ae4f2e94de65662517a248fe9",
+              "reviewOutputSha256": "43cce60280b757f50b7290a02a3cae571e3c76619b262ffbe0f40db528dee63d",
+              "reviewSignatureSha256": "d85d395aa8f5a25d961e53d4fabb16f9b5de540e0c509864bb293d5665747b41"
+            },
+            {
+              "description": "Rounded head with two large fan-shaped ears, wide eyes, and a long trunk curling toward the mouth.",
+              "rawVoteSha256": "e447376abebd0d279cd68502d680e5110d1d2656f137706bea714f51c3b67288",
+              "reviewId": "taxonomy-review-a042b58fb4ae48592665be7750fc3866",
+              "reviewOutputSha256": "fa18a7cd3cce845d4e8070b28220acab4903c74c4a46ebfcefc9baea89b6c0c2",
+              "reviewSignatureSha256": "aa78179facd59c36e4db85a8f2c9292af36ec9f4154b7dc47aa888a5e5b52672"
+            }
+          ]
+        },
+        {
+          "anchorId": "signature-organ",
+          "sources": [
+            {
+              "description": "Long flexible trunk curls upward and inward in front of the face.",
+              "rawVoteSha256": "12d15638cf360c01816f449c0e724792011d1897f16f85dff5915eb1786efec3",
+              "reviewId": "taxonomy-review-2b96534ae4f2e94de65662517a248fe9",
+              "reviewOutputSha256": "43cce60280b757f50b7290a02a3cae571e3c76619b262ffbe0f40db528dee63d",
+              "reviewSignatureSha256": "d85d395aa8f5a25d961e53d4fabb16f9b5de540e0c509864bb293d5665747b41"
+            },
+            {
+              "description": "Circular glowing orange instrument-like panel held against chest, with repeated thin line motifs on limbs.",
+              "rawVoteSha256": "e447376abebd0d279cd68502d680e5110d1d2656f137706bea714f51c3b67288",
+              "reviewId": "taxonomy-review-a042b58fb4ae48592665be7750fc3866",
+              "reviewOutputSha256": "fa18a7cd3cce845d4e8070b28220acab4903c74c4a46ebfcefc9baea89b6c0c2",
+              "reviewSignatureSha256": "aa78179facd59c36e4db85a8f2c9292af36ec9f4154b7dc47aa888a5e5b52672"
+            }
+          ]
+        }
+      ],
+      "opaqueTaxonomyTargetId": "taxonomy-e28ebd5f1f7c720c1802edde",
+      "packageManifestSha256": "74751ff2c2b36986b64a8845679f14826de4419a815fd334b5bb9b955992b7f9",
+      "pgId": "PG-028",
+      "primaryTaxonomies": [
+        {
+          "normalizedTaxonomy": {
+            "biologicalClass": "mammal",
+            "coreAnatomy": "quadruped",
+            "locomotionPlan": "quadrupedal",
+            "speciesFamily": "elephantidae"
+          },
+          "rawTaxonomy": {
+            "biologicalClass": "mammal",
+            "coreAnatomy": "quadruped",
+            "locomotionPlan": "quadrupedal",
+            "speciesFamily": "elephantidae"
+          },
+          "reviewId": "taxonomy-review-2b96534ae4f2e94de65662517a248fe9"
+        },
+        {
+          "normalizedTaxonomy": {
+            "biologicalClass": "mammal",
+            "coreAnatomy": "quadruped",
+            "locomotionPlan": "quadrupedal",
+            "speciesFamily": "elephantidae"
+          },
+          "rawTaxonomy": {
+            "biologicalClass": "mammal",
+            "coreAnatomy": "quadruped",
+            "locomotionPlan": "quadrupedal",
+            "speciesFamily": "elephantidae"
+          },
+          "reviewId": "taxonomy-review-a042b58fb4ae48592665be7750fc3866"
+        }
+      ],
+      "sourceReviewIds": [
+        "taxonomy-review-2b96534ae4f2e94de65662517a248fe9",
+        "taxonomy-review-a042b58fb4ae48592665be7750fc3866"
+      ],
+      "sourceReviewOutputSha256s": [
+        "43cce60280b757f50b7290a02a3cae571e3c76619b262ffbe0f40db528dee63d",
+        "fa18a7cd3cce845d4e8070b28220acab4903c74c4a46ebfcefc9baea89b6c0c2"
+      ],
+      "status": "PASS",
+      "taxonomy": {
+        "biologicalClass": "mammal",
+        "coreAnatomy": "quadruped",
+        "locomotionPlan": "quadrupedal",
+        "speciesFamily": "elephantidae"
+      }
+    },
+    {
+      "adjudication": {
+        "reviewId": "taxonomy-review-804a4020225bb730c5404c5294cd6e86",
+        "reviewOutputSha256": "9596428aff5cfe0cc793631b772e3a46d27b2b00eb41a9da3d668dea43da5a8f",
+        "reviewSignatureSha256": "7394c78710e06c8dd55a41b6aa2c984efcd223e69c914d28c9d19679395459ac",
+        "taxonomy": {
+          "biologicalClass": "insect",
+          "coreAnatomy": "hexapod",
+          "locomotionPlan": "flight",
+          "speciesFamily": "mantodea"
+        }
+      },
+      "anchors": [
+        {
+          "anchorId": "body-silhouette",
+          "sources": [
+            {
+              "description": "Compact segmented green body with two prominent folded wing covers and paired bent forelimbs held forward.",
+              "rawVoteSha256": "aef19df953e35d0a93ff08af675495c16614332ebafd33d8d35555dc7f1bc1f0",
+              "reviewId": "taxonomy-review-509e7fd225047e7bc14302787905d2db",
+              "reviewOutputSha256": "35b37e459dc2efdad8db7acf5fb66bf32d55d3b75368c6ad9c3cf27b884b4979",
+              "reviewSignatureSha256": "ef78e1b3981d7e2528108a6b25866ea1cf8ef496ae3b267807ebf9417b59731b"
+            },
+            {
+              "description": "Compact segmented body with paired green wing covers and multiple thin appendages beneath the thorax.",
+              "rawVoteSha256": "5ebc79fcfc583a824094a1d856d462a51e0d96754a0f35ffa987b316d14856c0",
+              "reviewId": "taxonomy-review-153082aab8e7c49c24bf96a99733c806",
+              "reviewOutputSha256": "7a00f4e82e1750161ad2ba8b0fc8ebc6dbfdb0ae98342ecb01082194fdefcaf8",
+              "reviewSignatureSha256": "1011ae68925b5bf6b073b8f1c1f4e8a002e73dbafe9fef0e4e40af214158bb10"
+            }
+          ]
+        },
+        {
+          "anchorId": "face-geometry",
+          "sources": [
+            {
+              "description": "Large rounded green head with two oversized golden compound eyes, small curved mouth, and two long arched antennae.",
+              "rawVoteSha256": "aef19df953e35d0a93ff08af675495c16614332ebafd33d8d35555dc7f1bc1f0",
+              "reviewId": "taxonomy-review-509e7fd225047e7bc14302787905d2db",
+              "reviewOutputSha256": "35b37e459dc2efdad8db7acf5fb66bf32d55d3b75368c6ad9c3cf27b884b4979",
+              "reviewSignatureSha256": "ef78e1b3981d7e2528108a6b25866ea1cf8ef496ae3b267807ebf9417b59731b"
+            },
+            {
+              "description": "Oval green head with two very large amber compound-looking eyes, a small curved mouth, and two long dark antennae.",
+              "rawVoteSha256": "5ebc79fcfc583a824094a1d856d462a51e0d96754a0f35ffa987b316d14856c0",
+              "reviewId": "taxonomy-review-153082aab8e7c49c24bf96a99733c806",
+              "reviewOutputSha256": "7a00f4e82e1750161ad2ba8b0fc8ebc6dbfdb0ae98342ecb01082194fdefcaf8",
+              "reviewSignatureSha256": "1011ae68925b5bf6b073b8f1c1f4e8a002e73dbafe9fef0e4e40af214158bb10"
+            }
+          ]
+        },
+        {
+          "anchorId": "signature-organ",
+          "sources": [
+            {
+              "description": "Two elongated serrated-looking grasping forelegs with dark inner edges.",
+              "rawVoteSha256": "aef19df953e35d0a93ff08af675495c16614332ebafd33d8d35555dc7f1bc1f0",
+              "reviewId": "taxonomy-review-509e7fd225047e7bc14302787905d2db",
+              "reviewOutputSha256": "35b37e459dc2efdad8db7acf5fb66bf32d55d3b75368c6ad9c3cf27b884b4979",
+              "reviewSignatureSha256": "ef78e1b3981d7e2528108a6b25866ea1cf8ef496ae3b267807ebf9417b59731b"
+            },
+            {
+              "description": "Large overlapping green wing-like plates extend from the back, with a narrow gold line along the outer plate.",
+              "rawVoteSha256": "5ebc79fcfc583a824094a1d856d462a51e0d96754a0f35ffa987b316d14856c0",
+              "reviewId": "taxonomy-review-153082aab8e7c49c24bf96a99733c806",
+              "reviewOutputSha256": "7a00f4e82e1750161ad2ba8b0fc8ebc6dbfdb0ae98342ecb01082194fdefcaf8",
+              "reviewSignatureSha256": "1011ae68925b5bf6b073b8f1c1f4e8a002e73dbafe9fef0e4e40af214158bb10"
+            }
+          ]
+        }
+      ],
+      "opaqueTaxonomyTargetId": "taxonomy-1c2106a9bdee040f7ecdda9a",
+      "packageManifestSha256": "4235912f5f0ee09fe3fb2cd005e6ef964a62129b593a3b37e1bcf65150745065",
+      "pgId": "PG-034",
+      "primaryTaxonomies": [
+        {
+          "normalizedTaxonomy": {
+            "biologicalClass": "insect",
+            "coreAnatomy": "hexapod",
+            "locomotionPlan": "flight",
+            "speciesFamily": "mantodea"
+          },
+          "rawTaxonomy": {
+            "biologicalClass": "insect",
+            "coreAnatomy": "hexapod",
+            "locomotionPlan": "flight",
+            "speciesFamily": "mantodea"
+          },
+          "reviewId": "taxonomy-review-509e7fd225047e7bc14302787905d2db"
+        },
+        {
+          "normalizedTaxonomy": {
+            "biologicalClass": "insect",
+            "coreAnatomy": "hexapod",
+            "locomotionPlan": "flight",
+            "speciesFamily": "beetle-like"
+          },
+          "rawTaxonomy": {
+            "biologicalClass": "insecta",
+            "coreAnatomy": "hexapod",
+            "locomotionPlan": "flight",
+            "speciesFamily": "beetle-like"
+          },
+          "reviewId": "taxonomy-review-153082aab8e7c49c24bf96a99733c806"
+        }
+      ],
+      "sourceReviewIds": [
+        "taxonomy-review-509e7fd225047e7bc14302787905d2db",
+        "taxonomy-review-153082aab8e7c49c24bf96a99733c806"
+      ],
+      "sourceReviewOutputSha256s": [
+        "35b37e459dc2efdad8db7acf5fb66bf32d55d3b75368c6ad9c3cf27b884b4979",
+        "7a00f4e82e1750161ad2ba8b0fc8ebc6dbfdb0ae98342ecb01082194fdefcaf8"
+      ],
+      "status": "PASS",
+      "taxonomy": {
+        "biologicalClass": "insect",
+        "coreAnatomy": "hexapod",
+        "locomotionPlan": "flight",
+        "speciesFamily": "mantodea"
+      }
+    },
+    {
+      "adjudication": {
+        "reviewId": "taxonomy-review-0d6ee38971346275208119556cf9b9b2",
+        "reviewOutputSha256": "168b6ce8724b0a955abd3a2900c52fa36a3cc20be7ab166be3f9aa8db563d5d1",
+        "reviewSignatureSha256": "87bfd1b70a89d239c749c67931481284100f25bb054ed520058d905bc9a66d3b",
+        "taxonomy": {
+          "biologicalClass": "insect",
+          "coreAnatomy": "hexapod",
+          "locomotionPlan": "flight",
+          "speciesFamily": "lampyridae"
+        }
+      },
+      "anchors": [
+        {
+          "anchorId": "body-silhouette",
+          "sources": [
+            {
+              "description": "Small elongated body with two large translucent pink wings and a thin trailing tail.",
+              "rawVoteSha256": "020799109f0d3754527d41c4910336cc222eff271e15e934f4e1ceba2d487eaa",
+              "reviewId": "taxonomy-review-5023d0772eaedd481c9c36ee2a52edf2",
+              "reviewOutputSha256": "94d881fb264e4b0e5da79f7661f249f111fb90153d6453aea925f1c33b7219c5",
+              "reviewSignatureSha256": "3a935e772bd5be5aaf29a4ed7c5059b104970c8ccccf522dce2780530fe6a3a8"
+            },
+            {
+              "description": "Elongated compact body tapers to a long tail ending in a bright rounded tip, with small lower appendages.",
+              "rawVoteSha256": "cda2e51322270b2eedd47a8a70742258e4f6be104938dbf79445a1af0db851ea",
+              "reviewId": "taxonomy-review-57c5aa4ce20ac465f83935d5d4cc5a1c",
+              "reviewOutputSha256": "aa35ec4ecf3ee88c1a1c8c717a43f9349a8f28d6f1b74e7f676284a646627343",
+              "reviewSignatureSha256": "2784bec7416877d7e06a0cfd651a9004f1779ff80f8d04f30ff03c548608ead5"
+            }
+          ]
+        },
+        {
+          "anchorId": "face-geometry",
+          "sources": [
+            {
+              "description": "Rounded teal head with very large black eyes rimmed pink, tiny smile, and three small gold forehead marks.",
+              "rawVoteSha256": "020799109f0d3754527d41c4910336cc222eff271e15e934f4e1ceba2d487eaa",
+              "reviewId": "taxonomy-review-5023d0772eaedd481c9c36ee2a52edf2",
+              "reviewOutputSha256": "94d881fb264e4b0e5da79f7661f249f111fb90153d6453aea925f1c33b7219c5",
+              "reviewSignatureSha256": "3a935e772bd5be5aaf29a4ed7c5059b104970c8ccccf522dce2780530fe6a3a8"
+            },
+            {
+              "description": "Rounded teal head with oversized pink-rimmed eyes, small dot-like facial marks, and a simple curved mouth.",
+              "rawVoteSha256": "cda2e51322270b2eedd47a8a70742258e4f6be104938dbf79445a1af0db851ea",
+              "reviewId": "taxonomy-review-57c5aa4ce20ac465f83935d5d4cc5a1c",
+              "reviewOutputSha256": "aa35ec4ecf3ee88c1a1c8c717a43f9349a8f28d6f1b74e7f676284a646627343",
+              "reviewSignatureSha256": "2784bec7416877d7e06a0cfd651a9004f1779ff80f8d04f30ff03c548608ead5"
+            }
+          ]
+        },
+        {
+          "anchorId": "signature-organ",
+          "sources": [
+            {
+              "description": "Tail ends in a bright pink glowing bulb.",
+              "rawVoteSha256": "020799109f0d3754527d41c4910336cc222eff271e15e934f4e1ceba2d487eaa",
+              "reviewId": "taxonomy-review-5023d0772eaedd481c9c36ee2a52edf2",
+              "reviewOutputSha256": "94d881fb264e4b0e5da79f7661f249f111fb90153d6453aea925f1c33b7219c5",
+              "reviewSignatureSha256": "3a935e772bd5be5aaf29a4ed7c5059b104970c8ccccf522dce2780530fe6a3a8"
+            },
+            {
+              "description": "Two pairs of large translucent pink wings rise behind the body and contain bright linear veins.",
+              "rawVoteSha256": "cda2e51322270b2eedd47a8a70742258e4f6be104938dbf79445a1af0db851ea",
+              "reviewId": "taxonomy-review-57c5aa4ce20ac465f83935d5d4cc5a1c",
+              "reviewOutputSha256": "aa35ec4ecf3ee88c1a1c8c717a43f9349a8f28d6f1b74e7f676284a646627343",
+              "reviewSignatureSha256": "2784bec7416877d7e06a0cfd651a9004f1779ff80f8d04f30ff03c548608ead5"
+            }
+          ]
+        }
+      ],
+      "opaqueTaxonomyTargetId": "taxonomy-83470972c1bc0743b82dd2d3",
+      "packageManifestSha256": "91981211dd69ed2f775ac796e0b068e7db8c4174d9fa81a868529cef92a6e5fc",
+      "pgId": "PG-041",
+      "primaryTaxonomies": [
+        {
+          "normalizedTaxonomy": {
+            "biologicalClass": "insect",
+            "coreAnatomy": "hexapod",
+            "locomotionPlan": "flight",
+            "speciesFamily": "lampyridae"
+          },
+          "rawTaxonomy": {
+            "biologicalClass": "insect",
+            "coreAnatomy": "hexapod",
+            "locomotionPlan": "flight",
+            "speciesFamily": "lampyridae"
+          },
+          "reviewId": "taxonomy-review-5023d0772eaedd481c9c36ee2a52edf2"
+        },
+        {
+          "normalizedTaxonomy": {
+            "biologicalClass": "insect",
+            "coreAnatomy": "winged-biped",
+            "locomotionPlan": "flight",
+            "speciesFamily": "odonata-like"
+          },
+          "rawTaxonomy": {
+            "biologicalClass": "insecta",
+            "coreAnatomy": "winged-biped",
+            "locomotionPlan": "flight",
+            "speciesFamily": "odonata-like"
+          },
+          "reviewId": "taxonomy-review-57c5aa4ce20ac465f83935d5d4cc5a1c"
+        }
+      ],
+      "sourceReviewIds": [
+        "taxonomy-review-5023d0772eaedd481c9c36ee2a52edf2",
+        "taxonomy-review-57c5aa4ce20ac465f83935d5d4cc5a1c"
+      ],
+      "sourceReviewOutputSha256s": [
+        "94d881fb264e4b0e5da79f7661f249f111fb90153d6453aea925f1c33b7219c5",
+        "aa35ec4ecf3ee88c1a1c8c717a43f9349a8f28d6f1b74e7f676284a646627343"
+      ],
+      "status": "PASS",
+      "taxonomy": {
+        "biologicalClass": "insect",
+        "coreAnatomy": "hexapod",
+        "locomotionPlan": "flight",
+        "speciesFamily": "lampyridae"
+      }
+    },
+    {
+      "adjudication": null,
+      "anchors": [
+        {
+          "anchorId": "body-silhouette",
+          "sources": [
+            {
+              "description": "Heavy four-legged barrel body with thick short legs and block-like toes.",
+              "rawVoteSha256": "2f494097c51561239f94340a740e306bc675ecbf82f21fe7c570aed8a85413cb",
+              "reviewId": "taxonomy-review-90b65e1b8ca4852e31f7d489c4ac6a3d",
+              "reviewOutputSha256": "be409dbf379309f92a4f10ebe340db45099f428ad44995115acc4f9d93a88d8d",
+              "reviewSignatureSha256": "027a92d34155d0ed4a22bf24f2a4c7b7f9b385845847696cfc92260fc38f1eb5"
+            },
+            {
+              "description": "Heavy barrel-shaped body supported by four stout legs ending in blocky split hooves.",
+              "rawVoteSha256": "bb170a5a48e4fd3f88579a8ea5baacdf4619f1e45675ccb1756ddd914da32aed",
+              "reviewId": "taxonomy-review-775a50d20e5cd3ffff84ae4217d838d5",
+              "reviewOutputSha256": "3d4676d626973d564812228d52ca82a3a29e9ca4eb108086cf56ba724b1d3984",
+              "reviewSignatureSha256": "b74ffe3bee397d80d4573f10b67bcd15ff64ad13ead8a96ecec5023c30ef7cde"
+            }
+          ]
+        },
+        {
+          "anchorId": "face-geometry",
+          "sources": [
+            {
+              "description": "Broad rounded muzzle with two nostril openings, one large blue eye, upright ears, and a single conical horn.",
+              "rawVoteSha256": "2f494097c51561239f94340a740e306bc675ecbf82f21fe7c570aed8a85413cb",
+              "reviewId": "taxonomy-review-90b65e1b8ca4852e31f7d489c4ac6a3d",
+              "reviewOutputSha256": "be409dbf379309f92a4f10ebe340db45099f428ad44995115acc4f9d93a88d8d",
+              "reviewSignatureSha256": "027a92d34155d0ed4a22bf24f2a4c7b7f9b385845847696cfc92260fc38f1eb5"
+            },
+            {
+              "description": "Rounded gray head with one visible blue eye, broad snout with two nostrils, upright ears, and a single large conical horn with a blue band.",
+              "rawVoteSha256": "bb170a5a48e4fd3f88579a8ea5baacdf4619f1e45675ccb1756ddd914da32aed",
+              "reviewId": "taxonomy-review-775a50d20e5cd3ffff84ae4217d838d5",
+              "reviewOutputSha256": "3d4676d626973d564812228d52ca82a3a29e9ca4eb108086cf56ba724b1d3984",
+              "reviewSignatureSha256": "b74ffe3bee397d80d4573f10b67bcd15ff64ad13ead8a96ecec5023c30ef7cde"
+            }
+          ]
+        },
+        {
+          "anchorId": "signature-organ",
+          "sources": [
+            {
+              "description": "Single prominent horn projects from the center of the forehead, encircled by a blue band.",
+              "rawVoteSha256": "2f494097c51561239f94340a740e306bc675ecbf82f21fe7c570aed8a85413cb",
+              "reviewId": "taxonomy-review-90b65e1b8ca4852e31f7d489c4ac6a3d",
+              "reviewOutputSha256": "be409dbf379309f92a4f10ebe340db45099f428ad44995115acc4f9d93a88d8d",
+              "reviewSignatureSha256": "027a92d34155d0ed4a22bf24f2a4c7b7f9b385845847696cfc92260fc38f1eb5"
+            },
+            {
+              "description": "A thick segmented brown collar encircles the neck and continues as a pronounced ring around the shoulder area.",
+              "rawVoteSha256": "bb170a5a48e4fd3f88579a8ea5baacdf4619f1e45675ccb1756ddd914da32aed",
+              "reviewId": "taxonomy-review-775a50d20e5cd3ffff84ae4217d838d5",
+              "reviewOutputSha256": "3d4676d626973d564812228d52ca82a3a29e9ca4eb108086cf56ba724b1d3984",
+              "reviewSignatureSha256": "b74ffe3bee397d80d4573f10b67bcd15ff64ad13ead8a96ecec5023c30ef7cde"
+            }
+          ]
+        }
+      ],
+      "opaqueTaxonomyTargetId": "taxonomy-3a25a9fedff4c88b371abf7c",
+      "packageManifestSha256": "890c213d99cc49e2106817e5d35a5e3d00ee9f985c9b90eac5b5ad00e27e45d4",
+      "pgId": "PG-055",
+      "primaryTaxonomies": [
+        {
+          "normalizedTaxonomy": {
+            "biologicalClass": "mammal",
+            "coreAnatomy": "quadruped",
+            "locomotionPlan": "quadrupedal",
+            "speciesFamily": "rhinocerotidae"
+          },
+          "rawTaxonomy": {
+            "biologicalClass": "mammal",
+            "coreAnatomy": "quadruped",
+            "locomotionPlan": "quadrupedal",
+            "speciesFamily": "rhinocerotidae"
+          },
+          "reviewId": "taxonomy-review-90b65e1b8ca4852e31f7d489c4ac6a3d"
+        },
+        {
+          "normalizedTaxonomy": {
+            "biologicalClass": "mammal",
+            "coreAnatomy": "quadruped",
+            "locomotionPlan": "quadrupedal",
+            "speciesFamily": "rhinocerotidae"
+          },
+          "rawTaxonomy": {
+            "biologicalClass": "mammalia",
+            "coreAnatomy": "quadruped",
+            "locomotionPlan": "quadrupedal",
+            "speciesFamily": "rhinocerotidae"
+          },
+          "reviewId": "taxonomy-review-775a50d20e5cd3ffff84ae4217d838d5"
+        }
+      ],
+      "sourceReviewIds": [
+        "taxonomy-review-90b65e1b8ca4852e31f7d489c4ac6a3d",
+        "taxonomy-review-775a50d20e5cd3ffff84ae4217d838d5"
+      ],
+      "sourceReviewOutputSha256s": [
+        "be409dbf379309f92a4f10ebe340db45099f428ad44995115acc4f9d93a88d8d",
+        "3d4676d626973d564812228d52ca82a3a29e9ca4eb108086cf56ba724b1d3984"
+      ],
+      "status": "PASS",
+      "taxonomy": {
+        "biologicalClass": "mammal",
+        "coreAnatomy": "quadruped",
+        "locomotionPlan": "quadrupedal",
+        "speciesFamily": "rhinocerotidae"
+      }
+    }
+  ],
+  "completionAllowed": true,
+  "outputSha256": "f6d816b44b5850d84397db90630152b4a39c4debd7666d337197868ca22323dc",
+  "publicSignature": {
+    "algorithm": "Ed25519",
+    "authorityFingerprint": "423f474c59667e5eabc13a703b8d7de4e97bcba33cdc22340873866db9d6a53f",
+    "signatureBase64": "LhyvnHBZ6U8RiwuQmXsD/GR11zWE60xEfGYySBpdQrFTzLl+51+rqn6Xr16jo7oJ9NjxoTsKx2qLNncvDhpFAQ=="
+  },
+  "requiredPrimaryReviewsPerAsset": 2,
+  "runId": "g002-v1",
+  "schemaVersion": "g002-taxonomy-consensus-v1",
+  "state": "PASS"
+}

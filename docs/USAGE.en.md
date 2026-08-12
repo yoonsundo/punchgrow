@@ -61,7 +61,7 @@ The popup separates three values that serve different purposes:
 | --- | --- |
 | **TOKEN BALANCE / 보유 토큰** | Spendable game currency. Purchases and draws reduce this balance. |
 | **This week / 주간 사용량** | Numeric Claude Code and Codex token usage observed for the current week. Existing usage may appear here after the first scan. |
-| **C n% / X n%** | The providers' actual weekly plan percentages: `C` for Claude and `X` for Codex. In v0.3.0, `C` is queried from the Anthropic usage API using Claude Code's stored credentials read-only, falling back to the `~/.claude/plugins/oh-my-claudecode/.usage-cache-anthropic.json` cache. They are not calculated from the game token balance. |
+| **C n% / X n%** | The providers' actual weekly plan percentages: `C` for Claude and `X` for Codex. `C` is read from the `~/.claude/plugins/oh-my-claudecode/.usage-cache-anthropic.json` cache, which PunchGrow keeps fresh by running Claude Code's status-line script once a minute. They are not calculated from the game token balance. |
 
 If a provider has not written usable quota metadata, PunchGrow shows a pending state instead of inventing `0%`. While collection is enabled, the app checks for new local values about every 10 seconds and reflects usage increases or weekly resets after the provider records them.
 
@@ -125,11 +125,13 @@ Creatures become eligible for their next stage at these levels:
 
 The normal level cap is **50**. Older saves containing levels 51–100 remain readable, but those creatures cannot gain additional levels.
 
-At an **evolution fork** (level 15 or level 25, once per lifetime) with more than one candidate, you pick the direction yourself instead of it happening automatically. Reserve a target in advance from the evolution dex with **이 모습으로 키우기** (raise into this form) so the fork does not pause; leave it unreserved and evolution stops at the fork with a **진화 선택 대기** (evolution choice pending) badge until you choose.
+At an **evolution fork** (level 15 or level 25, once per lifetime) with more than one candidate, you pick the direction yourself instead of it happening automatically. Evolution stops at the fork with a **진화 선택 대기** (evolution choice pending) badge until you choose, and the choice applies to that evolution only — the next fork asks again.
 
-Lineages with a mutation candidate get a 10% chance to trigger a mutation offer at the level-15 evolution, asking you to accept or decline. Accepting ends growth on the spot as a terminal mutant form; declining continues along the chosen or reserved path. A missed chance can be retried with **변이 재도전** (mutation retry, `1,000,000` tokens per attempt, 10% chance); 30 failed retries in the same lineage guarantee the next attempt succeeds. A creature raised to its final stage can use **계승** (inheritance, `5,000,000` tokens) to obtain a new individual of the same starting species for raising a different fork.
+Species whose catalog category is `mixed` are fusion collectibles, not ordinary same-individual evolutions. They do not appear in automatic evolution, fork choices, growth-potential paths, or normal Evolution Dex ancestry. A legacy save that already owns one remains valid and keeps the creature; the Evolution Dex displays only its actual current fusion form and never fabricates parent stages.
 
-Select **진화** (Evolution) to inspect the current creature's starting form, branches, level gates, discovery state, and selectable path. The dex highlights any reserved target.
+Lineages with a mutation candidate get a 10% chance to trigger a mutation offer at the level-15 evolution, asking you to accept or decline. Accepting ends growth on the spot as a terminal mutant form; declining returns you to the fork choice. A missed chance can be retried with **변이 재도전** (mutation retry, `1,000,000` tokens per attempt, 10% chance); 30 failed retries in the same lineage guarantee the next attempt succeeds. A creature raised to its final stage can use **계승** (inheritance, `5,000,000` tokens) to obtain a new individual of the same starting species for raising a different fork.
+
+Select **진화** (Evolution) to inspect the current creature's starting form, branches, level gates, and discovery state. Forms that this individual actually passed through are marked **보유** (owned) and can be previewed or pinned as its displayed appearance. Future stages and unchosen sibling branches are marked **미보유** (not owned) and cannot be selected, even if another creature discovered them. Previewing or pinning a past form never changes the actual species, level, or experience.
 
 ![Evolution dex showing the current creature, maximum reachable rarity, branch choices, the selectable path, and level gates](screenshots/evolution-dex.png)
 

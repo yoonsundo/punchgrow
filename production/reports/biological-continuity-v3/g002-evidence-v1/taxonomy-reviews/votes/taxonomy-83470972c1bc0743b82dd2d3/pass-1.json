@@ -1,0 +1,51 @@
+{
+  "agentTaskId": "g002-taxonomy-pass1-independent-round2",
+  "anchors": [
+    {
+      "anchorId": "body-silhouette",
+      "description": "Small elongated body with two large translucent pink wings and a thin trailing tail."
+    },
+    {
+      "anchorId": "face-geometry",
+      "description": "Rounded teal head with very large black eyes rimmed pink, tiny smile, and three small gold forehead marks."
+    },
+    {
+      "anchorId": "signature-organ",
+      "description": "Tail ends in a bright pink glowing bulb."
+    }
+  ],
+  "assignmentManifestSha256": "cc1e3f8ff6cd8831bfa3099f8f187a5642161daaddca710af913cf077b6f9d67",
+  "blinded": true,
+  "conductorHmacSha256": "c4e5d3334df191e3a4d87cb4d56e36917accd3a78e1905607dbcb2125d4446b4",
+  "confidence": 0.96,
+  "contractSha256": "f6d06316ba0ce315a79d3d784abe49f8f80463776ef07f5dbf5372185b9a8a15",
+  "fresh": true,
+  "inputAllowlistSha256": "6eb9da0d8e8a68a8f53dee3f120f90e2c02789ef374688f0fe2ab52a020392aa",
+  "inputAssetSha256s": [
+    "8bca9ba317bafddf8a8b30f23741d0411e1288e47426571272eb86ff22514387",
+    "c31f6c088954d5836c6e50b43b8851afd0c889be5c6a98757efe5fa66cb58e4b"
+  ],
+  "opaqueTaxonomyTargetId": "taxonomy-83470972c1bc0743b82dd2d3",
+  "outputSha256": "94d881fb264e4b0e5da79f7661f249f111fb90153d6453aea925f1c33b7219c5",
+  "packageManifestSha256": "91981211dd69ed2f775ac796e0b068e7db8c4174d9fa81a868529cef92a6e5fc",
+  "passNumber": 1,
+  "promptSha256": "428e5d281d525d352776ae9950777265519d08f8bad67e50c2ed17b3f5c6e8d4",
+  "publicSignature": {
+    "algorithm": "Ed25519",
+    "authorityFingerprint": "423f474c59667e5eabc13a703b8d7de4e97bcba33cdc22340873866db9d6a53f",
+    "signatureBase64": "4D/GVlexSYqMwXfNIVJNmaALK3M3CNyCeHO6N5QGWvQF5UB9SOHCJ9JWEx5h+bWACgzwvW5FbZCOLFXALbFhAg=="
+  },
+  "reviewId": "taxonomy-review-5023d0772eaedd481c9c36ee2a52edf2",
+  "reviewerInstanceId": "taxonomy-reviewer-pass1-independent",
+  "reviewerRunAttestationSha256": "34dbf2dcfb50f2f31a7ecb2a27219b5a0194d8764e908e024dd22fa9f92a3c4e",
+  "role": "primary",
+  "schemaVersion": "g002-taxonomy-primary-vote-v1",
+  "submittedAt": "2026-08-10T16:39:09.943Z",
+  "taxonomy": {
+    "biologicalClass": "insect",
+    "coreAnatomy": "hexapod",
+    "locomotionPlan": "flight",
+    "speciesFamily": "lampyridae"
+  },
+  "voterReviewRunId": "g002-taxonomy-run-pass1-round2"
+}

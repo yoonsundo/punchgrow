@@ -15,17 +15,10 @@ final class LocalUsageService: ObservableObject {
     @Published private(set) var lastScanAt: Date?
     @Published private(set) var errorMessage: String?
 
-    /// The endpoint is the same one Claude Code's status line polls. Asking more often than it does
-    /// buys little — the provider recomputes on its own schedule — and risks being rate limited, so
-    /// stay close to that cadence rather than matching the file scan interval.
-    static let claudeQuotaPollInterval: TimeInterval = 60
-    private static let maximumClaudeQuotaBackoffSteps = 3
-
     private let scanner: LocalUsageScanner
     private let persistence: LocalUsageCachePersistence
-    private let usageAPI: ClaudeUsageAPIClient?
-    private var lastClaudeQuotaPollAt: TimeInterval?
-    private var claudeQuotaFailureStreak = 0
+    private let cacheRefresher: ClaudeUsageCacheRefresher?
+    private var cacheRefreshTask: Task<Void, Never>?
     private let interval: TimeInterval
     private let defaults: UserDefaults
     private let onEvents: ([TokenUsageEvent]) -> TokenIngestionResult
@@ -50,7 +43,8 @@ final class LocalUsageService: ObservableObject {
     init(
         scanner: LocalUsageScanner = LocalUsageScanner(),
         persistence: LocalUsageCachePersistence = LocalUsageCachePersistence(),
-        usageAPI: ClaudeUsageAPIClient? = ClaudeUsageAPIClient(),
+        // Off by default: refreshing spawns a process, which no caller should get by accident.
+        cacheRefresher: ClaudeUsageCacheRefresher? = nil,
         interval: TimeInterval = 10,
         defaults: UserDefaults = .standard,
         onObservedTotals: @escaping (
@@ -75,7 +69,7 @@ final class LocalUsageService: ObservableObject {
     ) {
         self.scanner = scanner
         self.persistence = persistence
-        self.usageAPI = usageAPI
+        self.cacheRefresher = cacheRefresher
         self.interval = interval
         self.defaults = defaults
         collectionEnabled = defaults.bool(forKey: Self.collectionEnabledDefaultsKey)
@@ -121,7 +115,7 @@ final class LocalUsageService: ObservableObject {
             guard let self else { return }
             while !Task.isCancelled {
                 let startedAt = self.monotonicNow()
-                await self.refreshClaudeQuotaIfDue()
+                self.refreshClaudeUsageCacheIfIdle()
                 let hasDrainableBacklog = await self.scanOnce(generation: activeGeneration)
                 guard !Task.isCancelled,
                       self.generation == activeGeneration,
@@ -154,6 +148,8 @@ final class LocalUsageService: ObservableObject {
         restartAfterWorkerStops = false
         task?.cancel()
         task = nil
+        cacheRefreshTask?.cancel()
+        cacheRefreshTask = nil
         scanWorker?.cancel()
         isRunning = false
         onDiscoveredProviders([])
@@ -185,27 +181,18 @@ final class LocalUsageService: ObservableObject {
         }
     }
 
-    /// Polls the Claude usage endpoint on its own schedule, independent of the file scan.
+    /// Asks Claude Code to rewrite its usage cache, without making the scan wait for it.
     ///
-    /// A failed poll is not an error the user needs to see — the scan still publishes the cached
-    /// file reading — so it only widens the retry gap, up to eight times the base interval.
-    private func refreshClaudeQuotaIfDue() async {
-        guard let usageAPI else { return }
-        let now = monotonicNow()
-        let backoffMultiplier = pow(2, Double(claudeQuotaFailureStreak))
-        let isDue = lastClaudeQuotaPollAt.map {
-            now - $0 >= Self.claudeQuotaPollInterval * backoffMultiplier
-        } ?? true
-        guard isDue else { return }
-        lastClaudeQuotaPollAt = now
-
-        if let snapshot = await usageAPI.fetchWeeklyQuota() {
-            scanner.liveClaudeQuota.snapshot = snapshot
-            claudeQuotaFailureStreak = 0
-        } else {
-            claudeQuotaFailureStreak = min(
-                claudeQuotaFailureStreak + 1, Self.maximumClaudeQuotaBackoffSteps
-            )
+    /// The refresh spawns a process and talks to the network, so blocking on it would stall the scan
+    /// behind work the scan does not need: whatever the refresh writes is picked up by the following
+    /// pass a few seconds later. The in-flight guard keeps a slow run from stacking up spawns.
+    private func refreshClaudeUsageCacheIfIdle() {
+        guard let cacheRefresher, cacheRefreshTask == nil else { return }
+        cacheRefreshTask = Task { [weak self] in
+            await Task.detached(priority: .utility) {
+                _ = cacheRefresher.refreshIfStale()
+            }.value
+            self?.cacheRefreshTask = nil
         }
     }
 

@@ -1,0 +1,5 @@
+{
+  "$schema":"https://json-schema.org/draft/2020-12/schema","$id":"https://punchgrow.local/contracts/g003-public-review-artifact-v5.schema.json","type":"object","additionalProperties":false,
+  "required":["schemaVersion","reviewProtocol","protocolAuthoritySha256","terminalOutputSha256","signedObligationScopeSha256","obligationId","reviewOutputSha256","voteOutputSha256s","outputSha256","publicSignature"],
+  "properties":{"schemaVersion":{"const":"continuity-g003-public-review-artifact-v5"},"reviewProtocol":{"const":"continuity-g003-review-protocol-v5"},"protocolAuthoritySha256":{"$ref":"#/$defs/sha"},"terminalOutputSha256":{"$ref":"#/$defs/sha"},"signedObligationScopeSha256":{"$ref":"#/$defs/sha"},"obligationId":{"type":"string"},"reviewOutputSha256":{"$ref":"#/$defs/sha"},"voteOutputSha256s":{"type":"array","minItems":2,"maxItems":2,"uniqueItems":true,"items":{"$ref":"#/$defs/sha"}},"outputSha256":{"$ref":"#/$defs/sha"},"publicSignature":{"type":"object"}},"$defs":{"sha":{"type":"string","pattern":"^[a-f0-9]{64}$"}}
+}

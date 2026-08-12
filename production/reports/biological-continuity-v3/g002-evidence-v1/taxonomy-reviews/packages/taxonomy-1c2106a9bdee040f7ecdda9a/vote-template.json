@@ -1,0 +1,47 @@
+{
+  "agentTaskId": "{{AGENT_TASK_ID}}",
+  "anchors": [
+    {
+      "anchorId": "face-geometry",
+      "description": "{{VISIBLE_FACE_DESCRIPTION}}"
+    },
+    {
+      "anchorId": "body-silhouette",
+      "description": "{{VISIBLE_BODY_DESCRIPTION}}"
+    },
+    {
+      "anchorId": "signature-organ",
+      "description": "{{VISIBLE_SIGNATURE_DESCRIPTION}}"
+    }
+  ],
+  "assignmentManifestSha256": "{{TRUSTED_INTAKE_ONLY}}",
+  "blinded": true,
+  "conductorHmacSha256": "{{TRUSTED_INTAKE_ONLY}}",
+  "confidence": 0.85,
+  "contractSha256": "f6d06316ba0ce315a79d3d784abe49f8f80463776ef07f5dbf5372185b9a8a15",
+  "fresh": true,
+  "inputAllowlistSha256": "b2cd522396d3cdd6f53e17bfd6ab8afde830ba84a3df17f3e7e64ea3499180d6",
+  "inputAssetSha256s": [
+    "ffcfce46ce84f6b1a621c3ed171777cc9c02f465cbd60aa3dd16f62f8c7bc3a3",
+    "4a6362a8e702425ad71860d2bff053a5ca65a71e1c5fe66482d2374c15fb09a7"
+  ],
+  "opaqueTaxonomyTargetId": "taxonomy-1c2106a9bdee040f7ecdda9a",
+  "outputSha256": "{{TRUSTED_INTAKE_ONLY}}",
+  "packageManifestSha256": "4235912f5f0ee09fe3fb2cd005e6ef964a62129b593a3b37e1bcf65150745065",
+  "passNumber": "{{1|2}}",
+  "promptSha256": "428e5d281d525d352776ae9950777265519d08f8bad67e50c2ed17b3f5c6e8d4",
+  "publicSignature": "{{TRUSTED_INTAKE_ONLY}}",
+  "reviewId": "{{REVIEW_ID}}",
+  "reviewerInstanceId": "{{REVIEWER_INSTANCE_ID}}",
+  "reviewerRunAttestationSha256": "{{TRUSTED_INTAKE_ONLY}}",
+  "role": "primary",
+  "schemaVersion": "g002-taxonomy-primary-vote-v1",
+  "submittedAt": "{{ISO_8601}}",
+  "taxonomy": {
+    "biologicalClass": "{{NON_UNKNOWN}}",
+    "coreAnatomy": "{{NON_UNKNOWN}}",
+    "locomotionPlan": "{{NON_UNKNOWN}}",
+    "speciesFamily": "{{NON_UNKNOWN}}"
+  },
+  "voterReviewRunId": "{{VOTER_REVIEW_RUN_ID}}"
+}

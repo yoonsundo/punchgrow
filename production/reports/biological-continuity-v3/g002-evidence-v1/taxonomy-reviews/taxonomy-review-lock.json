@@ -1,0 +1,96 @@
+{
+  "outputSha256": "76e9c52aae31d04053c0c1c1318281adb7d56866045bd3ae1aeb04be954fa56f",
+  "packages": [
+    {
+      "contractSha256": "f6d06316ba0ce315a79d3d784abe49f8f80463776ef07f5dbf5372185b9a8a15",
+      "inputAllowlistSha256": "9492811f7893ff3be29c71373976cf13582b0cfc3afe412297fec6926702cd85",
+      "inputAssetSha256s": [
+        "180cc13ea3c7f90530abc5320d99dad0167893d33d7abbabf470149d59a29fcb",
+        "f14f417c99cb4d27aca4c4293e19b5d36db6b2b32e4cf1f8c4293d19aad75e54"
+      ],
+      "opaqueTaxonomyTargetId": "taxonomy-1fb3e4099e1105270ba89d27",
+      "packageManifestSha256": "a7d201d806b883f0f5306c8eef93642176f00b29ab4d2eec74fe04201551d333",
+      "packagePath": "production/reports/biological-continuity-v3/g002-evidence-v1/taxonomy-reviews/packages/taxonomy-1fb3e4099e1105270ba89d27",
+      "pgId": "PG-007",
+      "promptSha256": "428e5d281d525d352776ae9950777265519d08f8bad67e50c2ed17b3f5c6e8d4",
+      "sourceAnchorConsensusSha256": "446471b534e3c9add651324b5fd962b21dbfeefc0abb6e4f920428522b7cc0bc",
+      "voteTemplateSha256": "1876c0ef38058f323863e8d5a2d83134ccefe1fe51a713925e931e6910522e44"
+    },
+    {
+      "contractSha256": "f6d06316ba0ce315a79d3d784abe49f8f80463776ef07f5dbf5372185b9a8a15",
+      "inputAllowlistSha256": "06c2b46d72a6ea4a952f7aa5008ed1a959572a1d0f2ab4aa1d299e2e8f15876c",
+      "inputAssetSha256s": [
+        "d50888d8c1dc81e8b602541e3357b635e3c68455ad1d6c574d8941792d2db8eb",
+        "1770be67b24e4bec95e0890efaea4e26afb0fc5a67e1b9bb6e190a53212105f2"
+      ],
+      "opaqueTaxonomyTargetId": "taxonomy-e28ebd5f1f7c720c1802edde",
+      "packageManifestSha256": "74751ff2c2b36986b64a8845679f14826de4419a815fd334b5bb9b955992b7f9",
+      "packagePath": "production/reports/biological-continuity-v3/g002-evidence-v1/taxonomy-reviews/packages/taxonomy-e28ebd5f1f7c720c1802edde",
+      "pgId": "PG-028",
+      "promptSha256": "428e5d281d525d352776ae9950777265519d08f8bad67e50c2ed17b3f5c6e8d4",
+      "sourceAnchorConsensusSha256": "446471b534e3c9add651324b5fd962b21dbfeefc0abb6e4f920428522b7cc0bc",
+      "voteTemplateSha256": "6d72af4a74cc71ad1dc20c80757d4e53b8ba38ae7d28ed199370d7036770034c"
+    },
+    {
+      "contractSha256": "f6d06316ba0ce315a79d3d784abe49f8f80463776ef07f5dbf5372185b9a8a15",
+      "inputAllowlistSha256": "b2cd522396d3cdd6f53e17bfd6ab8afde830ba84a3df17f3e7e64ea3499180d6",
+      "inputAssetSha256s": [
+        "ffcfce46ce84f6b1a621c3ed171777cc9c02f465cbd60aa3dd16f62f8c7bc3a3",
+        "4a6362a8e702425ad71860d2bff053a5ca65a71e1c5fe66482d2374c15fb09a7"
+      ],
+      "opaqueTaxonomyTargetId": "taxonomy-1c2106a9bdee040f7ecdda9a",
+      "packageManifestSha256": "4235912f5f0ee09fe3fb2cd005e6ef964a62129b593a3b37e1bcf65150745065",
+      "packagePath": "production/reports/biological-continuity-v3/g002-evidence-v1/taxonomy-reviews/packages/taxonomy-1c2106a9bdee040f7ecdda9a",
+      "pgId": "PG-034",
+      "promptSha256": "428e5d281d525d352776ae9950777265519d08f8bad67e50c2ed17b3f5c6e8d4",
+      "sourceAnchorConsensusSha256": "446471b534e3c9add651324b5fd962b21dbfeefc0abb6e4f920428522b7cc0bc",
+      "voteTemplateSha256": "f7499cdaa1d9c337ea2b8589e3de4b9496b4b96eaaf789483c680f7a41f6ee6a"
+    },
+    {
+      "contractSha256": "f6d06316ba0ce315a79d3d784abe49f8f80463776ef07f5dbf5372185b9a8a15",
+      "inputAllowlistSha256": "6eb9da0d8e8a68a8f53dee3f120f90e2c02789ef374688f0fe2ab52a020392aa",
+      "inputAssetSha256s": [
+        "8bca9ba317bafddf8a8b30f23741d0411e1288e47426571272eb86ff22514387",
+        "c31f6c088954d5836c6e50b43b8851afd0c889be5c6a98757efe5fa66cb58e4b"
+      ],
+      "opaqueTaxonomyTargetId": "taxonomy-83470972c1bc0743b82dd2d3",
+      "packageManifestSha256": "91981211dd69ed2f775ac796e0b068e7db8c4174d9fa81a868529cef92a6e5fc",
+      "packagePath": "production/reports/biological-continuity-v3/g002-evidence-v1/taxonomy-reviews/packages/taxonomy-83470972c1bc0743b82dd2d3",
+      "pgId": "PG-041",
+      "promptSha256": "428e5d281d525d352776ae9950777265519d08f8bad67e50c2ed17b3f5c6e8d4",
+      "sourceAnchorConsensusSha256": "446471b534e3c9add651324b5fd962b21dbfeefc0abb6e4f920428522b7cc0bc",
+      "voteTemplateSha256": "143a54b306151adba61e6f48e7996f3258a286d48c88cdde92f825521418edd0"
+    },
+    {
+      "contractSha256": "f6d06316ba0ce315a79d3d784abe49f8f80463776ef07f5dbf5372185b9a8a15",
+      "inputAllowlistSha256": "f6aa3eef9b13490a86e3c3ce44e9a34d42330a68e3f968a86b9c3566fac2e7ec",
+      "inputAssetSha256s": [
+        "e8111483974fd1775ba649b19ae69112ff88d148ce97e56d11c8dac5963374a7",
+        "64a2afbd3e36eb77ca3dba4fd8855603ef204ff70c562137b5d0ad3fe78a6d81"
+      ],
+      "opaqueTaxonomyTargetId": "taxonomy-3a25a9fedff4c88b371abf7c",
+      "packageManifestSha256": "890c213d99cc49e2106817e5d35a5e3d00ee9f985c9b90eac5b5ad00e27e45d4",
+      "packagePath": "production/reports/biological-continuity-v3/g002-evidence-v1/taxonomy-reviews/packages/taxonomy-3a25a9fedff4c88b371abf7c",
+      "pgId": "PG-055",
+      "promptSha256": "428e5d281d525d352776ae9950777265519d08f8bad67e50c2ed17b3f5c6e8d4",
+      "sourceAnchorConsensusSha256": "446471b534e3c9add651324b5fd962b21dbfeefc0abb6e4f920428522b7cc0bc",
+      "voteTemplateSha256": "b55735bfe42e2353de8b9d42297f7b71ae8141bf6eac2b4955a505b506310f00"
+    }
+  ],
+  "publicAuthority": {
+    "algorithm": "Ed25519",
+    "authorityFingerprint": "423f474c59667e5eabc13a703b8d7de4e97bcba33cdc22340873866db9d6a53f",
+    "contractPath": "production/contracts/g002-public-authority-v1.json",
+    "contractSha256": "8b9d2e0f21a6d822ec0bc072675592a0ce2186351ce45967ec479ef6b0a3fbb2"
+  },
+  "requiredSlots": [
+    "PG-007",
+    "PG-028",
+    "PG-034",
+    "PG-041",
+    "PG-055"
+  ],
+  "runId": "g002-v1",
+  "schemaVersion": "g002-taxonomy-review-lock-v1",
+  "state": "PENDING_INDEPENDENT_PRIMARY_REVIEWS"
+}

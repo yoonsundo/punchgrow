@@ -1,0 +1,6 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema", "$id": "https://punchgrow.local/contracts/continuity-assignment-v2.schema.json",
+  "title": "G002-v2 continuity assignment", "type": "object", "additionalProperties": false,
+  "required": ["schemaVersion", "runId", "verdict", "effectiveAuthoritySha256", "reviewCoverageManifest", "assignments"],
+  "properties": { "schemaVersion": { "const": "continuity-assignment-v2" }, "runId": { "const": "g002-v2" }, "verdict": { "const": "FEASIBLE_WITH_REGENERATION" }, "effectiveAuthoritySha256": { "type": "string", "pattern": "^[a-f0-9]{64}$" }, "reviewCoverageManifest": { "$ref": "https://punchgrow.local/contracts/g003-review-coverage-v2.schema.json" }, "assignments": { "type": "array", "minItems": 240, "maxItems": 240 } }
+}

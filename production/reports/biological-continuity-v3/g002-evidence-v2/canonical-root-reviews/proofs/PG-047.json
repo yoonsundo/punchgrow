@@ -1,0 +1,767 @@
+{
+  "acceptedAt": "2026-08-10T22:21:37.859Z",
+  "candidate": {
+    "master": {
+      "bytes": 1927530,
+      "height": 1254,
+      "sha256": "ac83871f515f8f86cad1e4aad4e04e2c2f68dbf48dfe1c23a174360c7f78708d",
+      "width": 1254
+    },
+    "runtime": {
+      "bytes": 190883,
+      "height": 360,
+      "sha256": "739ba658d647ef33585115bd181fab5335b45a9ec648738cfdc431d4c31a6501",
+      "width": 360
+    }
+  },
+  "inputAllowlist": {
+    "files": [
+      {
+        "bytes": 1927530,
+        "height": 1254,
+        "path": "inputs/master.png",
+        "sha256": "ac83871f515f8f86cad1e4aad4e04e2c2f68dbf48dfe1c23a174360c7f78708d",
+        "width": 1254
+      },
+      {
+        "bytes": 190883,
+        "height": 360,
+        "path": "inputs/runtime.png",
+        "sha256": "739ba658d647ef33585115bd181fab5335b45a9ec648738cfdc431d4c31a6501",
+        "width": 360
+      }
+    ],
+    "schemaVersion": "g002-v2-canonical-review-allowlist-v1"
+  },
+  "inputAllowlistSha256": "541a847afbd95ada73ef0f1a81ae93527704f34b72ca1a21e90a5e527fad9389",
+  "materialBinding": {
+    "allowlistSha256": "541a847afbd95ada73ef0f1a81ae93527704f34b72ca1a21e90a5e527fad9389",
+    "candidate": {
+      "master": {
+        "bytes": 1927530,
+        "height": 1254,
+        "sha256": "ac83871f515f8f86cad1e4aad4e04e2c2f68dbf48dfe1c23a174360c7f78708d",
+        "width": 1254
+      },
+      "runtime": {
+        "bytes": 190883,
+        "height": 360,
+        "sha256": "739ba658d647ef33585115bd181fab5335b45a9ec648738cfdc431d4c31a6501",
+        "width": 360
+      }
+    },
+    "conductorHmacSha256": "205679ca24a6568c1a37f89590723a6ee453c6e83343a252f1efdc9e7ae0ef27",
+    "opaqueTargetId": "target-9b034b1568de758a3982cdaa",
+    "outputSha256": "f47533fa6ab5eb9b765958c795971179b3f6860b48e2fcffbe3fcefd9dc19480",
+    "packageManifestSha256": "129c900f86a28d45e2e70eceee4b392aa6de2475e40c030a9fcdaa0ee42f5fc6",
+    "promptSha256": "0ffa13fe7e43a2d0b203fd5f97f8249d98725ceefdfeabc4c4d5c2d127a23297",
+    "rootId": "PG-047",
+    "schemaVersion": "g002-v2-canonical-private-binding-v1",
+    "sourcePaths": {
+      "master": "assets/creatures/biological-continuity-v3/candidates/g003-w0-pg047-r3/PG-047/master.png",
+      "runtime": "assets/creatures/biological-continuity-v3/candidates/g003-w0-pg047-r3/PG-047/runtime.png"
+    },
+    "targetSha256": "9a655847ac4b201259bc47f9f120edeb8c68be87b4bd542ac2bb4322f827bb67"
+  },
+  "materialBindingSha256": "f47533fa6ab5eb9b765958c795971179b3f6860b48e2fcffbe3fcefd9dc19480",
+  "opaqueTargetId": "target-9b034b1568de758a3982cdaa",
+  "outputSha256": "c70accfa78ebe8214d0d5538a2f002c3dcc42467c77150101a4f60083aa40a9b",
+  "packageManifest": {
+    "candidate": {
+      "master": {
+        "bytes": 1927530,
+        "height": 1254,
+        "sha256": "ac83871f515f8f86cad1e4aad4e04e2c2f68dbf48dfe1c23a174360c7f78708d",
+        "width": 1254
+      },
+      "runtime": {
+        "bytes": 190883,
+        "height": 360,
+        "sha256": "739ba658d647ef33585115bd181fab5335b45a9ec648738cfdc431d4c31a6501",
+        "width": 360
+      }
+    },
+    "opaqueTargetId": "target-9b034b1568de758a3982cdaa",
+    "schemaVersion": "g002-v2-canonical-review-package-v1",
+    "target": {
+      "anchors": [
+        {
+          "anchorId": "four-separate-walking-leg-pairs",
+          "description": "Exactly four separately traceable pairs of walking legs ending in eight distinct feet"
+        },
+        {
+          "anchorId": "separate-pincer-pedipalp-pair",
+          "description": "One separate paired set of large forward pincer pedipalps, not counted as legs"
+        },
+        {
+          "anchorId": "burgundy-armor-cyan-striped-tail-and-bulb-stinger",
+          "description": "Burgundy segmented armor and pincers with gold joints, feet, and inner pincer blades/trim, plus a cyan dorsal stripe continuing along the arched tail to one cyan bulb stinger"
+        }
+      ],
+      "canonicalTarget": {
+        "biologicalClass": "arachnida",
+        "coreAnatomy": "eight-walking-legged-chelicerate-with-pedipalps",
+        "locomotionPlan": "terrestrial-octopedal",
+        "speciesFamily": "scorpionidae"
+      },
+      "clarificationRequirements": [
+        "Each of eight walking legs must remain readable from body attachment to gold foot on both surfaces",
+        "The two burgundy pincers with gold inner blades/trim are additional pedipalps and must not replace or merge with any walking leg",
+        "Preserve burgundy segmented armor and pincers, gold joints/feet/pincer trim, cyan dorsal stripe, and the single cyan bulb stinger in their original relative placement",
+        "Reject altered armor color, missing cyan stripe, non-bulb stinger, extra pincers, extra stingers, or shifted color roles"
+      ],
+      "currentPixelAssessment": "DISPUTED_OR_AMBIGUOUS"
+    },
+    "visibleAppendageRequirements": {
+      "pincers": 2,
+      "stingers": 1,
+      "tails": 1,
+      "walkingLegs": 8
+    }
+  },
+  "packageManifestSha256": "129c900f86a28d45e2e70eceee4b392aa6de2475e40c030a9fcdaa0ee42f5fc6",
+  "passes": [
+    {
+      "assignment": {
+        "agentTaskId": "/root/g002_v2_blind_pass1",
+        "assignedAt": "2026-08-10T22:18:04.000Z",
+        "assignmentId": "assignment-b1e28601ddb978170dcc2d43",
+        "conductorHmacSha256": "7ba0aeff07739d1877f5951deadae53bb43c6abca729e5463333140201ed31b2",
+        "inputAllowlistSha256": "541a847afbd95ada73ef0f1a81ae93527704f34b72ca1a21e90a5e527fad9389",
+        "inputAssetSha256s": [
+          "ac83871f515f8f86cad1e4aad4e04e2c2f68dbf48dfe1c23a174360c7f78708d",
+          "739ba658d647ef33585115bd181fab5335b45a9ec648738cfdc431d4c31a6501"
+        ],
+        "materialBindingSha256": "f47533fa6ab5eb9b765958c795971179b3f6860b48e2fcffbe3fcefd9dc19480",
+        "opaqueTargetId": "target-9b034b1568de758a3982cdaa",
+        "outputSha256": "3f3b8c76dbbd2cc03916338a9893ff38e77a2eb81cb00cb0f7dc53ee35922072",
+        "packageManifestSha256": "129c900f86a28d45e2e70eceee4b392aa6de2475e40c030a9fcdaa0ee42f5fc6",
+        "passNumber": 1,
+        "promptSha256": "0ffa13fe7e43a2d0b203fd5f97f8249d98725ceefdfeabc4c4d5c2d127a23297",
+        "reviewRunId": "g002-v2-canonical-pass-1-20260810",
+        "reviewerInstanceId": "blind-primary-reviewer-1-20260810",
+        "schemaVersion": "g002-v2-canonical-review-assignment-v1"
+      },
+      "raw": {
+        "agentTaskId": "/root/g002_v2_blind_pass1",
+        "assignmentId": "assignment-b1e28601ddb978170dcc2d43",
+        "confidence": 0.98,
+        "observedAt": "2026-08-10T22:19:29.000Z",
+        "passNumber": 1,
+        "reviewRunId": "g002-v2-canonical-pass-1-20260810",
+        "reviewerInstanceId": "blind-primary-reviewer-1-20260810",
+        "surfaces": [
+          {
+            "ambiguity": false,
+            "anchors": [
+              {
+                "anchorId": "four-separate-walking-leg-pairs",
+                "evidence": "Four burgundy jointed legs per side are separately traceable to eight isolated gold feet.",
+                "visible": true
+              },
+              {
+                "anchorId": "separate-pincer-pedipalp-pair",
+                "evidence": "Two large forward burgundy claws with gold inner blades sit separately ahead of the walking legs.",
+                "visible": true
+              },
+              {
+                "anchorId": "burgundy-armor-cyan-striped-tail-and-bulb-stinger",
+                "evidence": "Burgundy segmented armor with gold joints surrounds a cyan dorsal stripe that continues toward one cyan bulb at the arched tail tip.",
+                "visible": true
+              }
+            ],
+            "clarifications": [
+              {
+                "evidence": "Eight lateral legs have separate body roots, segmented paths, and gold terminal feet.",
+                "passed": true,
+                "requirement": "Each of eight walking legs must remain readable from body attachment to gold foot on both surfaces"
+              },
+              {
+                "evidence": "The paired foreground claws are detached in silhouette from the four leg rows on each side.",
+                "passed": true,
+                "requirement": "The two burgundy pincers with gold inner blades/trim are additional pedipalps and must not replace or merge with any walking leg"
+              },
+              {
+                "evidence": "All stated burgundy, gold, and cyan structures are directly visible in a consistent front-body-to-raised-tail arrangement.",
+                "passed": true,
+                "requirement": "Preserve burgundy segmented armor and pincers, gold joints/feet/pincer trim, cyan dorsal stripe, and the single cyan bulb stinger in their original relative placement"
+              },
+              {
+                "evidence": "The armor is burgundy, the stripe cyan, and exactly two pincers plus one bulb stinger are visible with no extras.",
+                "passed": true,
+                "requirement": "Reject altered armor color, missing cyan stripe, non-bulb stinger, extra pincers, extra stingers, or shifted color roles"
+              }
+            ],
+            "confidence": 0.99,
+            "inputSha256": "ac83871f515f8f86cad1e4aad4e04e2c2f68dbf48dfe1c23a174360c7f78708d",
+            "surface": "master",
+            "taxonomy": {
+              "biologicalClass": "arachnida",
+              "coreAnatomy": "eight-walking-legged-chelicerate-with-pedipalps",
+              "locomotionPlan": "terrestrial-octopedal",
+              "speciesFamily": "scorpionidae"
+            },
+            "visibleAppendageCounts": {
+              "pincers": 2,
+              "stingers": 1,
+              "tails": 1,
+              "walkingLegs": 8
+            }
+          },
+          {
+            "ambiguity": false,
+            "anchors": [
+              {
+                "anchorId": "four-separate-walking-leg-pairs",
+                "evidence": "Eight gold-footed legs remain separately outlined as four per side.",
+                "visible": true
+              },
+              {
+                "anchorId": "separate-pincer-pedipalp-pair",
+                "evidence": "Two oversized front pincers remain visibly separate from every walking leg.",
+                "visible": true
+              },
+              {
+                "anchorId": "burgundy-armor-cyan-striped-tail-and-bulb-stinger",
+                "evidence": "Burgundy plates, gold joints, central cyan stripe, arched tail, and one glowing cyan bulb remain plainly visible.",
+                "visible": true
+              }
+            ],
+            "clarifications": [
+              {
+                "evidence": "Each of eight lateral appendages has a continuous segmented route from body edge to its own gold foot.",
+                "passed": true,
+                "requirement": "Each of eight walking legs must remain readable from body attachment to gold foot on both surfaces"
+              },
+              {
+                "evidence": "The two broad foreground claws and eight narrow side legs form distinct non-merging silhouettes.",
+                "passed": true,
+                "requirement": "The two burgundy pincers with gold inner blades/trim are additional pedipalps and must not replace or merge with any walking leg"
+              },
+              {
+                "evidence": "The color-coded armor, joints, claws, stripe, and terminal bulb remain spatially distinct at reduced size.",
+                "passed": true,
+                "requirement": "Preserve burgundy segmented armor and pincers, gold joints/feet/pincer trim, cyan dorsal stripe, and the single cyan bulb stinger in their original relative placement"
+              },
+              {
+                "evidence": "No additional pincer or stinger appears and all anchor colors occupy the stated structures.",
+                "passed": true,
+                "requirement": "Reject altered armor color, missing cyan stripe, non-bulb stinger, extra pincers, extra stingers, or shifted color roles"
+              }
+            ],
+            "confidence": 0.98,
+            "inputSha256": "739ba658d647ef33585115bd181fab5335b45a9ec648738cfdc431d4c31a6501",
+            "surface": "runtime",
+            "taxonomy": {
+              "biologicalClass": "arachnida",
+              "coreAnatomy": "eight-walking-legged-chelicerate-with-pedipalps",
+              "locomotionPlan": "terrestrial-octopedal",
+              "speciesFamily": "scorpionidae"
+            },
+            "visibleAppendageCounts": {
+              "pincers": 2,
+              "stingers": 1,
+              "tails": 1,
+              "walkingLegs": 8
+            }
+          }
+        ]
+      },
+      "run": {
+        "agentTaskId": "/root/g002_v2_blind_pass1",
+        "assignmentFileSha256": "f7634b8bba4c0fe9718057621ef7082a88027b53038d0e98076e790cbaaa5dec",
+        "assignmentId": "assignment-b1e28601ddb978170dcc2d43",
+        "conductorHmacSha256": "1eb0050a0677d48a41c6cb4a68940fe9afe20a34c934a381adb6e1c77a037740",
+        "createdAt": "2026-08-10T22:19:29.000Z",
+        "opaqueTargetId": "target-9b034b1568de758a3982cdaa",
+        "outputSha256": "850956f0f66bdab30e8d28a848ff4024b2a7fb002e72c4dd5ef1227abb369670",
+        "passNumber": 1,
+        "rawSha256": "6b0ed6f780278fa0030c9a9ee30edae3595649533bb645918c93de953f00660b",
+        "reviewRunId": "g002-v2-canonical-pass-1-20260810",
+        "reviewerInstanceId": "blind-primary-reviewer-1-20260810",
+        "schemaVersion": "g002-v2-canonical-review-run-v1"
+      },
+      "vote": {
+        "agentTaskId": "/root/g002_v2_blind_pass1",
+        "assignmentFileSha256": "f7634b8bba4c0fe9718057621ef7082a88027b53038d0e98076e790cbaaa5dec",
+        "assignmentId": "assignment-b1e28601ddb978170dcc2d43",
+        "conductorHmacSha256": "126164257fef339f94bcc6a33ea0d2032503a2c0fd391f4751e5dd1541ccf007",
+        "confidence": 0.98,
+        "inputAllowlistSha256": "541a847afbd95ada73ef0f1a81ae93527704f34b72ca1a21e90a5e527fad9389",
+        "inputAssetSha256s": [
+          "ac83871f515f8f86cad1e4aad4e04e2c2f68dbf48dfe1c23a174360c7f78708d",
+          "739ba658d647ef33585115bd181fab5335b45a9ec648738cfdc431d4c31a6501"
+        ],
+        "materialBindingSha256": "f47533fa6ab5eb9b765958c795971179b3f6860b48e2fcffbe3fcefd9dc19480",
+        "observation": [
+          {
+            "ambiguity": false,
+            "anchors": [
+              {
+                "anchorId": "four-separate-walking-leg-pairs",
+                "evidence": "Four burgundy jointed legs per side are separately traceable to eight isolated gold feet.",
+                "visible": true
+              },
+              {
+                "anchorId": "separate-pincer-pedipalp-pair",
+                "evidence": "Two large forward burgundy claws with gold inner blades sit separately ahead of the walking legs.",
+                "visible": true
+              },
+              {
+                "anchorId": "burgundy-armor-cyan-striped-tail-and-bulb-stinger",
+                "evidence": "Burgundy segmented armor with gold joints surrounds a cyan dorsal stripe that continues toward one cyan bulb at the arched tail tip.",
+                "visible": true
+              }
+            ],
+            "clarifications": [
+              {
+                "evidence": "Eight lateral legs have separate body roots, segmented paths, and gold terminal feet.",
+                "passed": true,
+                "requirement": "Each of eight walking legs must remain readable from body attachment to gold foot on both surfaces"
+              },
+              {
+                "evidence": "The paired foreground claws are detached in silhouette from the four leg rows on each side.",
+                "passed": true,
+                "requirement": "The two burgundy pincers with gold inner blades/trim are additional pedipalps and must not replace or merge with any walking leg"
+              },
+              {
+                "evidence": "All stated burgundy, gold, and cyan structures are directly visible in a consistent front-body-to-raised-tail arrangement.",
+                "passed": true,
+                "requirement": "Preserve burgundy segmented armor and pincers, gold joints/feet/pincer trim, cyan dorsal stripe, and the single cyan bulb stinger in their original relative placement"
+              },
+              {
+                "evidence": "The armor is burgundy, the stripe cyan, and exactly two pincers plus one bulb stinger are visible with no extras.",
+                "passed": true,
+                "requirement": "Reject altered armor color, missing cyan stripe, non-bulb stinger, extra pincers, extra stingers, or shifted color roles"
+              }
+            ],
+            "confidence": 0.99,
+            "inputSha256": "ac83871f515f8f86cad1e4aad4e04e2c2f68dbf48dfe1c23a174360c7f78708d",
+            "surface": "master",
+            "taxonomy": {
+              "biologicalClass": "arachnida",
+              "coreAnatomy": "eight-walking-legged-chelicerate-with-pedipalps",
+              "locomotionPlan": "terrestrial-octopedal",
+              "speciesFamily": "scorpionidae"
+            },
+            "visibleAppendageCounts": {
+              "pincers": 2,
+              "stingers": 1,
+              "tails": 1,
+              "walkingLegs": 8
+            }
+          },
+          {
+            "ambiguity": false,
+            "anchors": [
+              {
+                "anchorId": "four-separate-walking-leg-pairs",
+                "evidence": "Eight gold-footed legs remain separately outlined as four per side.",
+                "visible": true
+              },
+              {
+                "anchorId": "separate-pincer-pedipalp-pair",
+                "evidence": "Two oversized front pincers remain visibly separate from every walking leg.",
+                "visible": true
+              },
+              {
+                "anchorId": "burgundy-armor-cyan-striped-tail-and-bulb-stinger",
+                "evidence": "Burgundy plates, gold joints, central cyan stripe, arched tail, and one glowing cyan bulb remain plainly visible.",
+                "visible": true
+              }
+            ],
+            "clarifications": [
+              {
+                "evidence": "Each of eight lateral appendages has a continuous segmented route from body edge to its own gold foot.",
+                "passed": true,
+                "requirement": "Each of eight walking legs must remain readable from body attachment to gold foot on both surfaces"
+              },
+              {
+                "evidence": "The two broad foreground claws and eight narrow side legs form distinct non-merging silhouettes.",
+                "passed": true,
+                "requirement": "The two burgundy pincers with gold inner blades/trim are additional pedipalps and must not replace or merge with any walking leg"
+              },
+              {
+                "evidence": "The color-coded armor, joints, claws, stripe, and terminal bulb remain spatially distinct at reduced size.",
+                "passed": true,
+                "requirement": "Preserve burgundy segmented armor and pincers, gold joints/feet/pincer trim, cyan dorsal stripe, and the single cyan bulb stinger in their original relative placement"
+              },
+              {
+                "evidence": "No additional pincer or stinger appears and all anchor colors occupy the stated structures.",
+                "passed": true,
+                "requirement": "Reject altered armor color, missing cyan stripe, non-bulb stinger, extra pincers, extra stingers, or shifted color roles"
+              }
+            ],
+            "confidence": 0.98,
+            "inputSha256": "739ba658d647ef33585115bd181fab5335b45a9ec648738cfdc431d4c31a6501",
+            "surface": "runtime",
+            "taxonomy": {
+              "biologicalClass": "arachnida",
+              "coreAnatomy": "eight-walking-legged-chelicerate-with-pedipalps",
+              "locomotionPlan": "terrestrial-octopedal",
+              "speciesFamily": "scorpionidae"
+            },
+            "visibleAppendageCounts": {
+              "pincers": 2,
+              "stingers": 1,
+              "tails": 1,
+              "walkingLegs": 8
+            }
+          }
+        ],
+        "opaqueTargetId": "target-9b034b1568de758a3982cdaa",
+        "outputSha256": "1763b5a852448b032d1ab27199f3a8a0389cb2c165bf2dddafdfb2a566a7c115",
+        "packageManifestSha256": "129c900f86a28d45e2e70eceee4b392aa6de2475e40c030a9fcdaa0ee42f5fc6",
+        "passNumber": 1,
+        "promptSha256": "0ffa13fe7e43a2d0b203fd5f97f8249d98725ceefdfeabc4c4d5c2d127a23297",
+        "rawSha256": "6b0ed6f780278fa0030c9a9ee30edae3595649533bb645918c93de953f00660b",
+        "reviewRunId": "g002-v2-canonical-pass-1-20260810",
+        "reviewerInstanceId": "blind-primary-reviewer-1-20260810",
+        "runOutputSha256": "850956f0f66bdab30e8d28a848ff4024b2a7fb002e72c4dd5ef1227abb369670",
+        "schemaVersion": "g002-v2-canonical-review-vote-v1",
+        "voteId": "vote-0dd8ee573542a517902a5632"
+      }
+    },
+    {
+      "assignment": {
+        "agentTaskId": "/root/g002_v2_blind_pass2",
+        "assignedAt": "2026-08-10T22:18:04.000Z",
+        "assignmentId": "assignment-4b07e62d7d18b22883a7a179",
+        "conductorHmacSha256": "35d7a5addd7e2e9537bffa722d0d60fbe3b0b40582e8be9de2430bde9161168b",
+        "inputAllowlistSha256": "541a847afbd95ada73ef0f1a81ae93527704f34b72ca1a21e90a5e527fad9389",
+        "inputAssetSha256s": [
+          "ac83871f515f8f86cad1e4aad4e04e2c2f68dbf48dfe1c23a174360c7f78708d",
+          "739ba658d647ef33585115bd181fab5335b45a9ec648738cfdc431d4c31a6501"
+        ],
+        "materialBindingSha256": "f47533fa6ab5eb9b765958c795971179b3f6860b48e2fcffbe3fcefd9dc19480",
+        "opaqueTargetId": "target-9b034b1568de758a3982cdaa",
+        "outputSha256": "ecfb7ac036884a283e4d87884ee977b320decc43f4265e8678a89cc7dd8e640d",
+        "packageManifestSha256": "129c900f86a28d45e2e70eceee4b392aa6de2475e40c030a9fcdaa0ee42f5fc6",
+        "passNumber": 2,
+        "promptSha256": "0ffa13fe7e43a2d0b203fd5f97f8249d98725ceefdfeabc4c4d5c2d127a23297",
+        "reviewRunId": "g002-v2-canonical-pass-2-20260810",
+        "reviewerInstanceId": "blind-primary-reviewer-2-20260810",
+        "schemaVersion": "g002-v2-canonical-review-assignment-v1"
+      },
+      "raw": {
+        "agentTaskId": "/root/g002_v2_blind_pass2",
+        "assignmentId": "assignment-4b07e62d7d18b22883a7a179",
+        "confidence": 0.98,
+        "observedAt": "2026-08-10T22:19:37.000Z",
+        "passNumber": 2,
+        "reviewRunId": "g002-v2-canonical-pass-2-20260810",
+        "reviewerInstanceId": "blind-primary-reviewer-2-20260810",
+        "surfaces": [
+          {
+            "ambiguity": false,
+            "anchors": [
+              {
+                "anchorId": "four-separate-walking-leg-pairs",
+                "evidence": "Four burgundy leg pairs are individually traceable to eight separate gold feet.",
+                "visible": true
+              },
+              {
+                "anchorId": "separate-pincer-pedipalp-pair",
+                "evidence": "Two large forward pincers form a separate symmetric pair below the walking legs.",
+                "visible": true
+              },
+              {
+                "anchorId": "burgundy-armor-cyan-striped-tail-and-bulb-stinger",
+                "evidence": "Burgundy armor and pincers carry gold joints and blades, while a cyan dorsal stripe leads along the arched tail to one cyan bulb.",
+                "visible": true
+              }
+            ],
+            "clarifications": [
+              {
+                "evidence": "Every one of the eight side limbs has a visible body junction, segmented burgundy shaft, and isolated gold foot.",
+                "passed": true,
+                "requirement": "Each of eight walking legs must remain readable from body attachment to gold foot on both surfaces"
+              },
+              {
+                "evidence": "Both broad forward pincers sit below and apart from the four narrower walking-leg pairs.",
+                "passed": true,
+                "requirement": "The two burgundy pincers with gold inner blades/trim are additional pedipalps and must not replace or merge with any walking leg"
+              },
+              {
+                "evidence": "The stated burgundy, gold, and cyan features are directly visible from the front pincers through the dorsal body and arched tail.",
+                "passed": true,
+                "requirement": "Preserve burgundy segmented armor and pincers, gold joints/feet/pincer trim, cyan dorsal stripe, and the single cyan bulb stinger in their original relative placement"
+              },
+              {
+                "evidence": "Armor remains burgundy, the stripe remains cyan, and exactly two pincers and one bulb-shaped cyan stinger are visible.",
+                "passed": true,
+                "requirement": "Reject altered armor color, missing cyan stripe, non-bulb stinger, extra pincers, extra stingers, or shifted color roles"
+              }
+            ],
+            "confidence": 0.99,
+            "inputSha256": "ac83871f515f8f86cad1e4aad4e04e2c2f68dbf48dfe1c23a174360c7f78708d",
+            "surface": "master",
+            "taxonomy": {
+              "biologicalClass": "arachnida",
+              "coreAnatomy": "eight-walking-legged-chelicerate-with-pedipalps",
+              "locomotionPlan": "terrestrial-octopedal",
+              "speciesFamily": "scorpionidae"
+            },
+            "visibleAppendageCounts": {
+              "pincers": 2,
+              "stingers": 1,
+              "tails": 1,
+              "walkingLegs": 8
+            }
+          },
+          {
+            "ambiguity": false,
+            "anchors": [
+              {
+                "anchorId": "four-separate-walking-leg-pairs",
+                "evidence": "Eight narrow legs remain separable into four pairs, each ending in its own gold foot.",
+                "visible": true
+              },
+              {
+                "anchorId": "separate-pincer-pedipalp-pair",
+                "evidence": "Two oversized front pincers remain isolated from all eight walking legs.",
+                "visible": true
+              },
+              {
+                "anchorId": "burgundy-armor-cyan-striped-tail-and-bulb-stinger",
+                "evidence": "Burgundy segments, gold joints and pincer blades, the cyan stripe, and one cyan tail bulb remain clear.",
+                "visible": true
+              }
+            ],
+            "clarifications": [
+              {
+                "evidence": "All eight limbs retain continuous distinct contours between body and gold terminal foot.",
+                "passed": true,
+                "requirement": "Each of eight walking legs must remain readable from body attachment to gold foot on both surfaces"
+              },
+              {
+                "evidence": "The two broad claws are visibly anterior and detached in silhouette from the eight side legs.",
+                "passed": true,
+                "requirement": "The two burgundy pincers with gold inner blades/trim are additional pedipalps and must not replace or merge with any walking leg"
+              },
+              {
+                "evidence": "All required colors and structures remain readable in the reduced rendering.",
+                "passed": true,
+                "requirement": "Preserve burgundy segmented armor and pincers, gold joints/feet/pincer trim, cyan dorsal stripe, and the single cyan bulb stinger in their original relative placement"
+              },
+              {
+                "evidence": "Only two pincers, one arched tail, and one rounded cyan stinger are visible with unchanged color roles.",
+                "passed": true,
+                "requirement": "Reject altered armor color, missing cyan stripe, non-bulb stinger, extra pincers, extra stingers, or shifted color roles"
+              }
+            ],
+            "confidence": 0.98,
+            "inputSha256": "739ba658d647ef33585115bd181fab5335b45a9ec648738cfdc431d4c31a6501",
+            "surface": "runtime",
+            "taxonomy": {
+              "biologicalClass": "arachnida",
+              "coreAnatomy": "eight-walking-legged-chelicerate-with-pedipalps",
+              "locomotionPlan": "terrestrial-octopedal",
+              "speciesFamily": "scorpionidae"
+            },
+            "visibleAppendageCounts": {
+              "pincers": 2,
+              "stingers": 1,
+              "tails": 1,
+              "walkingLegs": 8
+            }
+          }
+        ]
+      },
+      "run": {
+        "agentTaskId": "/root/g002_v2_blind_pass2",
+        "assignmentFileSha256": "03b18b7fc83775ac84e3c215881aa381280eb187c89baf1295258af8b32b92b9",
+        "assignmentId": "assignment-4b07e62d7d18b22883a7a179",
+        "conductorHmacSha256": "e65b3705a028988b0abdb02a7a8b7c39e4a1b7909bef49c0eaff3b6f214b381c",
+        "createdAt": "2026-08-10T22:19:37.000Z",
+        "opaqueTargetId": "target-9b034b1568de758a3982cdaa",
+        "outputSha256": "665d11161d2f92c31599cdbe38dc6946f4dd2b1820ec8451eb3b652f190319dc",
+        "passNumber": 2,
+        "rawSha256": "a1ebe161bab917ebd48ce6d6b6e6402fae25abcb4174f4327748f642b200f69a",
+        "reviewRunId": "g002-v2-canonical-pass-2-20260810",
+        "reviewerInstanceId": "blind-primary-reviewer-2-20260810",
+        "schemaVersion": "g002-v2-canonical-review-run-v1"
+      },
+      "vote": {
+        "agentTaskId": "/root/g002_v2_blind_pass2",
+        "assignmentFileSha256": "03b18b7fc83775ac84e3c215881aa381280eb187c89baf1295258af8b32b92b9",
+        "assignmentId": "assignment-4b07e62d7d18b22883a7a179",
+        "conductorHmacSha256": "cd3070dca194437b25aa2bef2e1311025386a6368ee490e63ae5972f4b159acd",
+        "confidence": 0.98,
+        "inputAllowlistSha256": "541a847afbd95ada73ef0f1a81ae93527704f34b72ca1a21e90a5e527fad9389",
+        "inputAssetSha256s": [
+          "ac83871f515f8f86cad1e4aad4e04e2c2f68dbf48dfe1c23a174360c7f78708d",
+          "739ba658d647ef33585115bd181fab5335b45a9ec648738cfdc431d4c31a6501"
+        ],
+        "materialBindingSha256": "f47533fa6ab5eb9b765958c795971179b3f6860b48e2fcffbe3fcefd9dc19480",
+        "observation": [
+          {
+            "ambiguity": false,
+            "anchors": [
+              {
+                "anchorId": "four-separate-walking-leg-pairs",
+                "evidence": "Four burgundy leg pairs are individually traceable to eight separate gold feet.",
+                "visible": true
+              },
+              {
+                "anchorId": "separate-pincer-pedipalp-pair",
+                "evidence": "Two large forward pincers form a separate symmetric pair below the walking legs.",
+                "visible": true
+              },
+              {
+                "anchorId": "burgundy-armor-cyan-striped-tail-and-bulb-stinger",
+                "evidence": "Burgundy armor and pincers carry gold joints and blades, while a cyan dorsal stripe leads along the arched tail to one cyan bulb.",
+                "visible": true
+              }
+            ],
+            "clarifications": [
+              {
+                "evidence": "Every one of the eight side limbs has a visible body junction, segmented burgundy shaft, and isolated gold foot.",
+                "passed": true,
+                "requirement": "Each of eight walking legs must remain readable from body attachment to gold foot on both surfaces"
+              },
+              {
+                "evidence": "Both broad forward pincers sit below and apart from the four narrower walking-leg pairs.",
+                "passed": true,
+                "requirement": "The two burgundy pincers with gold inner blades/trim are additional pedipalps and must not replace or merge with any walking leg"
+              },
+              {
+                "evidence": "The stated burgundy, gold, and cyan features are directly visible from the front pincers through the dorsal body and arched tail.",
+                "passed": true,
+                "requirement": "Preserve burgundy segmented armor and pincers, gold joints/feet/pincer trim, cyan dorsal stripe, and the single cyan bulb stinger in their original relative placement"
+              },
+              {
+                "evidence": "Armor remains burgundy, the stripe remains cyan, and exactly two pincers and one bulb-shaped cyan stinger are visible.",
+                "passed": true,
+                "requirement": "Reject altered armor color, missing cyan stripe, non-bulb stinger, extra pincers, extra stingers, or shifted color roles"
+              }
+            ],
+            "confidence": 0.99,
+            "inputSha256": "ac83871f515f8f86cad1e4aad4e04e2c2f68dbf48dfe1c23a174360c7f78708d",
+            "surface": "master",
+            "taxonomy": {
+              "biologicalClass": "arachnida",
+              "coreAnatomy": "eight-walking-legged-chelicerate-with-pedipalps",
+              "locomotionPlan": "terrestrial-octopedal",
+              "speciesFamily": "scorpionidae"
+            },
+            "visibleAppendageCounts": {
+              "pincers": 2,
+              "stingers": 1,
+              "tails": 1,
+              "walkingLegs": 8
+            }
+          },
+          {
+            "ambiguity": false,
+            "anchors": [
+              {
+                "anchorId": "four-separate-walking-leg-pairs",
+                "evidence": "Eight narrow legs remain separable into four pairs, each ending in its own gold foot.",
+                "visible": true
+              },
+              {
+                "anchorId": "separate-pincer-pedipalp-pair",
+                "evidence": "Two oversized front pincers remain isolated from all eight walking legs.",
+                "visible": true
+              },
+              {
+                "anchorId": "burgundy-armor-cyan-striped-tail-and-bulb-stinger",
+                "evidence": "Burgundy segments, gold joints and pincer blades, the cyan stripe, and one cyan tail bulb remain clear.",
+                "visible": true
+              }
+            ],
+            "clarifications": [
+              {
+                "evidence": "All eight limbs retain continuous distinct contours between body and gold terminal foot.",
+                "passed": true,
+                "requirement": "Each of eight walking legs must remain readable from body attachment to gold foot on both surfaces"
+              },
+              {
+                "evidence": "The two broad claws are visibly anterior and detached in silhouette from the eight side legs.",
+                "passed": true,
+                "requirement": "The two burgundy pincers with gold inner blades/trim are additional pedipalps and must not replace or merge with any walking leg"
+              },
+              {
+                "evidence": "All required colors and structures remain readable in the reduced rendering.",
+                "passed": true,
+                "requirement": "Preserve burgundy segmented armor and pincers, gold joints/feet/pincer trim, cyan dorsal stripe, and the single cyan bulb stinger in their original relative placement"
+              },
+              {
+                "evidence": "Only two pincers, one arched tail, and one rounded cyan stinger are visible with unchanged color roles.",
+                "passed": true,
+                "requirement": "Reject altered armor color, missing cyan stripe, non-bulb stinger, extra pincers, extra stingers, or shifted color roles"
+              }
+            ],
+            "confidence": 0.98,
+            "inputSha256": "739ba658d647ef33585115bd181fab5335b45a9ec648738cfdc431d4c31a6501",
+            "surface": "runtime",
+            "taxonomy": {
+              "biologicalClass": "arachnida",
+              "coreAnatomy": "eight-walking-legged-chelicerate-with-pedipalps",
+              "locomotionPlan": "terrestrial-octopedal",
+              "speciesFamily": "scorpionidae"
+            },
+            "visibleAppendageCounts": {
+              "pincers": 2,
+              "stingers": 1,
+              "tails": 1,
+              "walkingLegs": 8
+            }
+          }
+        ],
+        "opaqueTargetId": "target-9b034b1568de758a3982cdaa",
+        "outputSha256": "da56f08ce72999d9d9c72d8f1e6363652cd69e3530f17e538bbb8fbe5b4d02a6",
+        "packageManifestSha256": "129c900f86a28d45e2e70eceee4b392aa6de2475e40c030a9fcdaa0ee42f5fc6",
+        "passNumber": 2,
+        "promptSha256": "0ffa13fe7e43a2d0b203fd5f97f8249d98725ceefdfeabc4c4d5c2d127a23297",
+        "rawSha256": "a1ebe161bab917ebd48ce6d6b6e6402fae25abcb4174f4327748f642b200f69a",
+        "reviewRunId": "g002-v2-canonical-pass-2-20260810",
+        "reviewerInstanceId": "blind-primary-reviewer-2-20260810",
+        "runOutputSha256": "665d11161d2f92c31599cdbe38dc6946f4dd2b1820ec8451eb3b652f190319dc",
+        "schemaVersion": "g002-v2-canonical-review-vote-v1",
+        "voteId": "vote-b90bca6e8b00c6cd4fb62c55"
+      }
+    }
+  ],
+  "prompt": "PunchGrow blinded G002-v2 canonical replacement review.\nJudge only the two supplied candidate surfaces. Root ID, names, lineage, prior verdicts, and historical pixels are forbidden evidence.\nExact four-field taxonomy: {\n  \"biologicalClass\": \"arachnida\",\n  \"coreAnatomy\": \"eight-walking-legged-chelicerate-with-pedipalps\",\n  \"locomotionPlan\": \"terrestrial-octopedal\",\n  \"speciesFamily\": \"scorpionidae\"\n}\nExact three identity anchors: [\n  {\n    \"anchorId\": \"four-separate-walking-leg-pairs\",\n    \"description\": \"Exactly four separately traceable pairs of walking legs ending in eight distinct feet\"\n  },\n  {\n    \"anchorId\": \"separate-pincer-pedipalp-pair\",\n    \"description\": \"One separate paired set of large forward pincer pedipalps, not counted as legs\"\n  },\n  {\n    \"anchorId\": \"burgundy-armor-cyan-striped-tail-and-bulb-stinger\",\n    \"description\": \"Burgundy segmented armor and pincers with gold joints, feet, and inner pincer blades/trim, plus a cyan dorsal stripe continuing along the arched tail to one cyan bulb stinger\"\n  }\n]\nExact visibility clarifications: [\n  \"Each of eight walking legs must remain readable from body attachment to gold foot on both surfaces\",\n  \"The two burgundy pincers with gold inner blades/trim are additional pedipalps and must not replace or merge with any walking leg\",\n  \"Preserve burgundy segmented armor and pincers, gold joints/feet/pincer trim, cyan dorsal stripe, and the single cyan bulb stinger in their original relative placement\",\n  \"Reject altered armor color, missing cyan stripe, non-bulb stinger, extra pincers, extra stingers, or shifted color roles\"\n]\nExact independently visible counts on BOTH surfaces: {\n  \"pincers\": 2,\n  \"stingers\": 1,\n  \"tails\": 1,\n  \"walkingLegs\": 8\n}\nFor master and runtime separately, record taxonomy, visible evidence for every anchor and clarification, exact counts, ambiguity=false, and confidence >=0.96. Hidden, merged, occluded, or double-readable structures are a failure.\n",
+  "promptSha256": "0ffa13fe7e43a2d0b203fd5f97f8249d98725ceefdfeabc4c4d5c2d127a23297",
+  "publicSignature": {
+    "algorithm": "Ed25519",
+    "authorityFingerprint": "423f474c59667e5eabc13a703b8d7de4e97bcba33cdc22340873866db9d6a53f",
+    "signatureBase64": "Af3ZTlacUouoSth6IrAJwW0/Pvz04icvAFrXo/QWIZAPTRmLXt2ER7Z6u+q/WVj0G563d9vYWChcBXJD0F1fAA=="
+  },
+  "rootId": "PG-047",
+  "schemaVersion": "g002-v2-canonical-public-review-proof-v1",
+  "target": {
+    "anchors": [
+      {
+        "anchorId": "four-separate-walking-leg-pairs",
+        "description": "Exactly four separately traceable pairs of walking legs ending in eight distinct feet"
+      },
+      {
+        "anchorId": "separate-pincer-pedipalp-pair",
+        "description": "One separate paired set of large forward pincer pedipalps, not counted as legs"
+      },
+      {
+        "anchorId": "burgundy-armor-cyan-striped-tail-and-bulb-stinger",
+        "description": "Burgundy segmented armor and pincers with gold joints, feet, and inner pincer blades/trim, plus a cyan dorsal stripe continuing along the arched tail to one cyan bulb stinger"
+      }
+    ],
+    "canonicalTarget": {
+      "biologicalClass": "arachnida",
+      "coreAnatomy": "eight-walking-legged-chelicerate-with-pedipalps",
+      "locomotionPlan": "terrestrial-octopedal",
+      "speciesFamily": "scorpionidae"
+    },
+    "clarificationRequirements": [
+      "Each of eight walking legs must remain readable from body attachment to gold foot on both surfaces",
+      "The two burgundy pincers with gold inner blades/trim are additional pedipalps and must not replace or merge with any walking leg",
+      "Preserve burgundy segmented armor and pincers, gold joints/feet/pincer trim, cyan dorsal stripe, and the single cyan bulb stinger in their original relative placement",
+      "Reject altered armor color, missing cyan stripe, non-bulb stinger, extra pincers, extra stingers, or shifted color roles"
+    ],
+    "currentPixelAssessment": "DISPUTED_OR_AMBIGUOUS",
+    "rootId": "PG-047"
+  },
+  "targetSha256": "9a655847ac4b201259bc47f9f120edeb8c68be87b4bd542ac2bb4322f827bb67"
+}

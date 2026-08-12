@@ -1,0 +1,119 @@
+{
+  "schemaVersion": "canonical-root-redesign-targets-v1",
+  "runId": "g002-v1",
+  "state": "APPROVED_FOR_REGENERATION_TARGETING",
+  "contractKind": "CANONICAL_REDESIGN_TARGETS_NOT_PIXEL_TAXONOMY_CONSENSUS",
+  "targetSource": "signed-canonical-root-redesign-contract",
+  "reviewerProvenanceIds": [
+    "/root/visual_census_batch_recorder",
+    "/root/release_version_review"
+  ],
+  "architectApprovalSource": "/root/release_version_review",
+  "visibilityPolicy": {
+    "surfaceRequirement": "master-and-runtime-independently-satisfy-canonical-tuple-and-all-three-anchors",
+    "appendageCountingRule": "count-visible-appendages-only",
+    "ambiguityRule": "hidden-merged-or-double-readable-is-block",
+    "preservationRule": "preserve-anchor-shape-relative-placement-and-color-role"
+  },
+  "targets": [
+    {
+      "rootId": "PG-016",
+      "currentPixelAssessment": "DISPUTED_OR_AMBIGUOUS",
+      "canonicalTarget": { "biologicalClass": "mammalia", "speciesFamily": "macropodidae", "coreAnatomy": "hindlimb-dominant-tetrapod", "locomotionPlan": "saltatorial-bipedal" },
+      "anchors": [
+        { "anchorId": "leaf-tipped-long-upright-ears", "description": "Long upright ears ending in leaf-shaped tips" },
+        { "anchorId": "oversized-clawed-hind-feet", "description": "Oversized clawed hind feet" },
+        { "anchorId": "thick-upward-curved-tail", "description": "Thick long tail curving upward" }
+      ],
+      "clarificationRequirements": ["Both small forelimbs and both enlarged hindlimbs must read as separate visible limbs", "Use a hop or launch pose", "Reject a generic humanoid standing pose"]
+    },
+    {
+      "rootId": "PG-021",
+      "currentPixelAssessment": "DISPUTED_OR_AMBIGUOUS",
+      "canonicalTarget": { "biologicalClass": "chondrichthyes", "speciesFamily": "mobulidae", "coreAnatomy": "pectoral-fin-disc", "locomotionPlan": "aquatic-pectoral-fin-swimming" },
+      "anchors": [
+        { "anchorId": "diamond-pectoral-disc", "description": "Broad flat diamond-shaped pectoral disc" },
+        { "anchorId": "paired-rolled-cephalic-lobes", "description": "Paired rolled cephalic lobes beside mouth" },
+        { "anchorId": "long-whip-tail-widened-tip", "description": "Very long whip tail with widened tip" }
+      ],
+      "clarificationRequirements": ["The fin disc must read as one continuous anatomical surface", "Paired cephalic lobes and a gill cue must both remain visible", "Reject any reading as a winged creature"]
+    },
+    {
+      "rootId": "PG-022",
+      "currentPixelAssessment": "DISPUTED_OR_AMBIGUOUS",
+      "canonicalTarget": { "biologicalClass": "mammalia", "speciesFamily": "procyonidae", "coreAnatomy": "quadrupedal-tetrapod", "locomotionPlan": "terrestrial-quadrupedal" },
+      "anchors": [
+        { "anchorId": "black-eye-mask-cream-muzzle", "description": "Black eye mask surrounding a cream muzzle" },
+        { "anchorId": "strongly-ringed-bushy-tail", "description": "Strongly ringed bushy tail" },
+        { "anchorId": "small-rounded-ears", "description": "Small rounded ears" }
+      ],
+      "clarificationRequirements": ["Use a horizontal spine with four separate ground-contact limbs", "Reject upright posture or arm-like forelimbs"]
+    },
+    {
+      "rootId": "PG-028",
+      "currentPixelAssessment": "DISPUTED_OR_AMBIGUOUS",
+      "canonicalTarget": { "biologicalClass": "mammalia", "speciesFamily": "elephantidae", "coreAnatomy": "proboscidean-tetrapod", "locomotionPlan": "terrestrial-quadrupedal" },
+      "anchors": [
+        { "anchorId": "large-fan-ears", "description": "Large fan-shaped ears" },
+        { "anchorId": "upward-curled-trunk", "description": "Upward-curled trunk" },
+        { "anchorId": "broad-three-toenail-feet", "description": "Broad feet with three visible toenails" }
+      ],
+      "clarificationRequirements": ["Use a horizontal torso with four separate columnar ground-contact legs", "Reject an upright anthropomorphic body plan"]
+    },
+    {
+      "rootId": "PG-034",
+      "currentPixelAssessment": "DISPUTED_OR_AMBIGUOUS",
+      "canonicalTarget": { "biologicalClass": "insecta", "speciesFamily": "stylized-mantid", "coreAnatomy": "six-limbed-raptorial-insect", "locomotionPlan": "terrestrial-hexapodal" },
+      "anchors": [
+        { "anchorId": "paired-long-antennae", "description": "Paired long antennae" },
+        { "anchorId": "paired-oversized-yellow-compound-eyes", "description": "Paired oversized yellow compound eyes" },
+        { "anchorId": "paired-serrated-folded-raptorial-forelegs", "description": "Paired serrated folded raptorial forelegs" }
+      ],
+      "clarificationRequirements": ["Preserve the face and compact oval silhouette", "Exactly two raptorial and four walking legs must be visible", "Show thorax-abdomen segmentation and folded wing covers", "Treat locomotion as terrestrial and do not infer flight"]
+    },
+    {
+      "rootId": "PG-041",
+      "currentPixelAssessment": "DISPUTED_OR_AMBIGUOUS",
+      "canonicalTarget": { "biologicalClass": "insecta", "speciesFamily": "stylized-luminescent-flyer", "coreAnatomy": "six-limbed-two-winged-insect", "locomotionPlan": "aerial-wing-powered-flight" },
+      "anchors": [
+        { "anchorId": "paired-translucent-pink-veined-wings", "description": "Paired translucent pink veined wings" },
+        { "anchorId": "long-abdomen-luminous-pink-bulb", "description": "Long abdomen ending in a luminous pink bulb" },
+        { "anchorId": "paired-huge-black-pink-compound-eyes", "description": "Paired huge black and pink compound eyes" }
+      ],
+      "clarificationRequirements": ["Use a horizontal flying silhouette", "Exactly six countable thoracic legs and exactly two wings must be visible", "Keep thorax and abdomen distinct", "Do not imply Lampyridae or elytra"]
+    },
+    {
+      "rootId": "PG-046",
+      "currentPixelAssessment": "DISPUTED_OR_AMBIGUOUS",
+      "canonicalTarget": { "biologicalClass": "reptilia", "speciesFamily": "cheloniidae", "coreAnatomy": "carapaced-flippered-tetrapod", "locomotionPlan": "aquatic-flipper-swimming" },
+      "anchors": [
+        { "anchorId": "domed-polygon-scuted-carapace", "description": "Domed carapace with polygonal scutes" },
+        { "anchorId": "gold-edged-broad-foreflippers", "description": "Broad foreflippers with gold edges" },
+        { "anchorId": "teal-head-cream-underside-gold-eyes", "description": "Teal head, cream underside, and gold eyes" }
+      ],
+      "clarificationRequirements": ["All four flippers and their body attachments must be separately visible", "Use a horizontal swimming axis", "Reject land legs or wings"]
+    },
+    {
+      "rootId": "PG-050",
+      "currentPixelAssessment": "DISPUTED_OR_AMBIGUOUS",
+      "canonicalTarget": { "biologicalClass": "chondrichthyes", "speciesFamily": "mobulidae", "coreAnatomy": "pectoral-fin-disc", "locomotionPlan": "aquatic-pectoral-fin-swimming" },
+      "anchors": [
+        { "anchorId": "swept-crescent-pectoral-disc", "description": "Swept crescent-shaped pectoral disc" },
+        { "anchorId": "gold-luminous-disc-edge-lines", "description": "Gold luminous lines along the disc edges" },
+        { "anchorId": "paired-leaf-shaped-posterior-fins", "description": "Paired leaf-shaped posterior fins" }
+      ],
+      "clarificationRequirements": ["The ray disc must read as one continuous anatomical surface", "Add unmistakable paired cephalic lobes and one central whip tail while preserving posterior fins and face", "Reject wing joints"]
+    },
+    {
+      "rootId": "PG-054",
+      "currentPixelAssessment": "DISPUTED_OR_AMBIGUOUS",
+      "canonicalTarget": { "biologicalClass": "actinopterygii", "speciesFamily": "stylized-rockfish", "coreAnatomy": "paired-pectoral-and-caudal-fin-body", "locomotionPlan": "aquatic-caudal-fin-swimming" },
+      "anchors": [
+        { "anchorId": "faceted-dark-cuboid-body", "description": "Faceted dark cuboid body" },
+        { "anchorId": "paired-three-lobed-lateral-appendages", "description": "Paired three-lobed lateral appendages" },
+        { "anchorId": "raised-forked-posterior-tail", "description": "Raised forked posterior tail" }
+      ],
+      "clarificationRequirements": ["Reinterpret lateral appendages as pectoral fins with visible membrane or rays", "Add an opercular or gill cue and a caudal peduncle", "Reject claws, hands, or feet"]
+    }
+  ]
+}

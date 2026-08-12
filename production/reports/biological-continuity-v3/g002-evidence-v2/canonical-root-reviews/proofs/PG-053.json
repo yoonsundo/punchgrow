@@ -1,0 +1,767 @@
+{
+  "acceptedAt": "2026-08-10T22:21:37.962Z",
+  "candidate": {
+    "master": {
+      "bytes": 1522173,
+      "height": 1254,
+      "sha256": "2adcca638f59ddb852398c344cb5fbe333e76062e3e31571d675b4060b1ac45b",
+      "width": 1254
+    },
+    "runtime": {
+      "bytes": 138228,
+      "height": 360,
+      "sha256": "3a509d8b2925cd2a94727fe0b5f03ae045c3aefc7acccec3a47d0cc32e38c884",
+      "width": 360
+    }
+  },
+  "inputAllowlist": {
+    "files": [
+      {
+        "bytes": 1522173,
+        "height": 1254,
+        "path": "inputs/master.png",
+        "sha256": "2adcca638f59ddb852398c344cb5fbe333e76062e3e31571d675b4060b1ac45b",
+        "width": 1254
+      },
+      {
+        "bytes": 138228,
+        "height": 360,
+        "path": "inputs/runtime.png",
+        "sha256": "3a509d8b2925cd2a94727fe0b5f03ae045c3aefc7acccec3a47d0cc32e38c884",
+        "width": 360
+      }
+    ],
+    "schemaVersion": "g002-v2-canonical-review-allowlist-v1"
+  },
+  "inputAllowlistSha256": "ed5ce981c4619a09709c3ee0249c78abf23b0a4950abfc45f0ff1bf38546f5ac",
+  "materialBinding": {
+    "allowlistSha256": "ed5ce981c4619a09709c3ee0249c78abf23b0a4950abfc45f0ff1bf38546f5ac",
+    "candidate": {
+      "master": {
+        "bytes": 1522173,
+        "height": 1254,
+        "sha256": "2adcca638f59ddb852398c344cb5fbe333e76062e3e31571d675b4060b1ac45b",
+        "width": 1254
+      },
+      "runtime": {
+        "bytes": 138228,
+        "height": 360,
+        "sha256": "3a509d8b2925cd2a94727fe0b5f03ae045c3aefc7acccec3a47d0cc32e38c884",
+        "width": 360
+      }
+    },
+    "conductorHmacSha256": "c187626452eb5d09eb4d8a121ded9a49d6a6a2d87b4739d898313cf97a7c8bf9",
+    "opaqueTargetId": "target-10baf582969e2da52b03bc0c",
+    "outputSha256": "e4c195096477aa2d4892afffa30ba8eb21b741e3d69012f494f6693b061b1b62",
+    "packageManifestSha256": "69af9c25ddcbb518a6d48b3bf687efd3593f19610c8f24eddc2ef88bd40c548d",
+    "promptSha256": "664ca9a4165d94f29feb476639b465a639324272bd63851aba28ff4c943ae004",
+    "rootId": "PG-053",
+    "schemaVersion": "g002-v2-canonical-private-binding-v1",
+    "sourcePaths": {
+      "master": "assets/creatures/biological-continuity-v3/candidates/g003-w0-pg053-r3/PG-053/master.png",
+      "runtime": "assets/creatures/biological-continuity-v3/candidates/g003-w0-pg053-r3/PG-053/runtime.png"
+    },
+    "targetSha256": "8380bbfc4062c7cb18a937ec0dc82266978e123dd9a34f1b961f0f6e63bbe3a6"
+  },
+  "materialBindingSha256": "e4c195096477aa2d4892afffa30ba8eb21b741e3d69012f494f6693b061b1b62",
+  "opaqueTargetId": "target-10baf582969e2da52b03bc0c",
+  "outputSha256": "736c3464266ba850ad8968fd04e414e58f98b3dfd9c79d872e2bb90db4d92b11",
+  "packageManifest": {
+    "candidate": {
+      "master": {
+        "bytes": 1522173,
+        "height": 1254,
+        "sha256": "2adcca638f59ddb852398c344cb5fbe333e76062e3e31571d675b4060b1ac45b",
+        "width": 1254
+      },
+      "runtime": {
+        "bytes": 138228,
+        "height": 360,
+        "sha256": "3a509d8b2925cd2a94727fe0b5f03ae045c3aefc7acccec3a47d0cc32e38c884",
+        "width": 360
+      }
+    },
+    "opaqueTargetId": "target-10baf582969e2da52b03bc0c",
+    "schemaVersion": "g002-v2-canonical-review-package-v1",
+    "target": {
+      "anchors": [
+        {
+          "anchorId": "black-head-red-eyes-three-red-gills-per-side",
+          "description": "Black broad axolotl head with red eyes and exactly three separate red external gill stalks on each side"
+        },
+        {
+          "anchorId": "black-body-red-underside-four-short-legs",
+          "description": "Black salamander body with a red underside and exactly four separately visible short legs with distinct feet"
+        },
+        {
+          "anchorId": "black-paddle-tail-red-dorsal-seam",
+          "description": "Long black paddle-shaped tail with one continuous red dorsal seam"
+        }
+      ],
+      "canonicalTarget": {
+        "biologicalClass": "amphibia",
+        "coreAnatomy": "four-legged-salamander-with-external-gills",
+        "locomotionPlan": "aquatic-bottom-walking-and-tail-swimming",
+        "speciesFamily": "ambystomatidae"
+      },
+      "clarificationRequirements": [
+        "Both surfaces must show exactly three red left and three red right gill stalks plus all four short legs",
+        "Preserve the black body, red eyes, red gills, red underside, and black paddle tail with red dorsal seam in their original relative placement",
+        "Reject pale body substitutions, non-red gills, fin-edged fish tails, missing red dorsal seam, extra gills, or extra legs",
+        "No gill branch, paddle-tail edge, reflection, or shadow may be double-read as a limb"
+      ],
+      "currentPixelAssessment": "DISPUTED_OR_AMBIGUOUS"
+    },
+    "visibleAppendageRequirements": {
+      "leftExternalGillStalks": 3,
+      "paddleTails": 1,
+      "rightExternalGillStalks": 3,
+      "walkingLegs": 4
+    }
+  },
+  "packageManifestSha256": "69af9c25ddcbb518a6d48b3bf687efd3593f19610c8f24eddc2ef88bd40c548d",
+  "passes": [
+    {
+      "assignment": {
+        "agentTaskId": "/root/g002_v2_blind_pass1",
+        "assignedAt": "2026-08-10T22:18:04.000Z",
+        "assignmentId": "assignment-f922c1bb7425845ed6932d19",
+        "conductorHmacSha256": "0eae01b819297be2d530ce7054ed4080c1dc276d11d1c7913c7266bc86e8b1f1",
+        "inputAllowlistSha256": "ed5ce981c4619a09709c3ee0249c78abf23b0a4950abfc45f0ff1bf38546f5ac",
+        "inputAssetSha256s": [
+          "2adcca638f59ddb852398c344cb5fbe333e76062e3e31571d675b4060b1ac45b",
+          "3a509d8b2925cd2a94727fe0b5f03ae045c3aefc7acccec3a47d0cc32e38c884"
+        ],
+        "materialBindingSha256": "e4c195096477aa2d4892afffa30ba8eb21b741e3d69012f494f6693b061b1b62",
+        "opaqueTargetId": "target-10baf582969e2da52b03bc0c",
+        "outputSha256": "cb370d547f89e35f72ef41fdd96c5730ad1e24ef5670bcfe96b1f80daf533000",
+        "packageManifestSha256": "69af9c25ddcbb518a6d48b3bf687efd3593f19610c8f24eddc2ef88bd40c548d",
+        "passNumber": 1,
+        "promptSha256": "664ca9a4165d94f29feb476639b465a639324272bd63851aba28ff4c943ae004",
+        "reviewRunId": "g002-v2-canonical-pass-1-20260810",
+        "reviewerInstanceId": "blind-primary-reviewer-1-20260810",
+        "schemaVersion": "g002-v2-canonical-review-assignment-v1"
+      },
+      "raw": {
+        "agentTaskId": "/root/g002_v2_blind_pass1",
+        "assignmentId": "assignment-f922c1bb7425845ed6932d19",
+        "confidence": 0.98,
+        "observedAt": "2026-08-10T22:19:29.000Z",
+        "passNumber": 1,
+        "reviewRunId": "g002-v2-canonical-pass-1-20260810",
+        "reviewerInstanceId": "blind-primary-reviewer-1-20260810",
+        "surfaces": [
+          {
+            "ambiguity": false,
+            "anchors": [
+              {
+                "anchorId": "black-head-red-eyes-three-red-gills-per-side",
+                "evidence": "The broad black head has two red eyes and three separate red gill stalks projecting on each side.",
+                "visible": true
+              },
+              {
+                "anchorId": "black-body-red-underside-four-short-legs",
+                "evidence": "A red underside shows below the black body, with four short black legs ending in four distinct feet.",
+                "visible": true
+              },
+              {
+                "anchorId": "black-paddle-tail-red-dorsal-seam",
+                "evidence": "A single black paddle-shaped tail rises behind the body with one continuous red center seam.",
+                "visible": true
+              }
+            ],
+            "clarifications": [
+              {
+                "evidence": "Three red stalks are isolated on each side and all four black legs have separate feet.",
+                "passed": true,
+                "requirement": "Both surfaces must show exactly three red left and three red right gill stalks plus all four short legs"
+              },
+              {
+                "evidence": "Black body and tail frame red eyes, lateral gills, lower underside, and the centered tail seam.",
+                "passed": true,
+                "requirement": "Preserve the black body, red eyes, red gills, red underside, and black paddle tail with red dorsal seam in their original relative placement"
+              },
+              {
+                "evidence": "The body is dark, all six gills are red, the tail is a solid paddle with red seam, and no extra gill or leg appears.",
+                "passed": true,
+                "requirement": "Reject pale body substitutions, non-red gills, fin-edged fish tails, missing red dorsal seam, extra gills, or extra legs"
+              },
+              {
+                "evidence": "The four legs are thick lower appendages with toe-bearing feet, distinct from upper gill spikes, tail edges, highlights, and shadow.",
+                "passed": true,
+                "requirement": "No gill branch, paddle-tail edge, reflection, or shadow may be double-read as a limb"
+              }
+            ],
+            "confidence": 0.99,
+            "inputSha256": "2adcca638f59ddb852398c344cb5fbe333e76062e3e31571d675b4060b1ac45b",
+            "surface": "master",
+            "taxonomy": {
+              "biologicalClass": "amphibia",
+              "coreAnatomy": "four-legged-salamander-with-external-gills",
+              "locomotionPlan": "aquatic-bottom-walking-and-tail-swimming",
+              "speciesFamily": "ambystomatidae"
+            },
+            "visibleAppendageCounts": {
+              "leftExternalGillStalks": 3,
+              "paddleTails": 1,
+              "rightExternalGillStalks": 3,
+              "walkingLegs": 4
+            }
+          },
+          {
+            "ambiguity": false,
+            "anchors": [
+              {
+                "anchorId": "black-head-red-eyes-three-red-gills-per-side",
+                "evidence": "Two red eyes and three individually pointed red gill stalks per side remain clear on the black head.",
+                "visible": true
+              },
+              {
+                "anchorId": "black-body-red-underside-four-short-legs",
+                "evidence": "The black body retains a red lower patch and four separately outlined short legs with feet.",
+                "visible": true
+              },
+              {
+                "anchorId": "black-paddle-tail-red-dorsal-seam",
+                "evidence": "The single dark upright paddle tail retains its continuous narrow red seam.",
+                "visible": true
+              }
+            ],
+            "clarifications": [
+              {
+                "evidence": "Six red lateral stalks form two groups of three and four lower legs end in separate feet.",
+                "passed": true,
+                "requirement": "Both surfaces must show exactly three red left and three red right gill stalks plus all four short legs"
+              },
+              {
+                "evidence": "All black and red structures remain visible in the same face, side, underside, and rear-tail roles.",
+                "passed": true,
+                "requirement": "Preserve the black body, red eyes, red gills, red underside, and black paddle tail with red dorsal seam in their original relative placement"
+              },
+              {
+                "evidence": "No pale body, extra stalk, extra leg, fin edge, or missing seam is visible.",
+                "passed": true,
+                "requirement": "Reject pale body substitutions, non-red gills, fin-edged fish tails, missing red dorsal seam, extra gills, or extra legs"
+              },
+              {
+                "evidence": "Four rounded toe-bearing limbs are unmistakable and separate from the six pointed gills and one rear paddle.",
+                "passed": true,
+                "requirement": "No gill branch, paddle-tail edge, reflection, or shadow may be double-read as a limb"
+              }
+            ],
+            "confidence": 0.98,
+            "inputSha256": "3a509d8b2925cd2a94727fe0b5f03ae045c3aefc7acccec3a47d0cc32e38c884",
+            "surface": "runtime",
+            "taxonomy": {
+              "biologicalClass": "amphibia",
+              "coreAnatomy": "four-legged-salamander-with-external-gills",
+              "locomotionPlan": "aquatic-bottom-walking-and-tail-swimming",
+              "speciesFamily": "ambystomatidae"
+            },
+            "visibleAppendageCounts": {
+              "leftExternalGillStalks": 3,
+              "paddleTails": 1,
+              "rightExternalGillStalks": 3,
+              "walkingLegs": 4
+            }
+          }
+        ]
+      },
+      "run": {
+        "agentTaskId": "/root/g002_v2_blind_pass1",
+        "assignmentFileSha256": "17de590c5a4e161d2367000982b639d3fca1d329c083964d791f00ec193829d1",
+        "assignmentId": "assignment-f922c1bb7425845ed6932d19",
+        "conductorHmacSha256": "bd8037d7c66e5695351b12c0222fe43266e1a15a1f055f0e7c7ea358d961c2c1",
+        "createdAt": "2026-08-10T22:19:29.000Z",
+        "opaqueTargetId": "target-10baf582969e2da52b03bc0c",
+        "outputSha256": "8f9e76e77a846699739fdee28ecc6a0b91e1a6fccf72a9edce9b4fe8474d43df",
+        "passNumber": 1,
+        "rawSha256": "beee355643cded2dc9df67f15353dd804046e3cd3a894a6e8f3c873a2720b8e7",
+        "reviewRunId": "g002-v2-canonical-pass-1-20260810",
+        "reviewerInstanceId": "blind-primary-reviewer-1-20260810",
+        "schemaVersion": "g002-v2-canonical-review-run-v1"
+      },
+      "vote": {
+        "agentTaskId": "/root/g002_v2_blind_pass1",
+        "assignmentFileSha256": "17de590c5a4e161d2367000982b639d3fca1d329c083964d791f00ec193829d1",
+        "assignmentId": "assignment-f922c1bb7425845ed6932d19",
+        "conductorHmacSha256": "56ae4740f3f1b15addad4f553b11a325a1fb9b833213af102657ea0b6ea812ba",
+        "confidence": 0.98,
+        "inputAllowlistSha256": "ed5ce981c4619a09709c3ee0249c78abf23b0a4950abfc45f0ff1bf38546f5ac",
+        "inputAssetSha256s": [
+          "2adcca638f59ddb852398c344cb5fbe333e76062e3e31571d675b4060b1ac45b",
+          "3a509d8b2925cd2a94727fe0b5f03ae045c3aefc7acccec3a47d0cc32e38c884"
+        ],
+        "materialBindingSha256": "e4c195096477aa2d4892afffa30ba8eb21b741e3d69012f494f6693b061b1b62",
+        "observation": [
+          {
+            "ambiguity": false,
+            "anchors": [
+              {
+                "anchorId": "black-head-red-eyes-three-red-gills-per-side",
+                "evidence": "The broad black head has two red eyes and three separate red gill stalks projecting on each side.",
+                "visible": true
+              },
+              {
+                "anchorId": "black-body-red-underside-four-short-legs",
+                "evidence": "A red underside shows below the black body, with four short black legs ending in four distinct feet.",
+                "visible": true
+              },
+              {
+                "anchorId": "black-paddle-tail-red-dorsal-seam",
+                "evidence": "A single black paddle-shaped tail rises behind the body with one continuous red center seam.",
+                "visible": true
+              }
+            ],
+            "clarifications": [
+              {
+                "evidence": "Three red stalks are isolated on each side and all four black legs have separate feet.",
+                "passed": true,
+                "requirement": "Both surfaces must show exactly three red left and three red right gill stalks plus all four short legs"
+              },
+              {
+                "evidence": "Black body and tail frame red eyes, lateral gills, lower underside, and the centered tail seam.",
+                "passed": true,
+                "requirement": "Preserve the black body, red eyes, red gills, red underside, and black paddle tail with red dorsal seam in their original relative placement"
+              },
+              {
+                "evidence": "The body is dark, all six gills are red, the tail is a solid paddle with red seam, and no extra gill or leg appears.",
+                "passed": true,
+                "requirement": "Reject pale body substitutions, non-red gills, fin-edged fish tails, missing red dorsal seam, extra gills, or extra legs"
+              },
+              {
+                "evidence": "The four legs are thick lower appendages with toe-bearing feet, distinct from upper gill spikes, tail edges, highlights, and shadow.",
+                "passed": true,
+                "requirement": "No gill branch, paddle-tail edge, reflection, or shadow may be double-read as a limb"
+              }
+            ],
+            "confidence": 0.99,
+            "inputSha256": "2adcca638f59ddb852398c344cb5fbe333e76062e3e31571d675b4060b1ac45b",
+            "surface": "master",
+            "taxonomy": {
+              "biologicalClass": "amphibia",
+              "coreAnatomy": "four-legged-salamander-with-external-gills",
+              "locomotionPlan": "aquatic-bottom-walking-and-tail-swimming",
+              "speciesFamily": "ambystomatidae"
+            },
+            "visibleAppendageCounts": {
+              "leftExternalGillStalks": 3,
+              "paddleTails": 1,
+              "rightExternalGillStalks": 3,
+              "walkingLegs": 4
+            }
+          },
+          {
+            "ambiguity": false,
+            "anchors": [
+              {
+                "anchorId": "black-head-red-eyes-three-red-gills-per-side",
+                "evidence": "Two red eyes and three individually pointed red gill stalks per side remain clear on the black head.",
+                "visible": true
+              },
+              {
+                "anchorId": "black-body-red-underside-four-short-legs",
+                "evidence": "The black body retains a red lower patch and four separately outlined short legs with feet.",
+                "visible": true
+              },
+              {
+                "anchorId": "black-paddle-tail-red-dorsal-seam",
+                "evidence": "The single dark upright paddle tail retains its continuous narrow red seam.",
+                "visible": true
+              }
+            ],
+            "clarifications": [
+              {
+                "evidence": "Six red lateral stalks form two groups of three and four lower legs end in separate feet.",
+                "passed": true,
+                "requirement": "Both surfaces must show exactly three red left and three red right gill stalks plus all four short legs"
+              },
+              {
+                "evidence": "All black and red structures remain visible in the same face, side, underside, and rear-tail roles.",
+                "passed": true,
+                "requirement": "Preserve the black body, red eyes, red gills, red underside, and black paddle tail with red dorsal seam in their original relative placement"
+              },
+              {
+                "evidence": "No pale body, extra stalk, extra leg, fin edge, or missing seam is visible.",
+                "passed": true,
+                "requirement": "Reject pale body substitutions, non-red gills, fin-edged fish tails, missing red dorsal seam, extra gills, or extra legs"
+              },
+              {
+                "evidence": "Four rounded toe-bearing limbs are unmistakable and separate from the six pointed gills and one rear paddle.",
+                "passed": true,
+                "requirement": "No gill branch, paddle-tail edge, reflection, or shadow may be double-read as a limb"
+              }
+            ],
+            "confidence": 0.98,
+            "inputSha256": "3a509d8b2925cd2a94727fe0b5f03ae045c3aefc7acccec3a47d0cc32e38c884",
+            "surface": "runtime",
+            "taxonomy": {
+              "biologicalClass": "amphibia",
+              "coreAnatomy": "four-legged-salamander-with-external-gills",
+              "locomotionPlan": "aquatic-bottom-walking-and-tail-swimming",
+              "speciesFamily": "ambystomatidae"
+            },
+            "visibleAppendageCounts": {
+              "leftExternalGillStalks": 3,
+              "paddleTails": 1,
+              "rightExternalGillStalks": 3,
+              "walkingLegs": 4
+            }
+          }
+        ],
+        "opaqueTargetId": "target-10baf582969e2da52b03bc0c",
+        "outputSha256": "d104635da049779948169364d0cc54b18f44e59184a4e35da4180756dcd125b0",
+        "packageManifestSha256": "69af9c25ddcbb518a6d48b3bf687efd3593f19610c8f24eddc2ef88bd40c548d",
+        "passNumber": 1,
+        "promptSha256": "664ca9a4165d94f29feb476639b465a639324272bd63851aba28ff4c943ae004",
+        "rawSha256": "beee355643cded2dc9df67f15353dd804046e3cd3a894a6e8f3c873a2720b8e7",
+        "reviewRunId": "g002-v2-canonical-pass-1-20260810",
+        "reviewerInstanceId": "blind-primary-reviewer-1-20260810",
+        "runOutputSha256": "8f9e76e77a846699739fdee28ecc6a0b91e1a6fccf72a9edce9b4fe8474d43df",
+        "schemaVersion": "g002-v2-canonical-review-vote-v1",
+        "voteId": "vote-22ea53fcf4f35368d8746495"
+      }
+    },
+    {
+      "assignment": {
+        "agentTaskId": "/root/g002_v2_blind_pass2",
+        "assignedAt": "2026-08-10T22:18:04.000Z",
+        "assignmentId": "assignment-cdb286977ad6287546a4051f",
+        "conductorHmacSha256": "a11dbc6c81d176e340fe4db751767981484b8eb4856d70c53d94bcbe1dcab53a",
+        "inputAllowlistSha256": "ed5ce981c4619a09709c3ee0249c78abf23b0a4950abfc45f0ff1bf38546f5ac",
+        "inputAssetSha256s": [
+          "2adcca638f59ddb852398c344cb5fbe333e76062e3e31571d675b4060b1ac45b",
+          "3a509d8b2925cd2a94727fe0b5f03ae045c3aefc7acccec3a47d0cc32e38c884"
+        ],
+        "materialBindingSha256": "e4c195096477aa2d4892afffa30ba8eb21b741e3d69012f494f6693b061b1b62",
+        "opaqueTargetId": "target-10baf582969e2da52b03bc0c",
+        "outputSha256": "270b4e1b8dbe92c3501d47b9e5df3c93d28561fe0d8f749070b482dac57236a8",
+        "packageManifestSha256": "69af9c25ddcbb518a6d48b3bf687efd3593f19610c8f24eddc2ef88bd40c548d",
+        "passNumber": 2,
+        "promptSha256": "664ca9a4165d94f29feb476639b465a639324272bd63851aba28ff4c943ae004",
+        "reviewRunId": "g002-v2-canonical-pass-2-20260810",
+        "reviewerInstanceId": "blind-primary-reviewer-2-20260810",
+        "schemaVersion": "g002-v2-canonical-review-assignment-v1"
+      },
+      "raw": {
+        "agentTaskId": "/root/g002_v2_blind_pass2",
+        "assignmentId": "assignment-cdb286977ad6287546a4051f",
+        "confidence": 0.98,
+        "observedAt": "2026-08-10T22:19:37.000Z",
+        "passNumber": 2,
+        "reviewRunId": "g002-v2-canonical-pass-2-20260810",
+        "reviewerInstanceId": "blind-primary-reviewer-2-20260810",
+        "surfaces": [
+          {
+            "ambiguity": false,
+            "anchors": [
+              {
+                "anchorId": "black-head-red-eyes-three-red-gills-per-side",
+                "evidence": "The broad black head has two red eyes and three separate red gill stalks projecting on each side.",
+                "visible": true
+              },
+              {
+                "anchorId": "black-body-red-underside-four-short-legs",
+                "evidence": "The black body exposes a red underside and four short limbs ending in four distinct feet.",
+                "visible": true
+              },
+              {
+                "anchorId": "black-paddle-tail-red-dorsal-seam",
+                "evidence": "One long upright black paddle tail rises behind the body with a continuous red line along its center.",
+                "visible": true
+              }
+            ],
+            "clarifications": [
+              {
+                "evidence": "Three isolated red stalks appear on each side, and four black legs remain individually visible.",
+                "passed": true,
+                "requirement": "Both surfaces must show exactly three red left and three red right gill stalks plus all four short legs"
+              },
+              {
+                "evidence": "All black and red features are directly visible from the face and side gills through the underside and rear tail.",
+                "passed": true,
+                "requirement": "Preserve the black body, red eyes, red gills, red underside, and black paddle tail with red dorsal seam in their original relative placement"
+              },
+              {
+                "evidence": "The body is black, all six gills are red, the single paddle tail has its red seam, and only four legs appear.",
+                "passed": true,
+                "requirement": "Reject pale body substitutions, non-red gills, fin-edged fish tails, missing red dorsal seam, extra gills, or extra legs"
+              },
+              {
+                "evidence": "Each limb ends in a modeled foot; all gill stalks and both tail edges remain spatially separate from the four limbs.",
+                "passed": true,
+                "requirement": "No gill branch, paddle-tail edge, reflection, or shadow may be double-read as a limb"
+              }
+            ],
+            "confidence": 0.99,
+            "inputSha256": "2adcca638f59ddb852398c344cb5fbe333e76062e3e31571d675b4060b1ac45b",
+            "surface": "master",
+            "taxonomy": {
+              "biologicalClass": "amphibia",
+              "coreAnatomy": "four-legged-salamander-with-external-gills",
+              "locomotionPlan": "aquatic-bottom-walking-and-tail-swimming",
+              "speciesFamily": "ambystomatidae"
+            },
+            "visibleAppendageCounts": {
+              "leftExternalGillStalks": 3,
+              "paddleTails": 1,
+              "rightExternalGillStalks": 3,
+              "walkingLegs": 4
+            }
+          },
+          {
+            "ambiguity": false,
+            "anchors": [
+              {
+                "anchorId": "black-head-red-eyes-three-red-gills-per-side",
+                "evidence": "Two red eyes and three distinct red gill projections per side remain countable on the black head.",
+                "visible": true
+              },
+              {
+                "anchorId": "black-body-red-underside-four-short-legs",
+                "evidence": "Four short black legs with separate feet frame the visible red underside.",
+                "visible": true
+              },
+              {
+                "anchorId": "black-paddle-tail-red-dorsal-seam",
+                "evidence": "The single rear black paddle silhouette retains one continuous central red seam.",
+                "visible": true
+              }
+            ],
+            "clarifications": [
+              {
+                "evidence": "Six red stalks form two visible groups of three, and all four feet remain isolated.",
+                "passed": true,
+                "requirement": "Both surfaces must show exactly three red left and three red right gill stalks plus all four short legs"
+              },
+              {
+                "evidence": "The reduced figure clearly retains each specified black and red region in the same body-relative position.",
+                "passed": true,
+                "requirement": "Preserve the black body, red eyes, red gills, red underside, and black paddle tail with red dorsal seam in their original relative placement"
+              },
+              {
+                "evidence": "No pale substitution or extra appendage appears; the six gills and seam are red and the tail remains a solid black paddle.",
+                "passed": true,
+                "requirement": "Reject pale body substitutions, non-red gills, fin-edged fish tails, missing red dorsal seam, extra gills, or extra legs"
+              },
+              {
+                "evidence": "The four weight-bearing limbs have feet and clean separations from the lateral gills, rear tail, and ground shadow.",
+                "passed": true,
+                "requirement": "No gill branch, paddle-tail edge, reflection, or shadow may be double-read as a limb"
+              }
+            ],
+            "confidence": 0.98,
+            "inputSha256": "3a509d8b2925cd2a94727fe0b5f03ae045c3aefc7acccec3a47d0cc32e38c884",
+            "surface": "runtime",
+            "taxonomy": {
+              "biologicalClass": "amphibia",
+              "coreAnatomy": "four-legged-salamander-with-external-gills",
+              "locomotionPlan": "aquatic-bottom-walking-and-tail-swimming",
+              "speciesFamily": "ambystomatidae"
+            },
+            "visibleAppendageCounts": {
+              "leftExternalGillStalks": 3,
+              "paddleTails": 1,
+              "rightExternalGillStalks": 3,
+              "walkingLegs": 4
+            }
+          }
+        ]
+      },
+      "run": {
+        "agentTaskId": "/root/g002_v2_blind_pass2",
+        "assignmentFileSha256": "2ff2148a1ef7e5d590091e6aa9664a5ec7de00029fd8ddb0ef437fea3abef375",
+        "assignmentId": "assignment-cdb286977ad6287546a4051f",
+        "conductorHmacSha256": "ab5f607ec5567e21b0c0a3895d0fab06e6fab1c14ce1a482e27950676b897c43",
+        "createdAt": "2026-08-10T22:19:37.000Z",
+        "opaqueTargetId": "target-10baf582969e2da52b03bc0c",
+        "outputSha256": "5a9aa60128dd936cb879b84ba24db1bf08812f70ab6cf7fe2a4530f3af8d21bc",
+        "passNumber": 2,
+        "rawSha256": "adc150049442f1937e77cf7bdb7ad8c8bca0f12331f0340ab1c72a4d2aac803b",
+        "reviewRunId": "g002-v2-canonical-pass-2-20260810",
+        "reviewerInstanceId": "blind-primary-reviewer-2-20260810",
+        "schemaVersion": "g002-v2-canonical-review-run-v1"
+      },
+      "vote": {
+        "agentTaskId": "/root/g002_v2_blind_pass2",
+        "assignmentFileSha256": "2ff2148a1ef7e5d590091e6aa9664a5ec7de00029fd8ddb0ef437fea3abef375",
+        "assignmentId": "assignment-cdb286977ad6287546a4051f",
+        "conductorHmacSha256": "d8d6356d18b982039413174710714890df06a41ffe08845a39a742d458f730d7",
+        "confidence": 0.98,
+        "inputAllowlistSha256": "ed5ce981c4619a09709c3ee0249c78abf23b0a4950abfc45f0ff1bf38546f5ac",
+        "inputAssetSha256s": [
+          "2adcca638f59ddb852398c344cb5fbe333e76062e3e31571d675b4060b1ac45b",
+          "3a509d8b2925cd2a94727fe0b5f03ae045c3aefc7acccec3a47d0cc32e38c884"
+        ],
+        "materialBindingSha256": "e4c195096477aa2d4892afffa30ba8eb21b741e3d69012f494f6693b061b1b62",
+        "observation": [
+          {
+            "ambiguity": false,
+            "anchors": [
+              {
+                "anchorId": "black-head-red-eyes-three-red-gills-per-side",
+                "evidence": "The broad black head has two red eyes and three separate red gill stalks projecting on each side.",
+                "visible": true
+              },
+              {
+                "anchorId": "black-body-red-underside-four-short-legs",
+                "evidence": "The black body exposes a red underside and four short limbs ending in four distinct feet.",
+                "visible": true
+              },
+              {
+                "anchorId": "black-paddle-tail-red-dorsal-seam",
+                "evidence": "One long upright black paddle tail rises behind the body with a continuous red line along its center.",
+                "visible": true
+              }
+            ],
+            "clarifications": [
+              {
+                "evidence": "Three isolated red stalks appear on each side, and four black legs remain individually visible.",
+                "passed": true,
+                "requirement": "Both surfaces must show exactly three red left and three red right gill stalks plus all four short legs"
+              },
+              {
+                "evidence": "All black and red features are directly visible from the face and side gills through the underside and rear tail.",
+                "passed": true,
+                "requirement": "Preserve the black body, red eyes, red gills, red underside, and black paddle tail with red dorsal seam in their original relative placement"
+              },
+              {
+                "evidence": "The body is black, all six gills are red, the single paddle tail has its red seam, and only four legs appear.",
+                "passed": true,
+                "requirement": "Reject pale body substitutions, non-red gills, fin-edged fish tails, missing red dorsal seam, extra gills, or extra legs"
+              },
+              {
+                "evidence": "Each limb ends in a modeled foot; all gill stalks and both tail edges remain spatially separate from the four limbs.",
+                "passed": true,
+                "requirement": "No gill branch, paddle-tail edge, reflection, or shadow may be double-read as a limb"
+              }
+            ],
+            "confidence": 0.99,
+            "inputSha256": "2adcca638f59ddb852398c344cb5fbe333e76062e3e31571d675b4060b1ac45b",
+            "surface": "master",
+            "taxonomy": {
+              "biologicalClass": "amphibia",
+              "coreAnatomy": "four-legged-salamander-with-external-gills",
+              "locomotionPlan": "aquatic-bottom-walking-and-tail-swimming",
+              "speciesFamily": "ambystomatidae"
+            },
+            "visibleAppendageCounts": {
+              "leftExternalGillStalks": 3,
+              "paddleTails": 1,
+              "rightExternalGillStalks": 3,
+              "walkingLegs": 4
+            }
+          },
+          {
+            "ambiguity": false,
+            "anchors": [
+              {
+                "anchorId": "black-head-red-eyes-three-red-gills-per-side",
+                "evidence": "Two red eyes and three distinct red gill projections per side remain countable on the black head.",
+                "visible": true
+              },
+              {
+                "anchorId": "black-body-red-underside-four-short-legs",
+                "evidence": "Four short black legs with separate feet frame the visible red underside.",
+                "visible": true
+              },
+              {
+                "anchorId": "black-paddle-tail-red-dorsal-seam",
+                "evidence": "The single rear black paddle silhouette retains one continuous central red seam.",
+                "visible": true
+              }
+            ],
+            "clarifications": [
+              {
+                "evidence": "Six red stalks form two visible groups of three, and all four feet remain isolated.",
+                "passed": true,
+                "requirement": "Both surfaces must show exactly three red left and three red right gill stalks plus all four short legs"
+              },
+              {
+                "evidence": "The reduced figure clearly retains each specified black and red region in the same body-relative position.",
+                "passed": true,
+                "requirement": "Preserve the black body, red eyes, red gills, red underside, and black paddle tail with red dorsal seam in their original relative placement"
+              },
+              {
+                "evidence": "No pale substitution or extra appendage appears; the six gills and seam are red and the tail remains a solid black paddle.",
+                "passed": true,
+                "requirement": "Reject pale body substitutions, non-red gills, fin-edged fish tails, missing red dorsal seam, extra gills, or extra legs"
+              },
+              {
+                "evidence": "The four weight-bearing limbs have feet and clean separations from the lateral gills, rear tail, and ground shadow.",
+                "passed": true,
+                "requirement": "No gill branch, paddle-tail edge, reflection, or shadow may be double-read as a limb"
+              }
+            ],
+            "confidence": 0.98,
+            "inputSha256": "3a509d8b2925cd2a94727fe0b5f03ae045c3aefc7acccec3a47d0cc32e38c884",
+            "surface": "runtime",
+            "taxonomy": {
+              "biologicalClass": "amphibia",
+              "coreAnatomy": "four-legged-salamander-with-external-gills",
+              "locomotionPlan": "aquatic-bottom-walking-and-tail-swimming",
+              "speciesFamily": "ambystomatidae"
+            },
+            "visibleAppendageCounts": {
+              "leftExternalGillStalks": 3,
+              "paddleTails": 1,
+              "rightExternalGillStalks": 3,
+              "walkingLegs": 4
+            }
+          }
+        ],
+        "opaqueTargetId": "target-10baf582969e2da52b03bc0c",
+        "outputSha256": "3f37a08f4362974438cbc475b52503e57df52d4539cdfd48dd357998e3dc06ea",
+        "packageManifestSha256": "69af9c25ddcbb518a6d48b3bf687efd3593f19610c8f24eddc2ef88bd40c548d",
+        "passNumber": 2,
+        "promptSha256": "664ca9a4165d94f29feb476639b465a639324272bd63851aba28ff4c943ae004",
+        "rawSha256": "adc150049442f1937e77cf7bdb7ad8c8bca0f12331f0340ab1c72a4d2aac803b",
+        "reviewRunId": "g002-v2-canonical-pass-2-20260810",
+        "reviewerInstanceId": "blind-primary-reviewer-2-20260810",
+        "runOutputSha256": "5a9aa60128dd936cb879b84ba24db1bf08812f70ab6cf7fe2a4530f3af8d21bc",
+        "schemaVersion": "g002-v2-canonical-review-vote-v1",
+        "voteId": "vote-12951d3aed61830b96e91832"
+      }
+    }
+  ],
+  "prompt": "PunchGrow blinded G002-v2 canonical replacement review.\nJudge only the two supplied candidate surfaces. Root ID, names, lineage, prior verdicts, and historical pixels are forbidden evidence.\nExact four-field taxonomy: {\n  \"biologicalClass\": \"amphibia\",\n  \"coreAnatomy\": \"four-legged-salamander-with-external-gills\",\n  \"locomotionPlan\": \"aquatic-bottom-walking-and-tail-swimming\",\n  \"speciesFamily\": \"ambystomatidae\"\n}\nExact three identity anchors: [\n  {\n    \"anchorId\": \"black-head-red-eyes-three-red-gills-per-side\",\n    \"description\": \"Black broad axolotl head with red eyes and exactly three separate red external gill stalks on each side\"\n  },\n  {\n    \"anchorId\": \"black-body-red-underside-four-short-legs\",\n    \"description\": \"Black salamander body with a red underside and exactly four separately visible short legs with distinct feet\"\n  },\n  {\n    \"anchorId\": \"black-paddle-tail-red-dorsal-seam\",\n    \"description\": \"Long black paddle-shaped tail with one continuous red dorsal seam\"\n  }\n]\nExact visibility clarifications: [\n  \"Both surfaces must show exactly three red left and three red right gill stalks plus all four short legs\",\n  \"Preserve the black body, red eyes, red gills, red underside, and black paddle tail with red dorsal seam in their original relative placement\",\n  \"Reject pale body substitutions, non-red gills, fin-edged fish tails, missing red dorsal seam, extra gills, or extra legs\",\n  \"No gill branch, paddle-tail edge, reflection, or shadow may be double-read as a limb\"\n]\nExact independently visible counts on BOTH surfaces: {\n  \"leftExternalGillStalks\": 3,\n  \"paddleTails\": 1,\n  \"rightExternalGillStalks\": 3,\n  \"walkingLegs\": 4\n}\nFor master and runtime separately, record taxonomy, visible evidence for every anchor and clarification, exact counts, ambiguity=false, and confidence >=0.96. Hidden, merged, occluded, or double-readable structures are a failure.\n",
+  "promptSha256": "664ca9a4165d94f29feb476639b465a639324272bd63851aba28ff4c943ae004",
+  "publicSignature": {
+    "algorithm": "Ed25519",
+    "authorityFingerprint": "423f474c59667e5eabc13a703b8d7de4e97bcba33cdc22340873866db9d6a53f",
+    "signatureBase64": "oqvPyY/HNURJJ4WSh4caqj6OUAbU3OefsyxxNKTYJ0RGPtM+ompwjdbrljCOa42U1uvXIS6bljFvbWzK3Y1VCA=="
+  },
+  "rootId": "PG-053",
+  "schemaVersion": "g002-v2-canonical-public-review-proof-v1",
+  "target": {
+    "anchors": [
+      {
+        "anchorId": "black-head-red-eyes-three-red-gills-per-side",
+        "description": "Black broad axolotl head with red eyes and exactly three separate red external gill stalks on each side"
+      },
+      {
+        "anchorId": "black-body-red-underside-four-short-legs",
+        "description": "Black salamander body with a red underside and exactly four separately visible short legs with distinct feet"
+      },
+      {
+        "anchorId": "black-paddle-tail-red-dorsal-seam",
+        "description": "Long black paddle-shaped tail with one continuous red dorsal seam"
+      }
+    ],
+    "canonicalTarget": {
+      "biologicalClass": "amphibia",
+      "coreAnatomy": "four-legged-salamander-with-external-gills",
+      "locomotionPlan": "aquatic-bottom-walking-and-tail-swimming",
+      "speciesFamily": "ambystomatidae"
+    },
+    "clarificationRequirements": [
+      "Both surfaces must show exactly three red left and three red right gill stalks plus all four short legs",
+      "Preserve the black body, red eyes, red gills, red underside, and black paddle tail with red dorsal seam in their original relative placement",
+      "Reject pale body substitutions, non-red gills, fin-edged fish tails, missing red dorsal seam, extra gills, or extra legs",
+      "No gill branch, paddle-tail edge, reflection, or shadow may be double-read as a limb"
+    ],
+    "currentPixelAssessment": "DISPUTED_OR_AMBIGUOUS",
+    "rootId": "PG-053"
+  },
+  "targetSha256": "8380bbfc4062c7cb18a937ec0dc82266978e123dd9a34f1b961f0f6e63bbe3a6"
+}

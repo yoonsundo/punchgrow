@@ -1,0 +1,31 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://punchgrow.local/contracts/g003-review-coverage-v5.schema.json",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schemaVersion", "reviewProtocol", "protocolAuthoritySha256", "terminalOutputSha256", "signedObligationScopeSha256", "counts", "obligations", "v4HistoricalAuditCount", "v4HistoricalVoteCredit", "outputSha256", "publicSignature"],
+  "properties": {
+    "schemaVersion": { "const": "continuity-g003-review-coverage-v5" },
+    "reviewProtocol": { "const": "continuity-g003-review-protocol-v5" },
+    "protocolAuthoritySha256": { "$ref": "#/$defs/sha" },
+    "terminalOutputSha256": { "$ref": "#/$defs/sha" },
+    "signedObligationScopeSha256": { "$ref": "#/$defs/sha" },
+    "counts": { "const": { "queue": 167, "ordinaryEdges": 170, "obligations": 337, "votes": 674, "votesPerObligation": 2 } },
+    "obligations": {
+      "type": "array", "minItems": 337, "maxItems": 337,
+      "items": {
+        "type": "object", "additionalProperties": false,
+        "required": ["obligationId", "voteOutputSha256s"],
+        "properties": {
+          "obligationId": { "type": "string" },
+          "voteOutputSha256s": { "type": "array", "minItems": 2, "maxItems": 2, "uniqueItems": true, "items": { "$ref": "#/$defs/sha" } }
+        }
+      }
+    },
+    "v4HistoricalAuditCount": { "type": "integer", "minimum": 0 },
+    "v4HistoricalVoteCredit": { "const": 0 },
+    "outputSha256": { "$ref": "#/$defs/sha" },
+    "publicSignature": { "type": "object" }
+  },
+  "$defs": { "sha": { "type": "string", "pattern": "^[a-f0-9]{64}$" } }
+}

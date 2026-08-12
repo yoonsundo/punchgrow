@@ -1,0 +1,8 @@
+#!/usr/bin/env node
+import path from 'node:path'; import process from 'node:process'; import { fileURLToPath } from 'node:url';
+import { readJson, writeCanonicalFile } from './lib/continuity-assignment/evidence.mjs'; import { signPublicEvidence } from './lib/g002-public-authority.mjs';
+import { V2_PUBLIC_SIGNED, V2_PUBLIC_UNSIGNED, assertV2PublicManifestShape, verifyV2PublicMaterial } from './lib/g002-v2-public-evidence.mjs';
+const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
+async function readKey() { if (process.stdin.isTTY) throw new Error('--conductor-key-stdin requires non-TTY stdin'); const chunks=[]; for await (const chunk of process.stdin) chunks.push(chunk); const key=Buffer.concat(chunks); if(key.length<32) throw new Error('signing key too short'); return key; }
+export async function attestG002V2PublicEvidence({ repoRoot=ROOT, conductorKey }) { const unsigned=await readJson(repoRoot,V2_PUBLIC_UNSIGNED); assertV2PublicManifestShape(unsigned,{signed:false}); await verifyV2PublicMaterial(unsigned,{repoRoot}); const signed={...unsigned,publicSignature:signPublicEvidence(unsigned,conductorKey)}; assertV2PublicManifestShape(signed); await writeCanonicalFile(path.join(repoRoot,V2_PUBLIC_SIGNED),signed,{containmentRoot:repoRoot,mode:0o644,allowedBasenames:new Set(['public-evidence-manifest.json'])}); return {status:'SIGNED',output:V2_PUBLIC_SIGNED,outputSha256:signed.outputSha256}; }
+if(process.argv[1]===fileURLToPath(import.meta.url)){if(process.argv.slice(2).join(' ')!=='--conductor-key-stdin')throw new Error('--conductor-key-stdin is required');console.log(JSON.stringify(await attestG002V2PublicEvidence({conductorKey:await readKey()})));}

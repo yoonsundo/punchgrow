@@ -64,11 +64,11 @@ plutil -lint "$CONTENTS_DIR/Info.plist" >/dev/null
 STAGED_RESOURCE_BUNDLE="$RESOURCES_DIR/${RELEASE_RESOURCE_BUNDLE:t}"
 [[ -f "$STAGED_RESOURCE_BUNDLE/creatures.json" ]]
 CREATURE_PNG_COUNT=$(find "$STAGED_RESOURCE_BUNDLE" -type f -name 'PG-*.png' | wc -l | tr -d '[:space:]')
-[[ "$CREATURE_PNG_COUNT" == 240 ]] || {
-  echo "Expected 240 creature PNGs, found $CREATURE_PNG_COUNT" >&2
+[[ "$CREATURE_PNG_COUNT" == 256 ]] || {
+  echo "Expected 256 creature PNGs, found $CREATURE_PNG_COUNT" >&2
   exit 1
 }
-for creature_number in {001..240}; do
+for creature_number in {001..256}; do
   [[ -f "$STAGED_RESOURCE_BUNDLE/PG-$creature_number.png" ]] || {
     echo "Missing creature resource: PG-$creature_number.png" >&2
     exit 1

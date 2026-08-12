@@ -1,0 +1,39 @@
+{
+  "adjudicationScope": "taxonomy-only",
+  "agentTaskId": "g002-taxonomy-adjudication-round2",
+  "assignmentManifestSha256": "d31ac99ab3f0066fc904d1756a0dfb28b7d3baf7acd01a3368026a35effc6900",
+  "blinded": true,
+  "conductorHmacSha256": "81dbec43fb43308036a502c19a1c74866b03108e08f18d0ebbb0ab428158ce8e",
+  "confidence": 0.97,
+  "contractSha256": "f6d06316ba0ce315a79d3d784abe49f8f80463776ef07f5dbf5372185b9a8a15",
+  "fresh": true,
+  "inputAllowlistSha256": "b2cd522396d3cdd6f53e17bfd6ab8afde830ba84a3df17f3e7e64ea3499180d6",
+  "inputAssetSha256s": [
+    "ffcfce46ce84f6b1a621c3ed171777cc9c02f465cbd60aa3dd16f62f8c7bc3a3",
+    "4a6362a8e702425ad71860d2bff053a5ca65a71e1c5fe66482d2374c15fb09a7"
+  ],
+  "opaqueTaxonomyTargetId": "taxonomy-1c2106a9bdee040f7ecdda9a",
+  "outputSha256": "9596428aff5cfe0cc793631b772e3a46d27b2b00eb41a9da3d668dea43da5a8f",
+  "packageManifestSha256": "4235912f5f0ee09fe3fb2cd005e6ef964a62129b593a3b37e1bcf65150745065",
+  "passNumber": 3,
+  "promptSha256": "428e5d281d525d352776ae9950777265519d08f8bad67e50c2ed17b3f5c6e8d4",
+  "publicSignature": {
+    "algorithm": "Ed25519",
+    "authorityFingerprint": "423f474c59667e5eabc13a703b8d7de4e97bcba33cdc22340873866db9d6a53f",
+    "signatureBase64": "/JV563hNC72yBbpdFDIc6PuqdUdbh3/YxY+S0lwJzrPsyWHoF8LMQIYFqbYSE+mlyaF+qoN44RDwuAysYlVoBQ=="
+  },
+  "rationale": "Paired oversized folded grasping forelegs with serrated inner margins are diagnostic mantodean morphology; long antennae, compound eyes, thorax/abdomen, and folded wing covers support a flying hexapod.",
+  "reviewId": "taxonomy-review-804a4020225bb730c5404c5294cd6e86",
+  "reviewerInstanceId": "taxonomy-adjudicator-independent-round2",
+  "reviewerRunAttestationSha256": "2c63f62d42f2bb05663de8a7a769785fe4bd719c477708a19e9326a8a4f70bf6",
+  "role": "taxonomy-only-adjudicator",
+  "schemaVersion": "g002-taxonomy-adjudication-v1",
+  "submittedAt": "2026-08-10T16:39:29.447Z",
+  "taxonomy": {
+    "biologicalClass": "insect",
+    "coreAnatomy": "hexapod",
+    "locomotionPlan": "flight",
+    "speciesFamily": "mantodea"
+  },
+  "voterReviewRunId": "g002-taxonomy-run-adjudication-round2"
+}

@@ -1,0 +1,7 @@
+PunchGrow blinded pending-root pixel taxonomy review v1.
+Review only the supplied native master and runtime pixels. Product IDs, names, catalog fields, lineage, lore, shapeDNA, and prior labels are forbidden evidence.
+Return exact non-unknown biologicalClass, speciesFamily, coreAnatomy, and locomotionPlan.
+Record at least three concrete image-derived anchors with stable anchor IDs and literal visible descriptions.
+Use exactly face-geometry, body-silhouette, and signature-organ once each; do not invent anchor IDs.
+This must be a fresh independent primary review. Confidence must be at least 0.85.
+Do not create outputSha256 or conductorHmacSha256. The trusted stdin-key intake derives both authority fields.

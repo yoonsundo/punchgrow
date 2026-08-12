@@ -1,0 +1,95 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://punchgrow.local/contracts/taxonomy-consensus-v1.schema.json",
+  "title": "PunchGrow taxonomy consensus v1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schemaVersion", "runId", "policy", "counts", "assets"],
+  "properties": {
+    "schemaVersion": { "const": "taxonomy-consensus-v1" },
+    "runId": { "type": "string", "minLength": 1 },
+    "policy": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["pixelFeaturesAreApprovalEvidence", "unknownTaxonomyReusable", "blockedHashReusable"],
+      "properties": {
+        "pixelFeaturesAreApprovalEvidence": { "const": false },
+        "unknownTaxonomyReusable": { "const": false },
+        "blockedHashReusable": { "const": false }
+      }
+    },
+    "counts": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["reusable", "reviewRequired", "reviewEvidenceOnly", "reviewPassUnknown", "regenerateRequired"],
+      "properties": {
+        "reusable": { "const": 145 },
+        "reviewRequired": { "const": 33 },
+        "reviewEvidenceOnly": { "const": 21 },
+        "reviewPassUnknown": { "const": 12 },
+        "regenerateRequired": { "const": 62 }
+      }
+    },
+    "assets": {
+      "type": "array",
+      "minItems": 240,
+      "maxItems": 240,
+      "items": { "$ref": "#/$defs/asset" }
+    }
+  },
+  "$defs": {
+    "sha256": { "type": "string", "pattern": "^[a-f0-9]{64}$" },
+    "taxonomy": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["biologicalClass", "speciesFamily", "coreAnatomy", "locomotionPlan", "basis"],
+      "properties": {
+        "biologicalClass": { "type": "string", "minLength": 1 },
+        "speciesFamily": { "type": "string", "minLength": 1 },
+        "coreAnatomy": { "type": "string", "minLength": 1 },
+        "locomotionPlan": { "type": "string", "minLength": 1 },
+        "basis": { "type": "string", "minLength": 1 }
+      }
+    },
+    "surface": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["path", "sha256", "width", "height"],
+      "properties": {
+        "path": { "type": "string", "pattern": "^(?!/)(?!.*\\.\\.).+$" },
+        "sourcePath": { "type": "string", "pattern": "^(?!/)(?!.*\\.\\.).+$" },
+        "sha256": { "$ref": "#/$defs/sha256" },
+        "width": { "type": "integer", "minimum": 1 },
+        "height": { "type": "integer", "minimum": 1 }
+      }
+    },
+    "asset": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["pgId", "lineageId", "stage", "category", "disposition", "dispositionReason", "g001Verdict", "taxonomy", "visibleAnchorIds", "surfaces"],
+      "properties": {
+        "pgId": { "type": "string", "pattern": "^PG-[0-9]{3}$" },
+        "lineageId": { "type": "string", "minLength": 1 },
+        "stage": { "type": "integer", "minimum": 1, "maximum": 4 },
+        "category": { "enum": ["start", "normal_evolution", "branch", "mixed", "special", "mutant"] },
+        "disposition": { "enum": ["reusable", "review-required", "regenerate-required"] },
+        "dispositionReason": { "enum": ["two-primary-known-consensus", "pass-unknown-family", "evidence-only-conflict", "substantive-biological-dissent"] },
+        "g001Verdict": { "enum": ["PASS", "BLOCKED"] },
+        "taxonomy": { "$ref": "#/$defs/taxonomy" },
+        "visibleAnchorIds": { "type": "array", "uniqueItems": true, "items": { "type": "string", "minLength": 1 } },
+        "surfaces": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["master", "runtime"],
+          "properties": { "master": { "$ref": "#/$defs/surface" }, "runtime": { "$ref": "#/$defs/surface" } }
+        }
+      },
+      "allOf": [
+        {
+          "if": { "properties": { "disposition": { "const": "reusable" } }, "required": ["disposition"] },
+          "then": { "properties": { "taxonomy": { "properties": { "speciesFamily": { "not": { "pattern": "^unknown(?:-|$)" } } } } } }
+        }
+      ]
+    }
+  }
+}

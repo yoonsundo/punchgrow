@@ -1,0 +1,19 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://punchgrow.local/contracts/g003-v5-terminal-activation-v1.schema.json",
+  "title": "G003-v5 terminal activation candidate",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schemaVersion", "state", "reviewProtocol", "priorProtocolAuthoritySha256", "protocolAuthoritySha256", "predecessorFileSha256", "freezeOutputSha256", "freezeFileSha256", "delegationOutputSha256", "delegationFileSha256", "successorOutputSha256", "successorFileSha256", "outputSha256", "publicSignature"],
+  "properties": {
+    "schemaVersion": { "const": "continuity-g003-v5-terminal-candidate-v1" }, "state": { "const": "TERMINAL" }, "reviewProtocol": { "const": "continuity-g003-review-protocol-v5" },
+    "priorProtocolAuthoritySha256": { "const": "e1a569f6cd3351c04db5795acc98762d6f2bfd0596826fc4a0c35fe3f870df5e" }, "protocolAuthoritySha256": { "$ref": "#/$defs/sha256" }, "predecessorFileSha256": { "$ref": "#/$defs/sha256" },
+    "freezeOutputSha256": { "$ref": "#/$defs/sha256" }, "freezeFileSha256": { "$ref": "#/$defs/sha256" }, "delegationOutputSha256": { "$ref": "#/$defs/sha256" },
+    "delegationFileSha256": { "$ref": "#/$defs/sha256" }, "successorOutputSha256": { "$ref": "#/$defs/sha256" }, "successorFileSha256": { "$ref": "#/$defs/sha256" },
+    "outputSha256": { "$ref": "#/$defs/sha256" }, "publicSignature": { "$ref": "#/$defs/signature" }
+  },
+  "$defs": {
+    "sha256": { "type": "string", "pattern": "^[a-f0-9]{64}$" },
+    "signature": { "type": "object", "additionalProperties": false, "required": ["algorithm", "authorityEpoch", "authorityFingerprint", "purpose", "schemaSha256", "signatureBase64"], "properties": { "algorithm": { "const": "Ed25519" }, "authorityEpoch": { "const": "g003-authority-epoch-v1" }, "authorityFingerprint": { "const": "91336f3180f8cf86cdef4b35f271c1e64eb609cd6b4e7f53360c777fa1a48e54" }, "purpose": { "const": "g003:v5-terminal-activation" }, "schemaSha256": { "$ref": "#/$defs/sha256" }, "signatureBase64": { "type": "string", "minLength": 88, "maxLength": 88 } } }
+  }
+}

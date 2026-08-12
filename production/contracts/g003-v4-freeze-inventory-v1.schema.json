@@ -1,0 +1,26 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://punchgrow.local/contracts/g003-v4-freeze-inventory-v1.schema.json",
+  "title": "G003-v4 complete public evidence freeze inventory",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schemaVersion", "state", "reviewProtocol", "protocolAuthoritySha256", "roots", "totals", "treeSha256", "outputSha256", "publicSignature"],
+  "properties": {
+    "schemaVersion": { "const": "continuity-g003-v4-freeze-inventory-v1" },
+    "state": { "const": "FROZEN" },
+    "reviewProtocol": { "const": "continuity-g003-review-protocol-v4" },
+    "protocolAuthoritySha256": { "const": "e1a569f6cd3351c04db5795acc98762d6f2bfd0596826fc4a0c35fe3f870df5e" },
+    "roots": { "type": "array", "minItems": 2, "items": { "$ref": "#/$defs/root" } },
+    "totals": { "$ref": "#/$defs/totals" },
+    "treeSha256": { "$ref": "#/$defs/sha256" },
+    "outputSha256": { "$ref": "#/$defs/sha256" },
+    "publicSignature": { "$ref": "#/$defs/signature" }
+  },
+  "$defs": {
+    "sha256": { "type": "string", "pattern": "^[a-f0-9]{64}$" },
+    "file": { "type": "object", "additionalProperties": false, "required": ["path", "size", "sha256"], "properties": { "path": { "type": "string", "minLength": 1 }, "size": { "type": "integer", "minimum": 0 }, "sha256": { "$ref": "#/$defs/sha256" } } },
+    "root": { "type": "object", "additionalProperties": false, "required": ["kind", "path", "fileCount", "byteCount", "treeSha256", "files"], "properties": { "kind": { "enum": ["public-evidence", "rejection-archive"] }, "path": { "type": "string", "minLength": 1 }, "fileCount": { "type": "integer", "minimum": 0 }, "byteCount": { "type": "integer", "minimum": 0 }, "treeSha256": { "$ref": "#/$defs/sha256" }, "files": { "type": "array", "items": { "$ref": "#/$defs/file" } } } },
+    "totals": { "type": "object", "additionalProperties": false, "required": ["fileCount", "byteCount"], "properties": { "fileCount": { "type": "integer", "minimum": 0 }, "byteCount": { "type": "integer", "minimum": 0 } } },
+    "signature": { "type": "object", "additionalProperties": false, "required": ["algorithm", "authorityEpoch", "authorityFingerprint", "purpose", "schemaSha256", "signatureBase64"], "properties": { "algorithm": { "const": "Ed25519" }, "authorityEpoch": { "const": "g003-authority-epoch-v1" }, "authorityFingerprint": { "$ref": "#/$defs/sha256" }, "purpose": { "const": "g003:v4-freeze-inventory" }, "schemaSha256": { "$ref": "#/$defs/sha256" }, "signatureBase64": { "type": "string", "minLength": 88, "maxLength": 88 } } }
+  }
+}

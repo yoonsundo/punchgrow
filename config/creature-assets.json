@@ -1,0 +1,9 @@
+{
+  "schemaVersion": 1,
+  "activePack": "cute-redesign-v2",
+  "fallbackPack": "legacy-v1",
+  "packs": {
+    "legacy-v1": "production/manifests/creature-asset-packs/legacy-v1.json",
+    "cute-redesign-v2": "production/manifests/creature-asset-packs/cute-redesign-v2.json"
+  }
+}

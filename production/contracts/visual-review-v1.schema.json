@@ -1,0 +1,272 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://punchgrow.local/contracts/visual-review-v1.schema.json",
+  "title": "PunchGrow blinded visual review raw vote v1",
+  "description": "Immutable conductor-authenticated raw-vote envelope. outputSha256 is the SHA-256 of canonical JSON with outputSha256 and conductorHmacSha256 omitted. conductorHmacSha256 authenticates the canonical full vote with only conductorHmacSha256 omitted.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schemaVersion",
+    "reviewId",
+    "voterReviewRunId",
+    "reviewTarget",
+    "reviewer",
+    "provenance",
+    "assets",
+    "confidence",
+    "submittedAt",
+    "outputSha256",
+    "conductorHmacSha256"
+  ],
+  "properties": {
+    "schemaVersion": { "const": "visual-review-v1" },
+    "reviewId": { "$ref": "#/$defs/opaqueIdentifier" },
+    "voterReviewRunId": { "$ref": "#/$defs/opaqueIdentifier" },
+    "reviewTarget": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["kind", "opaqueInputId"],
+      "properties": {
+        "kind": { "enum": ["asset", "edge"] },
+        "opaqueInputId": { "$ref": "#/$defs/opaqueIdentifier" }
+      }
+    },
+    "reviewer": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["reviewerInstanceId", "agentTaskId", "role"],
+      "properties": {
+        "reviewerInstanceId": { "$ref": "#/$defs/opaqueIdentifier" },
+        "agentTaskId": { "$ref": "#/$defs/opaqueIdentifier" },
+        "role": { "enum": ["primary", "adjudicator"] }
+      }
+    },
+    "provenance": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "bundleGenerationRunId",
+        "promptSha256",
+        "allowlistSha256",
+        "templateSha256",
+        "bundleManifestSha256",
+        "privateSidecarSha256",
+        "authorizationId",
+        "batchPackageManifestSha256",
+        "fileSetSha256"
+      ],
+      "properties": {
+        "bundleGenerationRunId": { "$ref": "#/$defs/opaqueIdentifier" },
+        "promptSha256": { "$ref": "#/$defs/sha256" },
+        "allowlistSha256": { "$ref": "#/$defs/sha256" },
+        "templateSha256": { "$ref": "#/$defs/sha256" },
+        "bundleManifestSha256": { "$ref": "#/$defs/sha256" },
+        "privateSidecarSha256": { "$ref": "#/$defs/sha256" },
+        "authorizationId": { "$ref": "#/$defs/opaqueIdentifier" },
+        "batchPackageManifestSha256": { "$ref": "#/$defs/sha256" },
+        "fileSetSha256": { "$ref": "#/$defs/sha256" }
+      }
+    },
+    "assets": {
+      "type": "array",
+      "minItems": 1,
+      "maxItems": 3,
+      "uniqueItems": true,
+      "items": { "$ref": "#/$defs/assetPair" }
+    },
+    "assetObservation": { "$ref": "#/$defs/assetObservation" },
+    "edgeObservation": { "$ref": "#/$defs/edgeObservation" },
+    "confidence": { "type": "number", "minimum": 0, "maximum": 1 },
+    "submittedAt": { "type": "string", "format": "date-time" },
+    "outputSha256": { "$ref": "#/$defs/sha256" },
+    "conductorHmacSha256": { "$ref": "#/$defs/sha256" }
+  },
+  "allOf": [
+    {
+      "if": {
+        "properties": { "reviewTarget": { "properties": { "kind": { "const": "asset" } } } },
+        "required": ["reviewTarget"]
+      },
+      "then": {
+        "required": ["assetObservation"],
+        "not": { "required": ["edgeObservation"] },
+        "properties": {
+          "assets": {
+            "minItems": 1,
+            "maxItems": 1,
+            "items": {
+              "allOf": [
+                { "$ref": "#/$defs/assetPair" },
+                { "properties": { "slot": { "const": "asset" } } }
+              ]
+            }
+          }
+        }
+      },
+      "else": {
+        "required": ["edgeObservation"],
+        "not": { "required": ["assetObservation"] },
+        "properties": {
+          "assets": {
+            "oneOf": [
+              {
+                "prefixItems": [
+                  { "allOf": [{ "$ref": "#/$defs/assetPair" }, { "properties": { "slot": { "const": "parent-a" } } }] },
+                  { "allOf": [{ "$ref": "#/$defs/assetPair" }, { "properties": { "slot": { "const": "child" } } }] }
+                ],
+                "items": false,
+                "minItems": 2,
+                "maxItems": 2
+              },
+              {
+                "prefixItems": [
+                  { "allOf": [{ "$ref": "#/$defs/assetPair" }, { "properties": { "slot": { "const": "parent-a" } } }] },
+                  { "allOf": [{ "$ref": "#/$defs/assetPair" }, { "properties": { "slot": { "const": "parent-b" } } }] },
+                  { "allOf": [{ "$ref": "#/$defs/assetPair" }, { "properties": { "slot": { "const": "child" } } }] }
+                ],
+                "items": false,
+                "minItems": 3,
+                "maxItems": 3
+              }
+            ]
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "reviewTarget": { "properties": { "kind": { "const": "edge" } } },
+          "assets": {
+            "contains": { "properties": { "slot": { "const": "parent-b" } }, "required": ["slot"] },
+            "minContains": 1
+          }
+        },
+        "required": ["reviewTarget", "assets"]
+      },
+      "then": {
+        "properties": {
+          "edgeObservation": {
+            "properties": {
+              "inheritedAnchors": {
+                "allOf": [
+                  {
+                    "contains": { "properties": { "sourceSlots": { "contains": { "const": "parent-a" } } } },
+                    "minContains": 2
+                  },
+                  {
+                    "contains": { "properties": { "sourceSlots": { "contains": { "const": "parent-b" } } } },
+                    "minContains": 2
+                  }
+                ]
+              }
+            }
+          }
+        }
+      }
+    }
+  ],
+  "$defs": {
+    "sha256": { "type": "string", "pattern": "^[a-f0-9]{64}$" },
+    "opaqueIdentifier": { "type": "string", "minLength": 8, "maxLength": 128, "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]*$" },
+    "controlledSlug": { "type": "string", "minLength": 2, "maxLength": 80, "pattern": "^[a-z][a-z0-9]*(?:-[a-z0-9]+)*$" },
+    "surface": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["sha256", "width", "height"],
+      "properties": {
+        "sha256": { "$ref": "#/$defs/sha256" },
+        "width": { "type": "integer", "minimum": 1 },
+        "height": { "type": "integer", "minimum": 1 }
+      }
+    },
+    "assetPair": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["slot", "master", "runtime"],
+      "properties": {
+        "slot": { "enum": ["asset", "parent-a", "parent-b", "child"] },
+        "master": { "$ref": "#/$defs/surface" },
+        "runtime": { "$ref": "#/$defs/surface" }
+      }
+    },
+    "anchorObservation": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["anchorId", "visible", "observation"],
+      "properties": {
+        "anchorId": { "$ref": "#/$defs/controlledSlug" },
+        "visible": { "type": "boolean" },
+        "observation": { "type": "string", "minLength": 3, "maxLength": 500 }
+      }
+    },
+    "assetObservation": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "biologicalClass",
+        "speciesFamily",
+        "coreAnatomy",
+        "locomotionPlan",
+        "faceAnchors",
+        "bodyAnchors",
+        "developmentalDeltas",
+        "masterRuntimeContinuity"
+      ],
+      "properties": {
+        "biologicalClass": {
+          "enum": ["mammal", "bird", "fish", "reptile", "amphibian", "arthropod", "mollusk", "annelid", "cnidarian", "plant", "fungus", "spirit", "construct", "unknown"]
+        },
+        "speciesFamily": { "$ref": "#/$defs/speciesFamily" },
+        "coreAnatomy": {
+          "enum": ["quadruped", "biped", "winged-biped", "serpentine", "fishlike", "cephalopod", "arachnid", "hexapod", "multiped", "radial", "plantlike", "amorphous", "construct", "unknown"]
+        },
+        "locomotionPlan": {
+          "enum": ["quadrupedal", "bipedal", "flight", "swimming", "serpentine", "crawling", "burrowing", "rooted", "floating", "amorphous", "unknown"]
+        },
+        "faceAnchors": { "type": "array", "minItems": 1, "items": { "$ref": "#/$defs/anchorObservation" } },
+        "bodyAnchors": { "type": "array", "minItems": 2, "items": { "$ref": "#/$defs/anchorObservation" } },
+        "developmentalDeltas": { "type": "array", "uniqueItems": true, "items": { "$ref": "#/$defs/developmentalDelta" } },
+        "masterRuntimeContinuity": { "$ref": "#/$defs/continuityAnswer" }
+      }
+    },
+    "inheritedAnchorObservation": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["anchorId", "sourceSlots", "visibleInChild", "observation"],
+      "properties": {
+        "anchorId": { "$ref": "#/$defs/controlledSlug" },
+        "sourceSlots": {
+          "type": "array",
+          "minItems": 1,
+          "maxItems": 2,
+          "uniqueItems": true,
+          "items": { "enum": ["parent-a", "parent-b"] }
+        },
+        "visibleInChild": { "type": "boolean" },
+        "observation": { "type": "string", "minLength": 3, "maxLength": 500 }
+      }
+    },
+    "edgeObservation": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "sameCreatureContinuity",
+        "coreAnatomyAgreement",
+        "locomotionAgreement",
+        "inheritedAnchors",
+        "developmentalDeltas"
+      ],
+      "properties": {
+        "sameCreatureContinuity": { "$ref": "#/$defs/continuityAnswer" },
+        "coreAnatomyAgreement": { "$ref": "#/$defs/continuityAnswer" },
+        "locomotionAgreement": { "$ref": "#/$defs/continuityAnswer" },
+        "inheritedAnchors": { "type": "array", "minItems": 3, "items": { "$ref": "#/$defs/inheritedAnchorObservation" } },
+        "developmentalDeltas": { "type": "array", "uniqueItems": true, "items": { "$ref": "#/$defs/developmentalDelta" } }
+      }
+    },
+    "continuityAnswer": { "enum": ["yes", "no", "undetermined"] },
+    "developmentalDelta": { "enum": ["size-increase", "limb-development", "appendage-development", "armor-development", "silhouette-change", "locomotion-change"] },
+    "speciesFamily": { "enum": ["bear", "canid", "feline", "mustelid", "rodent", "rabbit", "deer", "bovine", "equine", "bat", "bird-owl", "bird-raptor", "bird-songbird", "bird-waterfowl", "bird-penguin", "bird-other", "serpent", "lizard", "turtle", "frog", "salamander", "fish-bony", "fish-shark", "cetacean", "pinniped", "arachnid", "insect-larva", "insect-beetle", "insect-lepidopteran", "crustacean", "cephalopod", "gastropod", "plant-flower", "fungus", "spirit", "construct", "unknown-family"] }
+  }
+}

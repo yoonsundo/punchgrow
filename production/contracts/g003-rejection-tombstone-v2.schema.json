@@ -1,0 +1,13 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema", "$id": "https://punchgrow.local/contracts/g003-rejection-tombstone-v2.schema.json",
+  "title": "Closed persisted material-wide G003 rejection tombstone record v2", "type": "object", "additionalProperties": false,
+  "required": ["value", "fileSha256"],
+  "properties": {
+    "value": { "type": "object", "additionalProperties": false, "required": ["schemaVersion", "tombstoneKey", "constituentIndexKeys", "candidateId", "generationRunId", "materialSha256s", "rejectionObservationSha256", "rejectionArchiveSha256", "rejectedAt", "outputSha256", "publicSignature"], "properties": { "schemaVersion": { "const": "continuity-g003-rejection-tombstone-v2" }, "tombstoneKey": { "$ref": "#/$defs/sha" }, "constituentIndexKeys": { "$ref": "#/$defs/pair" }, "candidateId": { "type": "string", "pattern": "^g003-(candidate:PG-[0-9]{3}|edge:PG-[0-9]{3}:PG-[0-9]{3})$" }, "generationRunId": { "type": "string", "minLength": 1 }, "materialSha256s": { "$ref": "#/$defs/pair" }, "rejectionObservationSha256": { "$ref": "#/$defs/sha" }, "rejectionArchiveSha256": { "$ref": "#/$defs/sha" }, "rejectedAt": { "type": "string", "format": "date-time" }, "outputSha256": { "$ref": "#/$defs/sha" }, "publicSignature": { "$ref": "#/$defs/signature" } } },
+    "fileSha256": { "$ref": "#/$defs/sha" }
+  },
+  "$defs": {
+    "sha": { "type": "string", "pattern": "^[a-f0-9]{64}$" }, "pair": { "type": "array", "minItems": 2, "maxItems": 2, "uniqueItems": true, "items": { "$ref": "#/$defs/sha" } },
+    "signature": { "type": "object", "additionalProperties": false, "required": ["algorithm", "authorityEpoch", "authorityFingerprint", "delegationOutputSha256", "purpose", "schemaSha256", "signatureBase64"], "properties": { "algorithm": { "const": "Ed25519" }, "authorityEpoch": { "const": "continuity-authority-epoch-v1" }, "authorityFingerprint": { "$ref": "#/$defs/sha" }, "delegationOutputSha256": { "$ref": "#/$defs/sha" }, "purpose": { "const": "continuity:g003-rejection-tombstone-v2" }, "schemaSha256": { "$ref": "#/$defs/sha" }, "signatureBase64": { "type": "string", "minLength": 88, "maxLength": 88 } } }
+  }
+}

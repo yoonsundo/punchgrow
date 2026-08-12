@@ -1,0 +1,21 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema", "$id": "https://punchgrow.local/contracts/g002-public-evidence-manifest-v3.schema.json",
+  "title": "G002-v2 public evidence manifest", "type": "object", "additionalProperties": false,
+  "required": ["schemaVersion", "runId", "authorityMode", "baseAuthority", "files", "runtimeAssets", "outputSha256", "publicSignature"],
+  "properties": {
+    "schemaVersion": { "const": "g002-public-evidence-manifest-v3" }, "runId": { "const": "g002-v2" }, "authorityMode": { "const": "PUBLIC_ED25519_NO_FALLBACK" },
+    "baseAuthority": { "$ref": "#/$defs/baseAuthority" },
+    "files": { "type": "array", "minItems": 16, "maxItems": 16, "items": { "type": "object", "additionalProperties": false, "required": ["path", "sha256"], "properties": { "path": { "type": "string", "pattern": "^production/reports/biological-continuity-v3/g002-evidence-v2/" }, "sha256": { "type": "string", "pattern": "^[a-f0-9]{64}$" } } } },
+    "runtimeAssets": { "type": "array", "minItems": 240, "maxItems": 240, "items": { "$ref": "#/$defs/runtimeAsset" } },
+    "outputSha256": { "type": "string", "pattern": "^[a-f0-9]{64}$" },
+    "publicSignature": { "type": "object", "additionalProperties": false, "required": ["algorithm", "authorityFingerprint", "signatureBase64"], "properties": { "algorithm": { "const": "Ed25519" }, "authorityFingerprint": { "const": "423f474c59667e5eabc13a703b8d7de4e97bcba33cdc22340873866db9d6a53f" }, "signatureBase64": { "type": "string", "minLength": 80 } } }
+  },
+  "$defs": {
+    "sha256": { "type": "string", "pattern": "^[a-f0-9]{64}$" },
+    "baseAuthority": { "type": "object", "additionalProperties": false, "required": ["publicManifestPath", "publicManifestFileSha256", "publicManifestOutputSha256", "canonicalContractPath", "canonicalContractFileSha256", "canonicalContractOutputSha256"], "properties": {
+      "publicManifestPath": { "const": "production/reports/biological-continuity-v3/g002-evidence-v1/public-evidence-manifest.json" }, "publicManifestFileSha256": { "const": "ea86e51a1fc21eaaad708e256bf3348480fa284d201814ec71f89fec128889af" }, "publicManifestOutputSha256": { "const": "5b29298aaf917955ac8f094552948ee4093be363a478e92d987fc5b13d88e01c" }, "canonicalContractPath": { "const": "production/reports/biological-continuity-v3/g002-evidence-v1/canonical-root-redesign-targets-v1.json" }, "canonicalContractFileSha256": { "const": "ede8e2a728c588cafc4f614e7858495f138cf7b208b7048166b66610fd5c6de1" }, "canonicalContractOutputSha256": { "const": "8588703a71b4f02411d876eaf4a276d1e0836706fab3428de2509b3849571def" }
+    } },
+    "surface": { "type": "object", "additionalProperties": false, "required": ["path", "sha256", "bytes", "width", "height"], "properties": { "path": { "type": "string" }, "sha256": { "$ref": "#/$defs/sha256" }, "bytes": { "type": "integer", "minimum": 1 }, "width": { "const": 360 }, "height": { "const": 360 } } },
+    "runtimeAsset": { "type": "object", "additionalProperties": false, "required": ["pgId", "master", "mobile", "macos"], "properties": { "pgId": { "type": "string", "pattern": "^PG-[0-9]{3}$" }, "master": { "type": "object", "additionalProperties": false, "required": ["sha256"], "properties": { "sha256": { "$ref": "#/$defs/sha256" } } }, "mobile": { "$ref": "#/$defs/surface" }, "macos": { "$ref": "#/$defs/surface" } } }
+  }
+}

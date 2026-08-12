@@ -1,0 +1,23 @@
+{
+  "name": "punchgrow-server",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "build": "tsc -p tsconfig.json",
+    "dev": "node --watch --enable-source-maps dist/index.js",
+    "start": "node dist/index.js",
+    "migrate": "node dist/scripts/migrate.js",
+    "seed": "node dist/scripts/seed.js",
+    "test": "npm run build && node --test dist/**/*.test.js",
+    "test:integration": "node scripts/integration.mjs"
+  },
+  "dependencies": {
+    "pg": "8.16.3"
+  },
+  "devDependencies": {
+    "@types/node": "22.19.1",
+    "@types/pg": "8.15.5",
+    "typescript": "6.0.3"
+  }
+}

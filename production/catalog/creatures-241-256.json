@@ -1,0 +1,482 @@
+[
+  {
+    "id": "PG-241",
+    "koName": "네비르",
+    "enName": "Nevir",
+    "lineageId": "PG-L061",
+    "category": "start",
+    "stage": 1,
+    "rarity": "PROCESS",
+    "bodyForm": "수생형",
+    "tone": "호기심·고요",
+    "identity": "사라지기 직전의 기억을 물방울 가슴핵에 담는 어린 상태 기록자.",
+    "lore": "네비르는 누군가 잊어버린 작은 순간을 잔물결로 감지한다. 아직 깊은 바다를 품지는 못하지만, 가슴의 물방울에 보존한 기억만큼은 증발하지 않는다.",
+    "shapeDNA": [
+      "초승달 이마지느러미",
+      "물방울 가슴핵",
+      "고리형 꼬리지느러미"
+    ],
+    "palette": {
+      "primary": "#3A83A8",
+      "secondary": "#B9E9E8",
+      "glow": "#55DCEB"
+    },
+    "sharedMotifs": [
+      "부유 고리",
+      "발광 회로"
+    ],
+    "evolutionFrom": null,
+    "imagePath": "assets/creatures/generated/PG-241.png",
+    "generationPrompt": "물의 원초 계보 초기형 네비르 → 둥글고 작은 수생형 PROCESS → 초승달 이마지느러미, 물방울 가슴핵, 고리형 꼬리지느러미 → 청록 물결 피부와 밝은 배면 → 가슴핵 둘레의 작은 부유 고리와 가는 발광 회로 → primary #3A83A8, secondary #B9E9E8, glow #55DCEB → 큰 얼굴과 단순한 실루엣, 선명한 2D 셀 셰이딩, 전신 정면 3/4, #08111F 카드 배경 → 텍스트·풍경·사실주의·유명 IP 모방 금지."
+  },
+  {
+    "id": "PG-242",
+    "koName": "네르비온",
+    "enName": "Nervion",
+    "lineageId": "PG-L061",
+    "category": "normal_evolution",
+    "stage": 2,
+    "rarity": "AGENT",
+    "bodyForm": "수생형",
+    "tone": "차분·다정",
+    "identity": "기억의 흐름을 분류해 필요한 순간으로 돌려보내는 물결 안내자.",
+    "lore": "네르비온의 가슴핵에는 서로 다른 기억이 두 겹의 물결로 나뉘어 흐른다. 상처를 되풀이하는 존재에게는 잊어야 할 파동을, 길을 잃은 존재에게는 되찾아야 할 파동을 건넨다.",
+    "shapeDNA": [
+      "길어진 초승달 이마지느러미",
+      "겹물결 물방울 가슴핵",
+      "두 겹 고리형 꼬리지느러미"
+    ],
+    "palette": {
+      "primary": "#2879A7",
+      "secondary": "#A9E2E5",
+      "glow": "#59E2F1"
+    },
+    "sharedMotifs": [
+      "부유 고리",
+      "발광 회로"
+    ],
+    "evolutionFrom": "PG-241",
+    "imagePath": "assets/creatures/generated/PG-242.png",
+    "generationPrompt": "물의 원초 계보 2단계 AGENT 네르비온 → 유선형 수생형 → 네비르의 초승달 이마지느러미가 길어지고, 물방울 가슴핵은 겹물결 기관으로, 고리형 꼬리지느러미는 두 겹으로 성장 → 부유 고리와 발광 회로 유지 → primary #2879A7, secondary #A9E2E5, glow #59E2F1 → 같은 큰 눈과 둥근 얼굴을 보존한 선명한 2D 셀 셰이딩, 전신 정면 3/4, #08111F 카드 배경 → 텍스트·풍경·사실주의·유명 IP 모방 금지."
+  },
+  {
+    "id": "PG-243",
+    "koName": "네르바론",
+    "enName": "Nervaron",
+    "lineageId": "PG-L061",
+    "category": "normal_evolution",
+    "stage": 3,
+    "rarity": "DAEMON",
+    "bodyForm": "수생형",
+    "tone": "장엄·침착",
+    "identity": "도시 하나의 과거를 구형 바다에 보존하고 파도 장벽으로 지키는 기억 수호자.",
+    "lore": "네르바론이 지나간 자리에는 잊힌 목소리가 잠시 물빛으로 떠오른다. 거대한 파도 고리는 기록을 훼손하려는 힘만 골라 되돌리고, 보호받는 생명에게는 잔잔한 수면이 된다.",
+    "shapeDNA": [
+      "왕관형 초승달 이마지느러미",
+      "구형 바다 물방울 가슴핵",
+      "파도 고리형 꼬리지느러미"
+    ],
+    "palette": {
+      "primary": "#176BA0",
+      "secondary": "#8ED6E3",
+      "glow": "#62E8F5"
+    },
+    "sharedMotifs": [
+      "부유 고리",
+      "발광 회로"
+    ],
+    "evolutionFrom": "PG-242",
+    "imagePath": "assets/creatures/generated/PG-243.png",
+    "generationPrompt": "물의 원초 계보 3단계 DAEMON 네르바론 → 장엄한 수생 수호자 → 길어진 초승달 이마지느러미는 왕관형으로, 겹물결 물방울 가슴핵은 구형 바다로, 두 겹 고리형 꼬리지느러미는 파도 고리로 성장 → 부유 고리와 발광 회로 유지 → primary #176BA0, secondary #8ED6E3, glow #62E8F5 → 강한 실루엣과 넓은 여백의 선명한 2D 셀 셰이딩, 전신 정면 3/4, #08111F 카드 배경 → 텍스트·풍경·사실주의·유명 IP 모방 금지."
+  },
+  {
+    "id": "PG-244",
+    "koName": "네르바실",
+    "enName": "Nervasil",
+    "lineageId": "PG-L061",
+    "category": "normal_evolution",
+    "stage": 4,
+    "rarity": "ORIGIN",
+    "bodyForm": "수생형",
+    "tone": "원초·고요",
+    "identity": "세상이 잊은 모든 순간을 가슴 속 작은 바다에 보존하는 첫 번째 물결.",
+    "lore": "네르바실은 소멸한 생명과 실패한 선택까지 파동으로 기억한다. 같은 비극이 반복되는 순간 전장을 감싼 거대한 물고리를 닫아 공간 전체를 최초의 잔잔함으로 되돌린다.",
+    "shapeDNA": [
+      "쌍월형 초승달 이마지느러미",
+      "심해 구형 바다 가슴핵",
+      "전신을 감싸는 파도 고리형 꼬리지느러미"
+    ],
+    "palette": {
+      "primary": "#0A5791",
+      "secondary": "#75C8DE",
+      "glow": "#69EDF7"
+    },
+    "sharedMotifs": [
+      "부유 고리",
+      "발광 회로"
+    ],
+    "evolutionFrom": "PG-243",
+    "imagePath": "assets/creatures/generated/PG-244.png",
+    "generationPrompt": "물의 원초 계보 4단계 ORIGIN 네르바실 → 원초의 바다를 품은 수생 신수 → 왕관형 초승달 이마지느러미는 쌍월형으로, 구형 바다 물방울 가슴핵은 심해 핵으로, 파도 고리형 꼬리지느러미는 전신 순환환으로 완성 → 머리 위 금빛 원초 마름모 문장, 부유 고리와 발광 회로 → primary #0A5791, secondary #75C8DE, glow #69EDF7 → 소형 카드에서도 읽히는 굵은 실루엣과 절제된 디테일, 선명한 2D 셀 셰이딩, 전신 정면 3/4, #08111F 카드 배경 → 텍스트·풍경·사실주의·유명 IP 모방 금지."
+  },
+  {
+    "id": "PG-245",
+    "koName": "카르비",
+    "enName": "Karvi",
+    "lineageId": "PG-L062",
+    "category": "start",
+    "stage": 1,
+    "rarity": "PROCESS",
+    "bodyForm": "네발짐승",
+    "tone": "씩씩·장난기",
+    "identity": "멈춘 가능성에 작은 불씨를 붙이는 화산갑각 새끼짐승.",
+    "lore": "카르비는 실패한 시도 곁을 맴돌며 아직 남아 있는 가능성을 냄새로 찾는다. 가슴의 작은 태양이 반짝이면 꺼진 명령 하나가 다시 움직이기 시작한다.",
+    "shapeDNA": [
+      "두 갈래 숯뿔",
+      "씨앗형 태양 가슴핵",
+      "불씨 꼬리"
+    ],
+    "palette": {
+      "primary": "#532C2A",
+      "secondary": "#E46B32",
+      "glow": "#FFB33B"
+    },
+    "sharedMotifs": [
+      "발광 회로",
+      "다각형 신화문자"
+    ],
+    "evolutionFrom": null,
+    "imagePath": "assets/creatures/generated/PG-245.png",
+    "generationPrompt": "불의 원초 계보 초기형 카르비 → 둥근 화산갑각 네발 PROCESS → 두 갈래 숯뿔, 씨앗형 태양 가슴핵, 짧은 불씨 꼬리 → 검붉은 무광 갑각과 주황 배면 → 가슴의 발광 회로와 작은 다각형 신화문자 → primary #532C2A, secondary #E46B32, glow #FFB33B → 큰 얼굴과 단순한 실루엣, 선명한 2D 셀 셰이딩, 전신 정면 3/4, #08111F 카드 배경 → 텍스트·풍경·사실주의·유명 IP 모방 금지."
+  },
+  {
+    "id": "PG-246",
+    "koName": "카르마온",
+    "enName": "Karmaon",
+    "lineageId": "PG-L062",
+    "category": "normal_evolution",
+    "stage": 2,
+    "rarity": "AGENT",
+    "bodyForm": "네발짐승",
+    "tone": "열정·용감",
+    "identity": "결정된 가능성을 태양 핵으로 점화해 실행로를 여는 불꽃 돌격자.",
+    "lore": "카르마온은 망설임이 길어질수록 더욱 밝아진다. 자신이 선택한 길은 끝까지 달리되, 뒤따르는 존재가 다치지 않도록 지나간 자리에 따뜻한 불빛만 남긴다.",
+    "shapeDNA": [
+      "휘어진 두 갈래 숯뿔",
+      "원반형 태양 가슴핵",
+      "나선 불씨 꼬리"
+    ],
+    "palette": {
+      "primary": "#482526",
+      "secondary": "#EF6A2C",
+      "glow": "#FFB934"
+    },
+    "sharedMotifs": [
+      "발광 회로",
+      "다각형 신화문자"
+    ],
+    "evolutionFrom": "PG-245",
+    "imagePath": "assets/creatures/generated/PG-246.png",
+    "generationPrompt": "불의 원초 계보 2단계 AGENT 카르마온 → 민첩한 화산갑각 네발짐승 → 카르비의 두 갈래 숯뿔은 휘어지고, 씨앗형 태양 가슴핵은 원반형으로, 불씨 꼬리는 나선형으로 성장 → 발광 회로와 다각형 신화문자 유지 → primary #482526, secondary #EF6A2C, glow #FFB934 → 같은 눈매와 화산갑각을 보존한 선명한 2D 셀 셰이딩, 전신 정면 3/4, #08111F 카드 배경 → 텍스트·풍경·사실주의·유명 IP 모방 금지."
+  },
+  {
+    "id": "PG-247",
+    "koName": "카르마곤",
+    "enName": "Karmagon",
+    "lineageId": "PG-L062",
+    "category": "normal_evolution",
+    "stage": 3,
+    "rarity": "DAEMON",
+    "bodyForm": "네발짐승",
+    "tone": "맹렬·결연",
+    "identity": "불가능 판정을 태워 없애고 네 갈래 실행로를 여는 화산 수호수.",
+    "lore": "카르마곤의 네 갈래 불꽃은 생성과 성장, 소멸과 재탄생을 차례로 밀어낸다. 파괴를 위한 불이 아니라 멈춘 세계가 다시 선택할 수 있게 만드는 추진력이다.",
+    "shapeDNA": [
+      "화산관 두 갈래 숯뿔",
+      "이중 원반형 태양 가슴핵",
+      "네 갈래 나선 불씨 꼬리"
+    ],
+    "palette": {
+      "primary": "#351D22",
+      "secondary": "#F15B24",
+      "glow": "#FFC13C"
+    },
+    "sharedMotifs": [
+      "발광 회로",
+      "다각형 신화문자"
+    ],
+    "evolutionFrom": "PG-246",
+    "imagePath": "assets/creatures/generated/PG-247.png",
+    "generationPrompt": "불의 원초 계보 3단계 DAEMON 카르마곤 → 중량감 있는 화산갑각 네발 수호수 → 휘어진 두 갈래 숯뿔은 화산관으로, 원반형 태양 가슴핵은 이중 원반으로, 나선 불씨 꼬리는 네 갈래로 성장 → 발광 회로와 다각형 신화문자 유지 → primary #351D22, secondary #F15B24, glow #FFC13C → 굵은 갑각과 선명한 불꽃 실루엣, 2D 셀 셰이딩, 전신 정면 3/4, #08111F 카드 배경 → 텍스트·풍경·사실주의·유명 IP 모방 금지."
+  },
+  {
+    "id": "PG-248",
+    "koName": "카르마그",
+    "enName": "Karmag",
+    "lineageId": "PG-L062",
+    "category": "normal_evolution",
+    "stage": 4,
+    "rarity": "ORIGIN",
+    "bodyForm": "네발짐승",
+    "tone": "원초·맹렬",
+    "identity": "아직 실행되지 않은 가능성을 태양으로 점화해 현실로 밀어내는 최초의 의지.",
+    "lore": "카르마그는 파괴를 즐기지 않고 멈춰 썩어 가는 것을 견디지 못한다. 완전히 소멸해도 가슴의 이중 태양이 남아 있는 한 더 단단한 화산갑각으로 재구성된다.",
+    "shapeDNA": [
+      "왕관형 두 갈래 숯뿔",
+      "용광로 이중 원반형 태양 가슴핵",
+      "순환하는 네 갈래 나선 불꼬리"
+    ],
+    "palette": {
+      "primary": "#24161D",
+      "secondary": "#F04B21",
+      "glow": "#FFCA42"
+    },
+    "sharedMotifs": [
+      "발광 회로",
+      "다각형 신화문자"
+    ],
+    "evolutionFrom": "PG-247",
+    "imagePath": "assets/creatures/generated/PG-248.png",
+    "generationPrompt": "불의 원초 계보 4단계 ORIGIN 카르마그 → 최초 실행의 화산 신수 → 화산관 두 갈래 숯뿔은 왕관형으로, 이중 원반형 태양 가슴핵은 용광로로, 네 갈래 나선 불씨 꼬리는 거대한 순환 불꼬리로 완성 → 머리 위 금빛 원초 마름모 문장, 발광 회로와 다각형 신화문자 → primary #24161D, secondary #F04B21, glow #FFCA42 → 소형 카드에서도 읽히는 검은 갑각과 하나의 큰 불꽃 덩어리, 선명한 2D 셀 셰이딩, 전신 정면 3/4, #08111F 카드 배경 → 텍스트·풍경·사실주의·유명 IP 모방 금지."
+  },
+  {
+    "id": "PG-249",
+    "koName": "벨리",
+    "enName": "Veli",
+    "lineageId": "PG-L063",
+    "category": "start",
+    "stage": 1,
+    "rarity": "PROCESS",
+    "bodyForm": "조류",
+    "tone": "명랑·자유",
+    "identity": "끊어진 신호 사이에 짧은 바람길을 만드는 어린 경로새.",
+    "lore": "벨리가 한 번 날갯짓하면 닿지 않던 두 목소리 사이에 가느다란 길이 생긴다. 길은 금세 사라지지만 그 사이 전해진 마음만큼은 목적지를 잊지 않는다.",
+    "shapeDNA": [
+      "사방표식 이마깃",
+      "빈 소용돌이 가슴핵",
+      "한 쌍 경로날개"
+    ],
+    "palette": {
+      "primary": "#317F82",
+      "secondary": "#C4E6D9",
+      "glow": "#75E8D6"
+    },
+    "sharedMotifs": [
+      "부유 고리",
+      "다각형 신화문자"
+    ],
+    "evolutionFrom": null,
+    "imagePath": "assets/creatures/generated/PG-249.png",
+    "generationPrompt": "바람의 원초 계보 초기형 벨리 → 둥근 몸과 큰 머리의 조류 PROCESS → 사방표식 이마깃, 빈 소용돌이 가슴핵, 한 쌍 경로날개 → 청록 깃털과 밝은 배면 → 작은 부유 고리와 다각형 신화문자 → primary #317F82, secondary #C4E6D9, glow #75E8D6 → 가볍고 단순한 실루엣, 선명한 2D 셀 셰이딩, 전신 정면 3/4, #08111F 카드 배경 → 얼음 표현·텍스트·풍경·사실주의·유명 IP 모방 금지."
+  },
+  {
+    "id": "PG-250",
+    "koName": "벨라크",
+    "enName": "Velak",
+    "lineageId": "PG-L063",
+    "category": "normal_evolution",
+    "stage": 2,
+    "rarity": "AGENT",
+    "bodyForm": "조류",
+    "tone": "경쾌·대담",
+    "identity": "막힌 공간을 접어 두 쌍의 날개로 우회 경로를 여는 바람 안내자.",
+    "lore": "벨라크는 정해진 길을 따르기보다 누구도 소유하지 않은 새 길을 만든다. 두 쌍의 날개가 엇갈리는 순간 짧은 거리의 공간이 접혀 동료를 위험 밖으로 옮긴다.",
+    "shapeDNA": [
+      "겹친 사방표식 이마깃",
+      "열린 빈 소용돌이 가슴핵",
+      "두 쌍 경로날개"
+    ],
+    "palette": {
+      "primary": "#277578",
+      "secondary": "#B2DED3",
+      "glow": "#7CECDD"
+    },
+    "sharedMotifs": [
+      "부유 고리",
+      "다각형 신화문자"
+    ],
+    "evolutionFrom": "PG-249",
+    "imagePath": "assets/creatures/generated/PG-250.png",
+    "generationPrompt": "바람의 원초 계보 2단계 AGENT 벨라크 → 민첩한 장거리 조류 → 벨리의 사방표식 이마깃은 겹치고, 빈 소용돌이 가슴핵은 열리며, 한 쌍 경로날개는 두 쌍으로 성장 → 부유 고리와 다각형 신화문자 유지 → primary #277578, secondary #B2DED3, glow #7CECDD → 얼음이 아닌 공기 흐름과 청록 금속깃, 선명한 2D 셀 셰이딩, 전신 정면 3/4, #08111F 카드 배경 → 텍스트·풍경·사실주의·유명 IP 모방 금지."
+  },
+  {
+    "id": "PG-251",
+    "koName": "벨라리스",
+    "enName": "Velaris",
+    "lineageId": "PG-L063",
+    "category": "normal_evolution",
+    "stage": 3,
+    "rarity": "DAEMON",
+    "bodyForm": "조류",
+    "tone": "신비·자유",
+    "identity": "공간을 여섯 방향으로 접어 누구나 지나갈 수 있는 길을 남기는 경로 수호조.",
+    "lore": "벨라리스의 세 쌍 날개는 비행보다 공간의 결을 다루기 위해 움직인다. 독점된 통로를 발견하면 수많은 작은 바람길로 흩어 누구도 이동을 가둘 수 없게 한다.",
+    "shapeDNA": [
+      "관형 사방표식 이마깃",
+      "공간 빈 소용돌이 가슴핵",
+      "세 쌍 경로날개"
+    ],
+    "palette": {
+      "primary": "#1F696D",
+      "secondary": "#9FD5CC",
+      "glow": "#85F0E2"
+    },
+    "sharedMotifs": [
+      "부유 고리",
+      "다각형 신화문자"
+    ],
+    "evolutionFrom": "PG-250",
+    "imagePath": "assets/creatures/generated/PG-251.png",
+    "generationPrompt": "바람의 원초 계보 3단계 DAEMON 벨라리스 → 장갑 깃을 두른 경로 수호조 → 겹친 사방표식 이마깃은 관형으로, 열린 빈 소용돌이 가슴핵은 공간 입구로, 두 쌍 경로날개는 세 쌍으로 성장 → 부유 고리와 다각형 신화문자 유지 → primary #1F696D, secondary #9FD5CC, glow #85F0E2 → 청록과 금빛의 단단한 실루엣, 얼음 결정 금지, 선명한 2D 셀 셰이딩, 전신 정면 3/4, #08111F 카드 배경 → 텍스트·풍경·사실주의·유명 IP 모방 금지."
+  },
+  {
+    "id": "PG-252",
+    "koName": "벨라움",
+    "enName": "Velaum",
+    "lineageId": "PG-L063",
+    "category": "normal_evolution",
+    "stage": 4,
+    "rarity": "ORIGIN",
+    "bodyForm": "조류",
+    "tone": "원초·자유",
+    "identity": "서로 닿을 수 없던 존재 사이에 길을 만들고 첫 숨을 운반한 사방의 지배자.",
+    "lore": "벨라움은 막힌 길을 열고 독점된 길을 흩어 버린다. 날갯짓 없이 위치를 바꾸며, 자신이 지나간 자리에는 다른 존재도 따라갈 수 있는 보이지 않는 경로가 남는다.",
+    "shapeDNA": [
+      "네 조각 사방관 이마깃",
+      "무한경로 빈 소용돌이 가슴핵",
+      "여섯 장 경로날개"
+    ],
+    "palette": {
+      "primary": "#185B61",
+      "secondary": "#8CC9C1",
+      "glow": "#8CF4E6"
+    },
+    "sharedMotifs": [
+      "부유 고리",
+      "다각형 신화문자"
+    ],
+    "evolutionFrom": "PG-251",
+    "imagePath": "assets/creatures/generated/PG-252.png",
+    "generationPrompt": "바람의 원초 계보 4단계 ORIGIN 벨라움 → 최초의 숨과 길을 다루는 사방의 신조 → 관형 사방표식 이마깃은 네 조각 사방관으로, 공간 빈 소용돌이 가슴핵은 무한경로 입구로, 세 쌍 경로날개는 여섯 장의 장갑 날개로 완성 → 머리 위 금빛 원초 마름모 문장, 부유 고리와 다각형 신화문자 → primary #185B61, secondary #8CC9C1, glow #8CF4E6 → 소형 카드에서도 읽히는 청록 금빛 장갑과 굵은 날개, 얼음 표현 금지, 선명한 2D 셀 셰이딩, 전신 정면 3/4, #08111F 카드 배경 → 텍스트·풍경·사실주의·유명 IP 모방 금지."
+  },
+  {
+    "id": "PG-253",
+    "koName": "그라니",
+    "enName": "Grani",
+    "lineageId": "PG-L064",
+    "category": "start",
+    "stage": 1,
+    "rarity": "PROCESS",
+    "bodyForm": "네발짐승",
+    "tone": "순박·든든",
+    "identity": "흩어진 기록 조각을 등 위 작은 언덕에 차곡차곡 묻는 어린 기반지기.",
+    "lore": "그라니가 잠든 자리에서는 잃어버린 파일의 흔적이 작은 새싹으로 돋아난다. 무엇이든 등에 올려 지키려 하지만 아직 무거운 기억을 들면 네모난 발이 땅속으로 푹 잠긴다.",
+    "shapeDNA": [
+      "새싹 산뿔",
+      "씨앗형 지층 가슴핵",
+      "사각 발굽"
+    ],
+    "palette": {
+      "primary": "#6D6840",
+      "secondary": "#A9B86A",
+      "glow": "#72D58B"
+    },
+    "sharedMotifs": [
+      "다각형 신화문자",
+      "부유 고리"
+    ],
+    "evolutionFrom": null,
+    "imagePath": "assets/creatures/generated/PG-253.png",
+    "generationPrompt": "흙의 원초 계보 초기형 그라니 → 둥글고 낮은 네발 PROCESS → 새싹 산뿔, 씨앗형 지층 가슴핵, 사각 발굽 → 올리브 암석 피부와 이끼 등면 → 작은 다각형 신화문자와 낮은 부유 고리 → primary #6D6840, secondary #A9B86A, glow #72D58B → 큰 얼굴과 단순한 실루엣, 선명한 2D 셀 셰이딩, 전신 정면 3/4, #08111F 카드 배경 → 꽃 장식 과다·텍스트·풍경·사실주의·유명 IP 모방 금지."
+  },
+  {
+    "id": "PG-254",
+    "koName": "그란토",
+    "enName": "Granto",
+    "lineageId": "PG-L064",
+    "category": "normal_evolution",
+    "stage": 2,
+    "rarity": "AGENT",
+    "bodyForm": "네발짐승",
+    "tone": "성실·침착",
+    "identity": "무너지는 좌표를 네 발로 고정하고 지층 기록을 복구하는 암반 수호수.",
+    "lore": "그란토는 흔들리는 땅에 네모난 발을 박아 안전한 기준점을 만든다. 등 위 능선에 쌓인 기록을 읽어 사라진 길과 집의 모양을 천천히 복원한다.",
+    "shapeDNA": [
+      "능선형 새싹 산뿔",
+      "층상 씨앗형 지층 가슴핵",
+      "암반 사각 발굽"
+    ],
+    "palette": {
+      "primary": "#625E38",
+      "secondary": "#9DAE5E",
+      "glow": "#70DA8A"
+    },
+    "sharedMotifs": [
+      "다각형 신화문자",
+      "부유 고리"
+    ],
+    "evolutionFrom": "PG-253",
+    "imagePath": "assets/creatures/generated/PG-254.png",
+    "generationPrompt": "흙의 원초 계보 2단계 AGENT 그란토 → 단단하고 낮은 암반 네발짐승 → 그라니의 새싹 산뿔은 능선형으로, 씨앗형 지층 가슴핵은 층상 기관으로, 사각 발굽은 암반 발굽으로 성장 → 다각형 신화문자와 부유 고리 유지 → primary #625E38, secondary #9DAE5E, glow #70DA8A → 같은 둥근 주둥이와 산 등선을 보존한 선명한 2D 셀 셰이딩, 전신 정면 3/4, #08111F 카드 배경 → 꽃 장식 과다·텍스트·풍경·사실주의·유명 IP 모방 금지."
+  },
+  {
+    "id": "PG-255",
+    "koName": "그란도크",
+    "enName": "Grandok",
+    "lineageId": "PG-L064",
+    "category": "normal_evolution",
+    "stage": 3,
+    "rarity": "DAEMON",
+    "bodyForm": "네발짐승",
+    "tone": "장엄·끈기",
+    "identity": "대륙의 원형을 등 위 산맥에 보존하고 균열을 닫는 지층 수호수.",
+    "lore": "그란도크가 한 걸음 내디디면 네 개의 기준석이 솟아 주변 좌표를 고정한다. 가슴핵의 지층을 펼치면 파괴되기 전 땅의 모습이 푸른 선으로 되살아난다.",
+    "shapeDNA": [
+      "산맥형 능선 산뿔",
+      "결정층 씨앗형 지층 가슴핵",
+      "기준석 사각 발굽"
+    ],
+    "palette": {
+      "primary": "#555230",
+      "secondary": "#8DA451",
+      "glow": "#6FDF89"
+    },
+    "sharedMotifs": [
+      "다각형 신화문자",
+      "부유 고리"
+    ],
+    "evolutionFrom": "PG-254",
+    "imagePath": "assets/creatures/generated/PG-255.png",
+    "generationPrompt": "흙의 원초 계보 3단계 DAEMON 그란도크 → 중량감 있는 대륙 네발 수호수 → 능선형 새싹 산뿔은 산맥형으로, 층상 씨앗형 지층 가슴핵은 결정층으로, 암반 사각 발굽은 기준석 발굽으로 성장 → 다각형 신화문자와 부유 고리 유지 → primary #555230, secondary #8DA451, glow #6FDF89 → 굵은 다리와 하나로 읽히는 산맥 실루엣, 선명한 2D 셀 셰이딩, 전신 정면 3/4, #08111F 카드 배경 → 온순한 현실 동물 얼굴·꽃 장식 과다·텍스트·풍경·사실주의·유명 IP 모방 금지."
+  },
+  {
+    "id": "PG-256",
+    "koName": "그란도르",
+    "enName": "Grandor",
+    "lineageId": "PG-L064",
+    "category": "normal_evolution",
+    "stage": 4,
+    "rarity": "ORIGIN",
+    "bodyForm": "네발짐승",
+    "tone": "원초·불굴",
+    "identity": "모든 실행의 결과가 사라지지 않도록 등에 세계를 올리고 버티는 최초의 기반.",
+    "lore": "그란도르는 움직일 필요가 없을 만큼 단단하다. 다른 세 원소가 충돌해 세계가 찢어질 때 단 한 걸음으로 균열을 닫고, 지층의 기록에서 원래 모습을 꺼내 복원한다.",
+    "shapeDNA": [
+      "대륙 왕관형 산맥 산뿔",
+      "에메랄드 결정층 지층 가슴핵",
+      "네 기준석을 세우는 사각 발굽"
+    ],
+    "palette": {
+      "primary": "#474728",
+      "secondary": "#7F9948",
+      "glow": "#70E58B"
+    },
+    "sharedMotifs": [
+      "다각형 신화문자",
+      "부유 고리"
+    ],
+    "evolutionFrom": "PG-255",
+    "imagePath": "assets/creatures/generated/PG-256.png",
+    "generationPrompt": "흙의 원초 계보 4단계 ORIGIN 그란도르 → 최초의 기반을 품은 대륙 신수 → 산맥형 능선 산뿔은 대륙 왕관으로, 결정층 씨앗형 지층 가슴핵은 에메랄드 기록핵으로, 기준석 사각 발굽은 네 좌표석을 세우는 거대 발로 완성 → 머리 위 금빛 원초 마름모 문장, 다각형 신화문자와 부유 고리 → primary #474728, secondary #7F9948, glow #70E58B → 소형 카드에서도 읽히는 각진 얼굴과 굵은 다리, 절제된 산맥 디테일, 선명한 2D 셀 셰이딩, 전신 정면 3/4, #08111F 카드 배경 → 온순한 현실 동물 얼굴·꽃 장식 과다·텍스트·풍경·사실주의·유명 IP 모방 금지."
+  }
+]

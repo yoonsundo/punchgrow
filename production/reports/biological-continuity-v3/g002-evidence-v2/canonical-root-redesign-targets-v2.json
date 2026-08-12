@@ -1,0 +1,595 @@
+{
+  "architectApproval": {
+    "approvedAt": "2026-08-10T22:22:51.127Z",
+    "approvedTargetIds": [
+      "PG-024",
+      "PG-029",
+      "PG-047",
+      "PG-052",
+      "PG-053",
+      "PG-056"
+    ],
+    "decision": "APPROVE",
+    "evidenceSha256": "5f03cbcaf9a123d2e3ba4b57abc749c2952fa34848f667d2b17050fafb56cd32",
+    "outputSha256": "d229c780d09d6317af7116edd94b34868cd95687aeb2a2365f1d175e923c076e",
+    "publicSignature": {
+      "algorithm": "Ed25519",
+      "authorityFingerprint": "423f474c59667e5eabc13a703b8d7de4e97bcba33cdc22340873866db9d6a53f",
+      "signatureBase64": "4CAW1K9HaZYYHJhJbkO+n8lbXGe/raHDVYEgBD92ETpmx+cblDi9o0qyb1Z515bCEjgmjA3uyUgtczBTzTf4Bw=="
+    },
+    "reviewerId": "architect-reviewer-g002-v2-20260810",
+    "schemaVersion": "g002-v2-canonical-architect-approval-v1",
+    "source": "independent-architect-review"
+  },
+  "baseAuthority": {
+    "canonicalContractFileSha256": "ede8e2a728c588cafc4f614e7858495f138cf7b208b7048166b66610fd5c6de1",
+    "canonicalContractOutputSha256": "8588703a71b4f02411d876eaf4a276d1e0836706fab3428de2509b3849571def",
+    "canonicalContractPath": "production/reports/biological-continuity-v3/g002-evidence-v1/canonical-root-redesign-targets-v1.json",
+    "publicManifestFileSha256": "ea86e51a1fc21eaaad708e256bf3348480fa284d201814ec71f89fec128889af",
+    "publicManifestOutputSha256": "5b29298aaf917955ac8f094552948ee4093be363a478e92d987fc5b13d88e01c",
+    "publicManifestPath": "production/reports/biological-continuity-v3/g002-evidence-v1/public-evidence-manifest.json"
+  },
+  "contractKind": "ADDITIVE_CANONICAL_ROOT_AUTHORITY_SUCCESSOR",
+  "newTargetIds": [
+    "PG-024",
+    "PG-029",
+    "PG-047",
+    "PG-052",
+    "PG-053",
+    "PG-056"
+  ],
+  "outputSha256": "6cee5fa6c9c28d5801eac5df8696c3857787ddf4597035194c749be37aac6168",
+  "publicSignature": {
+    "algorithm": "Ed25519",
+    "authorityFingerprint": "423f474c59667e5eabc13a703b8d7de4e97bcba33cdc22340873866db9d6a53f",
+    "signatureBase64": "afoD/wxeerdqYW5pe8ptxroXH5p2fetgv9eWRyQaKVqKk3ycOXbre8/Ak0EjjPRz5rzL7eNgeaOKZFcPCRQzBA=="
+  },
+  "reviewProofs": [
+    {
+      "consensusSha256": "f154aeeaf92b76004a127f90b391953e4f1f360a255aa74df3cb25d7d5d7c8bf",
+      "primaryReviews": [
+        {
+          "agentTaskId": "/root/g002_v2_blind_pass1",
+          "assignmentSha256": "f916554de4ffe6c056df6834697f7197e4ffac98b92a944d11dbdbc57efb936f",
+          "blinded": true,
+          "inputAllowlistSha256": "e8c8fd5df6b0fd1ac5cd07dccc4522bcb92d605fca0bfb3e5d07f7e72afe6008",
+          "materialBindingSha256": "358c90c1bb8873a040346943be230aa93fdfadf5a8e54407c98f7377c54515e6",
+          "observedSurfaces": {
+            "masterSha256": "11b803d6b3753acab20121b7e526019c67d314740d3b200ccbd423de4c6ea813",
+            "runtimeSha256": "f25b54f74670c372159714affac8b76097fb7b25d52d9c0bc76df98f1ef28959"
+          },
+          "packageManifestSha256": "3a028000e2a6a08637d7df5e1571e1e4afbaf46249ff918836750ad4121b2ca4",
+          "passNumber": 1,
+          "promptSha256": "f14d24ab249b9aca74c3921cc6fc90c12e9ec7f44f67366516285d42d1c0f0ab",
+          "rawVoteSha256": "5fcd54326a07dc98c48b4ec9a264529bb7efb49e1d6cea54b263f14571bc2973",
+          "reviewOutputSha256": "719e2d7ed638d5f750b97c891114d43746f2c31a782e3c5e0d7628d16d52e210",
+          "reviewRunId": "g002-v2-canonical-pass-1-20260810",
+          "reviewerInstanceId": "blind-primary-reviewer-1-20260810",
+          "verdicts": {
+            "anchors": "PASS",
+            "clarifications": "PASS",
+            "target": "PASS",
+            "visibility": "PASS"
+          }
+        },
+        {
+          "agentTaskId": "/root/g002_v2_blind_pass2",
+          "assignmentSha256": "134b1020bd2c43a9f704fd8271f12d11bde3eb1ab910d57e25ee08a18721e633",
+          "blinded": true,
+          "inputAllowlistSha256": "e8c8fd5df6b0fd1ac5cd07dccc4522bcb92d605fca0bfb3e5d07f7e72afe6008",
+          "materialBindingSha256": "358c90c1bb8873a040346943be230aa93fdfadf5a8e54407c98f7377c54515e6",
+          "observedSurfaces": {
+            "masterSha256": "11b803d6b3753acab20121b7e526019c67d314740d3b200ccbd423de4c6ea813",
+            "runtimeSha256": "f25b54f74670c372159714affac8b76097fb7b25d52d9c0bc76df98f1ef28959"
+          },
+          "packageManifestSha256": "3a028000e2a6a08637d7df5e1571e1e4afbaf46249ff918836750ad4121b2ca4",
+          "passNumber": 2,
+          "promptSha256": "f14d24ab249b9aca74c3921cc6fc90c12e9ec7f44f67366516285d42d1c0f0ab",
+          "rawVoteSha256": "fe803ac501d1cbb8d9f948a14607cf773ff40a1e8b6de2db628ff6bab0f78c71",
+          "reviewOutputSha256": "4aedbf38b284b4bc61dea23d4460f819ef20ad16a0786107c869d5ed403b488f",
+          "reviewRunId": "g002-v2-canonical-pass-2-20260810",
+          "reviewerInstanceId": "blind-primary-reviewer-2-20260810",
+          "verdicts": {
+            "anchors": "PASS",
+            "clarifications": "PASS",
+            "target": "PASS",
+            "visibility": "PASS"
+          }
+        }
+      ],
+      "publicProofFileSha256": "b97ea830849571943bdca13a3181b34f1f0cca9c4300c4a2a727955cf50b165f",
+      "publicProofOutputSha256": "1c4bc2641d32005bd6afcc6f9ce652dab2693c1f80eb904f8bd0c7d5f75d281c",
+      "publicProofPath": "production/reports/biological-continuity-v3/g002-evidence-v2/canonical-root-reviews/proofs/PG-024.json",
+      "publicProofSignatureSha256": "42b4fd28ee1e0d0b250ffa819d277aa3f91814c3ef5147688311829217a3e0b2",
+      "rootId": "PG-024",
+      "targetSha256": "de05fc777316c2f97714969f72ed20b72184fafe5bc19667667cbf27157e0101"
+    },
+    {
+      "consensusSha256": "c29227bc2baf234a2d84100380d22210e287b4582a8a7ba8a5029d778d628c24",
+      "primaryReviews": [
+        {
+          "agentTaskId": "/root/g002_v2_blind_pass1",
+          "assignmentSha256": "b1fb74ea42922cc080781f0dfb01c310e7e6dee205360f5a47af9a43640c1d9c",
+          "blinded": true,
+          "inputAllowlistSha256": "47a034d2296e20034c378b9709424f9c215f3f52cd9437d45b2d7ab90215289c",
+          "materialBindingSha256": "92dfa494ca153117cb8acdd1c96c1ded13eaa222f254ffd3dbcfbf8e3d799c40",
+          "observedSurfaces": {
+            "masterSha256": "5f463145a5811b4731c102b721d3ff1355ecd1e29f8b124147ede22f465548d9",
+            "runtimeSha256": "cb061e0b12bc962c024a53cd8903b425ccd1deb74728842c09a9d9d82df6e9b2"
+          },
+          "packageManifestSha256": "6a5db04e1f8a41c9462ce9430ad3937eed4ab795eaead9bf66133eca2d4d3906",
+          "passNumber": 1,
+          "promptSha256": "5fecf89de7885e5bb4fc6d843d051da5f214b6538242308e002cbca0f8bf6336",
+          "rawVoteSha256": "b912a2c6710410b9931a8b3f8f723521fdd61df524051497493f23e1a35a70df",
+          "reviewOutputSha256": "234c91e3c5057ffbf85c1d48978efbea6f5bc526dff442bb691c893567545049",
+          "reviewRunId": "g002-v2-canonical-pass-1-20260810",
+          "reviewerInstanceId": "blind-primary-reviewer-1-20260810",
+          "verdicts": {
+            "anchors": "PASS",
+            "clarifications": "PASS",
+            "target": "PASS",
+            "visibility": "PASS"
+          }
+        },
+        {
+          "agentTaskId": "/root/g002_v2_blind_pass2",
+          "assignmentSha256": "c02fb9c171b77dc2a51678197b75215da4c9110894638964abcdce441483e93c",
+          "blinded": true,
+          "inputAllowlistSha256": "47a034d2296e20034c378b9709424f9c215f3f52cd9437d45b2d7ab90215289c",
+          "materialBindingSha256": "92dfa494ca153117cb8acdd1c96c1ded13eaa222f254ffd3dbcfbf8e3d799c40",
+          "observedSurfaces": {
+            "masterSha256": "5f463145a5811b4731c102b721d3ff1355ecd1e29f8b124147ede22f465548d9",
+            "runtimeSha256": "cb061e0b12bc962c024a53cd8903b425ccd1deb74728842c09a9d9d82df6e9b2"
+          },
+          "packageManifestSha256": "6a5db04e1f8a41c9462ce9430ad3937eed4ab795eaead9bf66133eca2d4d3906",
+          "passNumber": 2,
+          "promptSha256": "5fecf89de7885e5bb4fc6d843d051da5f214b6538242308e002cbca0f8bf6336",
+          "rawVoteSha256": "b2a2c4453596ba92ef728ae4634b10903b56e2827ab3a7edb26bcbbf98e9264f",
+          "reviewOutputSha256": "dc2f38145be827e2299ed0b92b5b3a4ca9884663071830482217834303e34da5",
+          "reviewRunId": "g002-v2-canonical-pass-2-20260810",
+          "reviewerInstanceId": "blind-primary-reviewer-2-20260810",
+          "verdicts": {
+            "anchors": "PASS",
+            "clarifications": "PASS",
+            "target": "PASS",
+            "visibility": "PASS"
+          }
+        }
+      ],
+      "publicProofFileSha256": "0f28a21ea56444038c09f3bddcb2bff96c06634b225e8a371185fc1949d29613",
+      "publicProofOutputSha256": "1ede4e41ef406754640adad90d7a37c37344ce902ac25f89ef700185c8d2bb63",
+      "publicProofPath": "production/reports/biological-continuity-v3/g002-evidence-v2/canonical-root-reviews/proofs/PG-029.json",
+      "publicProofSignatureSha256": "3c6ffbf7fcd3882f2c206bab2bb8bdd338446c565f49d8c7fea37c5342d06b08",
+      "rootId": "PG-029",
+      "targetSha256": "a5c0ad2121e5c75f5fbe8bf3b7f8b2c12df3d1f59214d3c3620b591c20d9a35c"
+    },
+    {
+      "consensusSha256": "75d4c9d05794ce026a5ad7e37e7a154336fba4fb34055b8055a98efce8a7d5a7",
+      "primaryReviews": [
+        {
+          "agentTaskId": "/root/g002_v2_blind_pass1",
+          "assignmentSha256": "f7634b8bba4c0fe9718057621ef7082a88027b53038d0e98076e790cbaaa5dec",
+          "blinded": true,
+          "inputAllowlistSha256": "541a847afbd95ada73ef0f1a81ae93527704f34b72ca1a21e90a5e527fad9389",
+          "materialBindingSha256": "f47533fa6ab5eb9b765958c795971179b3f6860b48e2fcffbe3fcefd9dc19480",
+          "observedSurfaces": {
+            "masterSha256": "ac83871f515f8f86cad1e4aad4e04e2c2f68dbf48dfe1c23a174360c7f78708d",
+            "runtimeSha256": "739ba658d647ef33585115bd181fab5335b45a9ec648738cfdc431d4c31a6501"
+          },
+          "packageManifestSha256": "129c900f86a28d45e2e70eceee4b392aa6de2475e40c030a9fcdaa0ee42f5fc6",
+          "passNumber": 1,
+          "promptSha256": "0ffa13fe7e43a2d0b203fd5f97f8249d98725ceefdfeabc4c4d5c2d127a23297",
+          "rawVoteSha256": "6b0ed6f780278fa0030c9a9ee30edae3595649533bb645918c93de953f00660b",
+          "reviewOutputSha256": "9380e8b163bb5f6d3835a43fd7b7705a8d3b0142e795d9a10553d08e40e05ffd",
+          "reviewRunId": "g002-v2-canonical-pass-1-20260810",
+          "reviewerInstanceId": "blind-primary-reviewer-1-20260810",
+          "verdicts": {
+            "anchors": "PASS",
+            "clarifications": "PASS",
+            "target": "PASS",
+            "visibility": "PASS"
+          }
+        },
+        {
+          "agentTaskId": "/root/g002_v2_blind_pass2",
+          "assignmentSha256": "03b18b7fc83775ac84e3c215881aa381280eb187c89baf1295258af8b32b92b9",
+          "blinded": true,
+          "inputAllowlistSha256": "541a847afbd95ada73ef0f1a81ae93527704f34b72ca1a21e90a5e527fad9389",
+          "materialBindingSha256": "f47533fa6ab5eb9b765958c795971179b3f6860b48e2fcffbe3fcefd9dc19480",
+          "observedSurfaces": {
+            "masterSha256": "ac83871f515f8f86cad1e4aad4e04e2c2f68dbf48dfe1c23a174360c7f78708d",
+            "runtimeSha256": "739ba658d647ef33585115bd181fab5335b45a9ec648738cfdc431d4c31a6501"
+          },
+          "packageManifestSha256": "129c900f86a28d45e2e70eceee4b392aa6de2475e40c030a9fcdaa0ee42f5fc6",
+          "passNumber": 2,
+          "promptSha256": "0ffa13fe7e43a2d0b203fd5f97f8249d98725ceefdfeabc4c4d5c2d127a23297",
+          "rawVoteSha256": "a1ebe161bab917ebd48ce6d6b6e6402fae25abcb4174f4327748f642b200f69a",
+          "reviewOutputSha256": "54773c56b8e6715c0bbbd18d8fbb98fbd8c821dcde3a8ef78d4a4d0155d125af",
+          "reviewRunId": "g002-v2-canonical-pass-2-20260810",
+          "reviewerInstanceId": "blind-primary-reviewer-2-20260810",
+          "verdicts": {
+            "anchors": "PASS",
+            "clarifications": "PASS",
+            "target": "PASS",
+            "visibility": "PASS"
+          }
+        }
+      ],
+      "publicProofFileSha256": "1be8e1f30bff8d10b7e549e8f5c14a87a2dec232da8b974eb478cf433e134448",
+      "publicProofOutputSha256": "c70accfa78ebe8214d0d5538a2f002c3dcc42467c77150101a4f60083aa40a9b",
+      "publicProofPath": "production/reports/biological-continuity-v3/g002-evidence-v2/canonical-root-reviews/proofs/PG-047.json",
+      "publicProofSignatureSha256": "f96b2acf0c858c27778d1b22e7ca3db8ffa1da2ea77a2c9dbd4f71a6e96e7b78",
+      "rootId": "PG-047",
+      "targetSha256": "9a655847ac4b201259bc47f9f120edeb8c68be87b4bd542ac2bb4322f827bb67"
+    },
+    {
+      "consensusSha256": "09b35b13f888e701ac7a34f93914a0d85c718cd9a5b99c52e36f0c3519ec644f",
+      "primaryReviews": [
+        {
+          "agentTaskId": "/root/g002_v2_blind_pass1",
+          "assignmentSha256": "90de2f55afe39d7575dfb16e9eb5b4903c8a163f58e0a8110b68427d346bff66",
+          "blinded": true,
+          "inputAllowlistSha256": "38187d3b53fc6ad1c8f505d2916c7b612fe55c4a8b357731411dd4ff59b41291",
+          "materialBindingSha256": "f1b33538783ea23126f097506e1b72681fd80a6845098b449f10e241121c63dd",
+          "observedSurfaces": {
+            "masterSha256": "d887818f0942b5a9ad569a09d16249928da415dfd80a2d6d67b11438ed015b3b",
+            "runtimeSha256": "8670e5e44ab49cd11aee2a2f15c695243e0c5cc21bbadd3634c7801c5feeafcd"
+          },
+          "packageManifestSha256": "a33820327ea59134d1ba44c63cb5b1caa363a3f033a91fc8048651f3590d18b6",
+          "passNumber": 1,
+          "promptSha256": "d237ea236061f0479815f9ee0dcfccb4fe1e6e7d80c5761a6ef8ead8f6dea5de",
+          "rawVoteSha256": "aea7b1b697fc01f0c29f486ca4c4c285a2d06882cbcb3203f8d019b5344f2b33",
+          "reviewOutputSha256": "7b6bb3f335d42c1d450f7fe9ef0d79208e36a5fe2b1ae5020909eb602d342cc6",
+          "reviewRunId": "g002-v2-canonical-pass-1-20260810",
+          "reviewerInstanceId": "blind-primary-reviewer-1-20260810",
+          "verdicts": {
+            "anchors": "PASS",
+            "clarifications": "PASS",
+            "target": "PASS",
+            "visibility": "PASS"
+          }
+        },
+        {
+          "agentTaskId": "/root/g002_v2_blind_pass2",
+          "assignmentSha256": "281dd86160b36608051627b7bd1c99bfca566e2436b9e00d4db5f4a80cc99d51",
+          "blinded": true,
+          "inputAllowlistSha256": "38187d3b53fc6ad1c8f505d2916c7b612fe55c4a8b357731411dd4ff59b41291",
+          "materialBindingSha256": "f1b33538783ea23126f097506e1b72681fd80a6845098b449f10e241121c63dd",
+          "observedSurfaces": {
+            "masterSha256": "d887818f0942b5a9ad569a09d16249928da415dfd80a2d6d67b11438ed015b3b",
+            "runtimeSha256": "8670e5e44ab49cd11aee2a2f15c695243e0c5cc21bbadd3634c7801c5feeafcd"
+          },
+          "packageManifestSha256": "a33820327ea59134d1ba44c63cb5b1caa363a3f033a91fc8048651f3590d18b6",
+          "passNumber": 2,
+          "promptSha256": "d237ea236061f0479815f9ee0dcfccb4fe1e6e7d80c5761a6ef8ead8f6dea5de",
+          "rawVoteSha256": "8a85b5a09c7589396992346093b749acd05b5ad8fe48a1a913b4620c575995bc",
+          "reviewOutputSha256": "a7334bc6f8e5dad6d2e5f9f99ff19f0d63b1e66e611f625b46d60d7cfba10db4",
+          "reviewRunId": "g002-v2-canonical-pass-2-20260810",
+          "reviewerInstanceId": "blind-primary-reviewer-2-20260810",
+          "verdicts": {
+            "anchors": "PASS",
+            "clarifications": "PASS",
+            "target": "PASS",
+            "visibility": "PASS"
+          }
+        }
+      ],
+      "publicProofFileSha256": "73a19ed4115aa96789d11aae91517d0e78cd84e011b69a2ae9835c4ba0b9a3e7",
+      "publicProofOutputSha256": "484881fde03df4fbbccd4f8bff4b6bd6d5fba2e6f05b531381f43794fc8aa041",
+      "publicProofPath": "production/reports/biological-continuity-v3/g002-evidence-v2/canonical-root-reviews/proofs/PG-052.json",
+      "publicProofSignatureSha256": "ff8b25ba4a3e2491a94ba2252b2c847c9ba711b2e5e5ebc860255d830df62642",
+      "rootId": "PG-052",
+      "targetSha256": "737b651e9dd5256c01ff5deaa1388e8ef4e798e6111aedcf1b979a3bf87ef5aa"
+    },
+    {
+      "consensusSha256": "6cfa694b5c26b2b10f69d9d10ffacf54a91dea5fc7fa5b461f4bf0fc3cc5bf13",
+      "primaryReviews": [
+        {
+          "agentTaskId": "/root/g002_v2_blind_pass1",
+          "assignmentSha256": "17de590c5a4e161d2367000982b639d3fca1d329c083964d791f00ec193829d1",
+          "blinded": true,
+          "inputAllowlistSha256": "ed5ce981c4619a09709c3ee0249c78abf23b0a4950abfc45f0ff1bf38546f5ac",
+          "materialBindingSha256": "e4c195096477aa2d4892afffa30ba8eb21b741e3d69012f494f6693b061b1b62",
+          "observedSurfaces": {
+            "masterSha256": "2adcca638f59ddb852398c344cb5fbe333e76062e3e31571d675b4060b1ac45b",
+            "runtimeSha256": "3a509d8b2925cd2a94727fe0b5f03ae045c3aefc7acccec3a47d0cc32e38c884"
+          },
+          "packageManifestSha256": "69af9c25ddcbb518a6d48b3bf687efd3593f19610c8f24eddc2ef88bd40c548d",
+          "passNumber": 1,
+          "promptSha256": "664ca9a4165d94f29feb476639b465a639324272bd63851aba28ff4c943ae004",
+          "rawVoteSha256": "beee355643cded2dc9df67f15353dd804046e3cd3a894a6e8f3c873a2720b8e7",
+          "reviewOutputSha256": "94b93123eb73c1c223c53183aaa457ae639af577c030c484a274cd1a4e5f80dd",
+          "reviewRunId": "g002-v2-canonical-pass-1-20260810",
+          "reviewerInstanceId": "blind-primary-reviewer-1-20260810",
+          "verdicts": {
+            "anchors": "PASS",
+            "clarifications": "PASS",
+            "target": "PASS",
+            "visibility": "PASS"
+          }
+        },
+        {
+          "agentTaskId": "/root/g002_v2_blind_pass2",
+          "assignmentSha256": "2ff2148a1ef7e5d590091e6aa9664a5ec7de00029fd8ddb0ef437fea3abef375",
+          "blinded": true,
+          "inputAllowlistSha256": "ed5ce981c4619a09709c3ee0249c78abf23b0a4950abfc45f0ff1bf38546f5ac",
+          "materialBindingSha256": "e4c195096477aa2d4892afffa30ba8eb21b741e3d69012f494f6693b061b1b62",
+          "observedSurfaces": {
+            "masterSha256": "2adcca638f59ddb852398c344cb5fbe333e76062e3e31571d675b4060b1ac45b",
+            "runtimeSha256": "3a509d8b2925cd2a94727fe0b5f03ae045c3aefc7acccec3a47d0cc32e38c884"
+          },
+          "packageManifestSha256": "69af9c25ddcbb518a6d48b3bf687efd3593f19610c8f24eddc2ef88bd40c548d",
+          "passNumber": 2,
+          "promptSha256": "664ca9a4165d94f29feb476639b465a639324272bd63851aba28ff4c943ae004",
+          "rawVoteSha256": "adc150049442f1937e77cf7bdb7ad8c8bca0f12331f0340ab1c72a4d2aac803b",
+          "reviewOutputSha256": "0740ae3e7a967d40fd8ee8486166f3f9370ed104becdb38c055c5423331ff412",
+          "reviewRunId": "g002-v2-canonical-pass-2-20260810",
+          "reviewerInstanceId": "blind-primary-reviewer-2-20260810",
+          "verdicts": {
+            "anchors": "PASS",
+            "clarifications": "PASS",
+            "target": "PASS",
+            "visibility": "PASS"
+          }
+        }
+      ],
+      "publicProofFileSha256": "e46147c98ae1ae48c659add281f73bdb6adb60487f7a901e688492b483bd0f9c",
+      "publicProofOutputSha256": "736c3464266ba850ad8968fd04e414e58f98b3dfd9c79d872e2bb90db4d92b11",
+      "publicProofPath": "production/reports/biological-continuity-v3/g002-evidence-v2/canonical-root-reviews/proofs/PG-053.json",
+      "publicProofSignatureSha256": "3848a89ebd1cf8c4e87e4cdc83c87b1c73acbda7198f347415ab547b43d91528",
+      "rootId": "PG-053",
+      "targetSha256": "8380bbfc4062c7cb18a937ec0dc82266978e123dd9a34f1b961f0f6e63bbe3a6"
+    },
+    {
+      "consensusSha256": "f76f4e86d7d13d5e8a78026431c014e4ffc1b973d8ef01c25ec8367c2c475a9c",
+      "primaryReviews": [
+        {
+          "agentTaskId": "/root/g002_v2_blind_pass1",
+          "assignmentSha256": "8a1e16e5ab4934c106435aece13ce57ab8e2f890bee1f71451a555356860f43f",
+          "blinded": true,
+          "inputAllowlistSha256": "9c32637b9bbfdc714dc70d29cbe7f734a9308e2ce07badf4de9e73ddc60a52be",
+          "materialBindingSha256": "b8611bcab2b3caf68b59190585f52fc7e89a14f700ade09f0e82c5c2117f12da",
+          "observedSurfaces": {
+            "masterSha256": "0ce636b2befa32198619c47a308a005bf02a71c401cd51399d5aad2a7a1257bb",
+            "runtimeSha256": "b4e8fe700abecc58f2200fa1e51c232958471fe27cff17e5723ea83863444bb7"
+          },
+          "packageManifestSha256": "7923fa751ca54e1464b334b318b184d762579eef4e4ae38638e90ec50acd0a2b",
+          "passNumber": 1,
+          "promptSha256": "022ce82ebfb11682c566816376f5272a00be528c55dd2435c1857e77834e183c",
+          "rawVoteSha256": "b729f81543ae5c6f9ab6f4db0016c41ac8fd1ce691b18a741d792140f295d2fc",
+          "reviewOutputSha256": "1abfb1af7eae0fa29229fd32df159bf4816803851e93e71e44154fe30514584d",
+          "reviewRunId": "g002-v2-canonical-pass-1-20260810",
+          "reviewerInstanceId": "blind-primary-reviewer-1-20260810",
+          "verdicts": {
+            "anchors": "PASS",
+            "clarifications": "PASS",
+            "target": "PASS",
+            "visibility": "PASS"
+          }
+        },
+        {
+          "agentTaskId": "/root/g002_v2_blind_pass2",
+          "assignmentSha256": "638783d5f6e4628bf8ee402cfbfa3dc3b2ddc72fcb6455727bf3aee2a7b18b4a",
+          "blinded": true,
+          "inputAllowlistSha256": "9c32637b9bbfdc714dc70d29cbe7f734a9308e2ce07badf4de9e73ddc60a52be",
+          "materialBindingSha256": "b8611bcab2b3caf68b59190585f52fc7e89a14f700ade09f0e82c5c2117f12da",
+          "observedSurfaces": {
+            "masterSha256": "0ce636b2befa32198619c47a308a005bf02a71c401cd51399d5aad2a7a1257bb",
+            "runtimeSha256": "b4e8fe700abecc58f2200fa1e51c232958471fe27cff17e5723ea83863444bb7"
+          },
+          "packageManifestSha256": "7923fa751ca54e1464b334b318b184d762579eef4e4ae38638e90ec50acd0a2b",
+          "passNumber": 2,
+          "promptSha256": "022ce82ebfb11682c566816376f5272a00be528c55dd2435c1857e77834e183c",
+          "rawVoteSha256": "542967fc3833595d4294043dea30a44e8dd974e84af0cb3dd77a97009a731d0c",
+          "reviewOutputSha256": "8b89f2dfad7b9cc30ad921956e719e1dbd6412c23f733c772281d48e3807c566",
+          "reviewRunId": "g002-v2-canonical-pass-2-20260810",
+          "reviewerInstanceId": "blind-primary-reviewer-2-20260810",
+          "verdicts": {
+            "anchors": "PASS",
+            "clarifications": "PASS",
+            "target": "PASS",
+            "visibility": "PASS"
+          }
+        }
+      ],
+      "publicProofFileSha256": "277220a7fec7ba46600d3153710cf99c1a1e79260a55c91adb151027199366ae",
+      "publicProofOutputSha256": "bb5a63d9b15d5f704a0cfb98204c180e6f446306a8ff818d59f0cb1549d66c50",
+      "publicProofPath": "production/reports/biological-continuity-v3/g002-evidence-v2/canonical-root-reviews/proofs/PG-056.json",
+      "publicProofSignatureSha256": "41153934837579073c47a60428711c665ddcce789bdfb31a27df3c9b73591a62",
+      "rootId": "PG-056",
+      "targetSha256": "5eec1b50f2f32544829d33c954f9558a9262401adc2a573601ae735df6eb97be"
+    }
+  ],
+  "runId": "g002-v2",
+  "schemaVersion": "canonical-root-redesign-targets-v2",
+  "state": "APPROVED_FOR_REGENERATION_TARGETING",
+  "targetSource": "signed-canonical-root-redesign-successor-v2",
+  "targets": [
+    {
+      "anchors": [
+        {
+          "anchorId": "eight-separate-mechanical-walking-legs",
+          "description": "Exactly eight separate mechanical spider walking legs with independently readable feet"
+        },
+        {
+          "anchorId": "four-pink-eyes-and-paired-gold-fangs",
+          "description": "Compact round teal head with exactly four pink eyes and paired gold fangs"
+        },
+        {
+          "anchorId": "four-pink-rimmed-dorsal-ports-and-gold-braces",
+          "description": "Spherical armored teal abdomen with exactly four pink-rimmed dorsal ports and gold circuit braces"
+        }
+      ],
+      "canonicalTarget": {
+        "biologicalClass": "arachnida",
+        "coreAnatomy": "eight-legged-chelicerate",
+        "locomotionPlan": "terrestrial-octopedal",
+        "speciesFamily": "stylized-mechanical-spider"
+      },
+      "clarificationRequirements": [
+        "Master and runtime must each show all eight blue-and-gold jointed walking legs without merging or occlusion",
+        "Preserve exactly four pink eyes on the compact round teal head and paired gold fangs in their original placement",
+        "Preserve exactly four pink-rimmed dorsal ports and gold circuit braces on the spherical armored teal abdomen",
+        "Reject extra eyes, extra fangs, extra dorsal ports, or altered anchor colors and relative placements",
+        "Do not count fangs, mouthparts, shadows, or doubled joints as walking legs"
+      ],
+      "currentPixelAssessment": "DISPUTED_OR_AMBIGUOUS",
+      "rootId": "PG-024"
+    },
+    {
+      "anchors": [
+        {
+          "anchorId": "six-legs-two-crystal-wings-no-antennae",
+          "description": "Exactly six separate insectoid legs and exactly two independently visible icy crystalline wings, with no antennae"
+        },
+        {
+          "anchorId": "silver-segmented-insect-body",
+          "description": "Silver segmented insect body with a clearly readable head, thorax, and abdomen"
+        },
+        {
+          "anchorId": "paired-diamond-eyes-pearl-tail",
+          "description": "Paired diamond-shaped eyes and a luminous pearl-like abdomen tip"
+        }
+      ],
+      "canonicalTarget": {
+        "biologicalClass": "insecta",
+        "coreAnatomy": "six-legged-two-winged-insect",
+        "locomotionPlan": "aerial-wing-powered-flight",
+        "speciesFamily": "stylized-crystalline-flyer"
+      },
+      "clarificationRequirements": [
+        "Master and runtime must independently show exactly six legs and exactly two wings with no overlap ambiguity",
+        "Preserve the silver segmented body, paired diamond eyes, and luminous pearl tail tip in their original color roles and placement",
+        "Reject antennae or any antenna-like silhouette; wing veins and tail ornaments must never be readable as extra legs or wings"
+      ],
+      "currentPixelAssessment": "DISPUTED_OR_AMBIGUOUS",
+      "rootId": "PG-029"
+    },
+    {
+      "anchors": [
+        {
+          "anchorId": "four-separate-walking-leg-pairs",
+          "description": "Exactly four separately traceable pairs of walking legs ending in eight distinct feet"
+        },
+        {
+          "anchorId": "separate-pincer-pedipalp-pair",
+          "description": "One separate paired set of large forward pincer pedipalps, not counted as legs"
+        },
+        {
+          "anchorId": "burgundy-armor-cyan-striped-tail-and-bulb-stinger",
+          "description": "Burgundy segmented armor and pincers with gold joints, feet, and inner pincer blades/trim, plus a cyan dorsal stripe continuing along the arched tail to one cyan bulb stinger"
+        }
+      ],
+      "canonicalTarget": {
+        "biologicalClass": "arachnida",
+        "coreAnatomy": "eight-walking-legged-chelicerate-with-pedipalps",
+        "locomotionPlan": "terrestrial-octopedal",
+        "speciesFamily": "scorpionidae"
+      },
+      "clarificationRequirements": [
+        "Each of eight walking legs must remain readable from body attachment to gold foot on both surfaces",
+        "The two burgundy pincers with gold inner blades/trim are additional pedipalps and must not replace or merge with any walking leg",
+        "Preserve burgundy segmented armor and pincers, gold joints/feet/pincer trim, cyan dorsal stripe, and the single cyan bulb stinger in their original relative placement",
+        "Reject altered armor color, missing cyan stripe, non-bulb stinger, extra pincers, extra stingers, or shifted color roles"
+      ],
+      "currentPixelAssessment": "DISPUTED_OR_AMBIGUOUS",
+      "rootId": "PG-047"
+    },
+    {
+      "anchors": [
+        {
+          "anchorId": "eight-separate-spider-legs",
+          "description": "Exactly eight separately visible spider legs ending in distinct feet"
+        },
+        {
+          "anchorId": "two-huge-cyan-eyes-single-gold-forehead-horn",
+          "description": "Exactly two huge cyan eyes with a small smile and exactly one short gold forehead horn"
+        },
+        {
+          "anchorId": "thin-gold-dorsal-stripe-over-rounded-black-abdomen",
+          "description": "Thin gold dorsal stripe crossing the smooth rounded black abdomen"
+        }
+      ],
+      "canonicalTarget": {
+        "biologicalClass": "arachnida",
+        "coreAnatomy": "eight-legged-chelicerate",
+        "locomotionPlan": "terrestrial-octopedal",
+        "speciesFamily": "araneae"
+      },
+      "clarificationRequirements": [
+        "Master and runtime must each expose exactly eight short black legs with gold feet without silhouette merging",
+        "Preserve exactly two huge cyan eyes, the small smile, and exactly one short gold forehead horn in their original placement",
+        "Preserve the thin gold stripe over the smooth low oval rounded black abdomen",
+        "Reject extra eyes, fangs, additional horns, or altered cyan-gold-black anchor colors and relative placements",
+        "Do not reinterpret shadows, gold feet, the forehead horn, or dorsal markings as walking legs"
+      ],
+      "currentPixelAssessment": "DISPUTED_OR_AMBIGUOUS",
+      "rootId": "PG-052"
+    },
+    {
+      "anchors": [
+        {
+          "anchorId": "black-head-red-eyes-three-red-gills-per-side",
+          "description": "Black broad axolotl head with red eyes and exactly three separate red external gill stalks on each side"
+        },
+        {
+          "anchorId": "black-body-red-underside-four-short-legs",
+          "description": "Black salamander body with a red underside and exactly four separately visible short legs with distinct feet"
+        },
+        {
+          "anchorId": "black-paddle-tail-red-dorsal-seam",
+          "description": "Long black paddle-shaped tail with one continuous red dorsal seam"
+        }
+      ],
+      "canonicalTarget": {
+        "biologicalClass": "amphibia",
+        "coreAnatomy": "four-legged-salamander-with-external-gills",
+        "locomotionPlan": "aquatic-bottom-walking-and-tail-swimming",
+        "speciesFamily": "ambystomatidae"
+      },
+      "clarificationRequirements": [
+        "Both surfaces must show exactly three red left and three red right gill stalks plus all four short legs",
+        "Preserve the black body, red eyes, red gills, red underside, and black paddle tail with red dorsal seam in their original relative placement",
+        "Reject pale body substitutions, non-red gills, fin-edged fish tails, missing red dorsal seam, extra gills, or extra legs",
+        "No gill branch, paddle-tail edge, reflection, or shadow may be double-read as a limb"
+      ],
+      "currentPixelAssessment": "DISPUTED_OR_AMBIGUOUS",
+      "rootId": "PG-053"
+    },
+    {
+      "anchors": [
+        {
+          "anchorId": "charcoal-body-teal-eyes-red-facial-stripe",
+          "description": "Charcoal swimming-fish body with teal eyes and details plus one red facial stripe"
+        },
+        {
+          "anchorId": "exactly-four-red-lobed-fins",
+          "description": "Exactly four separately readable red lobed fins attached to the charcoal body, with no weight-bearing legs"
+        },
+        {
+          "anchorId": "red-dorsal-mint-edge-red-forked-tail",
+          "description": "Tall red dorsal fin with a mint edge and a red forked tail on a true horizontal fish profile"
+        }
+      ],
+      "canonicalTarget": {
+        "biologicalClass": "actinopterygii",
+        "coreAnatomy": "finned-gilled-vertebrate",
+        "locomotionPlan": "aquatic-caudal-fin-swimming",
+        "speciesFamily": "stylized-bony-fish"
+      },
+      "clarificationRequirements": [
+        "Use an unmistakable horizontal swimming-fish silhouette on both master and runtime",
+        "Preserve the charcoal body, teal eyes/details, red facial stripe, exactly four red lobed fins, tall red dorsal fin with mint edge, and red forked tail",
+        "Reject altered charcoal-teal-red color roles, missing facial stripe, extra or merged lobed fins, non-forked tail, feet, toes, ground contact, limb joints, or any weight-bearing appendage"
+      ],
+      "currentPixelAssessment": "DISPUTED_OR_AMBIGUOUS",
+      "rootId": "PG-056"
+    }
+  ],
+  "visibilityPolicy": {
+    "ambiguityRule": "hidden-merged-or-double-readable-is-block",
+    "appendageCountingRule": "count-visible-appendages-only",
+    "preservationRule": "preserve-anchor-shape-relative-placement-and-color-role",
+    "surfaceRequirement": "master-and-runtime-independently-satisfy-canonical-tuple-and-all-three-anchors"
+  }
+}

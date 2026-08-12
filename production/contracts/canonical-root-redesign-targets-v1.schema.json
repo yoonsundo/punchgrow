@@ -1,0 +1,55 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://punchgrow.local/contracts/canonical-root-redesign-targets-v1.schema.json",
+  "title": "Signed canonical root redesign targets v1",
+  "type": "object", "additionalProperties": false,
+  "required": ["schemaVersion", "runId", "state", "contractKind", "targetSource", "reviewerProvenanceIds", "architectApprovalSource", "visibilityPolicy", "targets", "outputSha256", "publicSignature"],
+  "properties": {
+    "schemaVersion": { "const": "canonical-root-redesign-targets-v1" }, "runId": { "const": "g002-v1" },
+    "state": { "const": "APPROVED_FOR_REGENERATION_TARGETING" },
+    "contractKind": { "const": "CANONICAL_REDESIGN_TARGETS_NOT_PIXEL_TAXONOMY_CONSENSUS" },
+    "targetSource": { "const": "signed-canonical-root-redesign-contract" },
+    "reviewerProvenanceIds": { "const": ["/root/visual_census_batch_recorder", "/root/release_version_review"] },
+    "architectApprovalSource": { "const": "/root/release_version_review" },
+    "visibilityPolicy": { "$ref": "#/$defs/visibilityPolicy" },
+    "targets": { "type": "array", "minItems": 9, "maxItems": 9, "items": { "$ref": "#/$defs/target" } },
+    "outputSha256": { "$ref": "#/$defs/sha256" }, "publicSignature": { "$ref": "#/$defs/publicSignature" }
+  },
+  "$defs": {
+    "sha256": { "type": "string", "pattern": "^[a-f0-9]{64}$" },
+    "concrete": { "type": "string", "minLength": 2, "not": { "pattern": "^(?:unknown|manual-review-required)(?:-|$)" } },
+    "visibilityPolicy": {
+      "type": "object", "additionalProperties": false,
+      "required": ["surfaceRequirement", "appendageCountingRule", "ambiguityRule", "preservationRule"],
+      "properties": {
+        "surfaceRequirement": { "const": "master-and-runtime-independently-satisfy-canonical-tuple-and-all-three-anchors" },
+        "appendageCountingRule": { "const": "count-visible-appendages-only" },
+        "ambiguityRule": { "const": "hidden-merged-or-double-readable-is-block" },
+        "preservationRule": { "const": "preserve-anchor-shape-relative-placement-and-color-role" }
+      }
+    },
+    "taxonomy": {
+      "type": "object", "additionalProperties": false,
+      "required": ["biologicalClass", "speciesFamily", "coreAnatomy", "locomotionPlan"],
+      "properties": { "biologicalClass": { "$ref": "#/$defs/concrete" }, "speciesFamily": { "$ref": "#/$defs/concrete" }, "coreAnatomy": { "$ref": "#/$defs/concrete" }, "locomotionPlan": { "$ref": "#/$defs/concrete" } }
+    },
+    "anchor": {
+      "type": "object", "additionalProperties": false, "required": ["anchorId", "description"],
+      "properties": { "anchorId": { "type": "string", "minLength": 3 }, "description": { "type": "string", "minLength": 8 } }
+    },
+    "target": {
+      "type": "object", "additionalProperties": false,
+      "required": ["rootId", "currentPixelAssessment", "canonicalTarget", "anchors", "clarificationRequirements"],
+      "properties": {
+        "rootId": { "enum": ["PG-016", "PG-021", "PG-022", "PG-028", "PG-034", "PG-041", "PG-046", "PG-050", "PG-054"] },
+        "currentPixelAssessment": { "const": "DISPUTED_OR_AMBIGUOUS" }, "canonicalTarget": { "$ref": "#/$defs/taxonomy" },
+        "anchors": { "type": "array", "minItems": 3, "maxItems": 3, "items": { "$ref": "#/$defs/anchor" } },
+        "clarificationRequirements": { "type": "array", "minItems": 2, "uniqueItems": true, "items": { "type": "string", "minLength": 8 } }
+      }
+    },
+    "publicSignature": {
+      "type": "object", "additionalProperties": false, "required": ["algorithm", "authorityFingerprint", "signatureBase64"],
+      "properties": { "algorithm": { "const": "Ed25519" }, "authorityFingerprint": { "const": "423f474c59667e5eabc13a703b8d7de4e97bcba33cdc22340873866db9d6a53f" }, "signatureBase64": { "type": "string", "minLength": 80 } }
+    }
+  }
+}

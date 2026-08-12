@@ -1,0 +1,39 @@
+{
+  "adjudicationScope": "taxonomy-only",
+  "agentTaskId": "g002-taxonomy-adjudication-round2",
+  "assignmentManifestSha256": "0bd0094b02de86277d1eed72347a360b9201aadc74dc69639083333bd48ac85e",
+  "blinded": true,
+  "conductorHmacSha256": "d1a5c4e54708ff705e4864d12493acbe71024cd94b6339727c85abdeb9e7778c",
+  "confidence": 0.91,
+  "contractSha256": "f6d06316ba0ce315a79d3d784abe49f8f80463776ef07f5dbf5372185b9a8a15",
+  "fresh": true,
+  "inputAllowlistSha256": "6eb9da0d8e8a68a8f53dee3f120f90e2c02789ef374688f0fe2ab52a020392aa",
+  "inputAssetSha256s": [
+    "8bca9ba317bafddf8a8b30f23741d0411e1288e47426571272eb86ff22514387",
+    "c31f6c088954d5836c6e50b43b8851afd0c889be5c6a98757efe5fa66cb58e4b"
+  ],
+  "opaqueTaxonomyTargetId": "taxonomy-83470972c1bc0743b82dd2d3",
+  "outputSha256": "168b6ce8724b0a955abd3a2900c52fa36a3cc20be7ab166be3f9aa8db563d5d1",
+  "packageManifestSha256": "91981211dd69ed2f775ac796e0b068e7db8c4174d9fa81a868529cef92a6e5fc",
+  "passNumber": 3,
+  "promptSha256": "428e5d281d525d352776ae9950777265519d08f8bad67e50c2ed17b3f5c6e8d4",
+  "publicSignature": {
+    "algorithm": "Ed25519",
+    "authorityFingerprint": "423f474c59667e5eabc13a703b8d7de4e97bcba33cdc22340873866db9d6a53f",
+    "signatureBase64": "0QnVvFGQ3rpHhVY268LfUn1jYtAx0ZTEBHOxTO90sMdZpMuKQVIUZTVe/syK9Ws/m6jVuO2815/GOCcWpqwxDw=="
+  },
+  "rationale": "The elongated terminal abdomen ends in a distinct bioluminescent bulb with translucent flight wings, which is more lampyrid-defining than odonate-like.",
+  "reviewId": "taxonomy-review-0d6ee38971346275208119556cf9b9b2",
+  "reviewerInstanceId": "taxonomy-adjudicator-independent-round2",
+  "reviewerRunAttestationSha256": "6311931ea9b030e9e94d5028c00298355a32965d34ef7f01d87c6c94e9759832",
+  "role": "taxonomy-only-adjudicator",
+  "schemaVersion": "g002-taxonomy-adjudication-v1",
+  "submittedAt": "2026-08-10T16:39:31.819Z",
+  "taxonomy": {
+    "biologicalClass": "insect",
+    "coreAnatomy": "hexapod",
+    "locomotionPlan": "flight",
+    "speciesFamily": "lampyridae"
+  },
+  "voterReviewRunId": "g002-taxonomy-run-adjudication-round2"
+}

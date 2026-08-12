@@ -1,0 +1,34 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://punchgrow.local/contracts/continuity-pack-lock-v2.schema.json",
+  "title": "PunchGrow immutable continuity pack lock v2",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schemaVersion", "protocolAuthoritySha256", "packId", "manifest", "reviewCoverage", "finalization", "sourceTreeSha256", "entryCount", "outputSha256", "publicSignature"],
+  "properties": {
+    "schemaVersion": { "const": "continuity-pack-lock-v2" },
+    "protocolAuthoritySha256": { "const": "f585f5002c5f173a6a083e4a1d547d6b827d2277f140e94d1b8519d02b0124c7" },
+    "packId": { "const": "biological-continuity-v3" },
+    "manifest": { "$ref": "#/$defs/file" }, "reviewCoverage": { "$ref": "#/$defs/file" },
+    "finalization": {
+      "type": "object", "additionalProperties": false,
+      "required": ["statePath", "stateSha256", "acceptedTipSetSha256", "acceptedTipCount", "terminalStatePath"],
+      "properties": {
+        "statePath": { "const": "production/reports/biological-continuity-v3/g003-evidence-v2/finalization/finalizing.json" },
+        "stateSha256": { "$ref": "#/$defs/sha256" },
+        "acceptedTipSetSha256": { "$ref": "#/$defs/sha256" },
+        "acceptedTipCount": { "const": 367 },
+        "terminalStatePath": { "const": "production/reports/biological-continuity-v3/g003-evidence-v2/finalization/terminal.json" }
+      }
+    },
+    "sourceTreeSha256": { "$ref": "#/$defs/sha256" }, "entryCount": { "const": 240 }, "outputSha256": { "$ref": "#/$defs/sha256" },
+    "publicSignature": {
+      "type": "object", "additionalProperties": false, "required": ["algorithm", "authorityFingerprint", "signatureBase64"],
+      "properties": { "algorithm": { "const": "Ed25519" }, "authorityFingerprint": { "$ref": "#/$defs/sha256" }, "signatureBase64": { "type": "string", "minLength": 80 } }
+    }
+  },
+  "$defs": {
+    "sha256": { "type": "string", "pattern": "^[a-f0-9]{64}$" },
+    "file": { "type": "object", "additionalProperties": false, "required": ["path", "sha256"], "properties": { "path": { "type": "string", "minLength": 1 }, "sha256": { "$ref": "#/$defs/sha256" } } }
+  }
+}

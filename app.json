@@ -1,0 +1,35 @@
+{
+  "expo": {
+    "name": "PunchGrow",
+    "slug": "punchgrow",
+    "scheme": "punchgrow",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "icon": "./에셋/icon.png",
+    "userInterfaceStyle": "light",
+    "ios": {
+      "supportsTablet": true
+    },
+    "android": {
+      "adaptiveIcon": {
+        "backgroundColor": "#E6F4FE",
+        "foregroundImage": "./에셋/android-icon-foreground.png",
+        "backgroundImage": "./에셋/android-icon-background.png",
+        "monochromeImage": "./에셋/android-icon-monochrome.png"
+      },
+      "predictiveBackGestureEnabled": false
+    },
+    "web": {
+      "bundler": "metro",
+      "favicon": "./에셋/favicon.png"
+    },
+    "plugins": [
+      "expo-router",
+      "expo-status-bar",
+      "expo-font"
+    ],
+    "experiments": {
+      "typedRoutes": true
+    }
+  }
+}

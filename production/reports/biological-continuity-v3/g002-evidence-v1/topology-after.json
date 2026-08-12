@@ -1,0 +1,5430 @@
+{
+  "schemaVersion": "continuity-topology-after-v1",
+  "counts": {
+    "slots": 240,
+    "roots": 60,
+    "edges": 190,
+    "categories": {
+      "start": 60,
+      "normal_evolution": 121,
+      "branch": 14,
+      "mixed": 10,
+      "special": 10,
+      "mutant": 25
+    },
+    "choiceProfile": {
+      "noChoice": 32,
+      "stageOneChoice": 10,
+      "stageTwoChoice": 18
+    }
+  },
+  "constraints": {
+    "maxStages": 4,
+    "maxCardsTotal": 6,
+    "maxCardsPerStage": 3,
+    "maxChoiceNodesPerPath": 1,
+    "maxSelectableCandidates": 2,
+    "mixedSemantics": "either-parent"
+  },
+  "rootSlotIds": [
+    "PG-001",
+    "PG-002",
+    "PG-003",
+    "PG-004",
+    "PG-005",
+    "PG-006",
+    "PG-007",
+    "PG-008",
+    "PG-009",
+    "PG-010",
+    "PG-011",
+    "PG-012",
+    "PG-013",
+    "PG-014",
+    "PG-015",
+    "PG-016",
+    "PG-017",
+    "PG-018",
+    "PG-019",
+    "PG-020",
+    "PG-021",
+    "PG-022",
+    "PG-023",
+    "PG-024",
+    "PG-025",
+    "PG-026",
+    "PG-027",
+    "PG-028",
+    "PG-029",
+    "PG-030",
+    "PG-031",
+    "PG-032",
+    "PG-033",
+    "PG-034",
+    "PG-035",
+    "PG-036",
+    "PG-037",
+    "PG-038",
+    "PG-039",
+    "PG-040",
+    "PG-041",
+    "PG-042",
+    "PG-043",
+    "PG-044",
+    "PG-045",
+    "PG-046",
+    "PG-047",
+    "PG-048",
+    "PG-049",
+    "PG-050",
+    "PG-051",
+    "PG-052",
+    "PG-053",
+    "PG-054",
+    "PG-055",
+    "PG-056",
+    "PG-057",
+    "PG-058",
+    "PG-059",
+    "PG-060"
+  ],
+  "edges": [
+    {
+      "parentId": "PG-001",
+      "childId": "PG-061",
+      "category": "normal_evolution",
+      "parentPort": "PG-L001:S1",
+      "eitherParentEligible": false,
+      "targetCompatible": true,
+      "compatibilityStatus": "VERIFIED_PIXEL_VOTE_TARGET"
+    },
+    {
+      "parentId": "PG-002",
+      "childId": "PG-062",
+      "category": "normal_evolution",
+      "parentPort": "PG-L002:S1",
+      "eitherParentEligible": false,
+      "targetCompatible": true,
+      "compatibilityStatus": "VERIFIED_PIXEL_VOTE_TARGET"
+    },
+    {
+      "parentId": "PG-003",
+      "childId": "PG-063",
+      "category": "normal_evolution",
+      "parentPort": "PG-L003:S1",
+      "eitherParentEligible": false,
+      "targetCompatible": true,
+      "compatibilityStatus": "VERIFIED_PIXEL_VOTE_TARGET"
+    },
+    {
+      "parentId": "PG-004",
+      "childId": "PG-064",
+      "category": "normal_evolution",
+      "parentPort": "PG-L004:S1",
+      "eitherParentEligible": false,
+      "targetCompatible": true,
+      "compatibilityStatus": "VERIFIED_PIXEL_VOTE_TARGET"
+    },
+    {
+      "parentId": "PG-005",
+      "childId": "PG-065",
+      "category": "normal_evolution",
+      "parentPort": "PG-L005:S1",
+      "eitherParentEligible": false,
+      "targetCompatible": true,
+      "compatibilityStatus": "VERIFIED_PIXEL_VOTE_TARGET"
+    },
+    {
+      "parentId": "PG-006",
+      "childId": "PG-066",
+      "category": "normal_evolution",
+      "parentPort": "PG-L006:S1",
+      "eitherParentEligible": false,
+      "targetCompatible": true,
+      "compatibilityStatus": "VERIFIED_PIXEL_VOTE_TARGET"
+    },
+    {
+      "parentId": "PG-007",
+      "childId": "PG-067",
+      "category": "normal_evolution",
+      "parentPort": "PG-L007:S1",
+      "eitherParentEligible": false,
+      "targetCompatible": true,
+      "compatibilityStatus": "VERIFIED_PIXEL_VOTE_TARGET"
+    },
+    {
+      "parentId": "PG-008",
+      "childId": "PG-068",
+      "category": "normal_evolution",
+      "parentPort": "PG-L008:S1",
+      "eitherParentEligible": false,
+      "targetCompatible": true,
+      "compatibilityStatus": "VERIFIED_PIXEL_VOTE_TARGET"
+    },
+    {
+      "parentId": "PG-009",
+      "childId": "PG-069",
+      "category": "normal_evolution",
+      "parentPort": "PG-L009:S1",
+      "eitherParentEligible": false,
+      "targetCompatible": true,
+      "compatibilityStatus": "VERIFIED_PIXEL_VOTE_TARGET"
+    },
+    {
+      "parentId": "PG-010",
+      "childId": "PG-070",
+      "category": "normal_evolution",
+      "parentPort": "PG-L010:S1",
+      "eitherParentEligible": false,
+      "targetCompatible": true,
+      "compatibilityStatus": "VERIFIED_PIXEL_VOTE_TARGET"
+    },
+    {
+      "parentId": "PG-011",
+      "childId": "PG-071",
+      "category": "normal_evolution",
+      "parentPort": "PG-L011:S1",
+      "eitherParentEligible": false,
+      "targetCompatible": true,
+      "compatibilityStatus": "VERIFIED_PIXEL_VOTE_TARGET"
+    },
+    {
+      "parentId": "PG-012",
+      "childId": "PG-072",
+      "category": "normal_evolution",
+      "parentPort": "PG-L012:S1",
+      "eitherParentEligible": false,
+      "targetCompatible": true,
+      "compatibilityStatus": "VERIFIED_PIXEL_VOTE_TARGET"
+    },
+    {
+      "parentId": "PG-013",
+      "childId": "PG-073",
+      "category": "normal_evolution",
+      "parentPort": "PG-L013:S1",
+      "eitherParentEligible": false,
+      "targetCompatible": true,
+      "compatibilityStatus": "VERIFIED_PIXEL_VOTE_TARGET"
+    },
+    {
+      "parentId": "PG-014",
+      "childId": "PG-074",
+      "category": "normal_evolution",
+      "parentPort": "PG-L014:S1",
+      "eitherParentEligible": false,
+      "targetCompatible": true,
+      "compatibilityStatus": "VERIFIED_PIXEL_VOTE_TARGET"
+    },
+    {
+      "parentId": "PG-015",
+      "childId": "PG-075",
+      "category": "normal_evolution",
+      "parentPort": "PG-L015:S1",
+      "eitherParentEligible": false,
+      "targetCompatible": true,
+      "compatibilityStatus": "VERIFIED_PIXEL_VOTE_TARGET"
+    },
+    {
+      "parentId": "PG-016",
+      "childId": "PG-076",
+      "category": "normal_evolution",
+      "parentPort": "PG-L016:S1",
+      "eitherParentEligible": false,
+      "targetCompatible": true,
+      "compatibilityStatus": "VERIFIED_PIXEL_VOTE_TARGET"
+    },
+    {
+      "parentId": "PG-017",
+      "childId": "PG-077",
+      "category": "normal_evolution",
+      "parentPort": "PG-L017:S1",
+      "eitherParentEligible": false,
+      "targetCompatible": true,
+      "compatibilityStatus": "VERIFIED_PIXEL_VOTE_TARGET"
+    },
+    {
+      "parentId": "PG-018",
+      "childId": "PG-078",
+      "category": "normal_evolution",
+      "parentPort": "PG-L018:S1",
+      "eitherParentEligible": false,
+      "targetCompatible": true,
+      "compatibilityStatus": "VERIFIED_PIXEL_VOTE_TARGET"
+    },
+    {
+      "parentId": "PG-019",
+      "childId": "PG-079",
+      "category": "normal_evolution",
+      "parentPort": "PG-L019:S1",
+      "eitherParentEligible": false,
+      "targetCompatible": true,
+      "compatibilityStatus": "VERIFIED_PIXEL_VOTE_TARGET"
+    },
+    {
+      "parentId": "PG-020",
+      "childId": "PG-080",
+      "category": "normal_evolution",
+      "parentPort": "PG-L020:S1",
+      "eitherParentEligible": false,
+      "targetCompatible": true,
+      "compatibilityStatus": "VERIFIED_PIXEL_VOTE_TARGET"
+    },
+    {
+      "parentId": "PG-026",
+      "childId": "PG-081",
+      "category": "normal_evolution",
+      "parentPort": "PG-L026:S1",
+      "eitherParentEligible": false,
+      "targetCompatible": true,
+      "compatibilityStatus": "VERIFIED_PIXEL_VOTE_TARGET"
+    },
+    {
+      "parentId": "PG-081",
+      "childId": "PG-082",
+      "category": "normal_evolution",
+      "parentPort": "PG-L026:S2",
+      "eitherParentEligible": false,
+      "targetCompatible": true,
+      "compatibilityStatus": "VERIFIED_PIXEL_VOTE_TARGET"
+    },
+    {
+      "parentId": "PG-082",
+      "childId": "PG-083",
+      "category": "normal_evolution",
+      "parentPort": "PG-L026:S3",
+      "eitherParentEligible": false,
+      "targetCompatible": true,
+      "compatibilityStatus": "VERIFIED_PIXEL_VOTE_TARGET"
+    },
+    {
+      "parentId": "PG-032",
+      "childId": "PG-084",
+      "category": "normal_evolution",
+      "parentPort": "PG-L032:S1",
+      "eitherParentEligible": false,
+      "targetCompatible": true,
+      "compatibilityStatus": "VERIFIED_PIXEL_VOTE_TARGET"
+    },
+    {
+      "parentId": "PG-084",
+      "childId": "PG-085",
+      "category": "normal_evolution",
+      "parentPort": "PG-L032:S2",
+      "eitherParentEligible": false,
+      "targetCompatible": true,
+      "compatibilityStatus": "VERIFIED_PIXEL_VOTE_TARGET"
+    },
+    {
+      "parentId": "PG-085",
+      "childId": "PG-086",
+      "category": "normal_evolution",
+      "parentPort": "PG-L032:S3",
+      "eitherParentEligible": false,
+      "targetCompatible": true,
+      "compatibilityStatus": "VERIFIED_PIXEL_VOTE_TARGET"
+    },
+    {
+      "parentId": "PG-040",
+      "childId": "PG-087",
+      "category": "normal_evolution",
+      "parentPort": "PG-L040:S1",
+      "eitherParentEligible": false,
+      "targetCompatible": true,
+      "compatibilityStatus": "VERIFIED_PIXEL_VOTE_TARGET"
+    },
+    {
+      "parentId": "PG-087",
+      "childId": "PG-088",
+      "category": "normal_evolution",
+      "parentPort": "PG-L040:S2",
+      "eitherParentEligible": false,
+      "targetCompatible": true,
+      "compatibilityStatus": "VERIFIED_PIXEL_VOTE_TARGET"
+    },
+    {
+      "parentId": "PG-088",
+      "childId": "PG-089",
+      "category": "normal_evolution",
+      "parentPort": "PG-L040:S3",
+      "eitherParentEligible": false,
+      "targetCompatible": true,
+      "compatibilityStatus": "VERIFIED_PIXEL_VOTE_TARGET"
+    },
+    {
+      "parentId": "PG-024",
+      "childId": "PG-090",
+      "category": "normal_evolution",
+      "parentPort": "PG-L024:S1",
+      "eitherParentEligible": false,
+      "targetCompatible": true,
+      "compatibilityStatus": "VERIFIED_PIXEL_VOTE_TARGET"
+    },
+    {
+      "parentId": "PG-090",
+      "childId": "PG-091",
+      "category": "normal_evolution",
+      "parentPort": "PG-L024:S2",
+      "eitherParentEligible": false,
+      "targetCompatible": true,
+      "compatibilityStatus": "VERIFIED_PIXEL_VOTE_TARGET"
+    },
+    {
+      "parentId": "PG-091",
+      "childId": "PG-092",
+      "category": "normal_evolution",
+      "parentPort": "PG-L024:S3",
+      "eitherParentEligible": false,
+      "targetCompatible": true,
+      "compatibilityStatus": "VERIFIED_PIXEL_VOTE_TARGET"
+    },
+    {
+      "parentId": "PG-022",
+      "childId": "PG-093",
+      "category": "normal_evolution",
+      "parentPort": "PG-L022:S1",
+      "eitherParentEligible": false,
+      "targetCompatible": true,
+      "compatibilityStatus": "VERIFIED_PIXEL_VOTE_TARGET"
+    },
+    {
+      "parentId": "PG-093",
+      "childId": "PG-094",
+      "category": "normal_evolution",
+      "parentPort": "PG-L022:S2",
+      "eitherParentEligible": false,
+      "targetCompatible": true,
+      "compatibilityStatus": "VERIFIED_PIXEL_VOTE_TARGET"
+    },
+    {
+      "parentId": "PG-094",
+      "childId": "PG-095",
+      "category": "normal_evolution",
+      "parentPort": "PG-L022:S3",
+      "eitherParentEligible": false,
+      "targetCompatible": true,
+      "compatibilityStatus": "VERIFIED_PIXEL_VOTE_TARGET"
+    },
+    {
+      "parentId": "PG-036",
+      "childId": "PG-096",
+      "category": "normal_evolution",
+      "parentPort": "PG-L036:S1",
+      "eitherParentEligible": false,
+      "targetCompatible": true,
+      "compatibilityStatus": "VERIFIED_PIXEL_VOTE_TARGET"
+    },
+    {
+      "parentId": "PG-096",
+      "childId": "PG-097",
+      "category": "normal_evolution",
+      "parentPort": "PG-L036:S2",
+      "eitherParentEligible": false,
+      "targetCompatible": true,
+      "compatibilityStatus": "VERIFIED_PIXEL_VOTE_TARGET"
+    },
+    {
+      "parentId": "PG-097",
+      "childId": "PG-098",
+      "category": "normal_evolution",
+      "parentPort": "PG-L036:S3",
+      "eitherParentEligible": false,
+      "targetCompatible": true,
+      "compatibilityStatus": "VERIFIED_PIXEL_VOTE_TARGET"
+    },
+    {
+      "parentId": "PG-031",
+      "childId": "PG-099",
+      "category": "normal_evolution",
+      "parentPort": "PG-L031:S1",
+      "eitherParentEligible": false,
+      "targetCompatible": true,
+      "compatibilityStatus": "VERIFIED_PIXEL_VOTE_TARGET"
+    },
+    {
+      "parentId": "PG-099",
+      "childId": "PG-100",
+      "category": "normal_evolution",
+      "parentPort": "PG-L031:S2",
+      "eitherParentEligible": false,
+      "targetCompatible": true,
+      "compatibilityStatus": "VERIFIED_PIXEL_VOTE_TARGET"
+    },
+    {
+      "parentId": "PG-100",
+      "childId": "PG-101",
+      "category": "normal_evolution",
+      "parentPort": "PG-L031:S3",
+      "eitherParentEligible": false,
+      "targetCompatible": true,
+      "compatibilityStatus": "VERIFIED_PIXEL_VOTE_TARGET"
+    },
+    {
+      "parentId": "PG-025",
+      "childId": "PG-102",
+      "category": "normal_evolution",
+      "parentPort": "PG-L025:S1",
+      "eitherParentEligible": false,
+      "targetCompatible": true,
+      "compatibilityStatus": "VERIFIED_PIXEL_VOTE_TARGET"
+    },
+    {
+      "parentId": "PG-102",
+      "childId": "PG-103",
+      "category": "normal_evolution",
+      "parentPort": "PG-L025:S2",
+      "eitherParentEligible": false,
+      "targetCompatible": true,
+      "compatibilityStatus": "VERIFIED_PIXEL_VOTE_TARGET"
+    },
+    {
+      "parentId": "PG-103",
+      "childId": "PG-104",
+      "category": "normal_evolution",
+      "parentPort": "PG-L025:S3",
+      "eitherParentEligible": false,
+      "targetCompatible": true,
+      "compatibilityStatus": "VERIFIED_PIXEL_VOTE_TARGET"
+    },
+    {
+      "parentId": "PG-027",
+      "childId": "PG-105",
+      "category": "normal_evolution",
+      "parentPort": "PG-L027:S1",
+      "eitherParentEligible": false,
+      "targetCompatible": true,
+      "compatibilityStatus": "VERIFIED_PIXEL_VOTE_TARGET"
+    },
+    {
+      "parentId": "PG-105",
+      "childId": "PG-106",
+      "category": "normal_evolution",
+      "parentPort": "PG-L027:S2",
+      "eitherParentEligible": false,
+      "targetCompatible": true,
+      "compatibilityStatus": "VERIFIED_PIXEL_VOTE_TARGET"
+    },
+    {
+      "parentId": "PG-106",
+      "childId": "PG-107",
+      "category": "normal_evolution",
+      "parentPort": "PG-L027:S3",
+      "eitherParentEligible": false,
+      "targetCompatible": true,
+      "compatibilityStatus": "VERIFIED_PIXEL_VOTE_TARGET"
+    },
+    {
+      "parentId": "PG-033",
+      "childId": "PG-108",
+      "category": "normal_evolution",
+      "parentPort": "PG-L033:S1",
+      "eitherParentEligible": false,
+      "targetCompatible": true,
+      "compatibilityStatus": "VERIFIED_PIXEL_VOTE_TARGET"
+    },
+    {
+      "parentId": "PG-108",
+      "childId": "PG-109",
+      "category": "normal_evolution",
+      "parentPort": "PG-L033:S2",
+      "eitherParentEligible": false,
+      "targetCompatible": true,
+      "compatibilityStatus": "VERIFIED_PIXEL_VOTE_TARGET"
+    },
+    {
+      "parentId": "PG-109",
+      "childId": "PG-110",
+      "category": "normal_evolution",
+      "parentPort": "PG-L033:S3",
+      "eitherParentEligible": false,
+      "targetCompatible": true,
+      "compatibilityStatus": "VERIFIED_PIXEL_VOTE_TARGET"
+    },
+    {
+      "parentId": "PG-035",
+      "childId": "PG-111",
+      "category": "normal_evolution",
+      "parentPort": "PG-L035:S1",
+      "eitherParentEligible": false,
+      "targetCompatible": true,
+      "compatibilityStatus": "VERIFIED_PIXEL_VOTE_TARGET"
+    },
+    {
+      "parentId": "PG-111",
+      "childId": "PG-112",
+      "category": "normal_evolution",
+      "parentPort": "PG-L035:S2",
+      "eitherParentEligible": false,
+      "targetCompatible": true,
+      "compatibilityStatus": "VERIFIED_PIXEL_VOTE_TARGET"
+    },
+    {
+      "parentId": "PG-112",
+      "childId": "PG-113",
+      "category": "normal_evolution",
+      "parentPort": "PG-L035:S3",
+      "eitherParentEligible": false,
+      "targetCompatible": true,
+      "compatibilityStatus": "VERIFIED_PIXEL_VOTE_TARGET"
+    },
+    {
+      "parentId": "PG-028",
+      "childId": "PG-114",
+      "category": "normal_evolution",
+      "parentPort": "PG-L028:S1",
+      "eitherParentEligible": false,
+      "targetCompatible": true,
+      "compatibilityStatus": "VERIFIED_PIXEL_VOTE_TARGET"
+    },
+    {
+      "parentId": "PG-114",
+      "childId": "PG-115",
+      "category": "normal_evolution",
+      "parentPort": "PG-L028:S2",
+      "eitherParentEligible": false,
+      "targetCompatible": true,
+      "compatibilityStatus": "VERIFIED_PIXEL_VOTE_TARGET"
+    },
+    {
+      "parentId": "PG-115",
+      "childId": "PG-116",
+      "category": "normal_evolution",
+      "parentPort": "PG-L028:S3",
+      "eitherParentEligible": false,
+      "targetCompatible": true,
+      "compatibilityStatus": "VERIFIED_PIXEL_VOTE_TARGET"
+    },
+    {
+      "parentId": "PG-034",
+      "childId": "PG-117",
+      "category": "normal_evolution",
+      "parentPort": "PG-L034:S1",
+      "eitherParentEligible": false,
+      "targetCompatible": true,
+      "compatibilityStatus": "VERIFIED_PIXEL_VOTE_TARGET"
+    },
+    {
+      "parentId": "PG-117",
+      "childId": "PG-118",
+      "category": "normal_evolution",
+      "parentPort": "PG-L034:S2",
+      "eitherParentEligible": false,
+      "targetCompatible": true,
+      "compatibilityStatus": "VERIFIED_PIXEL_VOTE_TARGET"
+    },
+    {
+      "parentId": "PG-118",
+      "childId": "PG-119",
+      "category": "normal_evolution",
+      "parentPort": "PG-L034:S3",
+      "eitherParentEligible": false,
+      "targetCompatible": true,
+      "compatibilityStatus": "VERIFIED_PIXEL_VOTE_TARGET"
+    },
+    {
+      "parentId": "PG-030",
+      "childId": "PG-120",
+      "category": "normal_evolution",
+      "parentPort": "PG-L030:S1",
+      "eitherParentEligible": false,
+      "targetCompatible": true,
+      "compatibilityStatus": "VERIFIED_PIXEL_VOTE_TARGET"
+    },
+    {
+      "parentId": "PG-120",
+      "childId": "PG-121",
+      "category": "normal_evolution",
+      "parentPort": "PG-L030:S2",
+      "eitherParentEligible": false,
+      "targetCompatible": true,
+      "compatibilityStatus": "VERIFIED_PIXEL_VOTE_TARGET"
+    },
+    {
+      "parentId": "PG-121",
+      "childId": "PG-122",
+      "category": "normal_evolution",
+      "parentPort": "PG-L030:S3",
+      "eitherParentEligible": false,
+      "targetCompatible": true,
+      "compatibilityStatus": "VERIFIED_PIXEL_VOTE_TARGET"
+    },
+    {
+      "parentId": "PG-023",
+      "childId": "PG-123",
+      "category": "normal_evolution",
+      "parentPort": "PG-L023:S1",
+      "eitherParentEligible": false,
+      "targetCompatible": true,
+      "compatibilityStatus": "VERIFIED_PIXEL_VOTE_TARGET"
+    },
+    {
+      "parentId": "PG-123",
+      "childId": "PG-124",
+      "category": "normal_evolution",
+      "parentPort": "PG-L023:S2",
+      "eitherParentEligible": false,
+      "targetCompatible": true,
+      "compatibilityStatus": "VERIFIED_PIXEL_VOTE_TARGET"
+    },
+    {
+      "parentId": "PG-124",
+      "childId": "PG-125",
+      "category": "normal_evolution",
+      "parentPort": "PG-L023:S3",
+      "eitherParentEligible": false,
+      "targetCompatible": true,
+      "compatibilityStatus": "VERIFIED_PIXEL_VOTE_TARGET"
+    },
+    {
+      "parentId": "PG-037",
+      "childId": "PG-126",
+      "category": "normal_evolution",
+      "parentPort": "PG-L037:S1",
+      "eitherParentEligible": false,
+      "targetCompatible": true,
+      "compatibilityStatus": "VERIFIED_PIXEL_VOTE_TARGET"
+    },
+    {
+      "parentId": "PG-126",
+      "childId": "PG-127",
+      "category": "normal_evolution",
+      "parentPort": "PG-L037:S2",
+      "eitherParentEligible": false,
+      "targetCompatible": true,
+      "compatibilityStatus": "VERIFIED_PIXEL_VOTE_TARGET"
+    },
+    {
+      "parentId": "PG-127",
+      "childId": "PG-128",
+      "category": "normal_evolution",
+      "parentPort": "PG-L037:S3",
+      "eitherParentEligible": false,
+      "targetCompatible": true,
+      "compatibilityStatus": "VERIFIED_PIXEL_VOTE_TARGET"
+    },
+    {
+      "parentId": "PG-021",
+      "childId": "PG-129",
+      "category": "normal_evolution",
+      "parentPort": "PG-L021:S1",
+      "eitherParentEligible": false,
+      "targetCompatible": true,
+      "compatibilityStatus": "VERIFIED_PIXEL_VOTE_TARGET"
+    },
+    {
+      "parentId": "PG-129",
+      "childId": "PG-130",
+      "category": "normal_evolution",
+      "parentPort": "PG-L021:S2",
+      "eitherParentEligible": false,
+      "targetCompatible": true,
+      "compatibilityStatus": "VERIFIED_PIXEL_VOTE_TARGET"
+    },
+    {
+      "parentId": "PG-130",
+      "childId": "PG-131",
+      "category": "normal_evolution",
+      "parentPort": "PG-L021:S3",
+      "eitherParentEligible": false,
+      "targetCompatible": true,
+      "compatibilityStatus": "VERIFIED_PIXEL_VOTE_TARGET"
+    },
+    {
+      "parentId": "PG-038",
+      "childId": "PG-132",
+      "category": "normal_evolution",
+      "parentPort": "PG-L038:S1",
+      "eitherParentEligible": false,
+      "targetCompatible": true,
+      "compatibilityStatus": "VERIFIED_PIXEL_VOTE_TARGET"
+    },
+    {
+      "parentId": "PG-132",
+      "childId": "PG-133",
+      "category": "normal_evolution",
+      "parentPort": "PG-L038:S2",
+      "eitherParentEligible": false,
+      "targetCompatible": true,
+      "compatibilityStatus": "VERIFIED_PIXEL_VOTE_TARGET"
+    },
+    {
+      "parentId": "PG-133",
+      "childId": "PG-134",
+      "category": "normal_evolution",
+      "parentPort": "PG-L038:S3",
+      "eitherParentEligible": false,
+      "targetCompatible": true,
+      "compatibilityStatus": "VERIFIED_PIXEL_VOTE_TARGET"
+    },
+    {
+      "parentId": "PG-039",
+      "childId": "PG-135",
+      "category": "normal_evolution",
+      "parentPort": "PG-L039:S1",
+      "eitherParentEligible": false,
+      "targetCompatible": true,
+      "compatibilityStatus": "VERIFIED_PIXEL_VOTE_TARGET"
+    },
+    {
+      "parentId": "PG-135",
+      "childId": "PG-136",
+      "category": "normal_evolution",
+      "parentPort": "PG-L039:S2",
+      "eitherParentEligible": false,
+      "targetCompatible": true,
+      "compatibilityStatus": "VERIFIED_PIXEL_VOTE_TARGET"
+    },
+    {
+      "parentId": "PG-136",
+      "childId": "PG-137",
+      "category": "normal_evolution",
+      "parentPort": "PG-L039:S3",
+      "eitherParentEligible": false,
+      "targetCompatible": true,
+      "compatibilityStatus": "VERIFIED_PIXEL_VOTE_TARGET"
+    },
+    {
+      "parentId": "PG-029",
+      "childId": "PG-138",
+      "category": "normal_evolution",
+      "parentPort": "PG-L029:S1",
+      "eitherParentEligible": false,
+      "targetCompatible": true,
+      "compatibilityStatus": "VERIFIED_PIXEL_VOTE_TARGET"
+    },
+    {
+      "parentId": "PG-138",
+      "childId": "PG-139",
+      "category": "normal_evolution",
+      "parentPort": "PG-L029:S2",
+      "eitherParentEligible": false,
+      "targetCompatible": true,
+      "compatibilityStatus": "VERIFIED_PIXEL_VOTE_TARGET"
+    },
+    {
+      "parentId": "PG-139",
+      "childId": "PG-140",
+      "category": "normal_evolution",
+      "parentPort": "PG-L029:S3",
+      "eitherParentEligible": false,
+      "targetCompatible": true,
+      "compatibilityStatus": "VERIFIED_PIXEL_VOTE_TARGET"
+    },
+    {
+      "parentId": "PG-042",
+      "childId": "PG-141",
+      "category": "normal_evolution",
+      "parentPort": "PG-L042:S1",
+      "eitherParentEligible": false,
+      "targetCompatible": true,
+      "compatibilityStatus": "VERIFIED_PIXEL_VOTE_TARGET"
+    },
+    {
+      "parentId": "PG-045",
+      "childId": "PG-142",
+      "category": "normal_evolution",
+      "parentPort": "PG-L045:S1",
+      "eitherParentEligible": false,
+      "targetCompatible": true,
+      "compatibilityStatus": "VERIFIED_PIXEL_VOTE_TARGET"
+    },
+    {
+      "parentId": "PG-046",
+      "childId": "PG-143",
+      "category": "normal_evolution",
+      "parentPort": "PG-L046:S1",
+      "eitherParentEligible": false,
+      "targetCompatible": true,
+      "compatibilityStatus": "VERIFIED_PIXEL_VOTE_TARGET"
+    },
+    {
+      "parentId": "PG-060",
+      "childId": "PG-144",
+      "category": "normal_evolution",
+      "parentPort": "PG-L060:S1",
+      "eitherParentEligible": false,
+      "targetCompatible": true,
+      "compatibilityStatus": "VERIFIED_PIXEL_VOTE_TARGET"
+    },
+    {
+      "parentId": "PG-053",
+      "childId": "PG-145",
+      "category": "normal_evolution",
+      "parentPort": "PG-L053:S1",
+      "eitherParentEligible": false,
+      "targetCompatible": true,
+      "compatibilityStatus": "VERIFIED_PIXEL_VOTE_TARGET"
+    },
+    {
+      "parentId": "PG-054",
+      "childId": "PG-146",
+      "category": "normal_evolution",
+      "parentPort": "PG-L054:S1",
+      "eitherParentEligible": false,
+      "targetCompatible": true,
+      "compatibilityStatus": "VERIFIED_PIXEL_VOTE_TARGET"
+    },
+    {
+      "parentId": "PG-049",
+      "childId": "PG-147",
+      "category": "normal_evolution",
+      "parentPort": "PG-L049:S1",
+      "eitherParentEligible": false,
+      "targetCompatible": true,
+      "compatibilityStatus": "VERIFIED_PIXEL_VOTE_TARGET"
+    },
+    {
+      "parentId": "PG-056",
+      "childId": "PG-148",
+      "category": "normal_evolution",
+      "parentPort": "PG-L056:S1",
+      "eitherParentEligible": false,
+      "targetCompatible": true,
+      "compatibilityStatus": "VERIFIED_PIXEL_VOTE_TARGET"
+    },
+    {
+      "parentId": "PG-041",
+      "childId": "PG-149",
+      "category": "normal_evolution",
+      "parentPort": "PG-L041:S1",
+      "eitherParentEligible": false,
+      "targetCompatible": true,
+      "compatibilityStatus": "VERIFIED_PIXEL_VOTE_TARGET"
+    },
+    {
+      "parentId": "PG-057",
+      "childId": "PG-150",
+      "category": "normal_evolution",
+      "parentPort": "PG-L057:S1",
+      "eitherParentEligible": false,
+      "targetCompatible": true,
+      "compatibilityStatus": "VERIFIED_PIXEL_VOTE_TARGET"
+    },
+    {
+      "parentId": "PG-052",
+      "childId": "PG-151",
+      "category": "normal_evolution",
+      "parentPort": "PG-L052:S1",
+      "eitherParentEligible": false,
+      "targetCompatible": true,
+      "compatibilityStatus": "VERIFIED_PIXEL_VOTE_TARGET"
+    },
+    {
+      "parentId": "PG-044",
+      "childId": "PG-152",
+      "category": "normal_evolution",
+      "parentPort": "PG-L044:S1",
+      "eitherParentEligible": false,
+      "targetCompatible": true,
+      "compatibilityStatus": "VERIFIED_PIXEL_VOTE_TARGET"
+    },
+    {
+      "parentId": "PG-055",
+      "childId": "PG-153",
+      "category": "normal_evolution",
+      "parentPort": "PG-L055:S1",
+      "eitherParentEligible": false,
+      "targetCompatible": true,
+      "compatibilityStatus": "VERIFIED_PIXEL_VOTE_TARGET"
+    },
+    {
+      "parentId": "PG-043",
+      "childId": "PG-154",
+      "category": "normal_evolution",
+      "parentPort": "PG-L043:S1",
+      "eitherParentEligible": false,
+      "targetCompatible": true,
+      "compatibilityStatus": "VERIFIED_PIXEL_VOTE_TARGET"
+    },
+    {
+      "parentId": "PG-047",
+      "childId": "PG-155",
+      "category": "normal_evolution",
+      "parentPort": "PG-L047:S1",
+      "eitherParentEligible": false,
+      "targetCompatible": true,
+      "compatibilityStatus": "VERIFIED_PIXEL_VOTE_TARGET"
+    },
+    {
+      "parentId": "PG-050",
+      "childId": "PG-156",
+      "category": "normal_evolution",
+      "parentPort": "PG-L050:S1",
+      "eitherParentEligible": false,
+      "targetCompatible": true,
+      "compatibilityStatus": "VERIFIED_PIXEL_VOTE_TARGET"
+    },
+    {
+      "parentId": "PG-051",
+      "childId": "PG-157",
+      "category": "normal_evolution",
+      "parentPort": "PG-L051:S1",
+      "eitherParentEligible": false,
+      "targetCompatible": true,
+      "compatibilityStatus": "VERIFIED_PIXEL_VOTE_TARGET"
+    },
+    {
+      "parentId": "PG-048",
+      "childId": "PG-158",
+      "category": "normal_evolution",
+      "parentPort": "PG-L048:S1",
+      "eitherParentEligible": false,
+      "targetCompatible": true,
+      "compatibilityStatus": "VERIFIED_PIXEL_VOTE_TARGET"
+    },
+    {
+      "parentId": "PG-058",
+      "childId": "PG-159",
+      "category": "normal_evolution",
+      "parentPort": "PG-L058:S1",
+      "eitherParentEligible": false,
+      "targetCompatible": true,
+      "compatibilityStatus": "VERIFIED_PIXEL_VOTE_TARGET"
+    },
+    {
+      "parentId": "PG-059",
+      "childId": "PG-160",
+      "category": "normal_evolution",
+      "parentPort": "PG-L059:S1",
+      "eitherParentEligible": false,
+      "targetCompatible": true,
+      "compatibilityStatus": "VERIFIED_PIXEL_VOTE_TARGET"
+    },
+    {
+      "parentId": "PG-158",
+      "childId": "PG-161",
+      "category": "normal_evolution",
+      "parentPort": "PG-L048:S2",
+      "eitherParentEligible": false,
+      "targetCompatible": true,
+      "compatibilityStatus": "VERIFIED_PIXEL_VOTE_TARGET"
+    },
+    {
+      "parentId": "PG-152",
+      "childId": "PG-162",
+      "category": "normal_evolution",
+      "parentPort": "PG-L044:S2",
+      "eitherParentEligible": false,
+      "targetCompatible": true,
+      "compatibilityStatus": "VERIFIED_PIXEL_VOTE_TARGET"
+    },
+    {
+      "parentId": "PG-142",
+      "childId": "PG-163",
+      "category": "normal_evolution",
+      "parentPort": "PG-L045:S2",
+      "eitherParentEligible": false,
+      "targetCompatible": true,
+      "compatibilityStatus": "VERIFIED_PIXEL_VOTE_TARGET"
+    },
+    {
+      "parentId": "PG-143",
+      "childId": "PG-164",
+      "category": "normal_evolution",
+      "parentPort": "PG-L046:S2",
+      "eitherParentEligible": false,
+      "targetCompatible": true,
+      "compatibilityStatus": "VERIFIED_PIXEL_VOTE_TARGET"
+    },
+    {
+      "parentId": "PG-160",
+      "childId": "PG-165",
+      "category": "normal_evolution",
+      "parentPort": "PG-L059:S2",
+      "eitherParentEligible": false,
+      "targetCompatible": true,
+      "compatibilityStatus": "VERIFIED_PIXEL_VOTE_TARGET"
+    },
+    {
+      "parentId": "PG-155",
+      "childId": "PG-166",
+      "category": "normal_evolution",
+      "parentPort": "PG-L047:S2",
+      "eitherParentEligible": false,
+      "targetCompatible": true,
+      "compatibilityStatus": "VERIFIED_PIXEL_VOTE_TARGET"
+    },
+    {
+      "parentId": "PG-156",
+      "childId": "PG-167",
+      "category": "normal_evolution",
+      "parentPort": "PG-L050:S2",
+      "eitherParentEligible": false,
+      "targetCompatible": true,
+      "compatibilityStatus": "VERIFIED_PIXEL_VOTE_TARGET"
+    },
+    {
+      "parentId": "PG-144",
+      "childId": "PG-168",
+      "category": "normal_evolution",
+      "parentPort": "PG-L060:S2",
+      "eitherParentEligible": false,
+      "targetCompatible": true,
+      "compatibilityStatus": "VERIFIED_PIXEL_VOTE_TARGET"
+    },
+    {
+      "parentId": "PG-147",
+      "childId": "PG-169",
+      "category": "normal_evolution",
+      "parentPort": "PG-L049:S2",
+      "eitherParentEligible": false,
+      "targetCompatible": true,
+      "compatibilityStatus": "VERIFIED_PIXEL_VOTE_TARGET"
+    },
+    {
+      "parentId": "PG-157",
+      "childId": "PG-170",
+      "category": "normal_evolution",
+      "parentPort": "PG-L051:S2",
+      "eitherParentEligible": false,
+      "targetCompatible": true,
+      "compatibilityStatus": "VERIFIED_PIXEL_VOTE_TARGET"
+    },
+    {
+      "parentId": "PG-141",
+      "childId": "PG-171",
+      "category": "normal_evolution",
+      "parentPort": "PG-L042:S2",
+      "eitherParentEligible": false,
+      "targetCompatible": true,
+      "compatibilityStatus": "VERIFIED_PIXEL_VOTE_TARGET"
+    },
+    {
+      "parentId": "PG-151",
+      "childId": "PG-172",
+      "category": "normal_evolution",
+      "parentPort": "PG-L052:S2",
+      "eitherParentEligible": false,
+      "targetCompatible": true,
+      "compatibilityStatus": "VERIFIED_PIXEL_VOTE_TARGET"
+    },
+    {
+      "parentId": "PG-154",
+      "childId": "PG-173",
+      "category": "normal_evolution",
+      "parentPort": "PG-L043:S2",
+      "eitherParentEligible": false,
+      "targetCompatible": true,
+      "compatibilityStatus": "VERIFIED_PIXEL_VOTE_TARGET"
+    },
+    {
+      "parentId": "PG-153",
+      "childId": "PG-174",
+      "category": "normal_evolution",
+      "parentPort": "PG-L055:S2",
+      "eitherParentEligible": false,
+      "targetCompatible": true,
+      "compatibilityStatus": "VERIFIED_PIXEL_VOTE_TARGET"
+    },
+    {
+      "parentId": "PG-159",
+      "childId": "PG-175",
+      "category": "normal_evolution",
+      "parentPort": "PG-L058:S2",
+      "eitherParentEligible": false,
+      "targetCompatible": true,
+      "compatibilityStatus": "VERIFIED_PIXEL_VOTE_TARGET"
+    },
+    {
+      "parentId": "PG-148",
+      "childId": "PG-176",
+      "category": "normal_evolution",
+      "parentPort": "PG-L056:S2",
+      "eitherParentEligible": false,
+      "targetCompatible": true,
+      "compatibilityStatus": "VERIFIED_PIXEL_VOTE_TARGET"
+    },
+    {
+      "parentId": "PG-150",
+      "childId": "PG-177",
+      "category": "normal_evolution",
+      "parentPort": "PG-L057:S2",
+      "eitherParentEligible": false,
+      "targetCompatible": true,
+      "compatibilityStatus": "VERIFIED_PIXEL_VOTE_TARGET"
+    },
+    {
+      "parentId": "PG-149",
+      "childId": "PG-178",
+      "category": "normal_evolution",
+      "parentPort": "PG-L041:S2",
+      "eitherParentEligible": false,
+      "targetCompatible": true,
+      "compatibilityStatus": "VERIFIED_PIXEL_VOTE_TARGET"
+    },
+    {
+      "parentId": "PG-145",
+      "childId": "PG-179",
+      "category": "normal_evolution",
+      "parentPort": "PG-L053:S2",
+      "eitherParentEligible": false,
+      "targetCompatible": true,
+      "compatibilityStatus": "VERIFIED_PIXEL_VOTE_TARGET"
+    },
+    {
+      "parentId": "PG-146",
+      "childId": "PG-180",
+      "category": "normal_evolution",
+      "parentPort": "PG-L054:S2",
+      "eitherParentEligible": false,
+      "targetCompatible": true,
+      "compatibilityStatus": "VERIFIED_PIXEL_VOTE_TARGET"
+    },
+    {
+      "parentId": "PG-061",
+      "childId": "PG-181",
+      "category": "normal_evolution",
+      "parentPort": "PG-L001:S2",
+      "eitherParentEligible": false,
+      "targetCompatible": true,
+      "compatibilityStatus": "VERIFIED_PIXEL_VOTE_TARGET"
+    },
+    {
+      "parentId": "PG-002",
+      "childId": "PG-182",
+      "category": "branch",
+      "parentPort": "PG-L002:S1",
+      "eitherParentEligible": false,
+      "targetCompatible": true,
+      "compatibilityStatus": "VERIFIED_PIXEL_VOTE_TARGET"
+    },
+    {
+      "parentId": "PG-063",
+      "childId": "PG-183",
+      "category": "branch",
+      "parentPort": "PG-L003:S2",
+      "eitherParentEligible": false,
+      "targetCompatible": true,
+      "compatibilityStatus": "VERIFIED_PIXEL_VOTE_TARGET"
+    },
+    {
+      "parentId": "PG-004",
+      "childId": "PG-184",
+      "category": "branch",
+      "parentPort": "PG-L004:S1",
+      "eitherParentEligible": false,
+      "targetCompatible": true,
+      "compatibilityStatus": "VERIFIED_PIXEL_VOTE_TARGET"
+    },
+    {
+      "parentId": "PG-065",
+      "childId": "PG-185",
+      "category": "branch",
+      "parentPort": "PG-L005:S2",
+      "eitherParentEligible": false,
+      "targetCompatible": true,
+      "compatibilityStatus": "VERIFIED_PIXEL_VOTE_TARGET"
+    },
+    {
+      "parentId": "PG-066",
+      "childId": "PG-186",
+      "category": "branch",
+      "parentPort": "PG-L006:S2",
+      "eitherParentEligible": false,
+      "targetCompatible": true,
+      "compatibilityStatus": "VERIFIED_PIXEL_VOTE_TARGET"
+    },
+    {
+      "parentId": "PG-007",
+      "childId": "PG-187",
+      "category": "branch",
+      "parentPort": "PG-L007:S1",
+      "eitherParentEligible": false,
+      "targetCompatible": true,
+      "compatibilityStatus": "VERIFIED_PIXEL_VOTE_TARGET"
+    },
+    {
+      "parentId": "PG-068",
+      "childId": "PG-188",
+      "category": "branch",
+      "parentPort": "PG-L008:S2",
+      "eitherParentEligible": false,
+      "targetCompatible": true,
+      "compatibilityStatus": "VERIFIED_PIXEL_VOTE_TARGET"
+    },
+    {
+      "parentId": "PG-009",
+      "childId": "PG-189",
+      "category": "branch",
+      "parentPort": "PG-L009:S1",
+      "eitherParentEligible": false,
+      "targetCompatible": true,
+      "compatibilityStatus": "VERIFIED_PIXEL_VOTE_TARGET"
+    },
+    {
+      "parentId": "PG-070",
+      "childId": "PG-190",
+      "category": "branch",
+      "parentPort": "PG-L010:S2",
+      "eitherParentEligible": false,
+      "targetCompatible": true,
+      "compatibilityStatus": "VERIFIED_PIXEL_VOTE_TARGET"
+    },
+    {
+      "parentId": "PG-071",
+      "childId": "PG-191",
+      "category": "branch",
+      "parentPort": "PG-L011:S2",
+      "eitherParentEligible": false,
+      "targetCompatible": true,
+      "compatibilityStatus": "VERIFIED_PIXEL_VOTE_TARGET"
+    },
+    {
+      "parentId": "PG-012",
+      "childId": "PG-192",
+      "category": "branch",
+      "parentPort": "PG-L012:S1",
+      "eitherParentEligible": false,
+      "targetCompatible": true,
+      "compatibilityStatus": "VERIFIED_PIXEL_VOTE_TARGET"
+    },
+    {
+      "parentId": "PG-073",
+      "childId": "PG-193",
+      "category": "branch",
+      "parentPort": "PG-L013:S2",
+      "eitherParentEligible": false,
+      "targetCompatible": true,
+      "compatibilityStatus": "VERIFIED_PIXEL_VOTE_TARGET"
+    },
+    {
+      "parentId": "PG-074",
+      "childId": "PG-194",
+      "category": "branch",
+      "parentPort": "PG-L014:S2",
+      "eitherParentEligible": false,
+      "targetCompatible": true,
+      "compatibilityStatus": "VERIFIED_PIXEL_VOTE_TARGET"
+    },
+    {
+      "parentId": "PG-015",
+      "childId": "PG-195",
+      "category": "branch",
+      "parentPort": "PG-L015:S1",
+      "eitherParentEligible": false,
+      "targetCompatible": true,
+      "compatibilityStatus": "VERIFIED_PIXEL_VOTE_TARGET"
+    },
+    {
+      "parentId": "PG-076",
+      "childId": "PG-196",
+      "category": "mixed",
+      "parentPort": "PG-L016:S2",
+      "eitherParentEligible": true,
+      "targetCompatible": true,
+      "compatibilityStatus": "VERIFIED_MIXED_PARENT_ANCHOR_CONTRACT"
+    },
+    {
+      "parentId": "PG-077",
+      "childId": "PG-196",
+      "category": "mixed",
+      "parentPort": "PG-L017:S2",
+      "eitherParentEligible": true,
+      "targetCompatible": true,
+      "compatibilityStatus": "VERIFIED_MIXED_PARENT_ANCHOR_CONTRACT"
+    },
+    {
+      "parentId": "PG-078",
+      "childId": "PG-197",
+      "category": "mixed",
+      "parentPort": "PG-L018:S2",
+      "eitherParentEligible": true,
+      "targetCompatible": true,
+      "compatibilityStatus": "VERIFIED_MIXED_PARENT_ANCHOR_CONTRACT"
+    },
+    {
+      "parentId": "PG-079",
+      "childId": "PG-197",
+      "category": "mixed",
+      "parentPort": "PG-L019:S2",
+      "eitherParentEligible": true,
+      "targetCompatible": true,
+      "compatibilityStatus": "VERIFIED_MIXED_PARENT_ANCHOR_CONTRACT"
+    },
+    {
+      "parentId": "PG-080",
+      "childId": "PG-198",
+      "category": "mixed",
+      "parentPort": "PG-L020:S2",
+      "eitherParentEligible": true,
+      "targetCompatible": true,
+      "compatibilityStatus": "VERIFIED_MIXED_PARENT_ANCHOR_CONTRACT"
+    },
+    {
+      "parentId": "PG-129",
+      "childId": "PG-198",
+      "category": "mixed",
+      "parentPort": "PG-L021:S2",
+      "eitherParentEligible": true,
+      "targetCompatible": true,
+      "compatibilityStatus": "VERIFIED_MIXED_PARENT_ANCHOR_CONTRACT"
+    },
+    {
+      "parentId": "PG-093",
+      "childId": "PG-199",
+      "category": "mixed",
+      "parentPort": "PG-L022:S2",
+      "eitherParentEligible": true,
+      "targetCompatible": true,
+      "compatibilityStatus": "VERIFIED_MIXED_PARENT_ANCHOR_CONTRACT"
+    },
+    {
+      "parentId": "PG-117",
+      "childId": "PG-199",
+      "category": "mixed",
+      "parentPort": "PG-L034:S2",
+      "eitherParentEligible": true,
+      "targetCompatible": true,
+      "compatibilityStatus": "VERIFIED_MIXED_PARENT_ANCHOR_CONTRACT"
+    },
+    {
+      "parentId": "PG-024",
+      "childId": "PG-200",
+      "category": "mixed",
+      "parentPort": "PG-L024:S1",
+      "eitherParentEligible": true,
+      "targetCompatible": true,
+      "compatibilityStatus": "VERIFIED_MIXED_PARENT_ANCHOR_CONTRACT"
+    },
+    {
+      "parentId": "PG-025",
+      "childId": "PG-200",
+      "category": "mixed",
+      "parentPort": "PG-L025:S1",
+      "eitherParentEligible": true,
+      "targetCompatible": true,
+      "compatibilityStatus": "VERIFIED_MIXED_PARENT_ANCHOR_CONTRACT"
+    },
+    {
+      "parentId": "PG-099",
+      "childId": "PG-201",
+      "category": "mixed",
+      "parentPort": "PG-L031:S2",
+      "eitherParentEligible": true,
+      "targetCompatible": true,
+      "compatibilityStatus": "VERIFIED_MIXED_PARENT_ANCHOR_CONTRACT"
+    },
+    {
+      "parentId": "PG-123",
+      "childId": "PG-201",
+      "category": "mixed",
+      "parentPort": "PG-L023:S2",
+      "eitherParentEligible": true,
+      "targetCompatible": true,
+      "compatibilityStatus": "VERIFIED_MIXED_PARENT_ANCHOR_CONTRACT"
+    },
+    {
+      "parentId": "PG-028",
+      "childId": "PG-202",
+      "category": "mixed",
+      "parentPort": "PG-L028:S1",
+      "eitherParentEligible": true,
+      "targetCompatible": true,
+      "compatibilityStatus": "VERIFIED_MIXED_PARENT_ANCHOR_CONTRACT"
+    },
+    {
+      "parentId": "PG-029",
+      "childId": "PG-202",
+      "category": "mixed",
+      "parentPort": "PG-L029:S1",
+      "eitherParentEligible": true,
+      "targetCompatible": true,
+      "compatibilityStatus": "VERIFIED_MIXED_PARENT_ANCHOR_CONTRACT"
+    },
+    {
+      "parentId": "PG-081",
+      "childId": "PG-203",
+      "category": "mixed",
+      "parentPort": "PG-L026:S2",
+      "eitherParentEligible": true,
+      "targetCompatible": true,
+      "compatibilityStatus": "VERIFIED_MIXED_PARENT_ANCHOR_CONTRACT"
+    },
+    {
+      "parentId": "PG-105",
+      "childId": "PG-203",
+      "category": "mixed",
+      "parentPort": "PG-L027:S2",
+      "eitherParentEligible": true,
+      "targetCompatible": true,
+      "compatibilityStatus": "VERIFIED_MIXED_PARENT_ANCHOR_CONTRACT"
+    },
+    {
+      "parentId": "PG-111",
+      "childId": "PG-204",
+      "category": "mixed",
+      "parentPort": "PG-L035:S2",
+      "eitherParentEligible": true,
+      "targetCompatible": true,
+      "compatibilityStatus": "VERIFIED_MIXED_PARENT_ANCHOR_CONTRACT"
+    },
+    {
+      "parentId": "PG-120",
+      "childId": "PG-204",
+      "category": "mixed",
+      "parentPort": "PG-L030:S2",
+      "eitherParentEligible": true,
+      "targetCompatible": true,
+      "compatibilityStatus": "VERIFIED_MIXED_PARENT_ANCHOR_CONTRACT"
+    },
+    {
+      "parentId": "PG-084",
+      "childId": "PG-205",
+      "category": "mixed",
+      "parentPort": "PG-L032:S2",
+      "eitherParentEligible": true,
+      "targetCompatible": true,
+      "compatibilityStatus": "VERIFIED_MIXED_PARENT_ANCHOR_CONTRACT"
+    },
+    {
+      "parentId": "PG-108",
+      "childId": "PG-205",
+      "category": "mixed",
+      "parentPort": "PG-L033:S2",
+      "eitherParentEligible": true,
+      "targetCompatible": true,
+      "compatibilityStatus": "VERIFIED_MIXED_PARENT_ANCHOR_CONTRACT"
+    },
+    {
+      "parentId": "PG-096",
+      "childId": "PG-206",
+      "category": "special",
+      "parentPort": "PG-L036:S2",
+      "eitherParentEligible": false,
+      "targetCompatible": true,
+      "compatibilityStatus": "VERIFIED_PIXEL_VOTE_TARGET"
+    },
+    {
+      "parentId": "PG-126",
+      "childId": "PG-207",
+      "category": "special",
+      "parentPort": "PG-L037:S2",
+      "eitherParentEligible": false,
+      "targetCompatible": true,
+      "compatibilityStatus": "VERIFIED_PIXEL_VOTE_TARGET"
+    },
+    {
+      "parentId": "PG-132",
+      "childId": "PG-208",
+      "category": "special",
+      "parentPort": "PG-L038:S2",
+      "eitherParentEligible": false,
+      "targetCompatible": true,
+      "compatibilityStatus": "VERIFIED_PIXEL_VOTE_TARGET"
+    },
+    {
+      "parentId": "PG-135",
+      "childId": "PG-209",
+      "category": "special",
+      "parentPort": "PG-L039:S2",
+      "eitherParentEligible": false,
+      "targetCompatible": true,
+      "compatibilityStatus": "VERIFIED_PIXEL_VOTE_TARGET"
+    },
+    {
+      "parentId": "PG-087",
+      "childId": "PG-210",
+      "category": "special",
+      "parentPort": "PG-L040:S2",
+      "eitherParentEligible": false,
+      "targetCompatible": true,
+      "compatibilityStatus": "VERIFIED_PIXEL_VOTE_TARGET"
+    },
+    {
+      "parentId": "PG-178",
+      "childId": "PG-211",
+      "category": "special",
+      "parentPort": "PG-L041:S3",
+      "eitherParentEligible": false,
+      "targetCompatible": true,
+      "compatibilityStatus": "VERIFIED_PIXEL_VOTE_TARGET"
+    },
+    {
+      "parentId": "PG-141",
+      "childId": "PG-212",
+      "category": "special",
+      "parentPort": "PG-L042:S2",
+      "eitherParentEligible": false,
+      "targetCompatible": true,
+      "compatibilityStatus": "VERIFIED_PIXEL_VOTE_TARGET"
+    },
+    {
+      "parentId": "PG-173",
+      "childId": "PG-213",
+      "category": "special",
+      "parentPort": "PG-L043:S3",
+      "eitherParentEligible": false,
+      "targetCompatible": true,
+      "compatibilityStatus": "VERIFIED_PIXEL_VOTE_TARGET"
+    },
+    {
+      "parentId": "PG-152",
+      "childId": "PG-214",
+      "category": "special",
+      "parentPort": "PG-L044:S2",
+      "eitherParentEligible": false,
+      "targetCompatible": true,
+      "compatibilityStatus": "VERIFIED_PIXEL_VOTE_TARGET"
+    },
+    {
+      "parentId": "PG-163",
+      "childId": "PG-215",
+      "category": "special",
+      "parentPort": "PG-L045:S3",
+      "eitherParentEligible": false,
+      "targetCompatible": true,
+      "compatibilityStatus": "VERIFIED_PIXEL_VOTE_TARGET"
+    },
+    {
+      "parentId": "PG-001",
+      "childId": "PG-216",
+      "category": "mutant",
+      "parentPort": "PG-L001:S1",
+      "eitherParentEligible": false,
+      "targetCompatible": true,
+      "compatibilityStatus": "VERIFIED_PIXEL_VOTE_TARGET"
+    },
+    {
+      "parentId": "PG-002",
+      "childId": "PG-217",
+      "category": "mutant",
+      "parentPort": "PG-L002:S1",
+      "eitherParentEligible": false,
+      "targetCompatible": true,
+      "compatibilityStatus": "VERIFIED_PIXEL_VOTE_TARGET"
+    },
+    {
+      "parentId": "PG-003",
+      "childId": "PG-218",
+      "category": "mutant",
+      "parentPort": "PG-L003:S1",
+      "eitherParentEligible": false,
+      "targetCompatible": true,
+      "compatibilityStatus": "VERIFIED_PIXEL_VOTE_TARGET"
+    },
+    {
+      "parentId": "PG-004",
+      "childId": "PG-219",
+      "category": "mutant",
+      "parentPort": "PG-L004:S1",
+      "eitherParentEligible": false,
+      "targetCompatible": true,
+      "compatibilityStatus": "VERIFIED_PIXEL_VOTE_TARGET"
+    },
+    {
+      "parentId": "PG-005",
+      "childId": "PG-220",
+      "category": "mutant",
+      "parentPort": "PG-L005:S1",
+      "eitherParentEligible": false,
+      "targetCompatible": true,
+      "compatibilityStatus": "VERIFIED_PIXEL_VOTE_TARGET"
+    },
+    {
+      "parentId": "PG-006",
+      "childId": "PG-221",
+      "category": "mutant",
+      "parentPort": "PG-L006:S1",
+      "eitherParentEligible": false,
+      "targetCompatible": true,
+      "compatibilityStatus": "VERIFIED_PIXEL_VOTE_TARGET"
+    },
+    {
+      "parentId": "PG-007",
+      "childId": "PG-222",
+      "category": "mutant",
+      "parentPort": "PG-L007:S1",
+      "eitherParentEligible": false,
+      "targetCompatible": true,
+      "compatibilityStatus": "VERIFIED_PIXEL_VOTE_TARGET"
+    },
+    {
+      "parentId": "PG-008",
+      "childId": "PG-223",
+      "category": "mutant",
+      "parentPort": "PG-L008:S1",
+      "eitherParentEligible": false,
+      "targetCompatible": true,
+      "compatibilityStatus": "VERIFIED_PIXEL_VOTE_TARGET"
+    },
+    {
+      "parentId": "PG-009",
+      "childId": "PG-224",
+      "category": "mutant",
+      "parentPort": "PG-L009:S1",
+      "eitherParentEligible": false,
+      "targetCompatible": true,
+      "compatibilityStatus": "VERIFIED_PIXEL_VOTE_TARGET"
+    },
+    {
+      "parentId": "PG-010",
+      "childId": "PG-225",
+      "category": "mutant",
+      "parentPort": "PG-L010:S1",
+      "eitherParentEligible": false,
+      "targetCompatible": true,
+      "compatibilityStatus": "VERIFIED_PIXEL_VOTE_TARGET"
+    },
+    {
+      "parentId": "PG-011",
+      "childId": "PG-226",
+      "category": "mutant",
+      "parentPort": "PG-L011:S1",
+      "eitherParentEligible": false,
+      "targetCompatible": true,
+      "compatibilityStatus": "VERIFIED_PIXEL_VOTE_TARGET"
+    },
+    {
+      "parentId": "PG-012",
+      "childId": "PG-227",
+      "category": "mutant",
+      "parentPort": "PG-L012:S1",
+      "eitherParentEligible": false,
+      "targetCompatible": true,
+      "compatibilityStatus": "VERIFIED_PIXEL_VOTE_TARGET"
+    },
+    {
+      "parentId": "PG-013",
+      "childId": "PG-228",
+      "category": "mutant",
+      "parentPort": "PG-L013:S1",
+      "eitherParentEligible": false,
+      "targetCompatible": true,
+      "compatibilityStatus": "VERIFIED_PIXEL_VOTE_TARGET"
+    },
+    {
+      "parentId": "PG-014",
+      "childId": "PG-229",
+      "category": "mutant",
+      "parentPort": "PG-L014:S1",
+      "eitherParentEligible": false,
+      "targetCompatible": true,
+      "compatibilityStatus": "VERIFIED_PIXEL_VOTE_TARGET"
+    },
+    {
+      "parentId": "PG-015",
+      "childId": "PG-230",
+      "category": "mutant",
+      "parentPort": "PG-L015:S1",
+      "eitherParentEligible": false,
+      "targetCompatible": true,
+      "compatibilityStatus": "VERIFIED_PIXEL_VOTE_TARGET"
+    },
+    {
+      "parentId": "PG-016",
+      "childId": "PG-231",
+      "category": "mutant",
+      "parentPort": "PG-L016:S1",
+      "eitherParentEligible": false,
+      "targetCompatible": true,
+      "compatibilityStatus": "VERIFIED_PIXEL_VOTE_TARGET"
+    },
+    {
+      "parentId": "PG-018",
+      "childId": "PG-232",
+      "category": "mutant",
+      "parentPort": "PG-L018:S1",
+      "eitherParentEligible": false,
+      "targetCompatible": true,
+      "compatibilityStatus": "VERIFIED_PIXEL_VOTE_TARGET"
+    },
+    {
+      "parentId": "PG-020",
+      "childId": "PG-233",
+      "category": "mutant",
+      "parentPort": "PG-L020:S1",
+      "eitherParentEligible": false,
+      "targetCompatible": true,
+      "compatibilityStatus": "VERIFIED_PIXEL_VOTE_TARGET"
+    },
+    {
+      "parentId": "PG-022",
+      "childId": "PG-234",
+      "category": "mutant",
+      "parentPort": "PG-L022:S1",
+      "eitherParentEligible": false,
+      "targetCompatible": true,
+      "compatibilityStatus": "VERIFIED_PIXEL_VOTE_TARGET"
+    },
+    {
+      "parentId": "PG-024",
+      "childId": "PG-235",
+      "category": "mutant",
+      "parentPort": "PG-L024:S1",
+      "eitherParentEligible": false,
+      "targetCompatible": true,
+      "compatibilityStatus": "VERIFIED_PIXEL_VOTE_TARGET"
+    },
+    {
+      "parentId": "PG-026",
+      "childId": "PG-236",
+      "category": "mutant",
+      "parentPort": "PG-L026:S1",
+      "eitherParentEligible": false,
+      "targetCompatible": true,
+      "compatibilityStatus": "VERIFIED_PIXEL_VOTE_TARGET"
+    },
+    {
+      "parentId": "PG-028",
+      "childId": "PG-237",
+      "category": "mutant",
+      "parentPort": "PG-L028:S1",
+      "eitherParentEligible": false,
+      "targetCompatible": true,
+      "compatibilityStatus": "VERIFIED_PIXEL_VOTE_TARGET"
+    },
+    {
+      "parentId": "PG-030",
+      "childId": "PG-238",
+      "category": "mutant",
+      "parentPort": "PG-L030:S1",
+      "eitherParentEligible": false,
+      "targetCompatible": true,
+      "compatibilityStatus": "VERIFIED_PIXEL_VOTE_TARGET"
+    },
+    {
+      "parentId": "PG-032",
+      "childId": "PG-239",
+      "category": "mutant",
+      "parentPort": "PG-L032:S1",
+      "eitherParentEligible": false,
+      "targetCompatible": true,
+      "compatibilityStatus": "VERIFIED_PIXEL_VOTE_TARGET"
+    },
+    {
+      "parentId": "PG-034",
+      "childId": "PG-240",
+      "category": "mutant",
+      "parentPort": "PG-L034:S1",
+      "eitherParentEligible": false,
+      "targetCompatible": true,
+      "compatibilityStatus": "VERIFIED_PIXEL_VOTE_TARGET"
+    }
+  ],
+  "roots": [
+    {
+      "rootId": "PG-001",
+      "profile": "noChoice",
+      "choiceStages": [],
+      "reachableSlotIds": [
+        "PG-001",
+        "PG-061",
+        "PG-181"
+      ],
+      "maxStage": 3,
+      "cardsTotal": 3,
+      "cardsPerStage": {
+        "1": 1,
+        "2": 1,
+        "3": 1,
+        "4": 0
+      }
+    },
+    {
+      "rootId": "PG-002",
+      "profile": "stageOneChoice",
+      "choiceStages": [
+        1
+      ],
+      "reachableSlotIds": [
+        "PG-002",
+        "PG-062",
+        "PG-182"
+      ],
+      "maxStage": 2,
+      "cardsTotal": 3,
+      "cardsPerStage": {
+        "1": 1,
+        "2": 2,
+        "3": 0,
+        "4": 0
+      }
+    },
+    {
+      "rootId": "PG-003",
+      "profile": "noChoice",
+      "choiceStages": [],
+      "reachableSlotIds": [
+        "PG-003",
+        "PG-063",
+        "PG-183"
+      ],
+      "maxStage": 3,
+      "cardsTotal": 3,
+      "cardsPerStage": {
+        "1": 1,
+        "2": 1,
+        "3": 1,
+        "4": 0
+      }
+    },
+    {
+      "rootId": "PG-004",
+      "profile": "stageOneChoice",
+      "choiceStages": [
+        1
+      ],
+      "reachableSlotIds": [
+        "PG-004",
+        "PG-064",
+        "PG-184"
+      ],
+      "maxStage": 2,
+      "cardsTotal": 3,
+      "cardsPerStage": {
+        "1": 1,
+        "2": 2,
+        "3": 0,
+        "4": 0
+      }
+    },
+    {
+      "rootId": "PG-005",
+      "profile": "noChoice",
+      "choiceStages": [],
+      "reachableSlotIds": [
+        "PG-005",
+        "PG-065",
+        "PG-185"
+      ],
+      "maxStage": 3,
+      "cardsTotal": 3,
+      "cardsPerStage": {
+        "1": 1,
+        "2": 1,
+        "3": 1,
+        "4": 0
+      }
+    },
+    {
+      "rootId": "PG-006",
+      "profile": "noChoice",
+      "choiceStages": [],
+      "reachableSlotIds": [
+        "PG-006",
+        "PG-066",
+        "PG-186"
+      ],
+      "maxStage": 3,
+      "cardsTotal": 3,
+      "cardsPerStage": {
+        "1": 1,
+        "2": 1,
+        "3": 1,
+        "4": 0
+      }
+    },
+    {
+      "rootId": "PG-007",
+      "profile": "stageOneChoice",
+      "choiceStages": [
+        1
+      ],
+      "reachableSlotIds": [
+        "PG-007",
+        "PG-067",
+        "PG-187"
+      ],
+      "maxStage": 2,
+      "cardsTotal": 3,
+      "cardsPerStage": {
+        "1": 1,
+        "2": 2,
+        "3": 0,
+        "4": 0
+      }
+    },
+    {
+      "rootId": "PG-008",
+      "profile": "noChoice",
+      "choiceStages": [],
+      "reachableSlotIds": [
+        "PG-008",
+        "PG-068",
+        "PG-188"
+      ],
+      "maxStage": 3,
+      "cardsTotal": 3,
+      "cardsPerStage": {
+        "1": 1,
+        "2": 1,
+        "3": 1,
+        "4": 0
+      }
+    },
+    {
+      "rootId": "PG-009",
+      "profile": "stageOneChoice",
+      "choiceStages": [
+        1
+      ],
+      "reachableSlotIds": [
+        "PG-009",
+        "PG-069",
+        "PG-189"
+      ],
+      "maxStage": 2,
+      "cardsTotal": 3,
+      "cardsPerStage": {
+        "1": 1,
+        "2": 2,
+        "3": 0,
+        "4": 0
+      }
+    },
+    {
+      "rootId": "PG-010",
+      "profile": "noChoice",
+      "choiceStages": [],
+      "reachableSlotIds": [
+        "PG-010",
+        "PG-070",
+        "PG-190"
+      ],
+      "maxStage": 3,
+      "cardsTotal": 3,
+      "cardsPerStage": {
+        "1": 1,
+        "2": 1,
+        "3": 1,
+        "4": 0
+      }
+    },
+    {
+      "rootId": "PG-011",
+      "profile": "noChoice",
+      "choiceStages": [],
+      "reachableSlotIds": [
+        "PG-011",
+        "PG-071",
+        "PG-191"
+      ],
+      "maxStage": 3,
+      "cardsTotal": 3,
+      "cardsPerStage": {
+        "1": 1,
+        "2": 1,
+        "3": 1,
+        "4": 0
+      }
+    },
+    {
+      "rootId": "PG-012",
+      "profile": "stageOneChoice",
+      "choiceStages": [
+        1
+      ],
+      "reachableSlotIds": [
+        "PG-012",
+        "PG-072",
+        "PG-192"
+      ],
+      "maxStage": 2,
+      "cardsTotal": 3,
+      "cardsPerStage": {
+        "1": 1,
+        "2": 2,
+        "3": 0,
+        "4": 0
+      }
+    },
+    {
+      "rootId": "PG-013",
+      "profile": "noChoice",
+      "choiceStages": [],
+      "reachableSlotIds": [
+        "PG-013",
+        "PG-073",
+        "PG-193"
+      ],
+      "maxStage": 3,
+      "cardsTotal": 3,
+      "cardsPerStage": {
+        "1": 1,
+        "2": 1,
+        "3": 1,
+        "4": 0
+      }
+    },
+    {
+      "rootId": "PG-014",
+      "profile": "noChoice",
+      "choiceStages": [],
+      "reachableSlotIds": [
+        "PG-014",
+        "PG-074",
+        "PG-194"
+      ],
+      "maxStage": 3,
+      "cardsTotal": 3,
+      "cardsPerStage": {
+        "1": 1,
+        "2": 1,
+        "3": 1,
+        "4": 0
+      }
+    },
+    {
+      "rootId": "PG-015",
+      "profile": "stageOneChoice",
+      "choiceStages": [
+        1
+      ],
+      "reachableSlotIds": [
+        "PG-015",
+        "PG-075",
+        "PG-195"
+      ],
+      "maxStage": 2,
+      "cardsTotal": 3,
+      "cardsPerStage": {
+        "1": 1,
+        "2": 2,
+        "3": 0,
+        "4": 0
+      }
+    },
+    {
+      "rootId": "PG-016",
+      "profile": "noChoice",
+      "choiceStages": [],
+      "reachableSlotIds": [
+        "PG-016",
+        "PG-076",
+        "PG-196"
+      ],
+      "maxStage": 3,
+      "cardsTotal": 3,
+      "cardsPerStage": {
+        "1": 1,
+        "2": 1,
+        "3": 1,
+        "4": 0
+      }
+    },
+    {
+      "rootId": "PG-017",
+      "profile": "noChoice",
+      "choiceStages": [],
+      "reachableSlotIds": [
+        "PG-017",
+        "PG-077",
+        "PG-196"
+      ],
+      "maxStage": 3,
+      "cardsTotal": 3,
+      "cardsPerStage": {
+        "1": 1,
+        "2": 1,
+        "3": 1,
+        "4": 0
+      }
+    },
+    {
+      "rootId": "PG-018",
+      "profile": "noChoice",
+      "choiceStages": [],
+      "reachableSlotIds": [
+        "PG-018",
+        "PG-078",
+        "PG-197"
+      ],
+      "maxStage": 3,
+      "cardsTotal": 3,
+      "cardsPerStage": {
+        "1": 1,
+        "2": 1,
+        "3": 1,
+        "4": 0
+      }
+    },
+    {
+      "rootId": "PG-019",
+      "profile": "noChoice",
+      "choiceStages": [],
+      "reachableSlotIds": [
+        "PG-019",
+        "PG-079",
+        "PG-197"
+      ],
+      "maxStage": 3,
+      "cardsTotal": 3,
+      "cardsPerStage": {
+        "1": 1,
+        "2": 1,
+        "3": 1,
+        "4": 0
+      }
+    },
+    {
+      "rootId": "PG-020",
+      "profile": "noChoice",
+      "choiceStages": [],
+      "reachableSlotIds": [
+        "PG-020",
+        "PG-080",
+        "PG-198"
+      ],
+      "maxStage": 3,
+      "cardsTotal": 3,
+      "cardsPerStage": {
+        "1": 1,
+        "2": 1,
+        "3": 1,
+        "4": 0
+      }
+    },
+    {
+      "rootId": "PG-021",
+      "profile": "stageTwoChoice",
+      "choiceStages": [
+        2
+      ],
+      "reachableSlotIds": [
+        "PG-021",
+        "PG-129",
+        "PG-130",
+        "PG-131",
+        "PG-198"
+      ],
+      "maxStage": 4,
+      "cardsTotal": 5,
+      "cardsPerStage": {
+        "1": 1,
+        "2": 1,
+        "3": 2,
+        "4": 1
+      }
+    },
+    {
+      "rootId": "PG-022",
+      "profile": "stageTwoChoice",
+      "choiceStages": [
+        2
+      ],
+      "reachableSlotIds": [
+        "PG-022",
+        "PG-093",
+        "PG-094",
+        "PG-095",
+        "PG-199"
+      ],
+      "maxStage": 4,
+      "cardsTotal": 5,
+      "cardsPerStage": {
+        "1": 1,
+        "2": 1,
+        "3": 2,
+        "4": 1
+      }
+    },
+    {
+      "rootId": "PG-023",
+      "profile": "stageTwoChoice",
+      "choiceStages": [
+        2
+      ],
+      "reachableSlotIds": [
+        "PG-023",
+        "PG-123",
+        "PG-124",
+        "PG-125",
+        "PG-201"
+      ],
+      "maxStage": 4,
+      "cardsTotal": 5,
+      "cardsPerStage": {
+        "1": 1,
+        "2": 1,
+        "3": 2,
+        "4": 1
+      }
+    },
+    {
+      "rootId": "PG-024",
+      "profile": "stageOneChoice",
+      "choiceStages": [
+        1
+      ],
+      "reachableSlotIds": [
+        "PG-024",
+        "PG-090",
+        "PG-091",
+        "PG-092",
+        "PG-200"
+      ],
+      "maxStage": 4,
+      "cardsTotal": 5,
+      "cardsPerStage": {
+        "1": 1,
+        "2": 2,
+        "3": 1,
+        "4": 1
+      }
+    },
+    {
+      "rootId": "PG-025",
+      "profile": "stageOneChoice",
+      "choiceStages": [
+        1
+      ],
+      "reachableSlotIds": [
+        "PG-025",
+        "PG-102",
+        "PG-103",
+        "PG-104",
+        "PG-200"
+      ],
+      "maxStage": 4,
+      "cardsTotal": 5,
+      "cardsPerStage": {
+        "1": 1,
+        "2": 2,
+        "3": 1,
+        "4": 1
+      }
+    },
+    {
+      "rootId": "PG-026",
+      "profile": "stageTwoChoice",
+      "choiceStages": [
+        2
+      ],
+      "reachableSlotIds": [
+        "PG-026",
+        "PG-081",
+        "PG-082",
+        "PG-083",
+        "PG-203"
+      ],
+      "maxStage": 4,
+      "cardsTotal": 5,
+      "cardsPerStage": {
+        "1": 1,
+        "2": 1,
+        "3": 2,
+        "4": 1
+      }
+    },
+    {
+      "rootId": "PG-027",
+      "profile": "stageTwoChoice",
+      "choiceStages": [
+        2
+      ],
+      "reachableSlotIds": [
+        "PG-027",
+        "PG-105",
+        "PG-106",
+        "PG-107",
+        "PG-203"
+      ],
+      "maxStage": 4,
+      "cardsTotal": 5,
+      "cardsPerStage": {
+        "1": 1,
+        "2": 1,
+        "3": 2,
+        "4": 1
+      }
+    },
+    {
+      "rootId": "PG-028",
+      "profile": "stageOneChoice",
+      "choiceStages": [
+        1
+      ],
+      "reachableSlotIds": [
+        "PG-028",
+        "PG-114",
+        "PG-115",
+        "PG-116",
+        "PG-202"
+      ],
+      "maxStage": 4,
+      "cardsTotal": 5,
+      "cardsPerStage": {
+        "1": 1,
+        "2": 2,
+        "3": 1,
+        "4": 1
+      }
+    },
+    {
+      "rootId": "PG-029",
+      "profile": "stageOneChoice",
+      "choiceStages": [
+        1
+      ],
+      "reachableSlotIds": [
+        "PG-029",
+        "PG-138",
+        "PG-139",
+        "PG-140",
+        "PG-202"
+      ],
+      "maxStage": 4,
+      "cardsTotal": 5,
+      "cardsPerStage": {
+        "1": 1,
+        "2": 2,
+        "3": 1,
+        "4": 1
+      }
+    },
+    {
+      "rootId": "PG-030",
+      "profile": "stageTwoChoice",
+      "choiceStages": [
+        2
+      ],
+      "reachableSlotIds": [
+        "PG-030",
+        "PG-120",
+        "PG-121",
+        "PG-122",
+        "PG-204"
+      ],
+      "maxStage": 4,
+      "cardsTotal": 5,
+      "cardsPerStage": {
+        "1": 1,
+        "2": 1,
+        "3": 2,
+        "4": 1
+      }
+    },
+    {
+      "rootId": "PG-031",
+      "profile": "stageTwoChoice",
+      "choiceStages": [
+        2
+      ],
+      "reachableSlotIds": [
+        "PG-031",
+        "PG-099",
+        "PG-100",
+        "PG-101",
+        "PG-201"
+      ],
+      "maxStage": 4,
+      "cardsTotal": 5,
+      "cardsPerStage": {
+        "1": 1,
+        "2": 1,
+        "3": 2,
+        "4": 1
+      }
+    },
+    {
+      "rootId": "PG-032",
+      "profile": "stageTwoChoice",
+      "choiceStages": [
+        2
+      ],
+      "reachableSlotIds": [
+        "PG-032",
+        "PG-084",
+        "PG-085",
+        "PG-086",
+        "PG-205"
+      ],
+      "maxStage": 4,
+      "cardsTotal": 5,
+      "cardsPerStage": {
+        "1": 1,
+        "2": 1,
+        "3": 2,
+        "4": 1
+      }
+    },
+    {
+      "rootId": "PG-033",
+      "profile": "stageTwoChoice",
+      "choiceStages": [
+        2
+      ],
+      "reachableSlotIds": [
+        "PG-033",
+        "PG-108",
+        "PG-109",
+        "PG-110",
+        "PG-205"
+      ],
+      "maxStage": 4,
+      "cardsTotal": 5,
+      "cardsPerStage": {
+        "1": 1,
+        "2": 1,
+        "3": 2,
+        "4": 1
+      }
+    },
+    {
+      "rootId": "PG-034",
+      "profile": "stageTwoChoice",
+      "choiceStages": [
+        2
+      ],
+      "reachableSlotIds": [
+        "PG-034",
+        "PG-117",
+        "PG-118",
+        "PG-119",
+        "PG-199"
+      ],
+      "maxStage": 4,
+      "cardsTotal": 5,
+      "cardsPerStage": {
+        "1": 1,
+        "2": 1,
+        "3": 2,
+        "4": 1
+      }
+    },
+    {
+      "rootId": "PG-035",
+      "profile": "stageTwoChoice",
+      "choiceStages": [
+        2
+      ],
+      "reachableSlotIds": [
+        "PG-035",
+        "PG-111",
+        "PG-112",
+        "PG-113",
+        "PG-204"
+      ],
+      "maxStage": 4,
+      "cardsTotal": 5,
+      "cardsPerStage": {
+        "1": 1,
+        "2": 1,
+        "3": 2,
+        "4": 1
+      }
+    },
+    {
+      "rootId": "PG-036",
+      "profile": "stageTwoChoice",
+      "choiceStages": [
+        2
+      ],
+      "reachableSlotIds": [
+        "PG-036",
+        "PG-096",
+        "PG-097",
+        "PG-098",
+        "PG-206"
+      ],
+      "maxStage": 4,
+      "cardsTotal": 5,
+      "cardsPerStage": {
+        "1": 1,
+        "2": 1,
+        "3": 2,
+        "4": 1
+      }
+    },
+    {
+      "rootId": "PG-037",
+      "profile": "stageTwoChoice",
+      "choiceStages": [
+        2
+      ],
+      "reachableSlotIds": [
+        "PG-037",
+        "PG-126",
+        "PG-127",
+        "PG-128",
+        "PG-207"
+      ],
+      "maxStage": 4,
+      "cardsTotal": 5,
+      "cardsPerStage": {
+        "1": 1,
+        "2": 1,
+        "3": 2,
+        "4": 1
+      }
+    },
+    {
+      "rootId": "PG-038",
+      "profile": "stageTwoChoice",
+      "choiceStages": [
+        2
+      ],
+      "reachableSlotIds": [
+        "PG-038",
+        "PG-132",
+        "PG-133",
+        "PG-134",
+        "PG-208"
+      ],
+      "maxStage": 4,
+      "cardsTotal": 5,
+      "cardsPerStage": {
+        "1": 1,
+        "2": 1,
+        "3": 2,
+        "4": 1
+      }
+    },
+    {
+      "rootId": "PG-039",
+      "profile": "stageTwoChoice",
+      "choiceStages": [
+        2
+      ],
+      "reachableSlotIds": [
+        "PG-039",
+        "PG-135",
+        "PG-136",
+        "PG-137",
+        "PG-209"
+      ],
+      "maxStage": 4,
+      "cardsTotal": 5,
+      "cardsPerStage": {
+        "1": 1,
+        "2": 1,
+        "3": 2,
+        "4": 1
+      }
+    },
+    {
+      "rootId": "PG-040",
+      "profile": "stageTwoChoice",
+      "choiceStages": [
+        2
+      ],
+      "reachableSlotIds": [
+        "PG-040",
+        "PG-087",
+        "PG-088",
+        "PG-089",
+        "PG-210"
+      ],
+      "maxStage": 4,
+      "cardsTotal": 5,
+      "cardsPerStage": {
+        "1": 1,
+        "2": 1,
+        "3": 2,
+        "4": 1
+      }
+    },
+    {
+      "rootId": "PG-041",
+      "profile": "noChoice",
+      "choiceStages": [],
+      "reachableSlotIds": [
+        "PG-041",
+        "PG-149",
+        "PG-178",
+        "PG-211"
+      ],
+      "maxStage": 4,
+      "cardsTotal": 4,
+      "cardsPerStage": {
+        "1": 1,
+        "2": 1,
+        "3": 1,
+        "4": 1
+      }
+    },
+    {
+      "rootId": "PG-042",
+      "profile": "stageTwoChoice",
+      "choiceStages": [
+        2
+      ],
+      "reachableSlotIds": [
+        "PG-042",
+        "PG-141",
+        "PG-171",
+        "PG-212"
+      ],
+      "maxStage": 3,
+      "cardsTotal": 4,
+      "cardsPerStage": {
+        "1": 1,
+        "2": 1,
+        "3": 2,
+        "4": 0
+      }
+    },
+    {
+      "rootId": "PG-043",
+      "profile": "noChoice",
+      "choiceStages": [],
+      "reachableSlotIds": [
+        "PG-043",
+        "PG-154",
+        "PG-173",
+        "PG-213"
+      ],
+      "maxStage": 4,
+      "cardsTotal": 4,
+      "cardsPerStage": {
+        "1": 1,
+        "2": 1,
+        "3": 1,
+        "4": 1
+      }
+    },
+    {
+      "rootId": "PG-044",
+      "profile": "stageTwoChoice",
+      "choiceStages": [
+        2
+      ],
+      "reachableSlotIds": [
+        "PG-044",
+        "PG-152",
+        "PG-162",
+        "PG-214"
+      ],
+      "maxStage": 3,
+      "cardsTotal": 4,
+      "cardsPerStage": {
+        "1": 1,
+        "2": 1,
+        "3": 2,
+        "4": 0
+      }
+    },
+    {
+      "rootId": "PG-045",
+      "profile": "noChoice",
+      "choiceStages": [],
+      "reachableSlotIds": [
+        "PG-045",
+        "PG-142",
+        "PG-163",
+        "PG-215"
+      ],
+      "maxStage": 4,
+      "cardsTotal": 4,
+      "cardsPerStage": {
+        "1": 1,
+        "2": 1,
+        "3": 1,
+        "4": 1
+      }
+    },
+    {
+      "rootId": "PG-046",
+      "profile": "noChoice",
+      "choiceStages": [],
+      "reachableSlotIds": [
+        "PG-046",
+        "PG-143",
+        "PG-164"
+      ],
+      "maxStage": 3,
+      "cardsTotal": 3,
+      "cardsPerStage": {
+        "1": 1,
+        "2": 1,
+        "3": 1,
+        "4": 0
+      }
+    },
+    {
+      "rootId": "PG-047",
+      "profile": "noChoice",
+      "choiceStages": [],
+      "reachableSlotIds": [
+        "PG-047",
+        "PG-155",
+        "PG-166"
+      ],
+      "maxStage": 3,
+      "cardsTotal": 3,
+      "cardsPerStage": {
+        "1": 1,
+        "2": 1,
+        "3": 1,
+        "4": 0
+      }
+    },
+    {
+      "rootId": "PG-048",
+      "profile": "noChoice",
+      "choiceStages": [],
+      "reachableSlotIds": [
+        "PG-048",
+        "PG-158",
+        "PG-161"
+      ],
+      "maxStage": 3,
+      "cardsTotal": 3,
+      "cardsPerStage": {
+        "1": 1,
+        "2": 1,
+        "3": 1,
+        "4": 0
+      }
+    },
+    {
+      "rootId": "PG-049",
+      "profile": "noChoice",
+      "choiceStages": [],
+      "reachableSlotIds": [
+        "PG-049",
+        "PG-147",
+        "PG-169"
+      ],
+      "maxStage": 3,
+      "cardsTotal": 3,
+      "cardsPerStage": {
+        "1": 1,
+        "2": 1,
+        "3": 1,
+        "4": 0
+      }
+    },
+    {
+      "rootId": "PG-050",
+      "profile": "noChoice",
+      "choiceStages": [],
+      "reachableSlotIds": [
+        "PG-050",
+        "PG-156",
+        "PG-167"
+      ],
+      "maxStage": 3,
+      "cardsTotal": 3,
+      "cardsPerStage": {
+        "1": 1,
+        "2": 1,
+        "3": 1,
+        "4": 0
+      }
+    },
+    {
+      "rootId": "PG-051",
+      "profile": "noChoice",
+      "choiceStages": [],
+      "reachableSlotIds": [
+        "PG-051",
+        "PG-157",
+        "PG-170"
+      ],
+      "maxStage": 3,
+      "cardsTotal": 3,
+      "cardsPerStage": {
+        "1": 1,
+        "2": 1,
+        "3": 1,
+        "4": 0
+      }
+    },
+    {
+      "rootId": "PG-052",
+      "profile": "noChoice",
+      "choiceStages": [],
+      "reachableSlotIds": [
+        "PG-052",
+        "PG-151",
+        "PG-172"
+      ],
+      "maxStage": 3,
+      "cardsTotal": 3,
+      "cardsPerStage": {
+        "1": 1,
+        "2": 1,
+        "3": 1,
+        "4": 0
+      }
+    },
+    {
+      "rootId": "PG-053",
+      "profile": "noChoice",
+      "choiceStages": [],
+      "reachableSlotIds": [
+        "PG-053",
+        "PG-145",
+        "PG-179"
+      ],
+      "maxStage": 3,
+      "cardsTotal": 3,
+      "cardsPerStage": {
+        "1": 1,
+        "2": 1,
+        "3": 1,
+        "4": 0
+      }
+    },
+    {
+      "rootId": "PG-054",
+      "profile": "noChoice",
+      "choiceStages": [],
+      "reachableSlotIds": [
+        "PG-054",
+        "PG-146",
+        "PG-180"
+      ],
+      "maxStage": 3,
+      "cardsTotal": 3,
+      "cardsPerStage": {
+        "1": 1,
+        "2": 1,
+        "3": 1,
+        "4": 0
+      }
+    },
+    {
+      "rootId": "PG-055",
+      "profile": "noChoice",
+      "choiceStages": [],
+      "reachableSlotIds": [
+        "PG-055",
+        "PG-153",
+        "PG-174"
+      ],
+      "maxStage": 3,
+      "cardsTotal": 3,
+      "cardsPerStage": {
+        "1": 1,
+        "2": 1,
+        "3": 1,
+        "4": 0
+      }
+    },
+    {
+      "rootId": "PG-056",
+      "profile": "noChoice",
+      "choiceStages": [],
+      "reachableSlotIds": [
+        "PG-056",
+        "PG-148",
+        "PG-176"
+      ],
+      "maxStage": 3,
+      "cardsTotal": 3,
+      "cardsPerStage": {
+        "1": 1,
+        "2": 1,
+        "3": 1,
+        "4": 0
+      }
+    },
+    {
+      "rootId": "PG-057",
+      "profile": "noChoice",
+      "choiceStages": [],
+      "reachableSlotIds": [
+        "PG-057",
+        "PG-150",
+        "PG-177"
+      ],
+      "maxStage": 3,
+      "cardsTotal": 3,
+      "cardsPerStage": {
+        "1": 1,
+        "2": 1,
+        "3": 1,
+        "4": 0
+      }
+    },
+    {
+      "rootId": "PG-058",
+      "profile": "noChoice",
+      "choiceStages": [],
+      "reachableSlotIds": [
+        "PG-058",
+        "PG-159",
+        "PG-175"
+      ],
+      "maxStage": 3,
+      "cardsTotal": 3,
+      "cardsPerStage": {
+        "1": 1,
+        "2": 1,
+        "3": 1,
+        "4": 0
+      }
+    },
+    {
+      "rootId": "PG-059",
+      "profile": "noChoice",
+      "choiceStages": [],
+      "reachableSlotIds": [
+        "PG-059",
+        "PG-160",
+        "PG-165"
+      ],
+      "maxStage": 3,
+      "cardsTotal": 3,
+      "cardsPerStage": {
+        "1": 1,
+        "2": 1,
+        "3": 1,
+        "4": 0
+      }
+    },
+    {
+      "rootId": "PG-060",
+      "profile": "noChoice",
+      "choiceStages": [],
+      "reachableSlotIds": [
+        "PG-060",
+        "PG-144",
+        "PG-168"
+      ],
+      "maxStage": 3,
+      "cardsTotal": 3,
+      "cardsPerStage": {
+        "1": 1,
+        "2": 1,
+        "3": 1,
+        "4": 0
+      }
+    }
+  ],
+  "slots": [
+    {
+      "id": "PG-001",
+      "category": "start",
+      "stage": 1,
+      "rarity": "PROCESS",
+      "parentIds": []
+    },
+    {
+      "id": "PG-002",
+      "category": "start",
+      "stage": 1,
+      "rarity": "PROCESS",
+      "parentIds": []
+    },
+    {
+      "id": "PG-003",
+      "category": "start",
+      "stage": 1,
+      "rarity": "PROCESS",
+      "parentIds": []
+    },
+    {
+      "id": "PG-004",
+      "category": "start",
+      "stage": 1,
+      "rarity": "PROCESS",
+      "parentIds": []
+    },
+    {
+      "id": "PG-005",
+      "category": "start",
+      "stage": 1,
+      "rarity": "PROCESS",
+      "parentIds": []
+    },
+    {
+      "id": "PG-006",
+      "category": "start",
+      "stage": 1,
+      "rarity": "PROCESS",
+      "parentIds": []
+    },
+    {
+      "id": "PG-007",
+      "category": "start",
+      "stage": 1,
+      "rarity": "PROCESS",
+      "parentIds": []
+    },
+    {
+      "id": "PG-008",
+      "category": "start",
+      "stage": 1,
+      "rarity": "PROCESS",
+      "parentIds": []
+    },
+    {
+      "id": "PG-009",
+      "category": "start",
+      "stage": 1,
+      "rarity": "PROCESS",
+      "parentIds": []
+    },
+    {
+      "id": "PG-010",
+      "category": "start",
+      "stage": 1,
+      "rarity": "PROCESS",
+      "parentIds": []
+    },
+    {
+      "id": "PG-011",
+      "category": "start",
+      "stage": 1,
+      "rarity": "PROCESS",
+      "parentIds": []
+    },
+    {
+      "id": "PG-012",
+      "category": "start",
+      "stage": 1,
+      "rarity": "PROCESS",
+      "parentIds": []
+    },
+    {
+      "id": "PG-013",
+      "category": "start",
+      "stage": 1,
+      "rarity": "PROCESS",
+      "parentIds": []
+    },
+    {
+      "id": "PG-014",
+      "category": "start",
+      "stage": 1,
+      "rarity": "PROCESS",
+      "parentIds": []
+    },
+    {
+      "id": "PG-015",
+      "category": "start",
+      "stage": 1,
+      "rarity": "PROCESS",
+      "parentIds": []
+    },
+    {
+      "id": "PG-016",
+      "category": "start",
+      "stage": 1,
+      "rarity": "PROCESS",
+      "parentIds": []
+    },
+    {
+      "id": "PG-017",
+      "category": "start",
+      "stage": 1,
+      "rarity": "PROCESS",
+      "parentIds": []
+    },
+    {
+      "id": "PG-018",
+      "category": "start",
+      "stage": 1,
+      "rarity": "PROCESS",
+      "parentIds": []
+    },
+    {
+      "id": "PG-019",
+      "category": "start",
+      "stage": 1,
+      "rarity": "PROCESS",
+      "parentIds": []
+    },
+    {
+      "id": "PG-020",
+      "category": "start",
+      "stage": 1,
+      "rarity": "PROCESS",
+      "parentIds": []
+    },
+    {
+      "id": "PG-021",
+      "category": "start",
+      "stage": 1,
+      "rarity": "PROCESS",
+      "parentIds": []
+    },
+    {
+      "id": "PG-022",
+      "category": "start",
+      "stage": 1,
+      "rarity": "PROCESS",
+      "parentIds": []
+    },
+    {
+      "id": "PG-023",
+      "category": "start",
+      "stage": 1,
+      "rarity": "PROCESS",
+      "parentIds": []
+    },
+    {
+      "id": "PG-024",
+      "category": "start",
+      "stage": 1,
+      "rarity": "PROCESS",
+      "parentIds": []
+    },
+    {
+      "id": "PG-025",
+      "category": "start",
+      "stage": 1,
+      "rarity": "PROCESS",
+      "parentIds": []
+    },
+    {
+      "id": "PG-026",
+      "category": "start",
+      "stage": 1,
+      "rarity": "PROCESS",
+      "parentIds": []
+    },
+    {
+      "id": "PG-027",
+      "category": "start",
+      "stage": 1,
+      "rarity": "PROCESS",
+      "parentIds": []
+    },
+    {
+      "id": "PG-028",
+      "category": "start",
+      "stage": 1,
+      "rarity": "PROCESS",
+      "parentIds": []
+    },
+    {
+      "id": "PG-029",
+      "category": "start",
+      "stage": 1,
+      "rarity": "PROCESS",
+      "parentIds": []
+    },
+    {
+      "id": "PG-030",
+      "category": "start",
+      "stage": 1,
+      "rarity": "PROCESS",
+      "parentIds": []
+    },
+    {
+      "id": "PG-031",
+      "category": "start",
+      "stage": 1,
+      "rarity": "PROCESS",
+      "parentIds": []
+    },
+    {
+      "id": "PG-032",
+      "category": "start",
+      "stage": 1,
+      "rarity": "PROCESS",
+      "parentIds": []
+    },
+    {
+      "id": "PG-033",
+      "category": "start",
+      "stage": 1,
+      "rarity": "PROCESS",
+      "parentIds": []
+    },
+    {
+      "id": "PG-034",
+      "category": "start",
+      "stage": 1,
+      "rarity": "PROCESS",
+      "parentIds": []
+    },
+    {
+      "id": "PG-035",
+      "category": "start",
+      "stage": 1,
+      "rarity": "PROCESS",
+      "parentIds": []
+    },
+    {
+      "id": "PG-036",
+      "category": "start",
+      "stage": 1,
+      "rarity": "PROCESS",
+      "parentIds": []
+    },
+    {
+      "id": "PG-037",
+      "category": "start",
+      "stage": 1,
+      "rarity": "PROCESS",
+      "parentIds": []
+    },
+    {
+      "id": "PG-038",
+      "category": "start",
+      "stage": 1,
+      "rarity": "PROCESS",
+      "parentIds": []
+    },
+    {
+      "id": "PG-039",
+      "category": "start",
+      "stage": 1,
+      "rarity": "PROCESS",
+      "parentIds": []
+    },
+    {
+      "id": "PG-040",
+      "category": "start",
+      "stage": 1,
+      "rarity": "PROCESS",
+      "parentIds": []
+    },
+    {
+      "id": "PG-041",
+      "category": "start",
+      "stage": 1,
+      "rarity": "PROCESS",
+      "parentIds": []
+    },
+    {
+      "id": "PG-042",
+      "category": "start",
+      "stage": 1,
+      "rarity": "PROCESS",
+      "parentIds": []
+    },
+    {
+      "id": "PG-043",
+      "category": "start",
+      "stage": 1,
+      "rarity": "PROCESS",
+      "parentIds": []
+    },
+    {
+      "id": "PG-044",
+      "category": "start",
+      "stage": 1,
+      "rarity": "PROCESS",
+      "parentIds": []
+    },
+    {
+      "id": "PG-045",
+      "category": "start",
+      "stage": 1,
+      "rarity": "PROCESS",
+      "parentIds": []
+    },
+    {
+      "id": "PG-046",
+      "category": "start",
+      "stage": 1,
+      "rarity": "PROCESS",
+      "parentIds": []
+    },
+    {
+      "id": "PG-047",
+      "category": "start",
+      "stage": 1,
+      "rarity": "PROCESS",
+      "parentIds": []
+    },
+    {
+      "id": "PG-048",
+      "category": "start",
+      "stage": 1,
+      "rarity": "PROCESS",
+      "parentIds": []
+    },
+    {
+      "id": "PG-049",
+      "category": "start",
+      "stage": 1,
+      "rarity": "PROCESS",
+      "parentIds": []
+    },
+    {
+      "id": "PG-050",
+      "category": "start",
+      "stage": 1,
+      "rarity": "PROCESS",
+      "parentIds": []
+    },
+    {
+      "id": "PG-051",
+      "category": "start",
+      "stage": 1,
+      "rarity": "PROCESS",
+      "parentIds": []
+    },
+    {
+      "id": "PG-052",
+      "category": "start",
+      "stage": 1,
+      "rarity": "PROCESS",
+      "parentIds": []
+    },
+    {
+      "id": "PG-053",
+      "category": "start",
+      "stage": 1,
+      "rarity": "PROCESS",
+      "parentIds": []
+    },
+    {
+      "id": "PG-054",
+      "category": "start",
+      "stage": 1,
+      "rarity": "PROCESS",
+      "parentIds": []
+    },
+    {
+      "id": "PG-055",
+      "category": "start",
+      "stage": 1,
+      "rarity": "PROCESS",
+      "parentIds": []
+    },
+    {
+      "id": "PG-056",
+      "category": "start",
+      "stage": 1,
+      "rarity": "PROCESS",
+      "parentIds": []
+    },
+    {
+      "id": "PG-057",
+      "category": "start",
+      "stage": 1,
+      "rarity": "PROCESS",
+      "parentIds": []
+    },
+    {
+      "id": "PG-058",
+      "category": "start",
+      "stage": 1,
+      "rarity": "PROCESS",
+      "parentIds": []
+    },
+    {
+      "id": "PG-059",
+      "category": "start",
+      "stage": 1,
+      "rarity": "PROCESS",
+      "parentIds": []
+    },
+    {
+      "id": "PG-060",
+      "category": "start",
+      "stage": 1,
+      "rarity": "PROCESS",
+      "parentIds": []
+    },
+    {
+      "id": "PG-061",
+      "category": "normal_evolution",
+      "stage": 2,
+      "rarity": "AGENT",
+      "parentIds": [
+        "PG-001"
+      ]
+    },
+    {
+      "id": "PG-062",
+      "category": "normal_evolution",
+      "stage": 2,
+      "rarity": "AGENT",
+      "parentIds": [
+        "PG-002"
+      ]
+    },
+    {
+      "id": "PG-063",
+      "category": "normal_evolution",
+      "stage": 2,
+      "rarity": "AGENT",
+      "parentIds": [
+        "PG-003"
+      ]
+    },
+    {
+      "id": "PG-064",
+      "category": "normal_evolution",
+      "stage": 2,
+      "rarity": "AGENT",
+      "parentIds": [
+        "PG-004"
+      ]
+    },
+    {
+      "id": "PG-065",
+      "category": "normal_evolution",
+      "stage": 2,
+      "rarity": "AGENT",
+      "parentIds": [
+        "PG-005"
+      ]
+    },
+    {
+      "id": "PG-066",
+      "category": "normal_evolution",
+      "stage": 2,
+      "rarity": "AGENT",
+      "parentIds": [
+        "PG-006"
+      ]
+    },
+    {
+      "id": "PG-067",
+      "category": "normal_evolution",
+      "stage": 2,
+      "rarity": "AGENT",
+      "parentIds": [
+        "PG-007"
+      ]
+    },
+    {
+      "id": "PG-068",
+      "category": "normal_evolution",
+      "stage": 2,
+      "rarity": "AGENT",
+      "parentIds": [
+        "PG-008"
+      ]
+    },
+    {
+      "id": "PG-069",
+      "category": "normal_evolution",
+      "stage": 2,
+      "rarity": "AGENT",
+      "parentIds": [
+        "PG-009"
+      ]
+    },
+    {
+      "id": "PG-070",
+      "category": "normal_evolution",
+      "stage": 2,
+      "rarity": "AGENT",
+      "parentIds": [
+        "PG-010"
+      ]
+    },
+    {
+      "id": "PG-071",
+      "category": "normal_evolution",
+      "stage": 2,
+      "rarity": "AGENT",
+      "parentIds": [
+        "PG-011"
+      ]
+    },
+    {
+      "id": "PG-072",
+      "category": "normal_evolution",
+      "stage": 2,
+      "rarity": "AGENT",
+      "parentIds": [
+        "PG-012"
+      ]
+    },
+    {
+      "id": "PG-073",
+      "category": "normal_evolution",
+      "stage": 2,
+      "rarity": "AGENT",
+      "parentIds": [
+        "PG-013"
+      ]
+    },
+    {
+      "id": "PG-074",
+      "category": "normal_evolution",
+      "stage": 2,
+      "rarity": "AGENT",
+      "parentIds": [
+        "PG-014"
+      ]
+    },
+    {
+      "id": "PG-075",
+      "category": "normal_evolution",
+      "stage": 2,
+      "rarity": "AGENT",
+      "parentIds": [
+        "PG-015"
+      ]
+    },
+    {
+      "id": "PG-076",
+      "category": "normal_evolution",
+      "stage": 2,
+      "rarity": "AGENT",
+      "parentIds": [
+        "PG-016"
+      ]
+    },
+    {
+      "id": "PG-077",
+      "category": "normal_evolution",
+      "stage": 2,
+      "rarity": "AGENT",
+      "parentIds": [
+        "PG-017"
+      ]
+    },
+    {
+      "id": "PG-078",
+      "category": "normal_evolution",
+      "stage": 2,
+      "rarity": "AGENT",
+      "parentIds": [
+        "PG-018"
+      ]
+    },
+    {
+      "id": "PG-079",
+      "category": "normal_evolution",
+      "stage": 2,
+      "rarity": "AGENT",
+      "parentIds": [
+        "PG-019"
+      ]
+    },
+    {
+      "id": "PG-080",
+      "category": "normal_evolution",
+      "stage": 2,
+      "rarity": "AGENT",
+      "parentIds": [
+        "PG-020"
+      ]
+    },
+    {
+      "id": "PG-081",
+      "category": "normal_evolution",
+      "stage": 2,
+      "rarity": "AGENT",
+      "parentIds": [
+        "PG-026"
+      ]
+    },
+    {
+      "id": "PG-082",
+      "category": "normal_evolution",
+      "stage": 3,
+      "rarity": "DAEMON",
+      "parentIds": [
+        "PG-081"
+      ]
+    },
+    {
+      "id": "PG-083",
+      "category": "normal_evolution",
+      "stage": 4,
+      "rarity": "ARCHITECT",
+      "parentIds": [
+        "PG-082"
+      ]
+    },
+    {
+      "id": "PG-084",
+      "category": "normal_evolution",
+      "stage": 2,
+      "rarity": "AGENT",
+      "parentIds": [
+        "PG-032"
+      ]
+    },
+    {
+      "id": "PG-085",
+      "category": "normal_evolution",
+      "stage": 3,
+      "rarity": "DAEMON",
+      "parentIds": [
+        "PG-084"
+      ]
+    },
+    {
+      "id": "PG-086",
+      "category": "normal_evolution",
+      "stage": 4,
+      "rarity": "ARCHITECT",
+      "parentIds": [
+        "PG-085"
+      ]
+    },
+    {
+      "id": "PG-087",
+      "category": "normal_evolution",
+      "stage": 2,
+      "rarity": "AGENT",
+      "parentIds": [
+        "PG-040"
+      ]
+    },
+    {
+      "id": "PG-088",
+      "category": "normal_evolution",
+      "stage": 3,
+      "rarity": "DAEMON",
+      "parentIds": [
+        "PG-087"
+      ]
+    },
+    {
+      "id": "PG-089",
+      "category": "normal_evolution",
+      "stage": 4,
+      "rarity": "ARCHITECT",
+      "parentIds": [
+        "PG-088"
+      ]
+    },
+    {
+      "id": "PG-090",
+      "category": "normal_evolution",
+      "stage": 2,
+      "rarity": "AGENT",
+      "parentIds": [
+        "PG-024"
+      ]
+    },
+    {
+      "id": "PG-091",
+      "category": "normal_evolution",
+      "stage": 3,
+      "rarity": "DAEMON",
+      "parentIds": [
+        "PG-090"
+      ]
+    },
+    {
+      "id": "PG-092",
+      "category": "normal_evolution",
+      "stage": 4,
+      "rarity": "ARCHITECT",
+      "parentIds": [
+        "PG-091"
+      ]
+    },
+    {
+      "id": "PG-093",
+      "category": "normal_evolution",
+      "stage": 2,
+      "rarity": "AGENT",
+      "parentIds": [
+        "PG-022"
+      ]
+    },
+    {
+      "id": "PG-094",
+      "category": "normal_evolution",
+      "stage": 3,
+      "rarity": "DAEMON",
+      "parentIds": [
+        "PG-093"
+      ]
+    },
+    {
+      "id": "PG-095",
+      "category": "normal_evolution",
+      "stage": 4,
+      "rarity": "ARCHITECT",
+      "parentIds": [
+        "PG-094"
+      ]
+    },
+    {
+      "id": "PG-096",
+      "category": "normal_evolution",
+      "stage": 2,
+      "rarity": "AGENT",
+      "parentIds": [
+        "PG-036"
+      ]
+    },
+    {
+      "id": "PG-097",
+      "category": "normal_evolution",
+      "stage": 3,
+      "rarity": "DAEMON",
+      "parentIds": [
+        "PG-096"
+      ]
+    },
+    {
+      "id": "PG-098",
+      "category": "normal_evolution",
+      "stage": 4,
+      "rarity": "ARCHITECT",
+      "parentIds": [
+        "PG-097"
+      ]
+    },
+    {
+      "id": "PG-099",
+      "category": "normal_evolution",
+      "stage": 2,
+      "rarity": "AGENT",
+      "parentIds": [
+        "PG-031"
+      ]
+    },
+    {
+      "id": "PG-100",
+      "category": "normal_evolution",
+      "stage": 3,
+      "rarity": "DAEMON",
+      "parentIds": [
+        "PG-099"
+      ]
+    },
+    {
+      "id": "PG-101",
+      "category": "normal_evolution",
+      "stage": 4,
+      "rarity": "ARCHITECT",
+      "parentIds": [
+        "PG-100"
+      ]
+    },
+    {
+      "id": "PG-102",
+      "category": "normal_evolution",
+      "stage": 2,
+      "rarity": "AGENT",
+      "parentIds": [
+        "PG-025"
+      ]
+    },
+    {
+      "id": "PG-103",
+      "category": "normal_evolution",
+      "stage": 3,
+      "rarity": "DAEMON",
+      "parentIds": [
+        "PG-102"
+      ]
+    },
+    {
+      "id": "PG-104",
+      "category": "normal_evolution",
+      "stage": 4,
+      "rarity": "ARCHITECT",
+      "parentIds": [
+        "PG-103"
+      ]
+    },
+    {
+      "id": "PG-105",
+      "category": "normal_evolution",
+      "stage": 2,
+      "rarity": "AGENT",
+      "parentIds": [
+        "PG-027"
+      ]
+    },
+    {
+      "id": "PG-106",
+      "category": "normal_evolution",
+      "stage": 3,
+      "rarity": "DAEMON",
+      "parentIds": [
+        "PG-105"
+      ]
+    },
+    {
+      "id": "PG-107",
+      "category": "normal_evolution",
+      "stage": 4,
+      "rarity": "ARCHITECT",
+      "parentIds": [
+        "PG-106"
+      ]
+    },
+    {
+      "id": "PG-108",
+      "category": "normal_evolution",
+      "stage": 2,
+      "rarity": "AGENT",
+      "parentIds": [
+        "PG-033"
+      ]
+    },
+    {
+      "id": "PG-109",
+      "category": "normal_evolution",
+      "stage": 3,
+      "rarity": "DAEMON",
+      "parentIds": [
+        "PG-108"
+      ]
+    },
+    {
+      "id": "PG-110",
+      "category": "normal_evolution",
+      "stage": 4,
+      "rarity": "ARCHITECT",
+      "parentIds": [
+        "PG-109"
+      ]
+    },
+    {
+      "id": "PG-111",
+      "category": "normal_evolution",
+      "stage": 2,
+      "rarity": "AGENT",
+      "parentIds": [
+        "PG-035"
+      ]
+    },
+    {
+      "id": "PG-112",
+      "category": "normal_evolution",
+      "stage": 3,
+      "rarity": "DAEMON",
+      "parentIds": [
+        "PG-111"
+      ]
+    },
+    {
+      "id": "PG-113",
+      "category": "normal_evolution",
+      "stage": 4,
+      "rarity": "ARCHITECT",
+      "parentIds": [
+        "PG-112"
+      ]
+    },
+    {
+      "id": "PG-114",
+      "category": "normal_evolution",
+      "stage": 2,
+      "rarity": "AGENT",
+      "parentIds": [
+        "PG-028"
+      ]
+    },
+    {
+      "id": "PG-115",
+      "category": "normal_evolution",
+      "stage": 3,
+      "rarity": "DAEMON",
+      "parentIds": [
+        "PG-114"
+      ]
+    },
+    {
+      "id": "PG-116",
+      "category": "normal_evolution",
+      "stage": 4,
+      "rarity": "ARCHITECT",
+      "parentIds": [
+        "PG-115"
+      ]
+    },
+    {
+      "id": "PG-117",
+      "category": "normal_evolution",
+      "stage": 2,
+      "rarity": "AGENT",
+      "parentIds": [
+        "PG-034"
+      ]
+    },
+    {
+      "id": "PG-118",
+      "category": "normal_evolution",
+      "stage": 3,
+      "rarity": "DAEMON",
+      "parentIds": [
+        "PG-117"
+      ]
+    },
+    {
+      "id": "PG-119",
+      "category": "normal_evolution",
+      "stage": 4,
+      "rarity": "ARCHITECT",
+      "parentIds": [
+        "PG-118"
+      ]
+    },
+    {
+      "id": "PG-120",
+      "category": "normal_evolution",
+      "stage": 2,
+      "rarity": "AGENT",
+      "parentIds": [
+        "PG-030"
+      ]
+    },
+    {
+      "id": "PG-121",
+      "category": "normal_evolution",
+      "stage": 3,
+      "rarity": "DAEMON",
+      "parentIds": [
+        "PG-120"
+      ]
+    },
+    {
+      "id": "PG-122",
+      "category": "normal_evolution",
+      "stage": 4,
+      "rarity": "ARCHITECT",
+      "parentIds": [
+        "PG-121"
+      ]
+    },
+    {
+      "id": "PG-123",
+      "category": "normal_evolution",
+      "stage": 2,
+      "rarity": "AGENT",
+      "parentIds": [
+        "PG-023"
+      ]
+    },
+    {
+      "id": "PG-124",
+      "category": "normal_evolution",
+      "stage": 3,
+      "rarity": "DAEMON",
+      "parentIds": [
+        "PG-123"
+      ]
+    },
+    {
+      "id": "PG-125",
+      "category": "normal_evolution",
+      "stage": 4,
+      "rarity": "ARCHITECT",
+      "parentIds": [
+        "PG-124"
+      ]
+    },
+    {
+      "id": "PG-126",
+      "category": "normal_evolution",
+      "stage": 2,
+      "rarity": "AGENT",
+      "parentIds": [
+        "PG-037"
+      ]
+    },
+    {
+      "id": "PG-127",
+      "category": "normal_evolution",
+      "stage": 3,
+      "rarity": "DAEMON",
+      "parentIds": [
+        "PG-126"
+      ]
+    },
+    {
+      "id": "PG-128",
+      "category": "normal_evolution",
+      "stage": 4,
+      "rarity": "ARCHITECT",
+      "parentIds": [
+        "PG-127"
+      ]
+    },
+    {
+      "id": "PG-129",
+      "category": "normal_evolution",
+      "stage": 2,
+      "rarity": "AGENT",
+      "parentIds": [
+        "PG-021"
+      ]
+    },
+    {
+      "id": "PG-130",
+      "category": "normal_evolution",
+      "stage": 3,
+      "rarity": "DAEMON",
+      "parentIds": [
+        "PG-129"
+      ]
+    },
+    {
+      "id": "PG-131",
+      "category": "normal_evolution",
+      "stage": 4,
+      "rarity": "ARCHITECT",
+      "parentIds": [
+        "PG-130"
+      ]
+    },
+    {
+      "id": "PG-132",
+      "category": "normal_evolution",
+      "stage": 2,
+      "rarity": "AGENT",
+      "parentIds": [
+        "PG-038"
+      ]
+    },
+    {
+      "id": "PG-133",
+      "category": "normal_evolution",
+      "stage": 3,
+      "rarity": "DAEMON",
+      "parentIds": [
+        "PG-132"
+      ]
+    },
+    {
+      "id": "PG-134",
+      "category": "normal_evolution",
+      "stage": 4,
+      "rarity": "ARCHITECT",
+      "parentIds": [
+        "PG-133"
+      ]
+    },
+    {
+      "id": "PG-135",
+      "category": "normal_evolution",
+      "stage": 2,
+      "rarity": "AGENT",
+      "parentIds": [
+        "PG-039"
+      ]
+    },
+    {
+      "id": "PG-136",
+      "category": "normal_evolution",
+      "stage": 3,
+      "rarity": "DAEMON",
+      "parentIds": [
+        "PG-135"
+      ]
+    },
+    {
+      "id": "PG-137",
+      "category": "normal_evolution",
+      "stage": 4,
+      "rarity": "ARCHITECT",
+      "parentIds": [
+        "PG-136"
+      ]
+    },
+    {
+      "id": "PG-138",
+      "category": "normal_evolution",
+      "stage": 2,
+      "rarity": "AGENT",
+      "parentIds": [
+        "PG-029"
+      ]
+    },
+    {
+      "id": "PG-139",
+      "category": "normal_evolution",
+      "stage": 3,
+      "rarity": "DAEMON",
+      "parentIds": [
+        "PG-138"
+      ]
+    },
+    {
+      "id": "PG-140",
+      "category": "normal_evolution",
+      "stage": 4,
+      "rarity": "ARCHITECT",
+      "parentIds": [
+        "PG-139"
+      ]
+    },
+    {
+      "id": "PG-141",
+      "category": "normal_evolution",
+      "stage": 2,
+      "rarity": "AGENT",
+      "parentIds": [
+        "PG-042"
+      ]
+    },
+    {
+      "id": "PG-142",
+      "category": "normal_evolution",
+      "stage": 2,
+      "rarity": "AGENT",
+      "parentIds": [
+        "PG-045"
+      ]
+    },
+    {
+      "id": "PG-143",
+      "category": "normal_evolution",
+      "stage": 2,
+      "rarity": "AGENT",
+      "parentIds": [
+        "PG-046"
+      ]
+    },
+    {
+      "id": "PG-144",
+      "category": "normal_evolution",
+      "stage": 2,
+      "rarity": "AGENT",
+      "parentIds": [
+        "PG-060"
+      ]
+    },
+    {
+      "id": "PG-145",
+      "category": "normal_evolution",
+      "stage": 2,
+      "rarity": "AGENT",
+      "parentIds": [
+        "PG-053"
+      ]
+    },
+    {
+      "id": "PG-146",
+      "category": "normal_evolution",
+      "stage": 2,
+      "rarity": "AGENT",
+      "parentIds": [
+        "PG-054"
+      ]
+    },
+    {
+      "id": "PG-147",
+      "category": "normal_evolution",
+      "stage": 2,
+      "rarity": "AGENT",
+      "parentIds": [
+        "PG-049"
+      ]
+    },
+    {
+      "id": "PG-148",
+      "category": "normal_evolution",
+      "stage": 2,
+      "rarity": "AGENT",
+      "parentIds": [
+        "PG-056"
+      ]
+    },
+    {
+      "id": "PG-149",
+      "category": "normal_evolution",
+      "stage": 2,
+      "rarity": "AGENT",
+      "parentIds": [
+        "PG-041"
+      ]
+    },
+    {
+      "id": "PG-150",
+      "category": "normal_evolution",
+      "stage": 2,
+      "rarity": "AGENT",
+      "parentIds": [
+        "PG-057"
+      ]
+    },
+    {
+      "id": "PG-151",
+      "category": "normal_evolution",
+      "stage": 2,
+      "rarity": "AGENT",
+      "parentIds": [
+        "PG-052"
+      ]
+    },
+    {
+      "id": "PG-152",
+      "category": "normal_evolution",
+      "stage": 2,
+      "rarity": "AGENT",
+      "parentIds": [
+        "PG-044"
+      ]
+    },
+    {
+      "id": "PG-153",
+      "category": "normal_evolution",
+      "stage": 2,
+      "rarity": "AGENT",
+      "parentIds": [
+        "PG-055"
+      ]
+    },
+    {
+      "id": "PG-154",
+      "category": "normal_evolution",
+      "stage": 2,
+      "rarity": "AGENT",
+      "parentIds": [
+        "PG-043"
+      ]
+    },
+    {
+      "id": "PG-155",
+      "category": "normal_evolution",
+      "stage": 2,
+      "rarity": "AGENT",
+      "parentIds": [
+        "PG-047"
+      ]
+    },
+    {
+      "id": "PG-156",
+      "category": "normal_evolution",
+      "stage": 2,
+      "rarity": "AGENT",
+      "parentIds": [
+        "PG-050"
+      ]
+    },
+    {
+      "id": "PG-157",
+      "category": "normal_evolution",
+      "stage": 2,
+      "rarity": "AGENT",
+      "parentIds": [
+        "PG-051"
+      ]
+    },
+    {
+      "id": "PG-158",
+      "category": "normal_evolution",
+      "stage": 2,
+      "rarity": "AGENT",
+      "parentIds": [
+        "PG-048"
+      ]
+    },
+    {
+      "id": "PG-159",
+      "category": "normal_evolution",
+      "stage": 2,
+      "rarity": "AGENT",
+      "parentIds": [
+        "PG-058"
+      ]
+    },
+    {
+      "id": "PG-160",
+      "category": "normal_evolution",
+      "stage": 2,
+      "rarity": "AGENT",
+      "parentIds": [
+        "PG-059"
+      ]
+    },
+    {
+      "id": "PG-161",
+      "category": "normal_evolution",
+      "stage": 3,
+      "rarity": "AGENT",
+      "parentIds": [
+        "PG-158"
+      ]
+    },
+    {
+      "id": "PG-162",
+      "category": "normal_evolution",
+      "stage": 3,
+      "rarity": "DAEMON",
+      "parentIds": [
+        "PG-152"
+      ]
+    },
+    {
+      "id": "PG-163",
+      "category": "normal_evolution",
+      "stage": 3,
+      "rarity": "AGENT",
+      "parentIds": [
+        "PG-142"
+      ]
+    },
+    {
+      "id": "PG-164",
+      "category": "normal_evolution",
+      "stage": 3,
+      "rarity": "ORACLE",
+      "parentIds": [
+        "PG-143"
+      ]
+    },
+    {
+      "id": "PG-165",
+      "category": "normal_evolution",
+      "stage": 3,
+      "rarity": "AGENT",
+      "parentIds": [
+        "PG-160"
+      ]
+    },
+    {
+      "id": "PG-166",
+      "category": "normal_evolution",
+      "stage": 3,
+      "rarity": "ARCHITECT",
+      "parentIds": [
+        "PG-155"
+      ]
+    },
+    {
+      "id": "PG-167",
+      "category": "normal_evolution",
+      "stage": 3,
+      "rarity": "DAEMON",
+      "parentIds": [
+        "PG-156"
+      ]
+    },
+    {
+      "id": "PG-168",
+      "category": "normal_evolution",
+      "stage": 3,
+      "rarity": "ORACLE",
+      "parentIds": [
+        "PG-144"
+      ]
+    },
+    {
+      "id": "PG-169",
+      "category": "normal_evolution",
+      "stage": 3,
+      "rarity": "DAEMON",
+      "parentIds": [
+        "PG-147"
+      ]
+    },
+    {
+      "id": "PG-170",
+      "category": "normal_evolution",
+      "stage": 3,
+      "rarity": "ORACLE",
+      "parentIds": [
+        "PG-157"
+      ]
+    },
+    {
+      "id": "PG-171",
+      "category": "normal_evolution",
+      "stage": 3,
+      "rarity": "AGENT",
+      "parentIds": [
+        "PG-141"
+      ]
+    },
+    {
+      "id": "PG-172",
+      "category": "normal_evolution",
+      "stage": 3,
+      "rarity": "ARCHITECT",
+      "parentIds": [
+        "PG-151"
+      ]
+    },
+    {
+      "id": "PG-173",
+      "category": "normal_evolution",
+      "stage": 3,
+      "rarity": "DAEMON",
+      "parentIds": [
+        "PG-154"
+      ]
+    },
+    {
+      "id": "PG-174",
+      "category": "normal_evolution",
+      "stage": 3,
+      "rarity": "DAEMON",
+      "parentIds": [
+        "PG-153"
+      ]
+    },
+    {
+      "id": "PG-175",
+      "category": "normal_evolution",
+      "stage": 3,
+      "rarity": "AGENT",
+      "parentIds": [
+        "PG-159"
+      ]
+    },
+    {
+      "id": "PG-176",
+      "category": "normal_evolution",
+      "stage": 3,
+      "rarity": "ORACLE",
+      "parentIds": [
+        "PG-148"
+      ]
+    },
+    {
+      "id": "PG-177",
+      "category": "normal_evolution",
+      "stage": 3,
+      "rarity": "DAEMON",
+      "parentIds": [
+        "PG-150"
+      ]
+    },
+    {
+      "id": "PG-178",
+      "category": "normal_evolution",
+      "stage": 3,
+      "rarity": "ARCHITECT",
+      "parentIds": [
+        "PG-149"
+      ]
+    },
+    {
+      "id": "PG-179",
+      "category": "normal_evolution",
+      "stage": 3,
+      "rarity": "DAEMON",
+      "parentIds": [
+        "PG-145"
+      ]
+    },
+    {
+      "id": "PG-180",
+      "category": "normal_evolution",
+      "stage": 3,
+      "rarity": "ORIGIN",
+      "parentIds": [
+        "PG-146"
+      ]
+    },
+    {
+      "id": "PG-181",
+      "category": "normal_evolution",
+      "stage": 3,
+      "rarity": "DAEMON",
+      "parentIds": [
+        "PG-061"
+      ]
+    },
+    {
+      "id": "PG-182",
+      "category": "branch",
+      "stage": 2,
+      "rarity": "DAEMON",
+      "parentIds": [
+        "PG-002"
+      ]
+    },
+    {
+      "id": "PG-183",
+      "category": "branch",
+      "stage": 3,
+      "rarity": "ARCHITECT",
+      "parentIds": [
+        "PG-063"
+      ]
+    },
+    {
+      "id": "PG-184",
+      "category": "branch",
+      "stage": 2,
+      "rarity": "DAEMON",
+      "parentIds": [
+        "PG-004"
+      ]
+    },
+    {
+      "id": "PG-185",
+      "category": "branch",
+      "stage": 3,
+      "rarity": "ORACLE",
+      "parentIds": [
+        "PG-065"
+      ]
+    },
+    {
+      "id": "PG-186",
+      "category": "branch",
+      "stage": 3,
+      "rarity": "ARCHITECT",
+      "parentIds": [
+        "PG-066"
+      ]
+    },
+    {
+      "id": "PG-187",
+      "category": "branch",
+      "stage": 2,
+      "rarity": "DAEMON",
+      "parentIds": [
+        "PG-007"
+      ]
+    },
+    {
+      "id": "PG-188",
+      "category": "branch",
+      "stage": 3,
+      "rarity": "DAEMON",
+      "parentIds": [
+        "PG-068"
+      ]
+    },
+    {
+      "id": "PG-189",
+      "category": "branch",
+      "stage": 2,
+      "rarity": "AGENT",
+      "parentIds": [
+        "PG-009"
+      ]
+    },
+    {
+      "id": "PG-190",
+      "category": "branch",
+      "stage": 3,
+      "rarity": "ORACLE",
+      "parentIds": [
+        "PG-070"
+      ]
+    },
+    {
+      "id": "PG-191",
+      "category": "branch",
+      "stage": 3,
+      "rarity": "ARCHITECT",
+      "parentIds": [
+        "PG-071"
+      ]
+    },
+    {
+      "id": "PG-192",
+      "category": "branch",
+      "stage": 2,
+      "rarity": "DAEMON",
+      "parentIds": [
+        "PG-012"
+      ]
+    },
+    {
+      "id": "PG-193",
+      "category": "branch",
+      "stage": 3,
+      "rarity": "ORACLE",
+      "parentIds": [
+        "PG-073"
+      ]
+    },
+    {
+      "id": "PG-194",
+      "category": "branch",
+      "stage": 3,
+      "rarity": "DAEMON",
+      "parentIds": [
+        "PG-074"
+      ]
+    },
+    {
+      "id": "PG-195",
+      "category": "branch",
+      "stage": 2,
+      "rarity": "DAEMON",
+      "parentIds": [
+        "PG-015"
+      ]
+    },
+    {
+      "id": "PG-196",
+      "category": "mixed",
+      "stage": 3,
+      "rarity": "ARCHITECT",
+      "parentIds": [
+        "PG-076",
+        "PG-077"
+      ]
+    },
+    {
+      "id": "PG-197",
+      "category": "mixed",
+      "stage": 3,
+      "rarity": "ORACLE",
+      "parentIds": [
+        "PG-078",
+        "PG-079"
+      ]
+    },
+    {
+      "id": "PG-198",
+      "category": "mixed",
+      "stage": 3,
+      "rarity": "ARCHITECT",
+      "parentIds": [
+        "PG-080",
+        "PG-129"
+      ]
+    },
+    {
+      "id": "PG-199",
+      "category": "mixed",
+      "stage": 3,
+      "rarity": "DAEMON",
+      "parentIds": [
+        "PG-093",
+        "PG-117"
+      ]
+    },
+    {
+      "id": "PG-200",
+      "category": "mixed",
+      "stage": 2,
+      "rarity": "DAEMON",
+      "parentIds": [
+        "PG-024",
+        "PG-025"
+      ]
+    },
+    {
+      "id": "PG-201",
+      "category": "mixed",
+      "stage": 3,
+      "rarity": "ARCHITECT",
+      "parentIds": [
+        "PG-099",
+        "PG-123"
+      ]
+    },
+    {
+      "id": "PG-202",
+      "category": "mixed",
+      "stage": 2,
+      "rarity": "DAEMON",
+      "parentIds": [
+        "PG-028",
+        "PG-029"
+      ]
+    },
+    {
+      "id": "PG-203",
+      "category": "mixed",
+      "stage": 3,
+      "rarity": "ORACLE",
+      "parentIds": [
+        "PG-081",
+        "PG-105"
+      ]
+    },
+    {
+      "id": "PG-204",
+      "category": "mixed",
+      "stage": 3,
+      "rarity": "ORACLE",
+      "parentIds": [
+        "PG-111",
+        "PG-120"
+      ]
+    },
+    {
+      "id": "PG-205",
+      "category": "mixed",
+      "stage": 3,
+      "rarity": "ARCHITECT",
+      "parentIds": [
+        "PG-084",
+        "PG-108"
+      ]
+    },
+    {
+      "id": "PG-206",
+      "category": "special",
+      "stage": 3,
+      "rarity": "ORACLE",
+      "parentIds": [
+        "PG-096"
+      ]
+    },
+    {
+      "id": "PG-207",
+      "category": "special",
+      "stage": 3,
+      "rarity": "ORACLE",
+      "parentIds": [
+        "PG-126"
+      ]
+    },
+    {
+      "id": "PG-208",
+      "category": "special",
+      "stage": 3,
+      "rarity": "ARCHITECT",
+      "parentIds": [
+        "PG-132"
+      ]
+    },
+    {
+      "id": "PG-209",
+      "category": "special",
+      "stage": 3,
+      "rarity": "ARCHITECT",
+      "parentIds": [
+        "PG-135"
+      ]
+    },
+    {
+      "id": "PG-210",
+      "category": "special",
+      "stage": 3,
+      "rarity": "ORACLE",
+      "parentIds": [
+        "PG-087"
+      ]
+    },
+    {
+      "id": "PG-211",
+      "category": "special",
+      "stage": 4,
+      "rarity": "ORIGIN",
+      "parentIds": [
+        "PG-178"
+      ]
+    },
+    {
+      "id": "PG-212",
+      "category": "special",
+      "stage": 3,
+      "rarity": "ORACLE",
+      "parentIds": [
+        "PG-141"
+      ]
+    },
+    {
+      "id": "PG-213",
+      "category": "special",
+      "stage": 4,
+      "rarity": "ARCHITECT",
+      "parentIds": [
+        "PG-173"
+      ]
+    },
+    {
+      "id": "PG-214",
+      "category": "special",
+      "stage": 3,
+      "rarity": "ORACLE",
+      "parentIds": [
+        "PG-152"
+      ]
+    },
+    {
+      "id": "PG-215",
+      "category": "special",
+      "stage": 4,
+      "rarity": "ORIGIN",
+      "parentIds": [
+        "PG-163"
+      ]
+    },
+    {
+      "id": "PG-216",
+      "category": "mutant",
+      "stage": 2,
+      "rarity": "DAEMON",
+      "parentIds": [
+        "PG-001"
+      ]
+    },
+    {
+      "id": "PG-217",
+      "category": "mutant",
+      "stage": 2,
+      "rarity": "DAEMON",
+      "parentIds": [
+        "PG-002"
+      ]
+    },
+    {
+      "id": "PG-218",
+      "category": "mutant",
+      "stage": 2,
+      "rarity": "DAEMON",
+      "parentIds": [
+        "PG-003"
+      ]
+    },
+    {
+      "id": "PG-219",
+      "category": "mutant",
+      "stage": 2,
+      "rarity": "DAEMON",
+      "parentIds": [
+        "PG-004"
+      ]
+    },
+    {
+      "id": "PG-220",
+      "category": "mutant",
+      "stage": 2,
+      "rarity": "ORACLE",
+      "parentIds": [
+        "PG-005"
+      ]
+    },
+    {
+      "id": "PG-221",
+      "category": "mutant",
+      "stage": 2,
+      "rarity": "ARCHITECT",
+      "parentIds": [
+        "PG-006"
+      ]
+    },
+    {
+      "id": "PG-222",
+      "category": "mutant",
+      "stage": 2,
+      "rarity": "DAEMON",
+      "parentIds": [
+        "PG-007"
+      ]
+    },
+    {
+      "id": "PG-223",
+      "category": "mutant",
+      "stage": 2,
+      "rarity": "DAEMON",
+      "parentIds": [
+        "PG-008"
+      ]
+    },
+    {
+      "id": "PG-224",
+      "category": "mutant",
+      "stage": 2,
+      "rarity": "DAEMON",
+      "parentIds": [
+        "PG-009"
+      ]
+    },
+    {
+      "id": "PG-225",
+      "category": "mutant",
+      "stage": 2,
+      "rarity": "ORACLE",
+      "parentIds": [
+        "PG-010"
+      ]
+    },
+    {
+      "id": "PG-226",
+      "category": "mutant",
+      "stage": 2,
+      "rarity": "ARCHITECT",
+      "parentIds": [
+        "PG-011"
+      ]
+    },
+    {
+      "id": "PG-227",
+      "category": "mutant",
+      "stage": 2,
+      "rarity": "DAEMON",
+      "parentIds": [
+        "PG-012"
+      ]
+    },
+    {
+      "id": "PG-228",
+      "category": "mutant",
+      "stage": 2,
+      "rarity": "ORACLE",
+      "parentIds": [
+        "PG-013"
+      ]
+    },
+    {
+      "id": "PG-229",
+      "category": "mutant",
+      "stage": 2,
+      "rarity": "DAEMON",
+      "parentIds": [
+        "PG-014"
+      ]
+    },
+    {
+      "id": "PG-230",
+      "category": "mutant",
+      "stage": 2,
+      "rarity": "DAEMON",
+      "parentIds": [
+        "PG-015"
+      ]
+    },
+    {
+      "id": "PG-231",
+      "category": "mutant",
+      "stage": 2,
+      "rarity": "ARCHITECT",
+      "parentIds": [
+        "PG-016"
+      ]
+    },
+    {
+      "id": "PG-232",
+      "category": "mutant",
+      "stage": 2,
+      "rarity": "ORACLE",
+      "parentIds": [
+        "PG-018"
+      ]
+    },
+    {
+      "id": "PG-233",
+      "category": "mutant",
+      "stage": 2,
+      "rarity": "ARCHITECT",
+      "parentIds": [
+        "PG-020"
+      ]
+    },
+    {
+      "id": "PG-234",
+      "category": "mutant",
+      "stage": 2,
+      "rarity": "DAEMON",
+      "parentIds": [
+        "PG-022"
+      ]
+    },
+    {
+      "id": "PG-235",
+      "category": "mutant",
+      "stage": 2,
+      "rarity": "DAEMON",
+      "parentIds": [
+        "PG-024"
+      ]
+    },
+    {
+      "id": "PG-236",
+      "category": "mutant",
+      "stage": 2,
+      "rarity": "ORACLE",
+      "parentIds": [
+        "PG-026"
+      ]
+    },
+    {
+      "id": "PG-237",
+      "category": "mutant",
+      "stage": 2,
+      "rarity": "DAEMON",
+      "parentIds": [
+        "PG-028"
+      ]
+    },
+    {
+      "id": "PG-238",
+      "category": "mutant",
+      "stage": 2,
+      "rarity": "ORACLE",
+      "parentIds": [
+        "PG-030"
+      ]
+    },
+    {
+      "id": "PG-239",
+      "category": "mutant",
+      "stage": 2,
+      "rarity": "ORACLE",
+      "parentIds": [
+        "PG-032"
+      ]
+    },
+    {
+      "id": "PG-240",
+      "category": "mutant",
+      "stage": 2,
+      "rarity": "ARCHITECT",
+      "parentIds": [
+        "PG-034"
+      ]
+    }
+  ],
+  "mixedProof": [
+    {
+      "slotId": "PG-196",
+      "parentIds": [
+        "PG-076",
+        "PG-077"
+      ],
+      "targetStatus": "exact",
+      "targetTaxonomy": {
+        "biologicalClass": "mammalia",
+        "coreAnatomy": "hindlimb-dominant-tetrapod",
+        "locomotionPlan": "saltatorial-bipedal",
+        "speciesFamily": "macropodidae"
+      },
+      "eitherParentBehavior": true,
+      "requiredAnchorsPerParent": 2,
+      "parentTargets": [
+        {
+          "parentId": "PG-076",
+          "targetTaxonomy": {
+            "biologicalClass": "mammalia",
+            "coreAnatomy": "hindlimb-dominant-tetrapod",
+            "locomotionPlan": "saltatorial-bipedal",
+            "speciesFamily": "macropodidae"
+          }
+        },
+        {
+          "parentId": "PG-077",
+          "targetTaxonomy": {
+            "biologicalClass": "spirit",
+            "speciesFamily": "spirit",
+            "coreAnatomy": "radial",
+            "locomotionPlan": "floating"
+          }
+        }
+      ],
+      "exactCompatible": true,
+      "compatibilityBasis": "MIXED_BOTH_PARENT_ANCHOR_CONTRACT",
+      "reviewStatus": "PENDING_G003_COMPARATIVE_REVIEW"
+    },
+    {
+      "slotId": "PG-197",
+      "parentIds": [
+        "PG-078",
+        "PG-079"
+      ],
+      "targetStatus": "exact",
+      "targetTaxonomy": {
+        "biologicalClass": "mammal",
+        "speciesFamily": "bovine",
+        "coreAnatomy": "quadruped",
+        "locomotionPlan": "quadrupedal"
+      },
+      "eitherParentBehavior": true,
+      "requiredAnchorsPerParent": 2,
+      "parentTargets": [
+        {
+          "parentId": "PG-078",
+          "targetTaxonomy": {
+            "biologicalClass": "mammal",
+            "speciesFamily": "bovine",
+            "coreAnatomy": "quadruped",
+            "locomotionPlan": "quadrupedal"
+          }
+        },
+        {
+          "parentId": "PG-079",
+          "targetTaxonomy": {
+            "biologicalClass": "bird",
+            "speciesFamily": "bird-other",
+            "coreAnatomy": "winged-biped",
+            "locomotionPlan": "bipedal"
+          }
+        }
+      ],
+      "exactCompatible": true,
+      "compatibilityBasis": "MIXED_BOTH_PARENT_ANCHOR_CONTRACT",
+      "reviewStatus": "PENDING_G003_COMPARATIVE_REVIEW"
+    },
+    {
+      "slotId": "PG-198",
+      "parentIds": [
+        "PG-080",
+        "PG-129"
+      ],
+      "targetStatus": "exact",
+      "targetTaxonomy": {
+        "biologicalClass": "plant",
+        "speciesFamily": "plant-flower",
+        "coreAnatomy": "quadruped",
+        "locomotionPlan": "quadrupedal"
+      },
+      "eitherParentBehavior": true,
+      "requiredAnchorsPerParent": 2,
+      "parentTargets": [
+        {
+          "parentId": "PG-080",
+          "targetTaxonomy": {
+            "biologicalClass": "plant",
+            "speciesFamily": "plant-flower",
+            "coreAnatomy": "quadruped",
+            "locomotionPlan": "quadrupedal"
+          }
+        },
+        {
+          "parentId": "PG-129",
+          "targetTaxonomy": {
+            "biologicalClass": "chondrichthyes",
+            "coreAnatomy": "pectoral-fin-disc",
+            "locomotionPlan": "aquatic-pectoral-fin-swimming",
+            "speciesFamily": "mobulidae"
+          }
+        }
+      ],
+      "exactCompatible": true,
+      "compatibilityBasis": "MIXED_BOTH_PARENT_ANCHOR_CONTRACT",
+      "reviewStatus": "PENDING_G003_COMPARATIVE_REVIEW"
+    },
+    {
+      "slotId": "PG-199",
+      "parentIds": [
+        "PG-093",
+        "PG-117"
+      ],
+      "targetStatus": "exact",
+      "targetTaxonomy": {
+        "biologicalClass": "mammalia",
+        "coreAnatomy": "quadrupedal-tetrapod",
+        "locomotionPlan": "terrestrial-quadrupedal",
+        "speciesFamily": "procyonidae"
+      },
+      "eitherParentBehavior": true,
+      "requiredAnchorsPerParent": 2,
+      "parentTargets": [
+        {
+          "parentId": "PG-093",
+          "targetTaxonomy": {
+            "biologicalClass": "mammalia",
+            "coreAnatomy": "quadrupedal-tetrapod",
+            "locomotionPlan": "terrestrial-quadrupedal",
+            "speciesFamily": "procyonidae"
+          }
+        },
+        {
+          "parentId": "PG-117",
+          "targetTaxonomy": {
+            "biologicalClass": "insecta",
+            "coreAnatomy": "six-limbed-raptorial-insect",
+            "locomotionPlan": "terrestrial-hexapodal",
+            "speciesFamily": "stylized-mantid"
+          }
+        }
+      ],
+      "exactCompatible": true,
+      "compatibilityBasis": "MIXED_BOTH_PARENT_ANCHOR_CONTRACT",
+      "reviewStatus": "PENDING_G003_COMPARATIVE_REVIEW"
+    },
+    {
+      "slotId": "PG-200",
+      "parentIds": [
+        "PG-024",
+        "PG-025"
+      ],
+      "targetStatus": "exact",
+      "targetTaxonomy": {
+        "biologicalClass": "arthropod",
+        "speciesFamily": "arachnid",
+        "coreAnatomy": "arachnid",
+        "locomotionPlan": "crawling"
+      },
+      "eitherParentBehavior": true,
+      "requiredAnchorsPerParent": 2,
+      "parentTargets": [
+        {
+          "parentId": "PG-024",
+          "targetTaxonomy": {
+            "biologicalClass": "arthropod",
+            "speciesFamily": "arachnid",
+            "coreAnatomy": "arachnid",
+            "locomotionPlan": "crawling"
+          }
+        },
+        {
+          "parentId": "PG-025",
+          "targetTaxonomy": {
+            "biologicalClass": "bird",
+            "speciesFamily": "bird-owl",
+            "coreAnatomy": "winged-biped",
+            "locomotionPlan": "flight"
+          }
+        }
+      ],
+      "exactCompatible": true,
+      "compatibilityBasis": "MIXED_BOTH_PARENT_ANCHOR_CONTRACT",
+      "reviewStatus": "PENDING_G003_COMPARATIVE_REVIEW"
+    },
+    {
+      "slotId": "PG-201",
+      "parentIds": [
+        "PG-099",
+        "PG-123"
+      ],
+      "targetStatus": "exact",
+      "targetTaxonomy": {
+        "biologicalClass": "spirit",
+        "speciesFamily": "spirit",
+        "coreAnatomy": "amorphous",
+        "locomotionPlan": "floating"
+      },
+      "eitherParentBehavior": true,
+      "requiredAnchorsPerParent": 2,
+      "parentTargets": [
+        {
+          "parentId": "PG-099",
+          "targetTaxonomy": {
+            "biologicalClass": "amphibian",
+            "speciesFamily": "salamander",
+            "coreAnatomy": "quadruped",
+            "locomotionPlan": "crawling"
+          }
+        },
+        {
+          "parentId": "PG-123",
+          "targetTaxonomy": {
+            "biologicalClass": "spirit",
+            "speciesFamily": "spirit",
+            "coreAnatomy": "amorphous",
+            "locomotionPlan": "floating"
+          }
+        }
+      ],
+      "exactCompatible": true,
+      "compatibilityBasis": "MIXED_BOTH_PARENT_ANCHOR_CONTRACT",
+      "reviewStatus": "PENDING_G003_COMPARATIVE_REVIEW"
+    },
+    {
+      "slotId": "PG-202",
+      "parentIds": [
+        "PG-028",
+        "PG-029"
+      ],
+      "targetStatus": "exact",
+      "targetTaxonomy": {
+        "biologicalClass": "mammalia",
+        "coreAnatomy": "proboscidean-tetrapod",
+        "locomotionPlan": "terrestrial-quadrupedal",
+        "speciesFamily": "elephantidae"
+      },
+      "eitherParentBehavior": true,
+      "requiredAnchorsPerParent": 2,
+      "parentTargets": [
+        {
+          "parentId": "PG-028",
+          "targetTaxonomy": {
+            "biologicalClass": "mammalia",
+            "coreAnatomy": "proboscidean-tetrapod",
+            "locomotionPlan": "terrestrial-quadrupedal",
+            "speciesFamily": "elephantidae"
+          }
+        },
+        {
+          "parentId": "PG-029",
+          "targetTaxonomy": {
+            "biologicalClass": "construct",
+            "speciesFamily": "construct",
+            "coreAnatomy": "multiped",
+            "locomotionPlan": "flight"
+          }
+        }
+      ],
+      "exactCompatible": true,
+      "compatibilityBasis": "MIXED_BOTH_PARENT_ANCHOR_CONTRACT",
+      "reviewStatus": "PENDING_G003_COMPARATIVE_REVIEW"
+    },
+    {
+      "slotId": "PG-203",
+      "parentIds": [
+        "PG-081",
+        "PG-105"
+      ],
+      "targetStatus": "exact",
+      "targetTaxonomy": {
+        "biologicalClass": "mammal",
+        "speciesFamily": "bovine",
+        "coreAnatomy": "quadruped",
+        "locomotionPlan": "quadrupedal"
+      },
+      "eitherParentBehavior": true,
+      "requiredAnchorsPerParent": 2,
+      "parentTargets": [
+        {
+          "parentId": "PG-081",
+          "targetTaxonomy": {
+            "biologicalClass": "mammal",
+            "speciesFamily": "bovine",
+            "coreAnatomy": "quadruped",
+            "locomotionPlan": "quadrupedal"
+          }
+        },
+        {
+          "parentId": "PG-105",
+          "targetTaxonomy": {
+            "biologicalClass": "reptile",
+            "speciesFamily": "lizard",
+            "coreAnatomy": "quadruped",
+            "locomotionPlan": "quadrupedal"
+          }
+        }
+      ],
+      "exactCompatible": true,
+      "compatibilityBasis": "MIXED_BOTH_PARENT_ANCHOR_CONTRACT",
+      "reviewStatus": "PENDING_G003_COMPARATIVE_REVIEW"
+    },
+    {
+      "slotId": "PG-204",
+      "parentIds": [
+        "PG-111",
+        "PG-120"
+      ],
+      "targetStatus": "exact",
+      "targetTaxonomy": {
+        "biologicalClass": "amphibian",
+        "speciesFamily": "frog",
+        "coreAnatomy": "quadruped",
+        "locomotionPlan": "quadrupedal"
+      },
+      "eitherParentBehavior": true,
+      "requiredAnchorsPerParent": 2,
+      "parentTargets": [
+        {
+          "parentId": "PG-111",
+          "targetTaxonomy": {
+            "biologicalClass": "mammal",
+            "speciesFamily": "bovine",
+            "coreAnatomy": "biped",
+            "locomotionPlan": "bipedal"
+          }
+        },
+        {
+          "parentId": "PG-120",
+          "targetTaxonomy": {
+            "biologicalClass": "amphibian",
+            "speciesFamily": "frog",
+            "coreAnatomy": "quadruped",
+            "locomotionPlan": "quadrupedal"
+          }
+        }
+      ],
+      "exactCompatible": true,
+      "compatibilityBasis": "MIXED_BOTH_PARENT_ANCHOR_CONTRACT",
+      "reviewStatus": "PENDING_G003_COMPARATIVE_REVIEW"
+    },
+    {
+      "slotId": "PG-205",
+      "parentIds": [
+        "PG-084",
+        "PG-108"
+      ],
+      "targetStatus": "exact",
+      "targetTaxonomy": {
+        "biologicalClass": "mollusk",
+        "speciesFamily": "gastropod",
+        "coreAnatomy": "amorphous",
+        "locomotionPlan": "crawling"
+      },
+      "eitherParentBehavior": true,
+      "requiredAnchorsPerParent": 2,
+      "parentTargets": [
+        {
+          "parentId": "PG-084",
+          "targetTaxonomy": {
+            "biologicalClass": "mollusk",
+            "speciesFamily": "gastropod",
+            "coreAnatomy": "amorphous",
+            "locomotionPlan": "crawling"
+          }
+        },
+        {
+          "parentId": "PG-108",
+          "targetTaxonomy": {
+            "biologicalClass": "amphibian",
+            "speciesFamily": "salamander",
+            "coreAnatomy": "quadruped",
+            "locomotionPlan": "crawling"
+          }
+        }
+      ],
+      "exactCompatible": true,
+      "compatibilityBasis": "MIXED_BOTH_PARENT_ANCHOR_CONTRACT",
+      "reviewStatus": "PENDING_G003_COMPARATIVE_REVIEW"
+    }
+  ]
+}

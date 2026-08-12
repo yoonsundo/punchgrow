@@ -35,14 +35,13 @@ final class MutationOfferTests: XCTestCase {
     _ speciesID: String,
     level: Int,
     experience: Int = 0,
-    preference: String? = nil,
     origin: String? = nil,
     id: UUID = UUID()
   ) -> OwnedCreature {
     OwnedCreature(
       id: id, speciesID: speciesID, originSpeciesID: origin, level: level,
       experience: experience, affection: 0, nickname: nil,
-      preferredEvolutionTargetSpeciesID: preference, uniqueColor: false,
+      uniqueColor: false,
       acquiredAt: Date(timeIntervalSince1970: 1))
   }
 
@@ -212,7 +211,7 @@ final class MutationOfferTests: XCTestCase {
 
   func testLevelFortyChainStopsBeforeStageFourAndResumesAfterResolution() throws {
     let catalog = try CreatureCatalog.load()
-    let subject = creature("PG-034", level: 40, preference: "PG-118", origin: "PG-034")
+    let subject = creature("PG-034", level: 40, origin: "PG-034")
     var state = state(with: [subject])
     var generator = SeededGenerator(seed: triggerSeed)
 
@@ -228,13 +227,14 @@ final class MutationOfferTests: XCTestCase {
     let resumed = try GameEngine.resolveMutationOffer(
       offer, accept: false, state: &state, catalog: catalog, generator: &generator)
 
-    XCTAssertEqual(resumed.map(\.toSpeciesID), ["PG-117", "PG-118", "PG-119"])
-    XCTAssertEqual(catalog.first { $0.id == "PG-119" }?.stage, 4)
+    // 예약이 없어졌으므로 PG-117의 갈림길에서 멈춘다. 그다음은 사용자가 고른다.
+    XCTAssertEqual(resumed.map(\.toSpeciesID), ["PG-117"])
+    XCTAssertNotNil(GameEngine.pendingEvolutionChoice(for: state.ownedCreatures[0], catalog: catalog))
   }
 
-  func testWithoutATriggerASingleFeedStillCatchesUpExactlyAsBefore() throws {
+  func testWithoutATriggerASingleFeedClimbsUntilTheFirstBranch() throws {
     let catalog = try CreatureCatalog.load()
-    let subject = creature("PG-034", level: 40, preference: "PG-118", origin: "PG-034")
+    let subject = creature("PG-034", level: 40, origin: "PG-034")
     var state = state(with: [subject])
     var generator = SeededGenerator(seed: calmSeed)
 
@@ -242,7 +242,7 @@ final class MutationOfferTests: XCTestCase {
       creatureID: subject.id, state: &state, catalog: catalog, generator: &generator)
 
     XCTAssertNil(outcome.mutationOffer)
-    XCTAssertEqual(outcome.evolutions.map(\.toSpeciesID), ["PG-117", "PG-118", "PG-119"])
+    XCTAssertEqual(outcome.evolutions.map(\.toSpeciesID), ["PG-117"])
   }
 
   // MARK: - 발동하지 않는 자리

@@ -1,0 +1,65 @@
+{
+  "schemaVersion": "continuity-output-attestation-g002-v2",
+  "runId": "g002-v2",
+  "effectiveAuthoritySha256": "22cf282dd777c8bf5239b8a6e4d56572143f314b983a189a5b0eb589308d1f92",
+  "inputHashes": {
+    "catalog": {
+      "path": "production/catalog/creatures.json",
+      "sha256": "d9a3265d8e8f07d9ce7f3de52affe3420df4d2aa3406a7f4f364ae1380e9e8a0"
+    },
+    "census": {
+      "path": "production/reports/biological-continuity-v3/g001-unblinded-image-first-census-v1.json",
+      "sha256": "5d9f46f487f86217c78219a9c3be215ddbcf9f88d07dbfdfa2da4c67ec3f5279"
+    },
+    "conflictLedger": {
+      "path": "production/reports/biological-continuity-v3/g001-unblinded-conflict-ledger-v1.json",
+      "sha256": "aae0c87f3368c816cc37551ac86f455517f1a89793b7368dcb3e02b6c48e4231"
+    },
+    "taxonomyConsensus": {
+      "path": "production/reports/biological-continuity-v3/g002-evidence-v1/asset-census.json",
+      "sha256": "ce3185b485698dcd4d4bd965c6d13bf3bcfc67d72938918094b395482f285996"
+    },
+    "pixelClusters": {
+      "path": "production/reports/biological-continuity-v3/g002-evidence-v1/pixel-clusters.json",
+      "sha256": "93f6eab9d5cb9f0a4aedec6a1d9079384f6c30f188ed1717a8645968cd32a4b2"
+    },
+    "anchorConsensus": {
+      "path": "production/reports/biological-continuity-v3/g001-primary-pixel-anchor-consensus-v1.json",
+      "sha256": "e2195597da77130e613699a6b72cce1d4009876097838f519ecba8f54c5ea069"
+    },
+    "lockedTaxonomyConsensus": {
+      "path": "production/reports/biological-continuity-v3/g002-evidence-v1/taxonomy-reviews/consensus.json",
+      "sha256": "89c0881bb9acf25abfde0e2e2fe4166b55d0bae59cc23c5f2f3132a0b51d1274"
+    },
+    "canonicalRootRedesignTargets": {
+      "path": "production/reports/biological-continuity-v3/g002-evidence-v2/canonical-root-redesign-targets-v2.json",
+      "sha256": "01b1f63f570f82a304b5e661e14c4454e5b82895dca4e414cfb2b2a511a073f2"
+    },
+    "topologyContract": {
+      "path": "production/reports/biological-continuity-v3/g002-evidence-v1/topology-before.json",
+      "sha256": "f247b7d476b0f699831edba60bc10b877d482d0e56f3924a9e305ef08f5e1c51"
+    },
+    "pins": {
+      "path": "production/reports/biological-continuity-v3/g002-evidence-v1/pins.json",
+      "sha256": "4ee4c290db7d7ffebd6bbfb836e39adb451afac66301b6b707e6bed9a2f24864"
+    },
+    "basePublicManifest": {
+      "path": "production/reports/biological-continuity-v3/g002-evidence-v1/public-evidence-manifest.json",
+      "sha256": "ea86e51a1fc21eaaad708e256bf3348480fa284d201814ec71f89fec128889af"
+    },
+    "baseCanonicalContract": {
+      "path": "production/reports/biological-continuity-v3/g002-evidence-v1/canonical-root-redesign-targets-v1.json",
+      "sha256": "ede8e2a728c588cafc4f614e7858495f138cf7b208b7048166b66610fd5c6de1"
+    }
+  },
+  "outputHashes": {
+    "compatibility-ledger.json": "f07cf112a7f38af7c7b4769fd8a69f756000f01011e96adc404ec2f1f7f4dee4",
+    "topology-after.json": "f95c5c9e9998d7fd7c9d38bb41802f513c8a73c78baf612666ca916ddbe109e9",
+    "assignment-manifest.json": "9b5d863fa77e6e124b16f64c3268e6badafab801a837d812b07650dd07a2fb0e",
+    "save-revision-map.json": "cfa85535e9fb7eac7b7556812c235d38905c57efe308ffe03256e800be155c99",
+    "regeneration-queue.json": "aaa359abad8744f120298110d96c80ca6095405510a8fa9aa73d6838c9fba922",
+    "feasibility-report.json": "02b90a1a25aa67a23e0c01c22bc86492003fe904f153bed27aa5e9d2092adda3"
+  },
+  "declaredVerdict": "FEASIBLE_WITH_REGENERATION",
+  "generationPolicy": "deterministic-fail-closed-public-atomic-no-active-mutation-no-v1-fallback"
+}

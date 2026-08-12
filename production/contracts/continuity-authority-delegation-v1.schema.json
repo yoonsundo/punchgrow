@@ -1,0 +1,26 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://punchgrow.local/contracts/continuity-authority-delegation-v1.schema.json",
+  "title": "One-time G003 to continuity authority delegation",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schemaVersion", "delegationId", "nonce", "issuer", "delegate", "grant", "predecessor", "successorIntentSha256", "outputSha256", "publicSignature"],
+  "properties": {
+    "schemaVersion": { "const": "continuity-authority-delegation-v1" },
+    "delegationId": { "type": "string", "pattern": "^continuity-delegation-[a-f0-9]{24}$" },
+    "nonce": { "$ref": "#/$defs/sha256" },
+    "issuer": { "type": "object", "additionalProperties": false, "required": ["authorityEpoch", "authorityFingerprint"], "properties": { "authorityEpoch": { "const": "g003-authority-epoch-v1" }, "authorityFingerprint": { "$ref": "#/$defs/sha256" } } },
+    "delegate": { "$ref": "continuity-public-authority-v1.schema.json" },
+    "grant": { "type": "object", "additionalProperties": false, "required": ["purpose", "schemaVersion", "schemaSha256", "successorPath", "assignmentV3", "oneTime", "nativeG002SignatureClaimAllowed"], "properties": { "purpose": { "const": "continuity:g002-v2-supersession" }, "schemaVersion": { "const": "continuity-g002-v2-supersession-v1" }, "schemaSha256": { "$ref": "#/$defs/sha256" }, "successorPath": { "const": "production/reports/biological-continuity-v3/continuity-authority/g002-v2-supersession-v1.json" }, "assignmentV3": { "$ref": "#/$defs/assignmentV3Binding" }, "oneTime": { "const": true }, "nativeG002SignatureClaimAllowed": { "const": false } } },
+    "predecessor": { "$ref": "#/$defs/predecessor" },
+    "successorIntentSha256": { "$ref": "#/$defs/sha256" },
+    "outputSha256": { "$ref": "#/$defs/sha256" },
+    "publicSignature": { "$ref": "#/$defs/g003Signature" }
+  },
+  "$defs": {
+    "sha256": { "type": "string", "pattern": "^[a-f0-9]{64}$" },
+    "assignmentV3Binding": { "type": "object", "additionalProperties": false, "required": ["fixedPath", "schemaSha256", "coreSha256"], "properties": { "fixedPath": { "const": "production/reports/biological-continuity-v3/continuity-authority/continuity-assignment-v3.json" }, "schemaSha256": { "$ref": "#/$defs/sha256" }, "coreSha256": { "$ref": "#/$defs/sha256" } } },
+    "predecessor": { "type": "object", "additionalProperties": false, "required": ["publicManifestPath", "publicManifestFileSha256", "publicManifestOutputSha256", "successorPath", "successorFileSha256", "successorOutputSha256", "assignmentPath", "assignmentFileSha256", "effectiveAuthoritySha256", "immutable", "nativeSignatureClaim"], "properties": { "publicManifestPath": { "type": "string" }, "publicManifestFileSha256": { "$ref": "#/$defs/sha256" }, "publicManifestOutputSha256": { "$ref": "#/$defs/sha256" }, "successorPath": { "type": "string" }, "successorFileSha256": { "$ref": "#/$defs/sha256" }, "successorOutputSha256": { "$ref": "#/$defs/sha256" }, "assignmentPath": { "type": "string" }, "assignmentFileSha256": { "$ref": "#/$defs/sha256" }, "effectiveAuthoritySha256": { "$ref": "#/$defs/sha256" }, "immutable": { "const": true }, "nativeSignatureClaim": { "const": "NONE_CROSS_AUTHORITY_SUCCESSOR_ONLY" } } },
+    "g003Signature": { "type": "object", "additionalProperties": false, "required": ["algorithm", "authorityEpoch", "authorityFingerprint", "purpose", "schemaSha256", "signatureBase64"], "properties": { "algorithm": { "const": "Ed25519" }, "authorityEpoch": { "const": "g003-authority-epoch-v1" }, "authorityFingerprint": { "$ref": "#/$defs/sha256" }, "purpose": { "const": "g003:continuity-authority-delegation" }, "schemaSha256": { "$ref": "#/$defs/sha256" }, "signatureBase64": { "type": "string", "minLength": 88, "maxLength": 88 } } }
+  }
+}

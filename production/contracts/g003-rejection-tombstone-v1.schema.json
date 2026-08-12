@@ -1,0 +1,32 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://punchgrow.local/contracts/g003-rejection-tombstone-v1.schema.json",
+  "title": "G003 append-only rejection tombstone v1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schemaVersion", "tombstoneKey", "candidateId", "generationRunId", "materialSha256s", "rejectionArchiveId", "rejectionSha256", "rejectedAt", "outputSha256", "conductorHmacSha256", "publicSignature"],
+  "properties": {
+    "schemaVersion": { "const": "continuity-g003-rejection-tombstone-v1" },
+    "tombstoneKey": { "$ref": "#/$defs/sha256" },
+    "candidateId": { "type": "string", "pattern": "^(g003-candidate:PG-[0-9]{3}|g003-edge:PG-[0-9]{3}:PG-[0-9]{3})$" },
+    "generationRunId": { "$ref": "#/$defs/generationRunId" },
+    "materialSha256s": { "type": "array", "minItems": 2, "maxItems": 2, "uniqueItems": true, "items": { "$ref": "#/$defs/sha256" } },
+    "rejectionArchiveId": { "$ref": "#/$defs/sha256" },
+    "rejectionSha256": { "$ref": "#/$defs/sha256" },
+    "rejectedAt": { "type": "string", "format": "date-time" },
+    "outputSha256": { "$ref": "#/$defs/sha256" },
+    "conductorHmacSha256": { "$ref": "#/$defs/sha256" },
+    "publicSignature": {
+      "type": "object", "additionalProperties": false,
+      "required": ["algorithm", "authorityFingerprint", "signatureBase64"],
+      "properties": {
+        "algorithm": { "const": "Ed25519" }, "authorityFingerprint": { "$ref": "#/$defs/sha256" },
+        "signatureBase64": { "type": "string", "minLength": 80 }
+      }
+    }
+  },
+  "$defs": {
+    "sha256": { "type": "string", "pattern": "^[a-f0-9]{64}$" },
+    "generationRunId": { "type": "string", "pattern": "^[A-Za-z0-9][A-Za-z0-9._-]{0,127}$" }
+  }
+}

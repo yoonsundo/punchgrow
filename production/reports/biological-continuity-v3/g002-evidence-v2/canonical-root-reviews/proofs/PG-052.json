@@ -1,0 +1,800 @@
+{
+  "acceptedAt": "2026-08-10T22:21:37.911Z",
+  "candidate": {
+    "master": {
+      "bytes": 1437746,
+      "height": 1254,
+      "sha256": "d887818f0942b5a9ad569a09d16249928da415dfd80a2d6d67b11438ed015b3b",
+      "width": 1254
+    },
+    "runtime": {
+      "bytes": 126008,
+      "height": 360,
+      "sha256": "8670e5e44ab49cd11aee2a2f15c695243e0c5cc21bbadd3634c7801c5feeafcd",
+      "width": 360
+    }
+  },
+  "inputAllowlist": {
+    "files": [
+      {
+        "bytes": 1437746,
+        "height": 1254,
+        "path": "inputs/master.png",
+        "sha256": "d887818f0942b5a9ad569a09d16249928da415dfd80a2d6d67b11438ed015b3b",
+        "width": 1254
+      },
+      {
+        "bytes": 126008,
+        "height": 360,
+        "path": "inputs/runtime.png",
+        "sha256": "8670e5e44ab49cd11aee2a2f15c695243e0c5cc21bbadd3634c7801c5feeafcd",
+        "width": 360
+      }
+    ],
+    "schemaVersion": "g002-v2-canonical-review-allowlist-v1"
+  },
+  "inputAllowlistSha256": "38187d3b53fc6ad1c8f505d2916c7b612fe55c4a8b357731411dd4ff59b41291",
+  "materialBinding": {
+    "allowlistSha256": "38187d3b53fc6ad1c8f505d2916c7b612fe55c4a8b357731411dd4ff59b41291",
+    "candidate": {
+      "master": {
+        "bytes": 1437746,
+        "height": 1254,
+        "sha256": "d887818f0942b5a9ad569a09d16249928da415dfd80a2d6d67b11438ed015b3b",
+        "width": 1254
+      },
+      "runtime": {
+        "bytes": 126008,
+        "height": 360,
+        "sha256": "8670e5e44ab49cd11aee2a2f15c695243e0c5cc21bbadd3634c7801c5feeafcd",
+        "width": 360
+      }
+    },
+    "conductorHmacSha256": "bc0e272fa41116fb11fd8d53df470195936e6863a2f5f385ea160ac9832575e5",
+    "opaqueTargetId": "target-714b593bed2c863548141bb4",
+    "outputSha256": "f1b33538783ea23126f097506e1b72681fd80a6845098b449f10e241121c63dd",
+    "packageManifestSha256": "a33820327ea59134d1ba44c63cb5b1caa363a3f033a91fc8048651f3590d18b6",
+    "promptSha256": "d237ea236061f0479815f9ee0dcfccb4fe1e6e7d80c5761a6ef8ead8f6dea5de",
+    "rootId": "PG-052",
+    "schemaVersion": "g002-v2-canonical-private-binding-v1",
+    "sourcePaths": {
+      "master": "assets/creatures/biological-continuity-v3/candidates/g003-w0-pg052-r2/PG-052/master.png",
+      "runtime": "assets/creatures/biological-continuity-v3/candidates/g003-w0-pg052-r2/PG-052/runtime.png"
+    },
+    "targetSha256": "737b651e9dd5256c01ff5deaa1388e8ef4e798e6111aedcf1b979a3bf87ef5aa"
+  },
+  "materialBindingSha256": "f1b33538783ea23126f097506e1b72681fd80a6845098b449f10e241121c63dd",
+  "opaqueTargetId": "target-714b593bed2c863548141bb4",
+  "outputSha256": "484881fde03df4fbbccd4f8bff4b6bd6d5fba2e6f05b531381f43794fc8aa041",
+  "packageManifest": {
+    "candidate": {
+      "master": {
+        "bytes": 1437746,
+        "height": 1254,
+        "sha256": "d887818f0942b5a9ad569a09d16249928da415dfd80a2d6d67b11438ed015b3b",
+        "width": 1254
+      },
+      "runtime": {
+        "bytes": 126008,
+        "height": 360,
+        "sha256": "8670e5e44ab49cd11aee2a2f15c695243e0c5cc21bbadd3634c7801c5feeafcd",
+        "width": 360
+      }
+    },
+    "opaqueTargetId": "target-714b593bed2c863548141bb4",
+    "schemaVersion": "g002-v2-canonical-review-package-v1",
+    "target": {
+      "anchors": [
+        {
+          "anchorId": "eight-separate-spider-legs",
+          "description": "Exactly eight separately visible spider legs ending in distinct feet"
+        },
+        {
+          "anchorId": "two-huge-cyan-eyes-single-gold-forehead-horn",
+          "description": "Exactly two huge cyan eyes with a small smile and exactly one short gold forehead horn"
+        },
+        {
+          "anchorId": "thin-gold-dorsal-stripe-over-rounded-black-abdomen",
+          "description": "Thin gold dorsal stripe crossing the smooth rounded black abdomen"
+        }
+      ],
+      "canonicalTarget": {
+        "biologicalClass": "arachnida",
+        "coreAnatomy": "eight-legged-chelicerate",
+        "locomotionPlan": "terrestrial-octopedal",
+        "speciesFamily": "araneae"
+      },
+      "clarificationRequirements": [
+        "Master and runtime must each expose exactly eight short black legs with gold feet without silhouette merging",
+        "Preserve exactly two huge cyan eyes, the small smile, and exactly one short gold forehead horn in their original placement",
+        "Preserve the thin gold stripe over the smooth low oval rounded black abdomen",
+        "Reject extra eyes, fangs, additional horns, or altered cyan-gold-black anchor colors and relative placements",
+        "Do not reinterpret shadows, gold feet, the forehead horn, or dorsal markings as walking legs"
+      ],
+      "currentPixelAssessment": "DISPUTED_OR_AMBIGUOUS"
+    },
+    "visibleAppendageRequirements": {
+      "eyes": 2,
+      "foreheadHorns": 1,
+      "walkingLegs": 8
+    }
+  },
+  "packageManifestSha256": "a33820327ea59134d1ba44c63cb5b1caa363a3f033a91fc8048651f3590d18b6",
+  "passes": [
+    {
+      "assignment": {
+        "agentTaskId": "/root/g002_v2_blind_pass1",
+        "assignedAt": "2026-08-10T22:18:04.000Z",
+        "assignmentId": "assignment-b295c659bd786cb38f227b50",
+        "conductorHmacSha256": "98e5fa314a8c0942b9b5bbf5467b2d6c19cd47a724d012794ee260014118e1b3",
+        "inputAllowlistSha256": "38187d3b53fc6ad1c8f505d2916c7b612fe55c4a8b357731411dd4ff59b41291",
+        "inputAssetSha256s": [
+          "d887818f0942b5a9ad569a09d16249928da415dfd80a2d6d67b11438ed015b3b",
+          "8670e5e44ab49cd11aee2a2f15c695243e0c5cc21bbadd3634c7801c5feeafcd"
+        ],
+        "materialBindingSha256": "f1b33538783ea23126f097506e1b72681fd80a6845098b449f10e241121c63dd",
+        "opaqueTargetId": "target-714b593bed2c863548141bb4",
+        "outputSha256": "c3b6d06fb2ca67b9bba867ffb33a9607c311dce660a7cd2f241d3ed1ecb650d3",
+        "packageManifestSha256": "a33820327ea59134d1ba44c63cb5b1caa363a3f033a91fc8048651f3590d18b6",
+        "passNumber": 1,
+        "promptSha256": "d237ea236061f0479815f9ee0dcfccb4fe1e6e7d80c5761a6ef8ead8f6dea5de",
+        "reviewRunId": "g002-v2-canonical-pass-1-20260810",
+        "reviewerInstanceId": "blind-primary-reviewer-1-20260810",
+        "schemaVersion": "g002-v2-canonical-review-assignment-v1"
+      },
+      "raw": {
+        "agentTaskId": "/root/g002_v2_blind_pass1",
+        "assignmentId": "assignment-b295c659bd786cb38f227b50",
+        "confidence": 0.98,
+        "observedAt": "2026-08-10T22:19:29.000Z",
+        "passNumber": 1,
+        "reviewRunId": "g002-v2-canonical-pass-1-20260810",
+        "reviewerInstanceId": "blind-primary-reviewer-1-20260810",
+        "surfaces": [
+          {
+            "ambiguity": false,
+            "anchors": [
+              {
+                "anchorId": "eight-separate-spider-legs",
+                "evidence": "Four short black legs on each side end in eight separately outlined gold feet.",
+                "visible": true
+              },
+              {
+                "anchorId": "two-huge-cyan-eyes-single-gold-forehead-horn",
+                "evidence": "Two large cyan eyes flank a small smile beneath one short gold forehead horn.",
+                "visible": true
+              },
+              {
+                "anchorId": "thin-gold-dorsal-stripe-over-rounded-black-abdomen",
+                "evidence": "One thin gold stripe crosses the center of the smooth low rounded black abdomen.",
+                "visible": true
+              }
+            ],
+            "clarifications": [
+              {
+                "evidence": "Eight black leg arcs and eight gold tips remain discrete, including both rear legs.",
+                "passed": true,
+                "requirement": "Master and runtime must each expose exactly eight short black legs with gold feet without silhouette merging"
+              },
+              {
+                "evidence": "Exactly two cyan eye ovals, one curved smile, and one central gold horn are visible.",
+                "passed": true,
+                "requirement": "Preserve exactly two huge cyan eyes, the small smile, and exactly one short gold forehead horn in their original placement"
+              },
+              {
+                "evidence": "The narrow gold line visibly follows the crown of the oval black abdomen.",
+                "passed": true,
+                "requirement": "Preserve the thin gold stripe over the smooth low oval rounded black abdomen"
+              },
+              {
+                "evidence": "Only two cyan eyes and one gold horn appear; no fang or additional horn is visible.",
+                "passed": true,
+                "requirement": "Reject extra eyes, fangs, additional horns, or altered cyan-gold-black anchor colors and relative placements"
+              },
+              {
+                "evidence": "All eight legs are continuous black side appendages, visually distinct from gold tips, central horn, stripe, and floor shadow.",
+                "passed": true,
+                "requirement": "Do not reinterpret shadows, gold feet, the forehead horn, or dorsal markings as walking legs"
+              }
+            ],
+            "confidence": 0.99,
+            "inputSha256": "d887818f0942b5a9ad569a09d16249928da415dfd80a2d6d67b11438ed015b3b",
+            "surface": "master",
+            "taxonomy": {
+              "biologicalClass": "arachnida",
+              "coreAnatomy": "eight-legged-chelicerate",
+              "locomotionPlan": "terrestrial-octopedal",
+              "speciesFamily": "araneae"
+            },
+            "visibleAppendageCounts": {
+              "eyes": 2,
+              "foreheadHorns": 1,
+              "walkingLegs": 8
+            }
+          },
+          {
+            "ambiguity": false,
+            "anchors": [
+              {
+                "anchorId": "eight-separate-spider-legs",
+                "evidence": "Eight short black appendages remain separated around the body and terminate in distinct gold tips.",
+                "visible": true
+              },
+              {
+                "anchorId": "two-huge-cyan-eyes-single-gold-forehead-horn",
+                "evidence": "Two luminous cyan eyes, the tiny smile, and one gold horn remain distinct.",
+                "visible": true
+              },
+              {
+                "anchorId": "thin-gold-dorsal-stripe-over-rounded-black-abdomen",
+                "evidence": "The single narrow gold dorsal stripe is continuous over the rounded black abdomen.",
+                "visible": true
+              }
+            ],
+            "clarifications": [
+              {
+                "evidence": "Four legs per side and their eight gold endpoints are independently visible at reduced size.",
+                "passed": true,
+                "requirement": "Master and runtime must each expose exactly eight short black legs with gold feet without silhouette merging"
+              },
+              {
+                "evidence": "The face contains exactly two cyan eyes, one smile line, and one centered gold horn.",
+                "passed": true,
+                "requirement": "Preserve exactly two huge cyan eyes, the small smile, and exactly one short gold forehead horn in their original placement"
+              },
+              {
+                "evidence": "A thin gold line remains plainly centered along the low oval abdomen.",
+                "passed": true,
+                "requirement": "Preserve the thin gold stripe over the smooth low oval rounded black abdomen"
+              },
+              {
+                "evidence": "No extra facial feature appears beyond the two eyes, smile, and single horn in the stated colors.",
+                "passed": true,
+                "requirement": "Reject extra eyes, fangs, additional horns, or altered cyan-gold-black anchor colors and relative placements"
+              },
+              {
+                "evidence": "Eight black limb silhouettes are countable without using any gold marking or shadow.",
+                "passed": true,
+                "requirement": "Do not reinterpret shadows, gold feet, the forehead horn, or dorsal markings as walking legs"
+              }
+            ],
+            "confidence": 0.98,
+            "inputSha256": "8670e5e44ab49cd11aee2a2f15c695243e0c5cc21bbadd3634c7801c5feeafcd",
+            "surface": "runtime",
+            "taxonomy": {
+              "biologicalClass": "arachnida",
+              "coreAnatomy": "eight-legged-chelicerate",
+              "locomotionPlan": "terrestrial-octopedal",
+              "speciesFamily": "araneae"
+            },
+            "visibleAppendageCounts": {
+              "eyes": 2,
+              "foreheadHorns": 1,
+              "walkingLegs": 8
+            }
+          }
+        ]
+      },
+      "run": {
+        "agentTaskId": "/root/g002_v2_blind_pass1",
+        "assignmentFileSha256": "90de2f55afe39d7575dfb16e9eb5b4903c8a163f58e0a8110b68427d346bff66",
+        "assignmentId": "assignment-b295c659bd786cb38f227b50",
+        "conductorHmacSha256": "b0eae8c9f7b8e70340993902297710ef9c656450475070b755ebf88dfe0a1aac",
+        "createdAt": "2026-08-10T22:19:29.000Z",
+        "opaqueTargetId": "target-714b593bed2c863548141bb4",
+        "outputSha256": "5852241dd061050a6df732147961fb2730c7a1265d07322d93d916fe22f25c63",
+        "passNumber": 1,
+        "rawSha256": "aea7b1b697fc01f0c29f486ca4c4c285a2d06882cbcb3203f8d019b5344f2b33",
+        "reviewRunId": "g002-v2-canonical-pass-1-20260810",
+        "reviewerInstanceId": "blind-primary-reviewer-1-20260810",
+        "schemaVersion": "g002-v2-canonical-review-run-v1"
+      },
+      "vote": {
+        "agentTaskId": "/root/g002_v2_blind_pass1",
+        "assignmentFileSha256": "90de2f55afe39d7575dfb16e9eb5b4903c8a163f58e0a8110b68427d346bff66",
+        "assignmentId": "assignment-b295c659bd786cb38f227b50",
+        "conductorHmacSha256": "7f3ec388e55a17af6082dc4436cccd84f1c3246a9fdf05456babe3bbb295997c",
+        "confidence": 0.98,
+        "inputAllowlistSha256": "38187d3b53fc6ad1c8f505d2916c7b612fe55c4a8b357731411dd4ff59b41291",
+        "inputAssetSha256s": [
+          "d887818f0942b5a9ad569a09d16249928da415dfd80a2d6d67b11438ed015b3b",
+          "8670e5e44ab49cd11aee2a2f15c695243e0c5cc21bbadd3634c7801c5feeafcd"
+        ],
+        "materialBindingSha256": "f1b33538783ea23126f097506e1b72681fd80a6845098b449f10e241121c63dd",
+        "observation": [
+          {
+            "ambiguity": false,
+            "anchors": [
+              {
+                "anchorId": "eight-separate-spider-legs",
+                "evidence": "Four short black legs on each side end in eight separately outlined gold feet.",
+                "visible": true
+              },
+              {
+                "anchorId": "two-huge-cyan-eyes-single-gold-forehead-horn",
+                "evidence": "Two large cyan eyes flank a small smile beneath one short gold forehead horn.",
+                "visible": true
+              },
+              {
+                "anchorId": "thin-gold-dorsal-stripe-over-rounded-black-abdomen",
+                "evidence": "One thin gold stripe crosses the center of the smooth low rounded black abdomen.",
+                "visible": true
+              }
+            ],
+            "clarifications": [
+              {
+                "evidence": "Eight black leg arcs and eight gold tips remain discrete, including both rear legs.",
+                "passed": true,
+                "requirement": "Master and runtime must each expose exactly eight short black legs with gold feet without silhouette merging"
+              },
+              {
+                "evidence": "Exactly two cyan eye ovals, one curved smile, and one central gold horn are visible.",
+                "passed": true,
+                "requirement": "Preserve exactly two huge cyan eyes, the small smile, and exactly one short gold forehead horn in their original placement"
+              },
+              {
+                "evidence": "The narrow gold line visibly follows the crown of the oval black abdomen.",
+                "passed": true,
+                "requirement": "Preserve the thin gold stripe over the smooth low oval rounded black abdomen"
+              },
+              {
+                "evidence": "Only two cyan eyes and one gold horn appear; no fang or additional horn is visible.",
+                "passed": true,
+                "requirement": "Reject extra eyes, fangs, additional horns, or altered cyan-gold-black anchor colors and relative placements"
+              },
+              {
+                "evidence": "All eight legs are continuous black side appendages, visually distinct from gold tips, central horn, stripe, and floor shadow.",
+                "passed": true,
+                "requirement": "Do not reinterpret shadows, gold feet, the forehead horn, or dorsal markings as walking legs"
+              }
+            ],
+            "confidence": 0.99,
+            "inputSha256": "d887818f0942b5a9ad569a09d16249928da415dfd80a2d6d67b11438ed015b3b",
+            "surface": "master",
+            "taxonomy": {
+              "biologicalClass": "arachnida",
+              "coreAnatomy": "eight-legged-chelicerate",
+              "locomotionPlan": "terrestrial-octopedal",
+              "speciesFamily": "araneae"
+            },
+            "visibleAppendageCounts": {
+              "eyes": 2,
+              "foreheadHorns": 1,
+              "walkingLegs": 8
+            }
+          },
+          {
+            "ambiguity": false,
+            "anchors": [
+              {
+                "anchorId": "eight-separate-spider-legs",
+                "evidence": "Eight short black appendages remain separated around the body and terminate in distinct gold tips.",
+                "visible": true
+              },
+              {
+                "anchorId": "two-huge-cyan-eyes-single-gold-forehead-horn",
+                "evidence": "Two luminous cyan eyes, the tiny smile, and one gold horn remain distinct.",
+                "visible": true
+              },
+              {
+                "anchorId": "thin-gold-dorsal-stripe-over-rounded-black-abdomen",
+                "evidence": "The single narrow gold dorsal stripe is continuous over the rounded black abdomen.",
+                "visible": true
+              }
+            ],
+            "clarifications": [
+              {
+                "evidence": "Four legs per side and their eight gold endpoints are independently visible at reduced size.",
+                "passed": true,
+                "requirement": "Master and runtime must each expose exactly eight short black legs with gold feet without silhouette merging"
+              },
+              {
+                "evidence": "The face contains exactly two cyan eyes, one smile line, and one centered gold horn.",
+                "passed": true,
+                "requirement": "Preserve exactly two huge cyan eyes, the small smile, and exactly one short gold forehead horn in their original placement"
+              },
+              {
+                "evidence": "A thin gold line remains plainly centered along the low oval abdomen.",
+                "passed": true,
+                "requirement": "Preserve the thin gold stripe over the smooth low oval rounded black abdomen"
+              },
+              {
+                "evidence": "No extra facial feature appears beyond the two eyes, smile, and single horn in the stated colors.",
+                "passed": true,
+                "requirement": "Reject extra eyes, fangs, additional horns, or altered cyan-gold-black anchor colors and relative placements"
+              },
+              {
+                "evidence": "Eight black limb silhouettes are countable without using any gold marking or shadow.",
+                "passed": true,
+                "requirement": "Do not reinterpret shadows, gold feet, the forehead horn, or dorsal markings as walking legs"
+              }
+            ],
+            "confidence": 0.98,
+            "inputSha256": "8670e5e44ab49cd11aee2a2f15c695243e0c5cc21bbadd3634c7801c5feeafcd",
+            "surface": "runtime",
+            "taxonomy": {
+              "biologicalClass": "arachnida",
+              "coreAnatomy": "eight-legged-chelicerate",
+              "locomotionPlan": "terrestrial-octopedal",
+              "speciesFamily": "araneae"
+            },
+            "visibleAppendageCounts": {
+              "eyes": 2,
+              "foreheadHorns": 1,
+              "walkingLegs": 8
+            }
+          }
+        ],
+        "opaqueTargetId": "target-714b593bed2c863548141bb4",
+        "outputSha256": "0f2247d436ba890db5ae6fb765c553de1f3090dbe5b9de79eb876b8310a133f0",
+        "packageManifestSha256": "a33820327ea59134d1ba44c63cb5b1caa363a3f033a91fc8048651f3590d18b6",
+        "passNumber": 1,
+        "promptSha256": "d237ea236061f0479815f9ee0dcfccb4fe1e6e7d80c5761a6ef8ead8f6dea5de",
+        "rawSha256": "aea7b1b697fc01f0c29f486ca4c4c285a2d06882cbcb3203f8d019b5344f2b33",
+        "reviewRunId": "g002-v2-canonical-pass-1-20260810",
+        "reviewerInstanceId": "blind-primary-reviewer-1-20260810",
+        "runOutputSha256": "5852241dd061050a6df732147961fb2730c7a1265d07322d93d916fe22f25c63",
+        "schemaVersion": "g002-v2-canonical-review-vote-v1",
+        "voteId": "vote-933982e7551a30d33e71f6ae"
+      }
+    },
+    {
+      "assignment": {
+        "agentTaskId": "/root/g002_v2_blind_pass2",
+        "assignedAt": "2026-08-10T22:18:04.000Z",
+        "assignmentId": "assignment-7cddae8852715367a4e92bf8",
+        "conductorHmacSha256": "4969d1d6bc03415f0730a17863df03e70871b376e7d02038cb3314560e989ab5",
+        "inputAllowlistSha256": "38187d3b53fc6ad1c8f505d2916c7b612fe55c4a8b357731411dd4ff59b41291",
+        "inputAssetSha256s": [
+          "d887818f0942b5a9ad569a09d16249928da415dfd80a2d6d67b11438ed015b3b",
+          "8670e5e44ab49cd11aee2a2f15c695243e0c5cc21bbadd3634c7801c5feeafcd"
+        ],
+        "materialBindingSha256": "f1b33538783ea23126f097506e1b72681fd80a6845098b449f10e241121c63dd",
+        "opaqueTargetId": "target-714b593bed2c863548141bb4",
+        "outputSha256": "17cd0df438839d6cce2c8e8e8b4cfcc8efd2687fc8004834334cd96cf8df72e2",
+        "packageManifestSha256": "a33820327ea59134d1ba44c63cb5b1caa363a3f033a91fc8048651f3590d18b6",
+        "passNumber": 2,
+        "promptSha256": "d237ea236061f0479815f9ee0dcfccb4fe1e6e7d80c5761a6ef8ead8f6dea5de",
+        "reviewRunId": "g002-v2-canonical-pass-2-20260810",
+        "reviewerInstanceId": "blind-primary-reviewer-2-20260810",
+        "schemaVersion": "g002-v2-canonical-review-assignment-v1"
+      },
+      "raw": {
+        "agentTaskId": "/root/g002_v2_blind_pass2",
+        "assignmentId": "assignment-7cddae8852715367a4e92bf8",
+        "confidence": 0.98,
+        "observedAt": "2026-08-10T22:19:37.000Z",
+        "passNumber": 2,
+        "reviewRunId": "g002-v2-canonical-pass-2-20260810",
+        "reviewerInstanceId": "blind-primary-reviewer-2-20260810",
+        "surfaces": [
+          {
+            "ambiguity": false,
+            "anchors": [
+              {
+                "anchorId": "eight-separate-spider-legs",
+                "evidence": "Eight short black legs form four separated pairs and end in eight distinct gold feet.",
+                "visible": true
+              },
+              {
+                "anchorId": "two-huge-cyan-eyes-single-gold-forehead-horn",
+                "evidence": "The face visibly has two large cyan eyes, a small smile, and one short central gold horn.",
+                "visible": true
+              },
+              {
+                "anchorId": "thin-gold-dorsal-stripe-over-rounded-black-abdomen",
+                "evidence": "A thin gold line crosses the top of the smooth rounded black abdomen.",
+                "visible": true
+              }
+            ],
+            "clarifications": [
+              {
+                "evidence": "Four legs on each side retain isolated black contours and separately visible gold tips.",
+                "passed": true,
+                "requirement": "Master and runtime must each expose exactly eight short black legs with gold feet without silhouette merging"
+              },
+              {
+                "evidence": "Two cyan eyes flank the smile and a single gold horn sits centrally above them.",
+                "passed": true,
+                "requirement": "Preserve exactly two huge cyan eyes, the small smile, and exactly one short gold forehead horn in their original placement"
+              },
+              {
+                "evidence": "The low black abdomen is smooth and oval with one narrow longitudinal gold stripe.",
+                "passed": true,
+                "requirement": "Preserve the thin gold stripe over the smooth low oval rounded black abdomen"
+              },
+              {
+                "evidence": "Only two cyan eyes and one gold horn are visible; no fang or extra horn appears.",
+                "passed": true,
+                "requirement": "Reject extra eyes, fangs, additional horns, or altered cyan-gold-black anchor colors and relative placements"
+              },
+              {
+                "evidence": "The eight counted legs are continuous black body appendages, distinct from the horn, stripe, gold tips, and floor shadow.",
+                "passed": true,
+                "requirement": "Do not reinterpret shadows, gold feet, the forehead horn, or dorsal markings as walking legs"
+              }
+            ],
+            "confidence": 0.99,
+            "inputSha256": "d887818f0942b5a9ad569a09d16249928da415dfd80a2d6d67b11438ed015b3b",
+            "surface": "master",
+            "taxonomy": {
+              "biologicalClass": "arachnida",
+              "coreAnatomy": "eight-legged-chelicerate",
+              "locomotionPlan": "terrestrial-octopedal",
+              "speciesFamily": "araneae"
+            },
+            "visibleAppendageCounts": {
+              "eyes": 2,
+              "foreheadHorns": 1,
+              "walkingLegs": 8
+            }
+          },
+          {
+            "ambiguity": false,
+            "anchors": [
+              {
+                "anchorId": "eight-separate-spider-legs",
+                "evidence": "All eight short black legs remain separately outlined with distinct gold terminal feet.",
+                "visible": true
+              },
+              {
+                "anchorId": "two-huge-cyan-eyes-single-gold-forehead-horn",
+                "evidence": "Two bright cyan eyes, the small curved smile, and one gold forehead horn remain clear.",
+                "visible": true
+              },
+              {
+                "anchorId": "thin-gold-dorsal-stripe-over-rounded-black-abdomen",
+                "evidence": "One narrow gold stripe remains visible across the rounded black back.",
+                "visible": true
+              }
+            ],
+            "clarifications": [
+              {
+                "evidence": "Eight individual leg silhouettes and eight gold tips can be counted without overlap ambiguity.",
+                "passed": true,
+                "requirement": "Master and runtime must each expose exactly eight short black legs with gold feet without silhouette merging"
+              },
+              {
+                "evidence": "The two eyes, smile, and single horn remain in their expected facial arrangement.",
+                "passed": true,
+                "requirement": "Preserve exactly two huge cyan eyes, the small smile, and exactly one short gold forehead horn in their original placement"
+              },
+              {
+                "evidence": "The reduced smooth oval abdomen retains a single visible gold dorsal line.",
+                "passed": true,
+                "requirement": "Preserve the thin gold stripe over the smooth low oval rounded black abdomen"
+              },
+              {
+                "evidence": "No additional eye, fang, or horn is visible, and cyan, gold, and black remain consistently placed.",
+                "passed": true,
+                "requirement": "Reject extra eyes, fangs, additional horns, or altered cyan-gold-black anchor colors and relative placements"
+              },
+              {
+                "evidence": "Each counted leg joins the body and ends at a gold foot, unlike the isolated horn, stripe, and shadow.",
+                "passed": true,
+                "requirement": "Do not reinterpret shadows, gold feet, the forehead horn, or dorsal markings as walking legs"
+              }
+            ],
+            "confidence": 0.98,
+            "inputSha256": "8670e5e44ab49cd11aee2a2f15c695243e0c5cc21bbadd3634c7801c5feeafcd",
+            "surface": "runtime",
+            "taxonomy": {
+              "biologicalClass": "arachnida",
+              "coreAnatomy": "eight-legged-chelicerate",
+              "locomotionPlan": "terrestrial-octopedal",
+              "speciesFamily": "araneae"
+            },
+            "visibleAppendageCounts": {
+              "eyes": 2,
+              "foreheadHorns": 1,
+              "walkingLegs": 8
+            }
+          }
+        ]
+      },
+      "run": {
+        "agentTaskId": "/root/g002_v2_blind_pass2",
+        "assignmentFileSha256": "281dd86160b36608051627b7bd1c99bfca566e2436b9e00d4db5f4a80cc99d51",
+        "assignmentId": "assignment-7cddae8852715367a4e92bf8",
+        "conductorHmacSha256": "48bc0475fdc5da7882fac96572cc6d4ecef217185e6946ff03534208536e1292",
+        "createdAt": "2026-08-10T22:19:37.000Z",
+        "opaqueTargetId": "target-714b593bed2c863548141bb4",
+        "outputSha256": "76f3c90b2d698c761203069d6eb8b5e5a3e9dbd055922a25f7d76eb5a9379cb5",
+        "passNumber": 2,
+        "rawSha256": "8a85b5a09c7589396992346093b749acd05b5ad8fe48a1a913b4620c575995bc",
+        "reviewRunId": "g002-v2-canonical-pass-2-20260810",
+        "reviewerInstanceId": "blind-primary-reviewer-2-20260810",
+        "schemaVersion": "g002-v2-canonical-review-run-v1"
+      },
+      "vote": {
+        "agentTaskId": "/root/g002_v2_blind_pass2",
+        "assignmentFileSha256": "281dd86160b36608051627b7bd1c99bfca566e2436b9e00d4db5f4a80cc99d51",
+        "assignmentId": "assignment-7cddae8852715367a4e92bf8",
+        "conductorHmacSha256": "77d850af16dd7eda756a563e38b8efd6e1b66c9ba5a55066f690620c347147f4",
+        "confidence": 0.98,
+        "inputAllowlistSha256": "38187d3b53fc6ad1c8f505d2916c7b612fe55c4a8b357731411dd4ff59b41291",
+        "inputAssetSha256s": [
+          "d887818f0942b5a9ad569a09d16249928da415dfd80a2d6d67b11438ed015b3b",
+          "8670e5e44ab49cd11aee2a2f15c695243e0c5cc21bbadd3634c7801c5feeafcd"
+        ],
+        "materialBindingSha256": "f1b33538783ea23126f097506e1b72681fd80a6845098b449f10e241121c63dd",
+        "observation": [
+          {
+            "ambiguity": false,
+            "anchors": [
+              {
+                "anchorId": "eight-separate-spider-legs",
+                "evidence": "Eight short black legs form four separated pairs and end in eight distinct gold feet.",
+                "visible": true
+              },
+              {
+                "anchorId": "two-huge-cyan-eyes-single-gold-forehead-horn",
+                "evidence": "The face visibly has two large cyan eyes, a small smile, and one short central gold horn.",
+                "visible": true
+              },
+              {
+                "anchorId": "thin-gold-dorsal-stripe-over-rounded-black-abdomen",
+                "evidence": "A thin gold line crosses the top of the smooth rounded black abdomen.",
+                "visible": true
+              }
+            ],
+            "clarifications": [
+              {
+                "evidence": "Four legs on each side retain isolated black contours and separately visible gold tips.",
+                "passed": true,
+                "requirement": "Master and runtime must each expose exactly eight short black legs with gold feet without silhouette merging"
+              },
+              {
+                "evidence": "Two cyan eyes flank the smile and a single gold horn sits centrally above them.",
+                "passed": true,
+                "requirement": "Preserve exactly two huge cyan eyes, the small smile, and exactly one short gold forehead horn in their original placement"
+              },
+              {
+                "evidence": "The low black abdomen is smooth and oval with one narrow longitudinal gold stripe.",
+                "passed": true,
+                "requirement": "Preserve the thin gold stripe over the smooth low oval rounded black abdomen"
+              },
+              {
+                "evidence": "Only two cyan eyes and one gold horn are visible; no fang or extra horn appears.",
+                "passed": true,
+                "requirement": "Reject extra eyes, fangs, additional horns, or altered cyan-gold-black anchor colors and relative placements"
+              },
+              {
+                "evidence": "The eight counted legs are continuous black body appendages, distinct from the horn, stripe, gold tips, and floor shadow.",
+                "passed": true,
+                "requirement": "Do not reinterpret shadows, gold feet, the forehead horn, or dorsal markings as walking legs"
+              }
+            ],
+            "confidence": 0.99,
+            "inputSha256": "d887818f0942b5a9ad569a09d16249928da415dfd80a2d6d67b11438ed015b3b",
+            "surface": "master",
+            "taxonomy": {
+              "biologicalClass": "arachnida",
+              "coreAnatomy": "eight-legged-chelicerate",
+              "locomotionPlan": "terrestrial-octopedal",
+              "speciesFamily": "araneae"
+            },
+            "visibleAppendageCounts": {
+              "eyes": 2,
+              "foreheadHorns": 1,
+              "walkingLegs": 8
+            }
+          },
+          {
+            "ambiguity": false,
+            "anchors": [
+              {
+                "anchorId": "eight-separate-spider-legs",
+                "evidence": "All eight short black legs remain separately outlined with distinct gold terminal feet.",
+                "visible": true
+              },
+              {
+                "anchorId": "two-huge-cyan-eyes-single-gold-forehead-horn",
+                "evidence": "Two bright cyan eyes, the small curved smile, and one gold forehead horn remain clear.",
+                "visible": true
+              },
+              {
+                "anchorId": "thin-gold-dorsal-stripe-over-rounded-black-abdomen",
+                "evidence": "One narrow gold stripe remains visible across the rounded black back.",
+                "visible": true
+              }
+            ],
+            "clarifications": [
+              {
+                "evidence": "Eight individual leg silhouettes and eight gold tips can be counted without overlap ambiguity.",
+                "passed": true,
+                "requirement": "Master and runtime must each expose exactly eight short black legs with gold feet without silhouette merging"
+              },
+              {
+                "evidence": "The two eyes, smile, and single horn remain in their expected facial arrangement.",
+                "passed": true,
+                "requirement": "Preserve exactly two huge cyan eyes, the small smile, and exactly one short gold forehead horn in their original placement"
+              },
+              {
+                "evidence": "The reduced smooth oval abdomen retains a single visible gold dorsal line.",
+                "passed": true,
+                "requirement": "Preserve the thin gold stripe over the smooth low oval rounded black abdomen"
+              },
+              {
+                "evidence": "No additional eye, fang, or horn is visible, and cyan, gold, and black remain consistently placed.",
+                "passed": true,
+                "requirement": "Reject extra eyes, fangs, additional horns, or altered cyan-gold-black anchor colors and relative placements"
+              },
+              {
+                "evidence": "Each counted leg joins the body and ends at a gold foot, unlike the isolated horn, stripe, and shadow.",
+                "passed": true,
+                "requirement": "Do not reinterpret shadows, gold feet, the forehead horn, or dorsal markings as walking legs"
+              }
+            ],
+            "confidence": 0.98,
+            "inputSha256": "8670e5e44ab49cd11aee2a2f15c695243e0c5cc21bbadd3634c7801c5feeafcd",
+            "surface": "runtime",
+            "taxonomy": {
+              "biologicalClass": "arachnida",
+              "coreAnatomy": "eight-legged-chelicerate",
+              "locomotionPlan": "terrestrial-octopedal",
+              "speciesFamily": "araneae"
+            },
+            "visibleAppendageCounts": {
+              "eyes": 2,
+              "foreheadHorns": 1,
+              "walkingLegs": 8
+            }
+          }
+        ],
+        "opaqueTargetId": "target-714b593bed2c863548141bb4",
+        "outputSha256": "e33505e6a3e37876eee21ae25a04ed708ec752eedb075bb20de97bfb11e81963",
+        "packageManifestSha256": "a33820327ea59134d1ba44c63cb5b1caa363a3f033a91fc8048651f3590d18b6",
+        "passNumber": 2,
+        "promptSha256": "d237ea236061f0479815f9ee0dcfccb4fe1e6e7d80c5761a6ef8ead8f6dea5de",
+        "rawSha256": "8a85b5a09c7589396992346093b749acd05b5ad8fe48a1a913b4620c575995bc",
+        "reviewRunId": "g002-v2-canonical-pass-2-20260810",
+        "reviewerInstanceId": "blind-primary-reviewer-2-20260810",
+        "runOutputSha256": "76f3c90b2d698c761203069d6eb8b5e5a3e9dbd055922a25f7d76eb5a9379cb5",
+        "schemaVersion": "g002-v2-canonical-review-vote-v1",
+        "voteId": "vote-dfb3e4601acd3ebfa60d3c26"
+      }
+    }
+  ],
+  "prompt": "PunchGrow blinded G002-v2 canonical replacement review.\nJudge only the two supplied candidate surfaces. Root ID, names, lineage, prior verdicts, and historical pixels are forbidden evidence.\nExact four-field taxonomy: {\n  \"biologicalClass\": \"arachnida\",\n  \"coreAnatomy\": \"eight-legged-chelicerate\",\n  \"locomotionPlan\": \"terrestrial-octopedal\",\n  \"speciesFamily\": \"araneae\"\n}\nExact three identity anchors: [\n  {\n    \"anchorId\": \"eight-separate-spider-legs\",\n    \"description\": \"Exactly eight separately visible spider legs ending in distinct feet\"\n  },\n  {\n    \"anchorId\": \"two-huge-cyan-eyes-single-gold-forehead-horn\",\n    \"description\": \"Exactly two huge cyan eyes with a small smile and exactly one short gold forehead horn\"\n  },\n  {\n    \"anchorId\": \"thin-gold-dorsal-stripe-over-rounded-black-abdomen\",\n    \"description\": \"Thin gold dorsal stripe crossing the smooth rounded black abdomen\"\n  }\n]\nExact visibility clarifications: [\n  \"Master and runtime must each expose exactly eight short black legs with gold feet without silhouette merging\",\n  \"Preserve exactly two huge cyan eyes, the small smile, and exactly one short gold forehead horn in their original placement\",\n  \"Preserve the thin gold stripe over the smooth low oval rounded black abdomen\",\n  \"Reject extra eyes, fangs, additional horns, or altered cyan-gold-black anchor colors and relative placements\",\n  \"Do not reinterpret shadows, gold feet, the forehead horn, or dorsal markings as walking legs\"\n]\nExact independently visible counts on BOTH surfaces: {\n  \"eyes\": 2,\n  \"foreheadHorns\": 1,\n  \"walkingLegs\": 8\n}\nFor master and runtime separately, record taxonomy, visible evidence for every anchor and clarification, exact counts, ambiguity=false, and confidence >=0.96. Hidden, merged, occluded, or double-readable structures are a failure.\n",
+  "promptSha256": "d237ea236061f0479815f9ee0dcfccb4fe1e6e7d80c5761a6ef8ead8f6dea5de",
+  "publicSignature": {
+    "algorithm": "Ed25519",
+    "authorityFingerprint": "423f474c59667e5eabc13a703b8d7de4e97bcba33cdc22340873866db9d6a53f",
+    "signatureBase64": "MGQpIN8VRk+l5NUCcBx3XmW4WGVvOG2O1a3vNkH4ihbmFaZiilzhJaGe1ePYfEVPRuOb74fVnX9RxoxwleECCw=="
+  },
+  "rootId": "PG-052",
+  "schemaVersion": "g002-v2-canonical-public-review-proof-v1",
+  "target": {
+    "anchors": [
+      {
+        "anchorId": "eight-separate-spider-legs",
+        "description": "Exactly eight separately visible spider legs ending in distinct feet"
+      },
+      {
+        "anchorId": "two-huge-cyan-eyes-single-gold-forehead-horn",
+        "description": "Exactly two huge cyan eyes with a small smile and exactly one short gold forehead horn"
+      },
+      {
+        "anchorId": "thin-gold-dorsal-stripe-over-rounded-black-abdomen",
+        "description": "Thin gold dorsal stripe crossing the smooth rounded black abdomen"
+      }
+    ],
+    "canonicalTarget": {
+      "biologicalClass": "arachnida",
+      "coreAnatomy": "eight-legged-chelicerate",
+      "locomotionPlan": "terrestrial-octopedal",
+      "speciesFamily": "araneae"
+    },
+    "clarificationRequirements": [
+      "Master and runtime must each expose exactly eight short black legs with gold feet without silhouette merging",
+      "Preserve exactly two huge cyan eyes, the small smile, and exactly one short gold forehead horn in their original placement",
+      "Preserve the thin gold stripe over the smooth low oval rounded black abdomen",
+      "Reject extra eyes, fangs, additional horns, or altered cyan-gold-black anchor colors and relative placements",
+      "Do not reinterpret shadows, gold feet, the forehead horn, or dorsal markings as walking legs"
+    ],
+    "currentPixelAssessment": "DISPUTED_OR_AMBIGUOUS",
+    "rootId": "PG-052"
+  },
+  "targetSha256": "737b651e9dd5256c01ff5deaa1388e8ef4e798e6111aedcf1b979a3bf87ef5aa"
+}

@@ -1,0 +1,464 @@
+{
+  "schemaVersion": 1,
+  "manifestSha256": "04ff7ce3e4d7a3c0ef8179bb6b13d929f0b0fbd6ac19ec304892dfe9fb2a555b",
+  "resourcesFingerprint": "bac46de16acc80a734cac5ee456b16d197f5069a74895c195c6991c84ba397c4",
+  "policy": {
+    "threshold": 90,
+    "warnRequiresAdjudication": true,
+    "mixedRequiresBothParents": true
+  },
+  "reviewBasis": "실행 앱 번들의 360x360 PNG와 진화 컨택트 시트를 원본 해상도로 재검토한 독립 판정",
+  "supplementalReviewBasis": "최초 PASS 중 정확히 90점인 경계 단위와 관계도 별도 독립 심사로 재확인",
+  "replacedIds": [
+    "PG-216",
+    "PG-237"
+  ],
+  "units": [
+    {
+      "unitId": "normal-PG-L005",
+      "score": 92,
+      "verdict": "PASS",
+      "categoryMatch": true,
+      "differences": [
+        "육각 등갑이 매끈한 타원 갑각으로 성장하고 다리 비율이 길어진다."
+      ],
+      "suggestions": [],
+      "reasoning": "주황 갑충, 남색 하부, 분홍 중심 보석과 집게형 더듬이가 동일해 같은 딱정벌레의 성숙형으로 안정적으로 읽힌다.",
+      "edgeVerdicts": [
+        {
+          "parentId": "PG-005",
+          "childId": "PG-065",
+          "score": 92,
+          "verdict": "PASS",
+          "inheritedTraits": [
+            "주황 갑충 외피",
+            "남색 하부",
+            "분홍 중심 보석",
+            "집게형 더듬이"
+          ],
+          "issues": []
+        }
+      ]
+    },
+    {
+      "unitId": "normal-PG-L011",
+      "score": 93,
+      "verdict": "PASS",
+      "categoryMatch": true,
+      "differences": [
+        "유아형 직립 자세에서 민첩한 사족형 자세로 성숙한다."
+      ],
+      "suggestions": [],
+      "reasoning": "긴 갈색 귀, 황갈색 털, 보라색 귀끝과 발끝, 긴 뒷다리가 강하게 유지되어 같은 토끼형 개체의 성장으로 읽힌다.",
+      "edgeVerdicts": [
+        {
+          "parentId": "PG-011",
+          "childId": "PG-071",
+          "score": 93,
+          "verdict": "PASS",
+          "inheritedTraits": [
+            "긴 갈색 귀",
+            "황갈색 털",
+            "보라색 귀끝",
+            "보라색 발끝",
+            "긴 뒷다리"
+          ],
+          "issues": []
+        }
+      ]
+    },
+    {
+      "unitId": "normal-PG-L021",
+      "score": 96,
+      "verdict": "PASS",
+      "categoryMatch": true,
+      "differences": [
+        "가오리의 측면 날개가 성장하면서 아래로 말려 촉수처럼 보이는 지느러미 기관으로 확장된다."
+      ],
+      "suggestions": [],
+      "reasoning": "네 단계 모두 둥근 가오리 몸, 넓은 측면 날개, 긴 꼬리, 청남색 팔레트와 별빛 장식을 공유한다. 최초 판정의 고래·문어 해석은 측면 지느러미를 촉수로 오인한 것이다.",
+      "edgeVerdicts": [
+        {
+          "parentId": "PG-021",
+          "childId": "PG-129",
+          "score": 94,
+          "verdict": "PASS",
+          "inheritedTraits": [
+            "둥근 가오리 몸",
+            "넓은 측면 날개",
+            "긴 꼬리",
+            "청남색 팔레트"
+          ],
+          "issues": []
+        },
+        {
+          "parentId": "PG-129",
+          "childId": "PG-130",
+          "score": 96,
+          "verdict": "PASS",
+          "inheritedTraits": [
+            "가오리형 머리와 몸",
+            "측면 날개 지느러미",
+            "긴 꼬리",
+            "별빛 장식"
+          ],
+          "issues": []
+        },
+        {
+          "parentId": "PG-130",
+          "childId": "PG-131",
+          "score": 97,
+          "verdict": "PASS",
+          "inheritedTraits": [
+            "가오리 실루엣",
+            "말린 날개 지느러미",
+            "긴 꼬리",
+            "발광 청색과 별 장식"
+          ],
+          "issues": []
+        }
+      ]
+    },
+    {
+      "unitId": "normal-PG-L030",
+      "score": 94,
+      "verdict": "PASS",
+      "categoryMatch": true,
+      "differences": [
+        "성장할수록 납작한 올챙이형 몸에서 다리가 발달한 직립 개구리형으로 바뀐다."
+      ],
+      "suggestions": [],
+      "reasoning": "큰 개구리 눈과 입, 녹색 피부, 머리의 새싹·연꽃 모티프가 전 단계에 반복되며 다리 발달도 단계적으로 나타나 자연스러운 양서류 성장으로 읽힌다.",
+      "edgeVerdicts": [
+        {
+          "parentId": "PG-030",
+          "childId": "PG-120",
+          "score": 96,
+          "verdict": "PASS",
+          "inheritedTraits": [
+            "큰 개구리 눈",
+            "넓은 입",
+            "연두색 피부",
+            "머리 식물기관"
+          ],
+          "issues": []
+        },
+        {
+          "parentId": "PG-120",
+          "childId": "PG-121",
+          "score": 93,
+          "verdict": "PASS",
+          "inheritedTraits": [
+            "넓은 개구리 얼굴",
+            "녹색 피부",
+            "발달하는 다리",
+            "머리 새싹"
+          ],
+          "issues": []
+        },
+        {
+          "parentId": "PG-121",
+          "childId": "PG-122",
+          "score": 91,
+          "verdict": "PASS",
+          "inheritedTraits": [
+            "개구리 얼굴",
+            "올리브색 피부",
+            "연꽃 모티프",
+            "발달한 뒷다리"
+          ],
+          "issues": []
+        }
+      ]
+    },
+    {
+      "unitId": "mixed-PG-198",
+      "score": 98,
+      "verdict": "PASS",
+      "categoryMatch": true,
+      "differences": [
+        "첫 부모의 잎짐승 몸에 둘째 부모의 넓은 청색 가오리 지느러미가 측면 기관으로 결합된다."
+      ],
+      "suggestions": [],
+      "reasoning": "PG-080의 잎귀·열매·덩굴·잎꼬리와 PG-129의 넓은 청색 측면 날개·별빛 무늬가 모두 명확하다. 두 번째 부모의 지느러미를 수염으로 오인했던 최초 판정을 정정한다.",
+      "edgeVerdicts": [
+        {
+          "parentId": "PG-080",
+          "childId": "PG-198",
+          "score": 98,
+          "verdict": "PASS",
+          "inheritedTraits": [
+            "연두 잎짐승 몸",
+            "덩굴 귀",
+            "보라 열매",
+            "잎사귀 꼬리"
+          ],
+          "issues": []
+        },
+        {
+          "parentId": "PG-129",
+          "childId": "PG-198",
+          "score": 95,
+          "verdict": "PASS",
+          "inheritedTraits": [
+            "넓은 청색 가오리 지느러미",
+            "별빛 무늬",
+            "청색 얼굴 장식"
+          ],
+          "issues": []
+        }
+      ]
+    },
+    {
+      "unitId": "mutant-PG-216",
+      "score": 97,
+      "verdict": "PASS",
+      "categoryMatch": true,
+      "differences": [
+        "원종의 보라 털 위에 암석 결정과 부분 갑주가 추가된다."
+      ],
+      "suggestions": [],
+      "reasoning": "재생성된 PG-216은 PG-001의 큰 귀, 얼굴, 보라 털, 청록 회로와 분기형 꼬리를 유지하며 암석은 국소적으로만 붙어 같은 여우의 광물 돌연변이로 즉시 읽힌다.",
+      "edgeVerdicts": [
+        {
+          "parentId": "PG-001",
+          "childId": "PG-216",
+          "score": 97,
+          "verdict": "PASS",
+          "inheritedTraits": [
+            "큰 삼각 귀",
+            "보라 여우형 몸",
+            "청록 회로 문양",
+            "분기형 발광 꼬리"
+          ],
+          "issues": []
+        }
+      ]
+    },
+    {
+      "unitId": "mutant-PG-217",
+      "score": 97,
+      "verdict": "PASS",
+      "categoryMatch": true,
+      "differences": [
+        "솜털이 판깃과 보석 갑옷으로 강화되고 유아형 새가 무장 성체로 성장한다."
+      ],
+      "suggestions": [],
+      "reasoning": "동일한 올빼미 얼굴, 큰 녹청색 눈, 부리, 갈색 팔레트와 복부 발광핵이 유지되어 금속 판깃은 돌연변이 강화로 읽힌다.",
+      "edgeVerdicts": [
+        {
+          "parentId": "PG-002",
+          "childId": "PG-217",
+          "score": 97,
+          "verdict": "PASS",
+          "inheritedTraits": [
+            "올빼미 얼굴",
+            "큰 녹청색 눈",
+            "갈색 깃털",
+            "복부 원형 발광핵"
+          ],
+          "issues": []
+        }
+      ]
+    },
+    {
+      "unitId": "mutant-PG-220",
+      "score": 94,
+      "verdict": "PASS",
+      "categoryMatch": true,
+      "differences": [
+        "황금 등갑의 중심 보석이 분홍 수정 다발과 집게 기관으로 과성장한다."
+      ],
+      "suggestions": [],
+      "reasoning": "갑충 얼굴, 더듬이, 다수 다리, 주황·남색 색분할과 중심 분홍 보석이 보존되어 같은 딱정벌레의 수정 돌연변이로 읽힌다.",
+      "edgeVerdicts": [
+        {
+          "parentId": "PG-005",
+          "childId": "PG-220",
+          "score": 94,
+          "verdict": "PASS",
+          "inheritedTraits": [
+            "갑충 얼굴",
+            "집게형 더듬이",
+            "다수 다리",
+            "주황·남색 팔레트",
+            "분홍 중심 보석"
+          ],
+          "issues": []
+        }
+      ]
+    },
+    {
+      "unitId": "mutant-PG-226",
+      "score": 91,
+      "verdict": "PASS",
+      "categoryMatch": true,
+      "differences": [
+        "캥거루형 몸에 대형 곤충 날개와 산호형 에너지 꼬리가 추가된다."
+      ],
+      "suggestions": [],
+      "reasoning": "긴 귀, 얼굴, 배주머니, 굵은 뒷다리와 직립 캥거루 자세가 그대로 유지되므로 새 기관은 다른 종 교체가 아니라 비행 돌연변이로 읽힌다.",
+      "edgeVerdicts": [
+        {
+          "parentId": "PG-011",
+          "childId": "PG-226",
+          "score": 91,
+          "verdict": "PASS",
+          "inheritedTraits": [
+            "긴 귀",
+            "캥거루 얼굴",
+            "배주머니",
+            "굵은 뒷다리",
+            "직립 자세"
+          ],
+          "issues": []
+        }
+      ]
+    },
+    {
+      "unitId": "mutant-PG-236",
+      "score": 95,
+      "verdict": "PASS",
+      "categoryMatch": true,
+      "differences": [
+        "짧은 들소 뿔이 가지형 뿔로 성장하고 등과 다리에 숲 갑주가 추가된다."
+      ],
+      "suggestions": [],
+      "reasoning": "넓은 들소 주둥이, 갈색 얼굴과 갈기, 무거운 사족 몸, 굽과 금색 눈이 유지되어 같은 들소의 숲 돌연변이로 읽힌다.",
+      "edgeVerdicts": [
+        {
+          "parentId": "PG-026",
+          "childId": "PG-236",
+          "score": 95,
+          "verdict": "PASS",
+          "inheritedTraits": [
+            "넓은 들소 주둥이",
+            "갈색 얼굴과 갈기",
+            "무거운 사족 체형",
+            "굽",
+            "금색 눈"
+          ],
+          "issues": []
+        }
+      ]
+    },
+    {
+      "unitId": "mutant-PG-237",
+      "score": 96,
+      "verdict": "PASS",
+      "categoryMatch": true,
+      "differences": [
+        "원종 코끼리의 머리와 몸에 잎 갈기, 덩굴과 식물형 꼬리가 추가된다."
+      ],
+      "suggestions": [],
+      "reasoning": "재생성된 PG-237은 PG-028의 말린 코, 부채꼴 귀, 큰 눈, 직립 체형과 복부 금빛 원형 문양을 보존해 같은 아기 코끼리의 식물 돌연변이로 즉시 읽힌다.",
+      "edgeVerdicts": [
+        {
+          "parentId": "PG-028",
+          "childId": "PG-237",
+          "score": 96,
+          "verdict": "PASS",
+          "inheritedTraits": [
+            "말린 코",
+            "부채꼴 귀",
+            "직립 아기 코끼리 체형",
+            "청회색 피부",
+            "복부 금빛 원형 문양"
+          ],
+          "issues": []
+        }
+      ]
+    },
+    {
+      "unitId": "normal-PG-L060",
+      "score": 98,
+      "verdict": "PASS",
+      "categoryMatch": true,
+      "differences": [
+        "어린 머리 가지가 잎으로 자라고 갈색 사지가 뿌리처럼 발달한다."
+      ],
+      "suggestions": [],
+      "reasoning": "둥근 올리브색 식물 몸, 같은 얼굴과 큰 연두색 눈, 가슴의 노란 씨앗, 갈색 목질 사지가 유지되어 동일 종의 자연스러운 성장으로 즉시 읽힌다.",
+      "edgeVerdicts": [
+        {
+          "parentId": "PG-060",
+          "childId": "PG-144",
+          "score": 98,
+          "verdict": "PASS",
+          "inheritedTraits": [
+            "둥근 올리브색 식물 몸",
+            "같은 얼굴과 큰 연두색 눈",
+            "가슴의 노란 씨앗",
+            "갈색 목질 사지",
+            "머리 가지의 잎 성장"
+          ],
+          "issues": []
+        }
+      ]
+    },
+    {
+      "unitId": "mixed-PG-199",
+      "score": 98,
+      "verdict": "PASS",
+      "categoryMatch": true,
+      "differences": [
+        "너구리 부모의 몸과 꼬리에 구름 부모의 소용돌이 털·파란 주먹·머리 구름을 결합한다."
+      ],
+      "suggestions": [],
+      "reasoning": "PG-093의 너구리 얼굴·귀·줄무늬 꼬리·청록 발바닥과 PG-123의 흰 구름 질감·파란 구름 주먹·머리 구름이 모두 명확해 두 부모가 즉시 식별된다.",
+      "edgeVerdicts": [
+        {
+          "parentId": "PG-093",
+          "childId": "PG-199",
+          "score": 99,
+          "verdict": "PASS",
+          "inheritedTraits": [
+            "너구리 얼굴과 뾰족 귀",
+            "직립한 통통한 체형",
+            "검회색 줄무늬 꼬리",
+            "청록색 발바닥 무늬"
+          ],
+          "issues": []
+        },
+        {
+          "parentId": "PG-123",
+          "childId": "PG-199",
+          "score": 97,
+          "verdict": "PASS",
+          "inheritedTraits": [
+            "흰 소용돌이 구름 질감",
+            "파란 구름 주먹",
+            "머리와 목의 말린 구름 형태"
+          ],
+          "issues": []
+        }
+      ]
+    },
+    {
+      "unitId": "mutant-PG-227",
+      "score": 99,
+      "verdict": "PASS",
+      "categoryMatch": true,
+      "differences": [
+        "부모의 앞지느러미가 나선형 수류 드릴로 구조적으로 변형되고 몸 주변에 수류 궤적이 생긴다."
+      ],
+      "suggestions": [],
+      "reasoning": "PG-012의 파란 해양 포유류 몸과 얼굴, 복숭아색 지느러미, 수염과 웃는 표정이 유지되며 형태 변화도 뚜렷해 같은 종의 물 돌연변이로 읽힌다.",
+      "edgeVerdicts": [
+        {
+          "parentId": "PG-012",
+          "childId": "PG-227",
+          "score": 99,
+          "verdict": "PASS",
+          "inheritedTraits": [
+            "파란 해양 포유류 얼굴과 몸",
+            "복숭아색 지느러미와 머리 돌기",
+            "꼬리와 후방 지느러미",
+            "수염과 웃는 표정"
+          ],
+          "issues": []
+        }
+      ]
+    }
+  ]
+}

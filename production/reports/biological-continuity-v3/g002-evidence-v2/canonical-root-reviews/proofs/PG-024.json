@@ -1,0 +1,809 @@
+{
+  "acceptedAt": "2026-08-10T22:21:37.754Z",
+  "candidate": {
+    "master": {
+      "bytes": 1523013,
+      "height": 1254,
+      "sha256": "11b803d6b3753acab20121b7e526019c67d314740d3b200ccbd423de4c6ea813",
+      "width": 1254
+    },
+    "runtime": {
+      "bytes": 154951,
+      "height": 360,
+      "sha256": "f25b54f74670c372159714affac8b76097fb7b25d52d9c0bc76df98f1ef28959",
+      "width": 360
+    }
+  },
+  "inputAllowlist": {
+    "files": [
+      {
+        "bytes": 1523013,
+        "height": 1254,
+        "path": "inputs/master.png",
+        "sha256": "11b803d6b3753acab20121b7e526019c67d314740d3b200ccbd423de4c6ea813",
+        "width": 1254
+      },
+      {
+        "bytes": 154951,
+        "height": 360,
+        "path": "inputs/runtime.png",
+        "sha256": "f25b54f74670c372159714affac8b76097fb7b25d52d9c0bc76df98f1ef28959",
+        "width": 360
+      }
+    ],
+    "schemaVersion": "g002-v2-canonical-review-allowlist-v1"
+  },
+  "inputAllowlistSha256": "e8c8fd5df6b0fd1ac5cd07dccc4522bcb92d605fca0bfb3e5d07f7e72afe6008",
+  "materialBinding": {
+    "allowlistSha256": "e8c8fd5df6b0fd1ac5cd07dccc4522bcb92d605fca0bfb3e5d07f7e72afe6008",
+    "candidate": {
+      "master": {
+        "bytes": 1523013,
+        "height": 1254,
+        "sha256": "11b803d6b3753acab20121b7e526019c67d314740d3b200ccbd423de4c6ea813",
+        "width": 1254
+      },
+      "runtime": {
+        "bytes": 154951,
+        "height": 360,
+        "sha256": "f25b54f74670c372159714affac8b76097fb7b25d52d9c0bc76df98f1ef28959",
+        "width": 360
+      }
+    },
+    "conductorHmacSha256": "050b2392061fdc1cd51b3d4444e08c0821a7ce3faed8d9ceb6222503c105c1a1",
+    "opaqueTargetId": "target-600c40991213e93ae591325b",
+    "outputSha256": "358c90c1bb8873a040346943be230aa93fdfadf5a8e54407c98f7377c54515e6",
+    "packageManifestSha256": "3a028000e2a6a08637d7df5e1571e1e4afbaf46249ff918836750ad4121b2ca4",
+    "promptSha256": "f14d24ab249b9aca74c3921cc6fc90c12e9ec7f44f67366516285d42d1c0f0ab",
+    "rootId": "PG-024",
+    "schemaVersion": "g002-v2-canonical-private-binding-v1",
+    "sourcePaths": {
+      "master": "assets/creatures/biological-continuity-v3/candidates/g003-w0-pg024-r2/PG-024/master.png",
+      "runtime": "assets/creatures/biological-continuity-v3/candidates/g003-w0-pg024-r2/PG-024/runtime.png"
+    },
+    "targetSha256": "de05fc777316c2f97714969f72ed20b72184fafe5bc19667667cbf27157e0101"
+  },
+  "materialBindingSha256": "358c90c1bb8873a040346943be230aa93fdfadf5a8e54407c98f7377c54515e6",
+  "opaqueTargetId": "target-600c40991213e93ae591325b",
+  "outputSha256": "1c4bc2641d32005bd6afcc6f9ce652dab2693c1f80eb904f8bd0c7d5f75d281c",
+  "packageManifest": {
+    "candidate": {
+      "master": {
+        "bytes": 1523013,
+        "height": 1254,
+        "sha256": "11b803d6b3753acab20121b7e526019c67d314740d3b200ccbd423de4c6ea813",
+        "width": 1254
+      },
+      "runtime": {
+        "bytes": 154951,
+        "height": 360,
+        "sha256": "f25b54f74670c372159714affac8b76097fb7b25d52d9c0bc76df98f1ef28959",
+        "width": 360
+      }
+    },
+    "opaqueTargetId": "target-600c40991213e93ae591325b",
+    "schemaVersion": "g002-v2-canonical-review-package-v1",
+    "target": {
+      "anchors": [
+        {
+          "anchorId": "eight-separate-mechanical-walking-legs",
+          "description": "Exactly eight separate mechanical spider walking legs with independently readable feet"
+        },
+        {
+          "anchorId": "four-pink-eyes-and-paired-gold-fangs",
+          "description": "Compact round teal head with exactly four pink eyes and paired gold fangs"
+        },
+        {
+          "anchorId": "four-pink-rimmed-dorsal-ports-and-gold-braces",
+          "description": "Spherical armored teal abdomen with exactly four pink-rimmed dorsal ports and gold circuit braces"
+        }
+      ],
+      "canonicalTarget": {
+        "biologicalClass": "arachnida",
+        "coreAnatomy": "eight-legged-chelicerate",
+        "locomotionPlan": "terrestrial-octopedal",
+        "speciesFamily": "stylized-mechanical-spider"
+      },
+      "clarificationRequirements": [
+        "Master and runtime must each show all eight blue-and-gold jointed walking legs without merging or occlusion",
+        "Preserve exactly four pink eyes on the compact round teal head and paired gold fangs in their original placement",
+        "Preserve exactly four pink-rimmed dorsal ports and gold circuit braces on the spherical armored teal abdomen",
+        "Reject extra eyes, extra fangs, extra dorsal ports, or altered anchor colors and relative placements",
+        "Do not count fangs, mouthparts, shadows, or doubled joints as walking legs"
+      ],
+      "currentPixelAssessment": "DISPUTED_OR_AMBIGUOUS"
+    },
+    "visibleAppendageRequirements": {
+      "dorsalPorts": 4,
+      "eyes": 4,
+      "fangs": 2,
+      "walkingLegs": 8
+    }
+  },
+  "packageManifestSha256": "3a028000e2a6a08637d7df5e1571e1e4afbaf46249ff918836750ad4121b2ca4",
+  "passes": [
+    {
+      "assignment": {
+        "agentTaskId": "/root/g002_v2_blind_pass1",
+        "assignedAt": "2026-08-10T22:18:04.000Z",
+        "assignmentId": "assignment-1d9c4f7e6c6c0cbf51c9ec7b",
+        "conductorHmacSha256": "28919d17ff905ad9cc8c9d5d0e9f6a558ef81dc25b61d8d923d9a26521bb53c0",
+        "inputAllowlistSha256": "e8c8fd5df6b0fd1ac5cd07dccc4522bcb92d605fca0bfb3e5d07f7e72afe6008",
+        "inputAssetSha256s": [
+          "11b803d6b3753acab20121b7e526019c67d314740d3b200ccbd423de4c6ea813",
+          "f25b54f74670c372159714affac8b76097fb7b25d52d9c0bc76df98f1ef28959"
+        ],
+        "materialBindingSha256": "358c90c1bb8873a040346943be230aa93fdfadf5a8e54407c98f7377c54515e6",
+        "opaqueTargetId": "target-600c40991213e93ae591325b",
+        "outputSha256": "bd7597e32f845dc2dac2e061585f0e468be16aa033e1f8bb4c5dedaa8b391cae",
+        "packageManifestSha256": "3a028000e2a6a08637d7df5e1571e1e4afbaf46249ff918836750ad4121b2ca4",
+        "passNumber": 1,
+        "promptSha256": "f14d24ab249b9aca74c3921cc6fc90c12e9ec7f44f67366516285d42d1c0f0ab",
+        "reviewRunId": "g002-v2-canonical-pass-1-20260810",
+        "reviewerInstanceId": "blind-primary-reviewer-1-20260810",
+        "schemaVersion": "g002-v2-canonical-review-assignment-v1"
+      },
+      "raw": {
+        "agentTaskId": "/root/g002_v2_blind_pass1",
+        "assignmentId": "assignment-1d9c4f7e6c6c0cbf51c9ec7b",
+        "confidence": 0.98,
+        "observedAt": "2026-08-10T22:19:29.000Z",
+        "passNumber": 1,
+        "reviewRunId": "g002-v2-canonical-pass-1-20260810",
+        "reviewerInstanceId": "blind-primary-reviewer-1-20260810",
+        "surfaces": [
+          {
+            "ambiguity": false,
+            "anchors": [
+              {
+                "anchorId": "eight-separate-mechanical-walking-legs",
+                "evidence": "Four blue-and-gold jointed legs on each side are individually outlined from body to eight separate pointed feet.",
+                "visible": true
+              },
+              {
+                "anchorId": "four-pink-eyes-and-paired-gold-fangs",
+                "evidence": "The round teal face visibly carries four pink eyes and two separate curved gold fangs.",
+                "visible": true
+              },
+              {
+                "anchorId": "four-pink-rimmed-dorsal-ports-and-gold-braces",
+                "evidence": "The spherical teal abdomen visibly carries four open pink rings within a gold-braced shell.",
+                "visible": true
+              }
+            ],
+            "clarifications": [
+              {
+                "evidence": "Eight complete blue-and-gold leg silhouettes terminate in eight isolated gold feet.",
+                "passed": true,
+                "requirement": "Master and runtime must each show all eight blue-and-gold jointed walking legs without merging or occlusion"
+              },
+              {
+                "evidence": "Four pink eye disks occupy the teal face and one gold fang hangs at each lower side.",
+                "passed": true,
+                "requirement": "Preserve exactly four pink eyes on the compact round teal head and paired gold fangs in their original placement"
+              },
+              {
+                "evidence": "Four pink-rimmed openings and connected gold braces are plainly separated across the rounded abdomen.",
+                "passed": true,
+                "requirement": "Preserve exactly four pink-rimmed dorsal ports and gold circuit braces on the spherical armored teal abdomen"
+              },
+              {
+                "evidence": "Only four pink eyes, two gold fangs, and four pink-rimmed ports are visible in the stated color arrangement.",
+                "passed": true,
+                "requirement": "Reject extra eyes, extra fangs, extra dorsal ports, or altered anchor colors and relative placements"
+              },
+              {
+                "evidence": "The eight legs are continuous lateral jointed structures distinct from the two central fangs, facial mouth, and soft shadow.",
+                "passed": true,
+                "requirement": "Do not count fangs, mouthparts, shadows, or doubled joints as walking legs"
+              }
+            ],
+            "confidence": 0.99,
+            "inputSha256": "11b803d6b3753acab20121b7e526019c67d314740d3b200ccbd423de4c6ea813",
+            "surface": "master",
+            "taxonomy": {
+              "biologicalClass": "arachnida",
+              "coreAnatomy": "eight-legged-chelicerate",
+              "locomotionPlan": "terrestrial-octopedal",
+              "speciesFamily": "stylized-mechanical-spider"
+            },
+            "visibleAppendageCounts": {
+              "dorsalPorts": 4,
+              "eyes": 4,
+              "fangs": 2,
+              "walkingLegs": 8
+            }
+          },
+          {
+            "ambiguity": false,
+            "anchors": [
+              {
+                "anchorId": "eight-separate-mechanical-walking-legs",
+                "evidence": "Four blue-and-gold legs per side remain separately traceable to eight distinct gold tips.",
+                "visible": true
+              },
+              {
+                "anchorId": "four-pink-eyes-and-paired-gold-fangs",
+                "evidence": "The small teal face still plainly shows four pink eyes and two gold fangs.",
+                "visible": true
+              },
+              {
+                "anchorId": "four-pink-rimmed-dorsal-ports-and-gold-braces",
+                "evidence": "Four pink rings and the gold brace network remain discrete on the teal abdomen.",
+                "visible": true
+              }
+            ],
+            "clarifications": [
+              {
+                "evidence": "All eight blue leg chains and their gold terminal points have separated silhouettes.",
+                "passed": true,
+                "requirement": "Master and runtime must each show all eight blue-and-gold jointed walking legs without merging or occlusion"
+              },
+              {
+                "evidence": "Exactly four facial pink spots and two lower gold curves are visible.",
+                "passed": true,
+                "requirement": "Preserve exactly four pink eyes on the compact round teal head and paired gold fangs in their original placement"
+              },
+              {
+                "evidence": "Exactly four pink-ringed openings remain visible within the gold-braced teal shell.",
+                "passed": true,
+                "requirement": "Preserve exactly four pink-rimmed dorsal ports and gold circuit braces on the spherical armored teal abdomen"
+              },
+              {
+                "evidence": "No additional eye, fang, or port shape is visible beyond the exact colored set.",
+                "passed": true,
+                "requirement": "Reject extra eyes, extra fangs, extra dorsal ports, or altered anchor colors and relative placements"
+              },
+              {
+                "evidence": "Legs are identified by eight uninterrupted side appendages ending in gold tips, separate from face and shadow.",
+                "passed": true,
+                "requirement": "Do not count fangs, mouthparts, shadows, or doubled joints as walking legs"
+              }
+            ],
+            "confidence": 0.98,
+            "inputSha256": "f25b54f74670c372159714affac8b76097fb7b25d52d9c0bc76df98f1ef28959",
+            "surface": "runtime",
+            "taxonomy": {
+              "biologicalClass": "arachnida",
+              "coreAnatomy": "eight-legged-chelicerate",
+              "locomotionPlan": "terrestrial-octopedal",
+              "speciesFamily": "stylized-mechanical-spider"
+            },
+            "visibleAppendageCounts": {
+              "dorsalPorts": 4,
+              "eyes": 4,
+              "fangs": 2,
+              "walkingLegs": 8
+            }
+          }
+        ]
+      },
+      "run": {
+        "agentTaskId": "/root/g002_v2_blind_pass1",
+        "assignmentFileSha256": "f916554de4ffe6c056df6834697f7197e4ffac98b92a944d11dbdbc57efb936f",
+        "assignmentId": "assignment-1d9c4f7e6c6c0cbf51c9ec7b",
+        "conductorHmacSha256": "831e830a98d4f3936308c9009fbfc877017cf598e492250044963386ca6dcd08",
+        "createdAt": "2026-08-10T22:19:29.000Z",
+        "opaqueTargetId": "target-600c40991213e93ae591325b",
+        "outputSha256": "e203d1d1168c372e3a9fb19975843f8cc184816b463d9f56d4803bb29d7392e9",
+        "passNumber": 1,
+        "rawSha256": "5fcd54326a07dc98c48b4ec9a264529bb7efb49e1d6cea54b263f14571bc2973",
+        "reviewRunId": "g002-v2-canonical-pass-1-20260810",
+        "reviewerInstanceId": "blind-primary-reviewer-1-20260810",
+        "schemaVersion": "g002-v2-canonical-review-run-v1"
+      },
+      "vote": {
+        "agentTaskId": "/root/g002_v2_blind_pass1",
+        "assignmentFileSha256": "f916554de4ffe6c056df6834697f7197e4ffac98b92a944d11dbdbc57efb936f",
+        "assignmentId": "assignment-1d9c4f7e6c6c0cbf51c9ec7b",
+        "conductorHmacSha256": "51e2bbb47cf3eb96640359a3d2f4c68f806ec2fa948454a66f8da2120ff95d98",
+        "confidence": 0.98,
+        "inputAllowlistSha256": "e8c8fd5df6b0fd1ac5cd07dccc4522bcb92d605fca0bfb3e5d07f7e72afe6008",
+        "inputAssetSha256s": [
+          "11b803d6b3753acab20121b7e526019c67d314740d3b200ccbd423de4c6ea813",
+          "f25b54f74670c372159714affac8b76097fb7b25d52d9c0bc76df98f1ef28959"
+        ],
+        "materialBindingSha256": "358c90c1bb8873a040346943be230aa93fdfadf5a8e54407c98f7377c54515e6",
+        "observation": [
+          {
+            "ambiguity": false,
+            "anchors": [
+              {
+                "anchorId": "eight-separate-mechanical-walking-legs",
+                "evidence": "Four blue-and-gold jointed legs on each side are individually outlined from body to eight separate pointed feet.",
+                "visible": true
+              },
+              {
+                "anchorId": "four-pink-eyes-and-paired-gold-fangs",
+                "evidence": "The round teal face visibly carries four pink eyes and two separate curved gold fangs.",
+                "visible": true
+              },
+              {
+                "anchorId": "four-pink-rimmed-dorsal-ports-and-gold-braces",
+                "evidence": "The spherical teal abdomen visibly carries four open pink rings within a gold-braced shell.",
+                "visible": true
+              }
+            ],
+            "clarifications": [
+              {
+                "evidence": "Eight complete blue-and-gold leg silhouettes terminate in eight isolated gold feet.",
+                "passed": true,
+                "requirement": "Master and runtime must each show all eight blue-and-gold jointed walking legs without merging or occlusion"
+              },
+              {
+                "evidence": "Four pink eye disks occupy the teal face and one gold fang hangs at each lower side.",
+                "passed": true,
+                "requirement": "Preserve exactly four pink eyes on the compact round teal head and paired gold fangs in their original placement"
+              },
+              {
+                "evidence": "Four pink-rimmed openings and connected gold braces are plainly separated across the rounded abdomen.",
+                "passed": true,
+                "requirement": "Preserve exactly four pink-rimmed dorsal ports and gold circuit braces on the spherical armored teal abdomen"
+              },
+              {
+                "evidence": "Only four pink eyes, two gold fangs, and four pink-rimmed ports are visible in the stated color arrangement.",
+                "passed": true,
+                "requirement": "Reject extra eyes, extra fangs, extra dorsal ports, or altered anchor colors and relative placements"
+              },
+              {
+                "evidence": "The eight legs are continuous lateral jointed structures distinct from the two central fangs, facial mouth, and soft shadow.",
+                "passed": true,
+                "requirement": "Do not count fangs, mouthparts, shadows, or doubled joints as walking legs"
+              }
+            ],
+            "confidence": 0.99,
+            "inputSha256": "11b803d6b3753acab20121b7e526019c67d314740d3b200ccbd423de4c6ea813",
+            "surface": "master",
+            "taxonomy": {
+              "biologicalClass": "arachnida",
+              "coreAnatomy": "eight-legged-chelicerate",
+              "locomotionPlan": "terrestrial-octopedal",
+              "speciesFamily": "stylized-mechanical-spider"
+            },
+            "visibleAppendageCounts": {
+              "dorsalPorts": 4,
+              "eyes": 4,
+              "fangs": 2,
+              "walkingLegs": 8
+            }
+          },
+          {
+            "ambiguity": false,
+            "anchors": [
+              {
+                "anchorId": "eight-separate-mechanical-walking-legs",
+                "evidence": "Four blue-and-gold legs per side remain separately traceable to eight distinct gold tips.",
+                "visible": true
+              },
+              {
+                "anchorId": "four-pink-eyes-and-paired-gold-fangs",
+                "evidence": "The small teal face still plainly shows four pink eyes and two gold fangs.",
+                "visible": true
+              },
+              {
+                "anchorId": "four-pink-rimmed-dorsal-ports-and-gold-braces",
+                "evidence": "Four pink rings and the gold brace network remain discrete on the teal abdomen.",
+                "visible": true
+              }
+            ],
+            "clarifications": [
+              {
+                "evidence": "All eight blue leg chains and their gold terminal points have separated silhouettes.",
+                "passed": true,
+                "requirement": "Master and runtime must each show all eight blue-and-gold jointed walking legs without merging or occlusion"
+              },
+              {
+                "evidence": "Exactly four facial pink spots and two lower gold curves are visible.",
+                "passed": true,
+                "requirement": "Preserve exactly four pink eyes on the compact round teal head and paired gold fangs in their original placement"
+              },
+              {
+                "evidence": "Exactly four pink-ringed openings remain visible within the gold-braced teal shell.",
+                "passed": true,
+                "requirement": "Preserve exactly four pink-rimmed dorsal ports and gold circuit braces on the spherical armored teal abdomen"
+              },
+              {
+                "evidence": "No additional eye, fang, or port shape is visible beyond the exact colored set.",
+                "passed": true,
+                "requirement": "Reject extra eyes, extra fangs, extra dorsal ports, or altered anchor colors and relative placements"
+              },
+              {
+                "evidence": "Legs are identified by eight uninterrupted side appendages ending in gold tips, separate from face and shadow.",
+                "passed": true,
+                "requirement": "Do not count fangs, mouthparts, shadows, or doubled joints as walking legs"
+              }
+            ],
+            "confidence": 0.98,
+            "inputSha256": "f25b54f74670c372159714affac8b76097fb7b25d52d9c0bc76df98f1ef28959",
+            "surface": "runtime",
+            "taxonomy": {
+              "biologicalClass": "arachnida",
+              "coreAnatomy": "eight-legged-chelicerate",
+              "locomotionPlan": "terrestrial-octopedal",
+              "speciesFamily": "stylized-mechanical-spider"
+            },
+            "visibleAppendageCounts": {
+              "dorsalPorts": 4,
+              "eyes": 4,
+              "fangs": 2,
+              "walkingLegs": 8
+            }
+          }
+        ],
+        "opaqueTargetId": "target-600c40991213e93ae591325b",
+        "outputSha256": "2731e0062c4933cea40ae3be2a5f99196770461954b57c456b55a9e4d22e9b83",
+        "packageManifestSha256": "3a028000e2a6a08637d7df5e1571e1e4afbaf46249ff918836750ad4121b2ca4",
+        "passNumber": 1,
+        "promptSha256": "f14d24ab249b9aca74c3921cc6fc90c12e9ec7f44f67366516285d42d1c0f0ab",
+        "rawSha256": "5fcd54326a07dc98c48b4ec9a264529bb7efb49e1d6cea54b263f14571bc2973",
+        "reviewRunId": "g002-v2-canonical-pass-1-20260810",
+        "reviewerInstanceId": "blind-primary-reviewer-1-20260810",
+        "runOutputSha256": "e203d1d1168c372e3a9fb19975843f8cc184816b463d9f56d4803bb29d7392e9",
+        "schemaVersion": "g002-v2-canonical-review-vote-v1",
+        "voteId": "vote-78de60b431e4ca3c6309202d"
+      }
+    },
+    {
+      "assignment": {
+        "agentTaskId": "/root/g002_v2_blind_pass2",
+        "assignedAt": "2026-08-10T22:18:04.000Z",
+        "assignmentId": "assignment-afe173816a8e493546ea487b",
+        "conductorHmacSha256": "1c87e39d5d9932de40959a83534b9d88e5a52af80e4535b2cf7468b0cfc671b2",
+        "inputAllowlistSha256": "e8c8fd5df6b0fd1ac5cd07dccc4522bcb92d605fca0bfb3e5d07f7e72afe6008",
+        "inputAssetSha256s": [
+          "11b803d6b3753acab20121b7e526019c67d314740d3b200ccbd423de4c6ea813",
+          "f25b54f74670c372159714affac8b76097fb7b25d52d9c0bc76df98f1ef28959"
+        ],
+        "materialBindingSha256": "358c90c1bb8873a040346943be230aa93fdfadf5a8e54407c98f7377c54515e6",
+        "opaqueTargetId": "target-600c40991213e93ae591325b",
+        "outputSha256": "c110ba1c71655d98040e5f684f6ed758f55c4573f39f445f9eef9092c537d8f3",
+        "packageManifestSha256": "3a028000e2a6a08637d7df5e1571e1e4afbaf46249ff918836750ad4121b2ca4",
+        "passNumber": 2,
+        "promptSha256": "f14d24ab249b9aca74c3921cc6fc90c12e9ec7f44f67366516285d42d1c0f0ab",
+        "reviewRunId": "g002-v2-canonical-pass-2-20260810",
+        "reviewerInstanceId": "blind-primary-reviewer-2-20260810",
+        "schemaVersion": "g002-v2-canonical-review-assignment-v1"
+      },
+      "raw": {
+        "agentTaskId": "/root/g002_v2_blind_pass2",
+        "assignmentId": "assignment-afe173816a8e493546ea487b",
+        "confidence": 0.98,
+        "observedAt": "2026-08-10T22:19:37.000Z",
+        "passNumber": 2,
+        "reviewRunId": "g002-v2-canonical-pass-2-20260810",
+        "reviewerInstanceId": "blind-primary-reviewer-2-20260810",
+        "surfaces": [
+          {
+            "ambiguity": false,
+            "anchors": [
+              {
+                "anchorId": "eight-separate-mechanical-walking-legs",
+                "evidence": "Eight blue jointed limbs are separately traceable to eight isolated gold feet, four on each side.",
+                "visible": true
+              },
+              {
+                "anchorId": "four-pink-eyes-and-paired-gold-fangs",
+                "evidence": "The round teal face visibly carries four pink eyes and two separate curved gold fangs.",
+                "visible": true
+              },
+              {
+                "anchorId": "four-pink-rimmed-dorsal-ports-and-gold-braces",
+                "evidence": "The spherical teal abdomen visibly carries four discrete pink-rimmed openings crossed by gold braces.",
+                "visible": true
+              }
+            ],
+            "clarifications": [
+              {
+                "evidence": "All eight blue-and-gold limbs have distinct contours, joints, and feet.",
+                "passed": true,
+                "requirement": "Master and runtime must each show all eight blue-and-gold jointed walking legs without merging or occlusion"
+              },
+              {
+                "evidence": "Four pink eyes form two clear pairs above two gold fangs on the teal head.",
+                "passed": true,
+                "requirement": "Preserve exactly four pink eyes on the compact round teal head and paired gold fangs in their original placement"
+              },
+              {
+                "evidence": "Four pink rings and the surrounding gold brace network are plainly visible on the rounded abdomen.",
+                "passed": true,
+                "requirement": "Preserve exactly four pink-rimmed dorsal ports and gold circuit braces on the spherical armored teal abdomen"
+              },
+              {
+                "evidence": "Only four pink eyes, two gold fangs, and four pink-rimmed openings are visible in the stated placements.",
+                "passed": true,
+                "requirement": "Reject extra eyes, extra fangs, extra dorsal ports, or altered anchor colors and relative placements"
+              },
+              {
+                "evidence": "The eight counted limbs terminate in feet and remain visually separate from the two facial fangs and the ground shadow.",
+                "passed": true,
+                "requirement": "Do not count fangs, mouthparts, shadows, or doubled joints as walking legs"
+              }
+            ],
+            "confidence": 0.99,
+            "inputSha256": "11b803d6b3753acab20121b7e526019c67d314740d3b200ccbd423de4c6ea813",
+            "surface": "master",
+            "taxonomy": {
+              "biologicalClass": "arachnida",
+              "coreAnatomy": "eight-legged-chelicerate",
+              "locomotionPlan": "terrestrial-octopedal",
+              "speciesFamily": "stylized-mechanical-spider"
+            },
+            "visibleAppendageCounts": {
+              "dorsalPorts": 4,
+              "eyes": 4,
+              "fangs": 2,
+              "walkingLegs": 8
+            }
+          },
+          {
+            "ambiguity": false,
+            "anchors": [
+              {
+                "anchorId": "eight-separate-mechanical-walking-legs",
+                "evidence": "Eight separate blue jointed limbs remain readable to eight gold feet at the reduced size.",
+                "visible": true
+              },
+              {
+                "anchorId": "four-pink-eyes-and-paired-gold-fangs",
+                "evidence": "Four pink facial dots and two separated gold fangs remain directly visible.",
+                "visible": true
+              },
+              {
+                "anchorId": "four-pink-rimmed-dorsal-ports-and-gold-braces",
+                "evidence": "Four pink-rimmed openings and the gold abdominal bracing remain distinct.",
+                "visible": true
+              }
+            ],
+            "clarifications": [
+              {
+                "evidence": "Four limbs per side retain separated silhouettes, joints, and gold terminal feet.",
+                "passed": true,
+                "requirement": "Master and runtime must each show all eight blue-and-gold jointed walking legs without merging or occlusion"
+              },
+              {
+                "evidence": "The teal face visibly has four pink eyes and a symmetric pair of gold fangs.",
+                "passed": true,
+                "requirement": "Preserve exactly four pink eyes on the compact round teal head and paired gold fangs in their original placement"
+              },
+              {
+                "evidence": "The rounded abdomen shows four isolated pink rings within a visible gold brace pattern.",
+                "passed": true,
+                "requirement": "Preserve exactly four pink-rimmed dorsal ports and gold circuit braces on the spherical armored teal abdomen"
+              },
+              {
+                "evidence": "No additional eye, fang, or opening is visible; the pink, teal, and gold roles remain consistent.",
+                "passed": true,
+                "requirement": "Reject extra eyes, extra fangs, extra dorsal ports, or altered anchor colors and relative placements"
+              },
+              {
+                "evidence": "Each counted limb is a continuous jointed structure ending in a gold foot and is distinct from facial parts and shadow.",
+                "passed": true,
+                "requirement": "Do not count fangs, mouthparts, shadows, or doubled joints as walking legs"
+              }
+            ],
+            "confidence": 0.98,
+            "inputSha256": "f25b54f74670c372159714affac8b76097fb7b25d52d9c0bc76df98f1ef28959",
+            "surface": "runtime",
+            "taxonomy": {
+              "biologicalClass": "arachnida",
+              "coreAnatomy": "eight-legged-chelicerate",
+              "locomotionPlan": "terrestrial-octopedal",
+              "speciesFamily": "stylized-mechanical-spider"
+            },
+            "visibleAppendageCounts": {
+              "dorsalPorts": 4,
+              "eyes": 4,
+              "fangs": 2,
+              "walkingLegs": 8
+            }
+          }
+        ]
+      },
+      "run": {
+        "agentTaskId": "/root/g002_v2_blind_pass2",
+        "assignmentFileSha256": "134b1020bd2c43a9f704fd8271f12d11bde3eb1ab910d57e25ee08a18721e633",
+        "assignmentId": "assignment-afe173816a8e493546ea487b",
+        "conductorHmacSha256": "a57ec295f630617e9aae40bd2f2a3225b67e04701f3ba96f0aa18b288921d2b7",
+        "createdAt": "2026-08-10T22:19:37.000Z",
+        "opaqueTargetId": "target-600c40991213e93ae591325b",
+        "outputSha256": "2996054321b4b42eca246d951dea21c342aa5995f99b954f617cf8fbe3d407da",
+        "passNumber": 2,
+        "rawSha256": "fe803ac501d1cbb8d9f948a14607cf773ff40a1e8b6de2db628ff6bab0f78c71",
+        "reviewRunId": "g002-v2-canonical-pass-2-20260810",
+        "reviewerInstanceId": "blind-primary-reviewer-2-20260810",
+        "schemaVersion": "g002-v2-canonical-review-run-v1"
+      },
+      "vote": {
+        "agentTaskId": "/root/g002_v2_blind_pass2",
+        "assignmentFileSha256": "134b1020bd2c43a9f704fd8271f12d11bde3eb1ab910d57e25ee08a18721e633",
+        "assignmentId": "assignment-afe173816a8e493546ea487b",
+        "conductorHmacSha256": "a790c381bf574cb3b5396f9e0a68ed965b702d65b221b36b41e325da02a4ea2d",
+        "confidence": 0.98,
+        "inputAllowlistSha256": "e8c8fd5df6b0fd1ac5cd07dccc4522bcb92d605fca0bfb3e5d07f7e72afe6008",
+        "inputAssetSha256s": [
+          "11b803d6b3753acab20121b7e526019c67d314740d3b200ccbd423de4c6ea813",
+          "f25b54f74670c372159714affac8b76097fb7b25d52d9c0bc76df98f1ef28959"
+        ],
+        "materialBindingSha256": "358c90c1bb8873a040346943be230aa93fdfadf5a8e54407c98f7377c54515e6",
+        "observation": [
+          {
+            "ambiguity": false,
+            "anchors": [
+              {
+                "anchorId": "eight-separate-mechanical-walking-legs",
+                "evidence": "Eight blue jointed limbs are separately traceable to eight isolated gold feet, four on each side.",
+                "visible": true
+              },
+              {
+                "anchorId": "four-pink-eyes-and-paired-gold-fangs",
+                "evidence": "The round teal face visibly carries four pink eyes and two separate curved gold fangs.",
+                "visible": true
+              },
+              {
+                "anchorId": "four-pink-rimmed-dorsal-ports-and-gold-braces",
+                "evidence": "The spherical teal abdomen visibly carries four discrete pink-rimmed openings crossed by gold braces.",
+                "visible": true
+              }
+            ],
+            "clarifications": [
+              {
+                "evidence": "All eight blue-and-gold limbs have distinct contours, joints, and feet.",
+                "passed": true,
+                "requirement": "Master and runtime must each show all eight blue-and-gold jointed walking legs without merging or occlusion"
+              },
+              {
+                "evidence": "Four pink eyes form two clear pairs above two gold fangs on the teal head.",
+                "passed": true,
+                "requirement": "Preserve exactly four pink eyes on the compact round teal head and paired gold fangs in their original placement"
+              },
+              {
+                "evidence": "Four pink rings and the surrounding gold brace network are plainly visible on the rounded abdomen.",
+                "passed": true,
+                "requirement": "Preserve exactly four pink-rimmed dorsal ports and gold circuit braces on the spherical armored teal abdomen"
+              },
+              {
+                "evidence": "Only four pink eyes, two gold fangs, and four pink-rimmed openings are visible in the stated placements.",
+                "passed": true,
+                "requirement": "Reject extra eyes, extra fangs, extra dorsal ports, or altered anchor colors and relative placements"
+              },
+              {
+                "evidence": "The eight counted limbs terminate in feet and remain visually separate from the two facial fangs and the ground shadow.",
+                "passed": true,
+                "requirement": "Do not count fangs, mouthparts, shadows, or doubled joints as walking legs"
+              }
+            ],
+            "confidence": 0.99,
+            "inputSha256": "11b803d6b3753acab20121b7e526019c67d314740d3b200ccbd423de4c6ea813",
+            "surface": "master",
+            "taxonomy": {
+              "biologicalClass": "arachnida",
+              "coreAnatomy": "eight-legged-chelicerate",
+              "locomotionPlan": "terrestrial-octopedal",
+              "speciesFamily": "stylized-mechanical-spider"
+            },
+            "visibleAppendageCounts": {
+              "dorsalPorts": 4,
+              "eyes": 4,
+              "fangs": 2,
+              "walkingLegs": 8
+            }
+          },
+          {
+            "ambiguity": false,
+            "anchors": [
+              {
+                "anchorId": "eight-separate-mechanical-walking-legs",
+                "evidence": "Eight separate blue jointed limbs remain readable to eight gold feet at the reduced size.",
+                "visible": true
+              },
+              {
+                "anchorId": "four-pink-eyes-and-paired-gold-fangs",
+                "evidence": "Four pink facial dots and two separated gold fangs remain directly visible.",
+                "visible": true
+              },
+              {
+                "anchorId": "four-pink-rimmed-dorsal-ports-and-gold-braces",
+                "evidence": "Four pink-rimmed openings and the gold abdominal bracing remain distinct.",
+                "visible": true
+              }
+            ],
+            "clarifications": [
+              {
+                "evidence": "Four limbs per side retain separated silhouettes, joints, and gold terminal feet.",
+                "passed": true,
+                "requirement": "Master and runtime must each show all eight blue-and-gold jointed walking legs without merging or occlusion"
+              },
+              {
+                "evidence": "The teal face visibly has four pink eyes and a symmetric pair of gold fangs.",
+                "passed": true,
+                "requirement": "Preserve exactly four pink eyes on the compact round teal head and paired gold fangs in their original placement"
+              },
+              {
+                "evidence": "The rounded abdomen shows four isolated pink rings within a visible gold brace pattern.",
+                "passed": true,
+                "requirement": "Preserve exactly four pink-rimmed dorsal ports and gold circuit braces on the spherical armored teal abdomen"
+              },
+              {
+                "evidence": "No additional eye, fang, or opening is visible; the pink, teal, and gold roles remain consistent.",
+                "passed": true,
+                "requirement": "Reject extra eyes, extra fangs, extra dorsal ports, or altered anchor colors and relative placements"
+              },
+              {
+                "evidence": "Each counted limb is a continuous jointed structure ending in a gold foot and is distinct from facial parts and shadow.",
+                "passed": true,
+                "requirement": "Do not count fangs, mouthparts, shadows, or doubled joints as walking legs"
+              }
+            ],
+            "confidence": 0.98,
+            "inputSha256": "f25b54f74670c372159714affac8b76097fb7b25d52d9c0bc76df98f1ef28959",
+            "surface": "runtime",
+            "taxonomy": {
+              "biologicalClass": "arachnida",
+              "coreAnatomy": "eight-legged-chelicerate",
+              "locomotionPlan": "terrestrial-octopedal",
+              "speciesFamily": "stylized-mechanical-spider"
+            },
+            "visibleAppendageCounts": {
+              "dorsalPorts": 4,
+              "eyes": 4,
+              "fangs": 2,
+              "walkingLegs": 8
+            }
+          }
+        ],
+        "opaqueTargetId": "target-600c40991213e93ae591325b",
+        "outputSha256": "fa0ce282b9727fe2af36656b20a8451ec29cad0a6d165a71bbe801ff90470db5",
+        "packageManifestSha256": "3a028000e2a6a08637d7df5e1571e1e4afbaf46249ff918836750ad4121b2ca4",
+        "passNumber": 2,
+        "promptSha256": "f14d24ab249b9aca74c3921cc6fc90c12e9ec7f44f67366516285d42d1c0f0ab",
+        "rawSha256": "fe803ac501d1cbb8d9f948a14607cf773ff40a1e8b6de2db628ff6bab0f78c71",
+        "reviewRunId": "g002-v2-canonical-pass-2-20260810",
+        "reviewerInstanceId": "blind-primary-reviewer-2-20260810",
+        "runOutputSha256": "2996054321b4b42eca246d951dea21c342aa5995f99b954f617cf8fbe3d407da",
+        "schemaVersion": "g002-v2-canonical-review-vote-v1",
+        "voteId": "vote-e62d9495dae785c692df98d0"
+      }
+    }
+  ],
+  "prompt": "PunchGrow blinded G002-v2 canonical replacement review.\nJudge only the two supplied candidate surfaces. Root ID, names, lineage, prior verdicts, and historical pixels are forbidden evidence.\nExact four-field taxonomy: {\n  \"biologicalClass\": \"arachnida\",\n  \"coreAnatomy\": \"eight-legged-chelicerate\",\n  \"locomotionPlan\": \"terrestrial-octopedal\",\n  \"speciesFamily\": \"stylized-mechanical-spider\"\n}\nExact three identity anchors: [\n  {\n    \"anchorId\": \"eight-separate-mechanical-walking-legs\",\n    \"description\": \"Exactly eight separate mechanical spider walking legs with independently readable feet\"\n  },\n  {\n    \"anchorId\": \"four-pink-eyes-and-paired-gold-fangs\",\n    \"description\": \"Compact round teal head with exactly four pink eyes and paired gold fangs\"\n  },\n  {\n    \"anchorId\": \"four-pink-rimmed-dorsal-ports-and-gold-braces\",\n    \"description\": \"Spherical armored teal abdomen with exactly four pink-rimmed dorsal ports and gold circuit braces\"\n  }\n]\nExact visibility clarifications: [\n  \"Master and runtime must each show all eight blue-and-gold jointed walking legs without merging or occlusion\",\n  \"Preserve exactly four pink eyes on the compact round teal head and paired gold fangs in their original placement\",\n  \"Preserve exactly four pink-rimmed dorsal ports and gold circuit braces on the spherical armored teal abdomen\",\n  \"Reject extra eyes, extra fangs, extra dorsal ports, or altered anchor colors and relative placements\",\n  \"Do not count fangs, mouthparts, shadows, or doubled joints as walking legs\"\n]\nExact independently visible counts on BOTH surfaces: {\n  \"dorsalPorts\": 4,\n  \"eyes\": 4,\n  \"fangs\": 2,\n  \"walkingLegs\": 8\n}\nFor master and runtime separately, record taxonomy, visible evidence for every anchor and clarification, exact counts, ambiguity=false, and confidence >=0.96. Hidden, merged, occluded, or double-readable structures are a failure.\n",
+  "promptSha256": "f14d24ab249b9aca74c3921cc6fc90c12e9ec7f44f67366516285d42d1c0f0ab",
+  "publicSignature": {
+    "algorithm": "Ed25519",
+    "authorityFingerprint": "423f474c59667e5eabc13a703b8d7de4e97bcba33cdc22340873866db9d6a53f",
+    "signatureBase64": "V9cdFxo+OenB0ehaKsWw4aTWmOiwZQLikmg1XBmmC5xomHuMDji3X3aU3wfRRRWoKs/c1OuMb9vslChKnXCEAQ=="
+  },
+  "rootId": "PG-024",
+  "schemaVersion": "g002-v2-canonical-public-review-proof-v1",
+  "target": {
+    "anchors": [
+      {
+        "anchorId": "eight-separate-mechanical-walking-legs",
+        "description": "Exactly eight separate mechanical spider walking legs with independently readable feet"
+      },
+      {
+        "anchorId": "four-pink-eyes-and-paired-gold-fangs",
+        "description": "Compact round teal head with exactly four pink eyes and paired gold fangs"
+      },
+      {
+        "anchorId": "four-pink-rimmed-dorsal-ports-and-gold-braces",
+        "description": "Spherical armored teal abdomen with exactly four pink-rimmed dorsal ports and gold circuit braces"
+      }
+    ],
+    "canonicalTarget": {
+      "biologicalClass": "arachnida",
+      "coreAnatomy": "eight-legged-chelicerate",
+      "locomotionPlan": "terrestrial-octopedal",
+      "speciesFamily": "stylized-mechanical-spider"
+    },
+    "clarificationRequirements": [
+      "Master and runtime must each show all eight blue-and-gold jointed walking legs without merging or occlusion",
+      "Preserve exactly four pink eyes on the compact round teal head and paired gold fangs in their original placement",
+      "Preserve exactly four pink-rimmed dorsal ports and gold circuit braces on the spherical armored teal abdomen",
+      "Reject extra eyes, extra fangs, extra dorsal ports, or altered anchor colors and relative placements",
+      "Do not count fangs, mouthparts, shadows, or doubled joints as walking legs"
+    ],
+    "currentPixelAssessment": "DISPUTED_OR_AMBIGUOUS",
+    "rootId": "PG-024"
+  },
+  "targetSha256": "de05fc777316c2f97714969f72ed20b72184fafe5bc19667667cbf27157e0101"
+}

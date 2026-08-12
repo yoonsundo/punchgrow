@@ -1,0 +1,51 @@
+{
+  "agentTaskId": "g002-taxonomy-pass2-independent-round2",
+  "anchors": [
+    {
+      "anchorId": "body-silhouette",
+      "description": "Elongated compact body tapers to a long tail ending in a bright rounded tip, with small lower appendages."
+    },
+    {
+      "anchorId": "face-geometry",
+      "description": "Rounded teal head with oversized pink-rimmed eyes, small dot-like facial marks, and a simple curved mouth."
+    },
+    {
+      "anchorId": "signature-organ",
+      "description": "Two pairs of large translucent pink wings rise behind the body and contain bright linear veins."
+    }
+  ],
+  "assignmentManifestSha256": "2e84e0493670334a6abaf4357e0e7e278f5ae1bb3df23a8ac50ee79bf1da0303",
+  "blinded": true,
+  "conductorHmacSha256": "3e0fe9a5e44ec9e0e34bc0588ee75d58184e1af7e4d49b91efcc25692f91e3f1",
+  "confidence": 0.9,
+  "contractSha256": "f6d06316ba0ce315a79d3d784abe49f8f80463776ef07f5dbf5372185b9a8a15",
+  "fresh": true,
+  "inputAllowlistSha256": "6eb9da0d8e8a68a8f53dee3f120f90e2c02789ef374688f0fe2ab52a020392aa",
+  "inputAssetSha256s": [
+    "8bca9ba317bafddf8a8b30f23741d0411e1288e47426571272eb86ff22514387",
+    "c31f6c088954d5836c6e50b43b8851afd0c889be5c6a98757efe5fa66cb58e4b"
+  ],
+  "opaqueTaxonomyTargetId": "taxonomy-83470972c1bc0743b82dd2d3",
+  "outputSha256": "aa35ec4ecf3ee88c1a1c8c717a43f9349a8f28d6f1b74e7f676284a646627343",
+  "packageManifestSha256": "91981211dd69ed2f775ac796e0b068e7db8c4174d9fa81a868529cef92a6e5fc",
+  "passNumber": 2,
+  "promptSha256": "428e5d281d525d352776ae9950777265519d08f8bad67e50c2ed17b3f5c6e8d4",
+  "publicSignature": {
+    "algorithm": "Ed25519",
+    "authorityFingerprint": "423f474c59667e5eabc13a703b8d7de4e97bcba33cdc22340873866db9d6a53f",
+    "signatureBase64": "vLm7aUnpl1aNBT8bU73tjDEoTAGcseT7RYrYJJz9nRthfVjRllqTwoXwgqRMnpGeIrp8OAmY/h/rgHAYX2nQBQ=="
+  },
+  "reviewId": "taxonomy-review-57c5aa4ce20ac465f83935d5d4cc5a1c",
+  "reviewerInstanceId": "taxonomy-reviewer-pass2-independent",
+  "reviewerRunAttestationSha256": "45861903a68694640a22b3541d12cc9c1b1125c5ab0462dcee6aa0e8b19bd533",
+  "role": "primary",
+  "schemaVersion": "g002-taxonomy-primary-vote-v1",
+  "submittedAt": "2026-08-10T16:39:12.320Z",
+  "taxonomy": {
+    "biologicalClass": "insecta",
+    "coreAnatomy": "winged-biped",
+    "locomotionPlan": "flight",
+    "speciesFamily": "odonata-like"
+  },
+  "voterReviewRunId": "g002-taxonomy-run-pass2-round2"
+}

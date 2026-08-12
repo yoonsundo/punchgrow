@@ -1,0 +1,1689 @@
+{
+  "schemaVersion": 1,
+  "packId": "cute-redesign-v2",
+  "generatedCount": 240,
+  "remainingCount": 0,
+  "firstMissingId": null,
+  "entries": [
+    {
+      "id": "PG-001",
+      "masterPath": "assets/creatures/redesign-v2/generated/PG-001.png",
+      "masterSha256": "1af39c2c4e9e4f720f727538e6613d6aea694ba4adb44237eac9a2b2ff63cfe4",
+      "mobilePath": "assets/creatures/redesign-v2/mobile/PG-001.png",
+      "mobileSha256": "b28a12a0c10f99a9233dcd5c7bfd07a8a43c84cdc73dbfe577ebb1c72c9d2d9f"
+    },
+    {
+      "id": "PG-002",
+      "masterPath": "assets/creatures/redesign-v2/generated/PG-002.png",
+      "masterSha256": "e4e440484fa950c7f94cd543e46e0db78160f446d85907c3afa0ad65b40a657a",
+      "mobilePath": "assets/creatures/redesign-v2/mobile/PG-002.png",
+      "mobileSha256": "5050e7a6e9fe31d288517d126192c80fa65d9156d7a94cd23526e56c0751b2f9"
+    },
+    {
+      "id": "PG-003",
+      "masterPath": "assets/creatures/redesign-v2/generated/PG-003.png",
+      "masterSha256": "1ac4904aa70749a96115fcd15fc40b62e868142004e3e5614de76b31ba44580c",
+      "mobilePath": "assets/creatures/redesign-v2/mobile/PG-003.png",
+      "mobileSha256": "cf441b387a7c49e9813f365dc00320a0e0719ce95ef8283be8ea91b668ad4ed1"
+    },
+    {
+      "id": "PG-004",
+      "masterPath": "assets/creatures/redesign-v2/generated/PG-004.png",
+      "masterSha256": "7a27083f32e672ed496d0b0d4c4b413fabf2b72cb09632e05133aee82cd0e50c",
+      "mobilePath": "assets/creatures/redesign-v2/mobile/PG-004.png",
+      "mobileSha256": "6350a7e32e8261d70f7ae352162698c7ff566fbe3a1b916ee75fed9cb628b0a4"
+    },
+    {
+      "id": "PG-005",
+      "masterPath": "assets/creatures/redesign-v2/generated/PG-005.png",
+      "masterSha256": "28b598e8454d942cbcd3834c5e610897a5ddc9c01fc5bcc90513f988aa4f9707",
+      "mobilePath": "assets/creatures/redesign-v2/mobile/PG-005.png",
+      "mobileSha256": "54559116e0ca6ba464aa0e06183086ccb9e0e5686fb39b2651223b91d5b63e50"
+    },
+    {
+      "id": "PG-006",
+      "masterPath": "assets/creatures/redesign-v2/generated/PG-006.png",
+      "masterSha256": "5f868d650de0f44e7028ef28ede515e06af8305c5c5bff6c0f74b5649db45382",
+      "mobilePath": "assets/creatures/redesign-v2/mobile/PG-006.png",
+      "mobileSha256": "c0b24aedc04fb16cbaa65bf940b81dcc3e7db6cd7943c7347db54b087345736f"
+    },
+    {
+      "id": "PG-007",
+      "masterPath": "assets/creatures/redesign-v2/generated/PG-007.png",
+      "masterSha256": "180cc13ea3c7f90530abc5320d99dad0167893d33d7abbabf470149d59a29fcb",
+      "mobilePath": "assets/creatures/redesign-v2/mobile/PG-007.png",
+      "mobileSha256": "f14f417c99cb4d27aca4c4293e19b5d36db6b2b32e4cf1f8c4293d19aad75e54"
+    },
+    {
+      "id": "PG-008",
+      "masterPath": "assets/creatures/redesign-v2/generated/PG-008.png",
+      "masterSha256": "14dbb192869188a28eb60008fe969ddc13b5dc5b30a095d6f4a1d07219058c30",
+      "mobilePath": "assets/creatures/redesign-v2/mobile/PG-008.png",
+      "mobileSha256": "143c6638d6f0d6ff814c6fc1c696684843916f097637eb1ae4dad228a895b930"
+    },
+    {
+      "id": "PG-009",
+      "masterPath": "assets/creatures/redesign-v2/generated/PG-009.png",
+      "masterSha256": "aa0e5bd7425d2ddbb627f17ab766e685a5fb76bb58ef3186356aa0737c2b58c6",
+      "mobilePath": "assets/creatures/redesign-v2/mobile/PG-009.png",
+      "mobileSha256": "f7271e44d42551cce43021f1a57bad96d4ed68901feeea9ae52a029b2917e4b2"
+    },
+    {
+      "id": "PG-010",
+      "masterPath": "assets/creatures/redesign-v2/generated/PG-010.png",
+      "masterSha256": "98055978b3aa11ba153dd6b87838d5273136c98c47ae5e7c2af1b75f51d933fd",
+      "mobilePath": "assets/creatures/redesign-v2/mobile/PG-010.png",
+      "mobileSha256": "19cb9988dd0e0bb34a3fbbf6453c71bea2e5556fced29f0d772471a4bb96e0ae"
+    },
+    {
+      "id": "PG-011",
+      "masterPath": "assets/creatures/redesign-v2/generated/PG-011.png",
+      "masterSha256": "5072de9307d890dc118661cef49188e8ee1e4bd0690201e77f4354d7b9adfcce",
+      "mobilePath": "assets/creatures/redesign-v2/mobile/PG-011.png",
+      "mobileSha256": "885f69d6d595ca8fb7e13b17e553cc9e867bffcbc93045ce56d6626c1594146e"
+    },
+    {
+      "id": "PG-012",
+      "masterPath": "assets/creatures/redesign-v2/generated/PG-012.png",
+      "masterSha256": "0791231641dc8dbd596b70840d92830aab726a10f46237c40207d6c9ca49bcb7",
+      "mobilePath": "assets/creatures/redesign-v2/mobile/PG-012.png",
+      "mobileSha256": "0ebc3c5b7bcf92224873dba5696725932475d3a6f600587a1830e4eb9566b0b2"
+    },
+    {
+      "id": "PG-013",
+      "masterPath": "assets/creatures/redesign-v2/generated/PG-013.png",
+      "masterSha256": "3736cef5e84f59d819987395496d374dc318ab0a2f6d4f75c6ee4cb346575b57",
+      "mobilePath": "assets/creatures/redesign-v2/mobile/PG-013.png",
+      "mobileSha256": "13394f26c88656b028c84452d9dc15ef2a9836f3f50c33165da6a26d755b163e"
+    },
+    {
+      "id": "PG-014",
+      "masterPath": "assets/creatures/redesign-v2/generated/PG-014.png",
+      "masterSha256": "16a85ce1a5777e7501dd20bf84b387d7a7125a92777f1f0399c0fdbab6f3d0a0",
+      "mobilePath": "assets/creatures/redesign-v2/mobile/PG-014.png",
+      "mobileSha256": "ed0888f5d17fac3daa8075546d4b50a3f277975a35fb8cdd42794994574d6b6e"
+    },
+    {
+      "id": "PG-015",
+      "masterPath": "assets/creatures/redesign-v2/generated/PG-015.png",
+      "masterSha256": "37533d75145136431e04f1837091134a62cb11a57ff48fbedef178cea583f1e1",
+      "mobilePath": "assets/creatures/redesign-v2/mobile/PG-015.png",
+      "mobileSha256": "a98de1ca59b86a4b3c09270bd18b6c9d8ec1d7430eac814248d34bffaef8bbdb"
+    },
+    {
+      "id": "PG-016",
+      "masterPath": "assets/creatures/redesign-v2/generated/PG-016.png",
+      "masterSha256": "b4f0dc60a1d5b337d5f8e69488d22a90b927eafefbd96d5075fb32ed3fb62409",
+      "mobilePath": "assets/creatures/redesign-v2/mobile/PG-016.png",
+      "mobileSha256": "ce797d390f73714a3889721f2b75953cba72ad416bf9f3e275c835e925df7e69"
+    },
+    {
+      "id": "PG-017",
+      "masterPath": "assets/creatures/redesign-v2/generated/PG-017.png",
+      "masterSha256": "894c4b5b56d8682a0d495fd8d04f7d5ff4d27266b454b148aeeaff8ba356d2e9",
+      "mobilePath": "assets/creatures/redesign-v2/mobile/PG-017.png",
+      "mobileSha256": "1670c50eebcdadc0646c453f87d04c46ad6acf31ab4c457aec4c735857f5c653"
+    },
+    {
+      "id": "PG-018",
+      "masterPath": "assets/creatures/redesign-v2/generated/PG-018.png",
+      "masterSha256": "8ec73e39117a0ab9e6b4c9e43bfca34f46694c06a1c754d6938b34b5930c12c1",
+      "mobilePath": "assets/creatures/redesign-v2/mobile/PG-018.png",
+      "mobileSha256": "dd5de55445071468707f57ee15a1b1d6c461b0737cb1fa656c3cbcd0898b5430"
+    },
+    {
+      "id": "PG-019",
+      "masterPath": "assets/creatures/redesign-v2/generated/PG-019.png",
+      "masterSha256": "df851561f0fac73d57c0c39971d708dc9485dddb33889ca97e7b212fed716b3f",
+      "mobilePath": "assets/creatures/redesign-v2/mobile/PG-019.png",
+      "mobileSha256": "c5d570115820f063b55fd48b211dd120c3d7c9d549a92a01408662fb6d217a25"
+    },
+    {
+      "id": "PG-020",
+      "masterPath": "assets/creatures/redesign-v2/generated/PG-020.png",
+      "masterSha256": "cb57a3ed5b95bee937ff5ef178dd2c4c6092ea9d2ca0bc296ea5e76e49f7d435",
+      "mobilePath": "assets/creatures/redesign-v2/mobile/PG-020.png",
+      "mobileSha256": "f200b0da1ab5b065b13edbc14035c5040cb6a4054fc9ad7adcd35e000e6e6981"
+    },
+    {
+      "id": "PG-021",
+      "masterPath": "assets/creatures/redesign-v2/generated/PG-021.png",
+      "masterSha256": "ee496e402eddd9dffc7532d610dac5ee61983287a0a2c77b5fff20eb63cc3862",
+      "mobilePath": "assets/creatures/redesign-v2/mobile/PG-021.png",
+      "mobileSha256": "c154ebe12b911f1d476af84877aa44dd21f4f1755c61545a827c158234cb3973"
+    },
+    {
+      "id": "PG-022",
+      "masterPath": "assets/creatures/redesign-v2/generated/PG-022.png",
+      "masterSha256": "77e5af920dfc05388d7da7df0cc467ad959db61122b5873d649f5ef9a4f3077d",
+      "mobilePath": "assets/creatures/redesign-v2/mobile/PG-022.png",
+      "mobileSha256": "06d3153e6d45de25d95a6761332573299fb26d2ae11c8f2a933fd7afe4c4039e"
+    },
+    {
+      "id": "PG-023",
+      "masterPath": "assets/creatures/redesign-v2/generated/PG-023.png",
+      "masterSha256": "a0b55051aa1092ae424485cfb017fc724ab8ba78a25cbe449e61f2a562234692",
+      "mobilePath": "assets/creatures/redesign-v2/mobile/PG-023.png",
+      "mobileSha256": "06dbd06901dc16a8f644be47a6e35e052da44e331e99515a8417080d9f8be23c"
+    },
+    {
+      "id": "PG-024",
+      "masterPath": "assets/creatures/redesign-v2/generated/PG-024.png",
+      "masterSha256": "1e8d9410a63aa4b53a56c51739cf4e2fc87e32165a30b0f0d498f4172b139e38",
+      "mobilePath": "assets/creatures/redesign-v2/mobile/PG-024.png",
+      "mobileSha256": "0b7c69f97a6500bdbc2b442d6dcb1ab6a20f0c996d52402e41aafa89cb797b8f"
+    },
+    {
+      "id": "PG-025",
+      "masterPath": "assets/creatures/redesign-v2/generated/PG-025.png",
+      "masterSha256": "d2db049423a24e2744f50783f76392502f363159c4bfe87c4d87a0d7b08e9279",
+      "mobilePath": "assets/creatures/redesign-v2/mobile/PG-025.png",
+      "mobileSha256": "59fb2d99b92f500557a08b754f94029028dcfbc9997b4aafefc1c3fc687eb372"
+    },
+    {
+      "id": "PG-026",
+      "masterPath": "assets/creatures/redesign-v2/generated/PG-026.png",
+      "masterSha256": "a189b9c8bdae74da0174f6a43342b836cc4ee56ed102138f761892d95b6fe1cc",
+      "mobilePath": "assets/creatures/redesign-v2/mobile/PG-026.png",
+      "mobileSha256": "ec7b1397b5b6b56f27a5e2edae077830a687497b0a70b94f9a3e2a4c37678df0"
+    },
+    {
+      "id": "PG-027",
+      "masterPath": "assets/creatures/redesign-v2/generated/PG-027.png",
+      "masterSha256": "c64e8e30c83cdb6f11edd13917de839cf68ed18825242abbea8cb77598f09ff2",
+      "mobilePath": "assets/creatures/redesign-v2/mobile/PG-027.png",
+      "mobileSha256": "c2c54ac82b49dd853bde07ae1b8bd8b6f243ca2097dffc1649671bfcb44aa952"
+    },
+    {
+      "id": "PG-028",
+      "masterPath": "assets/creatures/redesign-v2/generated/PG-028.png",
+      "masterSha256": "d50888d8c1dc81e8b602541e3357b635e3c68455ad1d6c574d8941792d2db8eb",
+      "mobilePath": "assets/creatures/redesign-v2/mobile/PG-028.png",
+      "mobileSha256": "1770be67b24e4bec95e0890efaea4e26afb0fc5a67e1b9bb6e190a53212105f2"
+    },
+    {
+      "id": "PG-029",
+      "masterPath": "assets/creatures/redesign-v2/generated/PG-029.png",
+      "masterSha256": "1676e48786db38b85b1a8bf397f80865c4ccfebe2d0e21c94963e732364f5eb2",
+      "mobilePath": "assets/creatures/redesign-v2/mobile/PG-029.png",
+      "mobileSha256": "23a89e3886a66531386fba643a8754773a11f10a75dfa9f0ab0b67823d97f24a"
+    },
+    {
+      "id": "PG-030",
+      "masterPath": "assets/creatures/redesign-v2/generated/PG-030.png",
+      "masterSha256": "b35fa5126ebca95c949aea3d146201c35632946d81cbb4f81ecc3defe435cfd0",
+      "mobilePath": "assets/creatures/redesign-v2/mobile/PG-030.png",
+      "mobileSha256": "1e7c5e2e13d3d846d4dd6b35c4e8504bae4d49244059d1d4ad627656477618f9"
+    },
+    {
+      "id": "PG-031",
+      "masterPath": "assets/creatures/redesign-v2/generated/PG-031.png",
+      "masterSha256": "06b4957f3c5ecb37e572c5bfa86c5261c4f7aa2c41117559a91178a41ed0dba5",
+      "mobilePath": "assets/creatures/redesign-v2/mobile/PG-031.png",
+      "mobileSha256": "ea6ae549b466341407552913829d5273216d0ee255a9ca7b12388dc3dd1874e4"
+    },
+    {
+      "id": "PG-032",
+      "masterPath": "assets/creatures/redesign-v2/generated/PG-032.png",
+      "masterSha256": "dc7709e9b4411a32f695c7fe6c17511bf6e268e8e036a60c2718c5ce27e43901",
+      "mobilePath": "assets/creatures/redesign-v2/mobile/PG-032.png",
+      "mobileSha256": "27500d3a86a19bdcc2563420994eed97942d9c167293935110ce73d0308b8648"
+    },
+    {
+      "id": "PG-033",
+      "masterPath": "assets/creatures/redesign-v2/generated/PG-033.png",
+      "masterSha256": "cdcde1de25c6222fe93737cce98930e15ee639d40bee82cb0602ec8a724b232b",
+      "mobilePath": "assets/creatures/redesign-v2/mobile/PG-033.png",
+      "mobileSha256": "ec8f21cd4efc05178f34b5cac926cbbdfa168b2c67f2819b730291b550ebac6c"
+    },
+    {
+      "id": "PG-034",
+      "masterPath": "assets/creatures/redesign-v2/generated/PG-034.png",
+      "masterSha256": "ffcfce46ce84f6b1a621c3ed171777cc9c02f465cbd60aa3dd16f62f8c7bc3a3",
+      "mobilePath": "assets/creatures/redesign-v2/mobile/PG-034.png",
+      "mobileSha256": "4a6362a8e702425ad71860d2bff053a5ca65a71e1c5fe66482d2374c15fb09a7"
+    },
+    {
+      "id": "PG-035",
+      "masterPath": "assets/creatures/redesign-v2/generated/PG-035.png",
+      "masterSha256": "85af7e4284a150a031df7a3435940ef51cca453d3a9a5cf63ed1d873b04751cb",
+      "mobilePath": "assets/creatures/redesign-v2/mobile/PG-035.png",
+      "mobileSha256": "675325234a08c011cda692d185ee45c941cd8e41f465eba18a0611312d6d7bbe"
+    },
+    {
+      "id": "PG-036",
+      "masterPath": "assets/creatures/redesign-v2/generated/PG-036.png",
+      "masterSha256": "480d7f4016075fb01237ee74b10816d780d4ace6ab4de3abcf6c13c08ee2cefb",
+      "mobilePath": "assets/creatures/redesign-v2/mobile/PG-036.png",
+      "mobileSha256": "0bef48903c8fd54b44ca9d7eca86eec33a9a75ee613f9e3ddca64ba78d607e27"
+    },
+    {
+      "id": "PG-037",
+      "masterPath": "assets/creatures/redesign-v2/generated/PG-037.png",
+      "masterSha256": "d7b245bdab59ecc1de31f95603fef34c984fbe6ec24529da7173190be977bdc8",
+      "mobilePath": "assets/creatures/redesign-v2/mobile/PG-037.png",
+      "mobileSha256": "8a1214a79f1d055be848d51824b97a6c50b1e783684800283f94456925787bf2"
+    },
+    {
+      "id": "PG-038",
+      "masterPath": "assets/creatures/redesign-v2/generated/PG-038.png",
+      "masterSha256": "e530315d703795063ea95613d6ccf8252278588897440f415148a739029921ce",
+      "mobilePath": "assets/creatures/redesign-v2/mobile/PG-038.png",
+      "mobileSha256": "078e713b94371f6bac13be885592ef59e23afba25990423df68e3464a6b7b08f"
+    },
+    {
+      "id": "PG-039",
+      "masterPath": "assets/creatures/redesign-v2/generated/PG-039.png",
+      "masterSha256": "b582c7f1dab12981218fa966f0443d87c808a8d4bdebbe7ffc2cfd28023d2d99",
+      "mobilePath": "assets/creatures/redesign-v2/mobile/PG-039.png",
+      "mobileSha256": "fbd5d8d59d68763e8696a0673a1670002c2aada88fda52d19fe05da7052f5cc5"
+    },
+    {
+      "id": "PG-040",
+      "masterPath": "assets/creatures/redesign-v2/generated/PG-040.png",
+      "masterSha256": "297d649f24309ba8053f6afe6e062ac9b06ac4e28104d5b78e9c03dcd4b3bc8f",
+      "mobilePath": "assets/creatures/redesign-v2/mobile/PG-040.png",
+      "mobileSha256": "1c87b6c7d46bf47f48a1bb8189dfb50bc4f76f3ff8b06be2e55cac384b3cc2f5"
+    },
+    {
+      "id": "PG-041",
+      "masterPath": "assets/creatures/redesign-v2/generated/PG-041.png",
+      "masterSha256": "8bca9ba317bafddf8a8b30f23741d0411e1288e47426571272eb86ff22514387",
+      "mobilePath": "assets/creatures/redesign-v2/mobile/PG-041.png",
+      "mobileSha256": "c31f6c088954d5836c6e50b43b8851afd0c889be5c6a98757efe5fa66cb58e4b"
+    },
+    {
+      "id": "PG-042",
+      "masterPath": "assets/creatures/redesign-v2/generated/PG-042.png",
+      "masterSha256": "dcdfa94965a9c33bdf4270a556510d95533c155fc483fb8ac3245d1fd09d599c",
+      "mobilePath": "assets/creatures/redesign-v2/mobile/PG-042.png",
+      "mobileSha256": "f68ed6a37647d3f440b903051b9d3487a86eb2f49160077eeecc084dd17df0dd"
+    },
+    {
+      "id": "PG-043",
+      "masterPath": "assets/creatures/redesign-v2/generated/PG-043.png",
+      "masterSha256": "b90f7d4b1ef23e0816bda367aa96dcab6ca5af59f98f2101b5c82af2371ec4c6",
+      "mobilePath": "assets/creatures/redesign-v2/mobile/PG-043.png",
+      "mobileSha256": "89b1b03a92c1c0f554b206c2ad343ae3b71ba4a1ee577abd7a0cce714b1af833"
+    },
+    {
+      "id": "PG-044",
+      "masterPath": "assets/creatures/redesign-v2/generated/PG-044.png",
+      "masterSha256": "1601d5770c2a207e5bdb0776e0dc63b62ab48b3ed85c7927765b0282cb95f7c7",
+      "mobilePath": "assets/creatures/redesign-v2/mobile/PG-044.png",
+      "mobileSha256": "887a000d2d680ff98c5e7d50ecd13ae56baccb718fc1b8a62c1f90661193077d"
+    },
+    {
+      "id": "PG-045",
+      "masterPath": "assets/creatures/redesign-v2/generated/PG-045.png",
+      "masterSha256": "99453a119ae73057226b59e0e321be155ce7b0660071dc06a27bdb951ccd63fb",
+      "mobilePath": "assets/creatures/redesign-v2/mobile/PG-045.png",
+      "mobileSha256": "f8dc32c5b0fbb8583e39999b9f9af6804d9a521791cbe1c2c9f2dbfc5cce9143"
+    },
+    {
+      "id": "PG-046",
+      "masterPath": "assets/creatures/redesign-v2/generated/PG-046.png",
+      "masterSha256": "abb4c2795631ea0884ff0c9bde63bb14ce2a87f40fb2b968d138719b2745a0c9",
+      "mobilePath": "assets/creatures/redesign-v2/mobile/PG-046.png",
+      "mobileSha256": "0ae074cbb2ba70b99247caab0968a326ff1880d9039f02732e64d36fd3484655"
+    },
+    {
+      "id": "PG-047",
+      "masterPath": "assets/creatures/redesign-v2/generated/PG-047.png",
+      "masterSha256": "5c562aeecc9de69d5fe2a2824181279650587efc8f5fdab65f84dd0df13f7a25",
+      "mobilePath": "assets/creatures/redesign-v2/mobile/PG-047.png",
+      "mobileSha256": "8ad58893134131ffb72ec655794444646bc570d3796b87cdf5606088fc388c79"
+    },
+    {
+      "id": "PG-048",
+      "masterPath": "assets/creatures/redesign-v2/generated/PG-048.png",
+      "masterSha256": "b9a20d060015d41c002bef5ab2920a09060f929adf3a0b0281d3edc392ee56c5",
+      "mobilePath": "assets/creatures/redesign-v2/mobile/PG-048.png",
+      "mobileSha256": "c62e71f5a7ebfb28e072d658523098c7032013e9f00fb3e8865ab1c5c1ca0ddb"
+    },
+    {
+      "id": "PG-049",
+      "masterPath": "assets/creatures/redesign-v2/generated/PG-049.png",
+      "masterSha256": "174d57f0eb2e8829052acc1ea4ed258cf1e3fa6c3d75dc53ec4ae6f550323afc",
+      "mobilePath": "assets/creatures/redesign-v2/mobile/PG-049.png",
+      "mobileSha256": "72ea9421ebd15423f858616fa86bf602a9a7a8041c1bdb4755b4f101b4ef0572"
+    },
+    {
+      "id": "PG-050",
+      "masterPath": "assets/creatures/redesign-v2/generated/PG-050.png",
+      "masterSha256": "f378b2439634b671323e0fc6c33c251b7f6d95043105d212b43d51fb6b68db9e",
+      "mobilePath": "assets/creatures/redesign-v2/mobile/PG-050.png",
+      "mobileSha256": "dbea295b759179ebe7f8e17db9ddbbb4e5f0fd6469924391dbadcc14fa3c7fcc"
+    },
+    {
+      "id": "PG-051",
+      "masterPath": "assets/creatures/redesign-v2/generated/PG-051.png",
+      "masterSha256": "995cb87816b0477fda3a89a079b91724947b111b2f522176ab47e9b663247f08",
+      "mobilePath": "assets/creatures/redesign-v2/mobile/PG-051.png",
+      "mobileSha256": "73462a9002b8137c3512298966684140243dd823f28af5888382c4c917453c6e"
+    },
+    {
+      "id": "PG-052",
+      "masterPath": "assets/creatures/redesign-v2/generated/PG-052.png",
+      "masterSha256": "04ac4fdac3e83411354cb14974883668321fa6bcbbdf32ef7ce8f411a5379f17",
+      "mobilePath": "assets/creatures/redesign-v2/mobile/PG-052.png",
+      "mobileSha256": "f571fe497b199063633ad44006f592feb7df03faa87bad8fdcc4d0e11f76fb84"
+    },
+    {
+      "id": "PG-053",
+      "masterPath": "assets/creatures/redesign-v2/generated/PG-053.png",
+      "masterSha256": "bce651afed16d758af5497126e507a7f6c33ea1d0708ea5a27fca6c44db99e91",
+      "mobilePath": "assets/creatures/redesign-v2/mobile/PG-053.png",
+      "mobileSha256": "deecac3cca4777781b72eca806e44da2d29b5e35434549913c9e96d7c19a8f81"
+    },
+    {
+      "id": "PG-054",
+      "masterPath": "assets/creatures/redesign-v2/generated/PG-054.png",
+      "masterSha256": "9909d99d036983b151192c985c7e01b04d98c6de513af003c92ec9350e297267",
+      "mobilePath": "assets/creatures/redesign-v2/mobile/PG-054.png",
+      "mobileSha256": "9ee833956839221ce7a51100a11f5f89fd7c00ad16b667848060c1a1a61bd8d3"
+    },
+    {
+      "id": "PG-055",
+      "masterPath": "assets/creatures/redesign-v2/generated/PG-055.png",
+      "masterSha256": "e8111483974fd1775ba649b19ae69112ff88d148ce97e56d11c8dac5963374a7",
+      "mobilePath": "assets/creatures/redesign-v2/mobile/PG-055.png",
+      "mobileSha256": "64a2afbd3e36eb77ca3dba4fd8855603ef204ff70c562137b5d0ad3fe78a6d81"
+    },
+    {
+      "id": "PG-056",
+      "masterPath": "assets/creatures/redesign-v2/generated/PG-056.png",
+      "masterSha256": "51803c12c2606b8c248e1372cb4956077fe27e752455b40a065feb9fbc106d74",
+      "mobilePath": "assets/creatures/redesign-v2/mobile/PG-056.png",
+      "mobileSha256": "b67a6f3385136ae9c06e4d9a2a1fdd1c08ac37e701d72a0700cfcc7d9bbb29cb"
+    },
+    {
+      "id": "PG-057",
+      "masterPath": "assets/creatures/redesign-v2/generated/PG-057.png",
+      "masterSha256": "a20eb95b7e8c56951d34b1850360fc8e92193e5f2a66f03f72964a277f277e9e",
+      "mobilePath": "assets/creatures/redesign-v2/mobile/PG-057.png",
+      "mobileSha256": "16f18d97e56ae9faf121c395bce6a687e45253ff86a6af9fc58487c7399dc346"
+    },
+    {
+      "id": "PG-058",
+      "masterPath": "assets/creatures/redesign-v2/generated/PG-058.png",
+      "masterSha256": "0672d017f5205ca089abf6d7e1b4984523f56253dec67845a572c2c4b3a491dc",
+      "mobilePath": "assets/creatures/redesign-v2/mobile/PG-058.png",
+      "mobileSha256": "0e9174f29e9049299ae98f8f94688e297fda502e79e07dbb711e3ce24b3490d7"
+    },
+    {
+      "id": "PG-059",
+      "masterPath": "assets/creatures/redesign-v2/generated/PG-059.png",
+      "masterSha256": "62f86eb9131975e902ea2a369605e99b57dbbd4c6e810dff95d758ef795c77e9",
+      "mobilePath": "assets/creatures/redesign-v2/mobile/PG-059.png",
+      "mobileSha256": "87708c0f1fab419f0207be746f8a3f62be1b2345848435a73831508ca53afb27"
+    },
+    {
+      "id": "PG-060",
+      "masterPath": "assets/creatures/redesign-v2/generated/PG-060.png",
+      "masterSha256": "67bdf363069178a88e489feb0acb43cfb597575be67171d3b5bbff4e12bf3a52",
+      "mobilePath": "assets/creatures/redesign-v2/mobile/PG-060.png",
+      "mobileSha256": "dbb76f906baba36726363393682a4286e68528deed75175a7bf11d8436bf2956"
+    },
+    {
+      "id": "PG-061",
+      "masterPath": "assets/creatures/redesign-v2/generated/PG-061.png",
+      "masterSha256": "fb6ac47ae7232d35dea2d07fec07ff15737301a093a05ae98398ec567ea24ebc",
+      "mobilePath": "assets/creatures/redesign-v2/mobile/PG-061.png",
+      "mobileSha256": "a9fe99f86514b7e0b08975fffb1bb264083696f9939100fbe68d3f5e669aa1d7"
+    },
+    {
+      "id": "PG-062",
+      "masterPath": "assets/creatures/redesign-v2/generated/PG-062.png",
+      "masterSha256": "f3a2db66642f028fb6f6737a0a5f707a30ad02e70396dc5218f6f64cbd6cbec1",
+      "mobilePath": "assets/creatures/redesign-v2/mobile/PG-062.png",
+      "mobileSha256": "4a0e935a3b2279e5bfd72b1f0cf0735b9f0b5266e4c225e0c98a309482469375"
+    },
+    {
+      "id": "PG-063",
+      "masterPath": "assets/creatures/redesign-v2/generated/PG-063.png",
+      "masterSha256": "485cb4999325db30553a60b3811abc50b57afa11fd7d033b87f09c96dd853ca9",
+      "mobilePath": "assets/creatures/redesign-v2/mobile/PG-063.png",
+      "mobileSha256": "bdf389637c945ed46f9b619db135d89a09cbb97471ab985a41c2a5420fdbd47c"
+    },
+    {
+      "id": "PG-064",
+      "masterPath": "assets/creatures/redesign-v2/generated/PG-064.png",
+      "masterSha256": "816acde501a4b24142c52c04ee1da3a2a4f1315aebf711a4e4fb5a166e284fbd",
+      "mobilePath": "assets/creatures/redesign-v2/mobile/PG-064.png",
+      "mobileSha256": "5fb11eb755733be969b3a057679787c01c483770ffea78b4428a99e9dca2787f"
+    },
+    {
+      "id": "PG-065",
+      "masterPath": "assets/creatures/redesign-v2/generated/PG-065.png",
+      "masterSha256": "04d771434dab20d030aee5b3d1d00f699562252b41c3dc76c57b6f81891a3fa8",
+      "mobilePath": "assets/creatures/redesign-v2/mobile/PG-065.png",
+      "mobileSha256": "d030ac2c45ee466dd4298e7fe3af6b375aabe9f2835e524e6842827f869a24e6"
+    },
+    {
+      "id": "PG-066",
+      "masterPath": "assets/creatures/redesign-v2/generated/PG-066.png",
+      "masterSha256": "5c1e689dfa30f0523279ebdc8dcf6ecb7295209a6d6288cf410c178cd06965a4",
+      "mobilePath": "assets/creatures/redesign-v2/mobile/PG-066.png",
+      "mobileSha256": "42959e20d59f06c439cfe0fe537a7d74937ce27468b817de6c07dfc28f5c3b0b"
+    },
+    {
+      "id": "PG-067",
+      "masterPath": "assets/creatures/redesign-v2/generated/PG-067.png",
+      "masterSha256": "d3d38cb4a61fd6519fb3dd32c64f323e4f6c3e219139f6df70ccf960af306fbd",
+      "mobilePath": "assets/creatures/redesign-v2/mobile/PG-067.png",
+      "mobileSha256": "ce6ffaa9e30889356363dd2dc4349d0c019fbd2b683eb5fd854ed49e6d99287f"
+    },
+    {
+      "id": "PG-068",
+      "masterPath": "assets/creatures/redesign-v2/generated/PG-068.png",
+      "masterSha256": "ef733aacf4a27422a8128b0aab12d4fd712a4341df8784f247c45786ac49f2f3",
+      "mobilePath": "assets/creatures/redesign-v2/mobile/PG-068.png",
+      "mobileSha256": "4a580ac4c37d96e4a5c3f9445757b05e5a36ee578f08cdac9b483cdc397c516f"
+    },
+    {
+      "id": "PG-069",
+      "masterPath": "assets/creatures/redesign-v2/generated/PG-069.png",
+      "masterSha256": "bce58233d4837704533fa8cca5e5458813189e5c85eab6691ca109f0abdb7309",
+      "mobilePath": "assets/creatures/redesign-v2/mobile/PG-069.png",
+      "mobileSha256": "00c8001b067fb68471034807e8122daf6c087e25280bc70f57f611d91ba2ca27"
+    },
+    {
+      "id": "PG-070",
+      "masterPath": "assets/creatures/redesign-v2/generated/PG-070.png",
+      "masterSha256": "59a4a5fbb3babcd6efe3e83c76c9a1f72e958c90187e58ddf39bf9900208c881",
+      "mobilePath": "assets/creatures/redesign-v2/mobile/PG-070.png",
+      "mobileSha256": "26b858add8b58835a229f6399ffd92453fbd96965f2e383ee5bdd616da10ed05"
+    },
+    {
+      "id": "PG-071",
+      "masterPath": "assets/creatures/redesign-v2/generated/PG-071.png",
+      "masterSha256": "48b4f77e1f64292c1290c8fad16a8c3a06fb91b85fe88ba9aecdb7d7b768be74",
+      "mobilePath": "assets/creatures/redesign-v2/mobile/PG-071.png",
+      "mobileSha256": "f363a577cb67b61c13d68aa69782f40db49e3c16928bb5eaa00f8f0d3efa06ac"
+    },
+    {
+      "id": "PG-072",
+      "masterPath": "assets/creatures/redesign-v2/generated/PG-072.png",
+      "masterSha256": "3d68f291f3cc7d979bbd3a0fcaaaaa211b6bc814ce1e907af4ac0cb1142e1251",
+      "mobilePath": "assets/creatures/redesign-v2/mobile/PG-072.png",
+      "mobileSha256": "67f445321a3a81f7e4bef0f2837391fcdcb30a0abf60b0769318c5c00708071a"
+    },
+    {
+      "id": "PG-073",
+      "masterPath": "assets/creatures/redesign-v2/generated/PG-073.png",
+      "masterSha256": "6c28e16f9f3f388e94abafe42686f2d1596d6472a6299003a709c10da56d4bbd",
+      "mobilePath": "assets/creatures/redesign-v2/mobile/PG-073.png",
+      "mobileSha256": "205d7a6135c9e0a37114477f7015e1717c3e1e959cafcd9ba061625450c1a0a9"
+    },
+    {
+      "id": "PG-074",
+      "masterPath": "assets/creatures/redesign-v2/generated/PG-074.png",
+      "masterSha256": "a0bc964f6269902e749ef86b944f99da0b5cf9d821baeaf118b0c12c3cc5f673",
+      "mobilePath": "assets/creatures/redesign-v2/mobile/PG-074.png",
+      "mobileSha256": "447676ffc96bed947d0818c8ce37ee50e1c65e3e29cc4eca0d3eebd8974b7717"
+    },
+    {
+      "id": "PG-075",
+      "masterPath": "assets/creatures/redesign-v2/generated/PG-075.png",
+      "masterSha256": "9bbc8ed2869b9aa9aade1b1d1f6dcadbb4094b76a760d74a4d2fd2140594ce40",
+      "mobilePath": "assets/creatures/redesign-v2/mobile/PG-075.png",
+      "mobileSha256": "ead7b386494ac23b42ac0857602d02e423fe2ed187ce7d902ed184012af36f26"
+    },
+    {
+      "id": "PG-076",
+      "masterPath": "assets/creatures/redesign-v2/generated/PG-076.png",
+      "masterSha256": "3f52498c3bb84c67dd34248e4930a40bdcaa074aae2431784c970496e4cbf099",
+      "mobilePath": "assets/creatures/redesign-v2/mobile/PG-076.png",
+      "mobileSha256": "9f26c63caa6331a9ec4133fc212ab8088e76253afd52d723adce86ed577daec1"
+    },
+    {
+      "id": "PG-077",
+      "masterPath": "assets/creatures/redesign-v2/generated/PG-077.png",
+      "masterSha256": "8adff66cbd706e595ca6a39b86199d7bb648e877c169da4c6d676d09df4e19f0",
+      "mobilePath": "assets/creatures/redesign-v2/mobile/PG-077.png",
+      "mobileSha256": "09c0dd5e8932e11b9a01fc6e2d6c98d0d08c49f2549bcad2c901f5619179d05a"
+    },
+    {
+      "id": "PG-078",
+      "masterPath": "assets/creatures/redesign-v2/generated/PG-078.png",
+      "masterSha256": "4960496b310d7c8536a2c1b27c7dbfe4475b9005bb060e09c220f8e779950c80",
+      "mobilePath": "assets/creatures/redesign-v2/mobile/PG-078.png",
+      "mobileSha256": "4e2e9864d7783cb0d1e7e568dddc12bf3de6f01926c7eb02bf1692b79147f8ff"
+    },
+    {
+      "id": "PG-079",
+      "masterPath": "assets/creatures/redesign-v2/generated/PG-079.png",
+      "masterSha256": "a91a92b2e48dfa154edfb7f73297729c721adbe0c65ff31774db19a43300af14",
+      "mobilePath": "assets/creatures/redesign-v2/mobile/PG-079.png",
+      "mobileSha256": "f85baecf5473d0a6f9aaf6f2fcf274cb4c8dfafe03d1525dc79fce5640b0a6d9"
+    },
+    {
+      "id": "PG-080",
+      "masterPath": "assets/creatures/redesign-v2/generated/PG-080.png",
+      "masterSha256": "c9742020477d8f35e71253108cdfc98c5f8ac6fea83f63cf6dde7aa12e422b78",
+      "mobilePath": "assets/creatures/redesign-v2/mobile/PG-080.png",
+      "mobileSha256": "12e44eba2bbaafc54635d23c5ef6c51573ae3bfeb2004af9ed3a2b89b83f97b6"
+    },
+    {
+      "id": "PG-081",
+      "masterPath": "assets/creatures/redesign-v2/generated/PG-081.png",
+      "masterSha256": "354370aff84df135ac85453c34f18b3480b1e5a3333670167b0bee510b530491",
+      "mobilePath": "assets/creatures/redesign-v2/mobile/PG-081.png",
+      "mobileSha256": "ae98ddf239402426595e930aeeea4a662159ab73be1014484e7f25a5ae671f43"
+    },
+    {
+      "id": "PG-082",
+      "masterPath": "assets/creatures/redesign-v2/generated/PG-082.png",
+      "masterSha256": "95c5de14440c4e17949abbb4a6563fadd9e788008cb70113700b3571d74b7fcf",
+      "mobilePath": "assets/creatures/redesign-v2/mobile/PG-082.png",
+      "mobileSha256": "323549e7f52c97c65e3cd1fb3038e62e3fc0b210d416edcdbdaeb48c5f31d1b4"
+    },
+    {
+      "id": "PG-083",
+      "masterPath": "assets/creatures/redesign-v2/generated/PG-083.png",
+      "masterSha256": "b7ab7abef0dcc83a257cebe4804525e83ec76ec02c0c7f7cef64a6125f4f8ae9",
+      "mobilePath": "assets/creatures/redesign-v2/mobile/PG-083.png",
+      "mobileSha256": "cf4f7c27c4f4debc86559b6e62e6bc4122e0840c5ef68038bc6a33293a0aaeae"
+    },
+    {
+      "id": "PG-084",
+      "masterPath": "assets/creatures/redesign-v2/generated/PG-084.png",
+      "masterSha256": "545b66d3a19656064896e0b96208582e8cea610d3b5435ae75dd6e13b263327f",
+      "mobilePath": "assets/creatures/redesign-v2/mobile/PG-084.png",
+      "mobileSha256": "8d27bbfdf5f06950d87914c67f4502288d8b5aca95bf85fe9b94ae47df36b20a"
+    },
+    {
+      "id": "PG-085",
+      "masterPath": "assets/creatures/redesign-v2/generated/PG-085.png",
+      "masterSha256": "0f2a191a34c515921e5510052f30b0e03ce497ea262fa699134e1a85f92fd44d",
+      "mobilePath": "assets/creatures/redesign-v2/mobile/PG-085.png",
+      "mobileSha256": "8a818a676b6c4861d9f965eac3e538efb8d1ab6a727ce2e61fc35ad90b413759"
+    },
+    {
+      "id": "PG-086",
+      "masterPath": "assets/creatures/redesign-v2/generated/PG-086.png",
+      "masterSha256": "bc8124f5d89e3b0267de98232d422697513551824841438a23cb69eb39d40be9",
+      "mobilePath": "assets/creatures/redesign-v2/mobile/PG-086.png",
+      "mobileSha256": "b34d090e7abb9ee5ff4549c24fa978f4ac449fa33a364db79e0ddc997d50aaa5"
+    },
+    {
+      "id": "PG-087",
+      "masterPath": "assets/creatures/redesign-v2/generated/PG-087.png",
+      "masterSha256": "59c68cd71bca5fca9686a724f2cd14d6de12aae7db22b0adfe9eeb61a322df37",
+      "mobilePath": "assets/creatures/redesign-v2/mobile/PG-087.png",
+      "mobileSha256": "aed1b29989f812257050914b925168157f8b1eafbccb60f43aa6021de1ff357a"
+    },
+    {
+      "id": "PG-088",
+      "masterPath": "assets/creatures/redesign-v2/generated/PG-088.png",
+      "masterSha256": "0daf25c9e5307e49d2a685d7506e4cd4e8e6a8d24bcceeb83cd054b2c64b45c0",
+      "mobilePath": "assets/creatures/redesign-v2/mobile/PG-088.png",
+      "mobileSha256": "2c2991a798bd4fdf36e5eaf803fb26d36a56213f12a9ca1f319d0710768b0dd8"
+    },
+    {
+      "id": "PG-089",
+      "masterPath": "assets/creatures/redesign-v2/generated/PG-089.png",
+      "masterSha256": "522468d5314ec766fdd47b7361b10938b5adc198dcdbd0b392fe879704cb7e3d",
+      "mobilePath": "assets/creatures/redesign-v2/mobile/PG-089.png",
+      "mobileSha256": "d5224667b289bf882385b5d2dc486d67cc4466820ebec9cd65201cb8ebb4c71c"
+    },
+    {
+      "id": "PG-090",
+      "masterPath": "assets/creatures/redesign-v2/generated/PG-090.png",
+      "masterSha256": "4a1febbab0800ceebaff840cfebc6ad7e3c28d9fd8e19318dc80be3546fffed9",
+      "mobilePath": "assets/creatures/redesign-v2/mobile/PG-090.png",
+      "mobileSha256": "cb52d7a46eb6bc3e32b3a4c23f7497c33ad30d631eeb19fac0fde37b43815db7"
+    },
+    {
+      "id": "PG-091",
+      "masterPath": "assets/creatures/redesign-v2/generated/PG-091.png",
+      "masterSha256": "8b1f20d8ed3f7c32f65032affe8618b64f8a96f1e35ff03193543531373c2fb7",
+      "mobilePath": "assets/creatures/redesign-v2/mobile/PG-091.png",
+      "mobileSha256": "f54c6fb7bb1e27f275a4da87403f7150fa114789eb04afbd91e9e9472baa756c"
+    },
+    {
+      "id": "PG-092",
+      "masterPath": "assets/creatures/redesign-v2/generated/PG-092.png",
+      "masterSha256": "6239885ffc552bbe7105a4504814898a168ac880407e76c71db9f326f88a7549",
+      "mobilePath": "assets/creatures/redesign-v2/mobile/PG-092.png",
+      "mobileSha256": "2117cfe97b8fbae8d54ce08c95ab4fff602377fb630f344ef892c916281828e1"
+    },
+    {
+      "id": "PG-093",
+      "masterPath": "assets/creatures/redesign-v2/generated/PG-093.png",
+      "masterSha256": "7a4323eb759e87d8574372193fc3f32fa57b9977c386af2320b97932be45cdc2",
+      "mobilePath": "assets/creatures/redesign-v2/mobile/PG-093.png",
+      "mobileSha256": "0f183eb0138833d69e4f0069495a32ffb973c31555d45bc0aad3aa25fc326c96"
+    },
+    {
+      "id": "PG-094",
+      "masterPath": "assets/creatures/redesign-v2/generated/PG-094.png",
+      "masterSha256": "9dc2e7f8b629966db15f5564e3180950b79ddc48465fbff10ab51a3b151c9b5c",
+      "mobilePath": "assets/creatures/redesign-v2/mobile/PG-094.png",
+      "mobileSha256": "028d5b24c6b89cd7e2b458db57b7d9206b74da0a9fc5d58e6d76c1f24981b910"
+    },
+    {
+      "id": "PG-095",
+      "masterPath": "assets/creatures/redesign-v2/generated/PG-095.png",
+      "masterSha256": "9238ed50e40951e04a901b67d008df32b6c007ec3d6081150ada67353d279699",
+      "mobilePath": "assets/creatures/redesign-v2/mobile/PG-095.png",
+      "mobileSha256": "f3aff0eedcdcc18c66849eb140f2b86e5149340ca19eb8e657f224f4df31e1c5"
+    },
+    {
+      "id": "PG-096",
+      "masterPath": "assets/creatures/redesign-v2/generated/PG-096.png",
+      "masterSha256": "5216b0c8c5e733073ae503523f9c09c017b2cdf7e3fc961272cbfdccef414b8d",
+      "mobilePath": "assets/creatures/redesign-v2/mobile/PG-096.png",
+      "mobileSha256": "c59cf234cdf924461c65baca4ed3f2cc9417cd3f2ef7936d4ddb6e566f333119"
+    },
+    {
+      "id": "PG-097",
+      "masterPath": "assets/creatures/redesign-v2/generated/PG-097.png",
+      "masterSha256": "782cce3936694cbfa3c2b5d1e38cf4624ee7ade6d8f4a0f5e38aa724621ab5d9",
+      "mobilePath": "assets/creatures/redesign-v2/mobile/PG-097.png",
+      "mobileSha256": "bd4b8d52578f844c7bda69131d0160dee4b46f235f414edd91f13706ee86430d"
+    },
+    {
+      "id": "PG-098",
+      "masterPath": "assets/creatures/redesign-v2/generated/PG-098.png",
+      "masterSha256": "3a09c2d72b79e52b83e13df1fc38f9d675d488f25714d17f9e5bf437bc6e7869",
+      "mobilePath": "assets/creatures/redesign-v2/mobile/PG-098.png",
+      "mobileSha256": "26160474f1c3c92c8c7da313688fb01767bdb9c44860a85efef70bb189fdec64"
+    },
+    {
+      "id": "PG-099",
+      "masterPath": "assets/creatures/redesign-v2/generated/PG-099.png",
+      "masterSha256": "4f5559ebf8dc8ebb33207aa6a48725561b41656a91c436e980ce5d9a69604073",
+      "mobilePath": "assets/creatures/redesign-v2/mobile/PG-099.png",
+      "mobileSha256": "7505688eed0993fe047c33ca45c89ea87499dff4aeca7ff7bee1cb83c0804e13"
+    },
+    {
+      "id": "PG-100",
+      "masterPath": "assets/creatures/redesign-v2/generated/PG-100.png",
+      "masterSha256": "7b29ea8d0d402617e2f61c3f39f16f0750ec201ed394322654b8bfef93b1590f",
+      "mobilePath": "assets/creatures/redesign-v2/mobile/PG-100.png",
+      "mobileSha256": "b7ed4ac0cdf7f5456a8b6230387f6750967736deaaf993e46b490677cf124a8a"
+    },
+    {
+      "id": "PG-101",
+      "masterPath": "assets/creatures/redesign-v2/generated/PG-101.png",
+      "masterSha256": "e01a0562ede75e93cebb710a28a3d34a3843b16b826fd5fdbb1a48c471d1ae18",
+      "mobilePath": "assets/creatures/redesign-v2/mobile/PG-101.png",
+      "mobileSha256": "99413c97d10d616377b70691d1203c8315b3b57ee798441e5d7ef01bb2bba721"
+    },
+    {
+      "id": "PG-102",
+      "masterPath": "assets/creatures/redesign-v2/generated/PG-102.png",
+      "masterSha256": "0af972a208b21c5dc578fe66f81a89bf0fc1f9956205271b6050972839b55c68",
+      "mobilePath": "assets/creatures/redesign-v2/mobile/PG-102.png",
+      "mobileSha256": "b78a45b4285d8893f1a572933d45e12939791763f77ca98ae89a3401623a1d96"
+    },
+    {
+      "id": "PG-103",
+      "masterPath": "assets/creatures/redesign-v2/generated/PG-103.png",
+      "masterSha256": "909ee230b11d0b0716d19ace1bf59b4c1002030fecf487898c9f08b62331851c",
+      "mobilePath": "assets/creatures/redesign-v2/mobile/PG-103.png",
+      "mobileSha256": "d0b421e81031cbe71da497be240977a703429d7ea8c8624c5a625c640869205f"
+    },
+    {
+      "id": "PG-104",
+      "masterPath": "assets/creatures/redesign-v2/generated/PG-104.png",
+      "masterSha256": "c026426ea4367753d1b741abf1dd913f06b2e501e4a0d58e3992596755c7c721",
+      "mobilePath": "assets/creatures/redesign-v2/mobile/PG-104.png",
+      "mobileSha256": "d1a7af4118ed98f738d42bae7ec71a0d3cdfe691d9e7ed663736d5567b3f4a4f"
+    },
+    {
+      "id": "PG-105",
+      "masterPath": "assets/creatures/redesign-v2/generated/PG-105.png",
+      "masterSha256": "ec688f2a5ee4e3a42a75e3346ba3feac98deaa3abfde2e6231bf552f52af60c3",
+      "mobilePath": "assets/creatures/redesign-v2/mobile/PG-105.png",
+      "mobileSha256": "13bc133d52a241c723cfd92da01d365e8f474a5dafdaf481696a306d2e47bca1"
+    },
+    {
+      "id": "PG-106",
+      "masterPath": "assets/creatures/redesign-v2/generated/PG-106.png",
+      "masterSha256": "e6e56cd741d9cf1a0c65605d6b0b24d7df6ca7681985594df0b4da163e9db45b",
+      "mobilePath": "assets/creatures/redesign-v2/mobile/PG-106.png",
+      "mobileSha256": "9ca3970602d7e54b4f18c784eac72bef43118c0277e04b0bb0eae12e0da01f41"
+    },
+    {
+      "id": "PG-107",
+      "masterPath": "assets/creatures/redesign-v2/generated/PG-107.png",
+      "masterSha256": "7ad7fa2cd9caf555ee6aba766b2049e120bc6073638d7838cccc33ce9e6f5417",
+      "mobilePath": "assets/creatures/redesign-v2/mobile/PG-107.png",
+      "mobileSha256": "744bc9c9fc476066992669c0e98f8c05d66a63f76cfeabf11913c68340e2891a"
+    },
+    {
+      "id": "PG-108",
+      "masterPath": "assets/creatures/redesign-v2/generated/PG-108.png",
+      "masterSha256": "c92742929d5f149eb5e3772b663bdcc9df7f88a153c07f4f408beda9d21262de",
+      "mobilePath": "assets/creatures/redesign-v2/mobile/PG-108.png",
+      "mobileSha256": "baadb3e079fc3bfbbb8543c44a31952ed3bd7e82410130e3954e4566cce36df1"
+    },
+    {
+      "id": "PG-109",
+      "masterPath": "assets/creatures/redesign-v2/generated/PG-109.png",
+      "masterSha256": "f114a71a7ac8cd58cb7d44d27b8f02f0352f5dd5317b4f5c9d791608a0d2bc9d",
+      "mobilePath": "assets/creatures/redesign-v2/mobile/PG-109.png",
+      "mobileSha256": "707f6da4a3756acee7e3ac7ce7d8a9b157942187daaa686bfff7fd6f20f4b066"
+    },
+    {
+      "id": "PG-110",
+      "masterPath": "assets/creatures/redesign-v2/generated/PG-110.png",
+      "masterSha256": "370cc3967a6fa989487ed523acbd2b39553c826957ec98a35e84d3fb2b7b55bb",
+      "mobilePath": "assets/creatures/redesign-v2/mobile/PG-110.png",
+      "mobileSha256": "04734161c51f8138e51e99e91ef31cc38487ec0b7c9b2d0903db1019c51db4a8"
+    },
+    {
+      "id": "PG-111",
+      "masterPath": "assets/creatures/redesign-v2/generated/PG-111.png",
+      "masterSha256": "f6d0e1595984a1e1d550b7ee1c3e3faf956e1769d85ff7f846e6f7feff18c73c",
+      "mobilePath": "assets/creatures/redesign-v2/mobile/PG-111.png",
+      "mobileSha256": "37757fd5bd13d82b1a2343164489e706dfe7d378e53b115900415180a8f52afc"
+    },
+    {
+      "id": "PG-112",
+      "masterPath": "assets/creatures/redesign-v2/generated/PG-112.png",
+      "masterSha256": "2e23eefd759ac469e8b86d129bc97f9e852d6118cb450c6aaedec6b45ce7ce3d",
+      "mobilePath": "assets/creatures/redesign-v2/mobile/PG-112.png",
+      "mobileSha256": "0945428e0a9bb1df503fa9daae112741475c2ee7b8f8bb1b94d6577a26720216"
+    },
+    {
+      "id": "PG-113",
+      "masterPath": "assets/creatures/redesign-v2/generated/PG-113.png",
+      "masterSha256": "4e851ad31c87905cc14a7ec35a94e6d349d5dbf89747e8f37f6747e6d8f3a42e",
+      "mobilePath": "assets/creatures/redesign-v2/mobile/PG-113.png",
+      "mobileSha256": "3ad678b4e6a241aa04cdf621a120f597724a38262ca0961a30989245753b8567"
+    },
+    {
+      "id": "PG-114",
+      "masterPath": "assets/creatures/redesign-v2/generated/PG-114.png",
+      "masterSha256": "3521146dbb74c968c0446ac43ebc7a47ee7621319b0e53902790427ff1c359c0",
+      "mobilePath": "assets/creatures/redesign-v2/mobile/PG-114.png",
+      "mobileSha256": "bbb961ff59a76baa3a042dbb6ac039d9fab0b66e0edfb3a0d816217804b26422"
+    },
+    {
+      "id": "PG-115",
+      "masterPath": "assets/creatures/redesign-v2/generated/PG-115.png",
+      "masterSha256": "b587f17727196dc2b1345b67ca1e3cce043d21e8ed06d5d977d79695976c25b0",
+      "mobilePath": "assets/creatures/redesign-v2/mobile/PG-115.png",
+      "mobileSha256": "c39c26b003b4c855a5a56055c1927ff61a15b71ea9a4fa3955da58ffedf2fbc3"
+    },
+    {
+      "id": "PG-116",
+      "masterPath": "assets/creatures/redesign-v2/generated/PG-116.png",
+      "masterSha256": "cca6d1230186a0a25bcc77ffc0d8a4b943a7500f86fcfa6b77ee1b13dbfe6413",
+      "mobilePath": "assets/creatures/redesign-v2/mobile/PG-116.png",
+      "mobileSha256": "f2214981aaaeb5bc867c13ddcedb0d95bc4881ebfcb34907cac3794323ebdeb6"
+    },
+    {
+      "id": "PG-117",
+      "masterPath": "assets/creatures/redesign-v2/generated/PG-117.png",
+      "masterSha256": "71c625722dac726cb150f55c07d8649a632fc6e0e65c8da7bd8661fae5681d5a",
+      "mobilePath": "assets/creatures/redesign-v2/mobile/PG-117.png",
+      "mobileSha256": "5be28f0b75de0f8f0915e14cec450beff772eaa92c8f714fad431acfe64657d5"
+    },
+    {
+      "id": "PG-118",
+      "masterPath": "assets/creatures/redesign-v2/generated/PG-118.png",
+      "masterSha256": "f721274d4800705ab0f9b4bfdcba2286ca2b4aceb2424bf7378526e113e7b70d",
+      "mobilePath": "assets/creatures/redesign-v2/mobile/PG-118.png",
+      "mobileSha256": "75640cb4a399075550985475f78e11121a119946e076364e4f8df5efe51a5cf1"
+    },
+    {
+      "id": "PG-119",
+      "masterPath": "assets/creatures/redesign-v2/generated/PG-119.png",
+      "masterSha256": "f3b2ae3ed17d50f4aefc51c9ed5f0b87a3d4dacab193688911122dbc3d507237",
+      "mobilePath": "assets/creatures/redesign-v2/mobile/PG-119.png",
+      "mobileSha256": "575f8ffb97a068ccc7c92978c1bc90919b3558a28059cb4764745d16a68412f6"
+    },
+    {
+      "id": "PG-120",
+      "masterPath": "assets/creatures/redesign-v2/generated/PG-120.png",
+      "masterSha256": "5dffe6cbd982ce0e4c90b7b2510e73ad8f05dac487c1faeb57f412005d513784",
+      "mobilePath": "assets/creatures/redesign-v2/mobile/PG-120.png",
+      "mobileSha256": "f03b54920f2efc634e9040e1f4f968e964b8cc421a8e29aeddfdabc0bb401d32"
+    },
+    {
+      "id": "PG-121",
+      "masterPath": "assets/creatures/redesign-v2/generated/PG-121.png",
+      "masterSha256": "6ca19e46767925e57e8f4b27014804b4a4a38b5151080cc97852ec14327ed0e0",
+      "mobilePath": "assets/creatures/redesign-v2/mobile/PG-121.png",
+      "mobileSha256": "f8768bca6f9a1c27b6ba2495f7a8c44f6272ef1d8e5384a9c3d76dd11eb228b1"
+    },
+    {
+      "id": "PG-122",
+      "masterPath": "assets/creatures/redesign-v2/generated/PG-122.png",
+      "masterSha256": "acaf342f2d2395ec12d2094cd2cdc3b171e79510f8ec1bea8152e560d5cc236e",
+      "mobilePath": "assets/creatures/redesign-v2/mobile/PG-122.png",
+      "mobileSha256": "f67c5caf9d38a23b74f673932ba75b61e0483f79a2eaab3e178b3be70113373c"
+    },
+    {
+      "id": "PG-123",
+      "masterPath": "assets/creatures/redesign-v2/generated/PG-123.png",
+      "masterSha256": "040842672fcd4ea3b14a048035f32cf50a01ccded625bf89fa95ea41297bbbb6",
+      "mobilePath": "assets/creatures/redesign-v2/mobile/PG-123.png",
+      "mobileSha256": "0ab09031f25830a1b71144b385eb4e00c761165de1396a51daeeb23bb41ad269"
+    },
+    {
+      "id": "PG-124",
+      "masterPath": "assets/creatures/redesign-v2/generated/PG-124.png",
+      "masterSha256": "596189007ba477076a954b7b58dee9e199dee90ec6d58688f1fccd1c258d3fb5",
+      "mobilePath": "assets/creatures/redesign-v2/mobile/PG-124.png",
+      "mobileSha256": "126bd37a469b2050eb1febb9bca82a73b82509fda42061125aa8e5b39e2138df"
+    },
+    {
+      "id": "PG-125",
+      "masterPath": "assets/creatures/redesign-v2/generated/PG-125.png",
+      "masterSha256": "6a3fd982791f21586c35eb66ab2b0b7b0ea69926bb541b525f5804a9d81833b6",
+      "mobilePath": "assets/creatures/redesign-v2/mobile/PG-125.png",
+      "mobileSha256": "4349c4afd55cb0dc04f211edd33711fbd6cd5484666df55fd131713be0e14d7e"
+    },
+    {
+      "id": "PG-126",
+      "masterPath": "assets/creatures/redesign-v2/generated/PG-126.png",
+      "masterSha256": "6bec8b400043672634b667f1243dd85b2246d40a47acfc9aaa6ebbe1fef20ca6",
+      "mobilePath": "assets/creatures/redesign-v2/mobile/PG-126.png",
+      "mobileSha256": "7b2f3757befcf95355534854a1dc9730b29a6d95d9d9e7b982f65fd8ff608284"
+    },
+    {
+      "id": "PG-127",
+      "masterPath": "assets/creatures/redesign-v2/generated/PG-127.png",
+      "masterSha256": "1dd3dee4b185722180353a28063e0bd806a8abffb46a411e52826967b05aa401",
+      "mobilePath": "assets/creatures/redesign-v2/mobile/PG-127.png",
+      "mobileSha256": "1c4f4a0cde499a9611bef4592212c3a80bc89f7a41bfd4ce6399b2bfede288ec"
+    },
+    {
+      "id": "PG-128",
+      "masterPath": "assets/creatures/redesign-v2/generated/PG-128.png",
+      "masterSha256": "49b219d7115f82e687cad7a4faab02a8d4bc8b98220d94626cd6cdeb964906df",
+      "mobilePath": "assets/creatures/redesign-v2/mobile/PG-128.png",
+      "mobileSha256": "c8658cfeff4baa303b6851d996d19739465ab6793939366c9ed513568f955792"
+    },
+    {
+      "id": "PG-129",
+      "masterPath": "assets/creatures/redesign-v2/generated/PG-129.png",
+      "masterSha256": "79fe9c2db353413a76ca6bbfc7637dc4d3db35f293aa794900e614afc22db49d",
+      "mobilePath": "assets/creatures/redesign-v2/mobile/PG-129.png",
+      "mobileSha256": "b10996a48bd46cd719dc65d7e19ec7cac515fbc3fcc17211b54eefde2d9a4e5e"
+    },
+    {
+      "id": "PG-130",
+      "masterPath": "assets/creatures/redesign-v2/generated/PG-130.png",
+      "masterSha256": "3e5162c9b19e2f1625af2274403f2e1ffd5248ac6a00bc63617812e159bcbdc0",
+      "mobilePath": "assets/creatures/redesign-v2/mobile/PG-130.png",
+      "mobileSha256": "2292164b697c4bf321dca477bdefa0dce95ea61e4adbe6b4d64295e9810e0d47"
+    },
+    {
+      "id": "PG-131",
+      "masterPath": "assets/creatures/redesign-v2/generated/PG-131.png",
+      "masterSha256": "c35f69ce69ac8dfe67d844f51555524ce4dbaa807b8a6d409b6d7feb6070e9ef",
+      "mobilePath": "assets/creatures/redesign-v2/mobile/PG-131.png",
+      "mobileSha256": "b414cbb0c3cb2bb5a48ca03753af439540fa9be77c97ed103c5a12d8732254cf"
+    },
+    {
+      "id": "PG-132",
+      "masterPath": "assets/creatures/redesign-v2/generated/PG-132.png",
+      "masterSha256": "9d766ec40b8b727319271326eaf50be2762362d783967a69eb37233ce6b8c883",
+      "mobilePath": "assets/creatures/redesign-v2/mobile/PG-132.png",
+      "mobileSha256": "0a70b01af4c088c301856e9932085fc27b1bdddbd919c3d5cf616caeaed4f093"
+    },
+    {
+      "id": "PG-133",
+      "masterPath": "assets/creatures/redesign-v2/generated/PG-133.png",
+      "masterSha256": "4b4013bb40199d22e60470f1720654cff325fe5e7b670b17806b2236d49ebbb0",
+      "mobilePath": "assets/creatures/redesign-v2/mobile/PG-133.png",
+      "mobileSha256": "c696a7e1bd77f48e66e6bc5cdf88c88e2d83846bb037b577f00400696493eeae"
+    },
+    {
+      "id": "PG-134",
+      "masterPath": "assets/creatures/redesign-v2/generated/PG-134.png",
+      "masterSha256": "8b0cc36ce8e9e2f52472cbfccd95d5f3fdb8d154e79c2d0774ef3443dfcbbabb",
+      "mobilePath": "assets/creatures/redesign-v2/mobile/PG-134.png",
+      "mobileSha256": "a4c888935fecd6195ff7e76753099fc76094ae3e08ae51898d1d263f27a3685b"
+    },
+    {
+      "id": "PG-135",
+      "masterPath": "assets/creatures/redesign-v2/generated/PG-135.png",
+      "masterSha256": "9e1b465aad89431824a1b8fdd51d6e485d398c0afbfcae7feaa0c5708b393ebd",
+      "mobilePath": "assets/creatures/redesign-v2/mobile/PG-135.png",
+      "mobileSha256": "2807a10e740946cd11d3b28968e857ceb760ac050df7a5e159f2d5b5c76727a4"
+    },
+    {
+      "id": "PG-136",
+      "masterPath": "assets/creatures/redesign-v2/generated/PG-136.png",
+      "masterSha256": "9b104e4a6642be9d9430d592c66ee4e319712c1975313a4797f5e7e20760a819",
+      "mobilePath": "assets/creatures/redesign-v2/mobile/PG-136.png",
+      "mobileSha256": "fe40c251687515d9452aedd361dfce849af1c3b844def42d92d7b2b38292705f"
+    },
+    {
+      "id": "PG-137",
+      "masterPath": "assets/creatures/redesign-v2/generated/PG-137.png",
+      "masterSha256": "a18d85adc119deae8aae1e9b4f3ea294e82b48e7c813a1e217d50e982df61d31",
+      "mobilePath": "assets/creatures/redesign-v2/mobile/PG-137.png",
+      "mobileSha256": "d5fcd733ab2a76b30cfc197504d033362eb5c7af4c9bd2600b5b08db85a5114d"
+    },
+    {
+      "id": "PG-138",
+      "masterPath": "assets/creatures/redesign-v2/generated/PG-138.png",
+      "masterSha256": "fab39b737337c6e55ad41df72d23337397916d350cc9bb7e78b5718cd4c2e650",
+      "mobilePath": "assets/creatures/redesign-v2/mobile/PG-138.png",
+      "mobileSha256": "3b82e529f72de08950ca2d606997057d6f5fbaa38babad8a73b4ded38cb2d9df"
+    },
+    {
+      "id": "PG-139",
+      "masterPath": "assets/creatures/redesign-v2/generated/PG-139.png",
+      "masterSha256": "69c7305fa0fe28c3faef86727846c7ebe2b2f65f1366f705aecf2d95555b1d4a",
+      "mobilePath": "assets/creatures/redesign-v2/mobile/PG-139.png",
+      "mobileSha256": "3bff75b1e57e29158ee1437727d9e94b2e599b8258bda7817c3a90a4ce56c9fe"
+    },
+    {
+      "id": "PG-140",
+      "masterPath": "assets/creatures/redesign-v2/generated/PG-140.png",
+      "masterSha256": "0c424e60fc491a366248690f8e8123ad59fb4eb849af53b5d07780cfa825d96d",
+      "mobilePath": "assets/creatures/redesign-v2/mobile/PG-140.png",
+      "mobileSha256": "f3de70356688b64224a43ecabe7918bf8ea704dbea5e24607843402c4385a4e9"
+    },
+    {
+      "id": "PG-141",
+      "masterPath": "assets/creatures/redesign-v2/generated/PG-141.png",
+      "masterSha256": "641875cc0a515ad9c631b3a37a401bd614ca8e6f3fa1e30add70f941b9574064",
+      "mobilePath": "assets/creatures/redesign-v2/mobile/PG-141.png",
+      "mobileSha256": "5bef8940afa91cea088b50f4dcd9c9ea2ef9efbe3e2e0c4e2d4b5d47914e99b6"
+    },
+    {
+      "id": "PG-142",
+      "masterPath": "assets/creatures/redesign-v2/generated/PG-142.png",
+      "masterSha256": "9a56f3fc676f32f47970e87c6652d51c0df7e49a6d6cfaf90d12fa61ab734ec1",
+      "mobilePath": "assets/creatures/redesign-v2/mobile/PG-142.png",
+      "mobileSha256": "efb8494828082879d8bd00db9411ead2ac0a5ddb3deab5e3f56b816cabe9380f"
+    },
+    {
+      "id": "PG-143",
+      "masterPath": "assets/creatures/redesign-v2/generated/PG-143.png",
+      "masterSha256": "07f73087793eec1a732471453b53f997a7e7f9d839e71eacf214588a1bbf622e",
+      "mobilePath": "assets/creatures/redesign-v2/mobile/PG-143.png",
+      "mobileSha256": "6f5fff1aa33a5e3560838654357354442c4051c808fd687472bc8cb1b4ac25d5"
+    },
+    {
+      "id": "PG-144",
+      "masterPath": "assets/creatures/redesign-v2/generated/PG-144.png",
+      "masterSha256": "38bb6063f3107cd93e937e5631df89ef934f6a6fd47c66ecb8d59f55d11748c6",
+      "mobilePath": "assets/creatures/redesign-v2/mobile/PG-144.png",
+      "mobileSha256": "1f7959793b4a23915124ad1104143c75f63a1808315c36597b1043449476aebc"
+    },
+    {
+      "id": "PG-145",
+      "masterPath": "assets/creatures/redesign-v2/generated/PG-145.png",
+      "masterSha256": "e3cf7dd05cdf3fa44566c05dd7e238c09e38170abb448ac0133f6d36e8baf951",
+      "mobilePath": "assets/creatures/redesign-v2/mobile/PG-145.png",
+      "mobileSha256": "422ec850543a29c2a5819b555c7300d51e13a85eae8570ce1f3c55e5fff9dcd8"
+    },
+    {
+      "id": "PG-146",
+      "masterPath": "assets/creatures/redesign-v2/generated/PG-146.png",
+      "masterSha256": "5f30077d10d5b9e457fd0ff6f4a1c725874f7375931a10ec24690960179fa9b4",
+      "mobilePath": "assets/creatures/redesign-v2/mobile/PG-146.png",
+      "mobileSha256": "37db91ab183016aa5367be0ad2e6ebebc56a4e49e1a462022c9afbcd9cdb7b13"
+    },
+    {
+      "id": "PG-147",
+      "masterPath": "assets/creatures/redesign-v2/generated/PG-147.png",
+      "masterSha256": "dbc02fc71246e383dfbceca407368d68e2376dbdffd86a7b7dc7c8dfa1690c55",
+      "mobilePath": "assets/creatures/redesign-v2/mobile/PG-147.png",
+      "mobileSha256": "9618aa4471f3654b6728c5710b7fb72aabac20e344c654f60f5e15ef0c6d8d5e"
+    },
+    {
+      "id": "PG-148",
+      "masterPath": "assets/creatures/redesign-v2/generated/PG-148.png",
+      "masterSha256": "63121ba2b56a87d5002be0e0ab94da4ed0992a52995b1d4ddabcff1b3d9a08e9",
+      "mobilePath": "assets/creatures/redesign-v2/mobile/PG-148.png",
+      "mobileSha256": "62f9adbe82face402907e985ca24d4aaec781d5f2d4345825c78fe435b964d6d"
+    },
+    {
+      "id": "PG-149",
+      "masterPath": "assets/creatures/redesign-v2/generated/PG-149.png",
+      "masterSha256": "94063fb7260f71715cfdbbdaab7d8578da3c5b0972b12f3467019ced5bd77bea",
+      "mobilePath": "assets/creatures/redesign-v2/mobile/PG-149.png",
+      "mobileSha256": "7a2332e77d2f5fca116cd0f2e433a7342222858c66901aab560e75b8facad3b8"
+    },
+    {
+      "id": "PG-150",
+      "masterPath": "assets/creatures/redesign-v2/generated/PG-150.png",
+      "masterSha256": "5b570dc34dbc70319da08fab521d7943f66a74e48eee3184be39a2416d1cb6de",
+      "mobilePath": "assets/creatures/redesign-v2/mobile/PG-150.png",
+      "mobileSha256": "d19ba0e4395c48d7eef041bc9b8b7676fa8cf346f4aee9a4ee5812765d976fa6"
+    },
+    {
+      "id": "PG-151",
+      "masterPath": "assets/creatures/redesign-v2/generated/PG-151.png",
+      "masterSha256": "1017be194d950fc4dee5d0a2befc4e04a706b960ca231b2ac0655c8a5ae94a12",
+      "mobilePath": "assets/creatures/redesign-v2/mobile/PG-151.png",
+      "mobileSha256": "f2c1df2b9631bbad4667db8b6f8456d4538e74f41b760ccf5609911f739e0b6e"
+    },
+    {
+      "id": "PG-152",
+      "masterPath": "assets/creatures/redesign-v2/generated/PG-152.png",
+      "masterSha256": "91523fadf61bee309c67f50b838b393d22e0182c1e527001e0d0141195adf382",
+      "mobilePath": "assets/creatures/redesign-v2/mobile/PG-152.png",
+      "mobileSha256": "54193d20f08f09b0db39f2ae3ac5971f0da620a4e2ab83c1024983beb3d397ea"
+    },
+    {
+      "id": "PG-153",
+      "masterPath": "assets/creatures/redesign-v2/generated/PG-153.png",
+      "masterSha256": "a40fee5f8aee16cdd0d5f35ad10b7ff770645e6f0c1c8def4e9c2e453b18f7e9",
+      "mobilePath": "assets/creatures/redesign-v2/mobile/PG-153.png",
+      "mobileSha256": "9840c2ca11ec8b91589d2227b85ac36dcab2633d92da25b409157091bcb11e6c"
+    },
+    {
+      "id": "PG-154",
+      "masterPath": "assets/creatures/redesign-v2/generated/PG-154.png",
+      "masterSha256": "ab4dabc8d4f2a6cb7148d79f773fd02c739671aefb50d2ea9f658d06b17791af",
+      "mobilePath": "assets/creatures/redesign-v2/mobile/PG-154.png",
+      "mobileSha256": "52b47f053532b9e1e160279127b6662410f3bf0abb3bde448937c9ae09ee0708"
+    },
+    {
+      "id": "PG-155",
+      "masterPath": "assets/creatures/redesign-v2/generated/PG-155.png",
+      "masterSha256": "fa04387afd611a52feab53305e74b32e27d322e92f59dd96cb55eb03c8e346c4",
+      "mobilePath": "assets/creatures/redesign-v2/mobile/PG-155.png",
+      "mobileSha256": "aa7f644d14095465ad1c4a6eef304263c037391799203d70d8a0d5d382221b2b"
+    },
+    {
+      "id": "PG-156",
+      "masterPath": "assets/creatures/redesign-v2/generated/PG-156.png",
+      "masterSha256": "8183377714b8f7b1d6ab27073cb85b7752b6c4f1181eaeabe81428efe173a54f",
+      "mobilePath": "assets/creatures/redesign-v2/mobile/PG-156.png",
+      "mobileSha256": "09babbd8b31c6fb989f44feb92e648c9b0aa04aad79022bcff181ad045eb19c6"
+    },
+    {
+      "id": "PG-157",
+      "masterPath": "assets/creatures/redesign-v2/generated/PG-157.png",
+      "masterSha256": "2d11fb34ec90a5da16907506750bd7c9c8b26429d2220d044740337f34bba800",
+      "mobilePath": "assets/creatures/redesign-v2/mobile/PG-157.png",
+      "mobileSha256": "c099a26eee9c5cbfa10189af1cf98bc1bbaf867a48f93a3f8039629744311654"
+    },
+    {
+      "id": "PG-158",
+      "masterPath": "assets/creatures/redesign-v2/generated/PG-158.png",
+      "masterSha256": "61fb67740eba3ec059fbe0d657019ee4fd9d77200629392f27354c579b25290f",
+      "mobilePath": "assets/creatures/redesign-v2/mobile/PG-158.png",
+      "mobileSha256": "41b0d4ce88d285f499effcce89143c4672bba94360cb724e45122a90ba2db4a9"
+    },
+    {
+      "id": "PG-159",
+      "masterPath": "assets/creatures/redesign-v2/generated/PG-159.png",
+      "masterSha256": "c6b3114d3b5e37b528e712f09f057864f78f16a94e1383a9fee4862ae893ff13",
+      "mobilePath": "assets/creatures/redesign-v2/mobile/PG-159.png",
+      "mobileSha256": "dbdbe2b0469465ab43d28e997d80aa238ce7d4888071e5001f0cb3e08ea53acc"
+    },
+    {
+      "id": "PG-160",
+      "masterPath": "assets/creatures/redesign-v2/generated/PG-160.png",
+      "masterSha256": "6266e428c570dfc74850ea5c3bfd349a85be7d6e24d3a2dc2029be2a2798da1f",
+      "mobilePath": "assets/creatures/redesign-v2/mobile/PG-160.png",
+      "mobileSha256": "cc7b8fcaedfd1c5927119b02d986512e70fb3b1cc2f6a5f2544ee182bfbd492a"
+    },
+    {
+      "id": "PG-161",
+      "masterPath": "assets/creatures/redesign-v2/generated/PG-161.png",
+      "masterSha256": "b0239f3d2f44d7c21fad810ca6414667600eb7279100a7fe673dac62b08164b8",
+      "mobilePath": "assets/creatures/redesign-v2/mobile/PG-161.png",
+      "mobileSha256": "4341ea7dd677af6053b9e1b0f71a937249b04737892152c1da971acc52d73a39"
+    },
+    {
+      "id": "PG-162",
+      "masterPath": "assets/creatures/redesign-v2/generated/PG-162.png",
+      "masterSha256": "4f4d561caac7c89890016a5ff59b99f67603c9af34b598c49ab67c1a2abcce70",
+      "mobilePath": "assets/creatures/redesign-v2/mobile/PG-162.png",
+      "mobileSha256": "0a1ffd459ef9fa45a27fb47390126aa401a9d5cfe7fc40b1c1e03f632043b614"
+    },
+    {
+      "id": "PG-163",
+      "masterPath": "assets/creatures/redesign-v2/generated/PG-163.png",
+      "masterSha256": "c4c5b3d7113e10f717225f8334a995a6d12c823f705e912561885ffcd5d492f2",
+      "mobilePath": "assets/creatures/redesign-v2/mobile/PG-163.png",
+      "mobileSha256": "efef4494115eb57c883a94749ecff0a89f97b799c505e8f1adfa897bbab345ae"
+    },
+    {
+      "id": "PG-164",
+      "masterPath": "assets/creatures/redesign-v2/generated/PG-164.png",
+      "masterSha256": "d9d7cde966373a546fcf87b7256bdb64e5a1c1d118d0e4a4d03555481ca7e7e0",
+      "mobilePath": "assets/creatures/redesign-v2/mobile/PG-164.png",
+      "mobileSha256": "3b868c10de451815cbb04107cbe721cd432b6022cbe780a053a52085d71f0871"
+    },
+    {
+      "id": "PG-165",
+      "masterPath": "assets/creatures/redesign-v2/generated/PG-165.png",
+      "masterSha256": "dc9a05e28c12e5afff5826473c58e8db8b86a5230fe83e1943db1852c7915297",
+      "mobilePath": "assets/creatures/redesign-v2/mobile/PG-165.png",
+      "mobileSha256": "a0922209cbfcdce3c70284454206b5d81fd6bf82f85087a64102b4c9eace005c"
+    },
+    {
+      "id": "PG-166",
+      "masterPath": "assets/creatures/redesign-v2/generated/PG-166.png",
+      "masterSha256": "affe495735f10f34b88fb6283082d0479cc44ee891c5ef26f7d58bbb26d068b8",
+      "mobilePath": "assets/creatures/redesign-v2/mobile/PG-166.png",
+      "mobileSha256": "c49969c050d44d6f243c6b9f2213bc9deff922ade980d7dc328be6512e908bae"
+    },
+    {
+      "id": "PG-167",
+      "masterPath": "assets/creatures/redesign-v2/generated/PG-167.png",
+      "masterSha256": "973a83370930e6191c0c4f7120dc74028b9940430ca0d65479f66d4770be9c8e",
+      "mobilePath": "assets/creatures/redesign-v2/mobile/PG-167.png",
+      "mobileSha256": "1b50b09ab71889f096a8c1ea04ba614ecf116576de8a32354514e64a1806b257"
+    },
+    {
+      "id": "PG-168",
+      "masterPath": "assets/creatures/redesign-v2/generated/PG-168.png",
+      "masterSha256": "f1e06e26895ac649e99396dcd728c3b1bacec565bc2fde1d174dcba25cd0bea1",
+      "mobilePath": "assets/creatures/redesign-v2/mobile/PG-168.png",
+      "mobileSha256": "a2067836947fcbbf2b208718e54b06e5d1273ac7c97982ebe9defa63dc557d05"
+    },
+    {
+      "id": "PG-169",
+      "masterPath": "assets/creatures/redesign-v2/generated/PG-169.png",
+      "masterSha256": "6d5bf34cd2989b2e1b8d19cb99886293e9b2d925a21a6697e53260cd1fbed371",
+      "mobilePath": "assets/creatures/redesign-v2/mobile/PG-169.png",
+      "mobileSha256": "85ac680d8554dbb935b269ef019bd0e0ea788e36628f935c319d2d9ef0d0a00f"
+    },
+    {
+      "id": "PG-170",
+      "masterPath": "assets/creatures/redesign-v2/generated/PG-170.png",
+      "masterSha256": "a112234fa15265e5d6331850878aba11c8246665982cdf6653c8e70b61d9bff0",
+      "mobilePath": "assets/creatures/redesign-v2/mobile/PG-170.png",
+      "mobileSha256": "974f39c315f63d1a8fbaf5968568ad57175ebd8735a23cdece14209502f804a3"
+    },
+    {
+      "id": "PG-171",
+      "masterPath": "assets/creatures/redesign-v2/generated/PG-171.png",
+      "masterSha256": "aa89bddb63ef37bb3749bd73aee2d45f98e29fd1fbddcf692a21e4e9598fb945",
+      "mobilePath": "assets/creatures/redesign-v2/mobile/PG-171.png",
+      "mobileSha256": "2bfccd0f124303c3a7173bdd7f5b605a2f758b71fb59cab1e1a26491648b0988"
+    },
+    {
+      "id": "PG-172",
+      "masterPath": "assets/creatures/redesign-v2/generated/PG-172.png",
+      "masterSha256": "af484efbd3778262438e8cb47aa923024672640fbe1fb538587777aa79a64378",
+      "mobilePath": "assets/creatures/redesign-v2/mobile/PG-172.png",
+      "mobileSha256": "d9ab566673c38a57d7bc2f79eaab2ca3e1dbf3ea7b59a684d42d9e701c7e43e3"
+    },
+    {
+      "id": "PG-173",
+      "masterPath": "assets/creatures/redesign-v2/generated/PG-173.png",
+      "masterSha256": "ac78724e7d8120ff73bbf996ba1b6786aea4937bde5eba3d0498032711b50de4",
+      "mobilePath": "assets/creatures/redesign-v2/mobile/PG-173.png",
+      "mobileSha256": "adef0c0586ec02c6dcd50d4f4675c4010a7d8e7334c60147ba56a2ac14708706"
+    },
+    {
+      "id": "PG-174",
+      "masterPath": "assets/creatures/redesign-v2/generated/PG-174.png",
+      "masterSha256": "92a8790695f219fa529518a6a0e40fd8a2271e0f0a9a6425722ffc042c85ba95",
+      "mobilePath": "assets/creatures/redesign-v2/mobile/PG-174.png",
+      "mobileSha256": "7888be41070b4d2d2574b3db08bf95ce08b4bc172b26ceb531eecbae7edd9532"
+    },
+    {
+      "id": "PG-175",
+      "masterPath": "assets/creatures/redesign-v2/generated/PG-175.png",
+      "masterSha256": "f78f88c0baace713437e2d4c1a582c56dcd1573c7cbbf4b0da1c32e573f42b89",
+      "mobilePath": "assets/creatures/redesign-v2/mobile/PG-175.png",
+      "mobileSha256": "fae60c250a1607656e879da9f6b2135aa6146de1ef721a000e92970d20bdd2b1"
+    },
+    {
+      "id": "PG-176",
+      "masterPath": "assets/creatures/redesign-v2/generated/PG-176.png",
+      "masterSha256": "037bb6138f0e4fc7112f853dce0a9a36d6178356a7e4827d3cc8847743a5b374",
+      "mobilePath": "assets/creatures/redesign-v2/mobile/PG-176.png",
+      "mobileSha256": "0ec32fe5c8839244bd6444643cc3a4cb5e07dcd11a1cbf8519fb571ffe73e29f"
+    },
+    {
+      "id": "PG-177",
+      "masterPath": "assets/creatures/redesign-v2/generated/PG-177.png",
+      "masterSha256": "d124f17ab2af4ee3ac3de96ec22c2eaa6e2c2be8fab5c083ed74009a810e73fa",
+      "mobilePath": "assets/creatures/redesign-v2/mobile/PG-177.png",
+      "mobileSha256": "b1cc80d2935fadf74d1dcddc3ef6b681e13da0949e51e9ad099cf951e3901eae"
+    },
+    {
+      "id": "PG-178",
+      "masterPath": "assets/creatures/redesign-v2/generated/PG-178.png",
+      "masterSha256": "d311eacd22cdcb01598f5e6ec0c69eb4c3381eacbe7bf2b45d952c39d905c5e2",
+      "mobilePath": "assets/creatures/redesign-v2/mobile/PG-178.png",
+      "mobileSha256": "2a184560489420d15693d51c81e19e592da25c6db53095bed94bd1be4ba28403"
+    },
+    {
+      "id": "PG-179",
+      "masterPath": "assets/creatures/redesign-v2/generated/PG-179.png",
+      "masterSha256": "d84b2adc1d525d481ce7e37b38b295c25ed5ccf803e49605bf9e3c0acfd4e430",
+      "mobilePath": "assets/creatures/redesign-v2/mobile/PG-179.png",
+      "mobileSha256": "2177d0eab22d8f897a61c163b5d0d99be4c83d1d6847c4f32bc3b4a8973307db"
+    },
+    {
+      "id": "PG-180",
+      "masterPath": "assets/creatures/redesign-v2/generated/PG-180.png",
+      "masterSha256": "0be0004ec96a55e454af7bfb8276defce886ce1209a057a308273ac160b00d52",
+      "mobilePath": "assets/creatures/redesign-v2/mobile/PG-180.png",
+      "mobileSha256": "71fb70beb934d7e7a3d71f28089769f277eaca1cd6d625cd0d64642fb6ae9351"
+    },
+    {
+      "id": "PG-181",
+      "masterPath": "assets/creatures/redesign-v2/generated/PG-181.png",
+      "masterSha256": "08915496d0b8f7c7498fb7d6baf8c19b34adbae83a666a8e473007cc2f366516",
+      "mobilePath": "assets/creatures/redesign-v2/mobile/PG-181.png",
+      "mobileSha256": "62fd62a9681a7f816e675c70aced5722d432a5b3d49c1cccc4ead8e60eb841db"
+    },
+    {
+      "id": "PG-182",
+      "masterPath": "assets/creatures/redesign-v2/generated/PG-182.png",
+      "masterSha256": "02de5d431fdd96a212ad72a720259a738ae31c7c530e78c482502562ba14ce02",
+      "mobilePath": "assets/creatures/redesign-v2/mobile/PG-182.png",
+      "mobileSha256": "70e03c3262acdb01c96aed9b6cf66e59596e999b8a44fed084475e6bf47c9c5b"
+    },
+    {
+      "id": "PG-183",
+      "masterPath": "assets/creatures/redesign-v2/generated/PG-183.png",
+      "masterSha256": "eee8cf9499e5cb0b7318527f398b554741409044729566149fa10b34f60e946a",
+      "mobilePath": "assets/creatures/redesign-v2/mobile/PG-183.png",
+      "mobileSha256": "707d63935dbf1c96d4098a97f0ffcc938829dc6c9de10dc06e4783226faf5bb7"
+    },
+    {
+      "id": "PG-184",
+      "masterPath": "assets/creatures/redesign-v2/generated/PG-184.png",
+      "masterSha256": "687994b46d59f87c472a6605d80d97dfaa12baf7edf99f6fc6714813c299e7c6",
+      "mobilePath": "assets/creatures/redesign-v2/mobile/PG-184.png",
+      "mobileSha256": "6486b246a9f7b3fb5d972eb01959edf828a833904568ddc582ad81e061661457"
+    },
+    {
+      "id": "PG-185",
+      "masterPath": "assets/creatures/redesign-v2/generated/PG-185.png",
+      "masterSha256": "4cb279687d7b3656279dbbc987851570d0666cf53ff61da041e272be191fb011",
+      "mobilePath": "assets/creatures/redesign-v2/mobile/PG-185.png",
+      "mobileSha256": "bb36a5bac528caa31bb43fbfef7d32eef57ba75c4b5524bb5ab987d9f6727688"
+    },
+    {
+      "id": "PG-186",
+      "masterPath": "assets/creatures/redesign-v2/generated/PG-186.png",
+      "masterSha256": "847db62b4297943cccf4f9d191139067e41e1e915a292a77fc9ed93603c259ef",
+      "mobilePath": "assets/creatures/redesign-v2/mobile/PG-186.png",
+      "mobileSha256": "5c12268b786c3c5408f9ad5ff857d1d6d6e53d0d9a6089b500452e8f7a005ca9"
+    },
+    {
+      "id": "PG-187",
+      "masterPath": "assets/creatures/redesign-v2/generated/PG-187.png",
+      "masterSha256": "881470e4d432390f8a42cd146265f4314bcb341e93c3f7a0c5d4465ef52357c0",
+      "mobilePath": "assets/creatures/redesign-v2/mobile/PG-187.png",
+      "mobileSha256": "73b211ddf2d1207c78111227bb5fdc2f1f5c4b869b79ba42b20b2552b3dcc337"
+    },
+    {
+      "id": "PG-188",
+      "masterPath": "assets/creatures/redesign-v2/generated/PG-188.png",
+      "masterSha256": "36edd81894b576032d322165fc397e37e3a82d57acaddebc5baf215523d705af",
+      "mobilePath": "assets/creatures/redesign-v2/mobile/PG-188.png",
+      "mobileSha256": "9949abe3047defe226ba42cdf925b82505f5e4dc8c8372577e3529ae1299cd97"
+    },
+    {
+      "id": "PG-189",
+      "masterPath": "assets/creatures/redesign-v2/generated/PG-189.png",
+      "masterSha256": "c7e29ff54d1a3734b9354763aa81be1a2959b0bf430171630d60f26b6de076ce",
+      "mobilePath": "assets/creatures/redesign-v2/mobile/PG-189.png",
+      "mobileSha256": "ee6214c367ea78f31ba6f24f74230bc0f2f9821287c99ddb1697bc9122f5ec03"
+    },
+    {
+      "id": "PG-190",
+      "masterPath": "assets/creatures/redesign-v2/generated/PG-190.png",
+      "masterSha256": "8f792027c08a620a1a073357476bdea72f5cd0dc451b3593313258a635672289",
+      "mobilePath": "assets/creatures/redesign-v2/mobile/PG-190.png",
+      "mobileSha256": "f7a14261750f829d2e40e810618bcbc16bd2f65a421ad6c483b2457a20139062"
+    },
+    {
+      "id": "PG-191",
+      "masterPath": "assets/creatures/redesign-v2/generated/PG-191.png",
+      "masterSha256": "49c17a406adb520850c7cddfae7d9679184b5ad52b0cf459fdddcaad14a7ea5c",
+      "mobilePath": "assets/creatures/redesign-v2/mobile/PG-191.png",
+      "mobileSha256": "57cf60280ee11bc7bb073484b91db7ef49e95fbc95bd7ac5b67bf3dcb1e5f828"
+    },
+    {
+      "id": "PG-192",
+      "masterPath": "assets/creatures/redesign-v2/generated/PG-192.png",
+      "masterSha256": "9ea9626a694629bcef96d933e76d1c86c4f1db5dad08511b67cd03e082dd8d47",
+      "mobilePath": "assets/creatures/redesign-v2/mobile/PG-192.png",
+      "mobileSha256": "1f63d719dbf7c4949c395275ebbc6ea98ae25a550225678bd790461b0ecc3389"
+    },
+    {
+      "id": "PG-193",
+      "masterPath": "assets/creatures/redesign-v2/generated/PG-193.png",
+      "masterSha256": "c729a418951f186cdbb21058ebfcc10c9227c5b2aa09bc6b99b9031672e626d3",
+      "mobilePath": "assets/creatures/redesign-v2/mobile/PG-193.png",
+      "mobileSha256": "c95dfa28b53ccf8730c81618b0c721defb6f59ce3cbe2d4c72a780d73cbaba68"
+    },
+    {
+      "id": "PG-194",
+      "masterPath": "assets/creatures/redesign-v2/generated/PG-194.png",
+      "masterSha256": "84756980b34e3dd42244fcf04f6a7f6117dc5ec388775a44624c08923d184f08",
+      "mobilePath": "assets/creatures/redesign-v2/mobile/PG-194.png",
+      "mobileSha256": "19e943a773b933508c1720876fd65842fbe7cce4c7a78a60eec010c4bd924dc8"
+    },
+    {
+      "id": "PG-195",
+      "masterPath": "assets/creatures/redesign-v2/generated/PG-195.png",
+      "masterSha256": "4b86caf1a74fcbae74acd105c1eb5a296151f58aa276299fed48ad9c25cd0d5c",
+      "mobilePath": "assets/creatures/redesign-v2/mobile/PG-195.png",
+      "mobileSha256": "f55ea43d3568063dcc8079ce1e5ddd9bda4cd7b2695c92ef3955ef32fca9fd1d"
+    },
+    {
+      "id": "PG-196",
+      "masterPath": "assets/creatures/redesign-v2/generated/PG-196.png",
+      "masterSha256": "288b40ce66358e751cf453a190ee60e5c7c4e1ed3fdba0bccaced6ce15690969",
+      "mobilePath": "assets/creatures/redesign-v2/mobile/PG-196.png",
+      "mobileSha256": "f7fab5a7818275019b31fd9afee8cce845ff97dbdb87a2959214782f4994e605"
+    },
+    {
+      "id": "PG-197",
+      "masterPath": "assets/creatures/redesign-v2/generated/PG-197.png",
+      "masterSha256": "bf0ea700fca100d85359a1df1aa0c7fd3fde707a95696d2cf9b8091df5410709",
+      "mobilePath": "assets/creatures/redesign-v2/mobile/PG-197.png",
+      "mobileSha256": "69a3eb70dba43947561bc1504c93f346109c2eb7748c68fcb9596f19502ae4e0"
+    },
+    {
+      "id": "PG-198",
+      "masterPath": "assets/creatures/redesign-v2/generated/PG-198.png",
+      "masterSha256": "090612e1648108937aacc945ed729268f33ce2e38a50ee98f3b8f56e5134ad2f",
+      "mobilePath": "assets/creatures/redesign-v2/mobile/PG-198.png",
+      "mobileSha256": "1b325a3604173b1efdb75b2b9e3abe69e5669c12fd335cd4f620a211c06b0f81"
+    },
+    {
+      "id": "PG-199",
+      "masterPath": "assets/creatures/redesign-v2/generated/PG-199.png",
+      "masterSha256": "54077955ad40349a7ff2c8e52238bb30b69e016a2a2495571f17695b7bf6e8b8",
+      "mobilePath": "assets/creatures/redesign-v2/mobile/PG-199.png",
+      "mobileSha256": "ba9added4b3a7451e937cb448b415e72774c014dec8bb5f6e47028acc1113ae5"
+    },
+    {
+      "id": "PG-200",
+      "masterPath": "assets/creatures/redesign-v2/generated/PG-200.png",
+      "masterSha256": "3816273992cfcac095d8cdda2add64212c85f6927887f2aa25097d00459eafdd",
+      "mobilePath": "assets/creatures/redesign-v2/mobile/PG-200.png",
+      "mobileSha256": "9e4696a72c9cf9473c54afe92623850e696c786e43875c4d580d76fbdc67912b"
+    },
+    {
+      "id": "PG-201",
+      "masterPath": "assets/creatures/redesign-v2/generated/PG-201.png",
+      "masterSha256": "8698059ba0274352657e72daef4c329b009dccdfa87d4e9c3fa3738fc7e98ad2",
+      "mobilePath": "assets/creatures/redesign-v2/mobile/PG-201.png",
+      "mobileSha256": "026ba3c53efc0ca21e8d0ccc7308eb11edf0bc62fca98562baf372cc312a1969"
+    },
+    {
+      "id": "PG-202",
+      "masterPath": "assets/creatures/redesign-v2/generated/PG-202.png",
+      "masterSha256": "9006a0ecba80bfad5d86ee75ea6c3193baa26b1b30d30f43ba2807a2f86f2114",
+      "mobilePath": "assets/creatures/redesign-v2/mobile/PG-202.png",
+      "mobileSha256": "0126debe0a3f3eb38ab574e3d402896c368be3802426135e1b89d825eaaa6a7a"
+    },
+    {
+      "id": "PG-203",
+      "masterPath": "assets/creatures/redesign-v2/generated/PG-203.png",
+      "masterSha256": "1e3e33280f64676060a5ff4ee63f72da4ede90ae199949298ee6e1e1aa755b1a",
+      "mobilePath": "assets/creatures/redesign-v2/mobile/PG-203.png",
+      "mobileSha256": "56364df371f7752f3c0879afc77cad05d90cd64a0136a0f80ab6d4d51ab224bc"
+    },
+    {
+      "id": "PG-204",
+      "masterPath": "assets/creatures/redesign-v2/generated/PG-204.png",
+      "masterSha256": "c62056a84a2fd365806985af36e2ce17d5d4b50f92815d30cda239525167097a",
+      "mobilePath": "assets/creatures/redesign-v2/mobile/PG-204.png",
+      "mobileSha256": "ff7c7d5b4ae2d1ab06a4142e42589f9e7010f429aa56a1d6535cd6b9388c7f5d"
+    },
+    {
+      "id": "PG-205",
+      "masterPath": "assets/creatures/redesign-v2/generated/PG-205.png",
+      "masterSha256": "6d4702ec00a48d714e207e6cca0fd3af69041b901ca28cc4bae810efc5028004",
+      "mobilePath": "assets/creatures/redesign-v2/mobile/PG-205.png",
+      "mobileSha256": "9e7f7de76e25489f6b21157ebc27ef7359d37b329387c16487cb98dd69fab6c8"
+    },
+    {
+      "id": "PG-206",
+      "masterPath": "assets/creatures/redesign-v2/generated/PG-206.png",
+      "masterSha256": "7ce56b3a8317bf67a5027eb2fe67b7413f2f0ffcf59225d5015de816bafbe1d4",
+      "mobilePath": "assets/creatures/redesign-v2/mobile/PG-206.png",
+      "mobileSha256": "3c6e1a9e5ad35b0f2fa76a8c964a5b3fe0991bea304cc987e164ab8346ccd458"
+    },
+    {
+      "id": "PG-207",
+      "masterPath": "assets/creatures/redesign-v2/generated/PG-207.png",
+      "masterSha256": "8ed2deac8e3d1f09a93bb16789190b1e734a5c2398eb83bfedd68ad40a542400",
+      "mobilePath": "assets/creatures/redesign-v2/mobile/PG-207.png",
+      "mobileSha256": "84ff0d69d6ff2cafbdeb4edadf2870a286fb5f91a31ee35bcdc2aa8c01557cd1"
+    },
+    {
+      "id": "PG-208",
+      "masterPath": "assets/creatures/redesign-v2/generated/PG-208.png",
+      "masterSha256": "a3bce345d335e0f47633e28591b0720e1ea615a01e1dcfdd1123f26829cc81ed",
+      "mobilePath": "assets/creatures/redesign-v2/mobile/PG-208.png",
+      "mobileSha256": "220a80bb556a9eb3ba80beeafb1006789338f9c4ca130324eda93b8c2a90f559"
+    },
+    {
+      "id": "PG-209",
+      "masterPath": "assets/creatures/redesign-v2/generated/PG-209.png",
+      "masterSha256": "e2b25eb5231ba1695d6f96ee4a046d2b5db33c33f5ce1774c4586550caea518f",
+      "mobilePath": "assets/creatures/redesign-v2/mobile/PG-209.png",
+      "mobileSha256": "60bc1e157b362d30cbb0529b1ac7335d81f86293bb19dd9c0281cee2cd82e0eb"
+    },
+    {
+      "id": "PG-210",
+      "masterPath": "assets/creatures/redesign-v2/generated/PG-210.png",
+      "masterSha256": "e6e112cb870320d5bb9ed4ca0a12543d8a46f4e6db7203ca1e6c2133db1fc16c",
+      "mobilePath": "assets/creatures/redesign-v2/mobile/PG-210.png",
+      "mobileSha256": "9b3c2f667bba308a6c506c7c4be96da617083593f112bba953115b10c47a8274"
+    },
+    {
+      "id": "PG-211",
+      "masterPath": "assets/creatures/redesign-v2/generated/PG-211.png",
+      "masterSha256": "3be3f55975550164dd3c4dac072702f565893597a8a9571817b8fd4377df6c3e",
+      "mobilePath": "assets/creatures/redesign-v2/mobile/PG-211.png",
+      "mobileSha256": "0b8cbc0240abe8f37f9449ce5024e3eca79ae0fa74d7afa0f1765511de7f82f0"
+    },
+    {
+      "id": "PG-212",
+      "masterPath": "assets/creatures/redesign-v2/generated/PG-212.png",
+      "masterSha256": "5c37156df5c981a01701f7c5481dd8c470dd324072b9205181230f8cdf08e637",
+      "mobilePath": "assets/creatures/redesign-v2/mobile/PG-212.png",
+      "mobileSha256": "c93fec977bb3f011996b09dbfa653aed15ed5b2add3b5e249c6b7c6f9842dd10"
+    },
+    {
+      "id": "PG-213",
+      "masterPath": "assets/creatures/redesign-v2/generated/PG-213.png",
+      "masterSha256": "5fc93958ac032ddc43b5ad171510f413a6c82ff071709ef19994106ee0ada734",
+      "mobilePath": "assets/creatures/redesign-v2/mobile/PG-213.png",
+      "mobileSha256": "58308093555397be73ea87b12519775ec26d67a8fd8bd8c2344f8095d1549eff"
+    },
+    {
+      "id": "PG-214",
+      "masterPath": "assets/creatures/redesign-v2/generated/PG-214.png",
+      "masterSha256": "91015e6ee9422bdf6b79f688525a94af8eb3f23acc1f9fceec8212d098930db7",
+      "mobilePath": "assets/creatures/redesign-v2/mobile/PG-214.png",
+      "mobileSha256": "1c65deae7a167ae56dcd2762dd0ba341d8db8a72eda004e28328634cea0a0ecd"
+    },
+    {
+      "id": "PG-215",
+      "masterPath": "assets/creatures/redesign-v2/generated/PG-215.png",
+      "masterSha256": "c898303926ab60f333729d828c9a4b298ff8736037256fa5c3cfbbf8199f82ef",
+      "mobilePath": "assets/creatures/redesign-v2/mobile/PG-215.png",
+      "mobileSha256": "f4fa60bc615ed949a453ba2ff3e683901f32a2576c8031f183df1f52ff5ead40"
+    },
+    {
+      "id": "PG-216",
+      "masterPath": "assets/creatures/redesign-v2/generated/PG-216.png",
+      "masterSha256": "a092cbbbfeea51b3960e1690638200eb8f7f03c5984a6b9a1486280219531b88",
+      "mobilePath": "assets/creatures/redesign-v2/mobile/PG-216.png",
+      "mobileSha256": "0b48c05708e73dc440a9a6463796db90dcc503df8147b4edfd65fbe67029b11f"
+    },
+    {
+      "id": "PG-217",
+      "masterPath": "assets/creatures/redesign-v2/generated/PG-217.png",
+      "masterSha256": "6447d371210103e00560346ffa66e82ffc8c88baff927e3c5fd446b803ad8dbd",
+      "mobilePath": "assets/creatures/redesign-v2/mobile/PG-217.png",
+      "mobileSha256": "cb461bcd9a696f67a8f4880c0c8c21d2b625d5d1cd201cc847ed1facf6d7635b"
+    },
+    {
+      "id": "PG-218",
+      "masterPath": "assets/creatures/redesign-v2/generated/PG-218.png",
+      "masterSha256": "14baf07c70e24b14241fbd71e1336783c02cc337c2708b97d384062b77be8b51",
+      "mobilePath": "assets/creatures/redesign-v2/mobile/PG-218.png",
+      "mobileSha256": "9229d65c6818b3a2a5d8cc3c6ab607ee9119c4af073da44037c4c8b3e3d84660"
+    },
+    {
+      "id": "PG-219",
+      "masterPath": "assets/creatures/redesign-v2/generated/PG-219.png",
+      "masterSha256": "ef6a2aa6537357d2f6c162733268b670d1dd3b5a5f28e98b1979c6b4b4d4a767",
+      "mobilePath": "assets/creatures/redesign-v2/mobile/PG-219.png",
+      "mobileSha256": "a14c1f67d82d809263acf9bb789a8884e2f4f05e04e18fca20dfdd982b5243ff"
+    },
+    {
+      "id": "PG-220",
+      "masterPath": "assets/creatures/redesign-v2/generated/PG-220.png",
+      "masterSha256": "cb013699ab8a3d365e88d1c124ac91dc5e12e440e824e9043cbdc5205c7902cb",
+      "mobilePath": "assets/creatures/redesign-v2/mobile/PG-220.png",
+      "mobileSha256": "bafba5b0638f9d37998f723b22a39d36913ac082347947d734236d3bd0e742ee"
+    },
+    {
+      "id": "PG-221",
+      "masterPath": "assets/creatures/redesign-v2/generated/PG-221.png",
+      "masterSha256": "b63da502b1f4ff4c69e245cbca7f0152b2a54e53ae6a30215b13e20d1ca84a26",
+      "mobilePath": "assets/creatures/redesign-v2/mobile/PG-221.png",
+      "mobileSha256": "e16d0e00c416faeba48ad491504674c4310e409cd3d5f0b2f42e14250eeb859c"
+    },
+    {
+      "id": "PG-222",
+      "masterPath": "assets/creatures/redesign-v2/generated/PG-222.png",
+      "masterSha256": "eb6151120c830ce466c0e2d844754a2a31898f936705364079deef85bc63b0ac",
+      "mobilePath": "assets/creatures/redesign-v2/mobile/PG-222.png",
+      "mobileSha256": "90335975620715c715ea3117ac7082ec053a0d7932a1dcc5fccf97ba7c8b982c"
+    },
+    {
+      "id": "PG-223",
+      "masterPath": "assets/creatures/redesign-v2/generated/PG-223.png",
+      "masterSha256": "4c69fec8fa3d3d3ccedd2907d4c53af2ef09f72fb1c6ab23c0cbf2526993b780",
+      "mobilePath": "assets/creatures/redesign-v2/mobile/PG-223.png",
+      "mobileSha256": "d45951cd618a8be5649debcd9d6a3b55e41cdabc7b57360c0a445b9fa92a73d3"
+    },
+    {
+      "id": "PG-224",
+      "masterPath": "assets/creatures/redesign-v2/generated/PG-224.png",
+      "masterSha256": "1da47160a0f9c6ed9688d96a72ebb5e9eb15e05d34fd0369b1d27bddcbf40f68",
+      "mobilePath": "assets/creatures/redesign-v2/mobile/PG-224.png",
+      "mobileSha256": "ff3314e8d07d326677bad765d0c59b07b4fe73756f4bea5d2d22b19073167630"
+    },
+    {
+      "id": "PG-225",
+      "masterPath": "assets/creatures/redesign-v2/generated/PG-225.png",
+      "masterSha256": "a108dd58af7e30db8ea21cf4a418d958d6256d2c607bbce998fe2ce4766af677",
+      "mobilePath": "assets/creatures/redesign-v2/mobile/PG-225.png",
+      "mobileSha256": "1a7b873e029d0580aa9844c437702c1fc0c9c49b1bc9b1db660eb11faea34050"
+    },
+    {
+      "id": "PG-226",
+      "masterPath": "assets/creatures/redesign-v2/generated/PG-226.png",
+      "masterSha256": "62e2e672b08a7c6cedb368fbd67920119e4abb9e74734f4bab6433b5e7f9c3fb",
+      "mobilePath": "assets/creatures/redesign-v2/mobile/PG-226.png",
+      "mobileSha256": "30a32d0d7c01b3259cf546b11421b92e540572d93ed8d6e94fd11af30f34e93b"
+    },
+    {
+      "id": "PG-227",
+      "masterPath": "assets/creatures/redesign-v2/generated/PG-227.png",
+      "masterSha256": "9e045a217e30029058d6748ec6f97b252d9695da1eb80194ca07455b5207055b",
+      "mobilePath": "assets/creatures/redesign-v2/mobile/PG-227.png",
+      "mobileSha256": "ca2a54c81fa7a9af143e86ad65ac57b314dc1f7eb7a53c02816749cfa4842429"
+    },
+    {
+      "id": "PG-228",
+      "masterPath": "assets/creatures/redesign-v2/generated/PG-228.png",
+      "masterSha256": "8bc82364713cc783b892fa37de5c0972f068e78932db53b835e2fd6e33169fac",
+      "mobilePath": "assets/creatures/redesign-v2/mobile/PG-228.png",
+      "mobileSha256": "e2d3b5f35fb87097f5977903c39dd8e1b435654fa85b604eccdedb07f7108052"
+    },
+    {
+      "id": "PG-229",
+      "masterPath": "assets/creatures/redesign-v2/generated/PG-229.png",
+      "masterSha256": "ece719e62b5f659c82529ee2b005e15e556882db829689af90e3c0cd61ea9ccc",
+      "mobilePath": "assets/creatures/redesign-v2/mobile/PG-229.png",
+      "mobileSha256": "b3ce7822db93ae3af6cc18afe037fba9eaca043f2c9ec08eb300e4abe5919334"
+    },
+    {
+      "id": "PG-230",
+      "masterPath": "assets/creatures/redesign-v2/generated/PG-230.png",
+      "masterSha256": "289ed935ba6ea419e120e0267555617f758b6af4602d4a9b1ef800403fdc2c7a",
+      "mobilePath": "assets/creatures/redesign-v2/mobile/PG-230.png",
+      "mobileSha256": "23bf32c2e477e4e172190ed263f8f1ea41bb85f7df7c5d980421c5a37251799c"
+    },
+    {
+      "id": "PG-231",
+      "masterPath": "assets/creatures/redesign-v2/generated/PG-231.png",
+      "masterSha256": "564819c283eb3eb04a789b485c8e5be0341f517a80457d046c83bdf9700d733e",
+      "mobilePath": "assets/creatures/redesign-v2/mobile/PG-231.png",
+      "mobileSha256": "c8d98a68e4332e189779f61d9367e478217d5d319d9abc0cbb56feeb316f7cfe"
+    },
+    {
+      "id": "PG-232",
+      "masterPath": "assets/creatures/redesign-v2/generated/PG-232.png",
+      "masterSha256": "701ae33c757853ffab85c57244cfe169f2aad97a0d233cca6d72085952d7e35c",
+      "mobilePath": "assets/creatures/redesign-v2/mobile/PG-232.png",
+      "mobileSha256": "8666fa372f239214743e7b2c422b6656bccad7450d576534b96892a4d730776b"
+    },
+    {
+      "id": "PG-233",
+      "masterPath": "assets/creatures/redesign-v2/generated/PG-233.png",
+      "masterSha256": "55f01605cf18c532b44e83a278d6dfc76126dd741664b1a44a88082c1b02c766",
+      "mobilePath": "assets/creatures/redesign-v2/mobile/PG-233.png",
+      "mobileSha256": "135e06f404c93380b7700538122e988521559ed2e1df3e93335215e5d7924516"
+    },
+    {
+      "id": "PG-234",
+      "masterPath": "assets/creatures/redesign-v2/generated/PG-234.png",
+      "masterSha256": "ce6386aba9f6a8896b77008ee01d4dda695fa99d11936d615515b8d224ba9abf",
+      "mobilePath": "assets/creatures/redesign-v2/mobile/PG-234.png",
+      "mobileSha256": "241465ef095719e400daf9c294e7f4eb15ad66607540b264a341ce84aaf00629"
+    },
+    {
+      "id": "PG-235",
+      "masterPath": "assets/creatures/redesign-v2/generated/PG-235.png",
+      "masterSha256": "be9e3d15a977d1c3c00e82713c99d55d7ba4f729c1375c0161e63b262902dec8",
+      "mobilePath": "assets/creatures/redesign-v2/mobile/PG-235.png",
+      "mobileSha256": "8204d0e79e38a180b0b1be58619bb6b477cd314258e58f330d6fbfb06590d1e7"
+    },
+    {
+      "id": "PG-236",
+      "masterPath": "assets/creatures/redesign-v2/generated/PG-236.png",
+      "masterSha256": "b2e9fbe3562bee41df0e989bc5720a70c824cde11f9a6a697dbc7eea16919f8b",
+      "mobilePath": "assets/creatures/redesign-v2/mobile/PG-236.png",
+      "mobileSha256": "9660ad0ae0a90ccd8e88554884f60ef8871ffb720ab6b7cc6b73fe177d231ca1"
+    },
+    {
+      "id": "PG-237",
+      "masterPath": "assets/creatures/redesign-v2/generated/PG-237.png",
+      "masterSha256": "76584defd2f03296d08717dc434c54aa7fdc11384d1b373259c01c7446b179a8",
+      "mobilePath": "assets/creatures/redesign-v2/mobile/PG-237.png",
+      "mobileSha256": "730bd98c0a788f9985c7943ea1d6fde8c83e25e062ae61f46c474b15a02aa6a2"
+    },
+    {
+      "id": "PG-238",
+      "masterPath": "assets/creatures/redesign-v2/generated/PG-238.png",
+      "masterSha256": "431b89e3ebd0d0d1080dcbcb97a826ddb7327c6e7570e666d724eeaac148f2af",
+      "mobilePath": "assets/creatures/redesign-v2/mobile/PG-238.png",
+      "mobileSha256": "f75e64f322a46fa1d02e61a3a4e03c16b7725b4839ed403dedbb1f0d930083c9"
+    },
+    {
+      "id": "PG-239",
+      "masterPath": "assets/creatures/redesign-v2/generated/PG-239.png",
+      "masterSha256": "f6d7a9a2c78207ff23dce220c6f3e8697ea8cbcaf528f385d44a4dd2e7a35ce7",
+      "mobilePath": "assets/creatures/redesign-v2/mobile/PG-239.png",
+      "mobileSha256": "8aa452cb0b897aa710705b25257a84e37479aca1beb6f847a20be6a93bc90238"
+    },
+    {
+      "id": "PG-240",
+      "masterPath": "assets/creatures/redesign-v2/generated/PG-240.png",
+      "masterSha256": "868138ac0c7ec90da2df98afb8c1be0ad047972b547d8b8dfa42bd99549869c0",
+      "mobilePath": "assets/creatures/redesign-v2/mobile/PG-240.png",
+      "mobileSha256": "a8a3f0c066d7c78cc25666679edf981ad87d11a5b43b0142da10d722fa046871"
+    }
+  ]
+}

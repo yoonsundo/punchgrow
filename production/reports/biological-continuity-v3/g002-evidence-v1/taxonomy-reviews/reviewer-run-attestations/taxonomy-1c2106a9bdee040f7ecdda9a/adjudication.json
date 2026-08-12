@@ -1,0 +1,23 @@
+{
+  "agentTaskId": "g002-taxonomy-adjudication-round2",
+  "assignmentId": "taxonomy-assignment-3dc8be1c1339c93321230d290bd2395b",
+  "assignmentManifestSha256": "d31ac99ab3f0066fc904d1756a0dfb28b7d3baf7acd01a3368026a35effc6900",
+  "blinded": true,
+  "conductorHmacSha256": "6edd7913772e198c1699c8b3c7870bea6fda8140c6cc906c8794140efc7486b1",
+  "createdAt": "2026-08-10T16:39:29.447Z",
+  "fresh": true,
+  "opaqueTaxonomyTargetId": "taxonomy-1c2106a9bdee040f7ecdda9a",
+  "outputSha256": "89cb11a4079488668486dc38ebd63dad52c439800b549a829eeafc061ffd4f3e",
+  "packageManifestSha256": "4235912f5f0ee09fe3fb2cd005e6ef964a62129b593a3b37e1bcf65150745065",
+  "passNumber": 3,
+  "publicSignature": {
+    "algorithm": "Ed25519",
+    "authorityFingerprint": "423f474c59667e5eabc13a703b8d7de4e97bcba33cdc22340873866db9d6a53f",
+    "signatureBase64": "FLJ/6ZS1cf10wZxpoRDjCaRRDA3eaRCK15sbN31obb4yvSTWWg9tHEmT5PMilHG2u3q57CFJjB3oATiEyxYzAg=="
+  },
+  "rawObservationSha256": "190526d928858c4f2b2e8c3e12662628bee0e8224451e7bb144a7486f91430d2",
+  "reviewerInstanceId": "taxonomy-adjudicator-independent-round2",
+  "role": "taxonomy-only-adjudicator",
+  "schemaVersion": "g002-taxonomy-review-run-attestation-v1",
+  "voterReviewRunId": "g002-taxonomy-run-adjudication-round2"
+}

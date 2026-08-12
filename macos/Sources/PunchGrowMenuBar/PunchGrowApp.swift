@@ -40,37 +40,7 @@ struct PunchGrowApp: App {
   @StateObject private var originReveal: OriginRevealCoordinator
   @StateObject private var mainNavigation: MainWindowNavigation
 
-#if DEBUG
-  /// Prints the live Claude reading that now drives the weekly bar.
-  ///
-  /// When the displayed percentage disagrees with the provider's own usage screen, the first
-  /// question is whether the endpoint reading arrived at all — an expired token or a blocked
-  /// Keychain prompt both leave the app silently showing the older cached file value.
-  private static func printClaudeQuotaAndExit() -> Never {
-    let box = ProviderQuotaBox()
-    let finished = DispatchSemaphore(value: 0)
-    Task.detached {
-      box.snapshot = await ClaudeUsageAPIClient().fetchWeeklyQuota()
-      finished.signal()
-    }
-    _ = finished.wait(timeout: .now() + ClaudeUsageAPIClient.defaultTimeout + 2)
-
-    guard let snapshot = box.snapshot else {
-      FileHandle.standardError.write(Data("claude live quota: unavailable\n".utf8))
-      exit(EXIT_FAILURE)
-    }
-    let resets = snapshot.resetsAt.map(ISO8601DateFormatter().string(from:)) ?? "unknown"
-    print("claude live quota: \(snapshot.usedPercent)% (resets \(resets))")
-    exit(EXIT_SUCCESS)
-  }
-#endif
-
   init() {
-#if DEBUG
-    if CommandLine.arguments.contains("--print-claude-quota") {
-      Self.printClaudeQuotaAndExit()
-    }
-#endif
     let integrationStatus = IntegrationStatusProjection()
     let store: GameStore
 #if DEBUG
@@ -110,6 +80,8 @@ struct PunchGrowApp: App {
             )
           case .menuBarHUD:
             try MenuPopoverSnapshotRenderer.renderMenuBarHUD(to: snapshotRequest.outputURL)
+          case .grantToast:
+            try MenuPopoverSnapshotRenderer.renderGrantToast(to: snapshotRequest.outputURL)
           }
         }
         DispatchQueue.main.async {
@@ -147,6 +119,7 @@ struct PunchGrowApp: App {
       onSnapshot: { _ in .duplicate }
     )
     let localUsage = LocalUsageService(
+      cacheRefresher: ClaudeUsageCacheRefresher(),
       onObservedTotals: { [weak store] total, weekly, breakdown, quotas in
         store?.updateObservedLocalUsage(
           total: total, weekly: weekly, weeklyBreakdown: breakdown,

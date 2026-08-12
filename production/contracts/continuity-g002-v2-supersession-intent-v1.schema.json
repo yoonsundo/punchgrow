@@ -1,0 +1,21 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://punchgrow.local/contracts/continuity-g002-v2-supersession-intent-v1.schema.json",
+  "title": "Canonical cross-authority G002-v2 supersession intent",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schemaVersion", "contractKind", "authorityTransition", "predecessor", "rootDirectives", "obligationScope", "assignmentV3"],
+  "properties": {
+    "schemaVersion": { "const": "continuity-g002-v2-supersession-v1" },
+    "contractKind": { "const": "CROSS_AUTHORITY_SUCCESSOR" },
+    "authorityTransition": { "const": { "predecessorImmutable": true, "nativeG002V3": false, "nativeG002SignatureClaim": false } },
+    "predecessor": { "type": "object" },
+    "rootDirectives": { "type": "array", "minItems": 2, "maxItems": 2 },
+    "obligationScope": { "$ref": "continuity-signed-obligation-scope-v1.schema.json" },
+    "assignmentV3": { "$ref": "#/$defs/assignmentV3Binding" }
+  },
+  "$defs": {
+    "sha256": { "type": "string", "pattern": "^[a-f0-9]{64}$" },
+    "assignmentV3Binding": { "type": "object", "additionalProperties": false, "required": ["fixedPath", "schemaSha256", "coreSha256"], "properties": { "fixedPath": { "const": "production/reports/biological-continuity-v3/continuity-authority/continuity-assignment-v3.json" }, "schemaSha256": { "$ref": "#/$defs/sha256" }, "coreSha256": { "$ref": "#/$defs/sha256" } } }
+  }
+}

@@ -186,13 +186,22 @@ struct EvolutionDexEntry: Equatable, Identifiable {
   let parentNames: [String]
   let isCurrent: Bool
   let isDiscovered: Bool
-  /// 이 개체가 예약해 둔 진화 대상인지. 규칙이 고르는 경로가 아니라 개체의 선호
-  /// 필드에서 직접 파생하므로 선호를 지정하지 않으면 어떤 항목도 참이 아니다.
-  let isPreferredTarget: Bool
-  /// 지금 이 개체의 선호 대상으로 지정할 수 있는지. 변이는 항상 거짓이다.
-  let canBecomePreferredTarget: Bool
+  /// 선택한 개체가 실제로 거쳐 온 모습인지. 계정 전체 발견 여부와 분리해야 다른 개체로
+  /// 발견한 미래 단계나 선택하지 않은 같은 단계 분기가 이 개체의 보유 모습으로 열리지 않는다.
+  let isFormOwned: Bool
+  /// 이 종으로 실제 보유 중인 개체. 도감은 종 단위 카드라 보유 여부가 드러나지 않는데,
+  /// 재도전·계승으로 같은 계보의 다른 종을 여러 마리 갖게 되면 그중 무엇을 갖고 있는지가
+  /// 곧 "지금 볼 수 있는 개체"의 목록이 된다. 보유하지 않은 종이면 nil이다.
+  let ownedCreatureID: UUID?
 
   var id: String { species.id }
+
+  /// 현재 모습은 이미 메인에 떠 있으므로, 실제로 거쳐 온 과거 모습만 미리보기로 연다.
+  var canPreviewForm: Bool { isFormOwned && !isCurrent }
+
+  /// 지금 보고 있는 개체 말고 같은 종인 별도 개체도 갖고 있는지. 개체별 과거 모습 보유와는
+  /// 다른 정보라, 카드 잠금은 이 값이 아니라 `isFormOwned`만 사용한다.
+  var isOwnedApartFromCurrent: Bool { ownedCreatureID != nil && !isCurrent }
 
   var isMutation: Bool { species.category == "mutant" }
 
@@ -205,6 +214,26 @@ struct EvolutionDexEntry: Equatable, Identifiable {
     let discovery = isDiscovered ? "발견" : "미발견"
     guard !parentNames.isEmpty else { return discovery }
     return "← \(parentNames.joined(separator: " + ")) · \(discovery)"
+  }
+}
+
+/// 진화 도감의 미리보기는 어느 개체에서 시작됐는지까지 묶어 둔다. 개체를 옆으로 이동한
+/// 직후 SwiftUI 상태 정리가 한 프레임 늦더라도 이전 개체의 이름·등급·이미지가 섞이지 않는다.
+struct CreaturePreviewSelection: Equatable {
+  let creatureID: UUID
+  let speciesID: String
+
+  func species(for currentCreature: OwnedCreature?, in catalog: [CreatureSpecies])
+    -> CreatureSpecies?
+  {
+    guard let currentCreature,
+          currentCreature.id == creatureID,
+          GameEngine.reachedEvolutionSpeciesIDs(
+            for: currentCreature,
+            catalog: catalog
+          ).contains(speciesID)
+    else { return nil }
+    return catalog.first { $0.id == speciesID }
   }
 }
 
@@ -267,6 +296,10 @@ struct EvolutionPotentialPresentation: Equatable {
 
 struct EvolutionDexPresentation: Equatable {
   static let noMutationNotice = "이 계열에는 변이형이 없습니다"
+  static let standaloneFusionNotice =
+    "혼합형은 일반 진화 계보 밖의 융합 수집품입니다. 현재 모습만 표시합니다."
+  static let unresolvedLineageNotice =
+    "저장된 계보를 안전하게 확인할 수 없어 현재 모습만 표시합니다."
 
   let creatureID: UUID
   let rootSpecies: CreatureSpecies
@@ -275,13 +308,19 @@ struct EvolutionDexPresentation: Equatable {
   let stages: [EvolutionDexStage]
   let potential: EvolutionPotentialPresentation
   let lineageHasMutation: Bool
+  let lineageNotice: String?
 
-  var mutationLineageNotice: String? { lineageHasMutation ? nil : Self.noMutationNotice }
+  var mutationLineageNotice: String? {
+    lineageNotice == nil && !lineageHasMutation ? Self.noMutationNotice : nil
+  }
+
+  var isStandalone: Bool { lineageNotice != nil }
 
   static func make(
     creature: OwnedCreature?,
     catalog: [CreatureSpecies],
-    discoveredSpeciesIDs: Set<String>
+    discoveredSpeciesIDs: Set<String>,
+    ownedCreatures: [OwnedCreature] = []
   ) -> Self? {
     guard let creature,
           let currentSpecies = catalog.first(where: { $0.id == creature.speciesID })
@@ -289,29 +328,75 @@ struct EvolutionDexPresentation: Equatable {
 
     guard let potential = EvolutionPotentialPresentation.make(for: creature, catalog: catalog)
     else { return nil }
-    let rootID = GameEngine.originSpeciesID(for: creature, catalog: catalog)
-    let rootSpecies = catalog.first(where: { $0.id == rootID }) ?? currentSpecies
-    var reachableByStage: [Int: [CreatureSpecies]] = [rootSpecies.stage: [rootSpecies]]
-    var frontier = [rootSpecies]
-    var visited: Set<String> = [rootSpecies.id]
 
-    while !frontier.isEmpty {
-      var nextByID: [String: CreatureSpecies] = [:]
-      for parent in frontier {
-        for candidate in EvolutionCatalog.candidates(after: parent, in: catalog) {
-          guard visited.insert(candidate.id).inserted else { continue }
-          nextByID[candidate.id] = candidate
-        }
-      }
-      let next = nextByID.values.sorted { $0.id < $1.id }
-      for species in next {
-        reachableByStage[species.stage, default: []].append(species)
-      }
-      frontier = next
+    func standalonePresentation(
+      notice: String,
+      potential: EvolutionPotentialPresentation
+    ) -> Self {
+      let currentEntry = EvolutionDexEntry(
+        species: currentSpecies,
+        parentNames: [],
+        isCurrent: true,
+        isDiscovered: true,
+        isFormOwned: true,
+        ownedCreatureID: ownedCreatures.first(where: { $0.id == creature.id })?.id
+      )
+      return Self(
+        creatureID: creature.id,
+        rootSpecies: currentSpecies,
+        currentSpecies: currentSpecies,
+        currentLevel: creature.level,
+        stages: [EvolutionDexStage(
+          stage: currentSpecies.stage,
+          requiredLevel: EvolutionCatalog.requiredLevel(for: currentSpecies.stage),
+          entries: [currentEntry]
+        )],
+        potential: potential,
+        lineageHasMutation: false,
+        lineageNotice: notice
+      )
     }
 
-    let preferenceTargetIDs = GameEngine.selectablePreferenceTargetIDs(
-      for: creature, catalog: catalog)
+    if currentSpecies.category == EvolutionCatalog.mixedCategory {
+      return standalonePresentation(notice: Self.standaloneFusionNotice, potential: potential)
+    }
+
+    let rootID = GameEngine.originSpeciesID(for: creature, catalog: catalog)
+    let rootSpecies = catalog.first(where: { $0.id == rootID }) ?? currentSpecies
+    let reachedFormIDs = GameEngine.reachedEvolutionSpeciesIDs(for: creature, catalog: catalog)
+    guard rootSpecies.stage == 1,
+          rootSpecies.category == "start",
+          reachedFormIDs.contains(rootSpecies.id)
+    else {
+      let currentOnlyPotential = EvolutionPotentialPresentation(
+        currentSpecies: currentSpecies,
+        finalSpecies: currentSpecies,
+        path: [currentSpecies],
+        guaranteedRarity: currentSpecies.rarity
+      )
+      return standalonePresentation(
+        notice: Self.unresolvedLineageNotice,
+        potential: currentOnlyPotential
+      )
+    }
+    // 도감이 그리는 범위와 표시 모습으로 고를 수 있는 범위는 같은 계산이어야 한다. 각자
+    // 순회하면 한쪽에만 조건이 붙는 날 조용히 어긋난다.
+    let lineageIDs = GameEngine.lineageSpeciesIDs(forOrigin: rootSpecies.id, catalog: catalog)
+    let reachableByStage = Dictionary(
+      grouping: catalog.filter { lineageIDs.contains($0.id) }.sorted { $0.id < $1.id },
+      by: \.stage)
+
+    // 같은 종을 여러 마리 보유할 수 있으므로 한 마리로 좁힌다. 보고 있는 개체를 우선하면
+    // 그 카드가 "현재"와 어긋나지 않고, 나머지는 먼저 얻은 개체를 골라 목록이 요동치지 않는다.
+    func selectionKey(_ owned: OwnedCreature) -> (Int, Date, UUID) {
+      (owned.id == creature.id ? 0 : 1, owned.acquiredAt, owned.id)
+    }
+    let ownedIDBySpecies = Dictionary(
+      ownedCreatures
+        .sorted { selectionKey($0) < selectionKey($1) }
+        .map { ($0.speciesID, $0.id) },
+      uniquingKeysWith: { first, _ in first }
+    )
 
     let stages = reachableByStage.keys.sorted().map { stage in
       EvolutionDexStage(
@@ -322,9 +407,10 @@ struct EvolutionDexPresentation: Equatable {
             species: species,
             parentNames: EvolutionCatalog.parents(of: species, in: catalog).map(\.koName),
             isCurrent: species.id == currentSpecies.id,
-            isDiscovered: discoveredSpeciesIDs.contains(species.id),
-            isPreferredTarget: species.id == creature.preferredEvolutionTargetSpeciesID,
-            canBecomePreferredTarget: preferenceTargetIDs.contains(species.id)
+            isDiscovered: discoveredSpeciesIDs.contains(species.id)
+              || reachedFormIDs.contains(species.id),
+            isFormOwned: reachedFormIDs.contains(species.id),
+            ownedCreatureID: ownedIDBySpecies[species.id]
           )
         }
       )
@@ -337,7 +423,8 @@ struct EvolutionDexPresentation: Equatable {
       currentLevel: creature.level,
       stages: stages,
       potential: potential,
-      lineageHasMutation: stages.flatMap(\.entries).contains(where: \.isMutation)
+      lineageHasMutation: stages.flatMap(\.entries).contains(where: \.isMutation),
+      lineageNotice: nil
     )
   }
 }
@@ -347,28 +434,22 @@ struct EvolutionDexPresentation: Equatable {
 struct PendingEvolutionBadgePresentation: Equatable {
   let waitingCount: Int
   let creatureID: UUID?
-  let confirmsReservedTerminalTarget: Bool
 
   init(choices: [PendingEvolutionChoice]) {
     waitingCount = choices.count
     creatureID = choices.first?.creatureID
-    confirmsReservedTerminalTarget = choices.first?.confirmsReservedTerminalTarget ?? false
   }
 
   var isVisible: Bool { waitingCount > 0 }
 
   var label: String {
     if waitingCount > 1 { return "진화 선택 대기 \(waitingCount)마리" }
-    return confirmsReservedTerminalTarget ? "종착 진화 확인 대기" : "진화 선택 대기"
+    return "진화 선택 대기"
   }
 
   var hint: String { "눌러서 확인" }
 
-  var helpText: String {
-    confirmsReservedTerminalTarget
-      ? "예약해 둔 종착 진화를 확인합니다"
-      : "갈림길에서 멈춘 크리처의 진화 방향을 고릅니다"
-  }
+  var helpText: String { "갈림길에서 멈춘 크리처의 진화 방향을 고릅니다" }
 }
 
 struct EvolutionChoiceCard: Equatable, Identifiable {
@@ -397,20 +478,9 @@ struct EvolutionChoicePresentation: Equatable {
   let creatureID: UUID
   let fromSpecies: CreatureSpecies
   let cards: [EvolutionChoiceCard]
-  /// 예약해 둔 종착 대상을 진화 직전에 확인받는 모드인지.
-  let reservedTargetID: String?
 
-  var confirmsReservedTerminalTarget: Bool { reservedTargetID != nil }
-  var title: String { confirmsReservedTerminalTarget ? "예약한 종착 진화 확인" : "진화 방향 선택" }
-  var subtitle: String {
-    confirmsReservedTerminalTarget
-      ? "\(fromSpecies.koName)이(가) 예약해 둔 모습으로 진화합니다. 되돌릴 수 없습니다."
-      : "\(fromSpecies.koName)의 다음 모습을 고르세요. 되돌릴 수 없습니다."
-  }
-  var reservedCard: EvolutionChoiceCard? {
-    guard let reservedTargetID else { return nil }
-    return cards.first { $0.id == reservedTargetID }
-  }
+  var title: String { "진화 방향 선택" }
+  var subtitle: String { "\(fromSpecies.koName)의 다음 모습을 고르세요. 되돌릴 수 없습니다." }
 
   static func make(
     choice: PendingEvolutionChoice,
@@ -428,8 +498,7 @@ struct EvolutionChoicePresentation: Equatable {
           maximumReachableRarity: EvolutionCatalog.maxReachableRarity(
             from: species, in: catalog)
         )
-      },
-      reservedTargetID: choice.preferredTargetID
+      }
     )
   }
 }
@@ -635,6 +704,11 @@ struct CompactViewState: Equatable {
     guard let currentSpecies, let originSpecies else {
       return ActionAvailability(isEnabled: false, explanation: missingCatalogExplanation)
     }
+    guard currentSpecies.category != EvolutionCatalog.mixedCategory else {
+      return ActionAvailability(
+        isEnabled: false,
+        explanation: "혼합형은 일반 진화 계보 밖의 융합 수집품입니다.")
+    }
     guard currentSpecies.stage > 1 else {
       return ActionAvailability(
         isEnabled: false, explanation: "첫 진화를 마친 뒤부터 도전할 수 있습니다.")
@@ -675,6 +749,11 @@ struct CompactViewState: Equatable {
     }
     guard let currentSpecies else {
       return ActionAvailability(isEnabled: false, explanation: missingCatalogExplanation)
+    }
+    guard currentSpecies.category != EvolutionCatalog.mixedCategory else {
+      return ActionAvailability(
+        isEnabled: false,
+        explanation: "혼합형은 일반 진화 계보 밖의 융합 수집품입니다.")
     }
     guard GameEngine.isTerminalSpecies(currentSpecies, catalog: catalog) else {
       return ActionAvailability(
@@ -851,6 +930,16 @@ private enum PunchGrowColors {
   static let rival = Color(red: 1, green: 77 / 255, blue: 157 / 255)
   static let myth = Color(red: 165 / 255, green: 115 / 255, blue: 1)
   static let warning = Color(red: 1, green: 184 / 255, blue: 77 / 255)
+
+  // Compact actions need enough distinction to scan quickly without turning the
+  // whole deck into competing neon blocks. These medium-dark fills keep the
+  // semantic families while giving every label the same high-contrast treatment.
+  static let actionFeed = Color(red: 79 / 255, green: 121 / 255, blue: 62 / 255)
+  static let actionFeedLarge = Color(red: 108 / 255, green: 90 / 255, blue: 181 / 255)
+  static let actionPull = Color(red: 185 / 255, green: 70 / 255, blue: 116 / 255)
+  static let actionPurchase = Color(red: 149 / 255, green: 97 / 255, blue: 39 / 255)
+  static let actionRetry = Color(red: 103 / 255, green: 85 / 255, blue: 174 / 255)
+  static let actionInherit = Color(red: 40 / 255, green: 126 / 255, blue: 120 / 255)
 }
 
 private struct RarityVisualStyle {
@@ -929,8 +1018,9 @@ struct MenuBarStatusLabel: View {
   @ObservedObject var store: GameStore
 
   private var representativeSpecies: CreatureSpecies? {
-    guard let creature = store.representativeCreature else { return store.currentSpecies }
-    return store.catalog.first(where: { $0.id == creature.speciesID }) ?? store.currentSpecies
+    guard let creature = store.representativeCreature else { return store.currentDisplaySpecies }
+    return GameEngine.displaySpecies(for: creature, catalog: store.catalog)
+      ?? store.currentDisplaySpecies
   }
 
   private var weeklyUsage: [TokenProvider: Int] {
@@ -1033,6 +1123,12 @@ enum MenuPopoverLayout {
   static let height: CGFloat = 670
   static let dockHeight: CGFloat = 54
   static let dockButtonHeight: CGFloat = 44
+  static let contentHeight: CGFloat = height - dockHeight
+  static let contentHorizontalPadding: CGFloat = 14
+  static let contentTopPadding: CGFloat = 8
+  static let contentBottomPadding: CGFloat = 4
+  static let heroAuraSize: CGFloat = 148
+  static let heroArtworkSize: CGFloat = 132
 }
 
 struct MenuPopoverView: View {
@@ -1044,6 +1140,8 @@ struct MenuPopoverView: View {
   @State private var pullFeedback: PullFeedback?
   @State private var showsRarityGuide = false
   @State private var showsEvolutionGuide = false
+  /// 도감에서 눌러 둔 모습. 게임 상태가 아니라 이 팝업이 무엇을 그리는지에만 관여한다.
+  @State private var previewSelection: CreaturePreviewSelection?
   @State private var choiceCreatureID: UUID?
 
   private var weeklyUsage: [TokenProvider: Int] {
@@ -1080,17 +1178,15 @@ struct MenuPopoverView: View {
     ZStack {
       DigitalMythBackground()
       VStack(spacing: 0) {
-        ScrollView(.vertical) {
-          compactContent
-            .padding(.horizontal, 14)
-            .padding(.top, 10)
-            .padding(.bottom, 6)
-            .frame(maxWidth: .infinity, alignment: .top)
-        }
-        .frame(
-          height: MenuPopoverLayout.height - MenuPopoverLayout.dockHeight,
-          alignment: .top
-        )
+        compactContent
+          .padding(.horizontal, MenuPopoverLayout.contentHorizontalPadding)
+          .padding(.top, MenuPopoverLayout.contentTopPadding)
+          .padding(.bottom, MenuPopoverLayout.contentBottomPadding)
+          .frame(maxWidth: .infinity, alignment: .top)
+          .frame(
+            height: MenuPopoverLayout.contentHeight,
+            alignment: .top
+          )
         VStack(spacing: 0) {
           footer
             .frame(height: MenuPopoverLayout.dockButtonHeight)
@@ -1121,6 +1217,10 @@ struct MenuPopoverView: View {
           .help(message)
       } else if let evolutionFeedback = store.evolutionFeedback {
         EvolutionResultToast(feedback: evolutionFeedback)
+          .padding(12)
+          .transition(.move(edge: .top).combined(with: .opacity))
+      } else if let grantFeedback = store.grantFeedback {
+        CreatureGrantToast(feedback: grantFeedback, catalog: store.catalog)
           .padding(12)
           .transition(.move(edge: .top).combined(with: .opacity))
       } else if let pullFeedback {
@@ -1173,17 +1273,23 @@ struct MenuPopoverView: View {
       guard !Task.isCancelled else { return }
       withAnimation { store.clearEvolutionFeedback(id: id) }
     }
+    .task(id: store.grantFeedback?.id) {
+      guard let id = store.grantFeedback?.id else { return }
+      try? await Task.sleep(for: .seconds(2.8))
+      guard !Task.isCancelled else { return }
+      withAnimation { store.clearGrantFeedback(id: id) }
+    }
   }
 
   private var compactContent: some View {
-    VStack(alignment: .leading, spacing: 2) {
+    VStack(alignment: .leading, spacing: 6) {
       header
-      mutationOfferBadge
-      pendingChoiceBadge
+      compactAttentionBadge
       CreatureHero(
         store: store,
         presentation: presentation,
-        potential: evolutionPotential
+        potential: evolutionPotential,
+        previewSelection: $previewSelection
       )
       WeeklyUsageCard(
         state: store.state,
@@ -1192,7 +1298,19 @@ struct MenuPopoverView: View {
         quotaSnapshots: store.observedQuotaSnapshots
       )
       connectionStrip
+      Spacer(minLength: 8)
       actionRow
+    }
+  }
+
+  @ViewBuilder
+  private var compactAttentionBadge: some View {
+    // 변이 선택 시트가 진화 선택보다 우선하므로 배경의 주의 배지도 한 슬롯만 쓴다.
+    // 두 배지를 쌓지 않아 어떤 상태에서도 고정 높이의 액션 덱이 밀려나지 않는다.
+    if store.pendingMutationOffer != nil {
+      mutationOfferBadge
+    } else {
+      pendingChoiceBadge
     }
   }
 
@@ -1298,7 +1416,7 @@ struct MenuPopoverView: View {
   }
 
   private var connectionStrip: some View {
-    HStack(spacing: 8) {
+    HStack(spacing: 6) {
       IntegrationBadge(
         name: "Claude", provider: .claude, status: integrationStatus.status(for: .claude),
         lastReceivedAt: latestUsageDate(for: .claude), tint: PunchGrowColors.calm)
@@ -1309,13 +1427,13 @@ struct MenuPopoverView: View {
   }
 
   private var actionRow: some View {
-    VStack(spacing: 6) {
-      HStack(spacing: 8) {
+    VStack(spacing: 4) {
+      HStack(spacing: 6) {
       ActionButton(
         title: "일반 먹이",
         symbol: "carrot.fill",
-        tint: PunchGrowColors.fuel,
-        usesDarkForeground: true,
+        tint: PunchGrowColors.actionFeed,
+        usesDarkForeground: false,
         availability: presentation.feed,
         repeatAction: {
           // 선택 대기나 변이 발동이 생기면 반복 급여를 즉시 멈춘다. 되돌릴 수 없는
@@ -1330,7 +1448,7 @@ struct MenuPopoverView: View {
       ActionButton(
         title: "대형 먹이",
         symbol: "takeoutbag.and.cup.and.straw.fill",
-        tint: PunchGrowColors.myth,
+        tint: PunchGrowColors.actionFeedLarge,
         usesDarkForeground: false,
         availability: presentation.feedLarge,
         repeatAction: {
@@ -1344,18 +1462,18 @@ struct MenuPopoverView: View {
       ActionButton(
         title: "가챠",
         symbol: "sparkles",
-        tint: PunchGrowColors.rival,
+        tint: PunchGrowColors.actionPull,
         usesDarkForeground: false,
         availability: presentation.pull,
         showsExplanation: false
       ) { performPull() }
       }
-      HStack(spacing: 8) {
+      HStack(spacing: 6) {
       ActionButton(
         title: "일반 구매 · 100K",
         symbol: "cart.badge.plus",
-        tint: PunchGrowColors.warning,
-        usesDarkForeground: true,
+        tint: PunchGrowColors.actionPurchase,
+        usesDarkForeground: false,
         availability: presentation.purchaseFood,
         repeatAction: {
           guard store.state.tokenBalance >= GameState.foodCost,
@@ -1368,8 +1486,8 @@ struct MenuPopoverView: View {
       ActionButton(
         title: "대형 구매 · 500K",
         symbol: "cart.fill.badge.plus",
-        tint: PunchGrowColors.warning,
-        usesDarkForeground: true,
+        tint: PunchGrowColors.actionPurchase,
+        usesDarkForeground: false,
         availability: presentation.purchaseLargeFood,
         repeatAction: {
           guard store.state.tokenBalance >= GameState.largeFoodCost,
@@ -1380,11 +1498,11 @@ struct MenuPopoverView: View {
         showsExplanation: false
       ) { store.purchaseLargeFood() }
       }
-      HStack(spacing: 8) {
+      HStack(spacing: 6) {
       ActionButton(
         title: presentation.retryMutationTitle,
         symbol: "arrow.triangle.2.circlepath",
-        tint: PunchGrowColors.myth,
+        tint: PunchGrowColors.actionRetry,
         usesDarkForeground: false,
         availability: presentation.retryMutation,
         showsExplanation: false
@@ -1392,8 +1510,8 @@ struct MenuPopoverView: View {
       ActionButton(
         title: "계승 · \(GameState.inheritCost / 10_000)만",
         symbol: "arrow.triangle.branch",
-        tint: PunchGrowColors.calm,
-        usesDarkForeground: true,
+        tint: PunchGrowColors.actionInherit,
+        usesDarkForeground: false,
         availability: presentation.inherit,
         showsExplanation: false
       ) { store.inheritCurrent() }
@@ -1455,17 +1573,20 @@ struct MenuPopoverView: View {
           presentation: EvolutionDexPresentation.make(
             creature: store.currentCreature,
             catalog: store.catalog,
-            discoveredSpeciesIDs: store.state.discoveredSpeciesIDs
+            discoveredSpeciesIDs: store.state.discoveredSpeciesIDs,
+            ownedCreatures: store.state.ownedCreatures
           ),
-          onSelectPreference: { speciesID in
-            guard let creature = store.currentCreature else { return }
-            if creature.preferredEvolutionTargetSpeciesID == speciesID {
-              store.clearEvolutionPreference(creatureID: creature.id)
-            } else {
-              store.setEvolutionPreference(creatureID: creature.id, toSpeciesID: speciesID)
-            }
+          onPreviewSpecies: { speciesID in
+            guard let creatureID = store.currentCreatureID else { return }
+            previewSelection = CreaturePreviewSelection(
+              creatureID: creatureID,
+              speciesID: speciesID)
+            showsEvolutionGuide = false
           }
         )
+        // 팝오버는 별도 창이라 앱이 앞에 나와 있지 않으면 첫 클릭이 창을 깨우는 데 쓰이고
+        // 버튼까지 닿지 않는다. 열리는 순간 앱을 활성화해 한 번에 눌리게 한다.
+        .onAppear { NSApp.activate(ignoringOtherApps: true) }
       }
       .help("현재 크리처의 진화도감 보기")
     case .quit:
@@ -1555,31 +1676,25 @@ private struct WeeklyUsageCard: View {
   }
 
   var body: some View {
-    VStack(alignment: .leading, spacing: 6) {
+    VStack(alignment: .leading, spacing: 4) {
       HStack {
         Text("주간 사용률").font(.system(size: 12, weight: .bold)).tracking(0.2)
           .foregroundStyle(.secondary)
         Spacer()
-        HStack(spacing: 5) {
-          Text("보유 토큰")
-            .font(.system(size: 10, weight: .semibold))
-            .foregroundStyle(.secondary)
-          Text(state.tokenBalance.formatted())
-            .font(.system(size: 13, weight: .bold, design: .monospaced))
-            .foregroundStyle(PunchGrowColors.fuel)
-            .lineLimit(1)
-            .minimumScaleFactor(0.75)
-        }
-        .accessibilityElement(children: .combine)
-        .accessibilityLabel("보유 토큰 \(state.tokenBalance)")
+        Text("Claude · Codex 실제 플랜 한도")
+          .font(.system(size: 10.5, weight: .semibold))
+          .foregroundStyle(.secondary)
       }
-      VStack(spacing: 5) {
+      HStack(spacing: 6) {
         providerProgressButton(.claude, name: "Claude", value: claude, color: PunchGrowColors.calm)
         providerProgressButton(.codex, name: "Codex", value: codex, color: PunchGrowColors.rival)
       }
       if total == 0, state.tokenBalance > 0 {
-        Text("보유 토큰에는 시작 보너스가 포함됩니다. 위 사용률은 이번 주에 실제로 측정된 Claude/Codex 토큰만 보여줘요.")
-          .font(.caption2).foregroundStyle(.secondary).fixedSize(horizontal: false, vertical: true)
+        Text("시작 보너스 포함 · 사용률은 이번 주 실측 토큰만 반영")
+          .font(.system(size: 10.5, weight: .medium))
+          .foregroundStyle(.secondary)
+          .lineLimit(1)
+          .help("보유 토큰에는 시작 보너스가 포함됩니다. 사용률은 이번 주에 실제로 측정된 Claude/Codex 토큰만 보여줘요.")
       } else {
         HStack(spacing: 7) {
           usageMetric("INPUT", value: selectedUsage.inputTokens)
@@ -1605,9 +1720,12 @@ private struct WeeklyUsageCard: View {
           Text(name)
           Spacer(minLength: 3)
           Text(percent.map { "\($0)%" } ?? "확인 대기").monospacedDigit().foregroundStyle(color)
-          Text("· \(value.formatted())").monospacedDigit().foregroundStyle(.secondary)
-            .lineLimit(1).minimumScaleFactor(0.75)
         }
+        Text(value.formatted())
+          .font(.system(size: 9.5, weight: .medium, design: .monospaced))
+          .foregroundStyle(.secondary)
+          .lineLimit(1)
+          .frame(maxWidth: .infinity, alignment: .trailing)
         GeometryReader { proxy in
           ZStack(alignment: .leading) {
             Capsule().fill(Color.white.opacity(0.07))
@@ -1616,8 +1734,8 @@ private struct WeeklyUsageCard: View {
         }
         .frame(height: 5)
       }
-      .font(.system(size: 11, weight: .semibold))
-      .padding(.horizontal, 9).padding(.vertical, 2)
+      .font(.system(size: 10.5, weight: .semibold))
+      .padding(.horizontal, 8).padding(.vertical, 2)
       .frame(maxWidth: .infinity)
       .background(
         selectedProvider == provider ? color.opacity(0.12) : Color.clear,
@@ -1662,23 +1780,25 @@ private struct IntegrationBadge: View {
   }
 
   var body: some View {
-    HStack(spacing: 7) {
+    HStack(spacing: 5) {
       Image(systemName: presentation.symbol)
+        .font(.system(size: 10.5, weight: .semibold))
         .foregroundStyle(statusColor)
-      VStack(alignment: .leading, spacing: 1) {
-        Text(name).font(.caption.weight(.semibold))
-        Group {
-          if let lastReceivedAt {
-            Text(presentation.label) + Text(" · ") + Text(lastReceivedAt, style: .relative)
-          } else {
-            Text(presentation.label)
-          }
+      Text(name)
+        .font(.system(size: 10.5, weight: .bold))
+      Group {
+        if let lastReceivedAt {
+          Text(presentation.label) + Text(" · ") + Text(lastReceivedAt, style: .relative)
+        } else {
+          Text(presentation.label)
         }
-        .font(.system(size: 10.5)).foregroundStyle(.secondary).lineLimit(1)
       }
+      .font(.system(size: 10.5, weight: .medium))
+      .foregroundStyle(.secondary)
+      .lineLimit(1)
       Spacer(minLength: 0)
     }
-    .padding(.horizontal, 10).padding(.vertical, 6)
+    .padding(.horizontal, 8).padding(.vertical, 5)
     .frame(maxWidth: .infinity)
     .background(PunchGrowColors.surface.opacity(0.8), in: RoundedRectangle(cornerRadius: 10))
     .overlay(RoundedRectangle(cornerRadius: 10).stroke(PunchGrowColors.line))
@@ -1703,64 +1823,125 @@ private struct CreatureHero: View {
   @ObservedObject var store: GameStore
   let presentation: CompactViewState
   let potential: EvolutionPotentialPresentation?
+  /// 진화도감에서 눌러 둔, 현재 개체가 실제로 거쳐 온 과거 모습. 그림만 갈아 끼우며 육성
+  /// 대상은 그대로다. 미리보기 중임을 밝히지 않으면 먹이나 진화가 이 그림에 적용된다고
+  /// 읽히므로 배지와 해제 버튼을 함께 낸다.
+  @Binding var previewSelection: CreaturePreviewSelection?
   @Environment(\.accessibilityReduceMotion) private var reduceMotion
 
+  private var previewSpecies: CreatureSpecies? {
+    previewSelection?.species(for: store.currentCreature, in: store.catalog)
+  }
+
+  private var displayedSpecies: CreatureSpecies? {
+    previewSpecies ?? store.currentDisplaySpecies
+  }
+
   private var rarityStyle: RarityVisualStyle {
-    RarityVisualStyle(store.currentSpecies?.rarity ?? "PROCESS")
+    RarityVisualStyle(displayedSpecies?.rarity ?? "PROCESS")
+  }
+
+  private func formChip(
+    _ title: String,
+    symbol: String,
+    action: @escaping () -> Void
+  ) -> some View {
+    Button(action: action) {
+      Label(title, systemImage: symbol)
+        .font(.system(size: 9.5, weight: .bold))
+        .foregroundStyle(PunchGrowColors.calm)
+        .padding(.horizontal, 8).padding(.vertical, 3)
+        .background(PunchGrowColors.calm.opacity(0.14), in: Capsule())
+        .overlay(Capsule().stroke(PunchGrowColors.calm.opacity(0.5)))
+    }
+    .buttonStyle(.plain)
   }
 
   var body: some View {
     VStack(spacing: 4) {
-      HStack {
-        if presentation.showsNavigation {
-          navigationButton("chevron.left", label: "이전 크리처") { store.selectPreviousCreature() }
-        }
-        Spacer()
-        if let label = presentation.positionLabel {
-          Text(label).font(.caption.monospacedDigit().weight(.semibold)).foregroundStyle(.secondary)
-        }
-        Spacer()
-        if presentation.showsNavigation {
-          navigationButton("chevron.right", label: "다음 크리처") { store.selectNextCreature() }
-        }
-      }
-      .frame(height: 22)
-
-      ZStack {
-        RarityAura(style: rarityStyle, reduceMotion: reduceMotion)
-        RoundedRectangle(cornerRadius: 18)
-          .fill(
-            LinearGradient(
-              colors: rarityStyle.gradientColors.map { $0.opacity(0.16) },
-              startPoint: .topLeading,
-              endPoint: .bottomTrailing
+      ZStack(alignment: .top) {
+        ZStack {
+          RarityAura(
+            style: rarityStyle,
+            reduceMotion: reduceMotion,
+            diameter: MenuPopoverLayout.heroAuraSize
+          )
+          RoundedRectangle(cornerRadius: 18)
+            .fill(
+              LinearGradient(
+                colors: rarityStyle.gradientColors.map { $0.opacity(0.16) },
+                startPoint: .topLeading,
+                endPoint: .bottomTrailing
+              )
             )
-          )
-          .frame(width: 108, height: 108)
-        RoundedRectangle(cornerRadius: 18)
-          .stroke(
-            LinearGradient(
-              colors: rarityStyle.gradientColors,
-              startPoint: .topLeading,
-              endPoint: .bottomTrailing
-            ),
-            lineWidth: rarityStyle.tier.rawValue >= RarityVisualTier.oracle.rawValue ? 2 : 1
-          )
-          .frame(width: 106, height: 106)
-        CreatureArtwork(species: store.currentSpecies, size: 104)
-          .clipShape(RoundedRectangle(cornerRadius: 14))
+            .frame(
+              width: MenuPopoverLayout.heroArtworkSize + 4,
+              height: MenuPopoverLayout.heroArtworkSize + 4
+            )
+          RoundedRectangle(cornerRadius: 18)
+            .stroke(
+              LinearGradient(
+                colors: rarityStyle.gradientColors,
+                startPoint: .topLeading,
+                endPoint: .bottomTrailing
+              ),
+              lineWidth: rarityStyle.tier.rawValue >= RarityVisualTier.oracle.rawValue ? 2 : 1
+            )
+            .frame(
+              width: MenuPopoverLayout.heroArtworkSize + 2,
+              height: MenuPopoverLayout.heroArtworkSize + 2
+            )
+          CreatureArtwork(species: displayedSpecies, size: MenuPopoverLayout.heroArtworkSize)
+            .clipShape(RoundedRectangle(cornerRadius: 14))
+        }
+
+        HStack {
+          if presentation.showsNavigation {
+            navigationButton("chevron.left", label: "이전 크리처") { store.selectPreviousCreature() }
+          }
+          Spacer()
+          if let label = presentation.positionLabel {
+            Text(label)
+              .font(.caption.monospacedDigit().weight(.semibold))
+              .foregroundStyle(.secondary)
+              .padding(.horizontal, 8)
+              .padding(.vertical, 3)
+              .background(PunchGrowColors.void.opacity(0.76), in: Capsule())
+          }
+          Spacer()
+          if presentation.showsNavigation {
+            navigationButton("chevron.right", label: "다음 크리처") { store.selectNextCreature() }
+          }
+        }
+        .padding(.horizontal, 1)
+      }
+      .frame(height: MenuPopoverLayout.heroAuraSize)
+      // 미리보기는 이 팝업에서만 살아 있고, 고정해야 저장돼 메뉴 막대까지 따라온다.
+      // 되돌릴 곳을 함께 두지 않으면 고정한 뒤 실제 모습으로 못 돌아온다.
+      if let previewSpecies {
+        HStack(spacing: 6) {
+          formChip("이 모습으로 고정", symbol: "pin") {
+            store.setDisplayForm(toSpeciesID: previewSpecies.id)
+            previewSelection = nil
+          }
+          formChip("취소", symbol: "arrow.uturn.backward") { previewSelection = nil }
+        }
+      } else if let pinned = store.currentDisplaySpecies, pinned.id != store.currentSpecies?.id {
+        // 저장된 값이 아니라 실제로 적용된 결과를 본다. 카탈로그가 바뀌어 고정값이 떠 버리면
+        // 그림은 실제 모습으로 돌아가므로, 그때 해제 버튼만 남으면 앞뒤가 맞지 않는다.
+        formChip("고정 해제 · \(pinned.koName)", symbol: "pin.slash") { store.clearDisplayForm() }
       }
 
       VStack(spacing: 4) {
         HStack(spacing: 7) {
-          Text(store.currentSpecies?.koName ?? "아직 깨어난 크리처가 없어요")
+          Text(displayedSpecies?.koName ?? "아직 깨어난 크리처가 없어요")
             .font(.title2.weight(.bold))
             .lineLimit(1)
             .minimumScaleFactor(0.78)
-          if let rarity = store.currentSpecies?.rarity {
-            Text("현재 \(rarity)")
+          if let rarity = displayedSpecies?.rarity {
+            Text(previewSpecies == nil ? "현재 \(rarity)" : rarity)
               .rarityBadge(rarity)
-              .accessibilityLabel("현재 등급 \(rarity)")
+              .accessibilityLabel(previewSpecies == nil ? "현재 등급 \(rarity)" : "미리보기 등급 \(rarity)")
           }
         }
         if let potential {
@@ -1785,14 +1966,16 @@ private struct CreatureHero: View {
       if let creature = store.currentCreature {
         let isMaximumLevel = creature.level >= GameState.maximumCreatureLevel
         VStack(spacing: 4) {
-          ProgressMetric(
-            label: isMaximumLevel ? "LV. \(creature.level) · MAX" : "LV. \(creature.level) · XP",
-            value: isMaximumLevel ? 1 : creature.experience,
-            maximum: isMaximumLevel ? 1 : max(1, creature.level * 100),
-            tint: PunchGrowColors.fuel
-          )
-          ProgressMetric(
-            label: "친밀도", value: creature.affection, maximum: 100, tint: PunchGrowColors.rival)
+          HStack(spacing: 10) {
+            ProgressMetric(
+              label: isMaximumLevel ? "LV. \(creature.level) · MAX" : "LV. \(creature.level) · XP",
+              value: isMaximumLevel ? 1 : creature.experience,
+              maximum: isMaximumLevel ? 1 : max(1, creature.level * 100),
+              tint: PunchGrowColors.fuel
+            )
+            ProgressMetric(
+              label: "친밀도", value: creature.affection, maximum: 100, tint: PunchGrowColors.rival)
+          }
           HStack {
             Label("보유 \(store.state.ownedCreatures.count)", systemImage: "pawprint.fill")
             Spacer()
@@ -1808,6 +1991,10 @@ private struct CreatureHero: View {
     .padding(.vertical, 4)
     .background(PunchGrowColors.raised.opacity(0.76), in: RoundedRectangle(cornerRadius: 18))
     .overlay(RoundedRectangle(cornerRadius: 18).stroke(PunchGrowColors.myth.opacity(0.25)))
+    .onChange(of: store.currentCreatureID) { _, currentCreatureID in
+      if previewSelection?.creatureID != currentCreatureID { previewSelection = nil }
+    }
+    .onChange(of: store.currentCreature?.speciesID) { _, _ in previewSelection = nil }
   }
 
   private func navigationButton(_ symbol: String, label: String, action: @escaping () -> Void)
@@ -1880,6 +2067,7 @@ private struct GrowthPotentialBadge: View {
 private struct RarityAura: View {
   let style: RarityVisualStyle
   let reduceMotion: Bool
+  let diameter: CGFloat
   @State private var active = false
 
   var body: some View {
@@ -1890,10 +2078,10 @@ private struct RarityAura: View {
             colors: [style.primary.opacity(style.glowOpacity), .clear],
             center: .center,
             startRadius: 18,
-            endRadius: 95
+            endRadius: diameter * 0.72
           )
         )
-        .frame(width: 132, height: 132)
+        .frame(width: diameter, height: diameter)
         .scaleEffect(reduceMotion ? 1 : (active ? 1.05 : 0.97))
 
       if style.tier.rawValue >= RarityVisualTier.oracle.rawValue {
@@ -1905,7 +2093,7 @@ private struct RarityAura: View {
             ),
             style: StrokeStyle(lineWidth: 1.5, dash: [5, 8])
           )
-          .frame(width: 126, height: 126)
+          .frame(width: diameter - 6, height: diameter - 6)
           .rotationEffect(.degrees(active ? 360 : 0))
       }
 
@@ -1936,7 +2124,7 @@ private struct RarityAura: View {
 
   private func particleOffset(_ index: Int) -> CGSize {
     let angle = Double(index) / Double(max(1, style.tier.particleCount)) * .pi * 2
-    let radius = 55 + Double(index % 2) * 6
+    let radius = Double(diameter * 0.4) + Double(index % 2) * 5
     return CGSize(width: cos(angle) * radius, height: sin(angle) * radius)
   }
 }
@@ -1948,7 +2136,7 @@ private struct ProgressMetric: View {
   let tint: Color
 
   var body: some View {
-    VStack(spacing: 4) {
+    VStack(spacing: 5) {
       HStack {
         Text(label).font(.caption.weight(.semibold))
         Spacer()
@@ -2033,8 +2221,12 @@ private struct ActionButton: View {
   var body: some View {
     VStack(spacing: 5) {
       Button(action: performSingleAction) {
-        Label(title, systemImage: symbol).font(.callout.weight(.bold)).frame(maxWidth: .infinity)
-          .padding(.vertical, 6)
+        Label(title, systemImage: symbol)
+          .font(.callout.weight(.bold))
+          .lineLimit(1)
+          .minimumScaleFactor(0.86)
+          .frame(maxWidth: .infinity)
+          .padding(.vertical, 5)
       }
       .buttonStyle(
         RepeatPressButtonStyle(
@@ -2138,7 +2330,7 @@ struct EvolutionChoiceSheet: View {
         terminalConfirmation(card: card, message: confirmation)
       } else {
         HStack(alignment: .top, spacing: 8) {
-          ForEach(visibleCards) { card in
+          ForEach(presentation.cards) { card in
             choiceCard(card)
           }
         }
@@ -2156,12 +2348,6 @@ struct EvolutionChoiceSheet: View {
       RoundedRectangle(cornerRadius: 16).stroke(PunchGrowColors.myth.opacity(0.45))
     )
     .preferredColorScheme(.dark)
-  }
-
-  /// 예약 확인 모드에서는 예약한 종착 후보 한 장만 보여준다.
-  private var visibleCards: [EvolutionChoiceCard] {
-    guard let reserved = presentation.reservedCard else { return presentation.cards }
-    return [reserved]
   }
 
   private func choiceCard(_ card: EvolutionChoiceCard) -> some View {
@@ -2358,13 +2544,18 @@ struct MutationOfferSheet: View {
 
 struct EvolutionGuidePopover: View {
   let presentation: EvolutionDexPresentation?
-  var onSelectPreference: ((String) -> Void)? = nil
+  /// 보유한 과거 단계 카드를 눌렀을 때 그 모습을 팝업 메인 이미지에 띄우기 위한 통로.
+  var onPreviewSpecies: ((String) -> Void)? = nil
 
   var body: some View {
     VStack(alignment: .leading, spacing: 10) {
       VStack(alignment: .leading, spacing: 3) {
         Text("EVOLUTION DEX").font(.headline.weight(.black)).tracking(1.2)
-        Text("선택한 크리처의 전체 단계와 분기를 직접 확인합니다")
+        Text(
+          presentation?.isStandalone == true
+            ? "일반 진화 계보와 분리된 현재 수집품을 확인합니다"
+            : "선택한 크리처의 전체 단계와 분기를 직접 확인합니다"
+        )
           .font(.caption)
           .foregroundStyle(.secondary)
       }
@@ -2383,15 +2574,15 @@ struct EvolutionGuidePopover: View {
           "현재 등급 \(presentation.currentSpecies.rarity), \(presentation.potential.finalRarityLabel), \(presentation.potential.guaranteedRarityLabel)"
         )
 
-        ScrollView {
-          VStack(alignment: .leading, spacing: 8) {
-            ForEach(presentation.stages) { stage in
-              evolutionStage(stage)
-            }
+        if requiresEvolutionScroll(presentation) {
+          ScrollView {
+            evolutionTimeline(presentation)
           }
+          .scrollIndicators(.visible)
+          .frame(maxHeight: 430)
+        } else {
+          evolutionTimeline(presentation)
         }
-        .scrollIndicators(.visible)
-        .frame(maxHeight: 470)
 
         Divider()
         HStack(spacing: 8) {
@@ -2400,18 +2591,31 @@ struct EvolutionGuidePopover: View {
             systemImage: "pawprint.fill"
           )
           Spacer(minLength: 4)
-          Label("스크롤", systemImage: "arrow.up.and.down")
+          if requiresEvolutionScroll(presentation) {
+            Label("스크롤", systemImage: "arrow.up.and.down")
+          }
         }
         .font(.caption.weight(.semibold))
         .foregroundStyle(PunchGrowColors.calm)
-        Text("갈림길에서는 진화가 멈추고 방향을 직접 고릅니다. 미리 \"이 모습으로 키우기\"를 눌러두면 그 자리에서 멈추지 않습니다. Lv.15·25·40 기준을 충족하면 다음 단계로 진화하며 만렙은 Lv.50입니다.")
+        Text(
+          presentation.isStandalone
+            ? "현재 모습만 표시 · 일반 진화와 성장 경로 없음"
+            : "Lv.15·25·40 진화 · 갈림길 직접 선택 · 과거 모습 클릭 · 만렙 Lv.50"
+        )
           .font(.caption2)
           .foregroundStyle(.tertiary)
-          .fixedSize(horizontal: false, vertical: true)
+          .lineLimit(1)
+          .minimumScaleFactor(0.8)
         if let mutationLineageNotice = presentation.mutationLineageNotice {
           Label(mutationLineageNotice, systemImage: "circle.slash")
             .font(.caption2.weight(.semibold))
             .foregroundStyle(.tertiary)
+        }
+        if let lineageNotice = presentation.lineageNotice {
+          Label(lineageNotice, systemImage: "point.3.connected.trianglepath.dotted")
+            .font(.caption2.weight(.semibold))
+            .foregroundStyle(PunchGrowColors.warning)
+            .fixedSize(horizontal: false, vertical: true)
         }
       } else {
         ContentUnavailableView(
@@ -2428,8 +2632,28 @@ struct EvolutionGuidePopover: View {
     .preferredColorScheme(.dark)
   }
 
+  /// 현재 운영 카탈로그의 최악 조건인 4단계·단계당 세 갈래까지는 한 화면에 완결한다.
+  /// 그보다 커지는 미래 계보만 제한적으로 스크롤해 글자와 조작 영역을 억지로 줄이지 않는다.
+  private func requiresEvolutionScroll(_ presentation: EvolutionDexPresentation) -> Bool {
+    presentation.stages.count > 4
+      || presentation.stages.flatMap(\.entries).count > 6
+      || presentation.stages.contains { $0.entries.count > 3 }
+  }
+
+  private func evolutionTimeline(_ presentation: EvolutionDexPresentation) -> some View {
+    VStack(alignment: .leading, spacing: 19) {
+      ForEach(presentation.stages) { stage in
+        evolutionStage(stage)
+      }
+    }
+  }
+
   private func evolutionStage(_ stage: EvolutionDexStage) -> some View {
-    VStack(alignment: .leading, spacing: 5) {
+    let usesThreeColumns = stage.entries.count == 3
+    let columns = Array(
+      repeating: GridItem(.flexible(), spacing: usesThreeColumns ? 5 : 8),
+      count: usesThreeColumns ? 3 : 2)
+    return VStack(alignment: .leading, spacing: 4) {
       HStack {
         Text("STAGE \(stage.stage)")
           .font(.system(size: 11, weight: .black, design: .monospaced))
@@ -2440,112 +2664,156 @@ struct EvolutionGuidePopover: View {
           .foregroundStyle(stage.requiredLevel == nil ? PunchGrowColors.calm : .secondary)
       }
 
-      LazyVGrid(
-        columns: [GridItem(.flexible(), spacing: 8), GridItem(.flexible())],
-        spacing: 8
-      ) {
+      LazyVGrid(columns: columns, spacing: usesThreeColumns ? 5 : 8) {
         ForEach(stage.entries) { entry in
-          evolutionCard(entry)
+          evolutionCard(entry, compact: usesThreeColumns)
         }
       }
     }
   }
 
-  private func evolutionCard(_ entry: EvolutionDexEntry) -> some View {
+  private func evolutionCard(_ entry: EvolutionDexEntry, compact: Bool) -> some View {
     let style = RarityVisualStyle(entry.species.rarity)
-    return VStack(spacing: 3) {
-      ZStack(alignment: .top) {
-        CreatureArtwork(species: entry.species, size: 60)
-          .clipShape(RoundedRectangle(cornerRadius: 9))
-        HStack(spacing: 4) {
-          if entry.isPreferredTarget {
-            Text("예약")
-              .font(.system(size: 8, weight: .black))
-              .foregroundStyle(.black)
-              .padding(.horizontal, 5).padding(.vertical, 2)
-              .background(PunchGrowColors.warning, in: Capsule())
-          } else if entry.isMutation {
-            Text("변이")
-              .font(.system(size: 8, weight: .black))
-              .foregroundStyle(.black)
-              .padding(.horizontal, 5).padding(.vertical, 2)
-              .background(style.primary, in: Capsule())
-          }
-          Spacer()
-          if entry.isCurrent {
-            Text("현재")
-              .font(.system(size: 8, weight: .black))
-              .foregroundStyle(.black)
-              .padding(.horizontal, 5).padding(.vertical, 2)
-              .background(PunchGrowColors.fuel, in: Capsule())
-          }
-        }
-        .padding(4)
-      }
-      Text(entry.species.koName)
-        .font(.callout.weight(.bold))
-        .lineLimit(1)
-        .minimumScaleFactor(0.8)
-      HStack(spacing: 5) {
-        Text(entry.species.rarity).rarityBadge(entry.species.rarity)
-        Text(entry.categoryLabel)
-          .font(.caption2.weight(.semibold))
-          .foregroundStyle(.secondary)
-      }
-      HStack(spacing: 4) {
-        Image(systemName: entry.isDiscovered ? "checkmark.circle.fill" : "circle.dashed")
-        Text(entry.relationshipLabel)
-          .lineLimit(1)
-          .minimumScaleFactor(0.75)
-      }
-      .font(.caption2.weight(.semibold))
-      .foregroundStyle(entry.isPreferredTarget ? PunchGrowColors.warning : .secondary)
-      if let mutationNotice = entry.mutationNotice {
-        Text(mutationNotice)
-          .font(.system(size: 9, weight: .semibold))
-          .foregroundStyle(.tertiary)
-          .multilineTextAlignment(.center)
-          .fixedSize(horizontal: false, vertical: true)
-      } else if entry.canBecomePreferredTarget, let onSelectPreference {
-        Button(entry.isPreferredTarget ? "예약 해제" : "이 모습으로 키우기") {
-          onSelectPreference(entry.species.id)
+    return Group {
+      // 현재 개체가 실제로 거쳐 온 과거 모습만 연다. 버튼이 카드 전체를 감싸므로 작은
+      // 팝오버에서도 그림만 정확히 겨냥하지 않고 이름·상태 영역까지 눌러 미리 볼 수 있다.
+      if entry.canPreviewForm, let onPreviewSpecies {
+        Button { onPreviewSpecies(entry.species.id) } label: {
+          evolutionCardContent(entry, compact: compact)
         }
         .buttonStyle(.plain)
-        .font(.system(size: 9.5, weight: .bold))
-        .foregroundStyle(entry.isPreferredTarget ? .black : PunchGrowColors.warning)
-        .padding(.horizontal, 7).padding(.vertical, 3)
-        .frame(maxWidth: .infinity)
-        .background(
-          entry.isPreferredTarget
-            ? AnyShapeStyle(PunchGrowColors.warning)
-            : AnyShapeStyle(PunchGrowColors.warning.opacity(0.13)),
-          in: Capsule()
-        )
-        .overlay(Capsule().stroke(PunchGrowColors.warning.opacity(0.5)))
+      } else {
+        evolutionCardContent(entry, compact: compact)
       }
     }
-    .padding(6)
+    .padding(compact ? 4 : 5)
     .frame(maxWidth: .infinity)
     .background(
-      entry.isCurrent ? style.primary.opacity(0.16) : Color.white.opacity(0.04),
+      entry.isCurrent
+        ? style.primary.opacity(0.16)
+        : entry.isFormOwned ? Color.white.opacity(0.04) : Color.white.opacity(0.018),
       in: RoundedRectangle(cornerRadius: 12)
     )
     .overlay(
       RoundedRectangle(cornerRadius: 12)
-        .stroke(entry.isCurrent ? style.primary.opacity(0.85) : style.primary.opacity(0.18))
+        .stroke(
+          entry.isCurrent
+            ? style.primary.opacity(0.85)
+            : entry.isFormOwned
+              ? PunchGrowColors.calm.opacity(0.55)
+              : style.primary.opacity(0.18))
     )
-    .overlay(alignment: .leading) {
-      if entry.isPreferredTarget {
-        Capsule()
-          .fill(PunchGrowColors.warning)
-          .frame(width: 3)
-          .padding(.vertical, 7)
-      }
-    }
+    // children: .combine이 버튼의 실행 동작까지 합쳐 주므로, 합쳐진 요소를 실행하면
+    // 그대로 개체 전환이 일어난다. 트레이트를 손으로 붙일 필요가 없다.
     .accessibilityElement(children: .combine)
     .accessibilityLabel(
-      "\(entry.species.koName), \(entry.species.rarity), \(entry.categoryLabel), \(entry.relationshipLabel)\(entry.isCurrent ? ", 현재 크리처" : "")\(entry.isPreferredTarget ? ", 예약한 진화 대상" : "")\(entry.isMutation ? ", 선택 불가, \(EvolutionDexEntry.mutationNotice)" : "")"
+      "\(entry.species.koName), \(entry.species.rarity), \(entry.categoryLabel), \(entry.relationshipLabel)\(entry.isCurrent ? ", 현재 모습" : entry.isFormOwned ? ", 보유한 과거 모습, 눌러서 보기" : ", 미보유, 선택할 수 없음")\(entry.isMutation ? ", 변이 단계, \(EvolutionDexEntry.mutationNotice)" : "")"
     )
+  }
+
+  @ViewBuilder
+  private func evolutionCardContent(_ entry: EvolutionDexEntry, compact: Bool) -> some View {
+    if compact {
+      VStack(spacing: 2) {
+        ZStack(alignment: .topTrailing) {
+          artwork(entry, size: 44)
+          ownershipBadge(entry)
+            .offset(x: 3, y: -2)
+        }
+        Text(entry.species.koName)
+          .font(.system(size: 11, weight: .bold))
+          .lineLimit(1)
+          .minimumScaleFactor(0.8)
+        Text(entry.species.rarity).rarityBadge(entry.species.rarity)
+        Label(
+          entry.isMutation
+            ? "변이 \(Int(GameState.mutationTriggerRate * 100))%"
+            : entry.categoryLabel,
+          systemImage: entry.isDiscovered ? "checkmark.circle.fill" : "circle.dashed"
+        )
+        .font(.system(size: 9, weight: .semibold))
+        .foregroundStyle(.secondary)
+        .lineLimit(1)
+        .minimumScaleFactor(0.8)
+      }
+      .frame(maxWidth: .infinity, minHeight: 82)
+    } else {
+      HStack(spacing: 7) {
+        artwork(entry)
+        VStack(alignment: .leading, spacing: 2) {
+          HStack(spacing: 4) {
+            Text(entry.species.koName)
+              .font(.callout.weight(.bold))
+              .lineLimit(1)
+              .minimumScaleFactor(0.75)
+            Spacer(minLength: 0)
+            ownershipBadge(entry)
+          }
+          cardDetails(entry)
+        }
+        .frame(maxWidth: .infinity, alignment: .leading)
+      }
+      .frame(minHeight: 52)
+    }
+  }
+
+  private func artwork(_ entry: EvolutionDexEntry, size: CGFloat = 52) -> some View {
+    CreatureArtwork(species: entry.species, size: size)
+      .clipShape(RoundedRectangle(cornerRadius: 8))
+  }
+
+  @ViewBuilder
+  private func ownershipBadge(_ entry: EvolutionDexEntry) -> some View {
+    if entry.isCurrent {
+      Text("현재")
+        .font(.system(size: 8, weight: .black))
+        .foregroundStyle(.black)
+        .padding(.horizontal, 5).padding(.vertical, 2)
+        .background(PunchGrowColors.fuel, in: Capsule())
+    } else if entry.isFormOwned {
+      Text("보유")
+        .font(.system(size: 8, weight: .black))
+        .foregroundStyle(.black)
+        .padding(.horizontal, 5).padding(.vertical, 2)
+        .background(PunchGrowColors.calm, in: Capsule())
+    } else {
+      Label("잠금", systemImage: "lock.fill")
+        .font(.system(size: 8, weight: .black))
+        .foregroundStyle(.secondary)
+        .padding(.horizontal, 5).padding(.vertical, 2)
+        .background(Color.white.opacity(0.08), in: Capsule())
+    }
+  }
+
+  private func compactMutationLabel(_ entry: EvolutionDexEntry) -> String? {
+    guard entry.isMutation else { return nil }
+    return "Lv.15 · \(Int(GameState.mutationTriggerRate * 100))% 변이"
+  }
+
+  /// 카드 하단 정보를 감싸지 않고 그대로 돌려준다. VStack으로 한 번 더 묶으면 바깥 카드
+  /// VStack 기준으로 정렬·간격이 재계산되어 기존 배치가 미세하게 틀어진다.
+  @ViewBuilder
+  private func cardDetails(_ entry: EvolutionDexEntry) -> some View {
+    HStack(spacing: 5) {
+      Text(entry.species.rarity).rarityBadge(entry.species.rarity)
+      Text(entry.categoryLabel)
+        .font(.caption2.weight(.semibold))
+        .foregroundStyle(.secondary)
+    }
+    HStack(spacing: 4) {
+      Image(systemName: entry.isDiscovered ? "checkmark.circle.fill" : "circle.dashed")
+      Text(entry.relationshipLabel)
+        .lineLimit(1)
+        .minimumScaleFactor(0.75)
+    }
+    .font(.caption2.weight(.semibold))
+    .foregroundStyle(.secondary)
+    if let mutationLabel = compactMutationLabel(entry) {
+      Text(mutationLabel)
+        .font(.system(size: 9, weight: .semibold))
+        .foregroundStyle(.tertiary)
+        .lineLimit(1)
+    }
   }
 }
 
@@ -2690,6 +2958,61 @@ private struct EvolutionResultToast: View {
     .accessibilityElement(children: .combine)
     .accessibilityLabel(
       "진화 완료, \(feedback.fromName)에서 \(feedback.toName), \(feedback.stagesCrossed)단계 진화")
+  }
+}
+
+// 스냅샷 렌더러가 세 결과 상태를 한 장으로 확인하기 위해 직접 인스턴스화한다.
+struct CreatureGrantToast: View {
+  let feedback: CreatureGrantFeedback
+  let catalog: [CreatureSpecies]
+
+  private var grantedName: String? {
+    feedback.grantedSpeciesID.flatMap { id in catalog.first { $0.id == id }?.koName }
+  }
+
+  private var heading: String {
+    switch feedback.kind {
+    case .mutationRetry: feedback.succeeded ? "MUTATION SECURED" : "MUTATION MISSED"
+    case .inheritance: "LINEAGE INHERITED"
+    }
+  }
+
+  private var detail: String {
+    if let grantedName {
+      return "\(grantedName) 획득"
+    }
+    // 실패한 재도전만 여기에 닿는다. 천장까지 남은 횟수가 유일하게 쓸모 있는 정보다.
+    let remaining = max(0, GameState.mutationRetryPityThreshold - feedback.failureCount)
+    return remaining > 0
+      ? "실패 · \(feedback.failureCount)/\(GameState.mutationRetryPityThreshold) · \(remaining)회 뒤 확정"
+      : "실패 · 다음 도전은 확정 성공"
+  }
+
+  private var tint: Color {
+    feedback.succeeded ? PunchGrowColors.fuel : .secondary
+  }
+
+  var body: some View {
+    HStack(spacing: 10) {
+      Image(systemName: feedback.succeeded ? "sparkles" : "arrow.clockwise.circle")
+        .foregroundStyle(tint)
+      VStack(alignment: .leading, spacing: 1) {
+        Text(heading)
+          .font(.system(size: 9, weight: .bold, design: .monospaced))
+          .foregroundStyle(.secondary)
+        Text(detail)
+          .font(.callout.weight(.bold))
+        Text("\(feedback.tokensSpent.formatted()) 토큰 소모")
+          .font(.caption2.weight(.semibold))
+          .foregroundStyle(.secondary)
+      }
+    }
+    .padding(.horizontal, 14).padding(.vertical, 10)
+    .background(.ultraThinMaterial, in: Capsule())
+    .overlay(Capsule().stroke(tint, lineWidth: 1))
+    .shadow(color: tint.opacity(0.35), radius: 16)
+    .accessibilityElement(children: .combine)
+    .accessibilityLabel("\(heading), \(detail), \(feedback.tokensSpent) 토큰 소모")
   }
 }
 
