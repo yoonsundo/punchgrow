@@ -527,3 +527,11 @@
 **결정:** 교차 권한 supersession intent와 G003 delegation은 `continuity-assignment-v3.json`의 고정 경로, 스키마 원본 바이트 SHA-256, 결정론적으로 만든 envelope 제외 core SHA-256만 결합한다. 그 supersession의 출력이 확정된 뒤 assignment-v3 서명 봉투가 delegation 출력과 supersession 출력을 함께 결합한다. assignment core나 delegation에는 supersession 출력 해시를 넣지 않는다.
 
 **왜:** supersession 출력이 assignment 출력에 의존하고 assignment 출력이 다시 supersession 출력에 의존하면 고정점을 가정해야 하는 순환이 생긴다. core를 먼저 결합하고 나중 봉투가 이미 확정된 supersession tip을 참조하면 같은 변조 방지 범위를 순환 없이 만들 수 있다. 검증은 봉투 네 필드를 제거한 core를 불변 G002-v2 assignment·topology에서 다시 만들고, 경로·스키마 원본 바이트·core·delegation·supersession 서명을 모두 일치시킨다.
+
+### 2026-08-12 — 공식 웹사이트는 GitHub Pages와 thundo.kr 서브도메인을 사용한다
+
+**결정:** PunchGrow 공식 웹사이트는 GitHub Pages가 호스팅하는 정적 사이트로 만들고, 공개 주소는 `https://punchgrow.thundo.kr`을 사용한다. 사이트는 제품 소개와 저장소·설치 안내를 제공하는 공개 문서 표면으로 한정하며, 백엔드와 SNS 게시 자동화 기능은 두지 않는다. 사이트 배포와 DNS 연결은 후속 작업이므로 이 결정 시점에는 완료된 것으로 간주하지 않는다.
+
+**왜:** 공식 사이트에 필요한 내용은 정적 소개와 문서 링크라서 별도 서버나 서버 측 실행 환경이 필요하지 않다. GitHub Pages는 저장소와 같은 변경·검토 흐름에서 정적 결과물을 운영할 수 있고, `thundo.kr`의 PunchGrow 전용 서브도메인은 프로젝트 주소를 명확하고 일관되게 만든다. 호스팅 계층을 단순하게 유지하면 배포·권한·유지보수 범위도 줄어든다.
+
+**이전 결정과의 관계:** 기존의 Cloudflare 단독 호스팅 구상을 대체한다. Cloudflare를 필수 호스팅 계층으로 두지 않고 GitHub Pages를 원본 호스팅으로 사용하며, DNS 제공자 설정은 실제 연결 작업에서 별도로 다룬다.

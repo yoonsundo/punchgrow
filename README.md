@@ -10,6 +10,8 @@
     <a href="README.md"><strong>한국어</strong></a>
     ·
     <a href="README.en.md">English</a>
+    ·
+    <a href="https://punchgrow.thundo.kr">공식 웹사이트 (준비 중)</a>
   </p>
 
   <p>
@@ -39,6 +41,8 @@
 > **프로젝트 상태: v0.3.0 알파.** 이 저장소의 공개 대상은 Apple Silicon macOS 14+ 메뉴 막대 앱입니다.
 
 GitHub Actions의 Full Xcode 환경에서 Swift 테스트, Release 빌드, 256개 크리처 리소스 조립과 ad-hoc 코드서명을 검증합니다. Developer ID 서명과 Apple 공증을 마친 공개 Homebrew 바이너리는 별도의 릴리스 단계입니다.
+
+공식 웹사이트는 [`https://punchgrow.thundo.kr`](https://punchgrow.thundo.kr)에서 공개할 예정입니다. GitHub Pages로 호스팅하는 정적 소개 사이트이며, 백엔드나 SNS 게시 자동화 기능은 포함하지 않습니다. 현재 사이트 배포와 DNS 연결은 아직 완료되지 않았습니다.
 
 ## 핵심 경험
 

@@ -1,0 +1,73 @@
+name: PunchGrow website
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  schedule:
+    - cron: "17 3 * * *"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  quality:
+    name: Build and validate
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    permissions:
+      contents: read
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+          cache-dependency-path: website/package-lock.json
+
+      - name: Install website dependencies
+        run: npm ci --prefix website
+
+      - name: Build website
+        run: npm --prefix website run build
+
+      - name: Include custom domain configuration
+        if: hashFiles('website/CNAME') != ''
+        run: cp website/CNAME website/dist/CNAME
+
+      - name: Check generated HTML, locale parity, and internal links
+        run: node website/scripts/validate-site.mjs website/dist
+
+      - name: Check PunchGrow website content contract
+        run: npm --prefix website run validate
+
+      - name: Upload verified Pages artifact
+        if: github.ref == 'refs/heads/main' && (github.event_name == 'push' || github.event_name == 'workflow_dispatch')
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: website/dist
+
+  deploy:
+    name: Deploy to GitHub Pages
+    if: github.ref == 'refs/heads/main' && (github.event_name == 'push' || github.event_name == 'workflow_dispatch')
+    needs: quality
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    permissions:
+      contents: read
+      pages: write
+      id-token: write
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    concurrency:
+      group: punchgrow-github-pages
+      cancel-in-progress: false
+    steps:
+      - name: Deploy verified artifact
+        id: deployment
+        uses: actions/deploy-pages@v4

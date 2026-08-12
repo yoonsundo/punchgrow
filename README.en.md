@@ -10,6 +10,8 @@
     <a href="README.md">한국어</a>
     ·
     <a href="README.en.md"><strong>English</strong></a>
+    ·
+    <a href="https://punchgrow.thundo.kr">Official website (coming soon)</a>
   </p>
 
   <p>
@@ -39,6 +41,8 @@
 > **Project status: v0.3.0 alpha.** The intended public scope of this repository is the Apple Silicon macOS 14+ menu-bar app.
 
 GitHub Actions with Full Xcode verifies the Swift test suite, Release build, 256-creature resource assembly, and ad-hoc signature. A public Homebrew binary still requires Developer ID signing and Apple notarization.
+
+The official website is planned for [`https://punchgrow.thundo.kr`](https://punchgrow.thundo.kr). It will be a static introduction site hosted on GitHub Pages, with no backend or automated social-media posting. The site has not yet been deployed, and its DNS connection is not yet complete.
 
 ## The core experience
 
