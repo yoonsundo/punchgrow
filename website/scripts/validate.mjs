@@ -20,7 +20,7 @@ const walk = async (directory) => {
 };
 
 if (failures.length === 0) {
-  const required = ['index.html', 'en/index.html', 'styles.css', 'script.js', '.nojekyll'];
+  const required = ['index.html', 'en/index.html', 'dex/index.html', 'en/dex/index.html', 'styles.css', 'script.js', 'dex.js', 'data/creatures.json', '.nojekyll'];
   for (const path of required) {
     if (!(await exists(join(root, path)))) failures.push(`missing required output: ${path}`);
   }
@@ -60,9 +60,18 @@ if (failures.length === 0) {
     }
   }
 
-  const sourceText = await Promise.all(htmlFiles.map((path) => readFile(path, 'utf8')));
+  const sourceText = await Promise.all(['index.html', 'en/index.html'].map((path) => readFile(join(root, path), 'utf8')));
   for (const id of ['experience', 'origins', 'privacy', 'install']) {
     if (!sourceText.every((html) => html.includes(`id="${id}"`))) failures.push(`locale parity: #${id} missing from a page`);
+  }
+  const dex = JSON.parse(await readFile(join(root, 'data', 'creatures.json'), 'utf8'));
+  if (dex.length !== 256 || new Set(dex.map((creature) => creature.id)).size !== 256) {
+    failures.push('creature dex data must contain exactly 256 unique creatures');
+  }
+  for (const creature of dex) {
+    if (!(await exists(join(root, creature.image.replace(/^\.\.\//, ''))))) {
+      failures.push(`missing creature image for ${creature.id}`);
+    }
   }
   if (sourceText.some((html) => /brew install|Homebrew로 설치|notarized (?:download|release) available/i.test(html))) {
     failures.push('unsupported binary/Homebrew availability claim found');
