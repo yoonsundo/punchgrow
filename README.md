@@ -4,7 +4,7 @@
   <h1>PunchGrow</h1>
 
   <p><strong>코딩이 크리처를 키우는 가장 즐거운 방법</strong></p>
-  <p>Claude Code와 Codex 사용량으로 토큰을 얻고,<br />크리처를 부화·육성하며 240종 도감을 넓혀가세요.</p>
+  <p>Claude Code와 Codex 사용량을 성장 에너지로 바꾸는<br />로컬 우선 macOS 크리처 게임입니다.</p>
 
   <p>
     <a href="README.md"><strong>한국어</strong></a>
@@ -16,7 +16,8 @@
     <img alt="v0.3.0" src="https://img.shields.io/badge/version-v0.3.0-C6F84E?style=flat-square&logoColor=08111F" />
     <img alt="macOS 14+" src="https://img.shields.io/badge/macOS-14%2B-4DE1FF?style=flat-square&logo=apple&logoColor=white" />
     <img alt="Swift 6" src="https://img.shields.io/badge/Swift-6-FF4D9D?style=flat-square&logo=swift&logoColor=white" />
-    <img alt="Local First" src="https://img.shields.io/badge/data-local--first-C6F84E?style=flat-square&logoColor=08111F" />
+    <img alt="256 creatures" src="https://img.shields.io/badge/creatures-256-C6F84E?style=flat-square&logoColor=08111F" />
+    <img alt="Local First" src="https://img.shields.io/badge/privacy-local--first-C6F84E?style=flat-square&logoColor=08111F" />
     <img alt="MIT source license" src="https://img.shields.io/badge/source-MIT-FFB84D?style=flat-square" />
   </p>
 
@@ -37,13 +38,13 @@
 
 > **프로젝트 상태: v0.3.0 알파.** 이 저장소의 공개 대상은 Apple Silicon macOS 14+ 메뉴 막대 앱입니다.
 
-GitHub Actions의 Full Xcode 환경에서 Swift 테스트, Release 빌드, 240개 크리처 리소스 조립과 ad-hoc 코드서명을 검증합니다. Developer ID 서명과 Apple 공증을 마친 공개 Homebrew 바이너리는 별도의 릴리스 단계입니다.
+GitHub Actions의 Full Xcode 환경에서 Swift 테스트, Release 빌드, 256개 크리처 리소스 조립과 ad-hoc 코드서명을 검증합니다. Developer ID 서명과 Apple 공증을 마친 공개 Homebrew 바이너리는 별도의 릴리스 단계입니다.
 
 ## 핵심 경험
 
 | 코딩 | 수집 | 성장 | 개인정보 보호 |
 | --- | --- | --- | --- |
-| Claude Code·Codex 사용량이 게임 토큰으로 쌓입니다. | 6단계 등급과 240종 크리처를 발견합니다. | 먹이, 진화와 유니크 컬러로 나만의 도감을 만듭니다. | 프롬프트와 코드는 수집하지 않고 Mac 안에서 처리합니다. |
+| Claude Code·Codex 사용량이 게임 토큰으로 쌓입니다. | 64개 계보와 256종 크리처를 발견합니다. | 먹이, 분기 진화와 유니크 컬러로 나만의 도감을 만듭니다. | 프롬프트와 코드는 수집하지 않고 Mac 안에서 처리합니다. |
 
 ## 실제 앱 화면
 
@@ -61,6 +62,21 @@ GitHub Actions의 Full Xcode 환경에서 Swift 테스트, Release 빌드, 240�
 </table>
 
 [전체 사용 가이드 보기 →](docs/USAGE.md)
+
+## 4원소 원초 계보
+
+물·불·바람·흙을 상징하는 네 계보는 각각 `PROCESS → AGENT → DAEMON → ORIGIN`으로 성장합니다. 기존 도감의 규칙을 따르면서도, 최종형에는 네 원소가 공유하는 원초 문장을 부여해 특별한 존재감을 만들었습니다.
+
+<table>
+  <tr>
+    <td align="center"><img src="macos/Sources/PunchGrowMenuBar/Resources/Creatures/PG-244.png" width="170" alt="물의 ORIGIN 네르바실" /><br /><strong>네르바실</strong><br /><sub>물 · 기억을 보존하는 첫 번째 물결</sub></td>
+    <td align="center"><img src="macos/Sources/PunchGrowMenuBar/Resources/Creatures/PG-248.png" width="170" alt="불의 ORIGIN 카르마그" /><br /><strong>카르마그</strong><br /><sub>불 · 가능성을 현실로 미는 최초의 의지</sub></td>
+    <td align="center"><img src="macos/Sources/PunchGrowMenuBar/Resources/Creatures/PG-252.png" width="170" alt="바람의 ORIGIN 벨라움" /><br /><strong>벨라움</strong><br /><sub>바람 · 첫 숨과 길을 만든 사방의 지배자</sub></td>
+    <td align="center"><img src="macos/Sources/PunchGrowMenuBar/Resources/Creatures/PG-256.png" width="170" alt="흙의 ORIGIN 그란도르" /><br /><strong>그란도르</strong><br /><sub>흙 · 세계를 지탱하는 최초의 기반</sub></td>
+  </tr>
+</table>
+
+[4원소 계보의 전체 설정과 디자인 원칙 보기 →](문서/ELEMENTAL_ORIGINS.md)
 
 ## 대표 크리처
 
@@ -84,8 +100,8 @@ GitHub Actions의 Full Xcode 환경에서 Swift 테스트, Release 빌드, 240�
 | 규칙 | 알파 기준 |
 | --- | --- |
 | 가챠 1회 | `500,000` 토큰 |
-| 가챠 결과 | 60종 PROCESS 시작형 중 하나 · PROCESS 100% |
-| ORIGIN 계보 | 60개 중 3개 · 최대 도달 등급 5% (직접 ORIGIN 뽑기 아님) |
+| 가챠 결과 | 64종 PROCESS 시작형 중 하나 · PROCESS 100% |
+| ORIGIN 계보 | 64개 중 7개 · 최대 도달 등급 약 10.9% (직접 ORIGIN 뽑기 아님) |
 | 일반 먹이 | 구매 `100,000` 토큰 · XP `+25` · 친밀도 `+3` |
 | 대형 먹이 | 구매 `500,000` 토큰 · XP `+200` · 친밀도 `+10` |
 | 유니크 컬러 | 매 가챠 `0.1%`, 능력 차이 없음 |
@@ -117,9 +133,9 @@ AI 코딩에는 토큰 사용량이라는 유용한 활동 신호가 이미 존�
 | --- | --- | --- |
 | `macos/` | v0.3.0 | Apple Silicon macOS 14+용 네이티브 SwiftUI 메뉴 막대 게임 |
 
-현재 게임에는 60종 시작형 가챠, Lv.15·25·40 레벨 진화와 갈림길 선택·변이·계승, 6단계 진화 등급(`PROCESS` → `ORIGIN`), 유니크 컬러, 먹이 주기, 로컬 저장·복원과 240종 크리처 도감이 포함되어 있습니다.
+현재 게임에는 64종 시작형 가챠, Lv.15·25·40 레벨 진화와 갈림길 선택·변이·계승, 6단계 진화 등급(`PROCESS` → `ORIGIN`), 유니크 컬러, 먹이 주기, 로컬 저장·복원과 256종 크리처 도감이 포함되어 있습니다.
 
-macOS 팝업에서는 일반·대형 먹이의 구매와 급여 버튼을 길게 눌러 가속 연속 실행할 수 있습니다. 가챠 결과와 메인 카드에서 현재 등급과 최대 도달 등급을 함께 확인할 수 있습니다. 하단의 `등급표`는 `PROCESS 100%`인 직접 가챠 등급과 `ORIGIN 계보 3/60 (5%)`와 같은 최대 도달 등급 계보 비율, 보유·발견·전체 크리처 수를 분리해 보여줍니다. `진화`에서는 선택한 크리처의 시작형부터 최종형까지 이미지·등급·분기를 볼 수 있습니다. 이 개체가 실제로 거쳐 온 과거 단계는 `보유`로 표시되어 메인 이미지로 미리 보거나 외형으로 고정할 수 있고, 미래 단계와 선택하지 않은 분기는 `미보유`로 잠깁니다. `도감`과 `설정`은 큰 화면으로 바로 이동하며, 높은 단계일수록 배지·테두리·오라 효과가 강화됩니다.
+macOS 팝업에서는 일반·대형 먹이의 구매와 급여 버튼을 길게 눌러 가속 연속 실행할 수 있습니다. 가챠 결과와 메인 카드에서 현재 등급과 최대 도달 등급을 함께 확인할 수 있습니다. 하단의 `등급표`는 `PROCESS 100%`인 직접 가챠 등급과 `ORIGIN 계보 7/64 (약 10.9%)`와 같은 최대 도달 등급 계보 비율, 보유·발견·전체 크리처 수를 분리해 보여줍니다. `진화`에서는 선택한 크리처의 시작형부터 최종형까지 이미지·등급·분기를 볼 수 있습니다. 이 개체가 실제로 거쳐 온 과거 단계는 `보유`로 표시되어 메인 이미지로 미리 보거나 외형으로 고정할 수 있고, 미래 단계와 선택하지 않은 분기는 `미보유`로 잠깁니다. `도감`과 `설정`은 큰 화면으로 바로 이동하며, 높은 단계일수록 배지·테두리·오라 효과가 강화됩니다.
 
 ### 실제 플랜 사용률
 

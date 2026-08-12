@@ -4,7 +4,7 @@
   <h1>PunchGrow</h1>
 
   <p><strong>The creature game that grows when you code</strong></p>
-  <p>Earn tokens from Claude Code and Codex usage,<br />hatch and raise creatures, and grow a 240-creature collection.</p>
+  <p>A local-first macOS creature game that turns<br />Claude Code and Codex usage into growth energy.</p>
 
   <p>
     <a href="README.md">한국어</a>
@@ -16,7 +16,8 @@
     <img alt="v0.3.0" src="https://img.shields.io/badge/version-v0.3.0-C6F84E?style=flat-square&logoColor=08111F" />
     <img alt="macOS 14+" src="https://img.shields.io/badge/macOS-14%2B-4DE1FF?style=flat-square&logo=apple&logoColor=white" />
     <img alt="Swift 6" src="https://img.shields.io/badge/Swift-6-FF4D9D?style=flat-square&logo=swift&logoColor=white" />
-    <img alt="Local First" src="https://img.shields.io/badge/data-local--first-C6F84E?style=flat-square&logoColor=08111F" />
+    <img alt="256 creatures" src="https://img.shields.io/badge/creatures-256-C6F84E?style=flat-square&logoColor=08111F" />
+    <img alt="Local First" src="https://img.shields.io/badge/privacy-local--first-C6F84E?style=flat-square&logoColor=08111F" />
     <img alt="MIT source license" src="https://img.shields.io/badge/source-MIT-FFB84D?style=flat-square" />
   </p>
 
@@ -37,13 +38,13 @@
 
 > **Project status: v0.3.0 alpha.** The intended public scope of this repository is the Apple Silicon macOS 14+ menu-bar app.
 
-GitHub Actions with Full Xcode verifies the Swift test suite, Release build, 240-creature resource assembly, and ad-hoc signature. A public Homebrew binary still requires Developer ID signing and Apple notarization.
+GitHub Actions with Full Xcode verifies the Swift test suite, Release build, 256-creature resource assembly, and ad-hoc signature. A public Homebrew binary still requires Developer ID signing and Apple notarization.
 
 ## The core experience
 
 | Code | Collect | Grow | Stay private |
 | --- | --- | --- | --- |
-| Claude Code and Codex usage becomes game tokens. | Discover 240 creatures across six rarity tiers. | Feed, evolve, and find unique-color variants. | Prompts and code stay out of the data model and processing stays on your Mac. |
+| Claude Code and Codex usage becomes game tokens. | Discover 256 creatures across 64 lineages. | Feed, branch-evolve, and find unique-color variants. | Prompts and code stay out of the data model and processing stays on your Mac. |
 
 ## Actual app screens
 
@@ -61,6 +62,21 @@ These are captures rendered by the current SwiftUI app. They use fixed documenta
 </table>
 
 [Open the complete user guide →](docs/USAGE.en.md)
+
+## The four Elemental Origin lineages
+
+Water, fire, wind, and earth each grow through `PROCESS → AGENT → DAEMON → ORIGIN`. They follow the same catalog rules as every other lineage, while their final forms share a primordial sigil that marks them as a special class of ORIGIN.
+
+<table>
+  <tr>
+    <td align="center"><img src="macos/Sources/PunchGrowMenuBar/Resources/Creatures/PG-244.png" width="170" alt="Nervasil, the Water ORIGIN" /><br /><strong>Nervasil</strong><br /><sub>Water · the first wave that preserves memory</sub></td>
+    <td align="center"><img src="macos/Sources/PunchGrowMenuBar/Resources/Creatures/PG-248.png" width="170" alt="Karmag, the Fire ORIGIN" /><br /><strong>Karmag</strong><br /><sub>Fire · the first will that makes possibility real</sub></td>
+    <td align="center"><img src="macos/Sources/PunchGrowMenuBar/Resources/Creatures/PG-252.png" width="170" alt="Velaum, the Wind ORIGIN" /><br /><strong>Velaum</strong><br /><sub>Wind · ruler of the paths and the first breath</sub></td>
+    <td align="center"><img src="macos/Sources/PunchGrowMenuBar/Resources/Creatures/PG-256.png" width="170" alt="Grandor, the Earth ORIGIN" /><br /><strong>Grandor</strong><br /><sub>Earth · the first foundation that bears the world</sub></td>
+  </tr>
+</table>
+
+[Explore the complete Elemental Origin lore and design rules →](문서/ELEMENTAL_ORIGINS.md)
 
 ## Featured creatures
 
@@ -84,8 +100,8 @@ These are captures rendered by the current SwiftUI app. They use fixed documenta
 | Rule | Alpha value |
 | --- | --- |
 | One draw | `500,000` tokens |
-| Draw result | One of 60 PROCESS stage-one creatures · PROCESS 100% |
-| ORIGIN lineage | 3 of 60 starts · 5% maximum reachable rarity, not a direct ORIGIN pull |
+| Draw result | One of 64 PROCESS stage-one creatures · PROCESS 100% |
+| ORIGIN lineage | 7 of 64 starts · about 10.9% maximum reachable rarity, not a direct ORIGIN pull |
 | Normal food | Costs `100,000` tokens · XP `+25` · affinity `+3` |
 | Large food | Costs `500,000` tokens · XP `+200` · affinity `+10` |
 | Unique color | Independent `0.1%` chance per draw, with no stat advantage |
@@ -120,9 +136,9 @@ AI-assisted coding already produces a useful activity signal: token usage. Punch
 | --- | --- | --- |
 | `macos/` | v0.3.0 | Native SwiftUI menu-bar game for Apple Silicon macOS 14+ |
 
-The current game includes a 60-species stage-one draw pool, level 15/25/40 evolution with fork choices, mutations, inheritance, and standalone fusion collectibles, six evolution tiers (`PROCESS` → `ORIGIN`), unique-color variants, feeding, local save/restore, and a 240-creature catalog.
+The current game includes a 64-species stage-one draw pool, level 15/25/40 evolution with fork choices, mutations, inheritance, and standalone fusion collectibles, six evolution tiers (`PROCESS` → `ORIGIN`), unique-color variants, feeding, local save/restore, and a 256-creature catalog.
 
-In the macOS popup, holding a normal/large food purchase or feed button accelerates repeated actions until release. Draw feedback and the main card show current rarity and maximum reachable rarity separately. The fixed footer's `Rarity` guide separates direct `PROCESS 100%` draws from maximum-reachable-rarity lineage proportions such as `ORIGIN lineage 3/60 (5%)`, plus owned, discovered, and total creature counts by tier. `Collection` and `Settings` open the large window directly. `Evolution` shows the selected creature's complete image-based lineage and marks only the forms that this individual actually passed through as owned and previewable; future stages and unchosen sibling branches remain locked. Higher stages receive progressively richer badge, frame, and aura effects.
+In the macOS popup, holding a normal/large food purchase or feed button accelerates repeated actions until release. Draw feedback and the main card show current rarity and maximum reachable rarity separately. The fixed footer's `Rarity` guide separates direct `PROCESS 100%` draws from maximum-reachable-rarity lineage proportions such as `ORIGIN lineage 7/64 (about 10.9%)`, plus owned, discovered, and total creature counts by tier. `Collection` and `Settings` open the large window directly. `Evolution` shows the selected creature's complete image-based lineage and marks only the forms that this individual actually passed through as owned and previewable; future stages and unchosen sibling branches remain locked. Higher stages receive progressively richer badge, frame, and aura effects.
 
 ### Actual plan usage
 
