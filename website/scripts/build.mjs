@@ -21,8 +21,8 @@ if (catalog.length !== 256) throw new Error(`Expected 256 creatures, received ${
 await mkdir(join(output, 'data'), { recursive: true });
 await writeFile(
   join(output, 'data', 'creatures.json'),
-  `${JSON.stringify(catalog.map(({ id, koName, enName, lineageId, stage, rarity, category, evolutionFrom, bodyForm, tone, identity, lore, palette }) => ({
-    id, koName, enName, lineageId, stage, rarity, category, evolutionFrom, bodyForm, tone, identity, lore, palette,
+  `${JSON.stringify(catalog.map(({ id, koName, enName, lineageId, stage, rarity, category, evolutionFrom, bodyForm, tone, identity, lore, shapeDNA, sharedMotifs, palette }) => ({
+    id, koName, enName, lineageId, stage, rarity, category, evolutionFrom, bodyForm, tone, identity, lore, shapeDNA, sharedMotifs, palette,
     image: `assets/creatures/${id}.png`,
   })))}\n`,
 );
