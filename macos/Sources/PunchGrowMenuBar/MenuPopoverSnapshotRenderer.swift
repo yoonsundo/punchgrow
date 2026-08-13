@@ -11,6 +11,7 @@ struct MenuPopoverSnapshotRequest: Equatable {
   static let rarityFlag = "--snapshot-rarity-guide"
   static let menuBarHUDFlag = "--snapshot-menu-bar-hud"
   static let grantToastFlag = "--snapshot-grant-toast"
+  static let levelMaxFlag = "--snapshot-level-max"
 
   let kind: Kind
   let outputURL: URL
@@ -33,6 +34,8 @@ struct MenuPopoverSnapshotRequest: Equatable {
       match = (index, .menuBarHUD, Self.menuBarHUDFlag)
     } else if let index = arguments.firstIndex(of: Self.grantToastFlag) {
       match = (index, .grantToast, Self.grantToastFlag)
+    } else if let index = arguments.firstIndex(of: Self.levelMaxFlag) {
+      match = (index, .levelMax, Self.levelMaxFlag)
     } else {
       match = nil
     }
@@ -54,9 +57,11 @@ struct MenuPopoverSnapshotRequest: Equatable {
     case rarity
     case menuBarHUD
     case grantToast
+    case levelMax
   }
 
   var usesFreshSetupFixture: Bool { kind == .menuFresh }
+  var usesLevelMaxFixture: Bool { kind == .levelMax }
 
   enum RequestError: LocalizedError {
     case missingOutputPath(flag: String)
@@ -93,7 +98,10 @@ enum MenuPopoverSnapshotRenderer {
   static let raritySize = NSSize(width: 360, height: 490)
   static let grantToastSize = NSSize(width: 380, height: 260)
 
-  static func makeFixture(freshSetup: Bool = false) throws -> MenuPopoverSnapshotFixture {
+  static func makeFixture(
+    freshSetup: Bool = false,
+    levelMaxShowcase: Bool = false
+  ) throws -> MenuPopoverSnapshotFixture {
     let catalog = try CreatureCatalog.load()
     let rootSpecies = catalog
       .filter { $0.stage == 1 && $0.evolutionFrom.isEmpty }
@@ -110,7 +118,7 @@ enum MenuPopoverSnapshotRenderer {
     try FileManager.default.createDirectory(at: temporaryDirectory, withIntermediateDirectories: true)
 
     let acquiredAt = Date(timeIntervalSince1970: 1_754_275_200)
-    let creatures = snapshotSpecies.enumerated().map { index, species in
+    var creatures = snapshotSpecies.enumerated().map { index, species in
       OwnedCreature(
         id: deterministicUUID(index: index),
         speciesID: species.id,
@@ -121,6 +129,24 @@ enum MenuPopoverSnapshotRenderer {
         nickname: nil,
         uniqueColor: false,
         acquiredAt: acquiredAt.addingTimeInterval(TimeInterval(index))
+      )
+    }
+    if levelMaxShowcase {
+      // 골드 연출 확인용 만렙 개체. 종착 종을 쓰면 진화 대기 배지가 끼어들지 않아
+      // 만렙 표시만 분리해 볼 수 있다.
+      guard catalog.contains(where: { $0.id == "PG-092" }) else {
+        throw SnapshotError.insufficientCatalog
+      }
+      creatures[9] = OwnedCreature(
+        id: deterministicUUID(index: 9),
+        speciesID: "PG-092",
+        originSpeciesID: "PG-024",
+        level: GameState.maximumCreatureLevel,
+        experience: 0,
+        affection: 100,
+        nickname: nil,
+        uniqueColor: false,
+        acquiredAt: acquiredAt.addingTimeInterval(9)
       )
     }
     let currentCreature = creatures[9]
@@ -154,6 +180,11 @@ enum MenuPopoverSnapshotRenderer {
     return MenuPopoverSnapshotFixture(store: store, temporaryDirectory: temporaryDirectory)
   }
 
+  /// 스냅샷 렌더는 사용자 설정을 읽지도 쓰지도 않는다.
+  private static func inertDefaults() -> UserDefaults {
+    UserDefaults(suiteName: "app.punchgrow.menubar.snapshot") ?? .standard
+  }
+
   static func render(
     to outputURL: URL,
     store: GameStore,
@@ -165,8 +196,43 @@ enum MenuPopoverSnapshotRenderer {
       store: store,
       integrationStatus: integrationStatus,
       originReveal: originReveal,
-      mainNavigation: mainNavigation
+      mainNavigation: mainNavigation,
+      // 스냅샷은 네트워크를 쓰지 않는다. 버전이 없는 서비스는 확인을 아예 시작하지 않는다.
+      updates: UpdateService(currentVersion: nil, defaults: Self.inertDefaults())
     )
+    try render(rootView, size: size, to: outputURL, forbidsScrollView: true)
+  }
+
+  /// 만렙 골드 연출(포트레이트 링·LV 게이지)과 LEVEL MAX 토스트를 한 장으로 확인한다.
+  /// 토스트는 급여 전이 순간에만 살아 있는 상태라 렌더에서 직접 얹는다.
+  static func renderLevelMax(
+    to outputURL: URL,
+    store: GameStore,
+    integrationStatus: IntegrationStatusProjection,
+    originReveal: OriginRevealCoordinator,
+    mainNavigation: MainWindowNavigation
+  ) throws {
+    guard let creature = store.currentCreature,
+          creature.level >= GameState.maximumCreatureLevel,
+          let species = store.currentSpecies
+    else { throw SnapshotError.insufficientCatalog }
+    let rootView = MenuPopoverView(
+      store: store,
+      integrationStatus: integrationStatus,
+      originReveal: originReveal,
+      mainNavigation: mainNavigation,
+      updates: UpdateService(currentVersion: nil, defaults: Self.inertDefaults())
+    )
+    .overlay(alignment: .top) {
+      LevelMaxToast(
+        feedback: MaxLevelFeedback(
+          id: deterministicUUID(index: 50),
+          creatureID: creature.id,
+          creatureName: species.koName
+        )
+      )
+      .padding(12)
+    }
     try render(rootView, size: size, to: outputURL, forbidsScrollView: true)
   }
 

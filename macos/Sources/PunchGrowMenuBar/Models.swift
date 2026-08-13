@@ -248,10 +248,18 @@ struct PendingMutationOffer: Identifiable, Equatable, Sendable {
 struct FeedOutcome: Equatable, Sendable {
     let evolutions: [EvolutionResult]
     let mutationOffer: PendingMutationOffer?
+    /// 이번 급여로 만렙에 **처음 도달한** 개체. 이미 만렙인 개체를 먹여도 다시 담기지 않아,
+    /// 축전이 도달 순간에 한 번만 뜬다.
+    let reachedMaximumLevelCreatureID: UUID?
 
-    init(evolutions: [EvolutionResult] = [], mutationOffer: PendingMutationOffer? = nil) {
+    init(
+        evolutions: [EvolutionResult] = [],
+        mutationOffer: PendingMutationOffer? = nil,
+        reachedMaximumLevelCreatureID: UUID? = nil
+    ) {
         self.evolutions = evolutions
         self.mutationOffer = mutationOffer
+        self.reachedMaximumLevelCreatureID = reachedMaximumLevelCreatureID
     }
 }
 
@@ -264,6 +272,14 @@ struct EvolutionFeedback: Identifiable, Equatable, Sendable {
     let toName: String
     let rarity: String
     let stagesCrossed: Int
+}
+
+/// 만렙(Lv.50) 도달 순간의 축전. 진화 토스트와 같은 자리에 잠시 떠 있다 사라진다.
+struct MaxLevelFeedback: Identifiable, Equatable, Sendable {
+    let id: UUID
+    let creatureID: UUID
+    /// 별명이 있으면 별명, 없으면 현재 종 이름.
+    let creatureName: String
 }
 
 struct Inventory: Codable, Equatable, Sendable {

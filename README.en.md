@@ -165,6 +165,8 @@ The macOS app runs locally and collection is off until the user explicitly enabl
 - PunchGrow stores normalized token counts, timestamps, opaque hashes, incremental cursors, and game state.
 - It does **not** store prompts, responses, source code, commands, project names, raw paths, emails, or account/model identifiers.
 - Disconnecting and deleting the PunchGrow cache does not edit or delete the original Claude Code or Codex logs.
+- The update check (comparing a public GitHub Releases tag against the installed version) is the only network request PunchGrow itself sends. It is unauthenticated and carries no usage numbers or game state. A successful check is followed by one a day later; a failed one retries on a backoff starting at 60 seconds and capped at 24 hours. Turn it off anytime from **Settings > Data & Settings > 업데이트**.
+- Separately, while collection is enabled PunchGrow runs the Claude Code status-line script noted above about once a minute, and that script queries the provider for plan usage with its own credentials. The script sends the request, but it goes out when it does because PunchGrow spawned the script. PunchGrow never reads those credentials. Turning collection off stops those runs.
 
 See [the macOS documentation](macos/README.md) for the detailed collection and status model.
 

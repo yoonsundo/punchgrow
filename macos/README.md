@@ -4,7 +4,9 @@ Apple Silicon macOS 14+ local single-player app. The menu-bar popup is the
 primary play surface; the large window separates collection browsing,
 integration setup, and local data settings.
 
-Current app version: **v0.2.0**. For player-facing instructions, see the
+Current app version: **v0.3.0** (`CFBundleShortVersionString` in
+`homebrew/Info.plist` is the single source the update check compares against).
+For player-facing instructions, see the
 [Korean user guide](../docs/USAGE.md) or [English user guide](../docs/USAGE.en.md).
 
 PunchGrow stores normalized numeric token usage and game state under
@@ -187,6 +189,49 @@ receive their prompts or responses.
 The page also shows whether automatic collection is running and the most recent
 successful scan time. A stopped collector never presents a stale provider as
 actively connected.
+
+## Update checks
+
+PunchGrow checks GitHub Releases once 24 hours have passed since its last
+**successful** check, comparing the latest published tag against the running
+app's `CFBundleShortVersionString`. That timestamp is persisted, so a relaunch
+inside the window skips the request. A failed check does not consume the daily
+budget: it leaves the timestamp alone and retries on an exponential backoff
+starting at 60 seconds and capped at 24 hours, so a brief outage does not
+swallow a day of notices. The request is an unauthenticated `GET` against
+`https://api.github.com/repos/yoonsundo/punchgrow/releases/latest`. It never
+sends usage numbers, game state, prompts, source code, or any identifier.
+
+This is the only network request the app itself makes. It is **not** the only
+network traffic the app causes: while collection is enabled,
+`LocalUsageService` runs `ClaudeUsageCacheRefresher` about once a minute, which
+spawns Claude Code's status-line script, and that script calls the provider's
+usage API with its own Keychain-held credentials (see
+`ClaudeUsageCacheRefresher.swift` — the app deliberately stays out of the
+credential path). Disabling the update check silences the app's own request;
+silencing the refresher requires turning collection off.
+
+When a newer version is found, PunchGrow shows a banner above the popup menu
+and, if the existing **알림** (notifications) toggle in Data & Settings is on,
+a single macOS Notification Center alert per version. The banner and the
+update panel in **Data & Settings** both offer copying the
+`brew upgrade --cask punchgrow` command, opening the release notes, and
+skipping that version; a skipped version stays silent until a higher version
+is published.
+
+PunchGrow never installs the update itself. Installation is the user running
+`brew upgrade --cask punchgrow`. Because the app is distributed as a Homebrew
+cask and the current build is ad-hoc signed (pre-notarization), having the
+app replace its own bundle would desync the version Homebrew tracks from the
+version actually installed.
+
+Turn the check off from **Data & Settings > 업데이트** by disabling
+**새 버전 자동 확인**. The same panel has a **지금 확인** button and
+shows the last successful check time. Relevant `UserDefaults` keys:
+`updateCheckEnabled`, `updateLastCheckedAt`, `updateSkippedVersion`,
+`updateNotifiedVersion`. The notified-version key is written only when an alert
+is actually sent, so turning notifications back on still surfaces a version
+found while they were off.
 
 ## Diagnostic compatibility paths
 

@@ -20,6 +20,7 @@ final class GameStore: ObservableObject {
     @Published var errorMessage: String?
     @Published private(set) var evolutionFeedback: EvolutionFeedback?
     @Published private(set) var grantFeedback: CreatureGrantFeedback?
+    @Published private(set) var maxLevelFeedback: MaxLevelFeedback?
     /// 세션 한정. 저장하지 않으므로 앱을 다시 켜면 같은 지점에서 다시 판정된다.
     @Published private(set) var pendingMutationOffer: PendingMutationOffer?
     @Published private(set) var observedLocalUsage: [TokenProvider: Int] = [:]
@@ -444,6 +445,11 @@ final class GameStore: ObservableObject {
         grantFeedback = nil
     }
 
+    func clearMaxLevelFeedback(id: UUID) {
+        guard maxLevelFeedback?.id == id else { return }
+        maxLevelFeedback = nil
+    }
+
     @discardableResult
     private func performMutation<Result>(_ mutation: (inout GameState) throws -> Result) -> Result? {
         guard !isPersistenceLocked else { return nil }
@@ -488,6 +494,19 @@ final class GameStore: ObservableObject {
     private func apply(_ outcome: FeedOutcome) {
         if let offer = outcome.mutationOffer { pendingMutationOffer = offer }
         publishEvolutionFeedback(outcome.evolutions)
+        publishMaxLevelFeedback(outcome.reachedMaximumLevelCreatureID)
+    }
+
+    private func publishMaxLevelFeedback(_ creatureID: UUID?) {
+        guard let creatureID,
+              let creature = state.ownedCreatures.first(where: { $0.id == creatureID }),
+              let species = catalog.first(where: { $0.id == creature.speciesID })
+        else { return }
+        maxLevelFeedback = MaxLevelFeedback(
+            id: UUID(),
+            creatureID: creatureID,
+            creatureName: creature.nickname ?? species.koName
+        )
     }
 
     /// 난수원을 꺼내 쓰고 진행된 상태를 되돌려 놓는다. 클래스 프로퍼티를 직접

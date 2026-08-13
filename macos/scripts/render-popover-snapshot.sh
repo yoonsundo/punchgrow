@@ -57,6 +57,11 @@ case "$SNAPSHOT_KIND" in
     EXPECTED_WIDTH=380
     EXPECTED_HEIGHT=260
     ;;
+  level-max)
+    SNAPSHOT_FLAG=--snapshot-level-max
+    EXPECTED_WIDTH=398
+    EXPECTED_HEIGHT=670
+    ;;
   *)
     echo "Unknown snapshot kind: $SNAPSHOT_KIND" >&2
     exit 2

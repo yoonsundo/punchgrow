@@ -529,6 +529,10 @@ struct MutationOfferPresentation: Equatable {
   var retryNotice: String {
     "거절해도 나중에 \(GameState.mutationRetryCost / 10_000)만 토큰으로 다시 노릴 수 있습니다"
   }
+  /// 수락이 막다른 길로 읽히지 않도록, 종착 경고 옆에 계승 탈출구를 함께 알린다.
+  var acceptNotice: String {
+    "받아도 계승(\(GameState.inheritCost / 10_000)만 토큰)으로 같은 계보의 시작종을 새로 키울 수 있습니다"
+  }
 
   static func make(
     offer: PendingMutationOffer,
@@ -920,6 +924,15 @@ enum CollectionSearch {
   }
 }
 
+/// 만렙 골드 연출 색. 등급 색과 헷갈리지 않도록 warning 계열로 통일한다.
+private enum LevelMaxStyle {
+  static let ringColors: [Color] = [
+    PunchGrowColors.warning,
+    Color(red: 1, green: 232 / 255, blue: 166 / 255),
+    PunchGrowColors.warning,
+  ]
+}
+
 private enum PunchGrowColors {
   static let void = Color(red: 7 / 255, green: 6 / 255, blue: 13 / 255)
   static let surface = Color(red: 18 / 255, green: 14 / 255, blue: 29 / 255)
@@ -1136,6 +1149,7 @@ struct MenuPopoverView: View {
   @ObservedObject var integrationStatus: IntegrationStatusProjection
   @ObservedObject var originReveal: OriginRevealCoordinator
   @ObservedObject var mainNavigation: MainWindowNavigation
+  @ObservedObject var updates: UpdateService
   @Environment(\.openWindow) private var openWindow
   @State private var pullFeedback: PullFeedback?
   @State private var showsRarityGuide = false
@@ -1219,12 +1233,21 @@ struct MenuPopoverView: View {
         EvolutionResultToast(feedback: evolutionFeedback)
           .padding(12)
           .transition(.move(edge: .top).combined(with: .opacity))
+      } else if let maxLevelFeedback = store.maxLevelFeedback {
+        LevelMaxToast(feedback: maxLevelFeedback)
+          .padding(12)
+          .transition(.move(edge: .top).combined(with: .opacity))
       } else if let grantFeedback = store.grantFeedback {
         CreatureGrantToast(feedback: grantFeedback, catalog: store.catalog)
           .padding(12)
           .transition(.move(edge: .top).combined(with: .opacity))
       } else if let pullFeedback {
         PullResultToast(feedback: pullFeedback)
+          .padding(12)
+          .transition(.move(edge: .top).combined(with: .opacity))
+      } else if let update = updates.availableUpdate {
+        // 업데이트 안내는 게임 피드백보다 급하지 않다. 위 토스트가 하나라도 떠 있으면 그쪽에 자리를 내준다.
+        UpdateBanner(update: update, onSkip: { updates.skipCurrentUpdate() })
           .padding(12)
           .transition(.move(edge: .top).combined(with: .opacity))
       }
@@ -1278,6 +1301,12 @@ struct MenuPopoverView: View {
       try? await Task.sleep(for: .seconds(2.8))
       guard !Task.isCancelled else { return }
       withAnimation { store.clearGrantFeedback(id: id) }
+    }
+    .task(id: store.maxLevelFeedback?.id) {
+      guard let id = store.maxLevelFeedback?.id else { return }
+      try? await Task.sleep(for: .seconds(2.8))
+      guard !Task.isCancelled else { return }
+      withAnimation { store.clearMaxLevelFeedback(id: id) }
     }
   }
 
@@ -1841,6 +1870,12 @@ private struct CreatureHero: View {
     RarityVisualStyle(displayedSpecies?.rarity ?? "PROCESS")
   }
 
+  /// 만렙 개체는 포트레이트 링과 LV 게이지를 골드로 바꿔 성장 완성을 상시 표시한다.
+  /// 과거 모습 미리보기 중에도 육성 대상은 같은 개체이므로 판정을 바꾸지 않는다.
+  private var isMaximumLevel: Bool {
+    (store.currentCreature?.level ?? 0) >= GameState.maximumCreatureLevel
+  }
+
   private func formChip(
     _ title: String,
     symbol: String,
@@ -1881,11 +1916,13 @@ private struct CreatureHero: View {
           RoundedRectangle(cornerRadius: 18)
             .stroke(
               LinearGradient(
-                colors: rarityStyle.gradientColors,
+                colors: isMaximumLevel ? LevelMaxStyle.ringColors : rarityStyle.gradientColors,
                 startPoint: .topLeading,
                 endPoint: .bottomTrailing
               ),
-              lineWidth: rarityStyle.tier.rawValue >= RarityVisualTier.oracle.rawValue ? 2 : 1
+              lineWidth: isMaximumLevel
+                ? 2
+                : (rarityStyle.tier.rawValue >= RarityVisualTier.oracle.rawValue ? 2 : 1)
             )
             .frame(
               width: MenuPopoverLayout.heroArtworkSize + 2,
@@ -1964,14 +2001,13 @@ private struct CreatureHero: View {
       }
 
       if let creature = store.currentCreature {
-        let isMaximumLevel = creature.level >= GameState.maximumCreatureLevel
         VStack(spacing: 4) {
           HStack(spacing: 10) {
             ProgressMetric(
               label: isMaximumLevel ? "LV. \(creature.level) · MAX" : "LV. \(creature.level) · XP",
               value: isMaximumLevel ? 1 : creature.experience,
               maximum: isMaximumLevel ? 1 : max(1, creature.level * 100),
-              tint: PunchGrowColors.fuel
+              tint: isMaximumLevel ? PunchGrowColors.warning : PunchGrowColors.fuel
             )
             ProgressMetric(
               label: "친밀도", value: creature.affection, maximum: 100, tint: PunchGrowColors.rival)
@@ -2499,6 +2535,11 @@ struct MutationOfferSheet: View {
         }
         .buttonStyle(.plain)
         .accessibilityLabel("\(presentation.acceptTitle), \(presentation.terminalWarning)")
+
+        Text(presentation.acceptNotice)
+          .font(.caption2)
+          .foregroundStyle(.secondary)
+          .fixedSize(horizontal: false, vertical: true)
       }
     }
     .padding(16)
@@ -2931,6 +2972,53 @@ struct RarityGuidePopover: View {
   }
 }
 
+/// 새 버전 안내. 앱은 스스로 설치하지 않으므로 여기서 하는 일은 안내와 복사까지다.
+private struct UpdateBanner: View {
+  let update: ReleaseInfo
+  let onSkip: () -> Void
+  @State private var copied = false
+
+  var body: some View {
+    VStack(alignment: .leading, spacing: 7) {
+      HStack(spacing: 7) {
+        Image(systemName: "arrow.down.circle.fill")
+          .foregroundStyle(PunchGrowColors.calm)
+        Text("NEW VERSION")
+          .font(.system(size: 9, weight: .bold, design: .monospaced))
+          .foregroundStyle(.secondary)
+        Spacer(minLength: 0)
+        Text("v\(update.version.description)")
+          .font(.caption.weight(.bold))
+          .foregroundStyle(PunchGrowColors.calm)
+      }
+      Text(copied ? "명령을 복사했습니다. 터미널에 붙여넣어 실행해 주세요." : UpdateCheck.brewUpgradeCommand)
+        .font(.system(size: 10, design: .monospaced))
+        .foregroundStyle(copied ? PunchGrowColors.fuel : .secondary)
+        .lineLimit(1)
+        .minimumScaleFactor(0.8)
+      HStack(spacing: 6) {
+        Button("명령 복사") {
+          UpdateService.copyBrewUpgradeCommand()
+          copied = true
+        }
+        Button("릴리스 노트") { NSWorkspace.shared.open(update.notesURL) }
+        Button("건너뛰기", action: onSkip)
+      }
+      .buttonStyle(.plain)
+      .font(.caption2.weight(.semibold))
+      .foregroundStyle(PunchGrowColors.calm)
+    }
+    .padding(.horizontal, 12).padding(.vertical, 10)
+    .frame(maxWidth: .infinity, alignment: .leading)
+    .background(.ultraThinMaterial, in: RoundedRectangle(cornerRadius: 12))
+    .overlay(
+      RoundedRectangle(cornerRadius: 12).stroke(PunchGrowColors.calm.opacity(0.7), lineWidth: 1))
+    .shadow(color: PunchGrowColors.calm.opacity(0.28), radius: 14)
+    .accessibilityElement(children: .contain)
+    .accessibilityLabel("새 버전 \(update.version.description)이 있습니다")
+  }
+}
+
 private struct EvolutionResultToast: View {
   let feedback: EvolutionFeedback
 
@@ -2958,6 +3046,36 @@ private struct EvolutionResultToast: View {
     .accessibilityElement(children: .combine)
     .accessibilityLabel(
       "진화 완료, \(feedback.fromName)에서 \(feedback.toName), \(feedback.stagesCrossed)단계 진화")
+  }
+}
+
+/// 만렙 도달 축전. 진화 토스트와 같은 자리에 뜨지만, 성장이 완성됐다는 사실을 금색으로
+/// 구분한다. 스냅샷 렌더러가 직접 인스턴스화한다.
+struct LevelMaxToast: View {
+  let feedback: MaxLevelFeedback
+
+  var body: some View {
+    HStack(spacing: 10) {
+      Image(systemName: "crown.fill")
+        .foregroundStyle(PunchGrowColors.warning)
+      VStack(alignment: .leading, spacing: 1) {
+        Text("LEVEL MAX")
+          .font(.system(size: 9, weight: .bold, design: .monospaced))
+          .foregroundStyle(.secondary)
+        Text("\(feedback.creatureName) · Lv.\(GameState.maximumCreatureLevel) 도달")
+          .font(.callout.weight(.bold))
+        Text("성장 완성 · 먹이는 이제 친밀도만 올립니다")
+          .font(.caption2.weight(.semibold))
+          .foregroundStyle(PunchGrowColors.warning)
+      }
+    }
+    .padding(.horizontal, 14).padding(.vertical, 10)
+    .background(.ultraThinMaterial, in: Capsule())
+    .overlay(Capsule().stroke(PunchGrowColors.warning, lineWidth: 1))
+    .shadow(color: PunchGrowColors.warning.opacity(0.35), radius: 16)
+    .accessibilityElement(children: .combine)
+    .accessibilityLabel(
+      "만렙 도달, \(feedback.creatureName), 레벨 \(GameState.maximumCreatureLevel)")
   }
 }
 
@@ -3174,6 +3292,7 @@ struct MainWindowView: View {
   @ObservedObject var localUsage: LocalUsageService
   @ObservedObject var integrationStatus: IntegrationStatusProjection
   @ObservedObject var navigation: MainWindowNavigation
+  @ObservedObject var updates: UpdateService
 
   var body: some View {
     NavigationSplitView {
@@ -3196,7 +3315,7 @@ struct MainWindowView: View {
         case .connections:
           ConnectionsView(
             store: store, localUsage: localUsage, integrationStatus: integrationStatus)
-        case .settings: DataSettingsView(store: store)
+        case .settings: DataSettingsView(store: store, updates: updates)
         }
       }
       .background(DigitalMythBackground())
@@ -3437,6 +3556,7 @@ private struct IntegrationPanel<Content: View>: View {
 
 private struct DataSettingsView: View {
   @ObservedObject var store: GameStore
+  @ObservedObject var updates: UpdateService
   @State private var reduceEffects = UserDefaults.standard.bool(forKey: "reduceEffects")
   @State private var notifications =
     UserDefaults.standard.object(forKey: "notifications") as? Bool ?? true
@@ -3461,6 +3581,9 @@ private struct DataSettingsView: View {
             UserDefaults.standard.set(value, forKey: "reduceEffects")
           }
           Text("시스템의 ‘동작 줄이기’ 설정도 ORIGIN 연출에 자동 반영됩니다.").font(.caption).foregroundStyle(.secondary)
+        }
+        SettingsPanel(title: "업데이트", symbol: "arrow.down.circle") {
+          UpdateSettingsPanelBody(updates: updates)
         }
         SettingsPanel(title: "백업과 복원", symbol: "externaldrive.fill") {
           Text("백업에는 크리처, 토큰, 진행도와 사용량 수치가 포함됩니다. 프롬프트와 코드는 포함되지 않습니다.")
@@ -3494,6 +3617,74 @@ private struct DataSettingsView: View {
     panel.canChooseDirectories = false
     guard panel.runModal() == .OK, let url = panel.url else { return }
     store.restoreBackup(from: url)
+  }
+}
+
+/// 설정 화면의 업데이트 패널. 확인 주기를 끄는 스위치와 수동 확인이 여기 모인다.
+private struct UpdateSettingsPanelBody: View {
+  @ObservedObject var updates: UpdateService
+  @State private var copied = false
+
+  private var currentVersionText: String {
+    updates.currentVersion.map { "v\($0.description)" } ?? "알 수 없음 (개발 빌드)"
+  }
+
+  private var lastCheckedText: String {
+    guard let lastCheckedAt = updates.lastCheckedAt else { return "아직 확인한 적 없음" }
+    // 실패한 확인은 이 시각을 갱신하지 않으므로 `성공`을 붙여 뜻을 분명히 한다.
+    return "마지막 성공 확인 " + lastCheckedAt.formatted(date: .abbreviated, time: .shortened)
+  }
+
+  var body: some View {
+    LabeledContent("현재 버전", value: currentVersionText)
+    Toggle(
+      "새 버전 자동 확인",
+      isOn: Binding(
+        get: { updates.automaticCheckEnabled },
+        set: { updates.setAutomaticCheckEnabled($0) }
+      )
+    )
+    Text(
+      "확인에 성공하면 하루에 한 번만 다시 확인합니다. 실패하면 1분에서 시작해 최대 하루까지 간격을 늘리며 다시 시도합니다."
+    )
+    .font(.caption).foregroundStyle(.secondary)
+    Text(
+      "업데이트 확인은 GitHub 공개 릴리스 목록만 읽습니다. 사용량이나 게임 데이터는 보내지 않으며, PunchGrow가 직접 보내는 요청은 이것뿐입니다. "
+        + "이와 별개로 자동 수집이 켜져 있는 동안에는 PunchGrow가 Claude Code의 상태줄 스크립트를 약 1분마다 실행하고, 그 스크립트가 자신의 자격 증명으로 사용률을 조회합니다."
+    )
+    .font(.caption).foregroundStyle(.secondary)
+    if let update = updates.availableUpdate {
+      Divider().overlay(PunchGrowColors.line)
+      Text("새 버전 v\(update.version.description)이 나왔습니다.")
+        .font(.callout.weight(.semibold)).foregroundStyle(PunchGrowColors.calm)
+      if let notes = update.notes {
+        Text(notes).font(.caption).foregroundStyle(.secondary).lineLimit(6)
+      }
+      Text(UpdateCheck.brewUpgradeCommand)
+        .font(.system(size: 11, design: .monospaced))
+        .textSelection(.enabled)
+        .padding(.horizontal, 8).padding(.vertical, 5)
+        .background(PunchGrowColors.raised, in: RoundedRectangle(cornerRadius: 7))
+      HStack {
+        Button(copied ? "복사됨" : "명령 복사") {
+          UpdateService.copyBrewUpgradeCommand()
+          copied = true
+        }
+        Button("릴리스 노트 열기") { NSWorkspace.shared.open(updates.releaseNotesURL) }
+        Button("이 버전 건너뛰기") { updates.skipCurrentUpdate() }
+      }
+    }
+    Divider().overlay(PunchGrowColors.line)
+    HStack {
+      Button("지금 확인") { updates.checkNow() }
+        .disabled(updates.isChecking || updates.currentVersion == nil)
+      if updates.isChecking { ProgressView().controlSize(.small) }
+      Text(lastCheckedText).font(.caption).foregroundStyle(.secondary)
+    }
+    if let message = updates.errorMessage {
+      Label(message, systemImage: "exclamationmark.triangle.fill")
+        .font(.caption).foregroundStyle(PunchGrowColors.warning)
+    }
   }
 }
 

@@ -372,8 +372,12 @@ final class GameEngineTests: XCTestCase {
         affection: 7, nickname: nil, uniqueColor: false, acquiredAt: .now)
       var state = GameState()
       state.ownedCreatures = [creature]
-      let chain = try GameEngine.feed(creatureID: creature.id, state: &state, catalog: [])
-      XCTAssertTrue(chain.isEmpty)
+      var generator = SystemRandomNumberGenerator()
+      let outcome = try GameEngine.feed(
+        creatureID: creature.id, state: &state, catalog: [], generator: &generator)
+      XCTAssertTrue(outcome.evolutions.isEmpty)
+      // 이미 만렙이거나 그 위의 레거시 개체는 축전 신호를 다시 받지 않는다.
+      XCTAssertNil(outcome.reachedMaximumLevelCreatureID)
       XCTAssertEqual(state.inventory.food, 4)
       XCTAssertEqual(state.ownedCreatures[0].level, level)
       XCTAssertEqual(state.ownedCreatures[0].experience, 0)
@@ -393,6 +397,58 @@ final class GameEngineTests: XCTestCase {
 
     XCTAssertEqual(state.ownedCreatures[0].level, GameState.maximumCreatureLevel)
     XCTAssertEqual(state.ownedCreatures[0].experience, 0)
+  }
+
+  func testFeedReportsMaximumLevelOnlyAtTheCrossingMoment() throws {
+    let creature = OwnedCreature(
+      id: UUID(), speciesID: "PG-999", level: 49, experience: 4_899,
+      affection: 0, nickname: nil, uniqueColor: false, acquiredAt: .now)
+    var state = GameState()
+    state.ownedCreatures = [creature]
+    state.inventory.largeFood = 2
+
+    var generator = SystemRandomNumberGenerator()
+    let crossing = try GameEngine.feedLarge(
+      creatureID: creature.id, state: &state, catalog: [], generator: &generator)
+    XCTAssertEqual(crossing.reachedMaximumLevelCreatureID, creature.id)
+    XCTAssertEqual(state.ownedCreatures[0].level, GameState.maximumCreatureLevel)
+
+    // 이미 만렙인 개체를 다시 먹여도 축전 신호는 반복되지 않는다.
+    let alreadyMax = try GameEngine.feedLarge(
+      creatureID: creature.id, state: &state, catalog: [], generator: &generator)
+    XCTAssertNil(alreadyMax.reachedMaximumLevelCreatureID)
+  }
+
+  func testDeferredEvolutionFeedStillReportsMaximumLevelCrossing() throws {
+    let creature = OwnedCreature(
+      id: UUID(), speciesID: "PG-999", level: 49, experience: 4_899,
+      affection: 0, nickname: nil, uniqueColor: false, acquiredAt: .now)
+    var state = GameState()
+    state.ownedCreatures = [creature]
+    state.inventory.largeFood = 1
+
+    var generator = SystemRandomNumberGenerator()
+    let outcome = try GameEngine.feedLarge(
+      creatureID: creature.id, state: &state, catalog: [], generator: &generator,
+      deferringEvolution: true)
+
+    XCTAssertTrue(outcome.evolutions.isEmpty)
+    XCTAssertEqual(outcome.reachedMaximumLevelCreatureID, creature.id)
+    XCTAssertEqual(state.ownedCreatures[0].level, GameState.maximumCreatureLevel)
+  }
+
+  func testFeedBelowMaximumLevelDoesNotReportMaximumLevel() throws {
+    let creature = OwnedCreature(
+      id: UUID(), speciesID: "PG-999", level: 1, experience: 0,
+      affection: 0, nickname: nil, uniqueColor: false, acquiredAt: .now)
+    var state = GameState()
+    state.ownedCreatures = [creature]
+
+    var generator = SystemRandomNumberGenerator()
+    let outcome = try GameEngine.feed(
+      creatureID: creature.id, state: &state, catalog: [], generator: &generator)
+
+    XCTAssertNil(outcome.reachedMaximumLevelCreatureID)
   }
 
   func testEvolutionResolutionPrefersCategoryThenStableID() throws {

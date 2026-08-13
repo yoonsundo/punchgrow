@@ -29,11 +29,12 @@ function assertNear(label, actual, expected, tolerance = 18) {
 
 // The third action row was the original overflow regression. Sample multiple points away
 // from text so a one-pixel sliver or a footer overlap cannot satisfy this check.
+// PunchGrowColors.actionRetry / actionInherit (Views.swift)와 같은 값이어야 한다.
 for (const x of [25, 110, 180]) {
-  assertNear('mutation retry action', colorAt(x, 600), [165, 115, 255]);
+  assertNear('mutation retry action', colorAt(x, 600), [103, 85, 174]);
 }
 for (const x of [215, 300, 370]) {
-  assertNear('inherit action', colorAt(x, 600), [77, 225, 255]);
+  assertNear('inherit action', colorAt(x, 600), [40, 126, 120]);
 }
 
 // All five fixed dock destinations must remain visible below the action deck.

@@ -39,6 +39,7 @@ struct PunchGrowApp: App {
   @StateObject private var integrationStatus: IntegrationStatusProjection
   @StateObject private var originReveal: OriginRevealCoordinator
   @StateObject private var mainNavigation: MainWindowNavigation
+  @StateObject private var updates: UpdateService
 
   init() {
     let integrationStatus = IntegrationStatusProjection()
@@ -49,7 +50,8 @@ struct PunchGrowApp: App {
       snapshotRequest = try MenuPopoverSnapshotRequest(arguments: CommandLine.arguments)
       if let snapshotRequest {
         let fixture = try MenuPopoverSnapshotRenderer.makeFixture(
-          freshSetup: snapshotRequest.usesFreshSetupFixture
+          freshSetup: snapshotRequest.usesFreshSetupFixture,
+          levelMaxShowcase: snapshotRequest.usesLevelMaxFixture
         )
         store = fixture.store
         integrationStatus.serviceDidStart(.claude)
@@ -82,6 +84,14 @@ struct PunchGrowApp: App {
             try MenuPopoverSnapshotRenderer.renderMenuBarHUD(to: snapshotRequest.outputURL)
           case .grantToast:
             try MenuPopoverSnapshotRenderer.renderGrantToast(to: snapshotRequest.outputURL)
+          case .levelMax:
+            try MenuPopoverSnapshotRenderer.renderLevelMax(
+              to: snapshotRequest.outputURL,
+              store: store,
+              integrationStatus: integrationStatus,
+              originReveal: originReveal,
+              mainNavigation: mainNavigation
+            )
           }
         }
         DispatchQueue.main.async {
@@ -146,20 +156,25 @@ struct PunchGrowApp: App {
         store?.ingestCollectedEvents(events) ?? .failed
       }
     )
+    let updates = UpdateService()
     _collector = StateObject(wrappedValue: collector)
     _codex = StateObject(wrappedValue: codex)
     _localUsage = StateObject(wrappedValue: localUsage)
+    _updates = StateObject(wrappedValue: updates)
 #if DEBUG
     if snapshotRequest == nil {
       localUsage.resumeIfEnabled()
+      updates.resumeIfEnabled()
     }
 #else
     localUsage.resumeIfEnabled()
+    updates.resumeIfEnabled()
 #endif
-    AppDelegate.onTerminate = { [weak collector, weak codex, weak localUsage] in
+    AppDelegate.onTerminate = { [weak collector, weak codex, weak localUsage, weak updates] in
       collector?.stop()
       codex?.stop()
       localUsage?.shutdown()
+      updates?.shutdown()
     }
   }
 
@@ -169,7 +184,8 @@ struct PunchGrowApp: App {
         store: store,
         integrationStatus: integrationStatus,
         originReveal: originReveal,
-        mainNavigation: mainNavigation
+        mainNavigation: mainNavigation,
+        updates: updates
       )
     } label: {
       MenuBarStatusLabel(store: store)
@@ -181,7 +197,8 @@ struct PunchGrowApp: App {
         store: store,
         localUsage: localUsage,
         integrationStatus: integrationStatus,
-        navigation: mainNavigation
+        navigation: mainNavigation,
+        updates: updates
       )
     }
     .defaultSize(width: 960, height: 680)

@@ -825,6 +825,8 @@ enum GameEngine {
         state.ownedCreatures[index].affection = min(
             100, state.ownedCreatures[index].affection + affectionGain)
 
+        // 축전은 만렙 미만이었다가 이번 급여로 도달한 전이 순간에만 알린다.
+        var reachedMaximumLevel = false
         if state.ownedCreatures[index].level >= GameState.maximumCreatureLevel {
             state.ownedCreatures[index].experience = 0
         } else {
@@ -838,16 +840,25 @@ enum GameEngine {
             }
             if state.ownedCreatures[index].level == GameState.maximumCreatureLevel {
                 state.ownedCreatures[index].experience = 0
+                reachedMaximumLevel = true
             }
         }
+        let reachedMaximumLevelCreatureID = reachedMaximumLevel ? creatureID : nil
 
         // 해결되지 않은 변이 오퍼가 걸린 개체는 레벨·경험치만 반영하고 진화를 보류한다.
         // 그대로 두면 같은 개체에 오퍼가 중복 생성되거나, 미해결 오퍼가 조용히 버려진 채
         // 원래 대상으로 진화해 버린다.
-        guard !deferringEvolution else { return FeedOutcome() }
+        guard !deferringEvolution else {
+            return FeedOutcome(reachedMaximumLevelCreatureID: reachedMaximumLevelCreatureID)
+        }
 
-        return evolveEligibleCreature(
+        let outcome = evolveEligibleCreature(
             at: index, state: &state, catalog: catalog, generator: &generator)
+        // FeedOutcome에 필드를 새로 더하면 이 되싸기에도 반드시 실어야 한다.
+        return FeedOutcome(
+            evolutions: outcome.evolutions,
+            mutationOffer: outcome.mutationOffer,
+            reachedMaximumLevelCreatureID: reachedMaximumLevelCreatureID)
     }
 
     private static func evolveEligibleCreature(

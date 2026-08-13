@@ -123,7 +123,7 @@ Creatures become eligible for their next stage at these levels:
 | 25 | Stage 3 |
 | 40 | Stage 4, when the catalog lineage has one |
 
-The normal level cap is **50**. Older saves containing levels 51–100 remain readable, but those creatures cannot gain additional levels.
+The normal level cap is **50**. Reaching it shows a one-time golden `LEVEL MAX` celebration, and max-level creatures keep a golden portrait ring and level gauge on the main card. Older saves containing levels 51–100 remain readable, but those creatures cannot gain additional levels.
 
 At an **evolution fork** (level 15 or level 25, once per lifetime) with more than one candidate, you pick the direction yourself instead of it happening automatically. Evolution stops at the fork with a **진화 선택 대기** (evolution choice pending) badge until you choose, and the choice applies to that evolution only — the next fork asks again.
 
@@ -166,6 +166,35 @@ In **Data & Settings**:
 
 A backup includes creatures, tokens, progression, inventory, and normalized usage numbers. It does not include prompts, responses, source code, commands, or raw local log content. Keep your `.pgrow` file before moving to another Mac or erasing local app data.
 
+## Update checks and notifications
+
+PunchGrow checks GitHub for a newer version once 24 hours have passed since
+its last successful check — not on every launch, so several launches in one
+day still produce a single request. A failed check (no network, no response)
+retries after a minute and doubles the wait up to a day. The check only reads
+the public release list; it never sends usage numbers, game state, prompts, or
+code.
+
+When a newer version is found, a banner appears above the popup. If the
+**알림** (notifications) toggle in **Settings > Data & Settings** is on,
+PunchGrow also sends a single macOS Notification Center alert per version
+(the same version is never notified twice). The banner and the update panel
+let you:
+
+- Copy the `brew upgrade --cask punchgrow` command
+- Open the release notes
+- Skip this version (a higher version will still notify you)
+
+PunchGrow never installs the update itself — run the provided
+`brew upgrade --cask punchgrow` command in Terminal to install it. Because
+the app is distributed as a Homebrew cask, having the app replace its own
+bundle would desync the version Homebrew tracks from what is actually
+installed.
+
+To turn off automatic checks, open **Settings > Data & Settings > 업데이트**
+and disable **새 버전 자동 확인**. The same panel has a **지금 확인**
+button and shows the last check time.
+
 ## Stop, disconnect, or uninstall
 
 - **수집 중지** stops scanning and revokes collection consent, but retains PunchGrow's incremental cache and displayed game data. Starting again continues from that cache.
@@ -183,6 +212,10 @@ PunchGrow processes usage locally and does not need to launch Claude Code or Cod
 It keeps only the numeric usage required for the game, timestamps, opaque hashes, incremental file cursors, provider quota percentages, reset times, and local game state. Its usage/status model excludes prompts, responses, source code, commands, project names, raw paths, email addresses, account or model identifiers, and original message/request IDs.
 
 PunchGrow reads allowed usage fields from the original JSONL files but never edits or deletes those files. No account, cloud synchronization, ranking, or multiplayer service is part of v0.3.0.
+
+The update check (reading GitHub's public release list) is the only network request PunchGrow itself sends. A successful check is followed by one a day later; a failed one retries on a backoff starting at 60 seconds and capped at 24 hours. It can be turned off anytime from **Settings > Data & Settings > 업데이트**.
+
+While collection is enabled, PunchGrow also runs Claude Code's status-line script about once a minute, because that script is the only thing that publishes the current plan percentage to a local file. The script queries the provider using its own credentials; PunchGrow never reads those credentials, and turning collection off stops those runs.
 
 ## Troubleshooting
 
