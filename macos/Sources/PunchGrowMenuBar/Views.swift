@@ -1229,6 +1229,11 @@ struct MenuPopoverView: View {
           .background(Color.red.opacity(0.14), in: RoundedRectangle(cornerRadius: 10))
           .padding(12)
           .help(message)
+      } else if let notice = store.actionNotice {
+        // 방금 누른 것에 대한 답이라, 남아 있던 다른 토스트보다 먼저 보여준다.
+        ActionNoticeToast(notice: notice)
+          .padding(12)
+          .transition(.move(edge: .top).combined(with: .opacity))
       } else if let evolutionFeedback = store.evolutionFeedback {
         EvolutionResultToast(feedback: evolutionFeedback)
           .padding(12)
@@ -1307,6 +1312,13 @@ struct MenuPopoverView: View {
       try? await Task.sleep(for: .seconds(2.8))
       guard !Task.isCancelled else { return }
       withAnimation { store.clearMaxLevelFeedback(id: id) }
+    }
+    .task(id: store.actionNotice?.id) {
+      guard let id = store.actionNotice?.id else { return }
+      // 읽을 문장이라 축전보다 조금 더 오래 둔다.
+      try? await Task.sleep(for: .seconds(3.4))
+      guard !Task.isCancelled else { return }
+      withAnimation { store.clearActionNotice(id: id) }
     }
   }
 
@@ -1455,6 +1467,12 @@ struct MenuPopoverView: View {
     }
   }
 
+  /// 쓸 수 없는 버튼을 눌렀을 때 사유를 위쪽 토스트 자리에 띄운다. 버튼이 조용히
+  /// 죽어 있으면 눌러도 반응이 없는 것처럼 보여, 왜 안 되는지 알 길이 없다.
+  private func showActionNotice(_ message: String) {
+    withAnimation { store.showActionNotice(message) }
+  }
+
   private var actionRow: some View {
     VStack(spacing: 4) {
       HStack(spacing: 6) {
@@ -1472,7 +1490,8 @@ struct MenuPopoverView: View {
           store.feedCurrent()
           return isFeedRepeatable
         },
-        showsExplanation: false
+        showsExplanation: false,
+        onBlockedTap: showActionNotice
       ) { store.feedCurrent() }
       ActionButton(
         title: "대형 먹이",
@@ -1486,7 +1505,8 @@ struct MenuPopoverView: View {
           store.feedLargeCurrent()
           return isFeedRepeatable
         },
-        showsExplanation: false
+        showsExplanation: false,
+        onBlockedTap: showActionNotice
       ) { store.feedLargeCurrent() }
       ActionButton(
         title: "가챠",
@@ -1494,7 +1514,8 @@ struct MenuPopoverView: View {
         tint: PunchGrowColors.actionPull,
         usesDarkForeground: false,
         availability: presentation.pull,
-        showsExplanation: false
+        showsExplanation: false,
+        onBlockedTap: showActionNotice
       ) { performPull() }
       }
       HStack(spacing: 6) {
@@ -1510,7 +1531,8 @@ struct MenuPopoverView: View {
           store.purchaseFood()
           return true
         },
-        showsExplanation: false
+        showsExplanation: false,
+        onBlockedTap: showActionNotice
       ) { store.purchaseFood() }
       ActionButton(
         title: "대형 구매 · 500K",
@@ -1524,7 +1546,8 @@ struct MenuPopoverView: View {
           store.purchaseLargeFood()
           return true
         },
-        showsExplanation: false
+        showsExplanation: false,
+        onBlockedTap: showActionNotice
       ) { store.purchaseLargeFood() }
       }
       HStack(spacing: 6) {
@@ -1534,7 +1557,8 @@ struct MenuPopoverView: View {
         tint: PunchGrowColors.actionRetry,
         usesDarkForeground: false,
         availability: presentation.retryMutation,
-        showsExplanation: false
+        showsExplanation: false,
+        onBlockedTap: showActionNotice
       ) { store.retryMutationCurrent() }
       ActionButton(
         title: "계승 · \(GameState.inheritCost / 10_000)만",
@@ -1542,7 +1566,8 @@ struct MenuPopoverView: View {
         tint: PunchGrowColors.actionInherit,
         usesDarkForeground: false,
         availability: presentation.inherit,
-        showsExplanation: false
+        showsExplanation: false,
+        onBlockedTap: showActionNotice
       ) { store.inheritCurrent() }
       }
     }
@@ -2230,6 +2255,8 @@ private struct ActionButton: View {
   let availability: ActionAvailability
   let repeatAction: (() -> Bool)?
   let showsExplanation: Bool
+  /// 쓸 수 없는 버튼을 눌렀을 때 사유를 전달한다. 비워 두면 예전처럼 조용히 무시한다.
+  let onBlockedTap: ((String) -> Void)?
   let action: () -> Void
   @State private var repeatTask: Task<Void, Never>?
   @State private var repeatedDuringPress = false
@@ -2242,6 +2269,7 @@ private struct ActionButton: View {
     availability: ActionAvailability,
     repeatAction: (() -> Bool)? = nil,
     showsExplanation: Bool = true,
+    onBlockedTap: ((String) -> Void)? = nil,
     action: @escaping () -> Void
   ) {
     self.title = title
@@ -2251,6 +2279,7 @@ private struct ActionButton: View {
     self.availability = availability
     self.repeatAction = repeatAction
     self.showsExplanation = showsExplanation
+    self.onBlockedTap = onBlockedTap
     self.action = action
   }
 
@@ -2268,10 +2297,14 @@ private struct ActionButton: View {
         RepeatPressButtonStyle(
           tint: tint,
           foreground: usesDarkForeground ? .black : .white,
+          // 사유를 알려주려면 탭이 도달해야 하므로 .disabled 대신 스타일로 흐리게 만든다.
+          // onBlockedTap이 없으면 예전처럼 진짜 비활성으로 둔다.
+          isEnabled: availability.isEnabled,
           onPressChanged: handlePressChanged
         )
       )
-      .disabled(!availability.isEnabled)
+      .disabled(!availability.isEnabled && onBlockedTap == nil)
+      .accessibilityHint(availability.isEnabled ? "" : availability.explanation)
       if showsExplanation {
         Text(availability.explanation).font(.system(size: 11)).foregroundStyle(.secondary).lineLimit(1)
           .multilineTextAlignment(.center)
@@ -2285,6 +2318,10 @@ private struct ActionButton: View {
   private func performSingleAction() {
     guard !repeatedDuringPress else {
       repeatedDuringPress = false
+      return
+    }
+    guard availability.isEnabled else {
+      onBlockedTap?(availability.explanation)
       return
     }
     action()
@@ -2324,11 +2361,16 @@ private struct ActionButton: View {
 private struct RepeatPressButtonStyle: ButtonStyle {
   let tint: Color
   let foreground: Color
+  var isEnabled = true
   let onPressChanged: (Bool) -> Void
 
   func makeBody(configuration: Configuration) -> some View {
     configuration.label
       .foregroundStyle(foreground)
+      // SwiftUI의 .disabled 흐림을 쓰지 않으므로 같은 정도의 흐림을 직접 준다.
+      // 라벨에만 걸어야 한다 — 배경 타일까지 흐려지면 세 번째 동작 줄이 푸터에 가리지
+      // 않았는지 보는 스냅샷 검증이 색으로 구분하지 못한다.
+      .opacity(isEnabled ? 1 : 0.45)
       .background(
         tint.opacity(configuration.isPressed ? 0.72 : 1),
         in: RoundedRectangle(cornerRadius: 7)
@@ -3016,6 +3058,30 @@ private struct UpdateBanner: View {
     .shadow(color: PunchGrowColors.calm.opacity(0.28), radius: 14)
     .accessibilityElement(children: .contain)
     .accessibilityLabel("새 버전 \(update.version.description)이 있습니다")
+  }
+}
+
+/// 쓸 수 없는 동작을 눌렀을 때의 사유. 실패가 아니라 조건 안내라 빨강을 쓰지 않는다.
+/// 스냅샷 렌더러가 직접 인스턴스화한다.
+struct ActionNoticeToast: View {
+  let notice: ActionNotice
+
+  var body: some View {
+    HStack(spacing: 9) {
+      Image(systemName: "info.circle.fill")
+        .foregroundStyle(PunchGrowColors.calm)
+      Text(notice.message)
+        .font(.callout.weight(.semibold))
+        .lineLimit(2)
+        .fixedSize(horizontal: false, vertical: true)
+    }
+    .padding(.horizontal, 14).padding(.vertical, 10)
+    .frame(maxWidth: .infinity, alignment: .leading)
+    .background(.ultraThinMaterial, in: RoundedRectangle(cornerRadius: 12))
+    .overlay(
+      RoundedRectangle(cornerRadius: 12).stroke(PunchGrowColors.calm.opacity(0.55), lineWidth: 1))
+    .accessibilityElement(children: .combine)
+    .accessibilityLabel(notice.message)
   }
 }
 

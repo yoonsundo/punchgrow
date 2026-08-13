@@ -274,6 +274,12 @@ struct EvolutionFeedback: Identifiable, Equatable, Sendable {
     let stagesCrossed: Int
 }
 
+/// 비활성 동작 버튼을 눌렀을 때 알려주는 사유. 진화 토스트와 같은 자리에 잠시 떠 있다 사라진다.
+struct ActionNotice: Identifiable, Equatable, Sendable {
+    let id: UUID
+    let message: String
+}
+
 /// 만렙(Lv.50) 도달 순간의 축전. 진화 토스트와 같은 자리에 잠시 떠 있다 사라진다.
 struct MaxLevelFeedback: Identifiable, Equatable, Sendable {
     let id: UUID

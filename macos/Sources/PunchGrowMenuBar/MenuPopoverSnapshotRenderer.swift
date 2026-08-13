@@ -12,6 +12,7 @@ struct MenuPopoverSnapshotRequest: Equatable {
   static let menuBarHUDFlag = "--snapshot-menu-bar-hud"
   static let grantToastFlag = "--snapshot-grant-toast"
   static let levelMaxFlag = "--snapshot-level-max"
+  static let actionNoticeFlag = "--snapshot-action-notice"
 
   let kind: Kind
   let outputURL: URL
@@ -34,6 +35,8 @@ struct MenuPopoverSnapshotRequest: Equatable {
       match = (index, .menuBarHUD, Self.menuBarHUDFlag)
     } else if let index = arguments.firstIndex(of: Self.grantToastFlag) {
       match = (index, .grantToast, Self.grantToastFlag)
+    } else if let index = arguments.firstIndex(of: Self.actionNoticeFlag) {
+      match = (index, .actionNotice, Self.actionNoticeFlag)
     } else if let index = arguments.firstIndex(of: Self.levelMaxFlag) {
       match = (index, .levelMax, Self.levelMaxFlag)
     } else {
@@ -57,6 +60,7 @@ struct MenuPopoverSnapshotRequest: Equatable {
     case rarity
     case menuBarHUD
     case grantToast
+    case actionNotice
     case levelMax
   }
 
@@ -97,6 +101,7 @@ enum MenuPopoverSnapshotRenderer {
   static let mutationOfferSize = NSSize(width: 372, height: 420)
   static let raritySize = NSSize(width: 360, height: 490)
   static let grantToastSize = NSSize(width: 380, height: 260)
+  static let actionNoticeSize = NSSize(width: 380, height: 220)
 
   static func makeFixture(
     freshSetup: Bool = false,
@@ -318,6 +323,28 @@ enum MenuPopoverSnapshotRenderer {
   // 에일루 계보(PG-001 Lv.15)에서 변이 PG-216이 발동한 순간을 쓴다. 거절 대상 PG-061은
   // 미발견 상태라 은닉 문구까지 한 장에서 확인된다.
   /// 재도전 성공·실패와 계승을 한 장에 세로로 쌓아, 세 결과가 서로 구분되는지 한눈에 본다.
+  /// 비활성 버튼을 눌렀을 때 뜨는 사유 안내. 실제로 나오는 문구 세 가지를 한 장에 모은다.
+  static func renderActionNotice(to outputURL: URL) throws {
+    let samples = [
+      "최종 단계까지 키운 뒤에 계승할 수 있습니다.",
+      "변이 후보가 있는 계보에서만 재도전할 수 있습니다.",
+      "토큰이 \(GameState.inheritCost.formatted()) 필요합니다. 지금은 1,200,000 토큰입니다.",
+    ]
+    try render(
+      VStack(spacing: 16) {
+        ForEach(samples, id: \.self) {
+          ActionNoticeToast(notice: ActionNotice(id: UUID(), message: $0))
+        }
+      }
+      .padding(.horizontal, 12)
+      .frame(width: actionNoticeSize.width, height: actionNoticeSize.height)
+      .background(Color(red: 7 / 255, green: 6 / 255, blue: 13 / 255))
+      .preferredColorScheme(.dark),
+      size: actionNoticeSize,
+      to: outputURL
+    )
+  }
+
   static func renderGrantToast(to outputURL: URL) throws {
     let catalog = try CreatureCatalog.load()
     guard let mutation = catalog.first(where: { $0.id == "PG-216" }),

@@ -21,6 +21,8 @@ final class GameStore: ObservableObject {
     @Published private(set) var evolutionFeedback: EvolutionFeedback?
     @Published private(set) var grantFeedback: CreatureGrantFeedback?
     @Published private(set) var maxLevelFeedback: MaxLevelFeedback?
+    /// 비활성 버튼을 눌렀을 때의 사유 안내. 게임 상태가 아니라 화면 안내라 저장하지 않는다.
+    @Published private(set) var actionNotice: ActionNotice?
     /// 세션 한정. 저장하지 않으므로 앱을 다시 켜면 같은 지점에서 다시 판정된다.
     @Published private(set) var pendingMutationOffer: PendingMutationOffer?
     @Published private(set) var observedLocalUsage: [TokenProvider: Int] = [:]
@@ -448,6 +450,17 @@ final class GameStore: ObservableObject {
     func clearMaxLevelFeedback(id: UUID) {
         guard maxLevelFeedback?.id == id else { return }
         maxLevelFeedback = nil
+    }
+
+    /// 같은 사유를 연달아 누르면 새 id로 갈아끼워 안내가 다시 보이게 한다.
+    func showActionNotice(_ message: String) {
+        guard !message.isEmpty else { return }
+        actionNotice = ActionNotice(id: UUID(), message: message)
+    }
+
+    func clearActionNotice(id: UUID) {
+        guard actionNotice?.id == id else { return }
+        actionNotice = nil
     }
 
     @discardableResult

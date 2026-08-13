@@ -57,6 +57,11 @@ case "$SNAPSHOT_KIND" in
     EXPECTED_WIDTH=380
     EXPECTED_HEIGHT=260
     ;;
+  action-notice)
+    SNAPSHOT_FLAG=--snapshot-action-notice
+    EXPECTED_WIDTH=380
+    EXPECTED_HEIGHT=220
+    ;;
   level-max)
     SNAPSHOT_FLAG=--snapshot-level-max
     EXPECTED_WIDTH=398

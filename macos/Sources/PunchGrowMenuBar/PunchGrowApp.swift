@@ -84,6 +84,8 @@ struct PunchGrowApp: App {
             try MenuPopoverSnapshotRenderer.renderMenuBarHUD(to: snapshotRequest.outputURL)
           case .grantToast:
             try MenuPopoverSnapshotRenderer.renderGrantToast(to: snapshotRequest.outputURL)
+          case .actionNotice:
+            try MenuPopoverSnapshotRenderer.renderActionNotice(to: snapshotRequest.outputURL)
           case .levelMax:
             try MenuPopoverSnapshotRenderer.renderLevelMax(
               to: snapshotRequest.outputURL,
