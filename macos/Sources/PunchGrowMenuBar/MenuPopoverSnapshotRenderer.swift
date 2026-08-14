@@ -105,7 +105,7 @@ struct MenuPopoverSnapshotFixture {
 @MainActor
 enum MenuPopoverSnapshotRenderer {
   static let size = NSSize(width: MenuPopoverLayout.width, height: MenuPopoverLayout.height)
-  static let evolutionSize = NSSize(width: 372, height: 620)
+  static let evolutionSize = NSSize(width: 372, height: 550)
   static let evolutionChoiceSize = NSSize(width: 372, height: 520)
   static let mutationOfferSize = NSSize(width: 372, height: 420)
   static let raritySize = NSSize(width: 360, height: 490)
@@ -324,13 +324,7 @@ enum MenuPopoverSnapshotRenderer {
           entries["PG-235"]?.ownership == .otherCreature
     else { throw SnapshotError.insufficientCatalog }
     try render(
-      // 콜백을 넘겨야 스냅샷이 실제 버튼 분기를 그린다. 넘기지 않으면 모든 카드가
-      // 비버튼 분기로 떨어져, 버튼 경로의 시각 회귀를 스냅샷이 못 잡는다.
-      EvolutionGuidePopover(
-        presentation: presentation,
-        onPreviewSpecies: { _ in },
-        onSelectCreature: { _ in }
-      ),
+      evolutionGuideSnapshot(presentation: presentation),
       size: evolutionSize,
       to: outputURL
     )
@@ -367,16 +361,25 @@ enum MenuPopoverSnapshotRenderer {
           entries["PG-091"]?.canPreviewForm == false
     else { throw SnapshotError.insufficientCatalog }
     try render(
-      // 콜백을 넘겨야 스냅샷이 실제 버튼 분기를 그린다. 넘기지 않으면 모든 카드가
-      // 비버튼 분기로 떨어져, 버튼 경로의 시각 회귀를 스냅샷이 못 잡는다.
-      EvolutionGuidePopover(
-        presentation: presentation,
-        onPreviewSpecies: { _ in },
-        onSelectCreature: { _ in }
-      ),
+      evolutionGuideSnapshot(presentation: presentation),
       size: evolutionSize,
       to: outputURL
     )
+  }
+
+  private static func evolutionGuideSnapshot(
+    presentation: EvolutionDexPresentation
+  ) -> some View {
+    // 콜백을 넘겨야 스냅샷이 실제 버튼 분기를 그린다. 넘기지 않으면 모든 카드가
+    // 비버튼 분기로 떨어져, 버튼 경로의 시각 회귀를 스냅샷이 못 잡는다.
+    EvolutionGuidePopover(
+      presentation: presentation,
+      onPreviewSpecies: { _ in },
+      onSelectCreature: { _ in }
+    )
+    .frame(width: evolutionSize.width, height: evolutionSize.height, alignment: .top)
+    .background(Color(red: 7 / 255, green: 6 / 255, blue: 13 / 255))
+    .preferredColorScheme(.dark)
   }
 
   // 갈림길에서 멈춘 모루핀(PG-002 Lv.15)을 쓴다. 후보 PG-062는 발견, PG-182는 미발견이라

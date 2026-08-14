@@ -6,6 +6,7 @@ licenses:
 
 - `assets/creatures/`
 - `macos/Sources/PunchGrowMenuBar/Resources/Creatures/`
+- `docs/readme/`
 - `에셋/`
 - `production/reports/contact-sheets/`
 - `production/reports/representative-six-thumbnails/`

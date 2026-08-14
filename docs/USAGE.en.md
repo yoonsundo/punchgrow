@@ -1,6 +1,8 @@
-# PunchGrow v0.3.0 User Guide
+# PunchGrow User Guide
 
 [한국어](USAGE.md) · [English](USAGE.en.md) · [Project README](../README.en.md)
+
+> **Scope:** Homebrew v0.3.0 and current `main` source · Apple Silicon Mac · macOS 14 or later
 
 PunchGrow is a local, single-player menu-bar game for Apple Silicon Macs. It turns the numeric Claude Code and Codex usage recorded on your Mac into game tokens, without storing prompts, responses, source code, commands, or raw log paths.
 
@@ -53,7 +55,7 @@ PunchGrow runs as a menu-bar app and does not show a Dock icon. After launch, se
 
 ![PunchGrow menu popover showing the creature card, weekly usage, token balance, food controls, draw button, and footer actions](screenshots/menu-popover.png)
 
-The screenshot is rendered by the real SwiftUI app with deterministic documentation data. It does not contain private user logs.
+The screenshot is rendered by the current `main` SwiftUI app with deterministic documentation data. It does not contain private user logs.
 
 The popup separates three values that serve different purposes:
 
@@ -85,7 +87,8 @@ The first scan creates a **non-crediting baseline**. Current-week activity found
 ### Draw
 
 - One draw costs **500,000 tokens**.
-- Select **가챠** to draw one of 60 stage-one creatures.
+- Homebrew v0.3.0 draws from 60 stage-one creatures.
+- Current `main` draws from 64 stage-one creatures.
 - Every direct draw is currently **PROCESS 100%**.
 - Duplicate draws remain separate saved creatures, but the main popup collapses the same starting lineage to its earliest acquired creature. This keeps one visible representative per lineage without deleting duplicate ownership data.
 
@@ -105,11 +108,11 @@ The creature card deliberately shows two different labels:
 - **현재** (Current) is the creature's rarity right now.
 - **최대 도달 등급** (Maximum reachable rarity) is the ceiling rarity reachable by choosing through every selectable evolution fork, excluding mutations. It is paired with a **최소 보장** (Minimum guaranteed) rarity so an unclaimed fork does not read as an optimistic promise.
 
-An **ORIGIN lineage** means that the starting creature can eventually reach ORIGIN if you pick that direction at every fork. Three of the 60 starting lineages currently do so, which is **3/60 = 5%**. This is **not** a 5% direct ORIGIN draw: an ORIGIN-lineage draw still gives you a PROCESS creature.
+An **ORIGIN lineage** means that the starting creature can eventually reach ORIGIN if you pick that direction at every fork. In the Homebrew v0.3.0 release, three of 60 starting lineages reach ORIGIN: **3/60, or 5%**. The screenshots in this guide and current `main` show seven of 64: **7/64, or about 10.9%**. Neither figure is a direct ORIGIN draw rate: an ORIGIN-lineage draw still gives you a PROCESS creature.
 
 Open **등급표** (Rarity index) to compare direct draw rarity with maximum-reachable-rarity lineage proportions.
 
-![Rarity index separating PROCESS 100 percent direct draws from the 3 of 60 ORIGIN lineage maximum reachable rarity](screenshots/rarity-guide.png)
+![Rarity index separating PROCESS 100 percent direct draws from the 7 of 64 ORIGIN lineage maximum reachable rarity](screenshots/rarity-guide.png)
 
 This screenshot also uses deterministic documentation data, not private usage records.
 
@@ -125,11 +128,11 @@ Creatures become eligible for their next stage at these levels:
 
 The normal level cap is **50**. Reaching it shows a one-time golden `LEVEL MAX` celebration, and max-level creatures keep a golden portrait ring and level gauge on the main card. Older saves containing levels 51–100 remain readable, but those creatures cannot gain additional levels.
 
-At an **evolution fork** (level 15 or level 25, once per lifetime) with more than one candidate, you pick the direction yourself instead of it happening automatically. Evolution stops at the fork with a **진화 선택 대기** (evolution choice pending) badge until you choose, and the choice applies to that evolution only — the next fork asks again.
+At each **evolution fork** (level 15 or level 25) with more than one candidate, you pick the direction yourself instead of it happening automatically. Evolution stops at the fork with a **진화 선택 대기** (evolution choice pending) badge until you choose, and the choice applies to that evolution only — the next fork asks again.
 
 Species whose catalog category is `mixed` are fusion collectibles, not ordinary same-individual evolutions. They do not appear in automatic evolution, fork choices, growth-potential paths, or normal Evolution Dex ancestry. A legacy save that already owns one remains valid and keeps the creature; the Evolution Dex displays only its actual current fusion form and never fabricates parent stages.
 
-Lineages with a mutation candidate get a 10% chance to trigger a mutation offer at the level-15 evolution, asking you to accept or decline. Accepting ends growth on the spot as a terminal mutant form; declining returns you to the fork choice. A missed chance can be retried with **변이 재도전** (mutation retry, `1,000,000` tokens per attempt, 10% chance); 30 failed retries in the same lineage guarantee the next attempt succeeds. A creature raised to its final stage can use **계승** (inheritance, `5,000,000` tokens) to obtain a new individual of the same starting species for raising a different fork.
+Lineages with a mutation candidate get a 10% chance to trigger a mutation offer at the level-15 evolution, asking you to accept or decline. Accepting ends growth on the spot as a terminal mutant form; declining continues the evolution to the original target selected by the user or automatically determined before the offer. A missed chance can be retried with **변이 재도전** (mutation retry, `1,000,000` tokens per attempt, 10% chance); 30 failed retries in the same lineage guarantee the next attempt succeeds. A creature raised to its final stage can use **계승** (inheritance, `5,000,000` tokens) to obtain a new individual of the same starting species for raising a different fork.
 
 Select **진화** (Evolution) to inspect the current creature's starting form, branches, level gates, and discovery state. Forms that this individual actually passed through are marked **보유** (owned) and can be previewed or pinned as its displayed appearance. Future stages and unchosen sibling branches are marked **미보유** (not owned) and cannot be selected, even if another creature discovered them. Previewing or pinning a past form never changes the actual species, level, or experience.
 

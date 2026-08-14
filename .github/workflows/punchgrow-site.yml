@@ -29,6 +29,9 @@ jobs:
           cache: npm
           cache-dependency-path: website/package-lock.json
 
+      - name: Check bilingual README contract
+        run: node scripts/validate-readme-parity.mjs
+
       - name: Install website dependencies
         run: npm ci --prefix website
 

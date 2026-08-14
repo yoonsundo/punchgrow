@@ -29,6 +29,7 @@
     "android": "expo start --android",
     "ios": "expo start --ios",
     "web": "expo start --web",
+    "readme:validate": "node scripts/validate-readme-parity.mjs",
     "creatures:validate": "node scripts/validate-creature-catalog.mjs",
     "creatures:srgb": "node scripts/ensure-png-srgb.mjs",
     "creatures:reconcile-glow": "node scripts/reconcile-lineage-glow.mjs",

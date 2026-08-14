@@ -111,8 +111,8 @@ if (failures.length === 0) {
   const releaseTruthClaims = [
     [sourceText[0], 'Homebrew v0.3.0 릴리스에는 240종', '현재 <code>main</code> 소스와 공개 도감에는 256종', 'Korean homepage'],
     [sourceText[1], 'Homebrew v0.3.0 contains 240 creatures', 'current <code>main</code> source and the public dex contain 256', 'English homepage'],
-    [readmes[0], 'Homebrew v0.3.0 릴리스에는 당시의 240종', '현재 `main` 소스와 공식 공개 도감은 64개 시작 계보·256종', 'Korean README'],
-    [readmes[1], 'Homebrew v0.3.0 release published on 2026-08-07 contains the 240-creature catalog', 'Current `main` source and the public dex contain 64 starting lineages and 256 creatures', 'English README'],
+    [readmes[0], '2026-08-07에 게시한 Homebrew 릴리스에는 당시의 **240종**', '현재 소스와 공개 도감은 **64개 시작 계보·256종**', 'Korean README'],
+    [readmes[1], 'The Homebrew release published on 2026-08-07 contains the **240-creature** catalog', 'Current source and the public dex contain **64 starting lineages and 256 creatures**', 'English README'],
   ];
   for (const [contents, releasedClaim, currentClaim, label] of releaseTruthClaims) {
     if (!contents.includes(releasedClaim) || !contents.includes(currentClaim)) {

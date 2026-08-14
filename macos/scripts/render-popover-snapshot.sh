@@ -30,12 +30,12 @@ case "$SNAPSHOT_KIND" in
   evolution)
     SNAPSHOT_FLAG=--snapshot-evolution-dex
     EXPECTED_WIDTH=372
-    EXPECTED_HEIGHT=620
+    EXPECTED_HEIGHT=550
     ;;
   evolution-mutant)
     SNAPSHOT_FLAG=--snapshot-evolution-mutant
     EXPECTED_WIDTH=372
-    EXPECTED_HEIGHT=620
+    EXPECTED_HEIGHT=550
     ;;
   evolution-choice)
     SNAPSHOT_FLAG=--snapshot-evolution-choice
