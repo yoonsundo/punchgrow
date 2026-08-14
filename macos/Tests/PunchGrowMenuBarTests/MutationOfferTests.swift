@@ -52,6 +52,36 @@ final class MutationOfferTests: XCTestCase {
     return state
   }
 
+  /// 연쇄 진화 제어 흐름을 실제 카탈로그 구성과 분리해 고정하는 최소 테스트 계보.
+  /// 시작종에는 일반·변이 후보가 있고, 일반 2단계 뒤에는 사용자가 고를 두 후보가 있다.
+  private func branchingMutationCatalog() -> (
+    catalog: [CreatureSpecies], root: CreatureSpecies, normal: CreatureSpecies,
+    mutant: CreatureSpecies, branches: [CreatureSpecies]
+  ) {
+    func species(
+      _ id: String, stage: Int, category: String, evolutionFrom: [String] = []
+    ) -> CreatureSpecies {
+      CreatureSpecies(
+        id: id, koName: id, enName: id, lineageId: "TEST-MUTATION",
+        rarity: "PROCESS", stage: stage, category: category, bodyForm: "test",
+        identity: "test", lore: "test", evolutionFrom: evolutionFrom, imagePath: "test")
+    }
+
+    let root = species("TEST-ROOT", stage: 1, category: "start")
+    let normal = species(
+      "TEST-NORMAL", stage: 2, category: "normal_evolution", evolutionFrom: [root.id])
+    let mutant = species(
+      "TEST-MUTANT", stage: 2, category: "mutant", evolutionFrom: [root.id])
+    let branches = [
+      species(
+        "TEST-BRANCH-A", stage: 3, category: "normal_evolution",
+        evolutionFrom: [normal.id]),
+      species(
+        "TEST-BRANCH-B", stage: 3, category: "branch", evolutionFrom: [normal.id]),
+    ]
+    return ([root, normal, mutant] + branches, root, normal, mutant, branches)
+  }
+
   /// 난수원이 전혀 소비되지 않았는지 본다. 소비됐다면 다음 값이 새 난수원의 첫 값과 다르다.
   private func assertUntouched(
     _ generator: inout SeededGenerator,
@@ -210,39 +240,47 @@ final class MutationOfferTests: XCTestCase {
   // MARK: - 연쇄
 
   func testLevelFortyChainStopsAtTheCurrentBranchAfterMutationResolution() throws {
-    let catalog = try CreatureCatalog.load()
-    let subject = creature("PG-003", level: 40, origin: "PG-003")
+    let fixture = branchingMutationCatalog()
+    let subject = creature(fixture.root.id, level: 40, origin: fixture.root.id)
     var state = state(with: [subject])
     var generator = SeededGenerator(seed: triggerSeed)
 
     let outcome = try GameEngine.feed(
-      creatureID: subject.id, state: &state, catalog: catalog, generator: &generator)
+      creatureID: subject.id, state: &state, catalog: fixture.catalog, generator: &generator)
 
     XCTAssertTrue(outcome.evolutions.isEmpty)
-    XCTAssertEqual(state.ownedCreatures[0].speciesID, "PG-003")
+    XCTAssertEqual(state.ownedCreatures[0].speciesID, fixture.root.id)
     let offer = try XCTUnwrap(outcome.mutationOffer)
-    XCTAssertEqual(offer.mutationSpeciesID, "PG-218")
-    XCTAssertEqual(offer.plannedTargetSpeciesID, "PG-063")
+    XCTAssertEqual(offer.mutationSpeciesID, fixture.mutant.id)
+    XCTAssertEqual(offer.plannedTargetSpeciesID, fixture.normal.id)
 
     let resumed = try GameEngine.resolveMutationOffer(
-      offer, accept: false, state: &state, catalog: catalog, generator: &generator)
+      offer, accept: false, state: &state, catalog: fixture.catalog, generator: &generator)
 
-    // 예약이 없어졌으므로 PG-063의 갈림길에서 멈춘다. 그다음은 사용자가 고른다.
-    XCTAssertEqual(resumed.map(\.toSpeciesID), ["PG-063"])
-    XCTAssertNotNil(GameEngine.pendingEvolutionChoice(for: state.ownedCreatures[0], catalog: catalog))
+    XCTAssertEqual(resumed.map(\.toSpeciesID), [fixture.normal.id])
+    XCTAssertEqual(state.ownedCreatures[0].speciesID, fixture.normal.id)
+    let pending = try XCTUnwrap(
+      GameEngine.pendingEvolutionChoice(
+        for: state.ownedCreatures[0], catalog: fixture.catalog))
+    XCTAssertEqual(pending.candidates.map(\.id), fixture.branches.map(\.id))
   }
 
   func testWithoutATriggerASingleFeedClimbsUntilTheFirstBranch() throws {
-    let catalog = try CreatureCatalog.load()
-    let subject = creature("PG-003", level: 40, origin: "PG-003")
+    let fixture = branchingMutationCatalog()
+    let subject = creature(fixture.root.id, level: 40, origin: fixture.root.id)
     var state = state(with: [subject])
     var generator = SeededGenerator(seed: calmSeed)
 
     let outcome = try GameEngine.feed(
-      creatureID: subject.id, state: &state, catalog: catalog, generator: &generator)
+      creatureID: subject.id, state: &state, catalog: fixture.catalog, generator: &generator)
 
     XCTAssertNil(outcome.mutationOffer)
-    XCTAssertEqual(outcome.evolutions.map(\.toSpeciesID), ["PG-063"])
+    XCTAssertEqual(outcome.evolutions.map(\.toSpeciesID), [fixture.normal.id])
+    XCTAssertEqual(state.ownedCreatures[0].speciesID, fixture.normal.id)
+    let pending = try XCTUnwrap(
+      GameEngine.pendingEvolutionChoice(
+        for: state.ownedCreatures[0], catalog: fixture.catalog))
+    XCTAssertEqual(pending.candidates.map(\.id), fixture.branches.map(\.id))
   }
 
   // MARK: - 발동하지 않는 자리
