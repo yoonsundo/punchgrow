@@ -114,6 +114,10 @@ final class GameStore: ObservableObject {
         return index + 1
     }
 
+    /// 지금 보고 있는 개체와 시작종이 같은 개체 수. 좌우 화살표가 계보당 1마리만 순회하므로
+    /// 변이 재도전·계승으로 늘어난 2번째 이후 개체는 이 값이 있어야만 화면에서 도달할 수 있다.
+    var groupMemberCount: Int { currentOriginGroup.count }
+
     var pendingEvolutionChoice: PendingEvolutionChoice? {
         guard let currentCreature else { return nil }
         return GameEngine.pendingEvolutionChoice(for: currentCreature, catalog: catalog)

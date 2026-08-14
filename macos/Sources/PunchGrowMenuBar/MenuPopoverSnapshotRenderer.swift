@@ -13,6 +13,8 @@ struct MenuPopoverSnapshotRequest: Equatable {
   static let grantToastFlag = "--snapshot-grant-toast"
   static let levelMaxFlag = "--snapshot-level-max"
   static let actionNoticeFlag = "--snapshot-action-notice"
+  static let menuGroupFlag = "--snapshot-menu-group"
+  static let evolutionMutantFlag = "--snapshot-evolution-mutant"
 
   let kind: Kind
   let outputURL: URL
@@ -39,6 +41,10 @@ struct MenuPopoverSnapshotRequest: Equatable {
       match = (index, .actionNotice, Self.actionNoticeFlag)
     } else if let index = arguments.firstIndex(of: Self.levelMaxFlag) {
       match = (index, .levelMax, Self.levelMaxFlag)
+    } else if let index = arguments.firstIndex(of: Self.menuGroupFlag) {
+      match = (index, .menuGroup, Self.menuGroupFlag)
+    } else if let index = arguments.firstIndex(of: Self.evolutionMutantFlag) {
+      match = (index, .evolutionMutant, Self.evolutionMutantFlag)
     } else {
       match = nil
     }
@@ -62,10 +68,13 @@ struct MenuPopoverSnapshotRequest: Equatable {
     case grantToast
     case actionNotice
     case levelMax
+    case menuGroup
+    case evolutionMutant
   }
 
   var usesFreshSetupFixture: Bool { kind == .menuFresh }
   var usesLevelMaxFixture: Bool { kind == .levelMax }
+  var usesGroupFixture: Bool { kind == .menuGroup }
 
   enum RequestError: LocalizedError {
     case missingOutputPath(flag: String)
@@ -105,7 +114,8 @@ enum MenuPopoverSnapshotRenderer {
 
   static func makeFixture(
     freshSetup: Bool = false,
-    levelMaxShowcase: Bool = false
+    levelMaxShowcase: Bool = false,
+    groupShowcase: Bool = false
   ) throws -> MenuPopoverSnapshotFixture {
     let catalog = try CreatureCatalog.load()
     let rootSpecies = catalog
@@ -154,7 +164,25 @@ enum MenuPopoverSnapshotRenderer {
         acquiredAt: acquiredAt.addingTimeInterval(9)
       )
     }
-    let currentCreature = creatures[9]
+    if groupShowcase {
+      // 버그가 실제로 터진 상황을 그대로 재현한다 — 계보가 하나뿐이라 좌우 화살표는 숨겨지고,
+      // 계승·재도전으로 얻은 2번째 개체는 그룹 페이저로만 도달할 수 있다.
+      creatures = [
+        creatures[9],
+        OwnedCreature(
+          id: deterministicUUID(index: 14),
+          speciesID: featuredSpecies.id,
+          originSpeciesID: featuredSpecies.id,
+          level: 1,
+          experience: 0,
+          affection: 0,
+          nickname: nil,
+          uniqueColor: false,
+          acquiredAt: acquiredAt.addingTimeInterval(14)
+        ),
+      ]
+    }
+    let currentCreature = creatures[groupShowcase ? 0 : 9]
     let state = GameState(
       tokenBalance: 39_073_759,
       lifetimeUsage: [.claude: 11_366_566, .codex: 820_481_664],
@@ -241,32 +269,43 @@ enum MenuPopoverSnapshotRenderer {
     try render(rootView, size: size, to: outputURL, forbidsScrollView: true)
   }
 
+  /// 도감 픽스처가 쓰는 단추리(PG-024) 계보. 종착까지 키운 개체와 변이 재도전으로 얻은
+  /// 별도 개체를 함께 둔다. 어느 쪽을 현재 개체로 두느냐에 따라 소유 표시 네 상태가 모두
+  /// 나타나므로, 두 렌더러가 같은 개체를 공유해야 서로 어긋나지 않는다.
+  private enum DexFixture {
+    static let acquiredAt = Date(timeIntervalSince1970: 1_754_275_200)
+    static let discovered: Set<String> = ["PG-024", "PG-090", "PG-091", "PG-092", "PG-235"]
+
+    static let terminal = OwnedCreature(
+      id: UUID(uuidString: "00000000-0000-4000-8000-000000000092")!,
+      speciesID: "PG-092", originSpeciesID: "PG-024", level: 40, experience: 0, affection: 100,
+      nickname: nil, uniqueColor: false, acquiredAt: acquiredAt
+    )
+    /// 변이 재도전으로 얻은 별도 개체. 시작종에서 곧장 갈라져 나와 중간 단계를 지나지 않는다.
+    static let mutant = OwnedCreature(
+      id: UUID(uuidString: "00000000-0000-4000-8000-000000000235")!,
+      speciesID: "PG-235", originSpeciesID: "PG-024", level: 1, experience: 0, affection: 0,
+      nickname: nil, uniqueColor: false, acquiredAt: acquiredAt.addingTimeInterval(60)
+    )
+  }
+
   static func renderEvolutionDex(to outputURL: URL) throws {
     let catalog = try CreatureCatalog.load()
     guard catalog.contains(where: { $0.id == "PG-024" }),
           catalog.contains(where: { $0.id == "PG-092" })
     else { throw SnapshotError.insufficientCatalog }
-    let creature = OwnedCreature(
-      id: UUID(uuidString: "00000000-0000-4000-8000-000000000092")!,
-      speciesID: "PG-092",
-      originSpeciesID: "PG-024",
-      level: 40,
-      experience: 0,
-      affection: 100,
-      nickname: nil,
-      uniqueColor: false,
-      acquiredAt: Date(timeIntervalSince1970: 1_754_275_200)
-    )
+    let creature = DexFixture.terminal
     guard let presentation = EvolutionDexPresentation.make(
       creature: creature,
       catalog: catalog,
-      discoveredSpeciesIDs: ["PG-024", "PG-090", "PG-091", "PG-092"]
+      discoveredSpeciesIDs: DexFixture.discovered,
+      ownedCreatures: [creature, DexFixture.mutant]
     ) else { throw SnapshotError.insufficientCatalog }
     let entries = Dictionary(
       uniqueKeysWithValues: presentation.stages.flatMap(\.entries).map { ($0.id, $0) })
     guard presentation.stages.count == 4,
-          presentation.stages.first(where: { $0.stage == 2 })?.entries.count == 3,
-          entries.count == 6,
+          presentation.stages.first(where: { $0.stage == 2 })?.entries.count == 2,
+          entries.count == 5,
           entries["PG-024"]?.isFormOwned == true,
           entries["PG-024"]?.canPreviewForm == true,
           entries["PG-090"]?.isFormOwned == true,
@@ -274,39 +313,105 @@ enum MenuPopoverSnapshotRenderer {
           entries["PG-091"]?.canPreviewForm == true,
           entries["PG-092"]?.isCurrent == true,
           entries["PG-092"]?.canPreviewForm == false,
-          entries["PG-200"]?.isFormOwned == false,
-          entries["PG-200"]?.canPreviewForm == false,
+          entries["PG-024"]?.ownership == .reachedForm,
+          entries["PG-092"]?.ownership == .current,
+          // 합성(mixed)은 계보 그래프에 들어오지 않는다(GameEngine.lineageCandidates).
+          // 도감이 그리는 범위와 같은 계산이어야 하므로 PG-200은 카드로도 나오지 않는다.
+          entries["PG-200"] == nil,
           entries["PG-235"]?.isFormOwned == false,
-          entries["PG-235"]?.canPreviewForm == false
+          entries["PG-235"]?.canPreviewForm == false,
+          // 거쳐 온 모습이 아닌데도 별도 개체로 보유 중 — 잠금으로 떨어지면 회귀다.
+          entries["PG-235"]?.ownership == .otherCreature
     else { throw SnapshotError.insufficientCatalog }
     try render(
-      EvolutionGuidePopover(presentation: presentation),
+      // 콜백을 넘겨야 스냅샷이 실제 버튼 분기를 그린다. 넘기지 않으면 모든 카드가
+      // 비버튼 분기로 떨어져, 버튼 경로의 시각 회귀를 스냅샷이 못 잡는다.
+      EvolutionGuidePopover(
+        presentation: presentation,
+        onPreviewSpecies: { _ in },
+        onSelectCreature: { _ in }
+      ),
       size: evolutionSize,
       to: outputURL
     )
   }
 
-  // 갈림길에서 멈춘 제피락 계보(PG-117 Lv.25)를 쓴다. 후보 PG-118은 발견 상태,
-  // 종착 후보 PG-205는 미발견이라 한 장의 스냅샷에서 두 카드 상태를 모두 확인할 수 있다.
+  /// 변이체를 보고 있을 때의 도감. 변이는 시작종에서 곧장 갈라져 나오므로 일반 진화의 중간
+  /// 단계를 지나오지 않는다. 그래도 같은 계보의 다른 개체가 그 단계를 지나왔다면 계정 도감에
+  /// 이미 남아 있으므로 잠금으로 표시하면 안 된다 — 이 픽스처가 그 규칙을 고정한다.
+  static func renderEvolutionDexFromMutant(to outputURL: URL) throws {
+    let catalog = try CreatureCatalog.load()
+    let mutant = DexFixture.mutant
+    let terminal = DexFixture.terminal
+    guard let presentation = EvolutionDexPresentation.make(
+      creature: mutant,
+      catalog: catalog,
+      discoveredSpeciesIDs: DexFixture.discovered,
+      ownedCreatures: [terminal, mutant]
+    ) else { throw SnapshotError.insufficientCatalog }
+    let entries = Dictionary(
+      uniqueKeysWithValues: presentation.stages.flatMap(\.entries).map { ($0.id, $0) })
+    guard entries["PG-235"]?.ownership == .current,
+          // 변이체도 시작종은 지나온다.
+          entries["PG-024"]?.ownership == .reachedForm,
+          // 종착 개체를 실제로 보유하므로 실물 개체 쪽이 잡힌다.
+          entries["PG-092"]?.ownership == .otherCreature,
+          entries["PG-092"]?.ownedCreatureID == terminal.id,
+          // 이 두 단계는 어떤 개체도 그 종이 아니지만, 종착 개체가 지나왔다. 잠금이면 회귀다.
+          entries["PG-090"]?.ownership == .otherCreature,
+          entries["PG-090"]?.ownedCreatureID == terminal.id,
+          entries["PG-091"]?.ownership == .otherCreature,
+          entries["PG-091"]?.ownedCreatureID == terminal.id,
+          // 미리보기 범위는 넓히지 않는다 — 변이체는 이 단계들을 지나온 적이 없다.
+          entries["PG-090"]?.canPreviewForm == false,
+          entries["PG-091"]?.canPreviewForm == false
+    else { throw SnapshotError.insufficientCatalog }
+    try render(
+      // 콜백을 넘겨야 스냅샷이 실제 버튼 분기를 그린다. 넘기지 않으면 모든 카드가
+      // 비버튼 분기로 떨어져, 버튼 경로의 시각 회귀를 스냅샷이 못 잡는다.
+      EvolutionGuidePopover(
+        presentation: presentation,
+        onPreviewSpecies: { _ in },
+        onSelectCreature: { _ in }
+      ),
+      size: evolutionSize,
+      to: outputURL
+    )
+  }
+
+  // 갈림길에서 멈춘 모루핀(PG-002 Lv.15)을 쓴다. 후보 PG-062는 발견, PG-182는 미발견이라
+  // 한 장의 스냅샷에서 두 카드 상태를 모두 확인할 수 있다.
+  //
+  // 갈림길은 카탈로그 전체에서 13곳이다 — 1→2단계 6곳(둘째 후보가 `branch`),
+  // 2→3단계 7곳(둘째 후보가 `special`). 이전 픽스처 PG-117(Lv.25)이 죽은 이유는 단계가
+  // 아니라 그 자리의 유일한 대안이 합성(`mixed`)이었기 때문이다. `mixed`는
+  // `EvolutionCatalog.lineageCandidates`가 계보에서 빼므로 후보가 하나로 줄고,
+  // `pendingEvolutionChoice`의 `candidates.count > 1` 게이트에 걸려 시트가 만들어지지 않는다.
+  // 픽스처를 바꿀 때는 둘째 후보의 카테고리가 `mixed`가 아닌지만 확인하면 된다.
   static func renderEvolutionChoice(to outputURL: URL) throws {
     let catalog = try CreatureCatalog.load()
     let creature = OwnedCreature(
-      id: UUID(uuidString: "00000000-0000-4000-8000-000000000117")!,
-      speciesID: "PG-117",
-      originSpeciesID: "PG-034",
-      level: 25,
+      id: UUID(uuidString: "00000000-0000-4000-8000-000000000002")!,
+      speciesID: "PG-002",
+      originSpeciesID: "PG-002",
+      level: 15,
       experience: 0,
       affection: 100,
       nickname: nil,
       uniqueColor: false,
       acquiredAt: Date(timeIntervalSince1970: 1_754_275_200)
     )
-    guard let choice = GameEngine.pendingEvolutionChoice(for: creature, catalog: catalog)
+    guard let choice = GameEngine.pendingEvolutionChoice(for: creature, catalog: catalog),
+          // 갈림길이 실제로 둘인지 못박는다. 후보가 하나로 줄면 시트 자체가 뜨지 않으므로
+          // 이 단언이 없으면 픽스처가 조용히 낡는다.
+          choice.candidates.count == 2,
+          choice.candidates.map(\.id) == ["PG-062", "PG-182"]
     else { throw SnapshotError.insufficientCatalog }
     let presentation = EvolutionChoicePresentation.make(
       choice: choice,
       catalog: catalog,
-      discoveredSpeciesIDs: ["PG-034", "PG-117", "PG-118"]
+      // PG-182는 미발견으로 남겨 은닉 문구까지 한 장에서 확인한다.
+      discoveredSpeciesIDs: ["PG-002", "PG-062"]
     )
     try render(
       EvolutionChoiceSheet(presentation: presentation)

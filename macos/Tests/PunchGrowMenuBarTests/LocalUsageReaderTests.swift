@@ -51,6 +51,27 @@ final class LocalUsageReaderTests: XCTestCase {
     try? FileManager.default.removeItem(at: temporaryDirectory)
   }
 
+  func testCacheOpaqueKeysRequireLowercaseASCIIHex() throws {
+    let cursor = LocalUsageFileCursor(
+      byteOffset: 0,
+      fileSize: 0,
+      contentPrefixHash: nil,
+      contentPrefixByteCount: 0,
+      lastModifiedAt: nil,
+      codexSessionKey: nil,
+      codexTurnKey: nil,
+      codexForkedAt: nil,
+      codexReplayBaseline: nil,
+      discardingOversizedLine: nil
+    )
+    var cache = LocalUsageCache()
+    cache.files = [String(repeating: "a", count: 64): cursor]
+    XCTAssertNoThrow(try cache.validate())
+
+    cache.files = [String(repeating: "ａ", count: 64): cursor]
+    XCTAssertThrowsError(try cache.validate())
+  }
+
   func testFirstScanReportsClaudeAndCodexTotalsWithoutCreditingHistoricalUsage() throws {
     try write(
       [
@@ -915,10 +936,10 @@ final class LocalUsageServiceConsentTests: XCTestCase {
   func testNextScanDelayThrottlesBacklogAndUsesIdleIntervalOtherwise() {
     XCTAssertEqual(
       LocalUsageService.nextScanDelay(activeDuration: 0.1, hasDrainableBacklog: true),
-      1)
+      10)
     XCTAssertEqual(
       LocalUsageService.nextScanDelay(activeDuration: 2, hasDrainableBacklog: true),
-      6)
+      18)
     XCTAssertEqual(
       LocalUsageService.nextScanDelay(
         activeDuration: 2, hasDrainableBacklog: false, idleInterval: 12),

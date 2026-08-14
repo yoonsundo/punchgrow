@@ -51,7 +51,8 @@ struct PunchGrowApp: App {
       if let snapshotRequest {
         let fixture = try MenuPopoverSnapshotRenderer.makeFixture(
           freshSetup: snapshotRequest.usesFreshSetupFixture,
-          levelMaxShowcase: snapshotRequest.usesLevelMaxFixture
+          levelMaxShowcase: snapshotRequest.usesLevelMaxFixture,
+          groupShowcase: snapshotRequest.usesGroupFixture
         )
         store = fixture.store
         integrationStatus.serviceDidStart(.claude)
@@ -61,7 +62,7 @@ struct PunchGrowApp: App {
         AppDelegate.renderMenuPopoverSnapshot = {
           defer { fixture.removeTemporaryFiles() }
           switch snapshotRequest.kind {
-          case .menu, .menuFresh:
+          case .menu, .menuFresh, .menuGroup:
             try MenuPopoverSnapshotRenderer.render(
               to: snapshotRequest.outputURL,
               store: store,
@@ -71,6 +72,9 @@ struct PunchGrowApp: App {
             )
           case .evolution:
             try MenuPopoverSnapshotRenderer.renderEvolutionDex(to: snapshotRequest.outputURL)
+          case .evolutionMutant:
+            try MenuPopoverSnapshotRenderer.renderEvolutionDexFromMutant(
+              to: snapshotRequest.outputURL)
           case .evolutionChoice:
             try MenuPopoverSnapshotRenderer.renderEvolutionChoice(to: snapshotRequest.outputURL)
           case .mutationOffer:

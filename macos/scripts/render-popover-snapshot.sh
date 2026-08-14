@@ -32,6 +32,11 @@ case "$SNAPSHOT_KIND" in
     EXPECTED_WIDTH=372
     EXPECTED_HEIGHT=620
     ;;
+  evolution-mutant)
+    SNAPSHOT_FLAG=--snapshot-evolution-mutant
+    EXPECTED_WIDTH=372
+    EXPECTED_HEIGHT=620
+    ;;
   evolution-choice)
     SNAPSHOT_FLAG=--snapshot-evolution-choice
     EXPECTED_WIDTH=372
@@ -64,6 +69,11 @@ case "$SNAPSHOT_KIND" in
     ;;
   level-max)
     SNAPSHOT_FLAG=--snapshot-level-max
+    EXPECTED_WIDTH=398
+    EXPECTED_HEIGHT=670
+    ;;
+  menu-group)
+    SNAPSHOT_FLAG=--snapshot-menu-group
     EXPECTED_WIDTH=398
     EXPECTED_HEIGHT=670
     ;;

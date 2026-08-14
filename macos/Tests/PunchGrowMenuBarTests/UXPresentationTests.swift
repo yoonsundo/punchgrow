@@ -4,6 +4,9 @@ import XCTest
 @testable import PunchGrowMenuBar
 
 final class UXPresentationTests: XCTestCase {
+  func testLevelMaxCrownUsesHalfDisplayScale() {
+    XCTAssertEqual(LevelMaxCrownPlacement.displayScale, 0.5)
+  }
 
   func testMenuBarStatusCompactsUsageAndKeepsProviderShareTruthful() {
     let presentation = MenuBarStatusPresentation(
@@ -1027,6 +1030,96 @@ final class UXPresentationTests: XCTestCase {
       starts.filter { EvolutionPotentialPresentation.make(from: $0, catalog: catalog).reachesOrigin }
         .map(\.id).sorted(),
       expected)
+  }
+
+  func testMaximumLevelCrownIsVisibleForEveryCatalogSpeciesAtAndAboveLevelFifty() throws {
+    let catalog = try CreatureCatalog.load()
+
+    for species in catalog {
+      for level in [GameState.maximumCreatureLevel, 51, 100] {
+        let creature = OwnedCreature(
+          id: UUID(), speciesID: species.id, level: level, experience: 0,
+          affection: 0, nickname: nil, uniqueColor: false, acquiredAt: .now)
+
+        XCTAssertTrue(
+          LevelMaxCrownPresentation.isVisible(for: creature),
+          "\(species.id) should show its crown at level \(level)"
+        )
+      }
+    }
+  }
+
+  func testMaximumLevelCrownIsHiddenForEveryCatalogSpeciesBelowLevelFifty() throws {
+    let catalog = try CreatureCatalog.load()
+
+    XCTAssertFalse(LevelMaxCrownPresentation.isVisible(for: nil))
+    for species in catalog {
+      let creature = OwnedCreature(
+        id: UUID(), speciesID: species.id, level: GameState.maximumCreatureLevel - 1,
+        experience: 0, affection: 0, nickname: nil, uniqueColor: false, acquiredAt: .now)
+
+      XCTAssertFalse(
+        LevelMaxCrownPresentation.isVisible(for: creature),
+        "\(species.id) should not show its crown before max level"
+      )
+    }
+  }
+
+  func testMaximumLevelCrownHasVerifiedInBoundsHeadPlacementForEveryCatalogSpecies() throws {
+    let catalog = try CreatureCatalog.load()
+    let catalogIDs = Set(catalog.map(\.id))
+
+    XCTAssertTrue(LevelMaxCrownPlacement.overrideSpeciesIDs.isSubset(of: catalogIDs))
+    for species in catalog {
+      XCTAssertTrue(
+        LevelMaxCrownPlacement.hasVerifiedBodyForm(for: species),
+        "\(species.id) has an unverified body form: \(species.bodyForm)"
+      )
+      XCTAssertTrue(
+        LevelMaxCrownPlacement.placement(for: species)
+          .fitsInsideArtwork(ofSize: MenuPopoverLayout.heroArtworkSize),
+        "\(species.id) crown extends outside its portrait"
+      )
+    }
+  }
+
+  func testMaximumLevelCrownUsesHeadOverridesForAsymmetricSilhouettes() throws {
+    let catalog = try CreatureCatalog.load()
+    let expected: [String: LevelMaxCrownPlacement] = [
+      "PG-005": LevelMaxCrownPlacement(x: 0.225, y: 0.35),
+      "PG-092": LevelMaxCrownPlacement(x: 0.5, y: 0.38, scale: 0.54),
+      "PG-094": LevelMaxCrownPlacement(x: 0.4, y: 0.175),
+      "PG-109": LevelMaxCrownPlacement(x: 0.25, y: 0.375),
+      "PG-166": LevelMaxCrownPlacement(x: 0.325, y: 0.35),
+      "PG-203": LevelMaxCrownPlacement(x: 0.275, y: 0.4),
+      "PG-211": LevelMaxCrownPlacement(x: 0.2, y: 0.35),
+    ]
+
+    for (speciesID, placement) in expected {
+      let species = try XCTUnwrap(catalog.first { $0.id == speciesID })
+      XCTAssertEqual(LevelMaxCrownPlacement.placement(for: species), placement)
+    }
+  }
+
+  func testMaximumLevelCrownKeepsAVisibleFallbackForANewBodyForm() {
+    let unverifiedSpecies = CreatureSpecies(
+      id: "PG-999",
+      koName: "새 크리처",
+      enName: "New Creature",
+      rarity: "PROCESS",
+      stage: 1,
+      category: "start",
+      bodyForm: "새 체형",
+      identity: "테스트",
+      lore: "테스트",
+      imagePath: ""
+    )
+
+    XCTAssertFalse(LevelMaxCrownPlacement.hasVerifiedBodyForm(for: unverifiedSpecies))
+    XCTAssertEqual(
+      LevelMaxCrownPlacement.placement(for: unverifiedSpecies),
+      LevelMaxCrownPlacement(x: 0.4, y: 0.175)
+    )
   }
 
   func testRarityGuideReportsElementalOriginFinalPotentialForProductionCatalog() throws {

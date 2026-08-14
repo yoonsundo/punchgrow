@@ -88,8 +88,11 @@ final class LocalUsageService: ObservableObject {
         hasDrainableBacklog: Bool,
         idleInterval: TimeInterval = 10
     ) -> TimeInterval {
-        guard hasDrainableBacklog else { return max(0, idleInterval) }
-        return max(1, max(0, activeDuration) * 3)
+        let normalDelay = max(0, idleInterval)
+        guard hasDrainableBacklog else { return normalDelay }
+        // Never let catch-up work run more often than the normal scan cadence. For unusually
+        // slow passes, nine parts rest to one part work caps the scanner near a 10% duty cycle.
+        return max(1, max(normalDelay, max(0, activeDuration) * 9))
     }
 
     func start() {

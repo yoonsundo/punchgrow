@@ -142,7 +142,14 @@ struct LocalUsageCache: Codable, Equatable, Sendable {
     }
 
     private static func isOpaqueKey(_ value: String) -> Bool {
-        value.count == 64 && value.allSatisfy { $0.isHexDigit && !$0.isUppercase }
+        let bytes = value.utf8
+        guard bytes.count == 64 else { return false }
+        return bytes.allSatisfy { byte in
+            switch byte {
+            case 48...57, 97...102: true
+            default: false
+            }
+        }
     }
 }
 
