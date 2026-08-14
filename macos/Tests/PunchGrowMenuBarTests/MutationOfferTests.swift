@@ -115,7 +115,7 @@ final class MutationOfferTests: XCTestCase {
     let withoutMutation = roots.filter {
       EvolutionCatalog.mutationCandidate(after: $0, in: catalog) == nil
     }
-    XCTAssertEqual(withoutMutation.count, 35)
+    XCTAssertEqual(withoutMutation.count, 39)
   }
 
   // MARK: - 발동 순간
@@ -209,9 +209,9 @@ final class MutationOfferTests: XCTestCase {
 
   // MARK: - 연쇄
 
-  func testLevelFortyChainStopsBeforeStageFourAndResumesAfterResolution() throws {
+  func testLevelFortyChainStopsAtTheCurrentBranchAfterMutationResolution() throws {
     let catalog = try CreatureCatalog.load()
-    let subject = creature("PG-034", level: 40, origin: "PG-034")
+    let subject = creature("PG-003", level: 40, origin: "PG-003")
     var state = state(with: [subject])
     var generator = SeededGenerator(seed: triggerSeed)
 
@@ -219,22 +219,22 @@ final class MutationOfferTests: XCTestCase {
       creatureID: subject.id, state: &state, catalog: catalog, generator: &generator)
 
     XCTAssertTrue(outcome.evolutions.isEmpty)
-    XCTAssertEqual(state.ownedCreatures[0].speciesID, "PG-034")
+    XCTAssertEqual(state.ownedCreatures[0].speciesID, "PG-003")
     let offer = try XCTUnwrap(outcome.mutationOffer)
-    XCTAssertEqual(offer.mutationSpeciesID, "PG-240")
-    XCTAssertEqual(offer.plannedTargetSpeciesID, "PG-117")
+    XCTAssertEqual(offer.mutationSpeciesID, "PG-218")
+    XCTAssertEqual(offer.plannedTargetSpeciesID, "PG-063")
 
     let resumed = try GameEngine.resolveMutationOffer(
       offer, accept: false, state: &state, catalog: catalog, generator: &generator)
 
-    // 예약이 없어졌으므로 PG-117의 갈림길에서 멈춘다. 그다음은 사용자가 고른다.
-    XCTAssertEqual(resumed.map(\.toSpeciesID), ["PG-117"])
+    // 예약이 없어졌으므로 PG-063의 갈림길에서 멈춘다. 그다음은 사용자가 고른다.
+    XCTAssertEqual(resumed.map(\.toSpeciesID), ["PG-063"])
     XCTAssertNotNil(GameEngine.pendingEvolutionChoice(for: state.ownedCreatures[0], catalog: catalog))
   }
 
   func testWithoutATriggerASingleFeedClimbsUntilTheFirstBranch() throws {
     let catalog = try CreatureCatalog.load()
-    let subject = creature("PG-034", level: 40, origin: "PG-034")
+    let subject = creature("PG-003", level: 40, origin: "PG-003")
     var state = state(with: [subject])
     var generator = SeededGenerator(seed: calmSeed)
 
@@ -242,7 +242,7 @@ final class MutationOfferTests: XCTestCase {
       creatureID: subject.id, state: &state, catalog: catalog, generator: &generator)
 
     XCTAssertNil(outcome.mutationOffer)
-    XCTAssertEqual(outcome.evolutions.map(\.toSpeciesID), ["PG-117"])
+    XCTAssertEqual(outcome.evolutions.map(\.toSpeciesID), ["PG-063"])
   }
 
   // MARK: - 발동하지 않는 자리

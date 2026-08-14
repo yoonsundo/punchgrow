@@ -1,0 +1,61 @@
+name: Feature request / 기능 제안
+description: Propose a focused improvement to PunchGrow.
+title: "[Feature] "
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Please describe the user problem before the solution. Large product or architecture changes are discussed before implementation.
+        해결책보다 사용자가 겪는 문제를 먼저 설명해 주세요. 큰 기능·구조 변경은 구현 전에 방향을 논의합니다.
+
+  - type: checkboxes
+    id: checks
+    attributes:
+      label: Before submitting / 작성 전 확인
+      options:
+        - label: I searched existing issues for a similar request. / 비슷한 제안이 이미 있는지 확인했습니다.
+          required: true
+        - label: The proposal respects PunchGrow's local-first privacy boundary. / PunchGrow의 로컬 우선 개인정보 경계를 지킵니다.
+          required: true
+
+  - type: dropdown
+    id: area
+    attributes:
+      label: Area / 영역
+      options:
+        - macOS app
+        - Public website (punchgrow.thundo.kr)
+        - Local web/API MVP
+        - Documentation
+        - Build or development tooling
+        - Other
+    validations:
+      required: true
+
+  - type: textarea
+    id: problem
+    attributes:
+      label: User problem / 사용자 문제
+      description: Who is affected, and what is difficult today?
+    validations:
+      required: true
+
+  - type: textarea
+    id: proposal
+    attributes:
+      label: Proposed change / 제안 내용
+      description: Describe the smallest change that would solve the problem.
+    validations:
+      required: true
+
+  - type: textarea
+    id: alternatives
+    attributes:
+      label: Alternatives / 다른 방법
+      description: Optional. Note workarounds or alternatives you considered.
+
+  - type: textarea
+    id: context
+    attributes:
+      label: Additional context / 추가 정보
+      description: Optional. Add mockups, examples, or related links without private data.

@@ -8,6 +8,7 @@ import { solveContinuityAssignment } from './lib/continuity-assignment/solver.mj
 import { hash, readInput, writeFixedOutputSet } from './build-continuity-assignment.mjs';
 import { G002_V2_EFFECTIVE_ROOT_IDS, G002_V2_ROOT, resolveG002V2Authority } from './lib/continuity-assignment/canonical-root-redesign-authority-v2.mjs';
 import { SIGNED_PATH as CANONICAL_SUCCESSOR_PATH } from './attest-g002-v2-canonical-successor.mjs';
+import { projectG002CatalogEpoch } from './lib/continuity-assignment/g002-catalog-epoch.mjs';
 
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 
@@ -66,13 +67,12 @@ export function composeG002V2Documents(solution, saveMap, census, ledger, inputL
 export async function buildG002V2ContinuityAssignment({ write = true, includeDocuments = false } = {}) {
   const entries = Object.entries(V2_INPUTS); const inputs = await Promise.all(entries.map(([, relative]) => readInput(relative)));
   const raw = Object.fromEntries(entries.map(([key], index) => [key, inputs[index]]));
-  // G002-v2 is a signed review of the immutable PG-001..240 epoch. Runtime
-  // append-only additions must not alter the historical solver input or lock.
-  const frozenCatalog = raw.catalog.json.slice(0, 240);
+  const frozenCatalog = projectG002CatalogEpoch(raw.catalog.json);
   raw.catalog = {
     ...raw.catalog,
-    json: frozenCatalog,
-    sha256: hash(`${JSON.stringify(frozenCatalog, null, 2)}\n`),
+    bytes: Buffer.from(frozenCatalog.bytes),
+    json: frozenCatalog.catalog,
+    sha256: frozenCatalog.sha256,
   };
   inputs[entries.findIndex(([key]) => key === 'catalog')].sha256 = raw.catalog.sha256;
   const authority = await resolveG002V2Authority(raw.canonicalRootRedesignTargets.json, { repoRoot: ROOT });

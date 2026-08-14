@@ -6,6 +6,7 @@ import path from 'node:path';
 import pngjs from 'pngjs';
 import {
   ADJUDICATIONS_RELATIVE_PATH,
+  EXPECTED_RUNTIME_COUNTS,
   LANE_RELATIVE_PATHS,
   MANIFEST_RELATIVE_PATH,
   OUTPUT_RELATIVE_PATH,
@@ -20,6 +21,7 @@ import {
 const { PNG } = pngjs;
 
 const root = process.cwd();
+const mobileResourcesRelativePath = 'assets/creatures/mobile';
 const sourceResourcesRelativePath = 'macos/Sources/PunchGrowMenuBar/Resources';
 const runtimeResourcesRelativePath = 'macos/.build/PunchGrow.app/Contents/Resources/PunchGrowMenuBar_PunchGrowMenuBar.bundle';
 const runtimeCatalogRelativePath = `${runtimeResourcesRelativePath}/creatures.json`;
@@ -122,7 +124,7 @@ function evolutionReferences(entry) {
   return [];
 }
 
-export function reconstructRuntimeUnits(catalog, expectedCounts = { normal: 60, exceptional: 59 }) {
+export function reconstructRuntimeUnits(catalog, expectedCounts = EXPECTED_RUNTIME_COUNTS) {
   invariant(Array.isArray(catalog), 'runtime catalog must be an array');
   const byId = new Map();
   const byLineageStage = new Map();
@@ -215,7 +217,7 @@ export function reconstructRuntimeUnits(catalog, expectedCounts = { normal: 60, 
   return units;
 }
 
-function validateManifestAgainstCatalog(manifest, catalog, expectedCounts = { normal: 60, exceptional: 59, units: 119, edges: 190 }) {
+function validateManifestAgainstCatalog(manifest, catalog, expectedCounts = EXPECTED_RUNTIME_COUNTS) {
   const reconstructed = reconstructRuntimeUnits(catalog, expectedCounts);
   invariant(reconstructed.length === expectedCounts.units, `reconstructed unit count must be ${expectedCounts.units}`);
   const reconstructedEdges = reconstructed.reduce((total, unit) => total + unit.edges.length, 0);
@@ -233,16 +235,27 @@ function validateManifestAgainstCatalog(manifest, catalog, expectedCounts = { no
   return reconstructed;
 }
 
-function validateLedger(manifest, report, expectedCounts = { creatures: 240, units: 119, edges: 190 }) {
+function validateLedger(manifest, report, expectedCounts = EXPECTED_RUNTIME_COUNTS) {
   invariant(report.status === 'PASS' && report.acceptanceThreshold === 90, 'ledger status/threshold drift');
   invariant(report.resourcesFingerprint === manifest.resourcesFingerprint, 'ledger resources fingerprint drift');
   invariant(report.catalogSha256 === manifest.catalogSha256, 'ledger catalog SHA-256 drift');
-  assertDeepExact(report.summary, expectedCounts, 'ledger summary');
+  assertDeepExact(
+    report.summary,
+    {
+      creatures: expectedCounts.creatures,
+      units: expectedCounts.units,
+      edges: expectedCounts.edges,
+    },
+    'ledger summary',
+  );
   const assetsById = new Map((manifest.assets ?? []).map((asset) => [asset.id, asset]));
   exactIds(manifest.assets, (asset) => asset.id, manifest.coveredCreatureIds, 'manifest assets');
   invariant(assetsById.size === expectedCounts.creatures, `manifest must contain ${expectedCounts.creatures} assets`);
   const sheetsByName = new Map((manifest.visualArtifacts ?? []).map((sheet) => [sheet.path, sheet]));
-  invariant(sheetsByName.size === 12 || expectedCounts.creatures !== 240, 'manifest must bind 12 unique contact sheets');
+  invariant(
+    sheetsByName.size === expectedCounts.sheets,
+    `manifest must bind ${expectedCounts.sheets} unique contact sheets`,
+  );
   const unitsById = new Map((manifest.units ?? []).map((unit) => [unit.unitId, unit]));
   const edgesById = new Map();
   for (const unit of manifest.units ?? []) for (const edge of unit.edges) edgesById.set(edgeId(edge), { ...edge, unitId: unit.unitId });
@@ -305,7 +318,15 @@ async function runSelfTests() {
   ];
   for (const [name, mutate] of ledgerCases) {
     const fixture = selfTestFixture(); mutate(fixture);
-    mustReject(name, () => validateLedger(fixture.manifest, fixture.report, { creatures: 3, units: 1, edges: 2 }), results);
+    mustReject(
+      name,
+      () => validateLedger(
+        fixture.manifest,
+        fixture.report,
+        { creatures: 3, units: 1, edges: 2, sheets: 1 },
+      ),
+      results,
+    );
   }
   const evidenceReport = { laneEvidence: LANE_RELATIVE_PATHS.map((entryPath) => ({ path: entryPath, sha256: 'a'.repeat(64) })), adjudicationEvidence: { path: ADJUDICATIONS_RELATIVE_PATH, sha256: 'b'.repeat(64) } };
   const hashes = new Map([...LANE_RELATIVE_PATHS.map((entryPath) => [entryPath, 'a'.repeat(64)]), [ADJUDICATIONS_RELATIVE_PATH, 'b'.repeat(64)]]);
@@ -374,6 +395,7 @@ async function runSelfTests() {
     'normal-lineages-001-010.png', 'normal-lineages-011-020.png',
     'normal-lineages-021-030.png', 'normal-lineages-031-040.png',
     'normal-lineages-041-050.png', 'normal-lineages-051-060.png',
+    'normal-lineages-061-064.png',
     'exceptional-evolutions-001-010.png', 'exceptional-evolutions-011-020.png',
     'exceptional-evolutions-021-030.png', 'exceptional-evolutions-031-040.png',
     'exceptional-evolutions-041-050.png', 'exceptional-evolutions-051-059.png',
@@ -385,9 +407,9 @@ async function runSelfTests() {
   };
   const sheetMap = new Map(laneManifest.visualArtifacts.map((sheet) => [sheet.path, sheet]));
   const assignments = [
-    [laneSheetNames[0], laneSheetNames[1], laneSheetNames[6], laneSheetNames[7]],
-    [laneSheetNames[2], laneSheetNames[3], laneSheetNames[8], laneSheetNames[9]],
-    [laneSheetNames[4], laneSheetNames[5], laneSheetNames[10], laneSheetNames[11]],
+    [laneSheetNames[0], laneSheetNames[1], laneSheetNames[7], laneSheetNames[8]],
+    [laneSheetNames[2], laneSheetNames[3], laneSheetNames[9], laneSheetNames[10]],
+    [laneSheetNames[4], laneSheetNames[5], laneSheetNames[6], laneSheetNames[11], laneSheetNames[12]],
   ];
   const laneInputs = LANE_RELATIVE_PATHS.map((relativePath, index) => ({
     relativePath,
@@ -418,8 +440,17 @@ async function verifyFiles() {
   const expectedReport = await buildRuntimeEvolutionAudit({ rootDirectory: root });
   assertDeepExact(report, expectedReport, 'stored ledger/replayed inputs');
   invariant(report.manifestPath === MANIFEST_RELATIVE_PATH && report.manifestSha256 === sha256(manifestContents), 'ledger manifest binding drift');
-  invariant(manifest.assetCount === 240 && manifest.creatureCount === 240 && manifest.unitCount === 119 && manifest.edgeCount === 190, 'manifest count drift');
-  invariant(manifest.visualArtifacts?.length === 12, 'manifest must bind 12 contact sheets');
+  invariant(
+    manifest.assetCount === EXPECTED_RUNTIME_COUNTS.creatures
+      && manifest.creatureCount === EXPECTED_RUNTIME_COUNTS.creatures
+      && manifest.unitCount === EXPECTED_RUNTIME_COUNTS.units
+      && manifest.edgeCount === EXPECTED_RUNTIME_COUNTS.edges,
+    'manifest count drift',
+  );
+  invariant(
+    manifest.visualArtifacts?.length === EXPECTED_RUNTIME_COUNTS.sheets,
+    `manifest must bind ${EXPECTED_RUNTIME_COUNTS.sheets} contact sheets`,
+  );
 
   const evidencePaths = [...LANE_RELATIVE_PATHS, ADJUDICATIONS_RELATIVE_PATH];
   const evidenceContents = await Promise.all(evidencePaths.map((relativePath) => readFile(path.join(root, relativePath))));
@@ -438,18 +469,31 @@ async function verifyFiles() {
   assertDeepExact(JSON.parse(sourceCatalogContents), runtimeCatalog, 'source/runtime catalog content');
 
   const expectedPngNames = manifest.assets.map((asset) => `${asset.id}.png`).sort();
+  const mobileCreatureDirectory = path.join(root, mobileResourcesRelativePath);
   const sourceCreatureDirectory = path.join(root, sourceResourcesRelativePath, 'Creatures');
   const runtimePngNames = (await readdir(runtimeDirectory)).filter((name) => /^PG-\d{3}\.png$/.test(name)).sort();
+  const mobilePngNames = (await readdir(mobileCreatureDirectory)).filter((name) => /^PG-\d{3}\.png$/.test(name)).sort();
   const sourcePngNames = (await readdir(sourceCreatureDirectory)).filter((name) => /^PG-\d{3}\.png$/.test(name)).sort();
   exactIds(runtimePngNames, (name) => name, expectedPngNames, 'runtime PNG files');
+  exactIds(mobilePngNames, (name) => name, expectedPngNames, 'mobile PNG files');
   exactIds(sourcePngNames, (name) => name, expectedPngNames, 'source PNG files');
   for (const asset of manifest.assets) {
     invariant(asset.path === `${runtimeResourcesRelativePath}/${asset.id}.png`, `${asset.id}: runtime asset path must be exact`);
     const runtimePath = path.join(runtimeDirectory, `${asset.id}.png`);
-    const [runtimeContents, sourceContents, runtimeInfo] = await Promise.all([readFile(runtimePath), readFile(path.join(sourceCreatureDirectory, `${asset.id}.png`)), stat(runtimePath)]);
+    const [runtimeContents, mobileContents, sourceContents, runtimeInfo] = await Promise.all([
+      readFile(runtimePath),
+      readFile(path.join(mobileCreatureDirectory, `${asset.id}.png`)),
+      readFile(path.join(sourceCreatureDirectory, `${asset.id}.png`)),
+      stat(runtimePath),
+    ]);
     const dimensions = pngDimensions(runtimeContents, asset.id);
     invariant(runtimeInfo.size === asset.bytes && dimensions.width === asset.width && dimensions.height === asset.height, `${asset.id}: runtime asset metadata drift`);
-    invariant(sha256(runtimeContents) === asset.sha256 && sha256(sourceContents) === asset.sha256, `${asset.id}: source/runtime asset SHA-256 drift`);
+    invariant(
+      sha256(runtimeContents) === asset.sha256
+        && sha256(mobileContents) === asset.sha256
+        && sha256(sourceContents) === asset.sha256,
+      `${asset.id}: mobile/source/runtime asset SHA-256 drift`,
+    );
   }
   const fingerprint = createHash('sha256').update(manifest.catalogSha256).update(manifest.assets.map((asset) => `${asset.id}:${asset.sha256}`).join('\n')).digest('hex');
   invariant(fingerprint === manifest.resourcesFingerprint, 'manifest resources fingerprint drift');
@@ -460,7 +504,13 @@ async function verifyFiles() {
     invariant(actual.width === sheet.width, `${sheet.path}: contact-sheet width drift`);
     invariant(actual.height === sheet.height, `${sheet.path}: contact-sheet height drift`);
   }
-  console.log(JSON.stringify({ status: 'PASS', creatures: 240, units: 119, edges: 190, sheets: 12 }));
+  console.log(JSON.stringify({
+    status: 'PASS',
+    creatures: EXPECTED_RUNTIME_COUNTS.creatures,
+    units: EXPECTED_RUNTIME_COUNTS.units,
+    edges: EXPECTED_RUNTIME_COUNTS.edges,
+    sheets: EXPECTED_RUNTIME_COUNTS.sheets,
+  }));
 }
 
 async function main() {

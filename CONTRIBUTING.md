@@ -27,7 +27,7 @@ PunchGrow에 관심 가져주셔서 감사합니다. 이 문서는 오픈소스 
    git checkout -b fix/무엇을-고치는지
    ```
 
-4. **수정하고 검증** — macOS 앱 코드는 `macos/`에 있습니다. 수정 후 아래를 실행해 통과를 확인하세요.
+4. **수정하고 검증** — 수정한 영역에 맞는 검사를 실행해 통과를 확인하세요. macOS 앱의 기본 검사는 다음과 같습니다.
 
    ```bash
    cd macos
@@ -90,6 +90,20 @@ git remote set-url origin https://github.com/<내계정>/punchgrow.git
 
 빌드 오류가 나면 [사용 가이드의 문제 해결](docs/USAGE.md)을 먼저 확인하세요. SDK 불일치 오류는 `PUNCHGROW_SDKROOT` 환경변수로 호환 SDK를 명시해 해결할 수 있습니다.
 
+## 영역별 검증
+
+비슷한 이름의 `website/`와 `web/`는 서로 다른 프로젝트입니다. 공개 홈페이지는 `website/`, 로컬 풀스택 MVP는 `web/` + `server/`입니다. 전체 역할은 [저장소 구조 안내](docs/PROJECT_STRUCTURE.md)를 참고하세요.
+
+| 수정 영역 | 필수 검사 |
+| --- | --- |
+| macOS 앱 (`macos/`) | `cd macos && swift test && ./scripts/build-app.sh` |
+| 공개 홈페이지 (`website/`) | `npm ci --prefix website && npm --prefix website test` |
+| 로컬 웹 클라이언트 (`web/`) | `npm ci --prefix web && npm --prefix web test` |
+| 로컬 API (`server/`) | `npm ci --prefix server && npm --prefix server test` |
+| Expo 프로토타입 | `npm ci && npm run typecheck:app && npm run test:mobile` |
+
+API 통합 동작을 바꿨다면 `docker compose up -d --build` 후 `npm --prefix server run test:integration`도 실행하세요. 실행한 명령과 결과를 PR에 적고, UI 변경에는 전후 화면을 첨부해 주세요.
+
 ## 크리처 이미지가 포크에 포함되는데 괜찮나요?
 
 괜찮습니다. 시각 자산은 MIT가 아닌 [별도 라이선스](ASSET-LICENSE.md)를 따르지만, 원본 저장소로 변경을 제안(풀 리퀘스트)하기 위한 포크에 자산을 그대로 두는 것은 명시적으로 허용됩니다. 금지되는 것은 포크에서 자체 릴리스나 바이너리 배포를 하는 것, 자산을 다른 프로젝트에 쓰는 것, 포크를 독립 제품처럼 홍보하는 것입니다.
@@ -104,4 +118,4 @@ git remote set-url origin https://github.com/<내계정>/punchgrow.git
 
 간단한 오타·버그 수정은 바로 PR을 보내도 됩니다. 기능 추가나 구조 변경은 먼저 [이슈](https://github.com/yoonsundo/punchgrow/issues)를 열어 방향을 논의하면 서로 시간을 아낄 수 있습니다.
 
-보안·개인정보 관련 문제는 공개 이슈 대신 저장소 소유자에게 비공개로 제보해 주세요.
+보안·개인정보 관련 문제는 공개 이슈 대신 [보안 정책](SECURITY.md)에 따라 비공개로 제보해 주세요. 사용·설치 도움은 [지원 안내](SUPPORT.md)를 참고하세요.

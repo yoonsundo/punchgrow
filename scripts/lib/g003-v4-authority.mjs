@@ -1,5 +1,6 @@
 import { sha256Bytes, sha256Canonical } from './continuity-assignment/canonical-json.mjs';
 import { readContainedFile } from './continuity-assignment/evidence.mjs';
+import { projectG002CatalogEpoch } from './continuity-assignment/g002-catalog-epoch.mjs';
 import { validateSignedG002V2Successor, G002_V2_EFFECTIVE_ROOT_IDS, G002_V2_TARGET_SOURCE } from './continuity-assignment/canonical-root-redesign-authority-v2.mjs';
 import { verifyG002V2PublicEvidence } from '../verify-g002-v2-public-evidence-manifest.mjs';
 import {
@@ -144,8 +145,7 @@ export async function verifyG003V4Authority(repoRoot) {
   for (const binding of protectedFiles) {
     let bytes = await readContainedFile(repoRoot, binding.path);
     if (binding.path.endsWith('/creatures.json')) {
-      const frozenCatalog = JSON.parse(bytes).slice(0, 240);
-      bytes = Buffer.from(`${JSON.stringify(frozenCatalog, null, 2)}\n`);
+      bytes = Buffer.from(projectG002CatalogEpoch(JSON.parse(bytes)).bytes);
     }
     if (sha256Bytes(bytes) !== binding.sha256) fail(`protected active file changed: ${binding.path}`);
   }

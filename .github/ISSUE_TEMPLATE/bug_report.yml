@@ -1,0 +1,76 @@
+name: Bug report / 버그 제보
+description: Report a reproducible problem in PunchGrow.
+title: "[Bug] "
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for helping improve PunchGrow. Please remove private data from logs and screenshots.
+        PunchGrow를 개선하는 데 도움을 주셔서 감사합니다. 로그와 화면 캡처에서 개인정보를 지워 주세요.
+
+  - type: checkboxes
+    id: checks
+    attributes:
+      label: Before submitting / 작성 전 확인
+      options:
+        - label: I searched existing issues and did not find the same problem. / 같은 문제가 이미 등록되어 있는지 확인했습니다.
+          required: true
+        - label: I removed or masked private prompts and responses, non-public source, command secrets, identifying paths, email addresses, and account details; sanitized reproduction excerpts are allowed. / 비공개 프롬프트·응답·소스, 명령어 비밀값, 식별 가능한 경로·이메일·계정 정보는 제거하거나 가렸으며 정제한 재현 예시는 허용됩니다.
+          required: true
+
+  - type: dropdown
+    id: area
+    attributes:
+      label: Area / 영역
+      options:
+        - macOS app
+        - Public website (punchgrow.thundo.kr)
+        - Local web/API MVP
+        - Documentation
+        - Build or development tooling
+        - Other
+    validations:
+      required: true
+
+  - type: textarea
+    id: problem
+    attributes:
+      label: What happened? / 어떤 문제가 발생했나요?
+      placeholder: Describe the observed behavior and what you expected instead.
+    validations:
+      required: true
+
+  - type: textarea
+    id: reproduce
+    attributes:
+      label: Steps to reproduce / 재현 순서
+      placeholder: |
+        1. Open ...
+        2. Select ...
+        3. See ...
+    validations:
+      required: true
+
+  - type: input
+    id: version
+    attributes:
+      label: Version / 버전
+      description: App version, commit SHA, or website URL.
+      placeholder: v0.3.0, main@abc1234, or https://punchgrow.thundo.kr/...
+    validations:
+      required: true
+
+  - type: input
+    id: environment
+    attributes:
+      label: Environment / 환경
+      description: Hardware, OS, and browser or Xcode version when relevant.
+      placeholder: Apple M2, macOS 15.6, Safari 18
+    validations:
+      required: true
+
+  - type: textarea
+    id: evidence
+    attributes:
+      label: Additional context / 추가 정보
+      description: Add sanitized logs, screenshots, or links that help reproduce the issue.

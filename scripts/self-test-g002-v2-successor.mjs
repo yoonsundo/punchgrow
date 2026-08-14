@@ -8,6 +8,7 @@ import { fileURLToPath } from 'node:url';
 import { canonicalStringify, sha256Canonical } from './lib/continuity-assignment/canonical-json.mjs';
 import { validateSignedCanonicalRootRedesignTargets } from './lib/continuity-assignment/canonical-root-redesign-targets.mjs';
 import { solveContinuityAssignment } from './lib/continuity-assignment/solver.mjs';
+import { projectG002CatalogEpoch } from './lib/continuity-assignment/g002-catalog-epoch.mjs';
 import {
   G002_V1_BASE, G002_V2_ADDITION_IDS, G002_V2_EFFECTIVE_ROOT_IDS, G002_V2_TARGET_SOURCE,
   assertV2OutputPath, validateG002V2SuccessorCore, validateSignedG002V2Successor, validateUnsignedG002V2Successor, verifyG002V1BaseAuthority,
@@ -93,6 +94,7 @@ const v1Contract = await json(G002_V1_BASE.canonicalContractPath); const v1 = va
 const effective = new Map([...v1.byRootId, ...additions]); assert.deepEqual([...effective.keys()].sort(), G002_V2_EFFECTIVE_ROOT_IDS);
 const inputKeys = ['catalog', 'census', 'conflictLedger', 'taxonomyConsensus', 'pixelClusters', 'anchorConsensus', 'lockedTaxonomyConsensus', 'topologyContract', 'pins'];
 const inputs = Object.fromEntries(await Promise.all(inputKeys.map(async (key) => [key, await json(V2_INPUTS[key])])));
+inputs.catalog = projectG002CatalogEpoch(inputs.catalog).catalog;
 const authority = { byRootId: effective, outputSha256: hex('test-successor'), targetSource: G002_V2_TARGET_SOURCE, visibilityPolicy: core.visibilityPolicy, reviewerProvenanceIds: reviewProofs.flatMap((proof) => proof.primaryReviews.map((review) => review.reviewerInstanceId)), architectApprovalSource: core.architectApproval.reviewerId };
 const solution = solveContinuityAssignment({ ...inputs, canonicalRootRedesignTargets: core, canonicalAuthorityResolver: () => authority });
 assertG002V2Solution(solution);

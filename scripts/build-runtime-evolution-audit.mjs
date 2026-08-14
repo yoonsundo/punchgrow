@@ -10,6 +10,14 @@ export const LANE_RELATIVE_PATHS = ['a', 'b', 'c'].map(
   (lane) => `production/reports/evolution-runtime-audit-lanes/lane-${lane}.json`,
 );
 export const ACCEPTANCE_THRESHOLD = 90;
+export const EXPECTED_RUNTIME_COUNTS = Object.freeze({
+  normal: 64,
+  exceptional: 59,
+  creatures: 256,
+  units: 123,
+  edges: 202,
+  sheets: 13,
+});
 
 const EXPECTED_LANE_SHEETS = {
   A: [
@@ -22,6 +30,7 @@ const EXPECTED_LANE_SHEETS = {
   ],
   C: [
     'normal-lineages-041-050.png', 'normal-lineages-051-060.png',
+    'normal-lineages-061-064.png',
     'exceptional-evolutions-041-050.png', 'exceptional-evolutions-051-059.png',
   ],
 };
@@ -159,11 +168,29 @@ export async function buildRuntimeEvolutionAudit({ rootDirectory = process.cwd()
   const { manifestContents, manifest, laneInputs, adjudicationsContents, adjudications } = loaded;
   const manifestHash = sha256(manifestContents);
 
-  invariant(manifest.assetCount === 240 && manifest.assets?.length === 240, 'manifest must contain 240 assets');
-  invariant(manifest.creatureCount === 240 && manifest.coveredCreatureIds?.length === 240, 'manifest must cover 240 creatures');
-  invariant(manifest.unitCount === 119 && manifest.units?.length === 119, 'manifest must contain 119 units');
-  invariant(manifest.edgeCount === 190, 'manifest must contain 190 edges');
-  invariant(manifest.visualArtifacts?.length === 12, 'manifest must contain 12 contact sheets');
+  invariant(
+    manifest.assetCount === EXPECTED_RUNTIME_COUNTS.creatures
+      && manifest.assets?.length === EXPECTED_RUNTIME_COUNTS.creatures,
+    `manifest must contain ${EXPECTED_RUNTIME_COUNTS.creatures} assets`,
+  );
+  invariant(
+    manifest.creatureCount === EXPECTED_RUNTIME_COUNTS.creatures
+      && manifest.coveredCreatureIds?.length === EXPECTED_RUNTIME_COUNTS.creatures,
+    `manifest must cover ${EXPECTED_RUNTIME_COUNTS.creatures} creatures`,
+  );
+  invariant(
+    manifest.unitCount === EXPECTED_RUNTIME_COUNTS.units
+      && manifest.units?.length === EXPECTED_RUNTIME_COUNTS.units,
+    `manifest must contain ${EXPECTED_RUNTIME_COUNTS.units} units`,
+  );
+  invariant(
+    manifest.edgeCount === EXPECTED_RUNTIME_COUNTS.edges,
+    `manifest must contain ${EXPECTED_RUNTIME_COUNTS.edges} edges`,
+  );
+  invariant(
+    manifest.visualArtifacts?.length === EXPECTED_RUNTIME_COUNTS.sheets,
+    `manifest must contain ${EXPECTED_RUNTIME_COUNTS.sheets} contact sheets`,
+  );
 
   const assetsById = new Map();
   for (const asset of manifest.assets) {
@@ -201,7 +228,10 @@ export async function buildRuntimeEvolutionAudit({ rootDirectory = process.cwd()
       edgesById.set(id, { ...edge, unitId: unit.unitId });
     }
   }
-  invariant(edgesById.size === 190, `manifest edge total must be 190, got ${edgesById.size}`);
+  invariant(
+    edgesById.size === EXPECTED_RUNTIME_COUNTS.edges,
+    `manifest edge total must be ${EXPECTED_RUNTIME_COUNTS.edges}, got ${edgesById.size}`,
+  );
 
   const laneUnitRecords = laneInputs.flatMap((input) => laneUnits(input.document));
   const laneEdgeRecords = laneInputs.flatMap((input) => laneEdges(input.document));
@@ -303,7 +333,12 @@ export async function buildRuntimeEvolutionAudit({ rootDirectory = process.cwd()
     resourcesFingerprint: manifest.resourcesFingerprint, catalogSha256: manifest.catalogSha256,
     laneEvidence: laneInputs.map((input) => ({ path: input.relativePath, sha256: sha256(input.contents) })),
     adjudicationEvidence: { path: ADJUDICATIONS_RELATIVE_PATH, sha256: sha256(adjudicationsContents) },
-    replacedIds, summary: { creatures: 240, units: 119, edges: 190 },
+    replacedIds,
+    summary: {
+      creatures: EXPECTED_RUNTIME_COUNTS.creatures,
+      units: EXPECTED_RUNTIME_COUNTS.units,
+      edges: EXPECTED_RUNTIME_COUNTS.edges,
+    },
     units: finalUnits, edges: finalEdges,
   };
 }

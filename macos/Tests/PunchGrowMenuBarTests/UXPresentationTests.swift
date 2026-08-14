@@ -918,10 +918,10 @@ final class UXPresentationTests: XCTestCase {
     let ceilingCounts = Dictionary(
       uniqueKeysWithValues: rows.map { ($0.tier, $0.finalPotentialLineageCount) })
     XCTAssertEqual(ceilingCounts[.process], 0)
-    XCTAssertEqual(ceilingCounts[.agent], 4)
+    XCTAssertEqual(ceilingCounts[.agent], 9)
     XCTAssertEqual(ceilingCounts[.daemon], 13)
-    XCTAssertEqual(ceilingCounts[.oracle], 11)
-    XCTAssertEqual(ceilingCounts[.architect], 29)
+    XCTAssertEqual(ceilingCounts[.oracle], 9)
+    XCTAssertEqual(ceilingCounts[.architect], 26)
     XCTAssertEqual(ceilingCounts[.origin], 7)
     XCTAssertEqual(ceilingCounts.values.reduce(0, +), 64)
   }
@@ -938,20 +938,20 @@ final class UXPresentationTests: XCTestCase {
 
     let ceiling = distribution { EvolutionCatalog.maxReachableRarity(from: $0, in: catalog) }
     XCTAssertEqual(ceiling["PROCESS", default: 0], 0)
-    XCTAssertEqual(ceiling["AGENT"], 4)
+    XCTAssertEqual(ceiling["AGENT"], 9)
     XCTAssertEqual(ceiling["DAEMON"], 13)
-    XCTAssertEqual(ceiling["ORACLE"], 11)
-    XCTAssertEqual(ceiling["ARCHITECT"], 29)
+    XCTAssertEqual(ceiling["ORACLE"], 9)
+    XCTAssertEqual(ceiling["ARCHITECT"], 26)
     XCTAssertEqual(ceiling["ORIGIN"], 7)
     XCTAssertEqual(ceiling.values.reduce(0, +), 64)
 
-    // 변이를 섞어 계산하면 DAEMON 16 · ORACLE 17 · ARCHITECT 14가 되므로 이 단언이 잡아낸다.
+    // 변이를 섞지 않은 자동 경로의 최저 보장 등급 분포를 고정한다.
     let floor = distribution { EvolutionCatalog.minGuaranteedRarity(from: $0, in: catalog) }
     XCTAssertEqual(floor["PROCESS", default: 0], 0)
-    XCTAssertEqual(floor["AGENT"], 10)
-    XCTAssertEqual(floor["DAEMON"], 15)
-    XCTAssertEqual(floor["ORACLE"], 16)
-    XCTAssertEqual(floor["ARCHITECT"], 16)
+    XCTAssertEqual(floor["AGENT"], 15)
+    XCTAssertEqual(floor["DAEMON"], 9)
+    XCTAssertEqual(floor["ORACLE"], 10)
+    XCTAssertEqual(floor["ARCHITECT"], 23)
     XCTAssertEqual(floor["ORIGIN"], 7)
     XCTAssertEqual(floor.values.reduce(0, +), 64)
   }

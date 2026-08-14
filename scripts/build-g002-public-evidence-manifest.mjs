@@ -4,6 +4,7 @@ import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { sha256Bytes, sha256Canonical } from './lib/continuity-assignment/canonical-json.mjs';
 import { listContainedRegularFiles, readContainedFile, readJson, writeCanonicalFile } from './lib/continuity-assignment/evidence.mjs';
+import { projectG002CatalogEpoch } from './lib/continuity-assignment/g002-catalog-epoch.mjs';
 import {
   EVIDENCE_ROOT, PG_IDS, SIGNED_MANIFEST_PATH, TAXONOMY_ROOT, UNSIGNED_MANIFEST_PATH,
   assertEvidenceRootInventory, expectedCoveredPaths, pngDescriptor, taxonomyEvidencePaths,
@@ -13,6 +14,7 @@ const REPO_ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..
 const INPUT_LOCK_PATH = `${EVIDENCE_ROOT}/inputs.lock.json`;
 const TAXONOMY_LOCK_PATH = `${TAXONOMY_ROOT}/taxonomy-review-lock.json`;
 const TAXONOMY_CONSENSUS_PATH = `${TAXONOMY_ROOT}/consensus.json`;
+const CATALOG_PATH = 'production/catalog/creatures.json';
 
 export async function buildPublicEvidenceManifest({ repoRoot = REPO_ROOT, write = true } = {}) {
   const [inputLock, taxonomyLock, taxonomyConsensus] = await Promise.all([
@@ -25,7 +27,9 @@ export async function buildPublicEvidenceManifest({ repoRoot = REPO_ROOT, write 
   const coveredPaths = expectedCoveredPaths(inputLock, taxonomyLock, taxonomyConsensus);
   const files = [];
   for (const relative of coveredPaths) {
-    files.push({ path: relative, sha256: sha256Bytes(await readContainedFile(repoRoot, relative)) });
+    const bytes = await readContainedFile(repoRoot, relative);
+    const digest = relative === CATALOG_PATH ? projectG002CatalogEpoch(JSON.parse(bytes)).sha256 : sha256Bytes(bytes);
+    files.push({ path: relative, sha256: digest });
   }
   await assertEvidenceRootInventory(repoRoot, coveredPaths);
   const activeById = new Map(inputLock.activeAssets.map((entry) => [entry.pgId, entry]));

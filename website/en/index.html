@@ -9,12 +9,18 @@
   <meta property="og:description" content="Turn your coding activity into creature growth, locally on your Mac.">
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://punchgrow.thundo.kr/en/">
+  <meta property="og:image" content="https://punchgrow.thundo.kr/assets/origins/PG-244.png">
+  <meta property="og:image:alt" content="Nervasil, PunchGrow's Water ORIGIN creature">
+  <meta name="twitter:card" content="summary">
   <link rel="canonical" href="https://punchgrow.thundo.kr/en/">
   <link rel="alternate" hreflang="ko" href="https://punchgrow.thundo.kr/">
   <link rel="alternate" hreflang="en" href="https://punchgrow.thundo.kr/en/">
+  <link rel="alternate" hreflang="x-default" href="https://punchgrow.thundo.kr/">
   <link rel="icon" href="../assets/favicon.png">
+  <script>document.documentElement.classList.add('js')</script>
   <link rel="stylesheet" href="../styles.css">
   <script src="../script.js" defer></script>
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"SoftwareApplication","name":"PunchGrow","applicationCategory":"GameApplication","operatingSystem":"macOS 14 or later (Apple Silicon)","softwareVersion":"0.3.0","url":"https://punchgrow.thundo.kr/en/","downloadUrl":"https://github.com/yoonsundo/punchgrow/releases/tag/v0.3.0","codeRepository":"https://github.com/yoonsundo/punchgrow","license":"https://github.com/yoonsundo/punchgrow/blob/main/LICENSE"}</script>
   <title>PunchGrow — Grow creatures with code</title>
 </head>
 <body>
@@ -25,7 +31,7 @@
     <nav class="nav shell" aria-label="Main navigation">
       <a class="brand" href="#top" aria-label="PunchGrow home"><span class="brand-mark" aria-hidden="true">PG</span><span>PUNCHGROW<span class="cursor">_</span></span></a>
       <div class="nav-links" id="nav-links">
-        <a href="#experience">Game</a><a href="./dex/">Full Dex</a><a href="#privacy">Privacy</a><a href="#install">Build</a>
+        <a href="#experience">Game</a><a href="./dex/">Full Dex</a><a href="#privacy">Privacy</a><a href="#install">Install</a><a href="#open-source">Open source</a>
         <a class="lang-link" href="../" lang="ko" hreflang="ko">KO</a>
       </div>
       <button class="menu-button" type="button" aria-expanded="false" aria-controls="nav-links"><span class="sr-only">Open menu</span><span aria-hidden="true">MENU</span></button>
@@ -35,14 +41,14 @@
   <main id="main">
     <section class="hero shell" id="top" aria-labelledby="hero-title">
       <div class="hero-copy reveal">
-        <p class="eyebrow"><span class="status-dot"></span> LOCAL-FIRST / macOS</p>
+        <p class="eyebrow"><span class="status-dot"></span> OPEN SOURCE / LOCAL-FIRST / macOS</p>
         <h1 id="hero-title">CODE.<br><span>COLLECT.</span><br>EVOLVE.</h1>
         <p class="hero-lede">Turn Claude Code and Codex usage into growth energy. Keep your work on your Mac, and raise 256 creatures to the rhythm of your code.</p>
         <div class="hero-actions">
-          <a class="button button-primary" href="#install">Build from source <span aria-hidden="true">↘</span></a>
+          <a class="button button-primary" href="#install">Install with Homebrew <span aria-hidden="true">↘</span></a>
           <a class="button button-secondary" href="https://github.com/yoonsundo/punchgrow">View on GitHub <span aria-hidden="true">↗</span></a>
         </div>
-        <p class="release-note">ALPHA · Apple Silicon · macOS 14+ · SwiftUI</p>
+        <p class="release-note"><a href="https://github.com/yoonsundo/punchgrow/releases/tag/v0.3.0">v0.3.0 HOMEBREW · 240 CREATURES</a> · CURRENT MAIN + DEX · 256</p>
       </div>
       <div class="hero-visual reveal" aria-label="PunchGrow app preview">
         <div class="terminal-window">
@@ -55,7 +61,7 @@
     </section>
 
     <section class="metrics" aria-label="Project scale"><div class="shell metrics-grid">
-      <div><strong>256</strong><span>CREATURES</span></div><div><strong>64</strong><span>LINEAGES</span></div><div><strong>6</strong><span>EVOLUTION GRADES</span></div><div><strong>0</strong><span>CONTENT UPLOADS</span></div>
+      <div><strong>v0.3</strong><span>HOMEBREW · 240</span></div><div><strong>256</strong><span>MAIN + PUBLIC DEX</span></div><div><strong>LOCAL</strong><span>PRIVACY FIRST</span></div><div><strong>MIT</strong><span>OPEN SOURCE</span></div>
     </div></section>
 
     <section class="section shell" id="experience" aria-labelledby="experience-title">
@@ -91,13 +97,29 @@
       <div class="privacy-terminal" aria-label="PunchGrow privacy processing example"><div><span>$</span> punchgrow privacy --inspect</div><p><b>✓</b> token_count <em>accepted</em></p><p><b>✓</b> timestamp <em>accepted</em></p><p><b>×</b> prompt <em>never stored</em></p><p><b>×</b> source_code <em>never stored</em></p><p><b>×</b> file_path <em>never stored</em></p><div class="terminal-result">RESULT: LOCAL ONLY <span aria-hidden="true">█</span></div></div>
     </div></section>
 
-    <section class="section install-section" id="install" aria-labelledby="install-title"><div class="shell install-grid">
-      <div class="install-copy reveal"><p class="eyebrow">04 / BUILD FROM SOURCE</p><h2 id="install-title">START ON<br><span>YOUR OWN MAC.</span></h2><p>The current public path is a source build. You need an Apple Silicon Mac, macOS 14 or later, and full Xcode.</p><div class="hero-actions"><a class="button button-primary" href="https://github.com/yoonsundo/punchgrow">GitHub repository <span aria-hidden="true">↗</span></a><a class="button button-secondary" href="https://github.com/yoonsundo/punchgrow/blob/main/docs/USAGE.en.md">Usage guide <span aria-hidden="true">↗</span></a></div></div>
-      <div class="code-window reveal"><div class="code-title"><span>SOURCE BUILD</span><button class="copy-button" type="button" data-copy-target="build-en">Copy</button></div><pre id="build-en"><code><span class="comment"># Clone the repository and build the app</span>
-git clone https://github.com/yoonsundo/punchgrow.git
+    <section class="section open-source-section" id="open-source" aria-labelledby="open-source-title"><div class="shell">
+      <div class="section-heading reveal"><p class="eyebrow">04 / BUILT IN THE OPEN</p><h2 id="open-source-title">EXPLORE IT.<br><span>IMPROVE IT. GROW IT.</span></h2><p>The shipping app, public site, local web experiment, and product records have explicit boundaries, so a first-time contributor can find the right starting point quickly.</p></div>
+      <div class="source-grid reveal" aria-label="Main repository areas">
+        <article class="source-card"><span>SHIPPING APP</span><h3><code>macos/</code></h3><p>The released SwiftUI menu-bar app, tests, and build scripts.</p><small>Swift 6 · macOS 14+</small></article>
+        <article class="source-card"><span>PUBLIC SITE</span><h3><code>website/</code></h3><p>This GitHub Pages site and the public 256-creature dex.</p><small>HTML · CSS · JavaScript</small></article>
+        <article class="source-card"><span>LOCAL MVP</span><h3><code>web/ + server/</code></h3><p>A local Docker experiment, not an internet-hosted product.</p><small>TypeScript · PostgreSQL</small></article>
+        <article class="source-card"><span>KNOWLEDGE</span><h3><code>docs/ + 문서/</code></h3><p>User guides and public QA alongside product decisions and design rules.</p><small>Guides · Decisions · PRD</small></article>
+      </div>
+      <div class="source-actions reveal"><a class="button button-primary" href="https://github.com/yoonsundo/punchgrow">Browse the source <span aria-hidden="true">↗</span></a><a class="button button-secondary" href="https://github.com/yoonsundo/punchgrow/blob/main/docs/PROJECT_STRUCTURE.md#english">Repository map <span aria-hidden="true">↗</span></a><a class="button button-secondary" href="https://github.com/yoonsundo/punchgrow/blob/main/CONTRIBUTING.en.md">Start contributing <span aria-hidden="true">↗</span></a></div>
+    </div></section>
+
+    <section class="section install-section" id="install" aria-labelledby="install-title"><div class="shell">
+      <div class="section-heading reveal"><p class="eyebrow">05 / INSTALL</p><h2 id="install-title">START ON<br><span>YOUR OWN MAC.</span></h2><p>You need an Apple Silicon Mac running macOS 14 or later. Homebrew v0.3.0 contains 240 creatures; current <code>main</code> source and the public dex contain 256.</p></div>
+      <div class="install-options">
+        <div class="code-window recommended reveal"><div class="code-title"><span>HOMEBREW / v0.3.0 · 240 CREATURES</span><button class="copy-button" type="button" data-copy-target="brew-en">Copy</button></div><pre id="brew-en"><code>brew tap yoonsundo/punchgrow https://github.com/yoonsundo/punchgrow
+brew trust yoonsundo/punchgrow
+brew install --cask punchgrow
+xattr -d com.apple.quarantine /Applications/PunchGrow.app</code></pre><p>This 2026-08-07 release contains 240 creatures. It is ad-hoc signed, so clear quarantine before first launch; skip <code>brew trust</code> before Homebrew 6.</p></div>
+        <div class="code-window reveal"><div class="code-title"><span>SOURCE BUILD / CURRENT MAIN · 256 CREATURES</span><button class="copy-button" type="button" data-copy-target="build-en">Copy</button></div><pre id="build-en"><code>git clone https://github.com/yoonsundo/punchgrow.git
 cd punchgrow/macos
 ./scripts/build-app.sh
-open .build/PunchGrow.app</code></pre><p>This produces an ad-hoc signed build for local use. A Developer ID-signed and Apple-notarized public binary is not currently advertised.</p></div>
+open .build/PunchGrow.app</code></pre><p>This current development build contains the 16 later additions and requires Full Xcode. See the <a href="https://github.com/yoonsundo/punchgrow/blob/main/docs/USAGE.en.md">usage guide</a> for details.</p></div>
+      </div>
     </div></section>
 
     <section class="final-cta shell reveal" aria-labelledby="cta-title"><p class="eyebrow">READY TO GROW?</p><h2 id="cta-title">TODAY'S CODE.<br><span>TOMORROW'S ORIGIN.</span></h2><a class="button button-primary" href="https://github.com/yoonsundo/punchgrow">PUNCHGROW ON GITHUB <span aria-hidden="true">↗</span></a></section>
@@ -105,8 +127,8 @@ open .build/PunchGrow.app</code></pre><p>This produces an ad-hoc signed build fo
 
   <footer class="site-footer"><div class="shell footer-grid">
     <div><a class="brand" href="#top"><span class="brand-mark" aria-hidden="true">PG</span><span>PUNCHGROW</span></a><p>Code. Collect. Evolve.</p></div>
-    <div><strong>PROJECT</strong><a href="https://github.com/yoonsundo/punchgrow">GitHub</a><a href="https://github.com/yoonsundo/punchgrow/issues">Issues</a><a href="https://github.com/yoonsundo/punchgrow/blob/main/CONTRIBUTING.md">Contribute</a></div>
-    <div><strong>LEGAL</strong><a href="https://github.com/yoonsundo/punchgrow/blob/main/LICENSE">MIT Source</a><a href="https://github.com/yoonsundo/punchgrow/blob/main/ASSET-LICENSE.md">Asset License</a><a href="https://github.com/yoonsundo/punchgrow/blob/main/ATTRIBUTIONS.md">Attributions</a></div>
+    <div><strong>PROJECT</strong><a href="https://github.com/yoonsundo/punchgrow/releases">Releases</a><a href="https://github.com/yoonsundo/punchgrow/blob/main/docs/USAGE.en.md">Usage</a><a href="https://github.com/yoonsundo/punchgrow/issues">Issues</a><a href="https://github.com/yoonsundo/punchgrow/blob/main/CONTRIBUTING.en.md">Contribute</a></div>
+    <div><strong>TRUST</strong><a href="https://github.com/yoonsundo/punchgrow/blob/main/SECURITY.md#english">Security</a><a href="https://github.com/yoonsundo/punchgrow/blob/main/LICENSE">MIT Source</a><a href="https://github.com/yoonsundo/punchgrow/blob/main/ASSET-LICENSE.md">Asset License</a><a href="https://github.com/yoonsundo/punchgrow/blob/main/ATTRIBUTIONS.md">Attributions</a></div>
     <div><strong>LANGUAGE</strong><a href="../" lang="ko">한국어</a><a href="./" aria-current="page">English</a></div>
   </div><div class="shell footer-bottom"><p>© <span data-current-year>2026</span> PunchGrow contributors.</p><p>Code is MIT licensed. Creatures and visual assets use a separate license.</p></div></footer>
 </body>

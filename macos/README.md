@@ -119,7 +119,7 @@ release gate.
 
 The app assembler resolves the current release product directory directly from
 SwiftPM, builds into a private staging directory, verifies `Info.plist`, both
-license files, the resource manifest, and all 240 creature PNGs, then signs and
+license files, the resource manifest, and all 256 creature PNGs, then signs and
 installs a fresh `.build/PunchGrow.app`. A prior app bundle is replaced rather
 than updated in place, so removed resources cannot survive as stale files.
 

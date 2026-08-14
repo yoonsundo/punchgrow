@@ -14,7 +14,7 @@ git remote set-url origin https://github.com/<your-account>/punchgrow.git
 
 1. Fork [yoonsundo/punchgrow](https://github.com/yoonsundo/punchgrow) on GitHub.
 2. Clone **your fork** and create a branch: `git checkout -b fix/short-description`
-3. Make your change (the macOS app lives in `macos/`) and verify it:
+3. Make your change and run the checks for that area. The basic macOS checks are:
 
    ```bash
    cd macos
@@ -62,6 +62,20 @@ Base requirements: Apple Silicon Mac, macOS 14+.
 
 If the build fails, check the [user guide troubleshooting](docs/USAGE.en.md) first. SDK mismatch errors can be resolved by pointing `PUNCHGROW_SDKROOT` at a compatible SDK.
 
+## Area-specific verification
+
+The similarly named `website/` and `web/` directories are separate projects. `website/` is the public homepage; `web/` + `server/` is a local full-stack MVP. See the [repository structure guide](docs/PROJECT_STRUCTURE.md) for the complete boundary.
+
+| Changed area | Required checks |
+| --- | --- |
+| macOS app (`macos/`) | `cd macos && swift test && ./scripts/build-app.sh` |
+| Public homepage (`website/`) | `npm ci --prefix website && npm --prefix website test` |
+| Local web client (`web/`) | `npm ci --prefix web && npm --prefix web test` |
+| Local API (`server/`) | `npm ci --prefix server && npm --prefix server test` |
+| Expo prototype | `npm ci && npm run typecheck:app && npm run test:mobile` |
+
+For API integration changes, also run `docker compose up -d --build` followed by `npm --prefix server run test:integration`. List the commands and results in the pull request, and include before/after images for UI changes.
+
 ## Is it OK that my fork contains the creature artwork?
 
 Yes. The visual assets are not MIT-licensed ([ASSET-LICENSE.md](ASSET-LICENSE.md)), but keeping them unmodified in a fork that exists to propose changes back to the official repository (pull requests) is explicitly permitted. What is not permitted: shipping releases or binaries from a fork, using the assets in another project, or promoting a fork as a standalone product.
@@ -72,4 +86,4 @@ Yes. The visual assets are not MIT-licensed ([ASSET-LICENSE.md](ASSET-LICENSE.md
 - Redistributing or releasing from a fork requires removing or replacing the protected artwork; a PR-purpose fork may keep it.
 - Behavior changes need new or updated tests.
 
-For features or structural changes, please open an [issue](https://github.com/yoonsundo/punchgrow/issues) first. Report security or privacy concerns privately to the repository owner instead of opening a public issue.
+For features or structural changes, please open an [issue](https://github.com/yoonsundo/punchgrow/issues) first. Report security or privacy concerns privately through the [security policy](SECURITY.md), and see [support](SUPPORT.md) for setup and usage help.

@@ -151,7 +151,7 @@ final class CreatureCatalogTests: XCTestCase {
   }
 
   func testBundledNormalEvolutionPreservesLineageAndBodyForm() throws {
-    let catalog = try decodeBundledCatalogWithoutValidation()
+    let catalog = try CreatureCatalog.load()
     let speciesByID = Dictionary(uniqueKeysWithValues: catalog.map { ($0.id, $0) })
     let failures = catalog.compactMap { child -> String? in
       guard child.category == "normal_evolution", child.evolutionFrom.count == 1,
@@ -178,7 +178,7 @@ final class CreatureCatalogTests: XCTestCase {
   }
 
   func testBundledSingleParentEvolutionPreservesBodyForm() throws {
-    let catalog = try decodeBundledCatalogWithoutValidation()
+    let catalog = try CreatureCatalog.load()
     let speciesByID = Dictionary(uniqueKeysWithValues: catalog.map { ($0.id, $0) })
     let failures = catalog.compactMap { child -> String? in
       guard child.category != "start", child.category != "mixed",
@@ -227,10 +227,5 @@ private extension CreatureCatalogTests {
     XCTAssertThrowsError(try CreatureCatalog.validateEvolutionGraph(catalog), file: file, line: line) { error in
       XCTAssertEqual(error as? GameError, .emptyCatalog, file: file, line: line)
     }
-  }
-
-  func decodeBundledCatalogWithoutValidation() throws -> [CreatureSpecies] {
-    let url = try XCTUnwrap(Bundle.module.url(forResource: "creatures", withExtension: "json"))
-    return try JSONDecoder().decode([CreatureSpecies].self, from: Data(contentsOf: url))
   }
 }

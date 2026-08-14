@@ -7,9 +7,11 @@ import path from 'node:path';
 import { sha256Bytes, sha256Canonical } from './lib/continuity-assignment/canonical-json.mjs';
 import { verifyPublicEvidence } from './lib/g002-public-authority.mjs';
 import { EVIDENCE_ROOT, UNSIGNED_MANIFEST_PATH, assertEvidenceRootInventory, pngDescriptor } from './lib/g002-public-evidence-manifest-v2.mjs';
+import { G002_SIGNED_CATALOG_SHA256, projectG002CatalogEpoch } from './lib/continuity-assignment/g002-catalog-epoch.mjs';
 import { assertManifestShape, verifyCoveredFileBinding, verifyPublicEvidenceManifestMaterial, verifyRuntimeFileBinding } from './verify-g002-public-evidence-manifest.mjs';
 
 const manifest = JSON.parse(await readFile(UNSIGNED_MANIFEST_PATH));
+const currentCatalog = JSON.parse(await readFile('production/catalog/creatures.json'));
 const clone = () => structuredClone(manifest);
 const refresh = (candidate) => {
   candidate.outputSha256 = sha256Canonical({ schemaVersion: candidate.schemaVersion, authorityMode: candidate.authorityMode,
@@ -25,6 +27,23 @@ assert.deepEqual(await verifyPublicEvidenceManifestMaterial(manifest, { verifyEm
   { status: 'PASS', files: 99, runtimeAssets: 240, taxonomyPackages: 5 });
 assert.equal(readPaths.some((entry) => entry.startsWith('assets/creatures/redesign-v2/')), false, 'public verification read ignored redesign source material');
 assert.equal(manifest.files.some((entry) => entry.startsWith?.('assets/creatures/redesign-v2/') || entry.path.startsWith('assets/creatures/redesign-v2/')), false);
+
+// The immutable signed epoch accepts only a canonical append-only catalog suffix.
+const currentProjection = projectG002CatalogEpoch(currentCatalog);
+assert.equal(currentProjection.sha256, G002_SIGNED_CATALOG_SHA256);
+assert.equal(currentProjection.catalog.length, 240);
+const allowedSuffix = structuredClone(currentCatalog);
+allowedSuffix.push({ ...structuredClone(currentCatalog.at(-1)), id: 'PG-257' });
+assert.deepEqual(projectG002CatalogEpoch(allowedSuffix).suffixIds.at(-1), 'PG-257');
+const prefixMutation = structuredClone(currentCatalog); prefixMutation[0].enName = `${prefixMutation[0].enName}-tampered`;
+assert.throws(() => projectG002CatalogEpoch(prefixMutation), /signed catalog prefix hash drift/);
+assert.throws(() => projectG002CatalogEpoch(currentCatalog.slice(0, 239)), /at least 240 entries/);
+const reorderedIds = structuredClone(currentCatalog); [reorderedIds[0], reorderedIds[1]] = [reorderedIds[1], reorderedIds[0]];
+assert.throws(() => projectG002CatalogEpoch(reorderedIds), /index 0 must be PG-001/);
+const duplicateId = structuredClone(currentCatalog); duplicateId[1].id = duplicateId[0].id;
+assert.throws(() => projectG002CatalogEpoch(duplicateId), /index 1 must be PG-002/);
+const noncanonicalId = structuredClone(currentCatalog); noncanonicalId[0].id = 'PG-1';
+assert.throws(() => projectG002CatalogEpoch(noncanonicalId), /index 0 must be PG-001/);
 
 // Covered-file tamper, recomputed unsigned content, and authority substitution all fail closed.
 const coveredTamper = clone(); coveredTamper.files[0].sha256 = '0'.repeat(64);
@@ -78,5 +97,5 @@ try {
   await assert.rejects(verifyRuntimeFileBinding(temporary, { path: 'hardlink.png', ...descriptor }, 'hardlink attack'), /independent regular file/);
 } finally { await rm(temporary, { recursive: true, force: true }); }
 
-console.log(JSON.stringify({ status: 'PASS', hostileChecks: 16, sourceFreeReads: readPaths.length,
+console.log(JSON.stringify({ status: 'PASS', hostileChecks: 22, sourceFreeReads: readPaths.length,
   ignoredSourceReads: 0, coveredFiles: manifest.files.length, runtimeAssets: manifest.runtimeAssets.length }));

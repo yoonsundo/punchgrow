@@ -54,8 +54,8 @@ const roots = catalog
   .filter((entry) => entry.category === 'start')
   .sort((left, right) => left.lineageId.localeCompare(right.lineageId));
 
-if (roots.length !== 60) {
-  throw new Error(`normal lineage root count must be 60, got ${roots.length}`);
+if (roots.length !== 64) {
+  throw new Error(`normal lineage root count must be 64, got ${roots.length}`);
 }
 
 const catalogByID = new Map(catalog.map((entry) => [entry.id, entry]));

@@ -1,7 +1,7 @@
 {
   "lane": "B",
-  "manifestSha256": "04ff7ce3e4d7a3c0ef8179bb6b13d929f0b0fbd6ac19ec304892dfe9fb2a555b",
-  "resourcesFingerprint": "bac46de16acc80a734cac5ee456b16d197f5069a74895c195c6991c84ba397c4",
+  "manifestSha256": "d35860936f8b114ddf189a7f0d861acfcc87044a79541a3dbd824e08f259a2db",
+  "resourcesFingerprint": "7e4c69320b8b3cbc5d43af87e1ed1a9625363d9578d212fb0c23954001766e1a",
   "sheets": ["normal-lineages-021-030.png", "normal-lineages-031-040.png", "exceptional-evolutions-021-030.png", "exceptional-evolutions-031-040.png"],
   "sheetEvidence": [
     {"path":"normal-lineages-021-030.png","pixelSha256":"75e09b1c592f11e37ce390c93d53175b292c7ca23f22d50330652ca1b62e2e0e","width":1120,"height":2500},

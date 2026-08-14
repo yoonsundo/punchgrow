@@ -3,35 +3,35 @@
   "status": "PASS",
   "acceptanceThreshold": 90,
   "manifestPath": "docs/qa/evolution-continuity/evolution-audit-manifest.json",
-  "manifestSha256": "04ff7ce3e4d7a3c0ef8179bb6b13d929f0b0fbd6ac19ec304892dfe9fb2a555b",
-  "resourcesFingerprint": "bac46de16acc80a734cac5ee456b16d197f5069a74895c195c6991c84ba397c4",
-  "catalogSha256": "d9a3265d8e8f07d9ce7f3de52affe3420df4d2aa3406a7f4f364ae1380e9e8a0",
+  "manifestSha256": "d35860936f8b114ddf189a7f0d861acfcc87044a79541a3dbd824e08f259a2db",
+  "resourcesFingerprint": "7e4c69320b8b3cbc5d43af87e1ed1a9625363d9578d212fb0c23954001766e1a",
+  "catalogSha256": "6469dcdfc156a45da7601312a764206b3d8f2a1925a5416d2c8cf982f310e4ad",
   "laneEvidence": [
     {
       "path": "production/reports/evolution-runtime-audit-lanes/lane-a.json",
-      "sha256": "f448593d1fc39c543ccf44078ff7c6323080d526f44d1ba846e4e603d9a1cc7f"
+      "sha256": "c532621361554f97a0364ae49edc6d5343a7c855a255e601fe1903e038d8d437"
     },
     {
       "path": "production/reports/evolution-runtime-audit-lanes/lane-b.json",
-      "sha256": "e54445e25409d64afdade43ddffcc5157ec44a43912f94390d6dd8442fa750f0"
+      "sha256": "7419c906f3fdd2bcc2d5f49b478d8155dc17a32df1b74dd5ffe550e5a765776f"
     },
     {
       "path": "production/reports/evolution-runtime-audit-lanes/lane-c.json",
-      "sha256": "035446cb0be5b58e4c0b1e3e86bb5082b5575601644d4665e9d2ba82d5360b5d"
+      "sha256": "db1a0cdb1961c9de9b231ca41aba3a22c5232ec90f141251c2c5852ec267ccde"
     }
   ],
   "adjudicationEvidence": {
     "path": "production/reports/evolution-runtime-adjudications.json",
-    "sha256": "269164148c1066c51cb2f6b9f87c4edb853178a7dfb2a74bb46e4c572163593c"
+    "sha256": "35fb74a4bb0221827e64310e60944d4f8c1f65f9e152b9fcbcb7876df324b939"
   },
   "replacedIds": [
     "PG-216",
     "PG-237"
   ],
   "summary": {
-    "creatures": 240,
-    "units": 119,
-    "edges": 190
+    "creatures": 256,
+    "units": 123,
+    "edges": 202
   },
   "units": [
     {
@@ -3060,6 +3060,248 @@
           "path": "macos/.build/PunchGrow.app/Contents/Resources/PunchGrowMenuBar_PunchGrowMenuBar.bundle/PG-168.png",
           "sha256": "3ba948496b8a75b51f927d858ab8a79c191d9817f844bb0bb5b75199e2c1ab40",
           "bytes": 190390,
+          "width": 360,
+          "height": 360
+        }
+      ]
+    },
+    {
+      "unitId": "normal-PG-L061",
+      "category": "normal",
+      "creatureIds": [
+        "PG-241",
+        "PG-242",
+        "PG-243",
+        "PG-244"
+      ],
+      "verdict": "PASS",
+      "score": 94,
+      "categoryMatch": true,
+      "differences": [
+        "S1에서 S2로 전환할 때 둥근 유체형 몸이 장신 사족형으로 크게 길어진다."
+      ],
+      "suggestions": [],
+      "reasoning": "청색 용형 사족 실루엣, 흰 뿔과 얼굴 볏, 청록 핵, 굽은 물꼬리가 모든 단계에서 유지되며 갑주와 물의 고리가 확장된다.",
+      "adjudicated": false,
+      "initialVerdict": "PASS",
+      "sheetEvidence": {
+        "path": "normal-lineages-061-064.png",
+        "pixelSha256": "d1169f1f0d60283b65c0b846962a6054676a4cb6ecff16c0b7936e5d3bc487f1",
+        "width": 1120,
+        "height": 1000,
+        "row": 1
+      },
+      "assetEvidence": [
+        {
+          "id": "PG-241",
+          "path": "macos/.build/PunchGrow.app/Contents/Resources/PunchGrowMenuBar_PunchGrowMenuBar.bundle/PG-241.png",
+          "sha256": "bfc20200cdc555a631251044b954b4f046bceae46c9c40eb67292b27814a9982",
+          "bytes": 150301,
+          "width": 360,
+          "height": 360
+        },
+        {
+          "id": "PG-242",
+          "path": "macos/.build/PunchGrow.app/Contents/Resources/PunchGrowMenuBar_PunchGrowMenuBar.bundle/PG-242.png",
+          "sha256": "f42addc4d8bb4ff990d2f6f4428da4aaf50abd62ab92dff0aedc5a688594affe",
+          "bytes": 170641,
+          "width": 360,
+          "height": 360
+        },
+        {
+          "id": "PG-243",
+          "path": "macos/.build/PunchGrow.app/Contents/Resources/PunchGrowMenuBar_PunchGrowMenuBar.bundle/PG-243.png",
+          "sha256": "f92ca9fd62ee146a343104f16dd15bcbeca616413bb92d3a83dd097735df3b88",
+          "bytes": 177879,
+          "width": 360,
+          "height": 360
+        },
+        {
+          "id": "PG-244",
+          "path": "macos/.build/PunchGrow.app/Contents/Resources/PunchGrowMenuBar_PunchGrowMenuBar.bundle/PG-244.png",
+          "sha256": "4a3aff88fcc157586e2fd0e4d24e2f7de20c2f7697f1ddf107c73c235d647eba",
+          "bytes": 182427,
+          "width": 360,
+          "height": 360
+        }
+      ]
+    },
+    {
+      "unitId": "normal-PG-L062",
+      "category": "normal",
+      "creatureIds": [
+        "PG-245",
+        "PG-246",
+        "PG-247",
+        "PG-248"
+      ],
+      "verdict": "PASS",
+      "score": 97,
+      "categoryMatch": true,
+      "differences": [],
+      "suggestions": [],
+      "reasoning": "검은 암석성 사자 얼굴과 사족 체형, 주황 불꽃 갈기와 꼬리, 태양형 가슴 핵이 모든 단계에서 계승되고 불꽃과 금색 장식만 증폭된다.",
+      "adjudicated": false,
+      "initialVerdict": "PASS",
+      "sheetEvidence": {
+        "path": "normal-lineages-061-064.png",
+        "pixelSha256": "d1169f1f0d60283b65c0b846962a6054676a4cb6ecff16c0b7936e5d3bc487f1",
+        "width": 1120,
+        "height": 1000,
+        "row": 2
+      },
+      "assetEvidence": [
+        {
+          "id": "PG-245",
+          "path": "macos/.build/PunchGrow.app/Contents/Resources/PunchGrowMenuBar_PunchGrowMenuBar.bundle/PG-245.png",
+          "sha256": "2afb57576cb6655dd2d7951d13be0b142c3e8a4a41a2b8ea4941d3a527e878fd",
+          "bytes": 157105,
+          "width": 360,
+          "height": 360
+        },
+        {
+          "id": "PG-246",
+          "path": "macos/.build/PunchGrow.app/Contents/Resources/PunchGrowMenuBar_PunchGrowMenuBar.bundle/PG-246.png",
+          "sha256": "898f4153f1d30545029811287437584c6ee145327c9cad760e2c7e52955732dc",
+          "bytes": 166085,
+          "width": 360,
+          "height": 360
+        },
+        {
+          "id": "PG-247",
+          "path": "macos/.build/PunchGrow.app/Contents/Resources/PunchGrowMenuBar_PunchGrowMenuBar.bundle/PG-247.png",
+          "sha256": "f21b8aacfde7cf39908b77008c976dd2a6565db5aadf0281a842f63f1a53ae2b",
+          "bytes": 186986,
+          "width": 360,
+          "height": 360
+        },
+        {
+          "id": "PG-248",
+          "path": "macos/.build/PunchGrow.app/Contents/Resources/PunchGrowMenuBar_PunchGrowMenuBar.bundle/PG-248.png",
+          "sha256": "a0b48028f2fc362f8d20c3da085d5ffdc42260fac040a2f18353b9604ac07ab7",
+          "bytes": 201452,
+          "width": 360,
+          "height": 360
+        }
+      ]
+    },
+    {
+      "unitId": "normal-PG-L063",
+      "category": "normal",
+      "creatureIds": [
+        "PG-249",
+        "PG-250",
+        "PG-251",
+        "PG-252"
+      ],
+      "verdict": "PASS",
+      "score": 92,
+      "categoryMatch": true,
+      "differences": [
+        "S2에서 S3로 전환할 때 정면 자세로 바뀌며 긴 꼬리와 날개 실루엣이 압축되어 보인다."
+      ],
+      "suggestions": [],
+      "reasoning": "흰 깃털 용조 얼굴, 청록 날개와 물결형 꼬리, 금청 가슴 핵과 후광이 네 단계에서 반복되어 같은 날개 달린 정령 계보로 읽힌다.",
+      "adjudicated": false,
+      "initialVerdict": "PASS",
+      "sheetEvidence": {
+        "path": "normal-lineages-061-064.png",
+        "pixelSha256": "d1169f1f0d60283b65c0b846962a6054676a4cb6ecff16c0b7936e5d3bc487f1",
+        "width": 1120,
+        "height": 1000,
+        "row": 3
+      },
+      "assetEvidence": [
+        {
+          "id": "PG-249",
+          "path": "macos/.build/PunchGrow.app/Contents/Resources/PunchGrowMenuBar_PunchGrowMenuBar.bundle/PG-249.png",
+          "sha256": "be7255cae6fe3d0a1a74e533cac9b5510751efbc09ec78f552e81145ba3834ad",
+          "bytes": 139619,
+          "width": 360,
+          "height": 360
+        },
+        {
+          "id": "PG-250",
+          "path": "macos/.build/PunchGrow.app/Contents/Resources/PunchGrowMenuBar_PunchGrowMenuBar.bundle/PG-250.png",
+          "sha256": "d8b7987b959cf39e8b3492297b351ce5100b1c4a66224c38fc6e01fa4452fee7",
+          "bytes": 176917,
+          "width": 360,
+          "height": 360
+        },
+        {
+          "id": "PG-251",
+          "path": "macos/.build/PunchGrow.app/Contents/Resources/PunchGrowMenuBar_PunchGrowMenuBar.bundle/PG-251.png",
+          "sha256": "a74b6094f7680a0d3ef43746ee851177ce61cd5f80c3fd30b8acac91e3d9639c",
+          "bytes": 162077,
+          "width": 360,
+          "height": 360
+        },
+        {
+          "id": "PG-252",
+          "path": "macos/.build/PunchGrow.app/Contents/Resources/PunchGrowMenuBar_PunchGrowMenuBar.bundle/PG-252.png",
+          "sha256": "c87c86ca791cbff3cec4e2db9e8d573b7e95733dee528a630a187495fe577456",
+          "bytes": 187345,
+          "width": 360,
+          "height": 360
+        }
+      ]
+    },
+    {
+      "unitId": "normal-PG-L064",
+      "category": "normal",
+      "creatureIds": [
+        "PG-253",
+        "PG-254",
+        "PG-255",
+        "PG-256"
+      ],
+      "verdict": "PASS",
+      "score": 92,
+      "categoryMatch": true,
+      "differences": [
+        "S2에서 S3로 갈 때 몸집과 원형 석재 후광 장식이 단순해져 성장 방향성이 약해진다."
+      ],
+      "suggestions": [],
+      "reasoning": "황금 뿔의 산양·황소형 얼굴, 회색 암석 사족 체형, 녹색 흉부 보석과 산악 등갑이 전 단계에서 유지되어 동일 계보로 명확히 읽힌다.",
+      "adjudicated": false,
+      "initialVerdict": "PASS",
+      "sheetEvidence": {
+        "path": "normal-lineages-061-064.png",
+        "pixelSha256": "d1169f1f0d60283b65c0b846962a6054676a4cb6ecff16c0b7936e5d3bc487f1",
+        "width": 1120,
+        "height": 1000,
+        "row": 4
+      },
+      "assetEvidence": [
+        {
+          "id": "PG-253",
+          "path": "macos/.build/PunchGrow.app/Contents/Resources/PunchGrowMenuBar_PunchGrowMenuBar.bundle/PG-253.png",
+          "sha256": "15d191395055166211b1bc7b180f60f7bb25d988c3bda3253aa4343312130db1",
+          "bytes": 159936,
+          "width": 360,
+          "height": 360
+        },
+        {
+          "id": "PG-254",
+          "path": "macos/.build/PunchGrow.app/Contents/Resources/PunchGrowMenuBar_PunchGrowMenuBar.bundle/PG-254.png",
+          "sha256": "d1bbdcaa35106d796a5e64c537020154b76794c3c33db84854f2eef2c96edc95",
+          "bytes": 195623,
+          "width": 360,
+          "height": 360
+        },
+        {
+          "id": "PG-255",
+          "path": "macos/.build/PunchGrow.app/Contents/Resources/PunchGrowMenuBar_PunchGrowMenuBar.bundle/PG-255.png",
+          "sha256": "cea14a7084ea9d542ca8bb802b606465348b2a6eecf26570b60a960727c40564",
+          "bytes": 173779,
+          "width": 360,
+          "height": 360
+        },
+        {
+          "id": "PG-256",
+          "path": "macos/.build/PunchGrow.app/Contents/Resources/PunchGrowMenuBar_PunchGrowMenuBar.bundle/PG-256.png",
+          "sha256": "4285fd28e7b98d19fb909b2c0c22e05f3d4dacd64be917ff948672f2dd4949fa",
+          "bytes": 217633,
           "width": 360,
           "height": 360
         }
@@ -10915,6 +11157,552 @@
           "path": "macos/.build/PunchGrow.app/Contents/Resources/PunchGrowMenuBar_PunchGrowMenuBar.bundle/PG-168.png",
           "sha256": "3ba948496b8a75b51f927d858ab8a79c191d9817f844bb0bb5b75199e2c1ab40",
           "bytes": 190390,
+          "width": 360,
+          "height": 360
+        }
+      ]
+    },
+    {
+      "edgeId": "PG-241->PG-242",
+      "unitId": "normal-PG-L061",
+      "parentId": "PG-241",
+      "childId": "PG-242",
+      "verdict": "PASS",
+      "score": 91,
+      "categoryMatch": true,
+      "differences": [
+        "청색 용형 사족",
+        "흰 뿔과 얼굴 볏",
+        "청록 이마 핵",
+        "굽은 물꼬리"
+      ],
+      "suggestions": [
+        "유체형에서 장신 체형으로 비율 변화가 큼"
+      ],
+      "reasoning": "청색 용형 사족 실루엣, 흰 뿔과 얼굴 볏, 청록 핵, 굽은 물꼬리가 모든 단계에서 유지되며 갑주와 물의 고리가 확장된다.",
+      "adjudicated": false,
+      "initialVerdict": "PASS",
+      "sheetEvidence": {
+        "path": "normal-lineages-061-064.png",
+        "pixelSha256": "d1169f1f0d60283b65c0b846962a6054676a4cb6ecff16c0b7936e5d3bc487f1",
+        "width": 1120,
+        "height": 1000,
+        "row": 1
+      },
+      "assetEvidence": [
+        {
+          "id": "PG-241",
+          "path": "macos/.build/PunchGrow.app/Contents/Resources/PunchGrowMenuBar_PunchGrowMenuBar.bundle/PG-241.png",
+          "sha256": "bfc20200cdc555a631251044b954b4f046bceae46c9c40eb67292b27814a9982",
+          "bytes": 150301,
+          "width": 360,
+          "height": 360
+        },
+        {
+          "id": "PG-242",
+          "path": "macos/.build/PunchGrow.app/Contents/Resources/PunchGrowMenuBar_PunchGrowMenuBar.bundle/PG-242.png",
+          "sha256": "f42addc4d8bb4ff990d2f6f4428da4aaf50abd62ab92dff0aedc5a688594affe",
+          "bytes": 170641,
+          "width": 360,
+          "height": 360
+        }
+      ]
+    },
+    {
+      "edgeId": "PG-242->PG-243",
+      "unitId": "normal-PG-L061",
+      "parentId": "PG-242",
+      "childId": "PG-243",
+      "verdict": "PASS",
+      "score": 96,
+      "categoryMatch": true,
+      "differences": [
+        "흰금 얼굴 갑주",
+        "청색 용형 몸",
+        "청록 가슴 핵",
+        "지느러미형 등 돌기와 꼬리"
+      ],
+      "suggestions": [],
+      "reasoning": "청색 용형 사족 실루엣, 흰 뿔과 얼굴 볏, 청록 핵, 굽은 물꼬리가 모든 단계에서 유지되며 갑주와 물의 고리가 확장된다.",
+      "adjudicated": false,
+      "initialVerdict": "PASS",
+      "sheetEvidence": {
+        "path": "normal-lineages-061-064.png",
+        "pixelSha256": "d1169f1f0d60283b65c0b846962a6054676a4cb6ecff16c0b7936e5d3bc487f1",
+        "width": 1120,
+        "height": 1000,
+        "row": 1
+      },
+      "assetEvidence": [
+        {
+          "id": "PG-242",
+          "path": "macos/.build/PunchGrow.app/Contents/Resources/PunchGrowMenuBar_PunchGrowMenuBar.bundle/PG-242.png",
+          "sha256": "f42addc4d8bb4ff990d2f6f4428da4aaf50abd62ab92dff0aedc5a688594affe",
+          "bytes": 170641,
+          "width": 360,
+          "height": 360
+        },
+        {
+          "id": "PG-243",
+          "path": "macos/.build/PunchGrow.app/Contents/Resources/PunchGrowMenuBar_PunchGrowMenuBar.bundle/PG-243.png",
+          "sha256": "f92ca9fd62ee146a343104f16dd15bcbeca616413bb92d3a83dd097735df3b88",
+          "bytes": 177879,
+          "width": 360,
+          "height": 360
+        }
+      ]
+    },
+    {
+      "edgeId": "PG-243->PG-244",
+      "unitId": "normal-PG-L061",
+      "parentId": "PG-243",
+      "childId": "PG-244",
+      "verdict": "PASS",
+      "score": 95,
+      "categoryMatch": true,
+      "differences": [
+        "청색 사족 용 실루엣",
+        "흰금 갑주",
+        "청록 핵",
+        "원형 물의 고리와 굽은 꼬리"
+      ],
+      "suggestions": [
+        "대형 물의 고리가 최종 단계 실루엣을 크게 차지함"
+      ],
+      "reasoning": "청색 용형 사족 실루엣, 흰 뿔과 얼굴 볏, 청록 핵, 굽은 물꼬리가 모든 단계에서 유지되며 갑주와 물의 고리가 확장된다.",
+      "adjudicated": false,
+      "initialVerdict": "PASS",
+      "sheetEvidence": {
+        "path": "normal-lineages-061-064.png",
+        "pixelSha256": "d1169f1f0d60283b65c0b846962a6054676a4cb6ecff16c0b7936e5d3bc487f1",
+        "width": 1120,
+        "height": 1000,
+        "row": 1
+      },
+      "assetEvidence": [
+        {
+          "id": "PG-243",
+          "path": "macos/.build/PunchGrow.app/Contents/Resources/PunchGrowMenuBar_PunchGrowMenuBar.bundle/PG-243.png",
+          "sha256": "f92ca9fd62ee146a343104f16dd15bcbeca616413bb92d3a83dd097735df3b88",
+          "bytes": 177879,
+          "width": 360,
+          "height": 360
+        },
+        {
+          "id": "PG-244",
+          "path": "macos/.build/PunchGrow.app/Contents/Resources/PunchGrowMenuBar_PunchGrowMenuBar.bundle/PG-244.png",
+          "sha256": "4a3aff88fcc157586e2fd0e4d24e2f7de20c2f7697f1ddf107c73c235d647eba",
+          "bytes": 182427,
+          "width": 360,
+          "height": 360
+        }
+      ]
+    },
+    {
+      "edgeId": "PG-245->PG-246",
+      "unitId": "normal-PG-L062",
+      "parentId": "PG-245",
+      "childId": "PG-246",
+      "verdict": "PASS",
+      "score": 95,
+      "categoryMatch": true,
+      "differences": [
+        "검은 사자형 얼굴",
+        "불꽃 갈기",
+        "주황 가슴 핵",
+        "불꽃 꼬리"
+      ],
+      "suggestions": [
+        "유체형 얼굴과 몸 비율이 성체형으로 빠르게 길어짐"
+      ],
+      "reasoning": "검은 암석성 사자 얼굴과 사족 체형, 주황 불꽃 갈기와 꼬리, 태양형 가슴 핵이 모든 단계에서 계승되고 불꽃과 금색 장식만 증폭된다.",
+      "adjudicated": false,
+      "initialVerdict": "PASS",
+      "sheetEvidence": {
+        "path": "normal-lineages-061-064.png",
+        "pixelSha256": "d1169f1f0d60283b65c0b846962a6054676a4cb6ecff16c0b7936e5d3bc487f1",
+        "width": 1120,
+        "height": 1000,
+        "row": 2
+      },
+      "assetEvidence": [
+        {
+          "id": "PG-245",
+          "path": "macos/.build/PunchGrow.app/Contents/Resources/PunchGrowMenuBar_PunchGrowMenuBar.bundle/PG-245.png",
+          "sha256": "2afb57576cb6655dd2d7951d13be0b142c3e8a4a41a2b8ea4941d3a527e878fd",
+          "bytes": 157105,
+          "width": 360,
+          "height": 360
+        },
+        {
+          "id": "PG-246",
+          "path": "macos/.build/PunchGrow.app/Contents/Resources/PunchGrowMenuBar_PunchGrowMenuBar.bundle/PG-246.png",
+          "sha256": "898f4153f1d30545029811287437584c6ee145327c9cad760e2c7e52955732dc",
+          "bytes": 166085,
+          "width": 360,
+          "height": 360
+        }
+      ]
+    },
+    {
+      "edgeId": "PG-246->PG-247",
+      "unitId": "normal-PG-L062",
+      "parentId": "PG-246",
+      "childId": "PG-247",
+      "verdict": "PASS",
+      "score": 98,
+      "categoryMatch": true,
+      "differences": [
+        "암석성 사족 체형",
+        "주황 불꽃 갈기",
+        "태양형 가슴 핵",
+        "금색 발톱과 갑주선"
+      ],
+      "suggestions": [],
+      "reasoning": "검은 암석성 사자 얼굴과 사족 체형, 주황 불꽃 갈기와 꼬리, 태양형 가슴 핵이 모든 단계에서 계승되고 불꽃과 금색 장식만 증폭된다.",
+      "adjudicated": false,
+      "initialVerdict": "PASS",
+      "sheetEvidence": {
+        "path": "normal-lineages-061-064.png",
+        "pixelSha256": "d1169f1f0d60283b65c0b846962a6054676a4cb6ecff16c0b7936e5d3bc487f1",
+        "width": 1120,
+        "height": 1000,
+        "row": 2
+      },
+      "assetEvidence": [
+        {
+          "id": "PG-246",
+          "path": "macos/.build/PunchGrow.app/Contents/Resources/PunchGrowMenuBar_PunchGrowMenuBar.bundle/PG-246.png",
+          "sha256": "898f4153f1d30545029811287437584c6ee145327c9cad760e2c7e52955732dc",
+          "bytes": 166085,
+          "width": 360,
+          "height": 360
+        },
+        {
+          "id": "PG-247",
+          "path": "macos/.build/PunchGrow.app/Contents/Resources/PunchGrowMenuBar_PunchGrowMenuBar.bundle/PG-247.png",
+          "sha256": "f21b8aacfde7cf39908b77008c976dd2a6565db5aadf0281a842f63f1a53ae2b",
+          "bytes": 186986,
+          "width": 360,
+          "height": 360
+        }
+      ]
+    },
+    {
+      "edgeId": "PG-247->PG-248",
+      "unitId": "normal-PG-L062",
+      "parentId": "PG-247",
+      "childId": "PG-248",
+      "verdict": "PASS",
+      "score": 98,
+      "categoryMatch": true,
+      "differences": [
+        "검은 불사자 실루엣",
+        "거대한 화염 갈기",
+        "태양형 핵",
+        "불꽃 꼬리와 금색 고리"
+      ],
+      "suggestions": [],
+      "reasoning": "검은 암석성 사자 얼굴과 사족 체형, 주황 불꽃 갈기와 꼬리, 태양형 가슴 핵이 모든 단계에서 계승되고 불꽃과 금색 장식만 증폭된다.",
+      "adjudicated": false,
+      "initialVerdict": "PASS",
+      "sheetEvidence": {
+        "path": "normal-lineages-061-064.png",
+        "pixelSha256": "d1169f1f0d60283b65c0b846962a6054676a4cb6ecff16c0b7936e5d3bc487f1",
+        "width": 1120,
+        "height": 1000,
+        "row": 2
+      },
+      "assetEvidence": [
+        {
+          "id": "PG-247",
+          "path": "macos/.build/PunchGrow.app/Contents/Resources/PunchGrowMenuBar_PunchGrowMenuBar.bundle/PG-247.png",
+          "sha256": "f21b8aacfde7cf39908b77008c976dd2a6565db5aadf0281a842f63f1a53ae2b",
+          "bytes": 186986,
+          "width": 360,
+          "height": 360
+        },
+        {
+          "id": "PG-248",
+          "path": "macos/.build/PunchGrow.app/Contents/Resources/PunchGrowMenuBar_PunchGrowMenuBar.bundle/PG-248.png",
+          "sha256": "a0b48028f2fc362f8d20c3da085d5ffdc42260fac040a2f18353b9604ac07ab7",
+          "bytes": 201452,
+          "width": 360,
+          "height": 360
+        }
+      ]
+    },
+    {
+      "edgeId": "PG-249->PG-250",
+      "unitId": "normal-PG-L063",
+      "parentId": "PG-249",
+      "childId": "PG-250",
+      "verdict": "PASS",
+      "score": 91,
+      "categoryMatch": true,
+      "differences": [
+        "흰 볏의 얼굴",
+        "청록 날개",
+        "민트색 뱀형 몸",
+        "청록 가슴 문양"
+      ],
+      "suggestions": [
+        "날개 폭과 금색 장식이 한 단계에서 크게 증가"
+      ],
+      "reasoning": "흰 깃털 용조 얼굴, 청록 날개와 물결형 꼬리, 금청 가슴 핵과 후광이 네 단계에서 반복되어 같은 날개 달린 정령 계보로 읽힌다.",
+      "adjudicated": false,
+      "initialVerdict": "PASS",
+      "sheetEvidence": {
+        "path": "normal-lineages-061-064.png",
+        "pixelSha256": "d1169f1f0d60283b65c0b846962a6054676a4cb6ecff16c0b7936e5d3bc487f1",
+        "width": 1120,
+        "height": 1000,
+        "row": 3
+      },
+      "assetEvidence": [
+        {
+          "id": "PG-249",
+          "path": "macos/.build/PunchGrow.app/Contents/Resources/PunchGrowMenuBar_PunchGrowMenuBar.bundle/PG-249.png",
+          "sha256": "be7255cae6fe3d0a1a74e533cac9b5510751efbc09ec78f552e81145ba3834ad",
+          "bytes": 139619,
+          "width": 360,
+          "height": 360
+        },
+        {
+          "id": "PG-250",
+          "path": "macos/.build/PunchGrow.app/Contents/Resources/PunchGrowMenuBar_PunchGrowMenuBar.bundle/PG-250.png",
+          "sha256": "d8b7987b959cf39e8b3492297b351ce5100b1c4a66224c38fc6e01fa4452fee7",
+          "bytes": 176917,
+          "width": 360,
+          "height": 360
+        }
+      ]
+    },
+    {
+      "edgeId": "PG-250->PG-251",
+      "unitId": "normal-PG-L063",
+      "parentId": "PG-250",
+      "childId": "PG-251",
+      "verdict": "PASS",
+      "score": 90,
+      "categoryMatch": true,
+      "differences": [
+        "흰 볏의 얼굴",
+        "대칭 깃털 날개",
+        "청록 뱀형 하체",
+        "금청 가슴 핵과 후광"
+      ],
+      "suggestions": [
+        "정면 자세 때문에 긴 꼬리와 높은 날개 윤곽이 짧아 보임"
+      ],
+      "reasoning": "흰 깃털 용조 얼굴, 청록 날개와 물결형 꼬리, 금청 가슴 핵과 후광이 네 단계에서 반복되어 같은 날개 달린 정령 계보로 읽힌다.",
+      "adjudicated": false,
+      "initialVerdict": "PASS",
+      "sheetEvidence": {
+        "path": "normal-lineages-061-064.png",
+        "pixelSha256": "d1169f1f0d60283b65c0b846962a6054676a4cb6ecff16c0b7936e5d3bc487f1",
+        "width": 1120,
+        "height": 1000,
+        "row": 3
+      },
+      "assetEvidence": [
+        {
+          "id": "PG-250",
+          "path": "macos/.build/PunchGrow.app/Contents/Resources/PunchGrowMenuBar_PunchGrowMenuBar.bundle/PG-250.png",
+          "sha256": "d8b7987b959cf39e8b3492297b351ce5100b1c4a66224c38fc6e01fa4452fee7",
+          "bytes": 176917,
+          "width": 360,
+          "height": 360
+        },
+        {
+          "id": "PG-251",
+          "path": "macos/.build/PunchGrow.app/Contents/Resources/PunchGrowMenuBar_PunchGrowMenuBar.bundle/PG-251.png",
+          "sha256": "a74b6094f7680a0d3ef43746ee851177ce61cd5f80c3fd30b8acac91e3d9639c",
+          "bytes": 162077,
+          "width": 360,
+          "height": 360
+        }
+      ]
+    },
+    {
+      "edgeId": "PG-251->PG-252",
+      "unitId": "normal-PG-L063",
+      "parentId": "PG-251",
+      "childId": "PG-252",
+      "verdict": "PASS",
+      "score": 92,
+      "categoryMatch": true,
+      "differences": [
+        "흰청 용조 얼굴",
+        "대형 청록 날개",
+        "금색 프레임",
+        "청록 소용돌이 몸통과 후광"
+      ],
+      "suggestions": [
+        "날개와 꼬리 크기가 크게 확장됨"
+      ],
+      "reasoning": "흰 깃털 용조 얼굴, 청록 날개와 물결형 꼬리, 금청 가슴 핵과 후광이 네 단계에서 반복되어 같은 날개 달린 정령 계보로 읽힌다.",
+      "adjudicated": false,
+      "initialVerdict": "PASS",
+      "sheetEvidence": {
+        "path": "normal-lineages-061-064.png",
+        "pixelSha256": "d1169f1f0d60283b65c0b846962a6054676a4cb6ecff16c0b7936e5d3bc487f1",
+        "width": 1120,
+        "height": 1000,
+        "row": 3
+      },
+      "assetEvidence": [
+        {
+          "id": "PG-251",
+          "path": "macos/.build/PunchGrow.app/Contents/Resources/PunchGrowMenuBar_PunchGrowMenuBar.bundle/PG-251.png",
+          "sha256": "a74b6094f7680a0d3ef43746ee851177ce61cd5f80c3fd30b8acac91e3d9639c",
+          "bytes": 162077,
+          "width": 360,
+          "height": 360
+        },
+        {
+          "id": "PG-252",
+          "path": "macos/.build/PunchGrow.app/Contents/Resources/PunchGrowMenuBar_PunchGrowMenuBar.bundle/PG-252.png",
+          "sha256": "c87c86ca791cbff3cec4e2db9e8d573b7e95733dee528a630a187495fe577456",
+          "bytes": 187345,
+          "width": 360,
+          "height": 360
+        }
+      ]
+    },
+    {
+      "edgeId": "PG-253->PG-254",
+      "unitId": "normal-PG-L064",
+      "parentId": "PG-253",
+      "childId": "PG-254",
+      "verdict": "PASS",
+      "score": 93,
+      "categoryMatch": true,
+      "differences": [
+        "황금 뿔",
+        "회색 암석 사족",
+        "녹색 흉부 보석",
+        "등 위 산악 갑각"
+      ],
+      "suggestions": [
+        "석재 후광과 갑주가 크게 추가됨"
+      ],
+      "reasoning": "황금 뿔의 산양·황소형 얼굴, 회색 암석 사족 체형, 녹색 흉부 보석과 산악 등갑이 전 단계에서 유지되어 동일 계보로 명확히 읽힌다.",
+      "adjudicated": false,
+      "initialVerdict": "PASS",
+      "sheetEvidence": {
+        "path": "normal-lineages-061-064.png",
+        "pixelSha256": "d1169f1f0d60283b65c0b846962a6054676a4cb6ecff16c0b7936e5d3bc487f1",
+        "width": 1120,
+        "height": 1000,
+        "row": 4
+      },
+      "assetEvidence": [
+        {
+          "id": "PG-253",
+          "path": "macos/.build/PunchGrow.app/Contents/Resources/PunchGrowMenuBar_PunchGrowMenuBar.bundle/PG-253.png",
+          "sha256": "15d191395055166211b1bc7b180f60f7bb25d988c3bda3253aa4343312130db1",
+          "bytes": 159936,
+          "width": 360,
+          "height": 360
+        },
+        {
+          "id": "PG-254",
+          "path": "macos/.build/PunchGrow.app/Contents/Resources/PunchGrowMenuBar_PunchGrowMenuBar.bundle/PG-254.png",
+          "sha256": "d1bbdcaa35106d796a5e64c537020154b76794c3c33db84854f2eef2c96edc95",
+          "bytes": 195623,
+          "width": 360,
+          "height": 360
+        }
+      ]
+    },
+    {
+      "edgeId": "PG-254->PG-255",
+      "unitId": "normal-PG-L064",
+      "parentId": "PG-254",
+      "childId": "PG-255",
+      "verdict": "PASS",
+      "score": 90,
+      "categoryMatch": true,
+      "differences": [
+        "산양·황소형 얼굴과 뿔",
+        "육중한 암석 사족 체형",
+        "녹색 산악 등갑",
+        "녹색 흉부 보석과 석재 고리"
+      ],
+      "suggestions": [
+        "몸집, 금색 장식, 어깨 문양과 후광 밀도가 전 단계보다 단순해짐"
+      ],
+      "reasoning": "황금 뿔의 산양·황소형 얼굴, 회색 암석 사족 체형, 녹색 흉부 보석과 산악 등갑이 전 단계에서 유지되어 동일 계보로 명확히 읽힌다.",
+      "adjudicated": false,
+      "initialVerdict": "PASS",
+      "sheetEvidence": {
+        "path": "normal-lineages-061-064.png",
+        "pixelSha256": "d1169f1f0d60283b65c0b846962a6054676a4cb6ecff16c0b7936e5d3bc487f1",
+        "width": 1120,
+        "height": 1000,
+        "row": 4
+      },
+      "assetEvidence": [
+        {
+          "id": "PG-254",
+          "path": "macos/.build/PunchGrow.app/Contents/Resources/PunchGrowMenuBar_PunchGrowMenuBar.bundle/PG-254.png",
+          "sha256": "d1bbdcaa35106d796a5e64c537020154b76794c3c33db84854f2eef2c96edc95",
+          "bytes": 195623,
+          "width": 360,
+          "height": 360
+        },
+        {
+          "id": "PG-255",
+          "path": "macos/.build/PunchGrow.app/Contents/Resources/PunchGrowMenuBar_PunchGrowMenuBar.bundle/PG-255.png",
+          "sha256": "cea14a7084ea9d542ca8bb802b606465348b2a6eecf26570b60a960727c40564",
+          "bytes": 173779,
+          "width": 360,
+          "height": 360
+        }
+      ]
+    },
+    {
+      "edgeId": "PG-255->PG-256",
+      "unitId": "normal-PG-L064",
+      "parentId": "PG-255",
+      "childId": "PG-256",
+      "verdict": "PASS",
+      "score": 93,
+      "categoryMatch": true,
+      "differences": [
+        "황금 뿔과 녹색 눈",
+        "거대한 암석 사족",
+        "녹색 산악 갑각",
+        "흉부 보석과 석재 후광"
+      ],
+      "suggestions": [
+        "장식과 몸집이 한 단계에서 크게 증가"
+      ],
+      "reasoning": "황금 뿔의 산양·황소형 얼굴, 회색 암석 사족 체형, 녹색 흉부 보석과 산악 등갑이 전 단계에서 유지되어 동일 계보로 명확히 읽힌다.",
+      "adjudicated": false,
+      "initialVerdict": "PASS",
+      "sheetEvidence": {
+        "path": "normal-lineages-061-064.png",
+        "pixelSha256": "d1169f1f0d60283b65c0b846962a6054676a4cb6ecff16c0b7936e5d3bc487f1",
+        "width": 1120,
+        "height": 1000,
+        "row": 4
+      },
+      "assetEvidence": [
+        {
+          "id": "PG-255",
+          "path": "macos/.build/PunchGrow.app/Contents/Resources/PunchGrowMenuBar_PunchGrowMenuBar.bundle/PG-255.png",
+          "sha256": "cea14a7084ea9d542ca8bb802b606465348b2a6eecf26570b60a960727c40564",
+          "bytes": 173779,
+          "width": 360,
+          "height": 360
+        },
+        {
+          "id": "PG-256",
+          "path": "macos/.build/PunchGrow.app/Contents/Resources/PunchGrowMenuBar_PunchGrowMenuBar.bundle/PG-256.png",
+          "sha256": "4285fd28e7b98d19fb909b2c0c22e05f3d4dacd64be917ff948672f2dd4949fa",
+          "bytes": 217633,
           "width": 360,
           "height": 360
         }

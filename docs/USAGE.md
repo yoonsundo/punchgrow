@@ -30,7 +30,7 @@ brew install --cask punchgrow
 xattr -d com.apple.quarantine /Applications/PunchGrow.app
 ```
 
-배포 바이너리는 아직 Apple 공증 전의 ad-hoc 서명 빌드입니다. macOS는 인터넷에서 받은 앱에 격리(quarantine) 속성을 붙여 실행을 차단하므로, 마지막 `xattr` 명령으로 그 속성을 제거해야 앱이 실행됩니다. Homebrew 6 미만 버전은 `brew trust` 명령이 없으므로 그 줄을 건너뜁니다. 과거 안내의 `brew install --cask --no-quarantine` 옵션은 Homebrew 6에서 제거되어 `Error: invalid option`이 발생하니 사용하지 마세요.
+Homebrew v0.3.0 배포본에는 출시 당시의 240종 카탈로그가 들어 있습니다. 현재 `main` 소스와 공개 도감의 256종 전체는 아래 소스 빌드로 사용할 수 있으며, 추가된 16종은 다음 버전 앱 릴리스에 포함할 예정입니다. 배포 바이너리는 아직 Apple 공증 전의 ad-hoc 서명 빌드입니다. macOS는 인터넷에서 받은 앱에 격리(quarantine) 속성을 붙여 실행을 차단하므로, 마지막 `xattr` 명령으로 그 속성을 제거해야 앱이 실행됩니다. Homebrew 6 미만 버전은 `brew trust` 명령이 없으므로 그 줄을 건너뜁니다. 과거 안내의 `brew install --cask --no-quarantine` 옵션은 Homebrew 6에서 제거되어 `Error: invalid option`이 발생하니 사용하지 마세요.
 
 ## 소스에서 빌드하고 실행하기
 
@@ -46,7 +46,7 @@ swift --version
 open .build/PunchGrow.app
 ```
 
-`build-app.sh`는 Release 실행 파일과 240개 크리처 이미지를 확인하고, 로컬 실행용 ad-hoc 서명을 적용한 `.build/PunchGrow.app`을 만듭니다.
+`build-app.sh`는 Release 실행 파일과 256개 크리처 이미지를 확인하고, 로컬 실행용 ad-hoc 서명을 적용한 `.build/PunchGrow.app`을 만듭니다.
 
 `xcodebuild`가 없거나 Swift와 SDK 버전이 맞지 않으면 Full Xcode를 설치하고 Command Line Tools가 같은 Xcode를 가리키도록 설정한 뒤 다시 빌드하세요. Developer ID 서명과 Apple 공증은 공개 바이너리 배포 단계이며, 소스에서 직접 만든 로컬 앱에는 포함되지 않습니다.
 
@@ -228,7 +228,7 @@ Connections에서 자동 수집이 실행 중인지 확인하고 Claude Code 또
 
 ### 크리처 이미지가 보이지 않습니다
 
-앱을 종료하고 `./scripts/build-app.sh`를 다시 실행하세요. 이 스크립트는 앱을 조립할 때 240개 PNG가 모두 있는지 검사합니다.
+앱을 종료하고 `./scripts/build-app.sh`를 다시 실행하세요. 이 스크립트는 앱을 조립할 때 256개 PNG가 모두 있는지 검사합니다.
 
 ### 복원 후 진행도가 예상과 다릅니다
 

@@ -13,6 +13,7 @@ import { assertLosslessSaveRevisionMap, buildSaveRevisionMap } from './lib/conti
 import { assertFrozenTopology, solveContinuityAssignment, visualAnchors } from './lib/continuity-assignment/solver.mjs';
 import { verifyPublicEvidence } from './lib/g002-public-authority.mjs';
 import { validateSignedCanonicalRootRedesignTargets } from './lib/continuity-assignment/canonical-root-redesign-targets.mjs';
+import { projectG002CatalogEpoch } from './lib/continuity-assignment/g002-catalog-epoch.mjs';
 import { assertGenerationRunId } from './prepare-continuity-candidate-review.mjs';
 
 const REPO_ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
@@ -408,12 +409,19 @@ export async function verifyContinuityAssignment() {
     const bytes = await readContainedNoFollow(inputPath);
     rawInputs[key] = { bytes, json: JSON.parse(bytes), sha256: sha256(bytes), path: inputPath };
   }
+  const catalogEpoch = projectG002CatalogEpoch(rawInputs.catalog.json);
+  rawInputs.catalog = { ...rawInputs.catalog, bytes: Buffer.from(catalogEpoch.bytes), json: catalogEpoch.catalog, sha256: catalogEpoch.sha256 };
   const { catalog, census, conflictLedger: ledger, inputLock: lock, taxonomyConsensus, pixelClusters, anchorConsensus, lockedTaxonomyConsensus, canonicalRootRedesignTargets, topologyContract, pins } = Object.fromEntries(Object.entries(rawInputs).map(([key, value]) => [key, value.json]));
   assertFrozenTopology(catalog);
   assertLedgerIntegrity(ledger);
   assertNoPass3SubstantiveOverride(census, ledger);
   if (canonicalString(taxonomyConsensus.counts) !== canonicalString({ reusable: 145, reviewRequired: 33, reviewEvidenceOnly: 21, reviewPassUnknown: 12, regenerateRequired: 62 })) throw new Error('taxonomy consensus count drift');
-  for (const binding of lock.inputs) assert.equal(sha256(await readContainedNoFollow(binding.path)), binding.sha256, `locked input stale: ${binding.path}`);
+  for (const binding of lock.inputs) {
+    const actualSha256 = binding.path === INPUTS.catalog
+      ? projectG002CatalogEpoch(JSON.parse(await readContainedNoFollow(binding.path))).sha256
+      : sha256(await readContainedNoFollow(binding.path));
+    assert.equal(actualSha256, binding.sha256, `locked input stale: ${binding.path}`);
+  }
   assert.deepEqual(lock.inputs.find((entry) => entry.path === INPUTS.anchorConsensus), { path: INPUTS.anchorConsensus, sha256: rawInputs.anchorConsensus.sha256 }, 'G001 pixel-anchor consensus is not locked');
   assert.deepEqual(lock.inputs.find((entry) => entry.path === INPUTS.lockedTaxonomyConsensus), { path: INPUTS.lockedTaxonomyConsensus, sha256: rawInputs.lockedTaxonomyConsensus.sha256 }, 'reviewed G002 taxonomy consensus is not locked');
   assert.deepEqual(lock.inputs.find((entry) => entry.path === INPUTS.canonicalRootRedesignTargets), { path: INPUTS.canonicalRootRedesignTargets, sha256: rawInputs.canonicalRootRedesignTargets.sha256 }, 'signed canonical root redesign targets are not locked');

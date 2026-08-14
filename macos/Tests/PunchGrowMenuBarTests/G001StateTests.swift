@@ -394,11 +394,11 @@ final class G001StateTests: XCTestCase {
       id: UUID(), speciesID: "PG-001", originSpeciesID: "PG-001", level: 1, experience: 0,
       affection: 0, nickname: nil, uniqueColor: false, acquiredAt: Date(timeIntervalSince1970: 1))
     let waiting = OwnedCreature(
-      id: UUID(), speciesID: "PG-117", originSpeciesID: "PG-034", level: 25, experience: 0,
+      id: UUID(), speciesID: "PG-002", originSpeciesID: "PG-002", level: 15, experience: 0,
       affection: 0, nickname: nil, uniqueColor: false, acquiredAt: Date(timeIntervalSince1970: 2))
     var state = GameState()
     state.ownedCreatures = [calm, waiting]
-    state.discoveredSpeciesIDs = ["PG-001", "PG-034", "PG-117"]
+    state.discoveredSpeciesIDs = ["PG-001", "PG-002"]
     try persistence.save(state)
 
     let store = GameStore(persistence: persistence)
@@ -407,7 +407,7 @@ final class G001StateTests: XCTestCase {
     XCTAssertNil(store.pendingEvolutionChoice)
     XCTAssertEqual(store.pendingEvolutionChoices.map(\.creatureID), [waiting.id])
 
-    store.chooseEvolution(creatureID: waiting.id, toSpeciesID: "PG-118")
+    store.chooseEvolution(creatureID: waiting.id, toSpeciesID: "PG-062")
 
     XCTAssertNil(store.errorMessage)
     XCTAssertTrue(store.pendingEvolutionChoices.isEmpty)
@@ -427,6 +427,7 @@ final class G001StateTests: XCTestCase {
     XCTAssertEqual(store.errorMessage, GameStore.persistenceLockedActionMessage)
 
     store.errorMessage = nil
+    store.chooseEvolution(creatureID: creatureID, toSpeciesID: "PG-062")
     XCTAssertEqual(store.errorMessage, GameStore.persistenceLockedActionMessage)
   }
 

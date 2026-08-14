@@ -1,0 +1,8 @@
+blank_issues_enabled: false
+contact_links:
+  - name: Support / 사용 도움
+    url: https://github.com/yoonsundo/punchgrow/blob/main/SUPPORT.md
+    about: Check setup, usage, and troubleshooting help before opening an issue.
+  - name: Security / 보안 제보
+    url: https://github.com/yoonsundo/punchgrow/blob/main/SECURITY.md
+    about: Do not disclose security or privacy-sensitive findings in a public issue.

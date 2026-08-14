@@ -11,14 +11,15 @@
     ·
     <a href="README.en.md">English</a>
     ·
-    <a href="https://punchgrow.thundo.kr">공식 웹사이트 (준비 중)</a>
+    <a href="https://punchgrow.thundo.kr">공식 웹사이트</a>
   </p>
 
   <p>
-    <img alt="v0.3.0" src="https://img.shields.io/badge/version-v0.3.0-C6F84E?style=flat-square&logoColor=08111F" />
+    <img alt="v0.3.0 release" src="https://img.shields.io/badge/release-v0.3.0-C6F84E?style=flat-square&logoColor=08111F" />
     <img alt="macOS 14+" src="https://img.shields.io/badge/macOS-14%2B-4DE1FF?style=flat-square&logo=apple&logoColor=white" />
     <img alt="Swift 6" src="https://img.shields.io/badge/Swift-6-FF4D9D?style=flat-square&logo=swift&logoColor=white" />
-    <img alt="256 creatures" src="https://img.shields.io/badge/creatures-256-C6F84E?style=flat-square&logoColor=08111F" />
+    <img alt="v0.3.0 release catalog: 240 creatures" src="https://img.shields.io/badge/release_catalog-240-FFB84D?style=flat-square&logoColor=08111F" />
+    <img alt="main catalog: 256 creatures" src="https://img.shields.io/badge/main_catalog-256-C6F84E?style=flat-square&logoColor=08111F" />
     <img alt="Local First" src="https://img.shields.io/badge/privacy-local--first-C6F84E?style=flat-square&logoColor=08111F" />
     <img alt="MIT source license" src="https://img.shields.io/badge/source-MIT-FFB84D?style=flat-square" />
   </p>
@@ -27,6 +28,10 @@
     <a href="#빠른-시작">빠른 시작</a>
     ·
     <a href="docs/USAGE.md">사용 가이드</a>
+    ·
+    <a href="https://punchgrow.thundo.kr/dex/">전체 도감</a>
+    ·
+    <a href="docs/PROJECT_STRUCTURE.md">저장소 구조</a>
     ·
     <a href="macos/README.md">개발 문서</a>
     ·
@@ -38,11 +43,11 @@
 
 ---
 
-> **프로젝트 상태: v0.3.0 알파.** 이 저장소의 공개 대상은 Apple Silicon macOS 14+ 메뉴 막대 앱입니다.
+> **프로젝트 상태: v0.3.0 알파 개발본.** 이 저장소의 공개 대상은 Apple Silicon macOS 14+ 메뉴 막대 앱입니다.
 
-GitHub Actions의 Full Xcode 환경에서 Swift 테스트, Release 빌드, 256개 크리처 리소스 조립과 ad-hoc 코드서명을 검증합니다. Developer ID 서명과 Apple 공증을 마친 공개 Homebrew 바이너리는 별도의 릴리스 단계입니다.
+현재 `main` 소스와 공식 공개 도감은 64개 시작 계보·256종을 포함하고, GitHub Actions의 Full Xcode 환경에서 Swift 테스트, Release 빌드, 256개 크리처 리소스 조립과 ad-hoc 코드서명을 검증합니다. 2026-08-07에 게시한 Homebrew v0.3.0 릴리스에는 당시의 240종이 들어 있으며, 이후 추가된 16종은 다음 버전 앱 릴리스 전까지 `main` 소스 빌드에서만 사용할 수 있습니다. v0.3.0 배포 바이너리는 ad-hoc 서명 상태이고 Developer ID 서명과 Apple 공증은 후속 릴리스 단계입니다.
 
-공식 웹사이트는 [`https://punchgrow.thundo.kr`](https://punchgrow.thundo.kr)에서 공개할 예정입니다. GitHub Pages로 호스팅하는 정적 소개 사이트이며, 백엔드나 SNS 게시 자동화 기능은 포함하지 않습니다. 현재 사이트 배포와 DNS 연결은 아직 완료되지 않았습니다.
+공식 웹사이트 [`punchgrow.thundo.kr`](https://punchgrow.thundo.kr)은 이 저장소의 `website/`를 GitHub Pages로 빌드·배포합니다. 제품 소개와 256종 공개 도감을 제공하는 정적 사이트이며 백엔드나 사용량 수집 기능은 포함하지 않습니다.
 
 ## 핵심 경험
 
@@ -136,6 +141,14 @@ AI 코딩에는 토큰 사용량이라는 유용한 활동 신호가 이미 존�
 | 영역 | 상태 | 용도 |
 | --- | --- | --- |
 | `macos/` | v0.3.0 | Apple Silicon macOS 14+용 네이티브 SwiftUI 메뉴 막대 게임 |
+| `website/` | 공개 운영 | GitHub Pages 홈페이지와 한국어·영어 256종 도감 |
+| `app/`, `components/`, `src/mobile/` | 탐색 유지 | Expo Router 모바일 프로토타입과 공유 도메인 로직 |
+| `web/`, `server/` | 로컬 MVP | Docker Compose로만 실행하는 웹·PostgreSQL 실험 환경. 공개 홈페이지가 아닙니다. |
+| `docs/` | 공개 문서 | 사용 가이드, 저장소 구조, 재현 가능한 QA 자료 |
+| `문서/` | 제품 원장 | PRD, 결정 기록, 용어집, 와이어프레임과 크리처 디자인 원칙 |
+| `production/`, `scripts/` | 검증 기반 | 정본 카탈로그, 공개 증거와 재현·검증 도구 |
+
+[작업별 시작 폴더와 의존 관계를 포함한 저장소 구조 지도 →](docs/PROJECT_STRUCTURE.md)
 
 현재 게임에는 64종 시작형 가챠, Lv.15·25·40 레벨 진화와 갈림길 선택·변이·계승, 6단계 진화 등급(`PROCESS` → `ORIGIN`), 유니크 컬러, 먹이 주기, 로컬 저장·복원과 256종 크리처 도감이 포함되어 있습니다.
 
@@ -190,7 +203,7 @@ brew install --cask punchgrow
 xattr -d com.apple.quarantine /Applications/PunchGrow.app
 ```
 
-현재 배포 바이너리는 Apple 공증(notarization) 전의 ad-hoc 서명 빌드라서, 마지막 `xattr` 명령으로 격리 속성을 제거해야 첫 실행이 차단되지 않습니다. Homebrew 6 미만은 `brew trust` 단계를 건너뜁니다. 과거 안내에 있던 `--no-quarantine` 옵션은 Homebrew 6에서 제거되어 더 이상 동작하지 않습니다.
+Homebrew v0.3.0은 240종 카탈로그를 포함합니다. 현재 `main`과 공개 도감의 256종 전체는 아래 소스 빌드에서 확인할 수 있으며, 다음 버전 앱 릴리스에 포함할 예정입니다. 배포 바이너리는 Apple 공증(notarization) 전의 ad-hoc 서명 빌드라서 마지막 `xattr` 명령으로 격리 속성을 제거해야 첫 실행이 차단되지 않습니다. Homebrew 6 미만은 `brew trust` 단계를 건너뜁니다. 과거 안내에 있던 `--no-quarantine` 옵션은 Homebrew 6에서 제거되어 더 이상 동작하지 않습니다.
 
 ### 소스에서 빌드
 
@@ -204,7 +217,7 @@ cd macos
 open .build/PunchGrow.app
 ```
 
-생성된 앱은 로컬 실행용 ad-hoc 서명을 사용합니다. Developer ID 서명과 Apple 공증은 별도의 릴리스 계정 작업으로 남아 있으며, 완료되면 격리 해제(`xattr`) 단계 없이 설치할 수 있게 됩니다.
+현재 `main`에서 생성한 앱은 256종 카탈로그와 로컬 실행용 ad-hoc 서명을 사용합니다. Developer ID 서명과 Apple 공증은 별도의 릴리스 계정 작업으로 남아 있으며, 완료되면 격리 해제(`xattr`) 단계 없이 설치할 수 있게 됩니다.
 
 ## 검증
 
@@ -215,6 +228,9 @@ cd macos
 swift test
 swift build -c release
 ./scripts/build-app.sh
+
+cd ../website
+npm test
 ```
 
 일부 macOS 검사는 호환되는 Apple SDK가 설치된 환경을 요구합니다. 크리처 검증 명령은 저장소에 포함된 실행용 자산 팩을 검사하며, 원본 아트와 생성 이력은 의도적으로 Git에서 제외합니다.
@@ -227,7 +243,7 @@ swift build -c release
 2. 프롬프트, 응답, 소스 코드, 명령어, 원본 경로, 이메일이나 계정 식별자를 수집하는 기능을 추가하지 마세요.
 3. 동작 변경에는 테스트를 추가하거나 갱신하고 위의 관련 검증 명령을 실행하세요.
 
-보안 또는 개인정보 관련 취약점은 공개 이슈 대신 저장소 소유자에게 비공개로 제보해 주세요.
+일반적인 도움은 [지원 안내](SUPPORT.md), 보안 또는 개인정보 관련 취약점은 [보안 정책](SECURITY.md)의 비공개 제보 경로를 이용해 주세요.
 
 ## 라이선스와 아트워크
 

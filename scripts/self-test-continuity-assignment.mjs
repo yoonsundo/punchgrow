@@ -10,17 +10,19 @@ import { writeAtomicNoFollowForTest } from './build-continuity-assignment.mjs';
 import { canonicalString } from './lib/continuity-assignment/compatibility.mjs';
 import { assertLosslessSaveRevisionMap, buildSaveRevisionMap } from './lib/continuity-assignment/save-space.mjs';
 import { solveContinuityAssignment } from './lib/continuity-assignment/solver.mjs';
+import { projectG002CatalogEpoch } from './lib/continuity-assignment/g002-catalog-epoch.mjs';
 import { assertAssignmentSafety, assertLedgerIntegrity, assertNoPass3SubstantiveOverride, assertSolutionProofs, deriveReviewCoverageState } from './verify-continuity-assignment.mjs';
 
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const PUBLIC = 'production/reports/biological-continuity-v3/g002-evidence-v1';
 const read = async (relative) => JSON.parse(await readFile(path.join(ROOT, relative)));
-const [catalog, census, ledger, taxonomyConsensus, pixelClusters, anchorConsensus, lockedTaxonomyConsensus, canonicalRootRedesignTargets, topologyBefore, pins] = await Promise.all([
+const [currentCatalog, census, ledger, taxonomyConsensus, pixelClusters, anchorConsensus, lockedTaxonomyConsensus, canonicalRootRedesignTargets, topologyBefore, pins] = await Promise.all([
   read('production/catalog/creatures.json'),
   read('production/reports/biological-continuity-v3/g001-unblinded-image-first-census-v1.json'),
   read('production/reports/biological-continuity-v3/g001-unblinded-conflict-ledger-v1.json'),
   read(`${PUBLIC}/asset-census.json`), read(`${PUBLIC}/pixel-clusters.json`), read('production/reports/biological-continuity-v3/g001-primary-pixel-anchor-consensus-v1.json'), read(`${PUBLIC}/taxonomy-reviews/consensus.json`), read(`${PUBLIC}/canonical-root-redesign-targets-v1.json`), read(`${PUBLIC}/topology-before.json`), read(`${PUBLIC}/pins.json`),
 ]);
+const catalog = projectG002CatalogEpoch(currentCatalog).catalog;
 const solverInputs = { catalog, census, conflictLedger: ledger, taxonomyConsensus, pixelClusters, anchorConsensus, lockedTaxonomyConsensus, canonicalRootRedesignTargets, topologyContract: topologyBefore, pins };
 const solution = solveContinuityAssignment(solverInputs);
 const assertProofs = (candidate) => assertSolutionProofs(candidate, pins, anchorConsensus, { census, taxonomyConsensus, lockedTaxonomyConsensus, canonicalRootRedesignTargets });

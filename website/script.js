@@ -2,23 +2,51 @@ const header = document.querySelector('.site-header');
 const menuButton = document.querySelector('.menu-button');
 const navLinks = document.querySelector('.nav-links');
 const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+const korean = document.documentElement.lang === 'ko';
 
-const updateHeader = () => header?.classList.toggle('scrolled', window.scrollY > 16);
+function setMenuOpen(open) {
+  menuButton?.setAttribute('aria-expanded', String(open));
+  navLinks?.classList.toggle('open', open);
+  const label = menuButton?.querySelector('.sr-only');
+  const visibleLabel = menuButton?.querySelector('[aria-hidden="true"]');
+
+  if (label) {
+    if (korean) {
+      label.textContent = open ? '메뉴 닫기' : '메뉴 열기';
+    } else {
+      label.textContent = open ? 'Close menu' : 'Open menu';
+    }
+  }
+  if (visibleLabel) visibleLabel.textContent = open ? 'CLOSE' : 'MENU';
+}
+
+function updateHeader() {
+  header?.classList.toggle('scrolled', window.scrollY > 16);
+}
 updateHeader();
 window.addEventListener('scroll', updateHeader, { passive: true });
 
 menuButton?.addEventListener('click', () => {
   const isOpen = menuButton.getAttribute('aria-expanded') === 'true';
-  menuButton.setAttribute('aria-expanded', String(!isOpen));
-  navLinks?.classList.toggle('open', !isOpen);
+  setMenuOpen(!isOpen);
 });
 
 navLinks?.addEventListener('click', (event) => {
   if (event.target instanceof HTMLAnchorElement) {
-    navLinks.classList.remove('open');
-    menuButton?.setAttribute('aria-expanded', 'false');
+    setMenuOpen(false);
   }
 });
+
+document.addEventListener('keydown', (event) => {
+  if (event.key === 'Escape' && menuButton?.getAttribute('aria-expanded') === 'true') {
+    setMenuOpen(false);
+    menuButton.focus();
+  }
+});
+
+window.addEventListener('resize', () => {
+  if (window.innerWidth > 880) setMenuOpen(false);
+}, { passive: true });
 
 document.querySelectorAll('.copy-button').forEach((button) => {
   button.addEventListener('click', async () => {
@@ -27,10 +55,10 @@ document.querySelectorAll('.copy-button').forEach((button) => {
     const originalLabel = button.textContent;
     try {
       await navigator.clipboard.writeText(target.textContent ?? '');
-      button.textContent = document.documentElement.lang === 'ko' ? '복사됨' : 'Copied';
+      button.textContent = korean ? '복사됨' : 'Copied';
       window.setTimeout(() => { button.textContent = originalLabel; }, 1600);
     } catch {
-      button.textContent = document.documentElement.lang === 'ko' ? '선택해 복사' : 'Select to copy';
+      button.textContent = korean ? '선택해 복사' : 'Select to copy';
     }
   });
 });

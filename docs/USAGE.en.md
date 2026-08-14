@@ -13,7 +13,7 @@ PunchGrow is a local, single-player menu-bar game for Apple Silicon Macs. It tur
 > xattr -d com.apple.quarantine /Applications/PunchGrow.app
 > ```
 >
-> The published binary is ad-hoc signed and not yet notarized by Apple, so the final `xattr` command is required to clear the quarantine attribute before the first launch. On Homebrew versions before 6, skip the `brew trust` step. The `--no-quarantine` install flag was removed in Homebrew 6 and now fails with `Error: invalid option`. The instructions below cover building from source instead.
+> Homebrew v0.3.0 contains the 240-creature catalog published with that release. Current `main` source and the public dex contain 256 creatures; build from source below to use the 16 later additions before the next versioned app release. The published binary is ad-hoc signed and not yet notarized by Apple, so the final `xattr` command is required to clear the quarantine attribute before the first launch. On Homebrew versions before 6, skip the `brew trust` step. The `--no-quarantine` install flag was removed in Homebrew 6 and now fails with `Error: invalid option`. The instructions below cover building from source instead.
 
 ## Requirements
 

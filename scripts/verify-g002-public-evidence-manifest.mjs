@@ -6,6 +6,7 @@ import { sha256Bytes, sha256Canonical } from './lib/continuity-assignment/canoni
 import { assertExactIds, listContainedRegularFiles, readContainedFile, readJson } from './lib/continuity-assignment/evidence.mjs';
 import { PINNED_AUTHORITY_FINGERPRINT, PINNED_PUBLIC_KEY_SPKI_DER_BASE64, verifyPublicEvidence } from './lib/g002-public-authority.mjs';
 import { validateSignedCanonicalRootRedesignTargets } from './lib/continuity-assignment/canonical-root-redesign-targets.mjs';
+import { projectG002CatalogEpoch } from './lib/continuity-assignment/g002-catalog-epoch.mjs';
 import { verifyG002ReviewEvidence } from './verify-g002-review-evidence.mjs';
 import {
   ASSET_CENSUS_PATH, AUTHORITY_CONTRACT_PATH, EVIDENCE_ROOT, FIXED_ASSIGNMENT_OUTPUTS,
@@ -16,6 +17,7 @@ import {
 
 const REPO_ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const SHA256 = /^[a-f0-9]{64}$/;
+const CATALOG_PATH = 'production/catalog/creatures.json';
 
 function assertFileBinding(binding, label) {
   assertExactKeys(binding, ['path', 'sha256'], label);
@@ -127,11 +129,20 @@ export async function verifyPublicEvidenceManifestMaterial(manifest, {
   repoRoot = REPO_ROOT, onRead, verifyEmbeddedEvidence = true,
 } = {}) {
   assertManifestShape(manifest, { requireSignature: false });
-  const bytesByPath = new Map(); const fileMap = new Map();
+  const bytesByPath = new Map(); const fileMap = new Map(); let currentCatalogIds;
   for (const binding of manifest.files) {
-    const bytes = await verifyCoveredFileBinding(repoRoot, binding, { onRead });
+    let bytes;
+    if (binding.path === CATALOG_PATH) {
+      onRead?.(binding.path);
+      const projection = projectG002CatalogEpoch(JSON.parse(await readContainedFile(repoRoot, binding.path)));
+      bytes = Buffer.from(projection.bytes); currentCatalogIds = projection.currentIds;
+      if (projection.sha256 !== binding.sha256) fail(`${binding.path} covered-file hash drift`);
+    } else {
+      bytes = await verifyCoveredFileBinding(repoRoot, binding, { onRead });
+    }
     bytesByPath.set(binding.path, bytes); fileMap.set(binding.path, binding.sha256);
   }
+  if (!currentCatalogIds) fail('current catalog is not covered by the signed evidence manifest');
   const inputLock = jsonFrom(bytesByPath.get(INPUT_LOCK_PATH), INPUT_LOCK_PATH);
   const taxonomyLock = jsonFrom(bytesByPath.get(TAXONOMY_LOCK_PATH), TAXONOMY_LOCK_PATH);
   const taxonomyConsensus = jsonFrom(bytesByPath.get(TAXONOMY_CONSENSUS_PATH), TAXONOMY_CONSENSUS_PATH);
@@ -158,8 +169,8 @@ export async function verifyPublicEvidenceManifestMaterial(manifest, {
   const pixelsById = indexByPgId(pixelClusters.entries, 'G002 pixel clusters');
   const mobileFiles = (await listContainedRegularFiles(repoRoot, 'assets/creatures/mobile')).map((entry) => `assets/creatures/mobile/${entry}`);
   const macosFiles = (await listContainedRegularFiles(repoRoot, 'macos/Sources/PunchGrowMenuBar/Resources/Creatures')).map((entry) => `macos/Sources/PunchGrowMenuBar/Resources/Creatures/${entry}`);
-  assertExactIds(mobileFiles, PG_IDS.map((pgId) => `assets/creatures/mobile/${pgId}.png`), 'tracked mobile runtime directory');
-  assertExactIds(macosFiles, PG_IDS.map((pgId) => `macos/Sources/PunchGrowMenuBar/Resources/Creatures/${pgId}.png`), 'tracked macOS runtime directory');
+  assertExactIds(mobileFiles, currentCatalogIds.map((pgId) => `assets/creatures/mobile/${pgId}.png`), 'tracked mobile runtime directory');
+  assertExactIds(macosFiles, currentCatalogIds.map((pgId) => `macos/Sources/PunchGrowMenuBar/Resources/Creatures/${pgId}.png`), 'tracked macOS runtime directory');
 
   for (const pgId of PG_IDS) {
     const descriptor = descriptorById.get(pgId); const packEntry = packById.get(pgId); const g001Entry = g001ById.get(pgId);

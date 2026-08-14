@@ -10,6 +10,7 @@ import { assertExactIds, assertHash, fail, hashContainedFile, readContainedFile,
 import { extractPixelFeatures } from './lib/continuity-assignment/pixel-features.mjs';
 import { buildTopology } from './lib/continuity-assignment/topology.mjs';
 import { validateSignedCanonicalRootRedesignTargets } from './lib/continuity-assignment/canonical-root-redesign-targets.mjs';
+import { projectG002CatalogEpoch } from './lib/continuity-assignment/g002-catalog-epoch.mjs';
 
 const REPO_ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const RUN_ID = 'g002-v1';
@@ -118,9 +119,14 @@ async function buildArtifacts(repoRoot = REPO_ROOT) {
     if (error.code === 'ENOENT') fail('signed canonical root redesign targets are missing; run npm run continuity:g002:canonical-targets:sign with the pinned authority key on stdin');
     throw error;
   }
-  const [registry, catalog, pack, census, conflicts, anchorConsensus, lockedTaxonomyConsensus, canonicalRootRedesignTargets] = sourceValues;
+  const [registry, currentCatalog, pack, census, conflicts, anchorConsensus, lockedTaxonomyConsensus, canonicalRootRedesignTargets] = sourceValues;
+  const catalogEpoch = projectG002CatalogEpoch(currentCatalog);
+  const catalog = catalogEpoch.catalog;
   if (registry.activePack !== pack.packId || registry.packs?.[registry.activePack] !== SOURCES.pack || pack.status !== 'active') fail('registry does not select the current active pack');
-  const sourceBindings = await Promise.all([SOURCES.registry, SOURCES.catalog, SOURCES.pack].map(async (sourcePath) => ({ path: sourcePath, sha256: await hashContainedFile(repoRoot, sourcePath) })));
+  const sourceBindings = await Promise.all([SOURCES.registry, SOURCES.catalog, SOURCES.pack].map(async (sourcePath) => ({
+    path: sourcePath,
+    sha256: sourcePath === SOURCES.catalog ? catalogEpoch.sha256 : await hashContainedFile(repoRoot, sourcePath),
+  })));
   assertAuthenticatedG001(census, conflicts, sourceBindings);
   const unsignedAnchorConsensus = structuredClone(anchorConsensus); delete unsignedAnchorConsensus.publicSignature;
   const anchorConsensusCore = structuredClone(unsignedAnchorConsensus); delete anchorConsensusCore.outputSha256;
@@ -199,7 +205,10 @@ async function buildArtifacts(repoRoot = REPO_ROOT) {
     positiveControl: { controlId: 'eilu', rootId: 'PG-001', slotIds: ['PG-001', 'PG-061', 'PG-181'], slots: ['PG-001', 'PG-061', 'PG-181'].map((pgId) => { const item = assets.find((asset) => asset.pgId === pgId); return { pgId, masterSha256: item.surfaces.master.sha256, runtimeSha256: item.surfaces.runtime.sha256 }; }) },
     fixtures: fixturePins,
   };
-  const consumedInputs = await Promise.all([...Object.values(SOURCES), ...FIXTURES.map((item) => item.screenshotPath)].map(async (sourcePath) => ({ path: sourcePath, sha256: await hashContainedFile(repoRoot, sourcePath) })));
+  const consumedInputs = await Promise.all([...Object.values(SOURCES), ...FIXTURES.map((item) => item.screenshotPath)].map(async (sourcePath) => ({
+    path: sourcePath,
+    sha256: sourcePath === SOURCES.catalog ? catalogEpoch.sha256 : await hashContainedFile(repoRoot, sourcePath),
+  })));
   const lock = { schemaVersion: 'continuity-input-lock-v1', runId: RUN_ID, inputs: consumedInputs, activeAssets: assets.map((item) => ({ pgId: item.pgId, master: { path: item.surfaces.master.path, sha256: item.surfaces.master.sha256 }, runtime: { path: item.surfaces.runtime.sourcePath, deployedPath: item.surfaces.runtime.path, sha256: item.surfaces.runtime.sha256 } })), generatedArtifacts: [
     { path: 'asset-census.json', sha256: sha256Canonical(assetCensus) }, { path: 'pixel-clusters.json', sha256: sha256Canonical(pixelClusters) }, { path: 'pins.json', sha256: sha256Canonical(pins) }, { path: 'topology-before.json', sha256: sha256Canonical(topologyBefore) },
   ] };

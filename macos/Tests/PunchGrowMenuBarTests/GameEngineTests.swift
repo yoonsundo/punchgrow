@@ -503,7 +503,7 @@ final class GameEngineTests: XCTestCase {
       id: "PG-Q01", stage: 1, category: "start", lineageId: "PG-Q")
     let normal = testSpecies(
       id: "PG-Q02", stage: 2, category: "normal_evolution", lineageId: "PG-Q",
-      evolutionFrom: [start.id])
+      rarity: "AGENT", evolutionFrom: [start.id])
     let mixed = testSpecies(
       id: "PG-Q99", stage: 2, category: "mixed", lineageId: "PG-QX",
       rarity: "ORIGIN", evolutionFrom: [start.id])

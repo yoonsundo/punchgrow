@@ -7,6 +7,7 @@ import path from 'node:path';
 import process from 'node:process';
 import { fileURLToPath } from 'node:url';
 import { blockedEvidenceSets, stableJson } from './lib/continuity-assignment/compatibility.mjs';
+import { projectG002CatalogEpoch } from './lib/continuity-assignment/g002-catalog-epoch.mjs';
 import { buildSaveRevisionMap } from './lib/continuity-assignment/save-space.mjs';
 import { solveContinuityAssignment } from './lib/continuity-assignment/solver.mjs';
 
@@ -135,6 +136,8 @@ export function composeDocuments(solution, saveMap, census, conflictLedger) {
 
 export async function buildContinuityAssignment() {
   const inputs = await Promise.all(Object.values(INPUTS).map(readInput));
+  const catalogEpoch = projectG002CatalogEpoch(inputs[0].json);
+  inputs[0] = { ...inputs[0], bytes: Buffer.from(catalogEpoch.bytes), json: catalogEpoch.catalog, sha256: catalogEpoch.sha256 };
   const [catalogInput, censusInput, ledgerInput, lockInput, taxonomyInput, pixelInput, anchorInput, lockedTaxonomyInput, canonicalTargetsInput, topologyInput, pinsInput] = inputs;
   if (lockInput.json.runId !== 'g002-v1') throw new Error('G002 input lock run mismatch');
   const anchorLock = lockInput.json.inputs.find((entry) => entry.path === INPUTS.anchorConsensus);

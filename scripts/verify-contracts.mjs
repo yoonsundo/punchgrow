@@ -3,6 +3,7 @@ import { createHash } from 'node:crypto';
 import { readFile } from 'node:fs/promises';
 import { fileURLToPath } from 'node:url';
 import { readContainedFile } from './lib/continuity-assignment/evidence.mjs';
+import { projectG002CatalogEpoch } from './lib/continuity-assignment/g002-catalog-epoch.mjs';
 
 const catalog = JSON.parse(await readFile(new URL('../production/catalog/creatures.json', import.meta.url)));
 const economy = JSON.parse(await readFile(new URL('../production/contracts/economy-v1.json', import.meta.url)));
@@ -271,10 +272,9 @@ assert.equal(new Set(taxonomyConsensus.assets.map((asset) => asset.pgId)).size, 
 assert.equal(inputLock.schemaVersion, 'continuity-input-lock-v1');
 assert.ok(inputLock.inputs.every((binding) => !binding.path.startsWith('.omx/')), 'public G002 lock may not depend on private OMX files');
 for (const binding of inputLock.inputs) {
-  // G002 certifies the frozen 240-creature review epoch. The live catalog may
-  // append creatures without rewriting that historical evidence package.
   if (binding.path === 'production/catalog/creatures.json') {
-    assert.equal(binding.sha256, 'd9a3265d8e8f07d9ce7f3de52affe3420df4d2aa3406a7f4f364ae1380e9e8a0');
+    const projection = projectG002CatalogEpoch(JSON.parse(await readContainedFile(repoRoot, binding.path)));
+    assert.equal(projection.sha256, binding.sha256, `stale G002 public input: ${binding.path}`);
     continue;
   }
   const bytes = await readContainedFile(repoRoot, binding.path);

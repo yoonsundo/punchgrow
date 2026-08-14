@@ -11,14 +11,15 @@
     ·
     <a href="README.en.md"><strong>English</strong></a>
     ·
-    <a href="https://punchgrow.thundo.kr">Official website (coming soon)</a>
+    <a href="https://punchgrow.thundo.kr">Official website</a>
   </p>
 
   <p>
-    <img alt="v0.3.0" src="https://img.shields.io/badge/version-v0.3.0-C6F84E?style=flat-square&logoColor=08111F" />
+    <img alt="v0.3.0 release" src="https://img.shields.io/badge/release-v0.3.0-C6F84E?style=flat-square&logoColor=08111F" />
     <img alt="macOS 14+" src="https://img.shields.io/badge/macOS-14%2B-4DE1FF?style=flat-square&logo=apple&logoColor=white" />
     <img alt="Swift 6" src="https://img.shields.io/badge/Swift-6-FF4D9D?style=flat-square&logo=swift&logoColor=white" />
-    <img alt="256 creatures" src="https://img.shields.io/badge/creatures-256-C6F84E?style=flat-square&logoColor=08111F" />
+    <img alt="v0.3.0 release catalog: 240 creatures" src="https://img.shields.io/badge/release_catalog-240-FFB84D?style=flat-square&logoColor=08111F" />
+    <img alt="main catalog: 256 creatures" src="https://img.shields.io/badge/main_catalog-256-C6F84E?style=flat-square&logoColor=08111F" />
     <img alt="Local First" src="https://img.shields.io/badge/privacy-local--first-C6F84E?style=flat-square&logoColor=08111F" />
     <img alt="MIT source license" src="https://img.shields.io/badge/source-MIT-FFB84D?style=flat-square" />
   </p>
@@ -27,6 +28,10 @@
     <a href="#quick-start">Quick start</a>
     ·
     <a href="docs/USAGE.en.md">User guide</a>
+    ·
+    <a href="https://punchgrow.thundo.kr/en/dex/">Full dex</a>
+    ·
+    <a href="docs/PROJECT_STRUCTURE.md#english">Repository map</a>
     ·
     <a href="macos/README.md">Developer guide</a>
     ·
@@ -38,11 +43,11 @@
 
 ---
 
-> **Project status: v0.3.0 alpha.** The intended public scope of this repository is the Apple Silicon macOS 14+ menu-bar app.
+> **Project status: v0.3.0 alpha development line.** The intended public scope of this repository is the Apple Silicon macOS 14+ menu-bar app.
 
-GitHub Actions with Full Xcode verifies the Swift test suite, Release build, 256-creature resource assembly, and ad-hoc signature. A public Homebrew binary still requires Developer ID signing and Apple notarization.
+Current `main` source and the public dex contain 64 starting lineages and 256 creatures. GitHub Actions with Full Xcode verifies the Swift test suite, Release build, 256-creature resource assembly, and ad-hoc signature. The Homebrew v0.3.0 release published on 2026-08-07 contains the 240-creature catalog available at that time; the 16 later additions remain source-only until the next versioned app release. The v0.3.0 binary is ad-hoc signed, while Developer ID signing and Apple notarization remain later release steps.
 
-The official website is planned for [`https://punchgrow.thundo.kr`](https://punchgrow.thundo.kr). It will be a static introduction site hosted on GitHub Pages, with no backend or automated social-media posting. The site has not yet been deployed, and its DNS connection is not yet complete.
+The official website at [`punchgrow.thundo.kr`](https://punchgrow.thundo.kr) is built and deployed from this repository's `website/` directory through GitHub Pages. It is a static product and 256-creature dex site with no backend or usage collection.
 
 ## The core experience
 
@@ -139,6 +144,14 @@ AI-assisted coding already produces a useful activity signal: token usage. Punch
 | Area | Status | Purpose |
 | --- | --- | --- |
 | `macos/` | v0.3.0 | Native SwiftUI menu-bar game for Apple Silicon macOS 14+ |
+| `website/` | Public | GitHub Pages homepage and bilingual 256-creature dex |
+| `app/`, `components/`, `src/mobile/` | Retained exploration | Expo Router mobile prototype and shared domain logic |
+| `web/`, `server/` | Local MVP | Docker Compose web/PostgreSQL experiment. This is not the public homepage. |
+| `docs/` | Public docs | Usage guides, repository map, and reproducible QA material |
+| `문서/` | Product record | PRD, decisions, glossary, wireframes, and creature design rules |
+| `production/`, `scripts/` | Verification base | Canonical catalog, public evidence, and reproducibility tools |
+
+[Open the repository map with task-based starting points and dependencies →](docs/PROJECT_STRUCTURE.md#english)
 
 The current game includes a 64-species stage-one draw pool, level 15/25/40 evolution with fork choices, mutations, inheritance, and standalone fusion collectibles, six evolution tiers (`PROCESS` → `ORIGIN`), unique-color variants, feeding, local save/restore, and a 256-creature catalog.
 
@@ -193,7 +206,7 @@ brew install --cask punchgrow
 xattr -d com.apple.quarantine /Applications/PunchGrow.app
 ```
 
-The published binary is currently ad-hoc signed and not yet notarized by Apple, so the final `xattr` command is required to clear the quarantine attribute before the first launch. On Homebrew versions before 6, skip the `brew trust` step. The `--no-quarantine` flag from older guides was removed in Homebrew 6 and no longer works.
+Homebrew v0.3.0 contains the 240-creature release catalog. Build the current `main` source below to use the complete 256-creature catalog shown in the public dex; those 16 later additions are planned for the next versioned app release. The published binary is ad-hoc signed and not yet notarized by Apple, so the final `xattr` command is required to clear the quarantine attribute before the first launch. On Homebrew versions before 6, skip the `brew trust` step. The `--no-quarantine` flag from older guides was removed in Homebrew 6 and no longer works.
 
 ### Build from source
 
@@ -207,7 +220,7 @@ cd macos
 open .build/PunchGrow.app
 ```
 
-The assembled app is ad-hoc signed for local use. Developer ID signing and Apple notarization remain separate release-account steps; once complete, the quarantine-clearing (`xattr`) step will no longer be needed.
+The app assembled from current `main` contains 256 creatures and is ad-hoc signed for local use. Developer ID signing and Apple notarization remain separate release-account steps; once complete, the quarantine-clearing (`xattr`) step will no longer be needed.
 
 ## Verification
 
@@ -218,6 +231,9 @@ cd macos
 swift test
 swift build -c release
 ./scripts/build-app.sh
+
+cd ../website
+npm test
 ```
 
 Some macOS checks require a compatible installed Apple SDK. The creature verification commands validate the release-sized asset pack included in the repository; source artwork and generation history are intentionally excluded from Git.
@@ -230,7 +246,7 @@ Issues and focused pull requests are welcome. New to open source? The [contribut
 2. Never add collection of prompts, responses, source code, commands, raw paths, email addresses, or account identifiers.
 3. Add or update tests for behavior changes and run the relevant verification commands above.
 
-Please report security or privacy-sensitive findings privately to the repository owner instead of opening a public issue.
+Use the [support guide](SUPPORT.md#english) for general help and the private path in the [security policy](SECURITY.md#english) for security or privacy-sensitive findings.
 
 ## Licenses and artwork
 

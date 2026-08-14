@@ -4,7 +4,7 @@ import { fileURLToPath } from 'node:url';
 
 const root = join(dirname(fileURLToPath(import.meta.url)), '..');
 const output = join(root, 'dist');
-const entries = ['index.html', 'en', 'dex', 'assets', 'styles.css', 'script.js', 'dex.js', '.nojekyll'];
+const entries = ['index.html', '404.html', 'en', 'dex', 'assets', 'styles.css', 'script.js', 'dex.js', '.nojekyll', 'CNAME'];
 const catalogPath = join(root, '..', 'production', 'catalog', 'creatures.json');
 const mobileCreaturesPath = join(root, '..', 'assets', 'creatures', 'mobile');
 
