@@ -10,7 +10,8 @@ const release = {
   version: '0.3.0',
   creatures: 240,
   sha256: '758976484afd60e4e586e7710235bf8b29b0451d12d65b6fbffa3bc245861d4a',
-  url: 'https://github.com/yoonsundo/punchgrow/releases/download/v0.3.0/PunchGrow-0.3.0-arm64.zip',
+  caskUrl: 'https://github.com/yoonsundo/punchgrow/releases/download/v#{version}/PunchGrow-#{version}-arm64.zip',
+  homepage: 'https://punchgrow.thundo.kr/',
 };
 const homebrewCommands = [
   'brew tap yoonsundo/punchgrow https://github.com/yoonsundo/punchgrow',
@@ -31,10 +32,12 @@ if (!(await exists(caskPath))) {
   const version = cask.match(/^  version "([^"]+)"$/m)?.[1];
   const sha256 = cask.match(/^  sha256 "([a-f0-9]{64})"$/m)?.[1];
   const url = cask.match(/^  url "([^"]+)"$/m)?.[1];
+  const homepage = cask.match(/^  homepage "([^"]+)"$/m)?.[1];
   if (caskName !== 'punchgrow') failures.push(`cask name must be punchgrow, received ${caskName ?? 'missing'}`);
   if (version !== release.version) failures.push(`cask version must be ${release.version}, received ${version ?? 'missing'}`);
   if (sha256 !== release.sha256) failures.push(`cask sha256 must match the v${release.version} release asset`);
-  if (url !== release.url) failures.push(`cask URL must be the v${release.version} arm64 release asset`);
+  if (url !== release.caskUrl) failures.push(`cask URL must derive the v${release.version} arm64 release asset from version`);
+  if (homepage !== release.homepage) failures.push('cask homepage must use the official HTTPS website');
   if (!cask.includes(`${release.creatures}-creature catalog`) || !cask.includes('current main branch and public dex contain 256 creatures')) {
     failures.push('cask caveat must distinguish the 240-creature v0.3.0 release from current main and the 256-creature public dex');
   }
