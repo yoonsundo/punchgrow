@@ -287,7 +287,7 @@ final class CodexManagedService: ObservableObject {
         self.transport = transport
         try transport.start(executable: executable)
         isStarting = false; isRunning = true
-        send(id: 1, method: "initialize", params: ["clientInfo": ["name": "punchgrow", "title": "PunchGrow", "version": "0.3.0"]])
+        send(id: 1, method: "initialize", params: ["clientInfo": ["name": "punchgrow", "title": "PunchGrow", "version": "0.4.0"]])
         send(method: "initialized", params: [:])
         send(id: 2, method: "thread/start", params: ["cwd": workspace, "approvalPolicy": "never", "sandbox": "workspace-write", "ephemeral": false])
     }

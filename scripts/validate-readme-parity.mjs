@@ -132,13 +132,11 @@ check(
 );
 
 const semanticClaims = [
-  ["release version", /v0\.3\.0/],
+  ["release version", /v0\.4\.0/],
   ["Apple Silicon", /Apple Silicon/],
   ["macOS 14+", /macOS 14\+/],
-  ["240-creature release", /240/],
-  ["256-creature main catalog", /256/],
+  ["256-creature release and main catalog", /256/],
   ["64 starting lineages", /64/],
-  ["16 source-only additions", /16/],
   ["ad-hoc signing", /ad-hoc/],
   ["notarization status", /(공증|notari[sz])/i],
   ["10 mixed fusion collectibles", /(mixed[\s\S]{0,80}10|10[\s\S]{0,80}mixed)/i],
@@ -182,17 +180,16 @@ check(!/once per lifetime/i.test(readmes.en), "en README must describe choices p
 const usageGuideClaims = [
   ["current-main screenshot scope", /현재 `main` 앱이 직접 렌더링/, /current `main` SwiftUI app/],
   [
-    "v0.3.0 60-creature draw pool",
-    /가챠 1회 · Homebrew v0\.3\.0 \| 500,000 토큰 · 60종 PROCESS 시작형/,
-    /Homebrew v0\.3\.0 draws from 60 stage-one creatures/,
+    "v0.4.0 64-creature draw pool",
+    /가챠 1회 · Homebrew v0\.4\.0 \| 500,000 토큰 · 64종 PROCESS 시작형/,
+    /Homebrew v0\.4\.0 draws from 64 stage-one creatures/,
   ],
   [
     "current-main 64-creature draw pool",
     /가챠 1회 · 현재 `main` \| 500,000 토큰 · 64종 PROCESS 시작형/,
     /Current `main` draws from 64 stage-one creatures/,
   ],
-  ["v0.3.0 3 of 60 ORIGIN lineages", /v0\.3\.0 배포본[\s\S]{0,100}\*\*3\/60, 5%\*\*/, /v0\.3\.0 release[\s\S]{0,100}\*\*3\/60, or 5%\*\*/],
-  ["current-main 7 of 64 ORIGIN lineages", /현재 `main` 소스[\s\S]{0,100}\*\*7\/64, 약 10\.9%\*\*/, /current `main` show[\s\S]{0,100}\*\*7\/64, or about 10\.9%\*\*/],
+  ["v0.4.0 and current-main 7 of 64 ORIGIN lineages", /v0\.4\.0 배포본과 현재 `main` 소스[\s\S]{0,100}\*\*7\/64, 약 10\.9%\*\*/, /v0\.4\.0 release and on current `main`[\s\S]{0,100}\*\*7\/64, or about 10\.9%\*\*/],
   [
     "mutation decline continues the planned evolution",
     /거절하면 발동 전에 사용자가 선택했거나 시스템이 자동으로 정한 원래 대상으로/,
@@ -213,12 +210,12 @@ for (const [locale, pattern] of staleUsageGuideClaims) {
 }
 check(!/once per lifetime/i.test(usageGuides.en), "en usage guide must describe choices per fork, not as a lifetime flag");
 check(
-  /published Homebrew v0\.3\.0 release contains 60 starting lineages and 240[\s\S]{0,80}current `main` contains 64 starting lineages and 256/.test(macosReadme),
-  "macOS README must distinguish the v0.3.0 and current-main catalog sizes",
+  /published Homebrew v0\.4\.0 release and current `main` both contain 64[\s\S]{0,80}starting lineages and 256 creatures/.test(macosReadme),
+  "macOS README must state the shared v0.4.0 and current-main catalog sizes",
 );
 check(
-  /Seven of the 64 starting lineages on current `main`[\s\S]{0,160}Homebrew v0\.3\.0 release contains three of 60, or 5%/.test(macosReadme),
-  "macOS README must distinguish current-main and v0.3.0 ORIGIN proportions",
+  /Seven of the 64 starting lineages on current `main` and in the published[\s\S]{0,160}proportion is 7\/64, about 10\.9%/.test(macosReadme),
+  "macOS README must state the shared current-main and v0.4.0 ORIGIN proportion",
 );
 
 check(

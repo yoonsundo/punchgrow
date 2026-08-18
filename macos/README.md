@@ -4,11 +4,10 @@ Apple Silicon macOS 14+ local single-player app. The menu-bar popup is the
 primary play surface; the large window separates collection browsing,
 integration setup, and local data settings.
 
-Current source version label: **v0.3.0** (`CFBundleShortVersionString` in
+Current source version label: **v0.4.0** (`CFBundleShortVersionString` in
 `homebrew/Info.plist` is the single source the update check compares against).
-The published Homebrew v0.3.0 release contains 60 starting lineages and 240
-creatures; current `main` contains 64 starting lineages and 256 creatures until
-the next versioned app release.
+The published Homebrew v0.4.0 release and current `main` both contain 64
+starting lineages and 256 creatures.
 For player-facing instructions, see the
 [Korean user guide](../docs/USAGE.md) or [English user guide](../docs/USAGE.en.md).
 
@@ -36,9 +35,9 @@ Claude Code or Codex logs.
 - Normal food costs 100,000 tokens and grants XP +25 / affinity +3. Large food
   is stored separately, costs 500,000 tokens, and grants XP +200 / affinity +10.
   Feed and purchase buttons support one click or accelerating press-and-hold.
-- Current `main` draws uniformly from 64 PROCESS stage-one species; the
-  published Homebrew v0.3.0 release draws from 60. Direct draw rarity is
-  PROCESS 100% in both. Feeding automatically
+- Current `main` and the published Homebrew v0.4.0 release both draw uniformly
+  from 64 PROCESS stage-one species. Direct draw rarity is PROCESS 100% in
+  both. Feeding automatically
   evolves catalog-linked creatures at levels 15, 25, and 40. New growth caps at
   level 50; legacy level 51–100 saves remain valid but cannot gain more levels.
 - Evolution preserves the owned instance, nickname, affinity, unique color,
@@ -51,10 +50,10 @@ Claude Code or Codex logs.
 - Draw results and the main creature card separate `현재 <rarity>` from
   `성장 잠재력 <final rarity>`. The latter is derived from the deterministic
   catalog evolution path and is not the creature's current rarity.
-- Seven of the 64 starting lineages on current `main` end at ORIGIN, so the
-  derived **ORIGIN lineage** proportion is 7/64, about 10.9%. The published
-  Homebrew v0.3.0 release contains three of 60, or 5%. Neither figure is a
-  direct ORIGIN pull rate: an ORIGIN-lineage draw still awards a PROCESS creature.
+- Seven of the 64 starting lineages on current `main` and in the published
+  Homebrew v0.4.0 release end at ORIGIN, so the derived **ORIGIN lineage**
+  proportion is 7/64, about 10.9%. This is not a direct ORIGIN pull rate: an
+  ORIGIN-lineage draw still awards a PROCESS creature.
 - Draw feedback stays in the popup because higher evolution stages are no
   longer drawn directly. **진화** opens a per-creature evolution dex with every
   reachable stage, image, branch, discovery state, and level gate. Only the
@@ -66,10 +65,9 @@ Claude Code or Codex logs.
   creature safely, but its Evolution Dex shows only that current form.
 - The fixed footer keeps **도감**, **등급표**, **진화**, **설정**, and **종료** visible
   as separate actions. 등급표 separates direct draw rarity (PROCESS 100%) from
-  final-lineage proportions, including ORIGIN lineage 7/64 (about 10.9%) on
-  current `main`, and shows owned/discovered/catalog counts for every rarity.
-  The published v0.3.0 release shows its release-scoped 3/60 (5%) value. 도감 and
-  설정 open the large window directly.
+  final-lineage proportions, including ORIGIN lineage 7/64 (about 10.9%) in
+  both v0.4.0 and current `main`, and shows owned/discovered/catalog counts for
+  every rarity. 도감 and 설정 open the large window directly.
 - The dedicated ORIGIN reveal remains reserved for owning a creature whose
   actual current species is ORIGIN. ORIGIN growth potential alone never opens it.
 

@@ -2,7 +2,7 @@
 
 [한국어](USAGE.md) · [English](USAGE.en.md) · [프로젝트 README](../README.md)
 
-> **대상:** Homebrew v0.3.0 배포본과 현재 `main` 소스 · Apple Silicon Mac · macOS 14 이상
+> **대상:** Homebrew v0.4.0 배포본과 현재 `main` 소스 · Apple Silicon Mac · macOS 14 이상
 
 PunchGrow는 Claude Code와 Codex의 **로컬 사용량 숫자**를 게임 토큰으로 바꾸어 크리처를 수집하고 성장시키는 메뉴 막대 앱입니다. 앱을 실행하면 Dock이 아니라 화면 오른쪽 위 메뉴 막대에 나타납니다.
 
@@ -30,7 +30,7 @@ brew install --cask punchgrow
 xattr -d com.apple.quarantine /Applications/PunchGrow.app
 ```
 
-Homebrew v0.3.0 배포본에는 출시 당시의 240종 카탈로그가 들어 있습니다. 현재 `main` 소스와 공개 도감의 256종 전체는 아래 소스 빌드로 사용할 수 있으며, 추가된 16종은 다음 버전 앱 릴리스에 포함할 예정입니다. 배포 바이너리는 아직 Apple 공증 전의 ad-hoc 서명 빌드입니다. macOS는 인터넷에서 받은 앱에 격리(quarantine) 속성을 붙여 실행을 차단하므로, 마지막 `xattr` 명령으로 그 속성을 제거해야 앱이 실행됩니다. Homebrew 6 미만 버전은 `brew trust` 명령이 없으므로 그 줄을 건너뜁니다. 과거 안내의 `brew install --cask --no-quarantine` 옵션은 Homebrew 6에서 제거되어 `Error: invalid option`이 발생하니 사용하지 마세요.
+Homebrew v0.4.0 배포본에는 현재 `main` 소스와 공개 도감에 있는 64개 시작 계보·256종 전체가 들어 있습니다. 배포 바이너리는 아직 Apple 공증 전의 ad-hoc 서명 빌드입니다. macOS는 인터넷에서 받은 앱에 격리(quarantine) 속성을 붙여 실행을 차단하므로, 마지막 `xattr` 명령으로 그 속성을 제거해야 앱이 실행됩니다. Homebrew 6 미만 버전은 `brew trust` 명령이 없으므로 그 줄을 건너뜁니다. 과거 안내의 `brew install --cask --no-quarantine` 옵션은 Homebrew 6에서 제거되어 `Error: invalid option`이 발생하니 사용하지 마세요.
 
 ## 소스에서 빌드하고 실행하기
 
@@ -94,7 +94,7 @@ Claude Code는 `~/.claude/projects`, Codex는 `~/.codex/sessions` 아래의 로�
 
 | 동작 | 비용 또는 효과 |
 | --- | --- |
-| 가챠 1회 · Homebrew v0.3.0 | 500,000 토큰 · 60종 PROCESS 시작형 중 하나 |
+| 가챠 1회 · Homebrew v0.4.0 | 500,000 토큰 · 64종 PROCESS 시작형 중 하나 |
 | 가챠 1회 · 현재 `main` | 500,000 토큰 · 64종 PROCESS 시작형 중 하나 |
 | 일반 먹이 구매 | 100,000 토큰 · 일반 먹이 1개 |
 | 일반 먹이 사용 | XP +25 · 친밀도 +3 |
@@ -114,7 +114,7 @@ Claude Code는 `~/.claude/projects`, Codex는 `~/.codex/sessions` 아래의 로�
 - **현재 PROCESS:** 지금 보유한 크리처의 실제 등급
 - **최대 도달 등급 ORIGIN:** 변이를 제외하고 선택 가능한 진화 경로를 끝까지 골랐을 때 도달할 수 있는 상한 등급. 함께 표시되는 **최소 보장** 등급은 아직 선택하지 않은 갈림길에서 가장 낮은 경로를 골랐을 때의 하한이라, 상한만 보고 생기는 낙관적 기대를 막아줍니다.
 
-Homebrew v0.3.0 배포본은 시작 계보 60개 중 3개가 ORIGIN까지 도달하므로 **3/60, 5%**입니다. 이 문서의 화면과 현재 `main` 소스는 시작 계보 64개 중 7개이므로 **7/64, 약 10.9%**입니다. 둘 다 ORIGIN을 가챠에서 직접 뽑을 확률이 아니며, 실제로 ORIGIN까지 도달하려면 매 갈림길에서 그 방향을 직접 골라야 합니다. ORIGIN 계보를 뽑아도 처음에는 PROCESS이며 직접 성장시켜야 합니다.
+Homebrew v0.4.0 배포본과 현재 `main` 소스는 모두 시작 계보 64개 중 7개가 ORIGIN까지 도달하므로 **7/64, 약 10.9%**입니다. 이는 ORIGIN을 가챠에서 직접 뽑을 확률이 아니며, 실제로 ORIGIN까지 도달하려면 매 갈림길에서 그 방향을 직접 골라야 합니다. ORIGIN 계보를 뽑아도 처음에는 PROCESS이며 직접 성장시켜야 합니다.
 
 ![등급표](screenshots/rarity-guide.png)
 
@@ -213,7 +213,7 @@ PunchGrow의 자동 수집은 사용자가 동의한 뒤 이 Mac 안에서만 �
 
 ### `C —` 또는 `X —`가 계속 표시됩니다
 
-Connections에서 자동 수집이 실행 중인지 확인하고 Claude Code 또는 Codex를 한 번 사용한 뒤 다음 스캔을 기다리세요. `C —`는 v0.3.0이 읽는 `oh-my-claudecode` 사용량 캐시가 아직 생성되지 않았을 때도 계속 표시될 수 있습니다. `X —`는 Codex가 로컬 세션에 주간 한도 메타데이터를 아직 기록하지 않았을 수 있습니다. 정확한 값이 없으면 PunchGrow는 임의 비율을 만들지 않습니다.
+Connections에서 자동 수집이 실행 중인지 확인하고 Claude Code 또는 Codex를 한 번 사용한 뒤 다음 스캔을 기다리세요. `C —`는 v0.4.0이 읽는 `oh-my-claudecode` 사용량 캐시가 아직 생성되지 않았을 때도 계속 표시될 수 있습니다. `X —`는 Codex가 로컬 세션에 주간 한도 메타데이터를 아직 기록하지 않았을 수 있습니다. 정확한 값이 없으면 PunchGrow는 임의 비율을 만들지 않습니다.
 
 ### `로그 감시 중`인데 보유 토큰이 늘지 않습니다
 

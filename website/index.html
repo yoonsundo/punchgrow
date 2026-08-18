@@ -20,7 +20,7 @@
   <script>document.documentElement.classList.add('js')</script>
   <link rel="stylesheet" href="./styles.css">
   <script src="./script.js" defer></script>
-  <script type="application/ld+json">{"@context":"https://schema.org","@type":"SoftwareApplication","name":"PunchGrow","applicationCategory":"GameApplication","operatingSystem":"macOS 14 이상 (Apple Silicon)","softwareVersion":"0.3.0","url":"https://punchgrow.thundo.kr/","downloadUrl":"https://github.com/yoonsundo/punchgrow/releases/tag/v0.3.0","codeRepository":"https://github.com/yoonsundo/punchgrow","license":"https://github.com/yoonsundo/punchgrow/blob/main/LICENSE"}</script>
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"SoftwareApplication","name":"PunchGrow","applicationCategory":"GameApplication","operatingSystem":"macOS 14 이상 (Apple Silicon)","softwareVersion":"0.4.0","url":"https://punchgrow.thundo.kr/","downloadUrl":"https://github.com/yoonsundo/punchgrow/releases/tag/v0.4.0","codeRepository":"https://github.com/yoonsundo/punchgrow","license":"https://github.com/yoonsundo/punchgrow/blob/main/LICENSE"}</script>
   <title>PunchGrow — 코딩으로 크리처를 키우세요</title>
 </head>
 <body>
@@ -57,7 +57,7 @@
           <a class="button button-primary" href="#install">Homebrew로 설치 <span aria-hidden="true">↘</span></a>
           <a class="button button-secondary" href="https://github.com/yoonsundo/punchgrow">GitHub 보기 <span aria-hidden="true">↗</span></a>
         </div>
-        <p class="release-note"><a href="https://github.com/yoonsundo/punchgrow/releases/tag/v0.3.0">v0.3.0 HOMEBREW · 240종</a> · CURRENT MAIN + DEX · 256종</p>
+        <p class="release-note"><a href="https://github.com/yoonsundo/punchgrow/releases/tag/v0.4.0">v0.4.0 HOMEBREW · 256종</a> · CURRENT MAIN + DEX · 256종</p>
       </div>
 
       <div class="hero-visual reveal" aria-label="PunchGrow 앱 화면 미리보기">
@@ -72,7 +72,7 @@
 
     <section class="metrics" aria-label="프로젝트 규모">
       <div class="shell metrics-grid">
-        <div><strong>v0.3</strong><span>HOMEBREW · 240</span></div>
+        <div><strong>v0.4</strong><span>HOMEBREW · 256</span></div>
         <div><strong>256</strong><span>MAIN + PUBLIC DEX</span></div>
         <div><strong>LOCAL</strong><span>PRIVACY FIRST</span></div>
         <div><strong>MIT</strong><span>OPEN SOURCE</span></div>
@@ -186,16 +186,16 @@
         <div class="section-heading reveal">
           <p class="eyebrow">05 / INSTALL</p>
           <h2 id="install-title">당신의 Mac에서<br><span>직접 시작하세요.</span></h2>
-          <p>Apple Silicon Mac과 macOS 14 이상이 필요합니다. Homebrew v0.3.0 릴리스에는 240종, 현재 <code>main</code> 소스와 공개 도감에는 256종이 있습니다.</p>
+          <p>Apple Silicon Mac과 macOS 14 이상이 필요합니다. Homebrew v0.4.0 릴리스와 현재 <code>main</code> 소스·공개 도감에는 모두 64개 시작 계보·256종이 있습니다.</p>
         </div>
         <div class="install-options">
           <div class="code-window recommended reveal">
-            <div class="code-title"><span>HOMEBREW / v0.3.0 · 240 CREATURES</span><button class="copy-button" type="button" data-copy-target="brew-ko">복사</button></div>
+            <div class="code-title"><span>HOMEBREW / v0.4.0 · 256 CREATURES</span><button class="copy-button" type="button" data-copy-target="brew-ko">복사</button></div>
             <pre id="brew-ko"><code>brew tap yoonsundo/punchgrow https://github.com/yoonsundo/punchgrow
 brew trust yoonsundo/punchgrow
 brew install --cask punchgrow
 xattr -d com.apple.quarantine /Applications/PunchGrow.app</code></pre>
-            <p>2026-08-07 배포본의 240종 카탈로그입니다. ad-hoc 서명 빌드라 첫 실행 전에 격리 속성을 제거하고, Homebrew 6 미만에서는 <code>brew trust</code>를 건너뛰세요.</p>
+            <p>2026-08-18 배포본은 64개 시작 계보·256종과 ORIGIN 도달 계보 7/64(약 10.9%)를 포함합니다. ad-hoc 서명 빌드라 첫 실행 전에 격리 속성을 제거하고, Homebrew 6 미만에서는 <code>brew trust</code>를 건너뛰세요.</p>
           </div>
           <div class="code-window reveal">
             <div class="code-title"><span>SOURCE BUILD / CURRENT MAIN · 256 CREATURES</span><button class="copy-button" type="button" data-copy-target="build-ko">복사</button></div>

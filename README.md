@@ -14,9 +14,9 @@
   </p>
 
   <p>
-    <img alt="v0.3.0 alpha release" src="https://img.shields.io/badge/release-v0.3.0_alpha-C6F84E?style=flat-square&logoColor=08111F" />
+    <img alt="v0.4.0 alpha release" src="https://img.shields.io/badge/release-v0.4.0_alpha-C6F84E?style=flat-square&logoColor=08111F" />
     <img alt="Apple Silicon macOS 14 or newer" src="https://img.shields.io/badge/Apple_Silicon-macOS_14%2B-4DE1FF?style=flat-square&logo=apple&logoColor=white" />
-    <img alt="main has 256 creatures and release has 240 creatures" src="https://img.shields.io/badge/catalog-main_256_%7C_release_240-FFB84D?style=flat-square&logoColor=08111F" />
+    <img alt="main and release both have 256 creatures" src="https://img.shields.io/badge/catalog-main_256_%7C_release_256-FFB84D?style=flat-square&logoColor=08111F" />
     <img alt="Local-first privacy" src="https://img.shields.io/badge/privacy-local--first-FF4D9D?style=flat-square&logoColor=white" />
   </p>
 
@@ -59,11 +59,11 @@
 
 <!-- readme-section:status -->
 > [!IMPORTANT]
-> **프로젝트 상태: v0.3.0 알파 개발본.** 이 저장소의 공개 대상은 Apple Silicon macOS 14+ 메뉴 막대 앱입니다.
+> **프로젝트 상태: v0.4.0 알파 릴리스.** 이 저장소의 공개 대상은 Apple Silicon macOS 14+ 메뉴 막대 앱입니다.
 
-| `RELEASE // v0.3.0` | `SOURCE // main` |
+| `RELEASE // v0.4.0` | `SOURCE // main` |
 | --- | --- |
-| 2026-08-07에 게시한 Homebrew 릴리스에는 당시의 **240종**이 포함되어 있습니다. 배포 바이너리는 ad-hoc 서명 상태이며 Developer ID 서명과 Apple 공증은 후속 릴리스 단계입니다. | 현재 소스와 공개 도감은 **64개 시작 계보·256종**을 포함합니다. 이후 추가된 16종은 다음 버전 앱 릴리스 전까지 `main` 소스 빌드에서만 사용할 수 있습니다. |
+| 2026-08-18에 게시한 Homebrew 릴리스는 **64개 시작 계보·256종**과 ORIGIN 도달 계보 **7/64(약 10.9%)**를 포함합니다. 배포 바이너리는 ad-hoc 서명 상태이며 Developer ID 서명과 Apple 공증은 후속 릴리스 단계입니다. | 현재 소스와 공개 도감도 릴리스와 동일한 **64개 시작 계보·256종**, ORIGIN 도달 계보 **7/64(약 10.9%)**를 포함합니다. |
 
 GitHub Actions의 Full Xcode 환경은 Swift 테스트, Release 빌드, 256개 크리처 리소스 조립과 ad-hoc 코드서명을 검증합니다. 공식 웹사이트 [`punchgrow.thundo.kr`](https://punchgrow.thundo.kr)은 이 저장소의 `website/`를 GitHub Pages로 빌드·배포하는 정적 제품 소개·256종 도감 사이트이며, 백엔드나 사용량 수집 기능은 포함하지 않습니다.
 
@@ -82,7 +82,7 @@ brew install --cask punchgrow
 xattr -d com.apple.quarantine /Applications/PunchGrow.app
 ```
 
-Homebrew v0.3.0은 240종 카탈로그를 포함합니다. 현재 `main`과 공개 도감의 256종 전체는 아래 소스 빌드에서 확인할 수 있으며, 다음 버전 앱 릴리스에 포함할 예정입니다. 배포 바이너리는 Apple 공증(notarization) 전의 ad-hoc 서명 빌드라서 마지막 `xattr` 명령으로 격리 속성을 제거해야 첫 실행이 차단되지 않습니다. Homebrew 6 미만은 `brew trust` 단계를 건너뜁니다. 과거 안내에 있던 `--no-quarantine` 옵션은 Homebrew 6에서 제거되어 더 이상 동작하지 않습니다.
+Homebrew v0.4.0은 현재 `main`과 공개 도감에 있는 64개 시작 계보·256종 전체를 포함합니다. 배포 바이너리는 Apple 공증(notarization) 전의 ad-hoc 서명 빌드라서 마지막 `xattr` 명령으로 격리 속성을 제거해야 첫 실행이 차단되지 않습니다. Homebrew 6 미만은 `brew trust` 단계를 건너뜁니다. 과거 안내에 있던 `--no-quarantine` 옵션은 Homebrew 6에서 제거되어 더 이상 동작하지 않습니다.
 
 설치·수집 상태·게임 조작·백업·삭제·개인정보 보호·문제 해결은 [상세 사용 가이드](docs/USAGE.md)에 화면과 함께 정리했습니다.
 
@@ -244,7 +244,7 @@ macOS 앱은 로컬에서 실행되며 사용자가 명시적으로 활성화하
 
 | 영역 | 상태 | 용도 |
 | --- | --- | --- |
-| `macos/` | v0.3.0 | Apple Silicon macOS 14+용 네이티브 SwiftUI 메뉴 막대 게임 |
+| `macos/` | v0.4.0 | Apple Silicon macOS 14+용 네이티브 SwiftUI 메뉴 막대 게임 |
 | `website/` | 공개 운영 | GitHub Pages 홈페이지와 한국어·영어 256종 도감 |
 | `app/`, `components/`, `src/mobile/` | 탐색 유지 | Expo Router 모바일 프로토타입과 공유 도메인 로직 |
 | `web/`, `server/` | 로컬 MVP | Docker Compose로만 실행하는 웹·PostgreSQL 실험 환경. 공개 홈페이지가 아닙니다. |

@@ -7,9 +7,9 @@ const repositoryRoot = join(websiteRoot, '..');
 const root = join(websiteRoot, 'dist');
 const failures = [];
 const release = {
-  version: '0.3.0',
-  creatures: 240,
-  sha256: '758976484afd60e4e586e7710235bf8b29b0451d12d65b6fbffa3bc245861d4a',
+  version: '0.4.0',
+  creatures: 256,
+  sha256: '2cdc59e41713d236e3ebdc049c057463c272e67562869d0694aa27682fb3cd12',
   caskUrl: 'https://github.com/yoonsundo/punchgrow/releases/download/v#{version}/PunchGrow-#{version}-arm64.zip',
   homepage: 'https://punchgrow.thundo.kr/',
 };
@@ -38,8 +38,8 @@ if (!(await exists(caskPath))) {
   if (sha256 !== release.sha256) failures.push(`cask sha256 must match the v${release.version} release asset`);
   if (url !== release.caskUrl) failures.push(`cask URL must derive the v${release.version} arm64 release asset from version`);
   if (homepage !== release.homepage) failures.push('cask homepage must use the official HTTPS website');
-  if (!cask.includes(`${release.creatures}-creature catalog`) || !cask.includes('current main branch and public dex contain 256 creatures')) {
-    failures.push('cask caveat must distinguish the 240-creature v0.3.0 release from current main and the 256-creature public dex');
+  if (!cask.includes(`${release.creatures}-creature catalog`)) {
+    failures.push('cask caveat must state the 256-creature v0.4.0 release catalog');
   }
 }
 
@@ -109,14 +109,14 @@ if (failures.length === 0) {
   }
   const readmes = await Promise.all(['README.md', 'README.en.md'].map((path) => readFile(join(repositoryRoot, path), 'utf8')));
   const releaseTruthClaims = [
-    [sourceText[0], 'Homebrew v0.3.0 릴리스에는 240종', '현재 <code>main</code> 소스와 공개 도감에는 256종', 'Korean homepage'],
-    [sourceText[1], 'Homebrew v0.3.0 contains 240 creatures', 'current <code>main</code> source and the public dex contain 256', 'English homepage'],
-    [readmes[0], '2026-08-07에 게시한 Homebrew 릴리스에는 당시의 **240종**', '현재 소스와 공개 도감은 **64개 시작 계보·256종**', 'Korean README'],
-    [readmes[1], 'The Homebrew release published on 2026-08-07 contains the **240-creature** catalog', 'Current source and the public dex contain **64 starting lineages and 256 creatures**', 'English README'],
+    [sourceText[0], 'Homebrew v0.4.0 릴리스와 현재 <code>main</code> 소스·공개 도감에는 모두 64개 시작 계보·256종', 'ORIGIN 도달 계보 7/64(약 10.9%)', 'Korean homepage'],
+    [sourceText[1], 'Homebrew v0.4.0, current <code>main</code>, and the public dex all contain 64 starting lineages and 256 creatures', '7 of 64 lineages (about 10.9%) able to reach ORIGIN', 'English homepage'],
+    [readmes[0], '2026-08-18에 게시한 Homebrew 릴리스는 **64개 시작 계보·256종**', '현재 소스와 공개 도감도 릴리스와 동일한 **64개 시작 계보·256종**', 'Korean README'],
+    [readmes[1], 'The Homebrew release published on 2026-08-18 contains **64 starting lineages and 256 creatures**', 'Current source and the public dex match the release: **64 starting lineages and 256 creatures**', 'English README'],
   ];
   for (const [contents, releasedClaim, currentClaim, label] of releaseTruthClaims) {
     if (!contents.includes(releasedClaim) || !contents.includes(currentClaim)) {
-      failures.push(`${label} must distinguish the 240-creature v0.3.0 release from current main and the 256-creature public dex`);
+      failures.push(`${label} must state the shared v0.4.0 release and current-main 64-lineage/256-creature contract`);
     }
   }
   if (!sourceText.every((html) => html.includes('hreflang="x-default"') && html.includes('property="og:image"'))) {

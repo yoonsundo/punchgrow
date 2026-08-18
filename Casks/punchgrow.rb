@@ -2,8 +2,8 @@
 # frozen_string_literal: true
 
 cask "punchgrow" do
-  version "0.3.0"
-  sha256 "758976484afd60e4e586e7710235bf8b29b0451d12d65b6fbffa3bc245861d4a"
+  version "0.4.0"
+  sha256 "2cdc59e41713d236e3ebdc049c057463c272e67562869d0694aa27682fb3cd12"
 
   url "https://github.com/yoonsundo/punchgrow/releases/download/v#{version}/PunchGrow-#{version}-arm64.zip"
   name "PunchGrow"
@@ -22,8 +22,7 @@ cask "punchgrow" do
 
   caveats <<~EOS
     This v#{version} build is ad-hoc signed and has not been Apple-notarized.
-    It contains the 240-creature catalog published with that release; the
-    current main branch and public dex contain 256 creatures.
+    It contains the 256-creature catalog shared with current main and the public dex.
     If macOS Gatekeeper blocks the first launch, remove the quarantine attribute:
       xattr -d com.apple.quarantine /Applications/PunchGrow.app
   EOS

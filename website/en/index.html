@@ -20,7 +20,7 @@
   <script>document.documentElement.classList.add('js')</script>
   <link rel="stylesheet" href="../styles.css">
   <script src="../script.js" defer></script>
-  <script type="application/ld+json">{"@context":"https://schema.org","@type":"SoftwareApplication","name":"PunchGrow","applicationCategory":"GameApplication","operatingSystem":"macOS 14 or later (Apple Silicon)","softwareVersion":"0.3.0","url":"https://punchgrow.thundo.kr/en/","downloadUrl":"https://github.com/yoonsundo/punchgrow/releases/tag/v0.3.0","codeRepository":"https://github.com/yoonsundo/punchgrow","license":"https://github.com/yoonsundo/punchgrow/blob/main/LICENSE"}</script>
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"SoftwareApplication","name":"PunchGrow","applicationCategory":"GameApplication","operatingSystem":"macOS 14 or later (Apple Silicon)","softwareVersion":"0.4.0","url":"https://punchgrow.thundo.kr/en/","downloadUrl":"https://github.com/yoonsundo/punchgrow/releases/tag/v0.4.0","codeRepository":"https://github.com/yoonsundo/punchgrow","license":"https://github.com/yoonsundo/punchgrow/blob/main/LICENSE"}</script>
   <title>PunchGrow — Grow creatures with code</title>
 </head>
 <body>
@@ -48,7 +48,7 @@
           <a class="button button-primary" href="#install">Install with Homebrew <span aria-hidden="true">↘</span></a>
           <a class="button button-secondary" href="https://github.com/yoonsundo/punchgrow">View on GitHub <span aria-hidden="true">↗</span></a>
         </div>
-        <p class="release-note"><a href="https://github.com/yoonsundo/punchgrow/releases/tag/v0.3.0">v0.3.0 HOMEBREW · 240 CREATURES</a> · CURRENT MAIN + DEX · 256</p>
+        <p class="release-note"><a href="https://github.com/yoonsundo/punchgrow/releases/tag/v0.4.0">v0.4.0 HOMEBREW · 256 CREATURES</a> · CURRENT MAIN + DEX · 256</p>
       </div>
       <div class="hero-visual reveal" aria-label="PunchGrow app preview">
         <div class="terminal-window">
@@ -61,7 +61,7 @@
     </section>
 
     <section class="metrics" aria-label="Project scale"><div class="shell metrics-grid">
-      <div><strong>v0.3</strong><span>HOMEBREW · 240</span></div><div><strong>256</strong><span>MAIN + PUBLIC DEX</span></div><div><strong>LOCAL</strong><span>PRIVACY FIRST</span></div><div><strong>MIT</strong><span>OPEN SOURCE</span></div>
+      <div><strong>v0.4</strong><span>HOMEBREW · 256</span></div><div><strong>256</strong><span>MAIN + PUBLIC DEX</span></div><div><strong>LOCAL</strong><span>PRIVACY FIRST</span></div><div><strong>MIT</strong><span>OPEN SOURCE</span></div>
     </div></section>
 
     <section class="section shell" id="experience" aria-labelledby="experience-title">
@@ -109,12 +109,12 @@
     </div></section>
 
     <section class="section install-section" id="install" aria-labelledby="install-title"><div class="shell">
-      <div class="section-heading reveal"><p class="eyebrow">05 / INSTALL</p><h2 id="install-title">START ON<br><span>YOUR OWN MAC.</span></h2><p>You need an Apple Silicon Mac running macOS 14 or later. Homebrew v0.3.0 contains 240 creatures; current <code>main</code> source and the public dex contain 256.</p></div>
+      <div class="section-heading reveal"><p class="eyebrow">05 / INSTALL</p><h2 id="install-title">START ON<br><span>YOUR OWN MAC.</span></h2><p>You need an Apple Silicon Mac running macOS 14 or later. Homebrew v0.4.0, current <code>main</code>, and the public dex all contain 64 starting lineages and 256 creatures.</p></div>
       <div class="install-options">
-        <div class="code-window recommended reveal"><div class="code-title"><span>HOMEBREW / v0.3.0 · 240 CREATURES</span><button class="copy-button" type="button" data-copy-target="brew-en">Copy</button></div><pre id="brew-en"><code>brew tap yoonsundo/punchgrow https://github.com/yoonsundo/punchgrow
+        <div class="code-window recommended reveal"><div class="code-title"><span>HOMEBREW / v0.4.0 · 256 CREATURES</span><button class="copy-button" type="button" data-copy-target="brew-en">Copy</button></div><pre id="brew-en"><code>brew tap yoonsundo/punchgrow https://github.com/yoonsundo/punchgrow
 brew trust yoonsundo/punchgrow
 brew install --cask punchgrow
-xattr -d com.apple.quarantine /Applications/PunchGrow.app</code></pre><p>This 2026-08-07 release contains 240 creatures. It is ad-hoc signed, so clear quarantine before first launch; skip <code>brew trust</code> before Homebrew 6.</p></div>
+xattr -d com.apple.quarantine /Applications/PunchGrow.app</code></pre><p>This 2026-08-18 release contains 64 starting lineages, 256 creatures, and 7 of 64 lineages (about 10.9%) able to reach ORIGIN. It is ad-hoc signed, so clear quarantine before first launch; skip <code>brew trust</code> before Homebrew 6.</p></div>
         <div class="code-window reveal"><div class="code-title"><span>SOURCE BUILD / CURRENT MAIN · 256 CREATURES</span><button class="copy-button" type="button" data-copy-target="build-en">Copy</button></div><pre id="build-en"><code>git clone https://github.com/yoonsundo/punchgrow.git
 cd punchgrow/macos
 ./scripts/build-app.sh

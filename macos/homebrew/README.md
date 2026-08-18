@@ -1,6 +1,6 @@
 # Homebrew release path
 
-## Current distribution (v0.3.0)
+## Current distribution (v0.4.0)
 
 PunchGrow is currently distributed through the public repository itself acting
 as a Homebrew tap: the generated Cask lives at `Casks/punchgrow.rb` in the
@@ -15,9 +15,9 @@ brew install --cask punchgrow
 xattr -d com.apple.quarantine /Applications/PunchGrow.app
 ```
 
-That v0.3.0 release asset contains the 240-creature catalog published on
-2026-08-07. The current `main` source and public dex contain 256 creatures; the
-16 later additions remain source-only until the next versioned app release.
+The v0.4.0 release asset, current `main` source, and public dex all contain 64
+starting lineages and 256 creatures. Seven of those lineages can reach ORIGIN,
+so the maximum-reachable ORIGIN lineage proportion is 7/64 (about 10.9%).
 
 Because the binary is not yet notarized, the Cask documents the `xattr`
 quarantine-clearing step in its caveats. (`brew install --no-quarantine` was
@@ -34,7 +34,7 @@ publishing a notarized build:
 3. Submit for Apple notarization and staple the ticket.
 4. Zip the app, publish a versioned GitHub release, and update the root
    `Casks/punchgrow.rb` from `macos/homebrew/Casks/punchgrow.rb.in` with the
-   real version and SHA-256. The committed v0.3.0 Cask is runnable and uses the
+   real version and SHA-256. The committed v0.4.0 Cask is runnable and uses the
    release asset's verified checksum; future releases must replace both values
    together.
 5. Run `brew style`, `brew audit --cask --strict`, install, launch, uninstall,

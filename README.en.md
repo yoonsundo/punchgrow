@@ -14,9 +14,9 @@
   </p>
 
   <p>
-    <img alt="v0.3.0 alpha release" src="https://img.shields.io/badge/release-v0.3.0_alpha-C6F84E?style=flat-square&logoColor=08111F" />
+    <img alt="v0.4.0 alpha release" src="https://img.shields.io/badge/release-v0.4.0_alpha-C6F84E?style=flat-square&logoColor=08111F" />
     <img alt="Apple Silicon macOS 14 or newer" src="https://img.shields.io/badge/Apple_Silicon-macOS_14%2B-4DE1FF?style=flat-square&logo=apple&logoColor=white" />
-    <img alt="main has 256 creatures and release has 240 creatures" src="https://img.shields.io/badge/catalog-main_256_%7C_release_240-FFB84D?style=flat-square&logoColor=08111F" />
+    <img alt="main and release both have 256 creatures" src="https://img.shields.io/badge/catalog-main_256_%7C_release_256-FFB84D?style=flat-square&logoColor=08111F" />
     <img alt="Local-first privacy" src="https://img.shields.io/badge/privacy-local--first-FF4D9D?style=flat-square&logoColor=white" />
   </p>
 
@@ -59,11 +59,11 @@
 
 <!-- readme-section:status -->
 > [!IMPORTANT]
-> **Project status: v0.3.0 alpha development line.** The intended public scope of this repository is the Apple Silicon macOS 14+ menu-bar app.
+> **Project status: v0.4.0 alpha release.** The intended public scope of this repository is the Apple Silicon macOS 14+ menu-bar app.
 
-| `RELEASE // v0.3.0` | `SOURCE // main` |
+| `RELEASE // v0.4.0` | `SOURCE // main` |
 | --- | --- |
-| The Homebrew release published on 2026-08-07 contains the **240-creature** catalog available at that time. The binary is ad-hoc signed; Developer ID signing and Apple notarization remain later release steps. | Current source and the public dex contain **64 starting lineages and 256 creatures**. The 16 later additions remain source-only on `main` until the next versioned app release. |
+| The Homebrew release published on 2026-08-18 contains **64 starting lineages and 256 creatures**, with **7 of 64 (about 10.9%)** able to reach ORIGIN. The binary is ad-hoc signed; Developer ID signing and Apple notarization remain later release steps. | Current source and the public dex match the release: **64 starting lineages and 256 creatures**, with **7 of 64 (about 10.9%)** able to reach ORIGIN. |
 
 GitHub Actions with Full Xcode verifies the Swift test suite, Release build, 256-creature resource assembly, and ad-hoc signature. The official website at [`punchgrow.thundo.kr`](https://punchgrow.thundo.kr/en/) is built and deployed from this repository's `website/` directory through GitHub Pages. It is a static product and 256-creature dex site with no backend or usage collection.
 
@@ -82,7 +82,7 @@ brew install --cask punchgrow
 xattr -d com.apple.quarantine /Applications/PunchGrow.app
 ```
 
-Homebrew v0.3.0 contains the 240-creature release catalog. Build the current `main` source below to use the complete 256-creature catalog shown in the public dex; those 16 later additions are planned for the next versioned app release. The published binary is ad-hoc signed and not yet notarized by Apple, so the final `xattr` command is required to clear the quarantine attribute before the first launch. On Homebrew versions before 6, skip the `brew trust` step. The `--no-quarantine` flag from older guides was removed in Homebrew 6 and no longer works.
+Homebrew v0.4.0 contains all 64 starting lineages and 256 creatures available on current `main` and in the public dex. The published binary is ad-hoc signed and not yet notarized by Apple, so the final `xattr` command is required to clear the quarantine attribute before the first launch. On Homebrew versions before 6, skip the `brew trust` step. The `--no-quarantine` flag from older guides was removed in Homebrew 6 and no longer works.
 
 The [complete user guide](docs/USAGE.en.md) covers installation, collection states, gameplay, backup, removal, privacy, and troubleshooting with screenshots.
 
@@ -244,7 +244,7 @@ The `C n%` and `X n%` values in the menu bar are not token-based estimates.
 
 | Area | Status | Purpose |
 | --- | --- | --- |
-| `macos/` | v0.3.0 | Native SwiftUI menu-bar game for Apple Silicon macOS 14+ |
+| `macos/` | v0.4.0 | Native SwiftUI menu-bar game for Apple Silicon macOS 14+ |
 | `website/` | Public | GitHub Pages homepage and bilingual 256-creature dex |
 | `app/`, `components/`, `src/mobile/` | Retained exploration | Expo Router mobile prototype and shared domain logic |
 | `web/`, `server/` | Local MVP | Docker Compose web/PostgreSQL experiment. This is not the public homepage. |

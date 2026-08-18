@@ -2,7 +2,7 @@
 
 [한국어](USAGE.md) · [English](USAGE.en.md) · [Project README](../README.en.md)
 
-> **Scope:** Homebrew v0.3.0 and current `main` source · Apple Silicon Mac · macOS 14 or later
+> **Scope:** Homebrew v0.4.0 and current `main` source · Apple Silicon Mac · macOS 14 or later
 
 PunchGrow is a local, single-player menu-bar game for Apple Silicon Macs. It turns the numeric Claude Code and Codex usage recorded on your Mac into game tokens, without storing prompts, responses, source code, commands, or raw log paths.
 
@@ -15,7 +15,7 @@ PunchGrow is a local, single-player menu-bar game for Apple Silicon Macs. It tur
 > xattr -d com.apple.quarantine /Applications/PunchGrow.app
 > ```
 >
-> Homebrew v0.3.0 contains the 240-creature catalog published with that release. Current `main` source and the public dex contain 256 creatures; build from source below to use the 16 later additions before the next versioned app release. The published binary is ad-hoc signed and not yet notarized by Apple, so the final `xattr` command is required to clear the quarantine attribute before the first launch. On Homebrew versions before 6, skip the `brew trust` step. The `--no-quarantine` install flag was removed in Homebrew 6 and now fails with `Error: invalid option`. The instructions below cover building from source instead.
+> Homebrew v0.4.0 contains all 64 starting lineages and 256 creatures available on current `main` and in the public dex. The published binary is ad-hoc signed and not yet notarized by Apple, so the final `xattr` command is required to clear the quarantine attribute before the first launch. On Homebrew versions before 6, skip the `brew trust` step. The `--no-quarantine` install flag was removed in Homebrew 6 and now fails with `Error: invalid option`. The instructions below cover building from source instead.
 
 ## Requirements
 
@@ -87,7 +87,7 @@ The first scan creates a **non-crediting baseline**. Current-week activity found
 ### Draw
 
 - One draw costs **500,000 tokens**.
-- Homebrew v0.3.0 draws from 60 stage-one creatures.
+- Homebrew v0.4.0 draws from 64 stage-one creatures.
 - Current `main` draws from 64 stage-one creatures.
 - Every direct draw is currently **PROCESS 100%**.
 - Duplicate draws remain separate saved creatures, but the main popup collapses the same starting lineage to its earliest acquired creature. This keeps one visible representative per lineage without deleting duplicate ownership data.
@@ -108,7 +108,7 @@ The creature card deliberately shows two different labels:
 - **현재** (Current) is the creature's rarity right now.
 - **최대 도달 등급** (Maximum reachable rarity) is the ceiling rarity reachable by choosing through every selectable evolution fork, excluding mutations. It is paired with a **최소 보장** (Minimum guaranteed) rarity so an unclaimed fork does not read as an optimistic promise.
 
-An **ORIGIN lineage** means that the starting creature can eventually reach ORIGIN if you pick that direction at every fork. In the Homebrew v0.3.0 release, three of 60 starting lineages reach ORIGIN: **3/60, or 5%**. The screenshots in this guide and current `main` show seven of 64: **7/64, or about 10.9%**. Neither figure is a direct ORIGIN draw rate: an ORIGIN-lineage draw still gives you a PROCESS creature.
+An **ORIGIN lineage** means that the starting creature can eventually reach ORIGIN if you pick that direction at every fork. In the Homebrew v0.4.0 release and on current `main`, seven of 64 starting lineages reach ORIGIN: **7/64, or about 10.9%**. This is not a direct ORIGIN draw rate: an ORIGIN-lineage draw still gives you a PROCESS creature.
 
 Open **등급표** (Rarity index) to compare direct draw rarity with maximum-reachable-rarity lineage proportions.
 
@@ -214,7 +214,7 @@ PunchGrow processes usage locally and does not need to launch Claude Code or Cod
 
 It keeps only the numeric usage required for the game, timestamps, opaque hashes, incremental file cursors, provider quota percentages, reset times, and local game state. Its usage/status model excludes prompts, responses, source code, commands, project names, raw paths, email addresses, account or model identifiers, and original message/request IDs.
 
-PunchGrow reads allowed usage fields from the original JSONL files but never edits or deletes those files. No account, cloud synchronization, ranking, or multiplayer service is part of v0.3.0.
+PunchGrow reads allowed usage fields from the original JSONL files but never edits or deletes those files. No account, cloud synchronization, ranking, or multiplayer service is part of v0.4.0.
 
 The update check (reading GitHub's public release list) is the only network request PunchGrow itself sends. A successful check is followed by one a day later; a failed one retries on a backoff starting at 60 seconds and capped at 24 hours. It can be turned off anytime from **Settings > Data & Settings > 업데이트**.
 
@@ -240,7 +240,7 @@ This is expected on the first opted-in scan. Existing activity establishes the n
 
 ### C or X shows a pending value
 
-The relevant provider has not written readable weekly quota metadata yet, or PunchGrow needs attention reading the local cache. In v0.3.0, `C —` can remain pending when the `oh-my-claudecode` usage cache has not been created; `X —` can remain pending until Codex writes weekly rate-limit metadata into a local session. PunchGrow does not invent a percentage when either value is unavailable. Check **Connections** for a sanitized error or last-scan time.
+The relevant provider has not written readable weekly quota metadata yet, or PunchGrow needs attention reading the local cache. In v0.4.0, `C —` can remain pending when the `oh-my-claudecode` usage cache has not been created; `X —` can remain pending until Codex writes weekly rate-limit metadata into a local session. PunchGrow does not invent a percentage when either value is unavailable. Check **Connections** for a sanitized error or last-scan time.
 
 ### Collection says stopped or needs attention
 
