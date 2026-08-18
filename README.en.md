@@ -1,6 +1,5 @@
 <!-- readme-section:hero -->
 <div align="center">
-  <p><code>DIGITAL FAMILIAR SYSTEM // LOCAL MACOS ALPHA</code></p>
   <h1>PunchGrow</h1>
   <p><strong>The creature game that grows when you code</strong></p>
   <p>A local-first macOS creature game that turns<br />Claude Code and Codex usage into growth energy.</p>
@@ -32,44 +31,29 @@
     <a href="#privacy">Privacy</a>
     ·
     <a href="docs/PROJECT_STRUCTURE.md#english">Repository map</a>
+    ·
+    <a href="#contributing">Contribute</a>
   </p>
 </div>
-
-<table>
-  <tr>
-    <td width="33%" valign="top">
-      <strong>PLAYER // INSTALL</strong><br />
-      Install the app and wake your first creature.<br />
-      <a href="#quick-start">Quick start →</a>
-    </td>
-    <td width="34%" valign="top">
-      <strong>SCOUT // EXPLORE</strong><br />
-      Inspect real screens, game rules, and the privacy boundary.<br />
-      <a href="#live-systems">Explore the product →</a>
-    </td>
-    <td width="33%" valign="top">
-      <strong>BUILDER // CONTRIBUTE</strong><br />
-      Read the structure and verification flow, then build with us.<br />
-      <a href="#contributing">Start contributing →</a>
-    </td>
-  </tr>
-</table>
 
 ---
 
 <!-- readme-section:status -->
+## Project status
+
 > [!IMPORTANT]
-> **Project status: v0.4.0 alpha release.** The intended public scope of this repository is the Apple Silicon macOS 14+ menu-bar app.
+> **v0.4.0 alpha release.** The intended public scope of this repository is the Apple Silicon macOS 14+ menu-bar app.
 
-| `RELEASE // v0.4.0` | `SOURCE // main` |
+| Release v0.4.0 | Current main |
 | --- | --- |
-| The Homebrew release published on 2026-08-18 contains **64 starting lineages and 256 creatures**, with **7 of 64 (about 10.9%)** able to reach ORIGIN. The binary is ad-hoc signed; Developer ID signing and Apple notarization remain later release steps. | Current source and the public dex match the release: **64 starting lineages and 256 creatures**, with **7 of 64 (about 10.9%)** able to reach ORIGIN. |
+| **2026-08-18 Homebrew release**<br />64 starting lineages · 256 creatures · 7 of 64 lineages can reach ORIGIN (about 10.9%)<br />Ad-hoc signed · Developer ID signing and Apple notarization pending | **Current source and public dex**<br />64 starting lineages · 256 creatures · 7 of 64 lineages can reach ORIGIN (about 10.9%)<br />Catalog matches the release |
 
-GitHub Actions with Full Xcode verifies the Swift test suite, Release build, 256-creature resource assembly, and ad-hoc signature. The official website at [`punchgrow.thundo.kr`](https://punchgrow.thundo.kr/en/) is built and deployed from this repository's `website/` directory through GitHub Pages. It is a static product and 256-creature dex site with no backend or usage collection.
+- **CI:** Full Xcode verifies the Swift test suite, Release build, 256-creature resource assembly, and ad-hoc signature.
+- **Website:** [`punchgrow.thundo.kr`](https://punchgrow.thundo.kr/en/) is a static product site and dex deployed from `website/` through GitHub Pages. It has no backend or usage collection.
 
 <!-- readme-section:quick-start -->
 <a name="quick-start"></a>
-## `01 // BOOT SEQUENCE` — Quick start
+## Quick start
 
 ### Install with Homebrew (recommended)
 
@@ -82,51 +66,65 @@ brew install --cask punchgrow
 xattr -d com.apple.quarantine /Applications/PunchGrow.app
 ```
 
-Homebrew v0.4.0 contains all 64 starting lineages and 256 creatures available on current `main` and in the public dex. The published binary is ad-hoc signed and not yet notarized by Apple, so the final `xattr` command is required to clear the quarantine attribute before the first launch. On Homebrew versions before 6, skip the `brew trust` step. The `--no-quarantine` flag from older guides was removed in Homebrew 6 and no longer works.
+> [!NOTE]
+> The release is ad-hoc signed and not yet notarized. Before the first launch, run the final `xattr` command above to clear quarantine.
+>
+> - **Homebrew 6 or newer:** run `brew trust`
+> - **Earlier Homebrew versions:** skip `brew trust`
+> - **`--no-quarantine`:** removed in Homebrew 6 and no longer supported
 
 The [complete user guide](docs/USAGE.en.md) covers installation, collection states, gameplay, backup, removal, privacy, and troubleshooting with screenshots.
 
 <!-- readme-section:core-loop -->
 <a name="core-loop"></a>
-## `02 // CORE LOOP` — The core experience
+## The core experience
 
-| `CODE` | `COLLECT` | `GROW` | `STAY PRIVATE` |
-| --- | --- | --- | --- |
-| Claude Code and Codex usage becomes game tokens. | Discover 256 creatures across 64 lineages. | Feed, branch-evolve, and find unique-color variants. | Prompts and code stay out of the data model and processing stays on your Mac. |
+**Code → collect tokens → discover creatures → grow and evolve → raise another lineage.** All state remains on your Mac.
+
+<p align="center">
+  <a href="docs/diagrams/punchgrow-growth-loop.en.svg">
+    <img src="docs/diagrams/punchgrow-growth-loop.en.svg" width="960" alt="PunchGrow growth loop from coding activity through local measurement, token collection, creature discovery, feeding and growth, evolution, and inheritance" />
+  </a>
+  <br />
+  <sub>Click the diagram to read the detailed labels at full size.</sub>
+</p>
 
 ### Why PunchGrow exists
 
-AI-assisted coding already produces a useful activity signal: token usage. PunchGrow makes that signal playful without collecting the work itself. The local collector is designed around numeric usage only—prompts, responses, source code, commands, project names, account identifiers, and raw file paths are outside the game data model.
+PunchGrow turns numeric token usage into growth energy without collecting prompts or code. The exact collection and storage boundaries follow below.
 
 <!-- readme-section:privacy -->
 <a name="privacy"></a>
-## `03 // TRUST BOUNDARY` — Privacy model
+## Privacy
 
 The macOS app runs locally and collection is off until the user explicitly enables it.
 
-### `LOCAL READS`
+### Local reads
 
-- Claude Code usage is discovered from `~/.claude/projects/**/*.jsonl`.
-- Codex usage is discovered from `~/.codex/sessions/**/*.jsonl`.
-- Claude's plan percentage is read from the local cache Claude Code writes; PunchGrow only runs Claude Code's status-line script to keep that cache fresh. Codex comes from log rate-limit metadata. PunchGrow neither reads nor stores authentication tokens.
-- The first scan establishes a non-crediting baseline; only later increases earn game tokens.
+- **Claude Code usage:** discovered from `~/.claude/projects/**/*.jsonl`.
+- **Codex usage:** discovered from `~/.codex/sessions/**/*.jsonl`.
+- **Claude plan usage:** read from the local cache written by Claude Code. PunchGrow only runs Claude Code's status-line script to keep that cache fresh.
+- **Codex plan usage:** read from rate-limit metadata in the logs.
+- **Authentication data:** PunchGrow neither reads nor stores authentication tokens.
+- **First scan:** establishes a non-crediting baseline; only later increases earn game tokens.
 
-### `LOCAL STATE`
+### Local state
 
-- PunchGrow stores normalized token counts, timestamps, opaque hashes, incremental cursors, and game state.
-- It does **not** store prompts, responses, source code, commands, project names, raw paths, emails, or account/model identifiers.
-- Disconnecting and deleting the PunchGrow cache does not edit or delete the original Claude Code or Codex logs.
+- **Stored:** normalized token counts, timestamps, opaque hashes, incremental cursors, and game state.
+- **Not stored:** prompts, responses, source code, commands, project names, raw paths, emails, or account/model identifiers.
+- **After disconnecting:** deleting the PunchGrow cache does not edit or delete the original Claude Code or Codex logs.
 
-### `NETWORK EDGE`
+### Network boundary
 
-- The update check (comparing a public GitHub Releases tag against the installed version) is the only network request PunchGrow itself sends. It is unauthenticated and carries no usage numbers or game state. A successful check is followed by one a day later; a failed one retries on a backoff starting at 60 seconds and capped at 24 hours. Turn it off anytime from **Settings > Data & Settings > 업데이트**.
-- Separately, while collection is enabled PunchGrow runs the Claude Code status-line script noted above about once a minute, and that script queries the provider for plan usage with its own credentials. The script sends the request, but it goes out when it does because PunchGrow spawned the script. PunchGrow never reads those credentials. Turning collection off stops those runs.
+- **PunchGrow update check:** comparing a public GitHub Releases tag against the installed version is the only network request PunchGrow itself sends. It is unauthenticated and carries no usage numbers or game state.
+- **Check cadence:** after success, the next check runs a day later. Failures retry with a backoff from 60 seconds to 24 hours. Turn it off anytime from **Settings > Data & Settings > 업데이트**.
+- **Claude status-line refresh:** while collection is enabled, PunchGrow runs Claude Code's status-line script about once a minute. That script queries the provider with its own credentials; PunchGrow never reads them. Turning collection off stops these runs.
 
 See [the macOS documentation](macos/README.md) for the detailed collection and status model.
 
 <!-- readme-section:screens -->
 <a name="live-systems"></a>
-## `04 // LIVE SYSTEMS` — Actual app screens
+## Actual app screens
 
 These are captures rendered by the current SwiftUI app. They use fixed documentation sample data and contain no user's private logs, prompts, or source code.
 
@@ -145,7 +143,7 @@ These are captures rendered by the current SwiftUI app. They use fixed documenta
 
 <!-- readme-section:game-rules -->
 <a name="game-engine"></a>
-## `05 // GAME ENGINE` — Game rules
+## Game rules
 
 | Rule | Alpha value |
 | --- | --- |
@@ -166,19 +164,15 @@ These are captures rendered by the current SwiftUI app. They use fixed documenta
 
 ### Growth and evolution
 
-Draws never grant a higher-stage evolution directly. Every owned creature starts as PROCESS and grows as feeding raises its level. The UI separates the actual `Current <rarity>` from `Maximum reachable rarity <rarity>` — the ceiling reachable through selectable paths, excluding mutations — and pairs it with a minimum guaranteed rarity so an unclaimed fork does not read as a promise.
-
-At each evolution fork (level 15 or level 25), you choose the evolution direction yourself from 2 options. Evolution pauses at the fork with a badge until you choose, and the choice applies to that evolution only — the next fork asks again.
-
-The 10 `mixed` species combine unrelated creature families, so they are treated as fusion collectibles rather than same-individual growth. They never appear in automatic evolution, fork choices, potential calculations, or ordinary Evolution Dex ancestry. Existing saves that already own one keep it safely; its Evolution Dex shows only the actual current fusion form and does not invent a parent history.
-
-Lineages with a mutation candidate get a 10% chance to trigger a mutation offer at the level-15 evolution, asking you to accept or decline. Accepting ends growth on the spot as a terminal mutant form; declining continues the evolution to the original target selected by the user or automatically determined before the offer. A missed chance can be retried with `변이 재도전` (Mutation Retry, 1,000,000 tokens per attempt, 10% chance); 30 failed retries in the same lineage guarantee the next attempt succeeds.
-
-A creature raised to its final stage can use `계승` (Inheritance, 5,000,000 tokens) to obtain a new individual of the same starting species for raising a different fork. An ORIGIN-lineage draw is still a current PROCESS creature; the dedicated ORIGIN reveal is reserved for actually owning an ORIGIN species. A lineage with no next-stage catalog entry keeps its current form and can continue growing.
+- **Draws and rarity:** draws never grant a higher-stage evolution directly. Every creature starts as PROCESS and grows through feeding. The UI separates actual `Current <rarity>` from `Maximum reachable rarity <rarity>`—the selectable-path ceiling excluding mutations—and also shows the minimum guaranteed rarity.
+- **Evolution forks:** at level 15 or 25, choose one of two directions. Evolution pauses with a badge until you choose, and the choice applies only to that evolution; the next fork asks again.
+- **Fusion collectibles:** the 10 `mixed` species combine unrelated families and stay outside ordinary evolution, forks, potential calculations, and Evolution Dex ancestry. Existing saves keep owned fusions safely and show only their actual current form.
+- **Mutations:** candidate lineages have a 10% chance to offer a mutation at level 15. Accepting ends growth as a terminal mutant form; declining continues the evolution to the original target selected by the user or automatically determined before the offer. `변이 재도전` (Mutation Retry) costs 1,000,000 tokens at a 10% success rate, with the next attempt guaranteed after 30 failures in the same lineage.
+- **Inheritance:** a final-stage creature can spend 5,000,000 tokens to produce a new individual of the same starting species for another fork. An ORIGIN-lineage draw is still a current PROCESS creature; the dedicated reveal requires actually owning an ORIGIN species. A lineage with no next-stage entry keeps its current form and can continue growing.
 
 <!-- readme-section:creatures -->
 <a name="creature-signal"></a>
-## `06 // CREATURE SIGNAL` — The creature world
+## The creature world
 
 ### The four Elemental Origin lineages
 
@@ -215,7 +209,7 @@ Water, fire, wind, and earth each grow through `PROCESS → AGENT → DAEMON →
 
 <!-- readme-section:actual-plan-usage -->
 <a name="usage-signal"></a>
-## `07 // USAGE SIGNAL` — Actual plan usage
+## Actual plan usage
 
 The `C n%` and `X n%` values in the menu bar are not token-based estimates.
 
@@ -230,7 +224,7 @@ The `C n%` and `X n%` values in the menu bar are not token-based estimates.
 
 <!-- readme-section:walkthrough -->
 <a name="first-run"></a>
-## `08 // FIRST RUN` — Five-minute walkthrough
+## Five-minute walkthrough
 
 1. Launch PunchGrow and find its creature in the macOS menu bar rather than the Dock.
 2. Open the popup, choose `Settings` in the footer, then select `Connections` in the large window's sidebar.
@@ -240,7 +234,7 @@ The `C n%` and `X n%` values in the menu bar are not token-based estimates.
 
 <!-- readme-section:repository -->
 <a name="source-map"></a>
-## `09 // SOURCE MAP` — What's in this repository
+## What's in this repository
 
 | Area | Status | Purpose |
 | --- | --- | --- |
@@ -254,13 +248,21 @@ The `C n%` and `X n%` values in the menu bar are not token-based estimates.
 
 [Open the repository map with task-based starting points and dependencies →](docs/PROJECT_STRUCTURE.md#english)
 
-The current game includes a 64-species stage-one draw pool, level 15/25/40 evolution with fork choices, mutations, inheritance, 10 standalone fusion collectibles outside ordinary evolution, six evolution tiers (`PROCESS` → `ORIGIN`), unique-color variants, feeding, local save/restore, and a 256-creature catalog.
+<details>
+<summary><strong>Currently included game features</strong></summary>
 
-In the macOS popup, holding a normal/large food purchase or feed button accelerates repeated actions until release. Draw feedback and the main card show current rarity and maximum reachable rarity separately. The fixed footer's `Rarity` guide separates direct `PROCESS 100%` draws from maximum-reachable-rarity lineage proportions such as `ORIGIN lineage 7/64 (about 10.9%)`, plus owned, discovered, and total creature counts by tier. `Evolution` shows the selected creature's complete image-based lineage and marks only the forms that this individual actually passed through as owned, previewable, and available to fix as its displayed appearance; future stages and unchosen sibling branches remain locked. `Collection` and `Settings` open the large window directly. Higher stages receive progressively richer badge, frame, and aura effects.
+- **Catalog:** 64 stage-one draw species, a 256-creature dex, and 10 fusion collectibles outside ordinary evolution
+- **Growth:** level 15/25/40 evolution, fork choices, mutations, inheritance, and six tiers (`PROCESS` → `ORIGIN`)
+- **Raising:** unique-color variants, feeding, local save/restore, and pressing and holding purchase or feed buttons to accelerate repeated actions until release
+- **Rarity display:** current versus reachable rarity, direct-draw odds, lineage proportions, and owned/discovered/total counts remain separate
+- **Evolution Dex:** shows the selected creature's complete image-based lineage, including tiers and branches. Forms this individual actually passed through remain owned, previewable, and available to set as its displayed appearance; future stages and unchosen sibling branches stay locked.
+- **Windows and effects:** `Collection` and `Settings` open the large window, while higher stages receive richer badges, frames, and auras.
+
+</details>
 
 <!-- readme-section:source-build -->
 <a name="source-build"></a>
-## `10 // BUILD FROM SOURCE` — Build from source
+## Build from source
 
 Requirements: Apple Silicon, macOS 14 or newer, and a matched Full Xcode / Command Line Tools installation.
 
@@ -276,7 +278,7 @@ The app assembled from current `main` contains 256 creatures and is ad-hoc signe
 
 <!-- readme-section:verification -->
 <a name="verification"></a>
-## `11 // VERIFICATION` — Verification
+## Verification
 
 Run the checks relevant to the area you changed:
 
@@ -294,7 +296,7 @@ Some macOS checks require a compatible installed Apple SDK. The creature verific
 
 <!-- readme-section:contributing -->
 <a name="contributing"></a>
-## `12 // CONTRIBUTE` — Contributing
+## Contributing
 
 Issues and focused pull requests are welcome. New to open source? The [contributing guide](CONTRIBUTING.en.md) walks through the whole fork-to-PR flow. Before opening a pull request:
 
@@ -306,18 +308,18 @@ Use the [support guide](SUPPORT.md#english) for general help and the private pat
 
 <!-- readme-section:licenses -->
 <a name="license-boundary"></a>
-## `13 // LICENSE BOUNDARY` — Licenses and artwork
+## Licenses and artwork
 
 <p>
   <img alt="Swift 6" src="https://img.shields.io/badge/Swift-6-FF4D9D?style=flat-square&logo=swift&logoColor=white" />
   <img alt="MIT source license" src="https://img.shields.io/badge/source-MIT-FFB84D?style=flat-square" />
 </p>
 
-Source code is available under the [MIT License](LICENSE).
-
-Creature images and other visual artwork are **not** licensed under MIT. They are provided only so people can run, evaluate, and contribute to PunchGrow locally. A fork kept to propose changes back to the official repository (pull requests) may keep the artwork as is; any other public redistribution or standalone release must remove or replace the protected artwork unless it has separate written permission. Read [ASSET-LICENSE.md](ASSET-LICENSE.md) for the exact terms.
-
-Third-party acknowledgements are listed in [ATTRIBUTIONS.md](ATTRIBUTIONS.md).
+- **Source code:** available under the [MIT License](LICENSE).
+- **Visual assets:** creature images and other artwork are not licensed under MIT. They are provided only for local use, evaluation, and contribution.
+- **Contribution forks:** forks used to propose pull requests back to the official repository may keep the artwork as is.
+- **Other redistribution:** remove or replace the protected artwork unless you have separate written permission. See [ASSET-LICENSE.md](ASSET-LICENSE.md) for the exact terms.
+- **Third-party sources:** listed in [ATTRIBUTIONS.md](ATTRIBUTIONS.md).
 
 <!-- readme-section:acknowledgement -->
 ## Acknowledgement

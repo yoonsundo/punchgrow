@@ -111,7 +111,20 @@ const imageSources = Object.fromEntries(
     collect(/<img\b[^>]*\bsrc="([^"]+)"/g, text),
   ]),
 );
-sameSequence("Image source sequence", imageSources.ko, imageSources.en);
+const localizedImagePairs = new Map([
+  [
+    "docs/diagrams/punchgrow-growth-loop.en.svg",
+    "docs/diagrams/punchgrow-growth-loop.svg",
+  ],
+]);
+const normalizedEnglishImageSources = imageSources.en.map(
+  (source) => localizedImagePairs.get(source) ?? source,
+);
+sameSequence("Image source sequence", imageSources.ko, normalizedEnglishImageSources);
+check(
+  imageSources.en.includes("docs/diagrams/punchgrow-growth-loop.en.svg"),
+  "English README must use the localized growth-loop diagram",
+);
 
 const tableSignals = Object.fromEntries(
   Object.entries(readmes).map(([locale, text]) => [
@@ -162,7 +175,7 @@ const localizedClaims = [
   [
     "owned past forms can become the displayed appearance",
     /미리 보거나 외형으로 고정/,
-    /available to fix as its displayed appearance/,
+    /available to set as its displayed appearance/,
   ],
   [
     "user guide includes privacy coverage",
