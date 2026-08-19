@@ -1,6 +1,6 @@
 services:
   postgres:
-    image: postgres:17-alpine
+    image: postgres:17-alpine@sha256:18cfe3ef5e6815560c98237d6216d1e5119702fb0f3894c8785dd58b8bbe5d73
     environment:
       POSTGRES_DB: punchgrow
       POSTGRES_USER: punchgrow
@@ -36,7 +36,8 @@ services:
       CORS_ORIGIN: http://localhost:5173
       NODE_ENV: production
       AUTH_MODE: local
-      COLLECTOR_SECRET: ${COLLECTOR_SECRET:-punchgrow-local-collector}
+      HOST: 0.0.0.0
+      COLLECTOR_SECRET:
     depends_on:
       migrate:
         condition: service_completed_successfully

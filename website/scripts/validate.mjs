@@ -108,14 +108,25 @@ if (failures.length === 0) {
     }
   }
   const readmes = await Promise.all(['README.md', 'README.en.md'].map((path) => readFile(join(repositoryRoot, path), 'utf8')));
+  const dexScript = await readFile(join(root, 'dex.js'), 'utf8');
+  if (/style\s*=/.test(dexScript)) {
+    failures.push('dex.js must not generate inline styles that the static-site CSP blocks');
+  }
   const releaseTruthClaims = [
     [sourceText[0], 'Homebrew v0.4.0 릴리스와 현재 <code>main</code> 소스·공개 도감에는 모두 64개 시작 계보·256종', 'ORIGIN 도달 계보 7/64(약 10.9%)', 'Korean homepage'],
     [sourceText[1], 'Homebrew v0.4.0, current <code>main</code>, and the public dex all contain 64 starting lineages and 256 creatures', '7 of 64 lineages (about 10.9%) able to reach ORIGIN', 'English homepage'],
-    [readmes[0], '2026-08-18에 게시한 Homebrew 릴리스는 **64개 시작 계보·256종**', '현재 소스와 공개 도감도 릴리스와 동일한 **64개 시작 계보·256종**', 'Korean README'],
-    [readmes[1], 'The Homebrew release published on 2026-08-18 contains **64 starting lineages and 256 creatures**', 'Current source and the public dex match the release: **64 starting lineages and 256 creatures**', 'English README'],
   ];
   for (const [contents, releasedClaim, currentClaim, label] of releaseTruthClaims) {
     if (!contents.includes(releasedClaim) || !contents.includes(currentClaim)) {
+      failures.push(`${label} must state the shared v0.4.0 release and current-main 64-lineage/256-creature contract`);
+    }
+  }
+  const readmeReleaseTruthClaims = [
+    [readmes[0], /\*\*2026-08-18 Homebrew 릴리스\*\*[\s\S]{0,120}64개 시작 계보 · 256종/, /\*\*현재 소스·공개 도감\*\*[\s\S]{0,120}64개 시작 계보 · 256종/, 'Korean README'],
+    [readmes[1], /\*\*2026-08-18 Homebrew release\*\*[\s\S]{0,140}64 starting lineages · 256 creatures/, /\*\*Current source and public dex\*\*[\s\S]{0,140}64 starting lineages · 256 creatures/, 'English README'],
+  ];
+  for (const [contents, releasedClaim, currentClaim, label] of readmeReleaseTruthClaims) {
+    if (!releasedClaim.test(contents) || !currentClaim.test(contents)) {
       failures.push(`${label} must state the shared v0.4.0 release and current-main 64-lineage/256-creature contract`);
     }
   }
@@ -149,7 +160,6 @@ if (failures.length === 0) {
       failures.push(`${locale} dex must include a meaningful localized no-script fallback and source catalog route`);
     }
   });
-  const dexScript = await readFile(join(root, 'dex.js'), 'utf8');
   if (!dexScript.includes("visible.filter((lineage) => lineage.maxGrade !== 'FUSION')") || !dexScript.includes('copy.fusionCollectibles')) {
     failures.push('dex result semantics must count fusion collectibles separately from lineages');
   }

@@ -1,23 +1,22 @@
 import { createServer, type IncomingMessage, type ServerResponse } from 'node:http';
-import { createHmac, randomBytes, randomInt, randomUUID, timingSafeEqual } from 'node:crypto';
+import { createHmac, randomInt, randomUUID, timingSafeEqual } from 'node:crypto';
 import { pool, transaction } from './db.js';
 import { activityAdjustedWeights, GACHA_COST, isUuid, parseTokenEvent, RARITIES, safeInt, selectRarity, WEEKLY_USAGE_FOR_MAXIMUM_BONUS } from './domain.js';
+import { allowedCorsOrigin, collectorSecretMatches, CORS_ALLOW_HEADERS, loadSecurityConfig, SessionAdmissionLimiter } from './security.js';
 
 const PORT = Number(process.env.PORT ?? 4000);
+const security = loadSecurityConfig(process.env);
 const BODY_LIMIT = 16 * 1024;
 const CORS_ORIGIN = process.env.CORS_ORIGIN ?? 'http://localhost:5173';
 const CATEGORIES = new Set(['start','normal_evolution','branch','mixed','special','mutant']);
 const rateLimits = new Map<string, number>();
-const AUTH_MODE = process.env.AUTH_MODE ?? 'local';
-const SESSION_SECRET = process.env.SESSION_SECRET ?? randomBytes(32).toString('base64url');
-const COLLECTOR_SECRET = process.env.COLLECTOR_SECRET ?? 'punchgrow-local-collector';
-if (AUTH_MODE !== 'local' && !process.env.SESSION_SECRET) throw new Error('SESSION_SECRET is required outside local mode');
+const sessionAdmissions = new SessionAdmissionLimiter();
 
 class HttpError extends Error { constructor(public status: number, message: string) { super(message); } }
 
 function headers(res: ServerResponse) {
   res.setHeader('content-type', 'application/json; charset=utf-8');
-  res.setHeader('access-control-allow-headers', 'content-type,authorization,x-collector-secret');
+  res.setHeader('access-control-allow-headers', CORS_ALLOW_HEADERS);
   res.setHeader('access-control-allow-methods', 'GET,POST,OPTIONS');
   res.setHeader('x-content-type-options', 'nosniff');
   res.setHeader('referrer-policy', 'no-referrer');
@@ -25,12 +24,8 @@ function headers(res: ServerResponse) {
 }
 
 function applyCors(req: IncomingMessage, res: ServerResponse) {
-  const origin = req.headers.origin;
-  if (!origin) { res.setHeader('access-control-allow-origin', CORS_ORIGIN); return; }
-  const configured = CORS_ORIGIN.split(',').map((item) => item.trim());
-  let local = false;
-  try { const url = new URL(origin); local = url.protocol === 'http:' && ['localhost', '127.0.0.1'].includes(url.hostname); } catch { /* ignored */ }
-  if (configured.includes(origin) || local) {
+  const origin = allowedCorsOrigin(req.headers.origin, CORS_ORIGIN);
+  if (origin) {
     res.setHeader('access-control-allow-origin', origin);
     res.setHeader('vary', 'Origin');
   }
@@ -54,7 +49,7 @@ function playerId(req: IncomingMessage): string {
   if (!authorization?.startsWith('Bearer ')) throw new HttpError(401, 'authenticated session required');
   const [encoded, signature, extra] = authorization.slice(7).split('.');
   if (!encoded || !signature || extra) throw new HttpError(401, 'invalid session');
-  const expected = createHmac('sha256', SESSION_SECRET).update(encoded).digest();
+  const expected = createHmac('sha256', security.sessionSecret).update(encoded).digest();
   let supplied: Buffer;
   try { supplied = Buffer.from(signature, 'base64url'); } catch { throw new HttpError(401, 'invalid session'); }
   if (supplied.length !== expected.length || !timingSafeEqual(supplied, expected)) throw new HttpError(401, 'invalid session');
@@ -67,7 +62,7 @@ function playerId(req: IncomingMessage): string {
 
 function createSession() {
   const encoded = Buffer.from(JSON.stringify({ player: randomUUID(), issuedAt: Date.now() })).toString('base64url');
-  const signature = createHmac('sha256', SESSION_SECRET).update(encoded).digest('base64url');
+  const signature = createHmac('sha256', security.sessionSecret).update(encoded).digest('base64url');
   return `${encoded}.${signature}`;
 }
 
@@ -123,8 +118,10 @@ async function gameState(req: IncomingMessage, res: ServerResponse) {
 }
 
 async function ingest(req: IncomingMessage, res: ServerResponse) {
+  if (!security.collectorSecretHash) throw new HttpError(503, 'token ingestion is disabled: COLLECTOR_SECRET is not configured');
   const id = playerId(req);
-  if (req.headers['x-collector-secret'] !== COLLECTOR_SECRET) throw new HttpError(401, 'paired collector required');
+  const suppliedSecret = req.headers['x-collector-secret'];
+  if (!collectorSecretMatches(typeof suppliedSecret === 'string' ? suppliedSecret : undefined, security.collectorSecretHash)) throw new HttpError(401, 'paired collector required');
   let event; try { event = parseTokenEvent(await body(req)); } catch (error) { throw new HttpError(400, (error as Error).message); }
   const result = await transaction(async (client) => {
     await client.query('INSERT INTO players(id) VALUES ($1) ON CONFLICT DO NOTHING', [id]);
@@ -198,7 +195,10 @@ const server = createServer(async (req, res) => {
     if (req.method === 'GET' && url.pathname === '/health') {
       await pool.query('SELECT 1'); return send(res, 200, { status: 'ok', catalog: Number((await pool.query('SELECT count(*) FROM catalog_creatures')).rows[0].count) });
     }
-    if (req.method === 'POST' && url.pathname === '/api/session') return send(res, 201, { token: createSession() });
+    if (req.method === 'POST' && url.pathname === '/api/session') {
+      if (!sessionAdmissions.admit(req.socket.remoteAddress ?? 'unknown')) throw new HttpError(429, 'session admission rate exceeded');
+      return send(res, 201, { token: createSession() });
+    }
     if (req.method === 'GET' && url.pathname === '/api/catalog') return await catalog(url, res);
     if (req.method === 'GET' && url.pathname === '/api/game-state') return await gameState(req, res);
     if (req.method === 'POST' && url.pathname === '/api/token-ingestions') return await ingest(req, res);
@@ -212,6 +212,6 @@ const server = createServer(async (req, res) => {
   }
 });
 
-server.listen(PORT, '0.0.0.0', () => console.log(`PunchGrow API listening on :${PORT}`));
+server.listen(PORT, security.host, () => console.log(`PunchGrow API listening on ${security.host}:${PORT}`));
 
 for (const signal of ['SIGTERM', 'SIGINT'] as const) process.on(signal, () => server.close(() => pool.end().finally(() => process.exit(0))));

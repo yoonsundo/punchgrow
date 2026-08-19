@@ -1,11 +1,13 @@
 #!/usr/bin/env node
 
+import { createHash } from "node:crypto";
 import { access, readFile, readdir } from "node:fs/promises";
 import path from "node:path";
 import process from "node:process";
 
 const outputRoot = path.resolve(process.argv[2] ?? "website/dist");
 const errors = [];
+const contentSecurityPolicy = "default-src 'self'; base-uri 'none'; object-src 'none'; frame-src 'none'; form-action 'none'; connect-src 'self'; img-src 'self' data:; font-src 'self'; style-src 'self'; script-src 'self' 'sha256-Du+OJKJSbdUgz5nrHeWWINvez6XKDDU/tyj/5c2uvwo=' 'sha256-Bt/npEZSmp8M4HgBPGuGTb+g1a+11NKBnnid7mj1uec=' 'sha256-eejKdM244Fddqhz5BS95zSCdDV76bhyUPqu5tshRxaA='; upgrade-insecure-requests";
 
 try {
   await access(outputRoot);
@@ -49,12 +51,16 @@ console.log(
 async function listFiles(directory) {
   const entries = await readdir(directory, { withFileTypes: true });
   const nested = await Promise.all(
-    entries
-      .filter((entry) => !entry.isSymbolicLink())
-      .map((entry) => {
-        const entryPath = path.join(directory, entry.name);
-        return entry.isDirectory() ? listFiles(entryPath) : [entryPath];
-      }),
+    entries.map((entry) => {
+      const entryPath = path.join(directory, entry.name);
+      if (entry.isSymbolicLink()) {
+        errors.push(
+          `${toPosix(path.relative(outputRoot, entryPath))}: symbolic links are not allowed in the deployment artifact`,
+        );
+        return [];
+      }
+      return entry.isDirectory() ? listFiles(entryPath) : [entryPath];
+    }),
   );
   return nested.flat().sort();
 }
@@ -70,6 +76,21 @@ function validateHtml(relativePath, html) {
     "missing viewport metadata",
   );
   requireMatch(relativePath, html, /<title\b[^>]*>\s*[^<\s][^<]*<\/title>/i, "missing page title");
+  if (!html.includes(`<meta http-equiv="Content-Security-Policy" content="${contentSecurityPolicy}">`)) {
+    errors.push(`${relativePath}: missing the locked static-site Content Security Policy`);
+  }
+  if (!html.includes('<meta name="referrer" content="no-referrer">')) {
+    errors.push(`${relativePath}: missing no-referrer metadata`);
+  }
+  if (/\sstyle=["']/i.test(html)) {
+    errors.push(`${relativePath}: inline style attributes are blocked by the static-site policy`);
+  }
+  for (const match of html.matchAll(/<script\b(?![^>]*\bsrc=)[^>]*>([\s\S]*?)<\/script>/gi)) {
+    const hash = createHash("sha256").update(match[1]).digest("base64");
+    if (!contentSecurityPolicy.includes(`'sha256-${hash}'`)) {
+      errors.push(`${relativePath}: inline script is missing its exact CSP hash`);
+    }
+  }
 
   const ids = new Set();
   for (const match of html.matchAll(/\bid=["']([^"']+)["']/gi)) {

@@ -6,7 +6,7 @@
   "scripts": {
     "build": "tsc -p tsconfig.json && node scripts/build.mjs",
     "dev": "node scripts/dev-server.mjs",
-    "test": "npm run build"
+    "test": "node --test scripts/*.test.mjs && npm run build"
   },
   "devDependencies": {
     "typescript": "6.0.3"

@@ -16,6 +16,15 @@ if (dexRoot && dexSearch && dexFilters && dexResult) {
   };
   const gradeOrder = ['ORIGIN', 'ARCHITECT', 'ORACLE', 'DAEMON', 'AGENT', 'FUSION'];
   const gradeRank = Object.fromEntries(gradeOrder.filter((grade) => grade !== 'FUSION').map((grade, index) => [grade, gradeOrder.length - index]));
+  const rarityClasses = {
+    PROCESS: { card: 'rarity-process', story: 'story-glow-process' },
+    AGENT: { card: 'rarity-agent', story: 'story-glow-agent' },
+    DAEMON: { card: 'rarity-daemon', story: 'story-glow-daemon' },
+    ORACLE: { card: 'rarity-oracle', story: 'story-glow-oracle' },
+    ARCHITECT: { card: 'rarity-architect', story: 'story-glow-architect' },
+    ORIGIN: { card: 'rarity-origin', story: 'story-glow-origin' },
+  };
+  const fallbackRarityClasses = { card: 'rarity-process', story: 'story-glow-default' };
   const assetPrefix = english ? '../../' : '../';
   let activeGrade = 'ALL';
   let lineages = [];
@@ -73,8 +82,9 @@ if (dexRoot && dexSearch && dexFilters && dexResult) {
     }
 
     const name = english ? creature.enName : creature.koName;
+    const rarityClass = rarityClasses[creature.rarity] ?? fallbackRarityClasses;
     const matches = needle && [creature.id, creature.koName, creature.enName, creature.rarity].join(' ').toLocaleLowerCase().includes(needle);
-    return `<article class="dex-creature rarity-${creature.rarity.toLowerCase()}${matches ? ' is-match' : ''}"><button class="dex-card-button" type="button" data-creature-id="${creature.id}" aria-label="${english ? `${copy.viewDetails} ${escapeHtml(name)}` : `${escapeHtml(name)} ${copy.viewDetails}`}">
+    return `<article class="dex-creature ${rarityClass.card}${matches ? ' is-match' : ''}"><button class="dex-card-button" type="button" data-creature-id="${creature.id}" aria-label="${english ? `${copy.viewDetails} ${escapeHtml(name)}` : `${escapeHtml(name)} ${copy.viewDetails}`}">
       <div class="dex-art"><img src="${assetPrefix}${creature.image}" loading="lazy" width="360" height="360" alt="${escapeHtml(name)} — ${escapeHtml(creature.id)}, ${creature.rarity}, ${copy.stage} ${creature.stage}"></div>
       <div class="dex-card-copy"><div><span class="dex-id">${escapeHtml(creature.id)}</span>${tag ? `<span class="dex-branch">${tag}</span>` : ''}</div><strong>${escapeHtml(name)}</strong><small>${copy.stage} ${creature.stage} · ${creature.rarity}</small></div>
     </button></article>`;
@@ -107,11 +117,11 @@ if (dexRoot && dexSearch && dexFilters && dexResult) {
     if (!storyDialog || !storyContent) return;
     const name = english ? creature.enName : creature.koName;
     const alternateName = english ? creature.koName : creature.enName;
-    const color = creature.palette?.glow ?? '#c6f84e';
+    const rarityClass = rarityClasses[creature.rarity] ?? fallbackRarityClasses;
     const details = english
       ? `<section><h3>${copy.profile}</h3><p>${copy.translationNotice}</p></section><dl><div><dt>${copy.catalogId}</dt><dd>${escapeHtml(creature.id)}</dd></div><div><dt>${copy.starterLineage}</dt><dd>${escapeHtml(creature.rootLineageId)}</dd></div><div><dt>${copy.category}</dt><dd>${escapeHtml(creature.category)}</dd></div><div><dt>${copy.stage}</dt><dd>${creature.stage} / ${creature.rarity}</dd></div></dl>`
       : `<section><h3>${copy.identity}</h3><p>${escapeHtml(creature.identity)}</p></section><section><h3>${copy.story}</h3><p>${escapeHtml(creature.lore)}</p></section><dl><div><dt>${copy.form}</dt><dd>${escapeHtml(creature.bodyForm)}</dd></div><div><dt>${copy.tone}</dt><dd>${escapeHtml(creature.tone)}</dd></div></dl><section><h3>${copy.motifs}</h3><ul>${(creature.shapeDNA ?? []).map((item) => `<li>${escapeHtml(item)}</li>`).join('')}</ul></section>`;
-    storyContent.innerHTML = `<div class="story-art" style="--story-glow:${escapeHtml(color)}"><img src="${assetPrefix}${creature.image}" width="360" height="360" alt="${escapeHtml(name)}"></div><div class="story-copy"><p class="eyebrow">${escapeHtml(creature.id)} / ${creature.rarity} / ${copy.stage} ${creature.stage}</p><h2 id="story-title">${escapeHtml(name)}${english ? '' : ` <small>${escapeHtml(alternateName)}</small>`}</h2>${details}</div>`;
+    storyContent.innerHTML = `<div class="story-art ${rarityClass.story}"><img src="${assetPrefix}${creature.image}" width="360" height="360" alt="${escapeHtml(name)}"></div><div class="story-copy"><p class="eyebrow">${escapeHtml(creature.id)} / ${creature.rarity} / ${copy.stage} ${creature.stage}</p><h2 id="story-title">${escapeHtml(name)}${english ? '' : ` <small>${escapeHtml(alternateName)}</small>`}</h2>${details}</div>`;
     storyDialog.showModal();
   }
 

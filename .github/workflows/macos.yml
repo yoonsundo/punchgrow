@@ -17,15 +17,17 @@ jobs:
       run:
         working-directory: macos
     steps:
-      - uses: actions/checkout@v7
-      - uses: actions/setup-node@v7
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020 # v7
         with:
           node-version: 22
           cache: npm
           cache-dependency-path: package-lock.json
       - name: Install audit dependencies
         working-directory: .
-        run: npm ci
+        run: npm ci --ignore-scripts
       - name: Show toolchain
         run: |
           xcode-select -p

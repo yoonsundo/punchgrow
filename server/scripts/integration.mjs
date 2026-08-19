@@ -22,7 +22,9 @@ const forged = await fetch(`${base}/api/game-state`, { headers: { authorization:
 assert.equal(forged.status, 401);
 const unsigned = await request('/api/token-ingestions', { method: 'POST', body: JSON.stringify(event) });
 assert.equal(unsigned.response.status, 401);
-const collectorHeaders = { 'x-collector-secret': process.env.COLLECTOR_SECRET ?? 'punchgrow-local-collector' };
+const collectorSecret = process.env.COLLECTOR_SECRET;
+assert.ok(collectorSecret, 'COLLECTOR_SECRET must be configured for integration tests');
+const collectorHeaders = { 'x-collector-secret': collectorSecret };
 const privacy = await request('/api/token-ingestions', { method: 'POST', headers: collectorHeaders, body: JSON.stringify({ ...event, prompt: 'never store me' }) });
 assert.equal(privacy.response.status, 400);
 const accepted = await request('/api/token-ingestions', { method: 'POST', headers: collectorHeaders, body: JSON.stringify(event) });
