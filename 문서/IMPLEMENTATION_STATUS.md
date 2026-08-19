@@ -8,7 +8,7 @@
 - Node API: HMAC 서명 세션, 수집기 비밀키, 개인정보 필드 거부형 토큰 적립, 중복 방지, 주간 활동 보너스, 500,000토큰 가챠, 300회 실패 후 다음 ORIGIN 천장, 유니크 컬러 0.1%, 먹이 성장.
 - 웹 MVP: 실제 PostgreSQL 데이터로 주간 사용량, 잔액, 가챠, 천장, 보유 크리처, 도감, 먹이 성장을 표시한다.
 - Expo 기반: iOS·Android·Web 공용 화면이 같은 API의 실제 상태를 읽고 가챠와 먹이를 실행한다. `Cute Clarity v2` 기본 240종과 원초 계보 16종 카드 이미지, 가상화 도감, 미발견 실루엣, 안전 영역과 기본 접근성을 포함한다.
-- macOS 소스: SwiftUI `MenuBarExtra`, 실제 256종 이미지, 로컬 게임/백업, 제한 메모리 JSONL 자동 수집, 실제 Claude/Codex 주간 플랜 사용률, 대형·특대형 먹이, 240ms 누름 뒤 80→35ms로 가속하는 반복 실행, 레거시 일반 먹이의 5:1 전환·잔여분 환급, 등급별 효과와 Lv.15·25·40 진화 단계표가 구현되어 있다.
+- macOS 소스: SwiftUI `MenuBarExtra`, 실제 256종 이미지, 로컬 게임/백업, 제한 메모리 JSONL 자동 수집, 실제 Claude/Codex 주간 플랜 사용률, 대형·특대형 먹이, 240ms 누름 뒤 80→35ms로 가속하는 반복 실행, 레거시 일반 먹이의 5:1 전환·잔여분 환급, 등급별 효과와 Lv.15·25·40 진화 단계표, 대표 크리처를 표시하는 선택형 데스크톱 펫이 구현되어 있다.
 - 배포 준비: 코드 MIT와 이미지 권리 유보를 분리했다. Homebrew Cask는 무결성 검증을 우회하지 않는 생성 템플릿만 제공한다.
 
 ## 검증된 것
@@ -26,12 +26,12 @@
 - 실제 로컬 공급자 데이터에서 Claude 주간 100%, Codex 주간 45%를 읽어 각 서비스 화면의 값과 일치함을 확인했다.
 - 구현·보안·디자인 검토 원장 14회를 완료했고, 마지막 독립 Swift/모바일 재검토에서 남은 P0·P1은 없었다. 검토 증거는 `.omx/reviews/`에 있다.
 - 이후 macOS 실빌드/Homebrew와 공급망 감사를 포함해 검토 원장을 16회로 확장했다. 서버·웹은 독립 lockfile과 `npm ci` 재빌드에서 취약점 0, Expo는 `xcode@3.0.1`에만 `uuid@11.1.1`을 제한해 깨끗한 설치·감사·config·export에서 취약점 0을 확인했다.
+- Xcode 26.6을 명령별 `DEVELOPER_DIR`로 선택해 macOS 전체 테스트 355개, 데스크톱 펫 전용 테스트 9개, Release 앱 조립과 ad-hoc 서명 검증을 통과했다. 대표 3종의 전경 컷아웃 투명도도 확인했다.
 
 ## 아직 완료가 아닌 것
 
-- 이 Mac의 기본 Command Line Tools는 Swift 6.3.3과 기본 SDK의 Swift 6.3.2가 어긋난다. 앱 빌드는 함께 설치된 macOS 15.4 SDK를 `build-app.sh`가 자동 선택해 해결했다. 다만 최신 `Testing.framework`는 15.4 SDK의 Swift 표준 라이브러리와 맞지 않아 `swift test` 실행만 Full Xcode 또는 일치하는 CLT 설치 후 다시 검증해야 한다.
+- 이 Mac의 전역 `xcode-select`는 사전 빌드 Swift 모듈이 빠진 Command Line Tools를 가리킨다. 시스템 설정을 바꾸지 않고 각 명령에 `DEVELOPER_DIR=/Applications/Xcode.app/Contents/Developer`를 지정하면 일치하는 Xcode 26.6 툴체인으로 빌드·테스트할 수 있다.
 - `softwareupdate --list` 재확인 결과 별도 CLT 업데이트는 없고, 약 3.8GB의 macOS Tahoe 26.6 전체 업데이트만 제공된다. 이 작업은 시스템 재시작을 수반하므로 프로젝트 자동 작업 범위에서는 실행하지 않았다.
-- 전체 `swift test`는 현재 Command Line Tools에 XCTest 모듈이 없어 Full Xcode 또는 일치하는 CLT 환경에서 최종 실행이 남아 있다. 앱 소스의 Debug/Release 컴파일과 실제 GUI 실행은 통과했다.
 - Expo 웹은 서명 세션을 브라우저 저장소에 유지한다. 네이티브 iOS·Android의 재실행 간 세션 보존은 `expo-secure-store`를 설치해 Keychain/Keystore에 옮겨야 하며, 현재 개발 환경의 패키지 TLS 오류 때문에 메모리에만 유지된다.
 - 현재 서명 세션은 loopback 전용 로컬 MVP 경계다. 외부 공개·멀티 사용자 서비스 전에는 실제 계정 로그인, 키 회전, CSRF/남용 방지 정책을 추가해야 한다.
 - 로컬 `brew install --cask`는 통과했다. Developer ID 서명, Apple 공증, 공개 GitHub 릴리스 URL/SHA를 사용하는 공개 설치는 Apple 개발자 계정과 배포 단계가 필요하다.
