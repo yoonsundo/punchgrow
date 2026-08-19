@@ -6,21 +6,21 @@ import XCTest
 final class G001StateTests: XCTestCase {
 
   @MainActor
-  func testFoodPurchasePersistsBalanceAndInventoryTogether() throws {
+  func testLargeFoodPurchasePersistsBalanceAndInventoryTogether() throws {
     let directory = FileManager.default.temporaryDirectory.appending(path: UUID().uuidString)
     let persistence = GamePersistence(fileURL: directory.appending(path: "state.json"))
     var initial = GameState()
-    initial.tokenBalance = GameState.foodCost
-    initial.inventory.food = 0
+    initial.tokenBalance = GameState.largeFoodCost
+    initial.inventory.largeFood = 0
     try persistence.save(initial)
     let store = GameStore(persistence: persistence)
 
-    store.purchaseFood()
+    store.purchaseLargeFood()
 
     let reloaded = GameStore(persistence: persistence)
-    XCTAssertEqual(reloaded.state.schemaVersion, 2)
+    XCTAssertEqual(reloaded.state.schemaVersion, GameState.schemaVersion)
     XCTAssertEqual(reloaded.state.tokenBalance, 0)
-    XCTAssertEqual(reloaded.state.inventory.food, 1)
+    XCTAssertEqual(reloaded.state.inventory.largeFood, 1)
   }
 
   @MainActor
@@ -28,7 +28,7 @@ final class G001StateTests: XCTestCase {
     let persistence = try copiedV2Fixture()
     let store = GameStore(persistence: persistence)
 
-    XCTAssertTrue(store.state.schemaVersion == 2)
+    XCTAssertTrue(store.state.schemaVersion == GameState.schemaVersion)
     XCTAssertTrue(store.currentCreatureID == store.state.representativeCreatureID)
     XCTAssertTrue(store.currentCreatureCount == 2)
     XCTAssertTrue(store.canNavigateCreatures)
@@ -64,7 +64,11 @@ final class G001StateTests: XCTestCase {
 
   @MainActor
   func testFeedingTargetsCurrentWithoutChangingIdentities() throws {
-    let store = GameStore(persistence: try copiedV2Fixture())
+    let persistence = try copiedV2Fixture()
+    var seeded = try persistence.load()
+    seeded.inventory.largeFood = 1
+    try persistence.save(seeded)
+    let store = GameStore(persistence: persistence)
     let representative = store.state.representativeCreatureID
     store.selectNextCreature()
     let current = try XCTUnwrap(store.currentCreatureID)
@@ -74,10 +78,11 @@ final class G001StateTests: XCTestCase {
       store.state.ownedCreatures.first { $0.id == representative }
     ).experience
 
-    store.feedCurrent()
+    store.feedLargeCurrent()
 
     XCTAssertTrue(
-      store.state.ownedCreatures.first { $0.id == current }?.experience == priorCurrentXP + 25)
+      store.state.ownedCreatures.first { $0.id == current }?.experience
+        == priorCurrentXP + GameState.largeFoodExperience)
     XCTAssertTrue(
       store.state.ownedCreatures.first { $0.id == representative }?.experience
         == priorRepresentativeXP)
@@ -256,12 +261,13 @@ final class G001StateTests: XCTestCase {
     let store = GameStore(persistence: fixture.persistence, catalog: fixture.catalog)
     store.selectNextInGroup()
 
-    store.feedCurrent()
+    store.feedLargeCurrent()
 
     XCTAssertNil(store.errorMessage)
     XCTAssertEqual(store.currentCreatureID, fixture.group[1].id)
     XCTAssertEqual(
-      store.state.ownedCreatures.first { $0.id == fixture.group[1].id }?.experience, 25)
+      store.state.ownedCreatures.first { $0.id == fixture.group[1].id }?.experience,
+      GameState.largeFoodExperience)
     XCTAssertEqual(
       store.state.ownedCreatures.first { $0.id == fixture.group[0].id }?.experience, 0)
     XCTAssertEqual(
@@ -433,6 +439,49 @@ final class G001StateTests: XCTestCase {
   }
 
   @MainActor
+  func testFeedThatCreatesPendingChoiceConsumesExactlyOneItemAndStopsRepeatEligibility() throws {
+    let directory = FileManager.default.temporaryDirectory.appending(path: UUID().uuidString)
+    defer { try? FileManager.default.removeItem(at: directory) }
+    let persistence = GamePersistence(fileURL: directory.appending(path: "state.json"))
+    let creature = OwnedCreature(
+      id: UUID(), speciesID: "PG-002", originSpeciesID: "PG-002",
+      level: 14, experience: 1_390, affection: 0, nickname: nil,
+      uniqueColor: false, acquiredAt: .now)
+    var state = GameState()
+    state.ownedCreatures = [creature]
+    state.discoveredSpeciesIDs = [creature.speciesID]
+    state.inventory.largeFood = 2
+    try persistence.save(state)
+    let store = GameStore(persistence: persistence)
+
+    let succeeded = store.feedLargeCurrent()
+    let canRepeat = FeedRepeatPolicy.canRepeat(
+      creature: store.currentCreature, isPersistenceLocked: store.isPersistenceLocked,
+      hasPendingEvolutionChoice: store.pendingEvolutionChoice != nil,
+      hasPendingMutationOffer: store.pendingMutationOffer != nil)
+
+    XCTAssertTrue(succeeded)
+    XCTAssertEqual(store.state.inventory.largeFood, 1)
+    XCTAssertNotNil(store.pendingEvolutionChoice)
+    XCTAssertFalse(canRepeat)
+  }
+
+  func testExplicitPersistenceCreatesMissingParentDirectoryOnFirstSave() throws {
+    let root = FileManager.default.temporaryDirectory.appending(path: UUID().uuidString)
+    defer { try? FileManager.default.removeItem(at: root) }
+    let parent = root.appending(path: "fresh/nested")
+    let persistence = GamePersistence(fileURL: parent.appending(path: "state.json"))
+    var state = GameState()
+    state.tokenBalance = 1_234_567
+
+    XCTAssertFalse(FileManager.default.fileExists(atPath: parent.path))
+    try persistence.save(state)
+
+    XCTAssertTrue(FileManager.default.fileExists(atPath: persistence.fileURL.path))
+    XCTAssertEqual(try persistence.load(), state)
+  }
+
+  @MainActor
   func testFirstPullDoesNotImplicitlyCreateRepresentative() throws {
     let persistence = try copiedV2Fixture()
     var state = try persistence.load()
@@ -453,7 +502,7 @@ final class G001StateTests: XCTestCase {
     let persistence = try copiedV2Fixture()
     var state = try persistence.load()
     state.tokenBalance = 0
-    state.inventory.food = 0
+    state.inventory.largeFood = 0
     try persistence.save(state)
     let store = GameStore(persistence: persistence)
     store.selectNextCreature()
@@ -463,7 +512,7 @@ final class G001StateTests: XCTestCase {
     store.pull()
     XCTAssertTrue(store.currentCreatureID == current)
     XCTAssertTrue(store.state.representativeCreatureID == representative)
-    store.feedCurrent()
+    store.feedLargeCurrent()
     XCTAssertTrue(store.currentCreatureID == current)
     XCTAssertTrue(store.state.representativeCreatureID == representative)
   }
@@ -489,6 +538,7 @@ final class G001StateTests: XCTestCase {
     var state = try persistence.load()
     let staleID = UUID()
     state.representativeCreatureID = staleID
+    state.inventory.largeFood = 1
     try persistence.save(state)
 
     let store = GameStore(persistence: persistence)
@@ -503,7 +553,7 @@ final class G001StateTests: XCTestCase {
       inputTokens: 1, cachedTokens: 0, outputTokens: 0
     )
     store.ingestCollectedEvents([event])
-    store.feedCurrent()
+    store.feedLargeCurrent()
 
     let reloaded = GameStore(persistence: persistence)
     let raw = try JSONDecoder.punchGrow.decode(
@@ -888,7 +938,7 @@ private func groupedPersistence() throws -> GroupedFixture {
   let directory = FileManager.default.temporaryDirectory.appending(path: UUID().uuidString)
   let persistence = GamePersistence(fileURL: directory.appending(path: "state.json"))
   var state = GameState()
-  state.inventory.food = 5
+  state.inventory.largeFood = 5
   state.ownedCreatures = group + [other]
   state.discoveredSpeciesIDs = [species.id, otherSpecies.id]
   try persistence.save(state)

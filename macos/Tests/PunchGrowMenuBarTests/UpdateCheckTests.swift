@@ -44,11 +44,12 @@ private final class RecordingNotifier: UpdateNotifying, @unchecked Sendable {
 private struct StubFetchError: Error {}
 
 private func releasePayload(
-  tag: String, draft: Bool = false, prerelease: Bool = false
+  tag: String, draft: Bool = false, prerelease: Bool = false,
+  htmlURL: String? = nil
 ) -> Data {
   let object: [String: Any] = [
     "tag_name": tag,
-    "html_url": "https://github.com/yoonsundo/punchgrow/releases/tag/\(tag)",
+    "html_url": htmlURL ?? "https://github.com/yoonsundo/punchgrow/releases/tag/\(tag)",
     "body": "  새 크리처가 추가되었습니다.  ",
     "published_at": "2026-08-13T00:00:00Z",
     "draft": draft,
@@ -110,6 +111,46 @@ final class UpdateCheckTests: XCTestCase {
     XCTAssertThrowsError(try UpdateCheck.parseLatestRelease(Data("not json".utf8))) { error in
       XCTAssertEqual(error as? UpdateCheckError, .malformedPayload)
     }
+  }
+
+  func testParseLatestReleaseRejectsUntrustedReleaseNotesURLs() throws {
+    for url in [
+      "http://github.com/yoonsundo/punchgrow/releases/tag/v0.4.0",
+      "https://example.com/yoonsundo/punchgrow/releases/tag/v0.4.0",
+      "file:///tmp/release-notes",
+      "punchgrow://release/v0.4.0",
+      "https://github.com/other/repository/releases/tag/v0.4.0",
+      "https://github.com/yoonsundo/punchgrow/releases/../../attacker",
+      "https://github.com/yoonsundo/punchgrow/releases/%2e%2e/%2e%2e/attacker",
+      "https://github.com/yoonsundo/punchgrow/releases/tag/v0.4.0?redirect=1",
+      "https://github.com/yoonsundo/punchgrow/releases/tag/v0.4.0#fragment",
+      "https://github.com/yoonsundo/punchgrow/releases/download/v0.4.0/app.zip",
+      "https://github.com/yoonsundo/punchgrow/releases/tag/v0.5.0",
+    ] {
+      let release = try XCTUnwrap(
+        UpdateCheck.parseLatestRelease(releasePayload(tag: "v0.4.0", htmlURL: url)))
+      XCTAssertNil(release.htmlURL, "untrusted release URL must fall back: \(url)")
+      XCTAssertEqual(release.notesURL, UpdateCheck.releasesPageURL)
+    }
+  }
+
+  func testLatestReleaseResponseURLMustRemainOnTheGitHubAPIOrigin() {
+    XCTAssertTrue(UpdateCheck.isTrustedLatestReleaseResponseURL(UpdateCheck.latestReleaseURL))
+    XCTAssertFalse(
+      UpdateCheck.isTrustedLatestReleaseResponseURL(
+        URL(string: "http://api.github.com/repos/yoonsundo/punchgrow/releases/latest")!))
+    XCTAssertFalse(
+      UpdateCheck.isTrustedLatestReleaseResponseURL(
+        URL(string: "https://example.com/repos/yoonsundo/punchgrow/releases/latest")!))
+    XCTAssertFalse(
+      UpdateCheck.isTrustedLatestReleaseResponseURL(
+        URL(string: "https://api.github.com:8443/repos/yoonsundo/punchgrow/releases/latest")!))
+    XCTAssertFalse(
+      UpdateCheck.isTrustedLatestReleaseResponseURL(
+        URL(string: "https://api.github.com/repos/yoonsundo/punchgrow/releases/latest-attacker")!))
+    XCTAssertFalse(
+      UpdateCheck.isTrustedLatestReleaseResponseURL(
+        URL(string: "https://api.github.com/repos/yoonsundo/punchgrow/releases/latest?redirect=1")!))
   }
 
   // MARK: - 후보 판단과 주기
@@ -432,4 +473,3 @@ final class UpdateCheckTests: XCTestCase {
     XCTAssertNil(service.availableUpdate)
   }
 }
-

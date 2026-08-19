@@ -47,7 +47,7 @@ final class MutationRetryTests: XCTestCase {
     var state = GameState()
     state.ownedCreatures = creatures
     state.tokenBalance = balance
-    state.inventory.food = 30
+    state.inventory.largeFood = 30
     return state
   }
 
@@ -266,6 +266,10 @@ final class MutationRetryTests: XCTestCase {
 
   func testLegacySaveWithoutTheCounterKeyLoadsAndBehavesAsAnEmptyDictionary() throws {
     let catalog = try CreatureCatalog.load()
+    let directory = FileManager.default.temporaryDirectory.appending(path: UUID().uuidString)
+    try FileManager.default.createDirectory(at: directory, withIntermediateDirectories: true)
+    defer { try? FileManager.default.removeItem(at: directory) }
+    let file = directory.appending(path: "state.json")
     let json = """
       {
         "schemaVersion": 2,
@@ -291,7 +295,8 @@ final class MutationRetryTests: XCTestCase {
         "pullsSinceOrigin": 0
       }
       """
-    var state = try JSONDecoder.punchGrow.decode(GameState.self, from: Data(json.utf8))
+    try Data(json.utf8).write(to: file)
+    var state = try GamePersistence(fileURL: file).load()
     try state.validate(catalogIDs: Set(catalog.map(\.id)))
 
     XCTAssertNil(state.mutationRetryFailures)
@@ -465,10 +470,10 @@ final class MutationRetryTests: XCTestCase {
 
     store.selectNextInGroup()
     XCTAssertEqual(store.currentCreatureID, group[1].id)
-    store.feedCurrent()
+    store.feedLargeCurrent()
 
     XCTAssertNil(store.errorMessage)
-    XCTAssertEqual(store.state.ownedCreatures[1].experience, 25)
+    XCTAssertEqual(store.state.ownedCreatures[1].experience, GameState.largeFoodExperience)
     XCTAssertEqual(store.state.ownedCreatures[0], subject)
   }
 
@@ -490,10 +495,10 @@ final class MutationRetryTests: XCTestCase {
     XCTAssertEqual(group.last?.speciesID, "PG-034")
 
     store.selectNextInGroup()
-    store.feedCurrent()
+    store.feedLargeCurrent()
 
     XCTAssertNil(store.errorMessage)
-    XCTAssertEqual(store.state.ownedCreatures[1].experience, 25)
+    XCTAssertEqual(store.state.ownedCreatures[1].experience, GameState.largeFoodExperience)
     XCTAssertEqual(store.state.ownedCreatures[0], terminal)
   }
 

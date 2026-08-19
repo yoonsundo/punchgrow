@@ -220,62 +220,63 @@ final class GameEngineTests: XCTestCase {
       affection: 0, nickname: nil, uniqueColor: false, acquiredAt: .now
     )
     state.ownedCreatures = [creature]
-    try GameEngine.feed(creatureID: creature.id, state: &state)
-    XCTAssertTrue(state.inventory.food == 4)
-    XCTAssertTrue(state.ownedCreatures[0].level == 2)
-    XCTAssertTrue(state.ownedCreatures[0].experience == 15)
+    try GameEngine.feedLarge(creatureID: creature.id, state: &state)
+    XCTAssertEqual(state.inventory.largeFood, 0)
+    XCTAssertEqual(state.ownedCreatures[0].level, 2)
+    XCTAssertEqual(state.ownedCreatures[0].experience, 190)
+    XCTAssertEqual(state.ownedCreatures[0].affection, 10)
   }
 
-  func testFoodPurchaseSpendsTokensAndAddsOneFood() throws {
+  func testLargeFoodPurchaseSpendsFiveHundredThousandTokensAndAddsOneFood() throws {
     var state = GameState()
-    state.tokenBalance = GameState.foodCost
-    state.inventory.food = 0
+    state.tokenBalance = 500_000
+    state.inventory.largeFood = 0
 
-    try GameEngine.purchaseFood(state: &state)
+    try GameEngine.purchaseLargeFood(state: &state)
 
     XCTAssertEqual(state.tokenBalance, 0)
-    XCTAssertEqual(state.inventory.food, 1)
+    XCTAssertEqual(state.inventory.largeFood, 1)
   }
 
-  func testFoodPurchaseFailsAtomicallyWhenTokensAreInsufficient() {
+  func testLargeFoodPurchaseFailsAtomicallyWhenTokensAreInsufficient() {
     var state = GameState()
-    state.tokenBalance = GameState.foodCost - 1
-    state.inventory.food = 2
+    state.tokenBalance = GameState.largeFoodCost - 1
+    state.inventory.largeFood = 2
     let before = state
 
-    XCTAssertThrowsError(try GameEngine.purchaseFood(state: &state)) { error in
+    XCTAssertThrowsError(try GameEngine.purchaseLargeFood(state: &state)) { error in
       XCTAssertEqual(error as? GameError, .insufficientTokens)
     }
     XCTAssertEqual(state, before)
   }
 
-  func testFoodPurchaseRejectsInventoryOverflowWithoutSpendingTokens() {
+  func testLargeFoodPurchaseRejectsInventoryOverflowWithoutSpendingTokens() {
     var state = GameState()
-    state.tokenBalance = GameState.foodCost
-    state.inventory.food = Int.max
+    state.tokenBalance = GameState.largeFoodCost
+    state.inventory.largeFood = Int.max
     let before = state
 
-    XCTAssertThrowsError(try GameEngine.purchaseFood(state: &state)) { error in
+    XCTAssertThrowsError(try GameEngine.purchaseLargeFood(state: &state)) { error in
       XCTAssertEqual(error as? GameError, .inventoryFull)
     }
     XCTAssertEqual(state, before)
   }
 
-  func testLargeFoodConsumesSeparateInventoryAndGrantsAcceleratedGrowth() throws {
+  func testExtraLargeFoodConsumesSeparateInventoryAndGrantsOneThousandXPAndFiftyAffection() throws {
     var state = GameState()
     let creature = OwnedCreature(
       id: UUID(), speciesID: "PG-001", level: 1, experience: 90,
-      affection: 95, nickname: nil, uniqueColor: false, acquiredAt: .now
+      affection: 10, nickname: nil, uniqueColor: false, acquiredAt: .now
     )
     state.ownedCreatures = [creature]
-    state.inventory.largeFood = 1
+    state.inventory.extraLargeFood = 1
 
-    try GameEngine.feedLarge(creatureID: creature.id, state: &state)
+    try GameEngine.feedExtraLarge(creatureID: creature.id, state: &state)
 
-    XCTAssertEqual(state.inventory.largeFood, 0)
-    XCTAssertEqual(state.ownedCreatures[0].level, 2)
-    XCTAssertEqual(state.ownedCreatures[0].experience, 190)
-    XCTAssertEqual(state.ownedCreatures[0].affection, 100)
+    XCTAssertEqual(state.inventory.extraLargeFood, 0)
+    XCTAssertEqual(state.ownedCreatures[0].level, 5)
+    XCTAssertEqual(state.ownedCreatures[0].experience, 90)
+    XCTAssertEqual(state.ownedCreatures[0].affection, 60)
   }
 
   func testJephirakEvolvesAtEveryThresholdAndPreservesMetadata() throws {
@@ -289,9 +290,10 @@ final class GameEngineTests: XCTestCase {
       affection: 40, nickname: "바람이", uniqueColor: true, acquiredAt: acquiredAt
     )]
     state.representativeCreatureID = id
+    state.inventory.largeFood = 3
 
     var generator = SeededGenerator(seed: mutationFreeSeed)
-    let stageOne = try GameEngine.feed(
+    let stageOne = try GameEngine.feedLarge(
       creatureID: id, state: &state, catalog: catalog, generator: &generator)
     XCTAssertNil(stageOne.mutationOffer)
     var chain = stageOne.evolutions
@@ -302,7 +304,7 @@ final class GameEngineTests: XCTestCase {
 
     state.ownedCreatures[0].level = 24
     state.ownedCreatures[0].experience = 2_390
-    chain = try GameEngine.feed(creatureID: id, state: &state, catalog: catalog)
+    chain = try GameEngine.feedLarge(creatureID: id, state: &state, catalog: catalog)
     XCTAssertEqual(chain.map(\.toSpeciesID), ["PG-118"])
     XCTAssertEqual(state.ownedCreatures[0].speciesID, "PG-118")
     XCTAssertNil(GameEngine.pendingEvolutionChoice(
@@ -311,7 +313,7 @@ final class GameEngineTests: XCTestCase {
 
     state.ownedCreatures[0].level = 39
     state.ownedCreatures[0].experience = 3_990
-    chain = try GameEngine.feed(creatureID: id, state: &state, catalog: catalog)
+    chain = try GameEngine.feedLarge(creatureID: id, state: &state, catalog: catalog)
     XCTAssertEqual(chain.map(\.toSpeciesID), ["PG-119"])
     let evolved = state.ownedCreatures[0]
     XCTAssertEqual(evolved.id, id)
@@ -332,7 +334,7 @@ final class GameEngineTests: XCTestCase {
       var state = GameState()
       state.ownedCreatures = [creature]
 
-      let chain = try GameEngine.feed(
+      let chain = try GameEngine.feedLarge(
         creatureID: creature.id, state: &state, catalog: catalog)
 
       XCTAssertTrue(chain.isEmpty)
@@ -350,7 +352,7 @@ final class GameEngineTests: XCTestCase {
     state.ownedCreatures = [creature]
 
     var generator = SeededGenerator(seed: mutationFreeSeed)
-    let outcome = try GameEngine.feed(
+    let outcome = try GameEngine.feedLarge(
       creatureID: creature.id, state: &state, catalog: catalog, generator: &generator)
     XCTAssertNil(outcome.mutationOffer)
     let chain = outcome.evolutions
@@ -359,7 +361,7 @@ final class GameEngineTests: XCTestCase {
     XCTAssertEqual(chain.map(\.toSpeciesID), ["PG-117", "PG-118", "PG-119"])
     XCTAssertEqual(state.ownedCreatures[0].speciesID, "PG-119")
     XCTAssertEqual(state.ownedCreatures[0].level, 40)
-    XCTAssertEqual(state.ownedCreatures[0].experience, 925)
+    XCTAssertEqual(state.ownedCreatures[0].experience, 1_100)
     XCTAssertNil(GameEngine.pendingEvolutionChoice(
       for: state.ownedCreatures[0], catalog: catalog))
     XCTAssertFalse(state.discoveredSpeciesIDs.contains("PG-205"))
@@ -373,15 +375,15 @@ final class GameEngineTests: XCTestCase {
       var state = GameState()
       state.ownedCreatures = [creature]
       var generator = SystemRandomNumberGenerator()
-      let outcome = try GameEngine.feed(
+      let outcome = try GameEngine.feedLarge(
         creatureID: creature.id, state: &state, catalog: [], generator: &generator)
       XCTAssertTrue(outcome.evolutions.isEmpty)
       // 이미 만렙이거나 그 위의 레거시 개체는 축전 신호를 다시 받지 않는다.
       XCTAssertNil(outcome.reachedMaximumLevelCreatureID)
-      XCTAssertEqual(state.inventory.food, 4)
+      XCTAssertEqual(state.inventory.largeFood, 0)
       XCTAssertEqual(state.ownedCreatures[0].level, level)
       XCTAssertEqual(state.ownedCreatures[0].experience, 0)
-      XCTAssertEqual(state.ownedCreatures[0].affection, 10)
+      XCTAssertEqual(state.ownedCreatures[0].affection, 17)
     }
   }
 
@@ -397,6 +399,40 @@ final class GameEngineTests: XCTestCase {
 
     XCTAssertEqual(state.ownedCreatures[0].level, GameState.maximumCreatureLevel)
     XCTAssertEqual(state.ownedCreatures[0].experience, 0)
+  }
+
+  func testLargeFoodRejectsFullySatisfiedMaximumLevelCreatureWithoutConsumingInventory() {
+    let creature = OwnedCreature(
+      id: UUID(), speciesID: "PG-999", level: GameState.maximumCreatureLevel,
+      experience: 0, affection: 100, nickname: nil, uniqueColor: false, acquiredAt: .now)
+    var state = GameState()
+    state.ownedCreatures = [creature]
+    state.inventory.largeFood = 1
+    let before = state
+
+    XCTAssertThrowsError(
+      try GameEngine.feedLarge(creatureID: creature.id, state: &state, catalog: [])
+    ) { error in
+      XCTAssertEqual(error as? GameError, .creatureActionUnavailable)
+    }
+    XCTAssertEqual(state, before)
+  }
+
+  func testExtraLargeFoodRejectsFullySatisfiedMaximumLevelCreatureWithoutConsumingInventory() {
+    let creature = OwnedCreature(
+      id: UUID(), speciesID: "PG-999", level: GameState.maximumCreatureLevel,
+      experience: 0, affection: 100, nickname: nil, uniqueColor: false, acquiredAt: .now)
+    var state = GameState()
+    state.ownedCreatures = [creature]
+    state.inventory.extraLargeFood = 1
+    let before = state
+
+    XCTAssertThrowsError(
+      try GameEngine.feedExtraLarge(creatureID: creature.id, state: &state, catalog: [])
+    ) { error in
+      XCTAssertEqual(error as? GameError, .creatureActionUnavailable)
+    }
+    XCTAssertEqual(state, before)
   }
 
   func testFeedReportsMaximumLevelOnlyAtTheCrossingMoment() throws {
@@ -445,7 +481,7 @@ final class GameEngineTests: XCTestCase {
     state.ownedCreatures = [creature]
 
     var generator = SystemRandomNumberGenerator()
-    let outcome = try GameEngine.feed(
+    let outcome = try GameEngine.feedLarge(
       creatureID: creature.id, state: &state, catalog: [], generator: &generator)
 
     XCTAssertNil(outcome.reachedMaximumLevelCreatureID)
@@ -486,7 +522,7 @@ final class GameEngineTests: XCTestCase {
     var state = GameState()
     state.ownedCreatures = [creature]
 
-    let chain = try GameEngine.feed(creatureID: creature.id, state: &state, catalog: catalog)
+    let chain = try GameEngine.feedLarge(creatureID: creature.id, state: &state, catalog: catalog)
 
     XCTAssertTrue(chain.isEmpty)
     XCTAssertEqual(state.ownedCreatures[0].speciesID, "PG-002")
@@ -532,7 +568,7 @@ final class GameEngineTests: XCTestCase {
       catalog: catalog
     )) { XCTAssertEqual($0 as? GameError, .invalidEvolutionChoice) }
 
-    let evolutions = try GameEngine.feed(
+    let evolutions = try GameEngine.feedLarge(
       creatureID: creature.id, state: &state, catalog: catalog)
     XCTAssertEqual(evolutions.map(\.toSpeciesID), [normal.id])
     XCTAssertEqual(state.ownedCreatures[0].speciesID, normal.id)
@@ -552,7 +588,7 @@ final class GameEngineTests: XCTestCase {
     XCTAssertEqual(EvolutionCatalog.mutationCandidate(after: start, in: catalog)?.id, "PG-216")
 
     var generator = SeededGenerator(seed: mutationFreeSeed)
-    let outcome = try GameEngine.feed(
+    let outcome = try GameEngine.feedLarge(
       creatureID: creature.id, state: &state, catalog: catalog, generator: &generator)
     XCTAssertNil(outcome.mutationOffer)
     let chain = outcome.evolutions
@@ -618,19 +654,22 @@ final class GameEngineTests: XCTestCase {
     state.inventory.largeFood = 1
     let before = state
 
+    state.inventory.extraLargeFood = 1
+    let beforeExtraLarge = state
     XCTAssertThrowsError(
-      try GameEngine.feed(creatureID: waiting.id, state: &state, catalog: catalog)
+      try GameEngine.feedExtraLarge(creatureID: waiting.id, state: &state, catalog: catalog)
     ) { XCTAssertEqual($0 as? GameError, .evolutionChoiceRequired) }
-    XCTAssertEqual(state, before)
+    XCTAssertEqual(state, beforeExtraLarge)
+    state.inventory.extraLargeFood = 0
     XCTAssertThrowsError(
       try GameEngine.feedLarge(creatureID: waiting.id, state: &state, catalog: catalog)
     ) { XCTAssertEqual($0 as? GameError, .evolutionChoiceRequired) }
     XCTAssertEqual(state, before)
 
     state.ownedCreatures[0].level = 25
-    _ = try GameEngine.feed(creatureID: waiting.id, state: &state, catalog: catalog)
-    XCTAssertEqual(state.inventory.food, 4)
-    XCTAssertEqual(state.ownedCreatures[0].experience, 25)
+    _ = try GameEngine.feedLarge(creatureID: waiting.id, state: &state, catalog: catalog)
+    XCTAssertEqual(state.inventory.largeFood, 0)
+    XCTAssertEqual(state.ownedCreatures[0].experience, 200)
   }
 
   func testProductionCatalogSplitsStartSpeciesIntoNoChoiceAndTwoBranchTiers() throws {
@@ -678,7 +717,7 @@ final class GameEngineTests: XCTestCase {
     var state = GameState()
     state.ownedCreatures = [creature]
 
-    let chain = try GameEngine.feed(creatureID: creature.id, state: &state, catalog: [])
+    let chain = try GameEngine.feedLarge(creatureID: creature.id, state: &state, catalog: [])
 
     XCTAssertTrue(chain.isEmpty)
     XCTAssertEqual(state.ownedCreatures[0].level, 15)
@@ -697,7 +736,7 @@ final class GameEngineTests: XCTestCase {
     try persistence.save(initial)
     let store = GameStore(persistence: persistence)
 
-    store.feedCurrent()
+    store.feedLargeCurrent()
 
     let feedback = try XCTUnwrap(store.evolutionFeedback)
     XCTAssertEqual(feedback.fromSpeciesID, "PG-041")
@@ -880,7 +919,7 @@ final class GameEngineTests: XCTestCase {
   }
 
   @MainActor
-  func testStorePersistenceFailureChangesNeitherStateNorFeedback() throws {
+  func testLargeFeedReturnsFalseAndChangesNothingWhenPersistenceFails() throws {
     let directory = FileManager.default.temporaryDirectory.appending(path: UUID().uuidString)
     let stateDirectory = directory.appending(path: "state")
     let stateURL = stateDirectory.appending(path: "state.json")
@@ -897,21 +936,291 @@ final class GameEngineTests: XCTestCase {
     try FileManager.default.removeItem(at: stateDirectory)
     try Data("blocked".utf8).write(to: stateDirectory)
 
-    store.feedCurrent()
+    let succeeded = store.feedLargeCurrent()
 
+    XCTAssertFalse(succeeded)
     XCTAssertEqual(store.state, before)
     XCTAssertNil(store.evolutionFeedback)
   }
 
-  func testLargeFoodPurchaseSpendsTokensAndAddsOneLargeFood() throws {
-    var state = GameState()
-    state.tokenBalance = GameState.largeFoodCost
-    state.inventory.largeFood = 0
+  @MainActor
+  func testExtraLargeFeedReturnsFalseAndChangesNothingWhenPersistenceFails() throws {
+    let directory = FileManager.default.temporaryDirectory.appending(path: UUID().uuidString)
+    defer { try? FileManager.default.removeItem(at: directory) }
+    let stateDirectory = directory.appending(path: "state")
+    let persistence = GamePersistence(fileURL: stateDirectory.appending(path: "state.json"))
+    let creature = OwnedCreature(
+      id: UUID(), speciesID: "PG-034", level: 1, experience: 0,
+      affection: 0, nickname: nil, uniqueColor: false, acquiredAt: .now)
+    var initial = GameState()
+    initial.ownedCreatures = [creature]
+    initial.discoveredSpeciesIDs = [creature.speciesID]
+    initial.inventory.extraLargeFood = 1
+    try persistence.save(initial)
+    let store = GameStore(persistence: persistence)
+    let before = store.state
+    try FileManager.default.removeItem(at: stateDirectory)
+    try Data("blocked".utf8).write(to: stateDirectory)
 
-    try GameEngine.purchaseLargeFood(state: &state)
+    let succeeded = store.feedExtraLargeCurrent()
+
+    XCTAssertFalse(succeeded)
+    XCTAssertEqual(store.state, before)
+  }
+
+  @MainActor
+  func testLargePurchaseReturnsFalseAndChangesNothingWhenPersistenceFails() throws {
+    let directory = FileManager.default.temporaryDirectory.appending(path: UUID().uuidString)
+    defer { try? FileManager.default.removeItem(at: directory) }
+    let stateDirectory = directory.appending(path: "state")
+    let persistence = GamePersistence(fileURL: stateDirectory.appending(path: "state.json"))
+    var initial = GameState()
+    initial.tokenBalance = GameState.largeFoodCost
+    initial.inventory.largeFood = 0
+    try persistence.save(initial)
+    let store = GameStore(persistence: persistence)
+    let before = store.state
+    try FileManager.default.removeItem(at: stateDirectory)
+    try Data("blocked".utf8).write(to: stateDirectory)
+
+    let succeeded = store.purchaseLargeFood()
+
+    XCTAssertFalse(succeeded)
+    XCTAssertEqual(store.state, before)
+  }
+
+  @MainActor
+  func testExtraLargePurchaseReturnsFalseAndChangesNothingWhenPersistenceFails() throws {
+    let directory = FileManager.default.temporaryDirectory.appending(path: UUID().uuidString)
+    defer { try? FileManager.default.removeItem(at: directory) }
+    let stateDirectory = directory.appending(path: "state")
+    let persistence = GamePersistence(fileURL: stateDirectory.appending(path: "state.json"))
+    var initial = GameState()
+    initial.tokenBalance = GameState.extraLargeFoodCost
+    initial.inventory.extraLargeFood = 0
+    try persistence.save(initial)
+    let store = GameStore(persistence: persistence)
+    let before = store.state
+    try FileManager.default.removeItem(at: stateDirectory)
+    try Data("blocked".utf8).write(to: stateDirectory)
+
+    let succeeded = store.purchaseExtraLargeFood()
+
+    XCTAssertFalse(succeeded)
+    XCTAssertEqual(store.state, before)
+  }
+
+  @MainActor
+  func testUnconfirmedRepeatSavePublishesCommittedStateThenLocksFurtherMutations() async throws {
+    let directory = FileManager.default.temporaryDirectory.appending(path: UUID().uuidString)
+    defer { try? FileManager.default.removeItem(at: directory) }
+    let persistence = GamePersistence(fileURL: directory.appending(path: "state.json"))
+    let creature = OwnedCreature(
+      id: UUID(), speciesID: "PG-001", level: 1, experience: 0,
+      affection: 0, nickname: nil, uniqueColor: false, acquiredAt: .now)
+    var initial = GameState()
+    initial.ownedCreatures = [creature]
+    initial.discoveredSpeciesIDs = [creature.speciesID]
+    initial.inventory.largeFood = 2
+    try persistence.save(initial)
+    let writer = ControlledGameStatePersistenceWriter()
+    let store = GameStore(
+      persistence: persistence, repeatPersistenceWriter: writer)
+
+    let repeatTask = Task { await store.feedLargeCurrentForRepeat() }
+    let becamePending = await writer.waitUntilSaveIsPending()
+    XCTAssertTrue(becamePending)
+    await writer.complete(
+      with: .saved(.directorySyncUnconfirmed(errorCode: EIO)))
+    let succeeded = await repeatTask.value
+    XCTAssertTrue(succeeded)
+
+    XCTAssertEqual(store.state.inventory.largeFood, 1)
+    XCTAssertTrue(store.isPersistenceLocked)
+    XCTAssertTrue(store.errorMessage?.contains("디스크 동기화를 확인하지 못했습니다") == true)
+    let additionalMutationSucceeded = await store.feedLargeCurrentForRepeat()
+    let saveCount = await writer.saveCount
+    XCTAssertFalse(additionalMutationSucceeded)
+    XCTAssertEqual(store.state.inventory.largeFood, 1)
+    XCTAssertEqual(saveCount, 1)
+  }
+
+  @MainActor
+  func testDelayedRepeatSaveKeepsMainActorResponsiveAndPublishesExactlyOnce() async throws {
+    let directory = FileManager.default.temporaryDirectory.appending(path: UUID().uuidString)
+    defer { try? FileManager.default.removeItem(at: directory) }
+    let persistence = GamePersistence(fileURL: directory.appending(path: "state.json"))
+    let creature = OwnedCreature(
+      id: UUID(), speciesID: "PG-001", level: 1, experience: 0,
+      affection: 0, nickname: nil, uniqueColor: false, acquiredAt: .now)
+    var initial = GameState()
+    initial.ownedCreatures = [creature]
+    initial.discoveredSpeciesIDs = [creature.speciesID]
+    initial.inventory.largeFood = 2
+    try persistence.save(initial)
+    let writer = ControlledGameStatePersistenceWriter()
+    let store = GameStore(
+      persistence: persistence, repeatPersistenceWriter: writer)
+
+    let repeatTask = Task { await store.feedLargeCurrentForRepeat() }
+    let becamePending = await writer.waitUntilSaveIsPending()
+    XCTAssertTrue(becamePending)
+    store.showActionNotice("main actor responsive")
+
+    XCTAssertEqual(store.actionNotice?.message, "main actor responsive")
+    XCTAssertEqual(store.state.inventory.largeFood, 2)
+
+    await writer.complete(with: .saved(.confirmed))
+    let succeeded = await repeatTask.value
+    let saveCount = await writer.saveCount
+    XCTAssertTrue(succeeded)
+
+    XCTAssertEqual(store.state.inventory.largeFood, 1)
+    XCTAssertEqual(saveCount, 1)
+  }
+
+  @MainActor
+  func testFailedDelayedRepeatSaveLeavesStateUnchangedAndReturnsFalse() async throws {
+    let directory = FileManager.default.temporaryDirectory.appending(path: UUID().uuidString)
+    defer { try? FileManager.default.removeItem(at: directory) }
+    let persistence = GamePersistence(fileURL: directory.appending(path: "state.json"))
+    let creature = OwnedCreature(
+      id: UUID(), speciesID: "PG-001", level: 1, experience: 0,
+      affection: 0, nickname: nil, uniqueColor: false, acquiredAt: .now)
+    var initial = GameState()
+    initial.ownedCreatures = [creature]
+    initial.discoveredSpeciesIDs = [creature.speciesID]
+    initial.inventory.largeFood = 2
+    try persistence.save(initial)
+    let writer = ControlledGameStatePersistenceWriter()
+    let store = GameStore(
+      persistence: persistence, repeatPersistenceWriter: writer)
+    let before = store.state
+
+    let repeatTask = Task { await store.feedLargeCurrentForRepeat() }
+    let becamePending = await writer.waitUntilSaveIsPending()
+    XCTAssertTrue(becamePending)
+    store.showActionNotice("still responsive")
+    await writer.complete(with: .failed(message: "save failed"))
+
+    let succeeded = await repeatTask.value
+    let saveCount = await writer.saveCount
+    XCTAssertFalse(succeeded)
+    XCTAssertEqual(store.state, before)
+    XCTAssertEqual(store.actionNotice?.message, "still responsive")
+    XCTAssertEqual(store.errorMessage, "save failed")
+    XCTAssertEqual(saveCount, 1)
+  }
+
+  @MainActor
+  func testRestoreIsRejectedWhileRepeatSaveIsInFlightAndCommittedStateMatchesDisk() async throws {
+    let directory = FileManager.default.temporaryDirectory.appending(path: UUID().uuidString)
+    try FileManager.default.createDirectory(at: directory, withIntermediateDirectories: true)
+    defer { try? FileManager.default.removeItem(at: directory) }
+    let persistence = GamePersistence(fileURL: directory.appending(path: "state.json"))
+    let backup = directory.appending(path: "restore.pgrow")
+    let creature = OwnedCreature(
+      id: UUID(), speciesID: "PG-001", level: 1, experience: 0,
+      affection: 0, nickname: nil, uniqueColor: false, acquiredAt: .now)
+    var initial = GameState()
+    initial.ownedCreatures = [creature]
+    initial.discoveredSpeciesIDs = [creature.speciesID]
+    initial.inventory.largeFood = 2
+    initial.tokenBalance = 2_000_000
+    try persistence.save(initial)
+    var backupState = initial
+    backupState.inventory.largeFood = 9
+    backupState.tokenBalance = 9_000_000
+    try persistence.export(backupState, to: backup)
+    let writer = ControlledGameStatePersistenceWriter()
+    let store = GameStore(
+      persistence: persistence, repeatPersistenceWriter: writer)
+
+    let repeatTask = Task { await store.feedLargeCurrentForRepeat() }
+    let becamePending = await writer.waitUntilSaveIsPending()
+    XCTAssertTrue(becamePending)
+
+    store.restoreBackup(from: backup)
+
+    XCTAssertEqual(store.errorMessage, GameStore.persistenceBusyActionMessage)
+    XCTAssertEqual(store.state, initial)
+    XCTAssertEqual(try persistence.load(), initial)
+
+    await writer.completeBySaving(to: persistence)
+    let repeatSucceeded = await repeatTask.value
+
+    XCTAssertTrue(repeatSucceeded)
+    XCTAssertEqual(store.state.inventory.largeFood, 1)
+    XCTAssertEqual(store.state.tokenBalance, initial.tokenBalance)
+    XCTAssertEqual(try persistence.load(), store.state)
+  }
+
+  @MainActor
+  func testExportIsRejectedWhileRepeatSaveIsInFlight() async throws {
+    let directory = FileManager.default.temporaryDirectory.appending(path: UUID().uuidString)
+    try FileManager.default.createDirectory(at: directory, withIntermediateDirectories: true)
+    defer { try? FileManager.default.removeItem(at: directory) }
+    let persistence = GamePersistence(fileURL: directory.appending(path: "state.json"))
+    let exportURL = directory.appending(path: "busy-export.pgrow")
+    let creature = OwnedCreature(
+      id: UUID(), speciesID: "PG-001", level: 1, experience: 0,
+      affection: 0, nickname: nil, uniqueColor: false, acquiredAt: .now)
+    var initial = GameState()
+    initial.ownedCreatures = [creature]
+    initial.discoveredSpeciesIDs = [creature.speciesID]
+    initial.inventory.largeFood = 2
+    try persistence.save(initial)
+    let writer = ControlledGameStatePersistenceWriter()
+    let store = GameStore(
+      persistence: persistence, repeatPersistenceWriter: writer)
+
+    let repeatTask = Task { await store.feedLargeCurrentForRepeat() }
+    let becamePending = await writer.waitUntilSaveIsPending()
+    XCTAssertTrue(becamePending)
+
+    store.exportBackup(to: exportURL)
+
+    XCTAssertEqual(store.errorMessage, GameStore.persistenceBusyActionMessage)
+    XCTAssertFalse(FileManager.default.fileExists(atPath: exportURL.path))
+
+    await writer.completeBySaving(to: persistence)
+    let repeatSucceeded = await repeatTask.value
+    XCTAssertTrue(repeatSucceeded)
+  }
+
+  func testExtraLargeFoodPurchaseSpendsTwoPointFiveMillionTokensAndAddsOneFood() throws {
+    var state = GameState()
+    state.tokenBalance = 2_500_000
+    state.inventory.extraLargeFood = 0
+
+    try GameEngine.purchaseExtraLargeFood(state: &state)
 
     XCTAssertEqual(state.tokenBalance, 0)
-    XCTAssertEqual(state.inventory.largeFood, 1)
+    XCTAssertEqual(state.inventory.extraLargeFood, 1)
+  }
+
+  func testExtraLargeFoodPurchaseFailsAtomicallyWhenTokensAreInsufficient() {
+    var state = GameState()
+    state.tokenBalance = GameState.extraLargeFoodCost - 1
+    state.inventory.extraLargeFood = 2
+    let before = state
+
+    XCTAssertThrowsError(try GameEngine.purchaseExtraLargeFood(state: &state)) { error in
+      XCTAssertEqual(error as? GameError, .insufficientTokens)
+    }
+    XCTAssertEqual(state, before)
+  }
+
+  func testExtraLargeFoodPurchaseRejectsInventoryOverflowWithoutSpendingTokens() {
+    var state = GameState()
+    state.tokenBalance = GameState.extraLargeFoodCost
+    state.inventory.extraLargeFood = Int.max
+    let before = state
+
+    XCTAssertThrowsError(try GameEngine.purchaseExtraLargeFood(state: &state)) { error in
+      XCTAssertEqual(error as? GameError, .inventoryFull)
+    }
+    XCTAssertEqual(state, before)
   }
 
   func testBackupRejectsUnexpectedFormat() throws {
@@ -921,6 +1230,28 @@ final class GameEngineTests: XCTestCase {
     try Data("{}".utf8).write(to: file)
     let persistence = GamePersistence(fileURL: directory.appending(path: "state.json"))
     XCTAssertThrowsError(try persistence.restore(from: file))
+  }
+
+  func testSchemaOneBackupEnvelopeRestoresThroughLegacyMigrationAndConvertsFood() throws {
+    let directory = FileManager.default.temporaryDirectory.appending(path: UUID().uuidString)
+    try FileManager.default.createDirectory(at: directory, withIntermediateDirectories: true)
+    defer { try? FileManager.default.removeItem(at: directory) }
+    let backup = directory.appending(path: "legacy.pgrow")
+    let json = """
+      {"format":"punchgrow-backup-v1","exportedAt":"2026-07-31T00:00:00Z","state":{
+      "schemaVersion":1,"tokenBalance":1000000,"usageEvents":[],"ownedCreatures":[],
+      "discoveredSpeciesIDs":[],"inventory":{"food":7,"trainingTools":1,
+      "evolutionMaterials":0},"pullsSinceOrigin":0,"representativeCreatureID":null}}
+      """
+    try Data(json.utf8).write(to: backup)
+    let persistence = GamePersistence(fileURL: directory.appending(path: "state.json"))
+
+    let restored = try persistence.restore(from: backup)
+
+    XCTAssertEqual(restored.schemaVersion, GameState.schemaVersion)
+    XCTAssertEqual(restored.inventory.largeFood, 1)
+    XCTAssertEqual(restored.inventory.extraLargeFood, 0)
+    XCTAssertEqual(restored.tokenBalance, 1_200_000)
   }
 
   func testClaudeDecoderAcceptsOnlyTokenMetric() throws {
@@ -1012,12 +1343,48 @@ final class GameEngineTests: XCTestCase {
     XCTAssertTrue(events[0].inputTokens == 321)
   }
 
-  func testRestoreRejectsNegativeInventory() throws {
+  func testValidationRejectsNegativeExtraLargeFoodInventory() throws {
     var state = GameState()
-    state.inventory.food = -1
+    state.inventory.extraLargeFood = -1
     XCTAssertThrowsError(try state.validate()) { error in
       XCTAssertEqual(error as? GameError, .invalidBackup)
     }
+  }
+
+  @MainActor
+  func testSchemaTwoMigrationConvertsFiveToOneAndRefundsEachRemainderExactlyOnce() throws {
+    let directory = FileManager.default.temporaryDirectory.appending(path: UUID().uuidString)
+    try FileManager.default.createDirectory(at: directory, withIntermediateDirectories: true)
+    defer { try? FileManager.default.removeItem(at: directory) }
+    let file = directory.appending(path: "state.json")
+    let json = """
+      {"schemaVersion":2,"tokenBalance":1000000,"usageEvents":[],"creditedUsageEventKeys":[],
+      "lifetimeUsage":{},"codexCheckpoints":{},"ownedCreatures":[],"discoveredSpeciesIDs":[],
+      "inventory":{"food":12,"largeFood":3,"trainingTools":1,"evolutionMaterials":0},
+      "pullsSinceOrigin":0,"representativeCreatureID":null}
+      """
+    try Data(json.utf8).write(to: file)
+    let persistence = GamePersistence(fileURL: file)
+
+    let migrated = GameStore(persistence: persistence, catalog: [])
+    XCTAssertEqual(migrated.state.schemaVersion, GameState.schemaVersion)
+    XCTAssertEqual(migrated.state.inventory.largeFood, 5)
+    XCTAssertEqual(migrated.state.inventory.extraLargeFood, 0)
+    XCTAssertEqual(migrated.state.tokenBalance, 1_200_000)
+
+    let relaunched = GameStore(persistence: persistence, catalog: [])
+    XCTAssertEqual(relaunched.state.inventory.largeFood, 5)
+    XCTAssertEqual(relaunched.state.tokenBalance, 1_200_000)
+  }
+
+  func testCurrentSchemaEncodingOmitsTheRemovedFoodKey() throws {
+    let data = try JSONEncoder.punchGrow.encode(GameState())
+    let root = try XCTUnwrap(JSONSerialization.jsonObject(with: data) as? [String: Any])
+    let inventory = try XCTUnwrap(root["inventory"] as? [String: Any])
+
+    XCTAssertNil(inventory["food"])
+    XCTAssertEqual(inventory["largeFood"] as? Int, 1)
+    XCTAssertEqual(inventory["extraLargeFood"] as? Int, 0)
   }
 
   func testVersionOneStateMigratesAtomically() throws {
@@ -1031,10 +1398,12 @@ final class GameEngineTests: XCTestCase {
       """
     try Data(json.utf8).write(to: file)
     let state = try GamePersistence(fileURL: file).load()
-    XCTAssertTrue(state.schemaVersion == 2)
+    XCTAssertTrue(state.schemaVersion == GameState.schemaVersion)
     XCTAssertTrue(state.ownedCreatures[0].uniqueColor == false)
     XCTAssertTrue(state.lifetimeUsage[.claude] == 10)
     XCTAssertTrue(state.creditedUsageEventKeys.contains("claude:legacy-event"))
+    XCTAssertEqual(state.inventory.largeFood, 1)
+    XCTAssertEqual(state.inventory.extraLargeFood, 0)
   }
 
   func testVersionOneStateRejectsOversizedUsageBeforeMigration() throws {
@@ -1057,6 +1426,47 @@ final class GameEngineTests: XCTestCase {
     }
   }
 
+}
+
+private actor ControlledGameStatePersistenceWriter: GameStatePersistenceWriting {
+  private var pendingContinuation:
+    CheckedContinuation<GameStatePersistenceWriteAttempt, Never>?
+  private var pendingState: GameState?
+  private(set) var saveCount = 0
+
+  func save(_ state: GameState) async -> GameStatePersistenceWriteAttempt {
+    saveCount += 1
+    pendingState = state
+    return await withCheckedContinuation { continuation in
+      pendingContinuation = continuation
+    }
+  }
+
+  func waitUntilSaveIsPending() async -> Bool {
+    for _ in 0..<1_000 {
+      if pendingContinuation != nil { return true }
+      await Task.yield()
+    }
+    return pendingContinuation != nil
+  }
+
+  func complete(with attempt: GameStatePersistenceWriteAttempt) {
+    let continuation = pendingContinuation
+    pendingContinuation = nil
+    pendingState = nil
+    continuation?.resume(returning: attempt)
+  }
+
+  func completeBySaving(to persistence: GamePersistence) {
+    guard let state = pendingState else { return }
+    let attempt: GameStatePersistenceWriteAttempt
+    do {
+      attempt = .saved(try persistence.save(state))
+    } catch {
+      attempt = .failed(message: error.localizedDescription)
+    }
+    complete(with: attempt)
+  }
 }
 
 private func protoStringField(_ number: UInt64, _ value: String) -> Data {

@@ -404,39 +404,8 @@ enum GameEngine {
         return resolver.originSpeciesID(for: creature)
     }
 
-    static func feed(
-        creatureID: UUID,
-        state: inout GameState,
-        catalog: [CreatureSpecies] = [],
-        generator: inout some RandomNumberGenerator,
-        deferringEvolution: Bool = false
-    ) throws -> FeedOutcome {
-        try applyFood(
-            creatureID: creatureID, state: &state, catalog: catalog,
-            inventory: \Inventory.food, experience: 25, affection: 3, missingFood: .noFood,
-            generator: &generator, deferringEvolution: deferringEvolution
-        )
-    }
-
-    /// 난수와 무관한 호출부를 위한 편의 오버로드. 시스템 난수로 판정하므로
-    /// 변이 발동을 통제해야 하는 곳에서는 `generator:` 버전을 쓴다.
-    static func feed(
-        creatureID: UUID,
-        state: inout GameState,
-        catalog: [CreatureSpecies] = []
-    ) throws -> [EvolutionResult] {
-        var generator = SystemRandomNumberGenerator()
-        return try feed(
-            creatureID: creatureID, state: &state, catalog: catalog, generator: &generator
-        ).evolutions
-    }
-
-    static func purchaseFood(state: inout GameState) throws {
-        guard state.tokenBalance >= GameState.foodCost else { throw GameError.insufficientTokens }
-        let nextFood = state.inventory.food.addingReportingOverflow(1)
-        guard !nextFood.overflow else { throw GameError.inventoryFull }
-        state.tokenBalance -= GameState.foodCost
-        state.inventory.food = nextFood.partialValue
+    static func canBenefitFromFood(_ creature: OwnedCreature) -> Bool {
+        creature.level < GameState.maximumCreatureLevel || creature.affection < 100
     }
 
     static func feedLarge(
@@ -448,13 +417,16 @@ enum GameEngine {
     ) throws -> FeedOutcome {
         try applyFood(
             creatureID: creatureID, state: &state, catalog: catalog,
-            inventory: \Inventory.largeFood, experience: 200, affection: 10,
+            inventory: \Inventory.largeFood,
+            experience: GameState.largeFoodExperience,
+            affection: GameState.largeFoodAffection,
             missingFood: .noLargeFood,
             generator: &generator, deferringEvolution: deferringEvolution
         )
     }
 
-    /// 난수와 무관한 호출부를 위한 편의 오버로드. `feed`와 같은 이유로 남긴다.
+    /// 난수와 무관한 호출부를 위한 편의 오버로드. 시스템 난수로 판정하므로
+    /// 변이 발동을 통제해야 하는 곳에서는 `generator:` 버전을 쓴다.
     static func feedLarge(
         creatureID: UUID,
         state: inout GameState,
@@ -472,6 +444,45 @@ enum GameEngine {
         guard !nextFood.overflow else { throw GameError.inventoryFull }
         state.tokenBalance -= GameState.largeFoodCost
         state.inventory.largeFood = nextFood.partialValue
+    }
+
+    static func feedExtraLarge(
+        creatureID: UUID,
+        state: inout GameState,
+        catalog: [CreatureSpecies] = [],
+        generator: inout some RandomNumberGenerator,
+        deferringEvolution: Bool = false
+    ) throws -> FeedOutcome {
+        try applyFood(
+            creatureID: creatureID, state: &state, catalog: catalog,
+            inventory: \Inventory.extraLargeFood,
+            experience: GameState.extraLargeFoodExperience,
+            affection: GameState.extraLargeFoodAffection,
+            missingFood: .noExtraLargeFood,
+            generator: &generator, deferringEvolution: deferringEvolution
+        )
+    }
+
+    /// 난수와 무관한 호출부를 위한 편의 오버로드. `feedLarge`와 같은 이유로 남긴다.
+    static func feedExtraLarge(
+        creatureID: UUID,
+        state: inout GameState,
+        catalog: [CreatureSpecies] = []
+    ) throws -> [EvolutionResult] {
+        var generator = SystemRandomNumberGenerator()
+        return try feedExtraLarge(
+            creatureID: creatureID, state: &state, catalog: catalog, generator: &generator
+        ).evolutions
+    }
+
+    static func purchaseExtraLargeFood(state: inout GameState) throws {
+        guard state.tokenBalance >= GameState.extraLargeFoodCost else {
+            throw GameError.insufficientTokens
+        }
+        let nextFood = state.inventory.extraLargeFood.addingReportingOverflow(1)
+        guard !nextFood.overflow else { throw GameError.inventoryFull }
+        state.tokenBalance -= GameState.extraLargeFoodCost
+        state.inventory.extraLargeFood = nextFood.partialValue
     }
 
     /// 시작종에서 뻗어 나가는 모든 종. 변이도 포함한다 — 도감이 한 계보로 묶어 보여 주는
@@ -815,6 +826,9 @@ enum GameEngine {
         guard state.inventory[keyPath: inventory] > 0 else { throw missingFood }
         guard let index = state.ownedCreatures.firstIndex(where: { $0.id == creatureID }) else {
             throw GameError.creatureNotFound
+        }
+        guard canBenefitFromFood(state.ownedCreatures[index]) else {
+            throw GameError.creatureActionUnavailable
         }
         guard state.ownedCreatures[index].level < GameState.maximumCreatureLevel
                 || pendingEvolutionChoice(

@@ -635,10 +635,10 @@ struct CompactViewState: Equatable {
   let showsGroupNavigation: Bool
   let groupPositionLabel: String?
   let isRepresentative: Bool
-  let feed: ActionAvailability
   let feedLarge: ActionAvailability
-  let purchaseFood: ActionAvailability
+  let feedExtraLarge: ActionAvailability
   let purchaseLargeFood: ActionAvailability
+  let purchaseExtraLargeFood: ActionAvailability
   let pull: ActionAvailability
   let retryMutation: ActionAvailability
   /// 천장까지 남은 횟수를 버튼 자체에 보인다. 설명 줄은 팝오버에서 숨겨져 있다.
@@ -670,37 +670,35 @@ struct CompactViewState: Equatable {
       : nil
     isRepresentative = representativeOverride
       ?? (currentCreature?.id == state.representativeCreatureID)
-    if currentCreature == nil {
-      feed = ActionAvailability(isEnabled: false, explanation: "먼저 가챠로 크리처를 만나세요.")
-      feedLarge = ActionAvailability(isEnabled: false, explanation: "먼저 크리처를 만나세요.")
-    } else if state.inventory.food == 0 {
-      feed = ActionAvailability(isEnabled: false, explanation: "먹이가 없습니다. 아래에서 구매하세요.")
-      feedLarge = state.inventory.largeFood == 0
-        ? ActionAvailability(isEnabled: false, explanation: "대형 먹이가 없습니다.")
-        : ActionAvailability(isEnabled: true, explanation: "대형 1개 · XP +200 · 친밀도 +10")
+    if isPersistenceLocked {
+      feedLarge = ActionAvailability(isEnabled: false, explanation: Self.lockedExplanation)
+      feedExtraLarge = ActionAvailability(isEnabled: false, explanation: Self.lockedExplanation)
+    } else if currentCreature == nil {
+      feedLarge = ActionAvailability(isEnabled: false, explanation: "먼저 가챠로 크리처를 만나세요.")
+      feedExtraLarge = ActionAvailability(isEnabled: false, explanation: "먼저 크리처를 만나세요.")
+    } else if let currentCreature, !GameEngine.canBenefitFromFood(currentCreature) {
+      feedLarge = ActionAvailability(
+        isEnabled: false, explanation: Self.maximumGrowthExplanation)
+      feedExtraLarge = ActionAvailability(
+        isEnabled: false, explanation: Self.maximumGrowthExplanation)
     } else {
-      feed = ActionAvailability(isEnabled: true, explanation: "먹이 1개 · XP +25 · 친밀도 +3")
       feedLarge = state.inventory.largeFood == 0
-        ? ActionAvailability(isEnabled: false, explanation: "대형 먹이가 없습니다.")
-        : ActionAvailability(isEnabled: true, explanation: "대형 1개 · XP +200 · 친밀도 +10")
+        ? ActionAvailability(isEnabled: false, explanation: "대형 먹이가 없습니다. 아래에서 구매하세요.")
+        : ActionAvailability(
+          isEnabled: true,
+          explanation: "대형 1개 · XP +\(GameState.largeFoodExperience) · 친밀도 +\(GameState.largeFoodAffection)"
+        )
+      feedExtraLarge = state.inventory.extraLargeFood == 0
+        ? ActionAvailability(isEnabled: false, explanation: "특대형 먹이가 없습니다.")
+        : ActionAvailability(
+          isEnabled: true,
+          explanation: "특대형 1개 · XP +\(GameState.extraLargeFoodExperience.formatted()) · 친밀도 +\(GameState.extraLargeFoodAffection)"
+        )
     }
-    if state.inventory.food == Int.max {
-      purchaseFood = ActionAvailability(
-        isEnabled: false,
-        explanation: "먹이 보유 한도에 도달했습니다."
-      )
-    } else if state.tokenBalance < GameState.foodCost {
-      purchaseFood = ActionAvailability(
-        isEnabled: false,
-        explanation: "\((GameState.foodCost - state.tokenBalance).formatted()) 토큰이 더 필요합니다."
-      )
-    } else {
-      purchaseFood = ActionAvailability(
-        isEnabled: true,
-        explanation: "\(GameState.foodCost.formatted()) 토큰 · 먹이 +1"
-      )
-    }
-    if state.inventory.largeFood == Int.max {
+    if isPersistenceLocked {
+      purchaseLargeFood = ActionAvailability(
+        isEnabled: false, explanation: Self.lockedExplanation)
+    } else if state.inventory.largeFood == Int.max {
       purchaseLargeFood = ActionAvailability(isEnabled: false, explanation: "대형 먹이 보유 한도입니다.")
     } else if state.tokenBalance < GameState.largeFoodCost {
       purchaseLargeFood = ActionAvailability(
@@ -713,7 +711,27 @@ struct CompactViewState: Equatable {
         explanation: "\(GameState.largeFoodCost.formatted()) 토큰 · 대형 +1"
       )
     }
-    if catalogIsEmpty {
+    if isPersistenceLocked {
+      purchaseExtraLargeFood = ActionAvailability(
+        isEnabled: false, explanation: Self.lockedExplanation)
+    } else if state.inventory.extraLargeFood == Int.max {
+      purchaseExtraLargeFood = ActionAvailability(
+        isEnabled: false, explanation: "특대형 먹이 보유 한도입니다."
+      )
+    } else if state.tokenBalance < GameState.extraLargeFoodCost {
+      purchaseExtraLargeFood = ActionAvailability(
+        isEnabled: false,
+        explanation: "\((GameState.extraLargeFoodCost - state.tokenBalance).formatted()) 토큰이 더 필요합니다."
+      )
+    } else {
+      purchaseExtraLargeFood = ActionAvailability(
+        isEnabled: true,
+        explanation: "\(GameState.extraLargeFoodCost.formatted()) 토큰 · 특대형 +1"
+      )
+    }
+    if isPersistenceLocked {
+      pull = ActionAvailability(isEnabled: false, explanation: Self.lockedExplanation)
+    } else if catalogIsEmpty {
       pull = ActionAvailability(isEnabled: false, explanation: "크리처 카탈로그를 불러오지 못했습니다.")
     } else if state.tokenBalance < GameState.gachaCost {
       pull = ActionAvailability(
@@ -752,6 +770,7 @@ struct CompactViewState: Equatable {
   private static let noCreatureExplanation = "먼저 가챠로 크리처를 만나세요."
   private static let missingCatalogExplanation = "크리처 카탈로그를 불러오지 못했습니다."
   private static let creatureLimitExplanation = "보유 크리처 한도에 도달했습니다."
+  private static let maximumGrowthExplanation = "성장과 친밀도가 모두 최대입니다."
 
   private static func shortfallExplanation(cost: Int, balance: Int) -> String {
     "\((cost - balance).formatted()) 토큰이 더 필요합니다."
@@ -842,6 +861,20 @@ struct CompactViewState: Equatable {
     return ActionAvailability(
       isEnabled: true,
       explanation: "\(GameState.inheritCost.formatted()) 토큰 · 같은 계보의 시작 단계 1마리")
+  }
+}
+
+enum FeedRepeatPolicy {
+  static func canRepeat(
+    creature: OwnedCreature?,
+    isPersistenceLocked: Bool,
+    hasPendingEvolutionChoice: Bool,
+    hasPendingMutationOffer: Bool
+  ) -> Bool {
+    guard !isPersistenceLocked, let creature else { return false }
+    return GameEngine.canBenefitFromFood(creature)
+      && !hasPendingEvolutionChoice
+      && !hasPendingMutationOffer
   }
 }
 
@@ -1044,7 +1077,7 @@ private enum PunchGrowColors {
   // whole deck into competing neon blocks. These medium-dark fills keep the
   // semantic families while giving every label the same high-contrast treatment.
   static let actionFeed = Color(red: 79 / 255, green: 121 / 255, blue: 62 / 255)
-  static let actionFeedLarge = Color(red: 108 / 255, green: 90 / 255, blue: 181 / 255)
+  static let actionFeedExtraLarge = Color(red: 108 / 255, green: 90 / 255, blue: 181 / 255)
   static let actionPull = Color(red: 185 / 255, green: 70 / 255, blue: 116 / 255)
   static let actionPurchase = Color(red: 149 / 255, green: 97 / 255, blue: 39 / 255)
   static let actionRetry = Color(red: 103 / 255, green: 85 / 255, blue: 174 / 255)
@@ -1283,7 +1316,12 @@ struct MenuPopoverView: View {
     return store.pendingEvolutionChoices.first { $0.creatureID == choiceCreatureID }
   }
   private var isFeedRepeatable: Bool {
-    store.pendingEvolutionChoice == nil && store.pendingMutationOffer == nil
+    FeedRepeatPolicy.canRepeat(
+      creature: store.currentCreature,
+      isPersistenceLocked: store.isPersistenceLocked,
+      hasPendingEvolutionChoice: store.pendingEvolutionChoice != nil,
+      hasPendingMutationOffer: store.pendingMutationOffer != nil
+    )
   }
 
   var body: some View {
@@ -1575,37 +1613,39 @@ struct MenuPopoverView: View {
     VStack(spacing: 4) {
       HStack(spacing: 6) {
       ActionButton(
-        title: "일반 먹이",
-        symbol: "carrot.fill",
-        tint: PunchGrowColors.actionFeed,
-        usesDarkForeground: false,
-        availability: presentation.feed,
-        repeatAction: {
-          // 선택 대기나 변이 발동이 생기면 반복 급여를 즉시 멈춘다. 되돌릴 수 없는
-          // 선택을 롱프레스가 지나쳐 버리지 않게 하려는 것이다.
-          guard store.currentCreature != nil, store.state.inventory.food > 0,
-                isFeedRepeatable else { return false }
-          store.feedCurrent()
-          return isFeedRepeatable
-        },
-        showsExplanation: false,
-        onBlockedTap: showActionNotice
-      ) { store.feedCurrent() }
-      ActionButton(
         title: "대형 먹이",
         symbol: "takeoutbag.and.cup.and.straw.fill",
-        tint: PunchGrowColors.actionFeedLarge,
+        tint: PunchGrowColors.actionFeed,
         usesDarkForeground: false,
         availability: presentation.feedLarge,
         repeatAction: {
-          guard store.currentCreature != nil, store.state.inventory.largeFood > 0,
+          // 선택 대기나 변이 발동이 생기면 반복 급여를 즉시 멈춘다. 되돌릴 수 없는
+          // 선택을 롱프레스가 지나쳐 버리지 않게 하려는 것이다.
+          guard !store.isPersistenceLocked, store.currentCreature != nil,
+                store.state.inventory.largeFood > 0,
                 isFeedRepeatable else { return false }
-          store.feedLargeCurrent()
-          return isFeedRepeatable
+          let succeeded = await store.feedLargeCurrentForRepeat()
+          return succeeded && isFeedRepeatable
         },
         showsExplanation: false,
         onBlockedTap: showActionNotice
       ) { store.feedLargeCurrent() }
+      ActionButton(
+        title: "특대형 먹이",
+        symbol: "shippingbox.fill",
+        tint: PunchGrowColors.actionFeedExtraLarge,
+        usesDarkForeground: false,
+        availability: presentation.feedExtraLarge,
+        repeatAction: {
+          guard !store.isPersistenceLocked, store.currentCreature != nil,
+                store.state.inventory.extraLargeFood > 0,
+                isFeedRepeatable else { return false }
+          let succeeded = await store.feedExtraLargeCurrentForRepeat()
+          return succeeded && isFeedRepeatable
+        },
+        showsExplanation: false,
+        onBlockedTap: showActionNotice
+      ) { store.feedExtraLargeCurrent() }
       ActionButton(
         title: "가챠",
         symbol: "sparkles",
@@ -1618,35 +1658,35 @@ struct MenuPopoverView: View {
       }
       HStack(spacing: 6) {
       ActionButton(
-        title: "일반 구매 · 100K",
-        symbol: "cart.badge.plus",
-        tint: PunchGrowColors.actionPurchase,
-        usesDarkForeground: false,
-        availability: presentation.purchaseFood,
-        repeatAction: {
-          guard store.state.tokenBalance >= GameState.foodCost,
-                store.state.inventory.food < Int.max else { return false }
-          store.purchaseFood()
-          return true
-        },
-        showsExplanation: false,
-        onBlockedTap: showActionNotice
-      ) { store.purchaseFood() }
-      ActionButton(
         title: "대형 구매 · 500K",
-        symbol: "cart.fill.badge.plus",
+        symbol: "cart.badge.plus",
         tint: PunchGrowColors.actionPurchase,
         usesDarkForeground: false,
         availability: presentation.purchaseLargeFood,
         repeatAction: {
-          guard store.state.tokenBalance >= GameState.largeFoodCost,
+          guard !store.isPersistenceLocked,
+                store.state.tokenBalance >= GameState.largeFoodCost,
                 store.state.inventory.largeFood < Int.max else { return false }
-          store.purchaseLargeFood()
-          return true
+          return await store.purchaseLargeFoodForRepeat()
         },
         showsExplanation: false,
         onBlockedTap: showActionNotice
       ) { store.purchaseLargeFood() }
+      ActionButton(
+        title: "특대형 구매 · 250만",
+        symbol: "cart.fill.badge.plus",
+        tint: PunchGrowColors.actionPurchase,
+        usesDarkForeground: false,
+        availability: presentation.purchaseExtraLargeFood,
+        repeatAction: {
+          guard !store.isPersistenceLocked,
+                store.state.tokenBalance >= GameState.extraLargeFoodCost,
+                store.state.inventory.extraLargeFood < Int.max else { return false }
+          return await store.purchaseExtraLargeFoodForRepeat()
+        },
+        showsExplanation: false,
+        onBlockedTap: showActionNotice
+      ) { store.purchaseExtraLargeFood() }
       }
       HStack(spacing: 6) {
       ActionButton(
@@ -2429,18 +2469,50 @@ private struct FooterDockButton: View {
   }
 }
 
+enum ActionRepeatCadence {
+  static let armingDelayMilliseconds = 240
+  static let initialIntervalMilliseconds = 80
+  static let minimumIntervalMilliseconds = 35
+  static let accelerationStepMilliseconds = 8
+
+  static func nextInterval(after interval: Int) -> Int {
+    max(minimumIntervalMilliseconds, interval - accelerationStepMilliseconds)
+  }
+}
+
+struct ActionRepeatTaskOwnership {
+  private(set) var generation: UUID?
+
+  mutating func begin(generation: UUID = UUID()) -> UUID {
+    self.generation = generation
+    return generation
+  }
+
+  /// Returns true only when the finishing task still owns the active press.
+  mutating func finish(generation: UUID) -> Bool {
+    guard self.generation == generation else { return false }
+    self.generation = nil
+    return true
+  }
+
+  mutating func cancel() {
+    generation = nil
+  }
+}
+
 private struct ActionButton: View {
   let title: String
   let symbol: String
   let tint: Color
   let usesDarkForeground: Bool
   let availability: ActionAvailability
-  let repeatAction: (() -> Bool)?
+  let repeatAction: (() async -> Bool)?
   let showsExplanation: Bool
   /// 쓸 수 없는 버튼을 눌렀을 때 사유를 전달한다. 비워 두면 예전처럼 조용히 무시한다.
   let onBlockedTap: ((String) -> Void)?
   let action: () -> Void
   @State private var repeatTask: Task<Void, Never>?
+  @State private var repeatOwnership = ActionRepeatTaskOwnership()
   @State private var repeatedDuringPress = false
 
   init(
@@ -2449,7 +2521,7 @@ private struct ActionButton: View {
     tint: Color,
     usesDarkForeground: Bool,
     availability: ActionAvailability,
-    repeatAction: (() -> Bool)? = nil,
+    repeatAction: (() async -> Bool)? = nil,
     showsExplanation: Bool = true,
     onBlockedTap: ((String) -> Void)? = nil,
     action: @escaping () -> Void
@@ -2512,23 +2584,34 @@ private struct ActionButton: View {
   private func startRepeatingIfNeeded() {
     guard repeatTask == nil, availability.isEnabled, let repeatAction else { return }
     repeatedDuringPress = false
+    let generation = repeatOwnership.begin()
     repeatTask = Task { @MainActor in
-      try? await Task.sleep(for: .milliseconds(360))
+      defer {
+        // A cancelled press may finish its in-flight save after a new press has started.
+        // Only the task that still owns this generation may clear the active handle.
+        if repeatOwnership.finish(generation: generation) {
+          repeatTask = nil
+        }
+      }
+      try? await Task.sleep(for: .milliseconds(ActionRepeatCadence.armingDelayMilliseconds))
       guard !Task.isCancelled else { return }
-      var delay = 110
-      while repeatAction() {
+      var delay = ActionRepeatCadence.initialIntervalMilliseconds
+      while !Task.isCancelled {
+        // 240ms를 넘긴 순간부터는 이 누름을 롱프레스로 취급한다. 첫 반복이 선택 대기나
+        // 저장 실패를 만들어 즉시 멈추더라도 손을 뗄 때 단일 동작을 한 번 더 실행하면 안 된다.
         repeatedDuringPress = true
+        guard await repeatAction() else { break }
         try? await Task.sleep(for: .milliseconds(delay))
         guard !Task.isCancelled else { return }
-        delay = max(45, delay - 8)
+        delay = ActionRepeatCadence.nextInterval(after: delay)
       }
-      repeatTask = nil
     }
   }
 
   private func stopRepeating() {
     repeatTask?.cancel()
     repeatTask = nil
+    repeatOwnership.cancel()
   }
 
   private func handlePressChanged(_ isPressed: Bool) {
@@ -3634,7 +3717,9 @@ private struct CollectionView: View {
             label: "OWNED", value: store.state.ownedCreatures.count.formatted(),
             tint: PunchGrowColors.fuel)
           MetricTile(
-            label: "FOOD", value: store.state.inventory.food.formatted(),
+            label: "FOOD · L / XL",
+            value: "\(store.state.inventory.largeFood.formatted()) / "
+              + store.state.inventory.extraLargeFood.formatted(),
             tint: PunchGrowColors.rival)
         }
         LazyVGrid(

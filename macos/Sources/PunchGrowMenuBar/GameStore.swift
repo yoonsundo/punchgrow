@@ -9,10 +9,39 @@ enum TokenIngestionResult: Equatable {
     static let persistenceFailureMessage = "사용량을 안전하게 저장하지 못했습니다. Data & Settings에서 저장 상태를 확인해 주세요."
 }
 
+enum GameStatePersistenceWriteAttempt: Equatable, Sendable {
+    case saved(PersistenceWriteDurability)
+    case failed(message: String)
+}
+
+protocol GameStatePersistenceWriting: Sendable {
+    func save(_ state: GameState) async -> GameStatePersistenceWriteAttempt
+}
+
+/// Hold-repeat writes use this actor so file encoding, replacement, and fsync never occupy
+/// the main actor. `GameStore` still publishes state only after the write finishes.
+actor GameStatePersistenceWriter: GameStatePersistenceWriting {
+    private let persistence: GamePersistence
+
+    init(persistence: GamePersistence) {
+        self.persistence = persistence
+    }
+
+    func save(_ state: GameState) async -> GameStatePersistenceWriteAttempt {
+        do {
+            return .saved(try persistence.save(state))
+        } catch {
+            return .failed(message: error.localizedDescription)
+        }
+    }
+}
+
 @MainActor
 final class GameStore: ObservableObject {
     static let persistenceLockedActionMessage =
         "저장이 잠겨 있어 진화 선택을 적용할 수 없습니다. Data & Settings에서 백업을 복원해 주세요."
+    static let persistenceBusyActionMessage =
+        "반복 동작을 저장하는 중입니다. 잠시 뒤 다시 시도해 주세요."
 
     @Published private(set) var state: GameState
     @Published private(set) var catalog: [CreatureSpecies]
@@ -33,8 +62,12 @@ final class GameStore: ObservableObject {
     @Published private(set) var isPersistenceLocked = false
 
     private let persistence: GamePersistence
+    private let repeatPersistenceWriter: any GameStatePersistenceWriting
     private let now: () -> Date
     private let onCreditedEvent: (TokenProvider, Date, Int) -> Void
+    /// Prevents a synchronous mutation from being derived from stale state while a
+    /// hold-repeat save is still committing on the writer actor.
+    private var isRepeatPersistenceInFlight = false
     /// 확률 판정에 쓰는 유일한 난수원. 한 번 만들어 계속 이어 쓰므로 테스트가
     /// `SeededGenerator`를 주입하면 호출 순서 전체가 결정론적으로 재현된다.
     private var generator: AnyRandomNumberGenerator
@@ -44,9 +77,12 @@ final class GameStore: ObservableObject {
         catalog catalogOverride: [CreatureSpecies]? = nil,
         now: @escaping () -> Date = { .now },
         onCreditedEvent: @escaping (TokenProvider, Date, Int) -> Void = { _, _, _ in },
-        makeGenerator: () -> any RandomNumberGenerator = { SystemRandomNumberGenerator() }
+        makeGenerator: () -> any RandomNumberGenerator = { SystemRandomNumberGenerator() },
+        repeatPersistenceWriter: (any GameStatePersistenceWriting)? = nil
     ) {
         self.persistence = persistence
+        self.repeatPersistenceWriter = repeatPersistenceWriter
+            ?? GameStatePersistenceWriter(persistence: persistence)
         self.now = now
         self.onCreditedEvent = onCreditedEvent
         self.generator = AnyRandomNumberGenerator(makeGenerator())
@@ -67,7 +103,13 @@ final class GameStore: ObservableObject {
         do {
             self.state = try persistence.load()
             try self.state.validate(catalogIDs: Set(self.catalog.map(\.id)))
-            if try persistence.requiresMigrationCommit() { try persistence.save(self.state) }
+            if try persistence.requiresMigrationCommit() {
+                let durability = try persistence.save(self.state)
+                if let warning = durability.warningMessage {
+                    locked = true
+                    startupErrors.append(warning)
+                }
+            }
         } catch {
             self.state = GameState()
             locked = true
@@ -173,28 +215,10 @@ final class GameStore: ObservableObject {
         return creature
     }
 
-    func feedCurrent() {
-        guard !isPersistenceLocked else { return }
-        guard let creatureID = resolvedCurrentCreatureID else { return }
-        guard let outcome = performMutation({ state in
-            try self.advancingGenerator { generator in
-                try GameEngine.feed(
-                    creatureID: creatureID, state: &state, catalog: self.catalog,
-                    generator: &generator,
-                    deferringEvolution: self.pendingMutationOffer?.creatureID == creatureID)
-            }
-        }) else { return }
-        apply(outcome)
-    }
-
-    func purchaseFood() {
-        guard !isPersistenceLocked else { return }
-        performMutation { state in try GameEngine.purchaseFood(state: &state) }
-    }
-
-    func feedLargeCurrent() {
-        guard !isPersistenceLocked else { return }
-        guard let creatureID = resolvedCurrentCreatureID else { return }
+    @discardableResult
+    func feedLargeCurrent() -> Bool {
+        guard !isPersistenceLocked else { return false }
+        guard let creatureID = resolvedCurrentCreatureID else { return false }
         guard let outcome = performMutation({ state in
             try self.advancingGenerator { generator in
                 try GameEngine.feedLarge(
@@ -202,13 +226,87 @@ final class GameStore: ObservableObject {
                     generator: &generator,
                     deferringEvolution: self.pendingMutationOffer?.creatureID == creatureID)
             }
-        }) else { return }
+        }) else { return false }
         apply(outcome)
+        return true
     }
 
-    func purchaseLargeFood() {
-        guard !isPersistenceLocked else { return }
-        performMutation { state in try GameEngine.purchaseLargeFood(state: &state) }
+    @discardableResult
+    func feedLargeCurrentForRepeat() async -> Bool {
+        guard !isPersistenceLocked else { return false }
+        guard let creatureID = resolvedCurrentCreatureID else { return false }
+        guard let outcome = await performRepeatedMutation({ state in
+            try self.advancingGenerator { generator in
+                try GameEngine.feedLarge(
+                    creatureID: creatureID, state: &state, catalog: self.catalog,
+                    generator: &generator,
+                    deferringEvolution: self.pendingMutationOffer?.creatureID == creatureID)
+            }
+        }) else { return false }
+        apply(outcome)
+        return true
+    }
+
+    @discardableResult
+    func purchaseLargeFood() -> Bool {
+        guard !isPersistenceLocked else { return false }
+        return performMutation { state in try GameEngine.purchaseLargeFood(state: &state) } != nil
+    }
+
+    @discardableResult
+    func purchaseLargeFoodForRepeat() async -> Bool {
+        guard !isPersistenceLocked else { return false }
+        return await performRepeatedMutation {
+            state in try GameEngine.purchaseLargeFood(state: &state)
+        } != nil
+    }
+
+    @discardableResult
+    func feedExtraLargeCurrent() -> Bool {
+        guard !isPersistenceLocked else { return false }
+        guard let creatureID = resolvedCurrentCreatureID else { return false }
+        guard let outcome = performMutation({ state in
+            try self.advancingGenerator { generator in
+                try GameEngine.feedExtraLarge(
+                    creatureID: creatureID, state: &state, catalog: self.catalog,
+                    generator: &generator,
+                    deferringEvolution: self.pendingMutationOffer?.creatureID == creatureID)
+            }
+        }) else { return false }
+        apply(outcome)
+        return true
+    }
+
+    @discardableResult
+    func feedExtraLargeCurrentForRepeat() async -> Bool {
+        guard !isPersistenceLocked else { return false }
+        guard let creatureID = resolvedCurrentCreatureID else { return false }
+        guard let outcome = await performRepeatedMutation({ state in
+            try self.advancingGenerator { generator in
+                try GameEngine.feedExtraLarge(
+                    creatureID: creatureID, state: &state, catalog: self.catalog,
+                    generator: &generator,
+                    deferringEvolution: self.pendingMutationOffer?.creatureID == creatureID)
+            }
+        }) else { return false }
+        apply(outcome)
+        return true
+    }
+
+    @discardableResult
+    func purchaseExtraLargeFood() -> Bool {
+        guard !isPersistenceLocked else { return false }
+        return performMutation {
+            state in try GameEngine.purchaseExtraLargeFood(state: &state)
+        } != nil
+    }
+
+    @discardableResult
+    func purchaseExtraLargeFoodForRepeat() async -> Bool {
+        guard !isPersistenceLocked else { return false }
+        return await performRepeatedMutation {
+            state in try GameEngine.purchaseExtraLargeFood(state: &state)
+        } != nil
     }
 
     /// 대기 배지에서 해당 개체로 포커스를 옮긴다. 대기 개체가 지금 보고 있는 개체가
@@ -418,24 +516,41 @@ final class GameStore: ObservableObject {
     }
 
     func exportBackup(to url: URL) {
+        guard !isRepeatPersistenceInFlight else {
+            errorMessage = Self.persistenceBusyActionMessage
+            return
+        }
         do {
-            try persistence.export(state, to: url)
-            if !isPersistenceLocked { errorMessage = nil }
+            let durability = try persistence.export(state, to: url)
+            if let warning = durability.warningMessage {
+                errorMessage = warning
+            } else if !isPersistenceLocked {
+                errorMessage = nil
+            }
         } catch {
             errorMessage = error.localizedDescription
         }
     }
 
     func restoreBackup(from url: URL) {
+        guard !isRepeatPersistenceInFlight else {
+            errorMessage = Self.persistenceBusyActionMessage
+            return
+        }
         do {
             let restored = try persistence.restore(from: url)
             try restored.validate(catalogIDs: Set(catalog.map(\.id)))
-            try persistence.save(restored)
+            let durability = try persistence.save(restored)
             state = restored
             currentCreatureID = Self.initialCurrentCreatureID(in: restored, catalog: catalog)
             pendingMutationOffer = nil
-            isPersistenceLocked = false
-            errorMessage = nil
+            if let warning = durability.warningMessage {
+                isPersistenceLocked = true
+                errorMessage = warning
+            } else {
+                isPersistenceLocked = false
+                errorMessage = nil
+            }
         } catch {
             errorMessage = error.localizedDescription
         }
@@ -469,18 +584,57 @@ final class GameStore: ObservableObject {
 
     @discardableResult
     private func performMutation<Result>(_ mutation: (inout GameState) throws -> Result) -> Result? {
-        guard !isPersistenceLocked else { return nil }
+        guard !isPersistenceLocked, !isRepeatPersistenceInFlight else { return nil }
         do {
             var next = state
             let result = try mutation(&next)
-            try persistence.save(next)
-            state = next
-            reconcileCurrentCreature()
-            errorMessage = nil
+            let durability = try persistence.save(next)
+            publishCommittedState(next, durability: durability)
             return result
         } catch {
             errorMessage = error.localizedDescription
             return nil
+        }
+    }
+
+    @discardableResult
+    private func performRepeatedMutation<Result>(
+        _ mutation: (inout GameState) throws -> Result
+    ) async -> Result? {
+        guard !isPersistenceLocked, !isRepeatPersistenceInFlight else { return nil }
+        var next = state
+        let result: Result
+        do {
+            result = try mutation(&next)
+        } catch {
+            errorMessage = error.localizedDescription
+            return nil
+        }
+
+        isRepeatPersistenceInFlight = true
+        let attempt = await repeatPersistenceWriter.save(next)
+        isRepeatPersistenceInFlight = false
+        switch attempt {
+        case let .saved(durability):
+            publishCommittedState(next, durability: durability)
+            return result
+        case let .failed(message):
+            errorMessage = message
+            return nil
+        }
+    }
+
+    private func publishCommittedState(
+        _ committedState: GameState,
+        durability: PersistenceWriteDurability
+    ) {
+        state = committedState
+        reconcileCurrentCreature()
+        if let warning = durability.warningMessage {
+            isPersistenceLocked = true
+            errorMessage = warning
+        } else {
+            errorMessage = nil
         }
     }
 

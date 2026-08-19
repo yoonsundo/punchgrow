@@ -596,21 +596,22 @@ final class UXPresentationTests: XCTestCase {
     XCTAssertTrue(presentation.balance == 2_000_000)
     XCTAssertTrue(presentation.weeklyClaude == 0)
     XCTAssertTrue(presentation.weeklyCodex == 0)
-    XCTAssertTrue(!presentation.feed.isEnabled)
     XCTAssertTrue(!presentation.feedLarge.isEnabled)
-    XCTAssertTrue(presentation.purchaseFood.isEnabled)
+    XCTAssertTrue(!presentation.feedExtraLarge.isEnabled)
     XCTAssertTrue(presentation.purchaseLargeFood.isEnabled)
-    XCTAssertTrue(presentation.purchaseFood.explanation.contains(GameState.foodCost.formatted()))
-    XCTAssertTrue(presentation.feed.explanation.contains("가챠"))
+    XCTAssertFalse(presentation.purchaseExtraLargeFood.isEnabled)
+    XCTAssertTrue(
+      presentation.purchaseLargeFood.explanation.contains(GameState.largeFoodCost.formatted()))
+    XCTAssertTrue(presentation.feedLarge.explanation.contains("가챠"))
     XCTAssertTrue(presentation.pull.isEnabled)
     XCTAssertTrue(presentation.pull.explanation.contains(GameState.gachaCost.formatted()))
     XCTAssertTrue(!presentation.showsNavigation)
   }
 
-  func testFoodPurchasePresentationStaysVisibleButDisabledWhenTokensAreShort() {
+  func testLargeFoodPurchasePresentationStaysVisibleButDisabledWhenTokensAreShort() {
     var state = GameState()
-    state.tokenBalance = GameState.foodCost - 1
-    state.inventory.food = 0
+    state.tokenBalance = GameState.largeFoodCost - 1
+    state.inventory.largeFood = 0
     let presentation = CompactViewState(
       state: state,
       currentCreature: nil,
@@ -619,13 +620,13 @@ final class UXPresentationTests: XCTestCase {
       weeklyUsage: [:]
     )
 
-    XCTAssertFalse(presentation.purchaseFood.isEnabled)
-    XCTAssertTrue(presentation.purchaseFood.explanation.contains("1"))
+    XCTAssertFalse(presentation.purchaseLargeFood.isEnabled)
+    XCTAssertTrue(presentation.purchaseLargeFood.explanation.contains("1"))
   }
 
-  func testFoodPurchasePresentationDisablesAtInventoryLimit() {
+  func testExtraLargeFoodPurchasePresentationDisablesAtInventoryLimit() {
     var state = GameState()
-    state.inventory.food = Int.max
+    state.inventory.extraLargeFood = Int.max
     let presentation = CompactViewState(
       state: state,
       currentCreature: nil,
@@ -634,8 +635,8 @@ final class UXPresentationTests: XCTestCase {
       weeklyUsage: [:]
     )
 
-    XCTAssertFalse(presentation.purchaseFood.isEnabled)
-    XCTAssertTrue(presentation.purchaseFood.explanation.contains("한도"))
+    XCTAssertFalse(presentation.purchaseExtraLargeFood.isEnabled)
+    XCTAssertTrue(presentation.purchaseExtraLargeFood.explanation.contains("한도"))
   }
 
   func testLargeFoodPresentationExplainsFastGrowthAndPurchaseCost() {
@@ -660,6 +661,169 @@ final class UXPresentationTests: XCTestCase {
     XCTAssertTrue(presentation.purchaseLargeFood.explanation.contains(GameState.largeFoodCost.formatted()))
   }
 
+  func testExtraLargeFoodPresentationExplainsFivefoldGrowthAndPurchaseCost() {
+    let creature = OwnedCreature(
+      id: UUID(), speciesID: "PG-001", level: 1, experience: 0, affection: 0,
+      nickname: nil, uniqueColor: false, acquiredAt: .now
+    )
+    var state = GameState()
+    state.ownedCreatures = [creature]
+    state.tokenBalance = GameState.extraLargeFoodCost
+    state.inventory.extraLargeFood = 1
+    let presentation = CompactViewState(
+      state: state, currentCreature: creature, currentPosition: 1,
+      catalogIsEmpty: false, weeklyUsage: [:]
+    )
+
+    XCTAssertTrue(presentation.feedExtraLarge.isEnabled)
+    XCTAssertTrue(presentation.feedExtraLarge.explanation.contains("XP +1,000"))
+    XCTAssertTrue(presentation.feedExtraLarge.explanation.contains("친밀도 +50"))
+    XCTAssertTrue(presentation.purchaseExtraLargeFood.isEnabled)
+    XCTAssertTrue(
+      presentation.purchaseExtraLargeFood.explanation.contains(
+        GameState.extraLargeFoodCost.formatted()))
+  }
+
+  func testFullySatisfiedMaximumLevelCreatureDisablesBothFeedButtons() {
+    let creature = OwnedCreature(
+      id: UUID(), speciesID: "PG-001", level: GameState.maximumCreatureLevel,
+      experience: 0, affection: 100, nickname: nil, uniqueColor: false, acquiredAt: .now)
+    var state = GameState()
+    state.ownedCreatures = [creature]
+    state.inventory.largeFood = 1
+    state.inventory.extraLargeFood = 1
+
+    let presentation = CompactViewState(
+      state: state, currentCreature: creature, currentPosition: 1,
+      catalogIsEmpty: false, weeklyUsage: [:])
+
+    XCTAssertFalse(presentation.feedLarge.isEnabled)
+    XCTAssertFalse(presentation.feedExtraLarge.isEnabled)
+  }
+
+  func testPersistenceLockDisablesFoodPurchaseAndPullActionsWithLockExplanation() {
+    let creature = OwnedCreature(
+      id: UUID(), speciesID: "PG-001", level: 1, experience: 0, affection: 0,
+      nickname: nil, uniqueColor: false, acquiredAt: .now)
+    var state = GameState()
+    state.ownedCreatures = [creature]
+    state.tokenBalance = GameState.extraLargeFoodCost
+    state.inventory.largeFood = 1
+    state.inventory.extraLargeFood = 1
+
+    let presentation = CompactViewState(
+      state: state, currentCreature: creature, currentPosition: 1,
+      catalogIsEmpty: false, weeklyUsage: [:], isPersistenceLocked: true)
+    let actions = [
+      presentation.feedLarge,
+      presentation.feedExtraLarge,
+      presentation.purchaseLargeFood,
+      presentation.purchaseExtraLargeFood,
+      presentation.pull,
+    ]
+
+    XCTAssertTrue(actions.allSatisfy { !$0.isEnabled })
+    XCTAssertTrue(actions.allSatisfy { $0.explanation.contains("저장이 잠겨") })
+  }
+
+  func testActionRepeatCadenceMatchesTheProductTimingContract() {
+    XCTAssertEqual(ActionRepeatCadence.armingDelayMilliseconds, 240)
+    XCTAssertEqual(ActionRepeatCadence.initialIntervalMilliseconds, 80)
+    XCTAssertEqual(ActionRepeatCadence.minimumIntervalMilliseconds, 35)
+    XCTAssertEqual(ActionRepeatCadence.accelerationStepMilliseconds, 8)
+  }
+
+  func testActionRepeatCadenceFloorsTheAcceleratingIntervalAtThirtyFiveMilliseconds() {
+    var intervals = [ActionRepeatCadence.initialIntervalMilliseconds]
+    for _ in 0..<8 {
+      intervals.append(ActionRepeatCadence.nextInterval(after: intervals.last!))
+    }
+
+    XCTAssertEqual(intervals, [80, 72, 64, 56, 48, 40, 35, 35, 35])
+  }
+
+  func testOldTaskCannotClearOwnershipAfterANewPressBegins() {
+    let oldGeneration = UUID()
+    let newGeneration = UUID()
+    var ownership = ActionRepeatTaskOwnership()
+    _ = ownership.begin(generation: oldGeneration)
+    ownership.cancel()
+    _ = ownership.begin(generation: newGeneration)
+
+    XCTAssertFalse(ownership.finish(generation: oldGeneration))
+    XCTAssertEqual(ownership.generation, newGeneration)
+    XCTAssertTrue(ownership.finish(generation: newGeneration))
+    XCTAssertNil(ownership.generation)
+  }
+
+  func testCurrentTaskFinishesAndClearsItsOwnership() {
+    let generation = UUID()
+    var ownership = ActionRepeatTaskOwnership()
+    XCTAssertEqual(ownership.begin(generation: generation), generation)
+
+    XCTAssertTrue(ownership.finish(generation: generation))
+    XCTAssertNil(ownership.generation)
+  }
+
+  func testCancelledTaskCannotFinishItsStaleGeneration() {
+    let generation = UUID()
+    var ownership = ActionRepeatTaskOwnership()
+    _ = ownership.begin(generation: generation)
+    ownership.cancel()
+
+    XCTAssertFalse(ownership.finish(generation: generation))
+    XCTAssertNil(ownership.generation)
+  }
+
+  func testFeedRepeatPolicyRejectsMissingLockedAndPendingStates() {
+    let creature = OwnedCreature(
+      id: UUID(), speciesID: "PG-001", level: 1, experience: 0, affection: 0,
+      nickname: nil, uniqueColor: false, acquiredAt: .now)
+
+    XCTAssertFalse(FeedRepeatPolicy.canRepeat(
+      creature: nil, isPersistenceLocked: false,
+      hasPendingEvolutionChoice: false, hasPendingMutationOffer: false))
+    XCTAssertFalse(FeedRepeatPolicy.canRepeat(
+      creature: creature, isPersistenceLocked: true,
+      hasPendingEvolutionChoice: false, hasPendingMutationOffer: false))
+    XCTAssertFalse(FeedRepeatPolicy.canRepeat(
+      creature: creature, isPersistenceLocked: false,
+      hasPendingEvolutionChoice: true, hasPendingMutationOffer: false))
+    XCTAssertFalse(FeedRepeatPolicy.canRepeat(
+      creature: creature, isPersistenceLocked: false,
+      hasPendingEvolutionChoice: false, hasPendingMutationOffer: true))
+  }
+
+  func testFeedRepeatPolicyAllowsSubMaximumCreatureAtMaximumAffection() {
+    let creature = OwnedCreature(
+      id: UUID(), speciesID: "PG-001", level: 49, experience: 0, affection: 100,
+      nickname: nil, uniqueColor: false, acquiredAt: .now)
+
+    XCTAssertTrue(FeedRepeatPolicy.canRepeat(
+      creature: creature, isPersistenceLocked: false,
+      hasPendingEvolutionChoice: false, hasPendingMutationOffer: false))
+  }
+
+  func testFeedRepeatPolicyAllowsMaximumLevelCreatureBelowMaximumAffection() {
+    let creature = OwnedCreature(
+      id: UUID(), speciesID: "PG-001", level: GameState.maximumCreatureLevel,
+      experience: 0, affection: 99, nickname: nil, uniqueColor: false, acquiredAt: .now)
+
+    XCTAssertTrue(FeedRepeatPolicy.canRepeat(
+      creature: creature, isPersistenceLocked: false,
+      hasPendingEvolutionChoice: false, hasPendingMutationOffer: false))
+  }
+
+  func testFeedRepeatPolicyStopsAtMaximumLevelAndMaximumAffection() {
+    let creature = OwnedCreature(
+      id: UUID(), speciesID: "PG-001", level: GameState.maximumCreatureLevel,
+      experience: 0, affection: 100, nickname: nil, uniqueColor: false, acquiredAt: .now)
+
+    XCTAssertFalse(FeedRepeatPolicy.canRepeat(
+      creature: creature, isPersistenceLocked: false,
+      hasPendingEvolutionChoice: false, hasPendingMutationOffer: false))
+  }
+
   func testCompactViewStateShowsNavigationPositionAndRepresentativeTruthfully() {
     let first = OwnedCreature(
       id: UUID(), speciesID: "PG-001", level: 3, experience: 20, affection: 8,
@@ -672,7 +836,7 @@ final class UXPresentationTests: XCTestCase {
     var state = GameState()
     state.ownedCreatures = [first, second]
     state.representativeCreatureID = first.id
-    state.inventory.food = 0
+    state.inventory.largeFood = 0
     let presentation = CompactViewState(
       state: state,
       currentCreature: second,
@@ -684,8 +848,8 @@ final class UXPresentationTests: XCTestCase {
     XCTAssertTrue(presentation.showsNavigation)
     XCTAssertTrue(presentation.positionLabel == "2 / 2")
     XCTAssertTrue(!presentation.isRepresentative)
-    XCTAssertTrue(!presentation.feed.isEnabled)
-    XCTAssertTrue(presentation.feed.explanation.contains("먹이"))
+    XCTAssertTrue(!presentation.feedLarge.isEnabled)
+    XCTAssertTrue(presentation.feedLarge.explanation.contains("먹이"))
     XCTAssertTrue(presentation.weeklyClaude == 120)
     XCTAssertTrue(presentation.weeklyCodex == 80)
   }

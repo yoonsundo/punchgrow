@@ -19,6 +19,7 @@ final class LocalUsageService: ObservableObject {
     private let persistence: LocalUsageCachePersistence
     private let cacheRefresher: ClaudeUsageCacheRefresher?
     private var cacheRefreshTask: Task<Void, Never>?
+    private var cacheRefreshTaskID: UUID?
     private let interval: TimeInterval
     private let defaults: UserDefaults
     private let onEvents: ([TokenUsageEvent]) -> TokenIngestionResult
@@ -35,7 +36,7 @@ final class LocalUsageService: ObservableObject {
         LocalUsageScanner, LocalUsageCache
     ) throws -> LocalUsageScanResult
     private var task: Task<Void, Never>?
-    private var scanWorker: Task<LocalUsageScanResult, Error>?
+    private var scanWorker: Task<(LocalUsageCache, LocalUsageScanResult), Error>?
     private var scanWorkerID: UUID?
     private var restartAfterWorkerStops = false
     private var generation = 0
@@ -69,6 +70,7 @@ final class LocalUsageService: ObservableObject {
     ) {
         self.scanner = scanner
         self.persistence = persistence
+        persistence.migrateManagedPermissionsIfPresent()
         self.cacheRefresher = cacheRefresher
         self.interval = interval
         self.defaults = defaults
@@ -153,6 +155,7 @@ final class LocalUsageService: ObservableObject {
         task = nil
         cacheRefreshTask?.cancel()
         cacheRefreshTask = nil
+        cacheRefreshTaskID = nil
         scanWorker?.cancel()
         isRunning = false
         onDiscoveredProviders([])
@@ -161,7 +164,7 @@ final class LocalUsageService: ObservableObject {
     func disconnect() {
         setCollectionEnabled(false)
         do {
-            try deleteLocalCache()
+            try persistence.delete()
             observedTotals = [:]
             observedWeeklyTotals = [:]
             observedWeeklyBreakdown = [:]
@@ -191,11 +194,20 @@ final class LocalUsageService: ObservableObject {
     /// pass a few seconds later. The in-flight guard keeps a slow run from stacking up spawns.
     private func refreshClaudeUsageCacheIfIdle() {
         guard let cacheRefresher, cacheRefreshTask == nil else { return }
+        let refreshID = UUID()
+        cacheRefreshTaskID = refreshID
         cacheRefreshTask = Task { [weak self] in
-            await Task.detached(priority: .utility) {
-                _ = cacheRefresher.refreshIfStale()
-            }.value
+            let refreshWorker = Task.detached(priority: .utility) {
+                await cacheRefresher.refreshIfStale()
+            }
+            await withTaskCancellationHandler {
+                _ = await refreshWorker.value
+            } onCancel: {
+                refreshWorker.cancel()
+            }
+            guard self?.cacheRefreshTaskID == refreshID else { return }
             self?.cacheRefreshTask = nil
+            self?.cacheRefreshTaskID = nil
         }
     }
 
@@ -212,7 +224,7 @@ final class LocalUsageService: ObservableObject {
                 try scanOperation(scanner, cache)
             }
             malloc_zone_pressure_relief(malloc_default_zone(), 0)
-            return result
+            return (cache, result)
         }
         scanWorker = worker
         scanWorkerID = workerID
@@ -229,7 +241,7 @@ final class LocalUsageService: ObservableObject {
             }
         }
         do {
-            let result = try await worker.value
+            let (loadedCache, result) = try await worker.value
             guard generation == activeGeneration, collectionEnabled else { return false }
             let ingestion = result.creditEvents.isEmpty ? TokenIngestionResult.duplicate : onEvents(result.creditEvents)
             guard ingestion != .failed else {
@@ -238,7 +250,9 @@ final class LocalUsageService: ObservableObject {
             }
             // Keep the write on the main actor so disconnect cannot race it and recreate a
             // cache after the user has requested deletion.
-            try persistence.save(result.cache)
+            if result.cache != loadedCache {
+                try persistence.save(result.cache)
+            }
             guard generation == activeGeneration, collectionEnabled else { return false }
             observedTotals = result.observedTotals
             observedWeeklyTotals = result.observedWeeklyTotals
@@ -273,13 +287,4 @@ final class LocalUsageService: ObservableObject {
         onScanError(message)
     }
 
-    private func deleteLocalCache() throws {
-        let manager = FileManager.default
-        for url in [persistence.fileURL, persistence.fileURL.appendingPathExtension("tmp")] {
-            guard manager.fileExists(atPath: url.path) else { continue }
-            let values = try url.resourceValues(forKeys: [.isDirectoryKey])
-            guard values.isDirectory != true else { throw CollectorError.invalidPayload }
-            try manager.removeItem(at: url)
-        }
-    }
 }

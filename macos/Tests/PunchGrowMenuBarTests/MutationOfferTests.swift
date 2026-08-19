@@ -45,10 +45,10 @@ final class MutationOfferTests: XCTestCase {
       acquiredAt: Date(timeIntervalSince1970: 1))
   }
 
-  private func state(with creatures: [OwnedCreature], food: Int = 30) -> GameState {
+  private func state(with creatures: [OwnedCreature], largeFood: Int = 30) -> GameState {
     var state = GameState()
     state.ownedCreatures = creatures
-    state.inventory.food = food
+    state.inventory.largeFood = largeFood
     return state
   }
 
@@ -110,7 +110,7 @@ final class MutationOfferTests: XCTestCase {
       let subject = creature("PG-001", level: 14, experience: 1_390, origin: "PG-001")
       var state = state(with: [subject])
       var generator = SeededGenerator(seed: seed)
-      let outcome = try GameEngine.feed(
+      let outcome = try GameEngine.feedLarge(
         creatureID: subject.id, state: &state, catalog: catalog, generator: &generator)
       return (state.ownedCreatures[0].speciesID, outcome.mutationOffer != nil)
     }
@@ -134,7 +134,7 @@ final class MutationOfferTests: XCTestCase {
     var state = state(with: [subject])
     var generator = SeededGenerator(seed: triggerSeed)
 
-    let outcome = try GameEngine.feed(
+    let outcome = try GameEngine.feedLarge(
       creatureID: subject.id, state: &state, catalog: catalog, generator: &generator)
 
     XCTAssertNil(outcome.mutationOffer)
@@ -156,7 +156,7 @@ final class MutationOfferTests: XCTestCase {
     var state = state(with: [subject])
     var generator = SeededGenerator(seed: triggerSeed)
 
-    let outcome = try GameEngine.feed(
+    let outcome = try GameEngine.feedLarge(
       creatureID: subject.id, state: &state, catalog: catalog, generator: &generator)
 
     XCTAssertTrue(outcome.evolutions.isEmpty)
@@ -170,7 +170,7 @@ final class MutationOfferTests: XCTestCase {
     XCTAssertEqual(offer.plannedTargetSpeciesID, "PG-061")
     // 진화만 멈춘다. 먹이와 레벨은 정상 반영된다.
     XCTAssertEqual(state.ownedCreatures[0].level, 15)
-    XCTAssertEqual(state.inventory.food, 29)
+    XCTAssertEqual(state.inventory.largeFood, 29)
   }
 
   func testAcceptingAppliesTheMutantAndLeavesNoFurtherCandidates() throws {
@@ -179,7 +179,7 @@ final class MutationOfferTests: XCTestCase {
     var state = state(with: [subject])
     var generator = SeededGenerator(seed: triggerSeed)
     let offer = try XCTUnwrap(
-      try GameEngine.feed(
+      try GameEngine.feedLarge(
         creatureID: subject.id, state: &state, catalog: catalog, generator: &generator
       ).mutationOffer)
 
@@ -202,7 +202,7 @@ final class MutationOfferTests: XCTestCase {
     var state = state(with: [subject])
     var generator = SeededGenerator(seed: triggerSeed)
     let offer = try XCTUnwrap(
-      try GameEngine.feed(
+      try GameEngine.feedLarge(
         creatureID: subject.id, state: &state, catalog: catalog, generator: &generator
       ).mutationOffer)
 
@@ -223,7 +223,7 @@ final class MutationOfferTests: XCTestCase {
     var state = state(with: [subject])
     var generator = SeededGenerator(seed: triggerSeed)
     let offer = try XCTUnwrap(
-      try GameEngine.feed(
+      try GameEngine.feedLarge(
         creatureID: subject.id, state: &state, catalog: catalog, generator: &generator
       ).mutationOffer)
     _ = try GameEngine.resolveMutationOffer(
@@ -245,7 +245,7 @@ final class MutationOfferTests: XCTestCase {
     var state = state(with: [subject])
     var generator = SeededGenerator(seed: triggerSeed)
 
-    let outcome = try GameEngine.feed(
+    let outcome = try GameEngine.feedLarge(
       creatureID: subject.id, state: &state, catalog: fixture.catalog, generator: &generator)
 
     XCTAssertTrue(outcome.evolutions.isEmpty)
@@ -271,7 +271,7 @@ final class MutationOfferTests: XCTestCase {
     var state = state(with: [subject])
     var generator = SeededGenerator(seed: calmSeed)
 
-    let outcome = try GameEngine.feed(
+    let outcome = try GameEngine.feedLarge(
       creatureID: subject.id, state: &state, catalog: fixture.catalog, generator: &generator)
 
     XCTAssertNil(outcome.mutationOffer)
@@ -292,7 +292,7 @@ final class MutationOfferTests: XCTestCase {
       var state = state(with: [subject])
       var generator = SeededGenerator(seed: triggerSeed)
 
-      let outcome = try GameEngine.feed(
+      let outcome = try GameEngine.feedLarge(
         creatureID: subject.id, state: &state, catalog: catalog, generator: &generator)
 
       XCTAssertNil(outcome.mutationOffer)
@@ -310,7 +310,7 @@ final class MutationOfferTests: XCTestCase {
     var state = state(with: [subject])
     var generator = SeededGenerator(seed: triggerSeed)
 
-    let outcome = try GameEngine.feed(
+    let outcome = try GameEngine.feedLarge(
       creatureID: subject.id, state: &state, catalog: catalog, generator: &generator)
 
     XCTAssertNil(outcome.mutationOffer)
@@ -361,7 +361,7 @@ final class MutationOfferTests: XCTestCase {
       makeGenerator: { SeededGenerator(seed: seed) })
     XCTAssertNil(store.pendingMutationOffer)
 
-    store.feedCurrent()
+    store.feedLargeCurrent()
 
     XCTAssertNil(store.errorMessage)
     XCTAssertEqual(store.pendingMutationOffer?.mutationSpeciesID, "PG-216")
@@ -387,15 +387,17 @@ final class MutationOfferTests: XCTestCase {
     let store = GameStore(
       persistence: persistence, catalog: catalog,
       makeGenerator: { SeededGenerator(seed: seed) })
-    store.feedCurrent()
+    store.feedLargeCurrent()
     let offer = store.pendingMutationOffer
     let experienceBefore = store.state.ownedCreatures[0].experience
 
-    store.feedCurrent()
+    store.feedLargeCurrent()
 
     XCTAssertNil(store.errorMessage)
     XCTAssertEqual(store.state.ownedCreatures[0].speciesID, "PG-001")
-    XCTAssertEqual(store.state.ownedCreatures[0].experience, experienceBefore + 25)
+    XCTAssertEqual(
+      store.state.ownedCreatures[0].experience,
+      experienceBefore + GameState.largeFoodExperience)
     XCTAssertEqual(store.pendingMutationOffer, offer)
 
     store.resolveMutationOffer(creatureID: creatureID, accept: false)
@@ -423,7 +425,7 @@ final class MutationOfferTests: XCTestCase {
     let store = GameStore(
       persistence: persistence, catalog: catalog,
       makeGenerator: { SeededGenerator(seed: seed) })
-    store.feedCurrent()
+    store.feedLargeCurrent()
 
     // 오퍼는 열린 채 남아 있고, 어떤 자동 경로도 이를 대신 수락하지 않는다.
     XCTAssertNotNil(store.pendingMutationOffer)

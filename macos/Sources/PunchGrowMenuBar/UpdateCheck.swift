@@ -64,6 +64,7 @@ struct ReleaseInfo: Equatable, Sendable {
 
 enum UpdateCheckError: Error, Equatable {
     case badResponse(status: Int)
+    case untrustedResponseURL
     case responseTooLarge
     case malformedPayload
 }
@@ -81,6 +82,36 @@ enum UpdateCheck {
     static let releasesPageURL = URL(
         string: "https://github.com/\(repositorySlug)/releases/latest"
     )!
+
+    static func isTrustedLatestReleaseResponseURL(_ url: URL?) -> Bool {
+        guard let url else { return false }
+        return url.scheme?.lowercased() == "https"
+            && url.host?.lowercased() == "api.github.com"
+            && (url.port == nil || url.port == 443)
+            && url.user == nil
+            && url.password == nil
+            && url.path == "/repos/\(repositorySlug)/releases/latest"
+            && url.query == nil
+            && url.fragment == nil
+    }
+
+    private static func trustedReleaseNotesURL(_ text: String?, tagName: String) -> URL? {
+        let tagComponents = tagName.split(separator: "/", omittingEmptySubsequences: false)
+        guard !tagComponents.isEmpty,
+              tagComponents.allSatisfy({ !$0.isEmpty && $0 != "." && $0 != ".." }),
+              let text,
+              let url = URL(string: text),
+              url.scheme?.lowercased() == "https",
+              url.host?.lowercased() == "github.com",
+              url.port == nil || url.port == 443,
+              url.user == nil,
+              url.password == nil,
+              url.query == nil,
+              url.fragment == nil,
+              url.path == "/\(repositorySlug)/releases/tag/\(tagName)"
+        else { return nil }
+        return url
+    }
 
     /// 실행 중인 번들의 버전. 번들 밖(`swift run`, 테스트 러너)에서는 nil이며, 그때는 업데이트
     /// 확인을 아예 하지 않는다. 0.0.0 같은 값으로 채우면 개발 빌드가 매번 "새 버전 있음"이 된다.
@@ -105,7 +136,7 @@ enum UpdateCheck {
         return ReleaseInfo(
             version: version,
             tagName: tagName,
-            htmlURL: (root["html_url"] as? String).flatMap(URL.init(string:)),
+            htmlURL: trustedReleaseNotesURL(root["html_url"] as? String, tagName: tagName),
             notes: notes,
             publishedAt: (root["published_at"] as? String).flatMap {
                 ISO8601DateFormatter().date(from: $0)

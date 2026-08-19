@@ -188,7 +188,8 @@ enum MenuPopoverSnapshotRenderer {
       lifetimeUsage: [.claude: 11_366_566, .codex: 820_481_664],
       ownedCreatures: creatures,
       discoveredSpeciesIDs: Set(creatures.map(\.speciesID)),
-      inventory: Inventory(food: 12, largeFood: 4, trainingTools: 1, evolutionMaterials: 0),
+      inventory: Inventory(
+        largeFood: 12, extraLargeFood: 4, trainingTools: 1, evolutionMaterials: 0),
       pullsSinceOrigin: 46,
       representativeCreatureID: currentCreature.id
     )

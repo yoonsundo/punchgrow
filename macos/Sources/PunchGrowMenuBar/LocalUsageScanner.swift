@@ -263,12 +263,15 @@ struct LocalUsageScanner: Sendable {
     let codexRoot: URL
     private let fileLimit: Int
     private let providerBodyReadSoftBudget: Int
+    private let quotaTailReadObserver: (@Sendable (String) -> Void)?
 
     private struct FileDescriptor {
-        let url: URL
         let fileKey: String
-        let snapshotSize: UInt64
-        let modificationDate: Date?
+        let components: [String]
+        let identity: NoFollowRegularFile.Identity
+
+        var snapshotSize: UInt64 { identity.snapshot.size }
+        var modificationDate: Date { identity.modificationDate }
     }
 
     private struct ProviderScanOutcome {
@@ -387,12 +390,14 @@ struct LocalUsageScanner: Sendable {
         claudeRoot: URL = FileManager.default.homeDirectoryForCurrentUser.appending(path: ".claude/projects"),
         codexRoot: URL = FileManager.default.homeDirectoryForCurrentUser.appending(path: ".codex/sessions"),
         fileLimit: Int = Self.maximumFilesPerRoot,
-        providerBodyReadSoftBudget: Int = Self.defaultProviderBodyReadSoftBudget
+        providerBodyReadSoftBudget: Int = Self.defaultProviderBodyReadSoftBudget,
+        quotaTailReadObserver: (@Sendable (String) -> Void)? = nil
     ) {
         self.claudeRoot = claudeRoot
         self.codexRoot = codexRoot
         self.fileLimit = fileLimit
         self.providerBodyReadSoftBudget = max(1, providerBodyReadSoftBudget)
+        self.quotaTailReadObserver = quotaTailReadObserver
     }
 
     func scan(cache original: LocalUsageCache, now: Date = .now) throws -> LocalUsageScanResult {
@@ -465,23 +470,21 @@ struct LocalUsageScanner: Sendable {
         baseCache: LocalUsageCache,
         overlay: inout ProviderOverlay
     ) throws -> ProviderScanOutcome {
-        guard FileManager.default.fileExists(atPath: root.path) else {
+        let rootParent = root.deletingLastPathComponent()
+        guard let parentAnchor = try NoFollowDirectory.openIfExists(rootParent),
+              let rootAnchor = try parentAnchor.openDirectoryIfExists(
+                components: [root.lastPathComponent]
+              ) else {
             overlay.resumeAfterFileKey = nil
             return ProviderScanOutcome(
                 completedFullCycle: true, hasDrainableBacklog: false,
                 waitingForWriterTail: false
             )
         }
-        // URL resource values can stay cached across a file-to-directory recovery.
-        // Read fresh filesystem attributes on every scan so a repaired root reconnects.
-        let rootAttributes = try FileManager.default.attributesOfItem(atPath: root.path)
-        guard rootAttributes[.type] as? FileAttributeType == .typeDirectory else {
-            throw CollectorError.invalidPayload
-        }
         guard let enumerator = FileManager.default.enumerator(
             at: root,
             includingPropertiesForKeys: [
-                .isRegularFileKey, .isSymbolicLinkKey, .fileSizeKey, .contentModificationDateKey,
+                .isSymbolicLinkKey,
             ],
             options: [.skipsHiddenFiles, .skipsPackageDescendants]
         ) else { throw CollectorError.invalidPayload }
@@ -491,10 +494,7 @@ struct LocalUsageScanner: Sendable {
             try Task.checkCancellation()
             let values: URLResourceValues
             do {
-                values = try fileURL.resourceValues(forKeys: [
-                    .isRegularFileKey, .isSymbolicLinkKey, .fileSizeKey,
-                    .contentModificationDateKey,
-                ])
+                values = try fileURL.resourceValues(forKeys: [.isSymbolicLinkKey])
             } catch {
                 // A file can disappear while the directory enumerator is running.
                 continue
@@ -503,15 +503,25 @@ struct LocalUsageScanner: Sendable {
                 enumerator.skipDescendants()
                 continue
             }
-            guard values.isRegularFile == true, fileURL.pathExtension == "jsonl" else { continue }
+            guard fileURL.pathExtension == "jsonl" else { continue }
+            let components = try descendantComponents(of: fileURL, under: root)
+            let file: NoFollowRegularFile
+            do {
+                file = try rootAnchor.openFile(
+                    components: components, maximumByteCount: Int.max
+                )
+            } catch {
+                continue
+            }
+            let identity = file.identity
+            file.close()
             guard descriptors.count < fileLimit else {
                 throw CollectorError.invalidPayload
             }
-            let size = UInt64(max(0, values.fileSize ?? 0))
             let fileKey = Self.hash("file:\(provider.rawValue):\(fileURL.path)")
             descriptors.append(FileDescriptor(
-                url: fileURL, fileKey: fileKey, snapshotSize: size,
-                modificationDate: values.contentModificationDate
+                fileKey: fileKey, components: components,
+                identity: identity
             ))
         }
         try Task.checkCancellation()
@@ -523,16 +533,16 @@ struct LocalUsageScanner: Sendable {
                 waitingForWriterTail: false
             )
         }
-        let newestModification = descriptors.compactMap(\.modificationDate).max()
-        let quotaNeedsRefresh = baseCache.quotaSnapshots?[.codex].map { snapshot in
-            newestModification.map { snapshot.observedAt.addingTimeInterval(5) < $0 } ?? false
-        } ?? true
-        if provider == .codex, quotaNeedsRefresh {
-            let recent = descriptors.sorted {
-                ($0.modificationDate ?? .distantPast) > ($1.modificationDate ?? .distantPast)
+        if provider == .codex {
+            let cutoff = baseCache.quotaSnapshots?[.codex]?.observedAt.addingTimeInterval(5)
+            let candidates = cutoff.map { cutoff in
+                descriptors.filter { $0.modificationDate > cutoff }
+            } ?? descriptors
+            let recent = candidates.sorted {
+                $0.modificationDate > $1.modificationDate
             }.prefix(32)
-            let snapshots = try recent.compactMap {
-                try readLatestCodexQuota(from: $0.url, size: $0.snapshotSize)
+            let snapshots = recent.compactMap {
+                try? readLatestCodexQuota(from: $0, rootAnchor: rootAnchor)
             }
             overlay.quotaSnapshot = snapshots.max { $0.observedAt < $1.observedAt }
         }
@@ -563,9 +573,8 @@ struct LocalUsageScanner: Sendable {
             overlay.resumeAfterFileKey = descriptor.fileKey
             do {
                 let outcome = try scanFile(
-                    descriptor.url, fileKey: descriptor.fileKey,
-                    size: descriptor.snapshotSize,
-                    modificationDate: descriptor.modificationDate,
+                    descriptor,
+                    rootAnchor: rootAnchor,
                     provider: provider, baseCache: baseCache,
                     providerOverlay: overlay,
                     providerBytesRead: bodyBytesRead
@@ -613,16 +622,31 @@ struct LocalUsageScanner: Sendable {
         return lower == descriptors.count ? 0 : lower
     }
 
+    private func descendantComponents(of fileURL: URL, under root: URL) throws -> [String] {
+        let rootComponents = root.standardizedFileURL.pathComponents
+        let fileComponents = fileURL.standardizedFileURL.pathComponents
+        guard fileComponents.count > rootComponents.count,
+              Array(fileComponents.prefix(rootComponents.count)) == rootComponents else {
+            throw CollectorError.invalidPayload
+        }
+        return Array(fileComponents.dropFirst(rootComponents.count))
+    }
+
     private func scanFile(
-        _ fileURL: URL,
-        fileKey: String,
-        size: UInt64,
-        modificationDate: Date?,
+        _ descriptor: FileDescriptor,
+        rootAnchor: NoFollowDirectory,
         provider: TokenProvider,
         baseCache: LocalUsageCache,
         providerOverlay: ProviderOverlay,
         providerBytesRead: Int
     ) throws -> FileScanOutcome {
+        let file = try rootAnchor.openFile(
+            components: descriptor.components, maximumByteCount: Int.max,
+            expectedIdentity: descriptor.identity, allowsGrowth: true
+        )
+        let fileKey = descriptor.fileKey
+        let size = descriptor.snapshotSize
+        let modificationDate = descriptor.modificationDate
         let priorCursor = providerOverlay.cursor(for: fileKey, base: baseCache)
         var transaction = FileTransaction(
             fileKey: fileKey,
@@ -638,7 +662,7 @@ struct LocalUsageScanner: Sendable {
         let comparisonCount = cursor.contentPrefixHash == nil
             ? min(Int(size), 4_096)
             : cursor.contentPrefixByteCount
-        let prefixHash = try contentPrefixHash(fileURL, byteCount: comparisonCount)
+        let prefixHash = try contentPrefixHash(file, byteCount: comparisonCount)
         let sameSizeWasRewritten = size == cursor.fileSize
             && cursor.lastModifiedAt != nil
             && cursor.lastModifiedAt != modificationDate
@@ -652,7 +676,7 @@ struct LocalUsageScanner: Sendable {
             cursor.discardingOversizedLine = nil
             cursor.contentPrefixByteCount = min(Int(size), 4_096)
             cursor.contentPrefixHash = try contentPrefixHash(
-                fileURL, byteCount: cursor.contentPrefixByteCount
+                file, byteCount: cursor.contentPrefixByteCount
             )
         } else if cursor.contentPrefixHash == nil {
             cursor.contentPrefixByteCount = comparisonCount
@@ -660,7 +684,7 @@ struct LocalUsageScanner: Sendable {
         }
         if size > cursor.byteOffset {
             let lineOutcome = try readLines(
-                fileURL, from: cursor.byteOffset, through: size,
+                file, from: cursor.byteOffset, through: size,
                 providerBytesRead: providerBytesRead,
                 discardingOversizedLine: cursor.discardingOversizedLine == true
             ) { line in
@@ -858,13 +882,20 @@ struct LocalUsageScanner: Sendable {
         let data: ClaudeQuotaData?
     }
 
-    private func readLatestCodexQuota(from url: URL, size: UInt64) throws -> ProviderQuotaSnapshot? {
+    private func readLatestCodexQuota(
+        from descriptor: FileDescriptor,
+        rootAnchor: NoFollowDirectory
+    ) throws -> ProviderQuotaSnapshot? {
+        quotaTailReadObserver?(descriptor.fileKey)
         let maximumTail = UInt64(1024 * 1024)
+        let size = descriptor.snapshotSize
         let offset = size > maximumTail ? size - maximumTail : 0
-        let handle = try FileHandle(forReadingFrom: url)
-        defer { try? handle.close() }
-        try handle.seek(toOffset: offset)
-        let data = try handle.readToEnd() ?? Data()
+        let file = try rootAnchor.openFile(
+            components: descriptor.components, maximumByteCount: Int.max,
+            expectedIdentity: descriptor.identity, allowsGrowth: true
+        )
+        try file.seek(toOffset: offset)
+        let data = try file.read(upToCount: Int(size - offset)) ?? Data()
         let lines = data.split(separator: 0x0A, omittingEmptySubsequences: true)
         for rawLine in lines.reversed() {
             guard let root = try? Self.jsonDecoder.decode(CodexRecord.self, from: Data(rawLine)),
@@ -887,10 +918,16 @@ struct LocalUsageScanner: Sendable {
     }
 
     private func readClaudeQuotaSnapshot() throws -> ProviderQuotaSnapshot? {
-        let url = claudeRoot.deletingLastPathComponent()
-            .appending(path: "plugins/oh-my-claudecode/.usage-cache-anthropic.json")
-        guard FileManager.default.fileExists(atPath: url.path) else { return nil }
-        let data = try Data(contentsOf: url, options: [.mappedIfSafe])
+        let maximumCacheByteCount = 256 * 1_024
+        let configRoot = claudeRoot.deletingLastPathComponent()
+        guard let anchor = try NoFollowDirectory.openIfExists(configRoot),
+              let file = try anchor.openFileIfExists(
+                components: [
+                    "plugins", "oh-my-claudecode", ".usage-cache-anthropic.json",
+                ],
+                maximumByteCount: maximumCacheByteCount
+        ) else { return nil }
+        let data = try file.readAll(maximumByteCount: maximumCacheByteCount)
         let cache = try Self.jsonDecoder.decode(ClaudeQuotaCache.self, from: data)
         guard let quota = cache.data, quota.weeklyPercent >= 0, quota.weeklyPercent <= 100 else {
             return nil
@@ -982,16 +1019,14 @@ struct LocalUsageScanner: Sendable {
     }
 
     private func readLines(
-        _ url: URL,
+        _ file: NoFollowRegularFile,
         from offset: UInt64,
         through endOffset: UInt64,
         providerBytesRead: Int,
         discardingOversizedLine initialDiscardState: Bool,
         body: (Data) throws -> Void
     ) throws -> LineReadOutcome {
-        let handle = try FileHandle(forReadingFrom: url)
-        defer { try? handle.close() }
-        try handle.seek(toOffset: offset)
+        try file.seek(toOffset: offset)
         var pending = Data()
         var consumed = offset
         var readOffset = offset
@@ -1016,7 +1051,7 @@ struct LocalUsageScanner: Sendable {
             let requestedCount = min(
                 Self.readChunkSize, hardRemaining, Int(min(UInt64(Int.max), remaining))
             )
-            guard let chunk = try handle.read(upToCount: requestedCount), !chunk.isEmpty else {
+            guard let chunk = try file.read(upToCount: requestedCount), !chunk.isEmpty else {
                 break
             }
             let chunkStartOffset = readOffset
@@ -1089,10 +1124,11 @@ struct LocalUsageScanner: Sendable {
         )
     }
 
-    private func contentPrefixHash(_ url: URL, byteCount: Int) throws -> String {
-        let handle = try FileHandle(forReadingFrom: url)
-        defer { try? handle.close() }
-        let prefix = try handle.read(upToCount: byteCount) ?? Data()
+    private func contentPrefixHash(
+        _ file: NoFollowRegularFile, byteCount: Int
+    ) throws -> String {
+        try file.seek(toOffset: 0)
+        let prefix = try file.read(upToCount: byteCount) ?? Data()
         return Self.hash(prefix.base64EncodedString())
     }
 

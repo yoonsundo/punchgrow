@@ -289,36 +289,59 @@ struct MaxLevelFeedback: Identifiable, Equatable, Sendable {
 }
 
 struct Inventory: Codable, Equatable, Sendable {
-    var food = 5
-    var largeFood = 0
+    /// 스키마 1·2에서만 쓰던 일반 먹이 수량. 현재 스키마로 옮길 때 가치 보존 변환에
+    /// 소비하며, 새 세이브에는 다시 기록하지 않는다.
+    var legacyNormalFood = 0
+    var largeFood = 1
+    var extraLargeFood = 0
     var trainingTools = 1
     var evolutionMaterials = 0
 
-    init(food: Int = 5, largeFood: Int = 0, trainingTools: Int = 1, evolutionMaterials: Int = 0) {
-        self.food = food
+    init(
+        largeFood: Int = 1,
+        extraLargeFood: Int = 0,
+        trainingTools: Int = 1,
+        evolutionMaterials: Int = 0
+    ) {
         self.largeFood = largeFood
+        self.extraLargeFood = extraLargeFood
         self.trainingTools = trainingTools
         self.evolutionMaterials = evolutionMaterials
     }
 
     private enum CodingKeys: String, CodingKey {
-        case food, largeFood, trainingTools, evolutionMaterials
+        case food, largeFood, extraLargeFood, trainingTools, evolutionMaterials
     }
 
     init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
-        food = try container.decodeIfPresent(Int.self, forKey: .food) ?? 5
+        legacyNormalFood = try container.decodeIfPresent(Int.self, forKey: .food) ?? 0
         largeFood = try container.decodeIfPresent(Int.self, forKey: .largeFood) ?? 0
+        extraLargeFood = try container.decodeIfPresent(Int.self, forKey: .extraLargeFood) ?? 0
         trainingTools = try container.decodeIfPresent(Int.self, forKey: .trainingTools) ?? 1
         evolutionMaterials = try container.decodeIfPresent(Int.self, forKey: .evolutionMaterials) ?? 0
+    }
+
+    func encode(to encoder: Encoder) throws {
+        var container = encoder.container(keyedBy: CodingKeys.self)
+        try container.encode(largeFood, forKey: .largeFood)
+        try container.encode(extraLargeFood, forKey: .extraLargeFood)
+        try container.encode(trainingTools, forKey: .trainingTools)
+        try container.encode(evolutionMaterials, forKey: .evolutionMaterials)
     }
 }
 
 struct GameState: Codable, Equatable, Sendable {
-    static let schemaVersion = 2
+    static let schemaVersion = 3
     static let gachaCost = 500_000
-    static let foodCost = 100_000
+    static let legacyNormalFoodUnitCost = 100_000
+    static let legacyNormalFoodPerLargeFood = 5
     static let largeFoodCost = 500_000
+    static let extraLargeFoodCost = 2_500_000
+    static let largeFoodExperience = 200
+    static let largeFoodAffection = 10
+    static let extraLargeFoodExperience = 1_000
+    static let extraLargeFoodAffection = 50
     static let maximumCreatureLevel = 50
     static let originPityThreshold = 300
     static let weeklyUsageForMaximumActivityBonus = 5_000_000
@@ -378,8 +401,9 @@ struct GameState: Codable, Equatable, Sendable {
               creditedUsageEventKeys.count <= 1_000_000,
               codexCheckpoints.count <= 10_000,
               ownedCreatures.count <= 100_000,
-              inventory.food >= 0,
+              inventory.legacyNormalFood == 0,
               inventory.largeFood >= 0,
+              inventory.extraLargeFood >= 0,
               inventory.trainingTools >= 0,
               inventory.evolutionMaterials >= 0
         else { throw GameError.invalidBackup }
@@ -420,8 +444,8 @@ enum GameError: LocalizedError, Equatable {
     case insufficientTokens
     case emptyCatalog
     case creatureNotFound
-    case noFood
     case noLargeFood
+    case noExtraLargeFood
     case inventoryFull
     case invalidBackup
     case invalidEvolutionChoice
@@ -436,8 +460,8 @@ enum GameError: LocalizedError, Equatable {
         case .insufficientTokens: "필요한 토큰이 부족합니다."
         case .emptyCatalog: "크리처 카탈로그를 불러오지 못했습니다."
         case .creatureNotFound: "보유 크리처를 찾지 못했습니다."
-        case .noFood: "먹이가 부족합니다."
         case .noLargeFood: "대형 먹이가 부족합니다."
+        case .noExtraLargeFood: "특대형 먹이가 부족합니다."
         case .inventoryFull: "먹이 보유 한도에 도달했습니다."
         case .invalidBackup: "유효한 PunchGrow 백업 파일이 아닙니다."
         case .invalidEvolutionChoice: "지금 고를 수 없는 진화 대상입니다."

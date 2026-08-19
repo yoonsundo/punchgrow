@@ -263,6 +263,9 @@ final class UpdateService: ObservableObject {
         guard let http = response as? HTTPURLResponse else {
             throw UpdateCheckError.badResponse(status: -1)
         }
+        guard UpdateCheck.isTrustedLatestReleaseResponseURL(http.url) else {
+            throw UpdateCheckError.untrustedResponseURL
+        }
         guard (200..<300).contains(http.statusCode) else {
             throw UpdateCheckError.badResponse(status: http.statusCode)
         }

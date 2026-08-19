@@ -28,7 +28,7 @@ final class GroupNavigationPresentationTests: XCTestCase {
     var state = GameState()
     state.ownedCreatures = creatures
     state.tokenBalance = 10_000_000
-    state.inventory.food = 30
+    state.inventory.largeFood = 30
     return state
   }
 

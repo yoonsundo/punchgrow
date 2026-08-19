@@ -33,6 +33,23 @@ private final class ScanOverlapProbe: @unchecked Sendable {
   }
 }
 
+private final class QuotaTailReadProbe: @unchecked Sendable {
+  private let lock = NSLock()
+  private var readCount = 0
+
+  func record(fileKey _: String) {
+    lock.lock()
+    readCount += 1
+    lock.unlock()
+  }
+
+  var count: Int {
+    lock.lock()
+    defer { lock.unlock() }
+    return readCount
+  }
+}
+
 final class LocalUsageReaderTests: XCTestCase {
   private var temporaryDirectory: URL!
   private var claudeRoot: URL!
@@ -728,6 +745,167 @@ final class LocalUsageReaderTests: XCTestCase {
     XCTAssertTrue(result.cache.claudeMaximums.isEmpty)
   }
 
+  func testSymbolicLinkScannerRootIsRejected() throws {
+    let externalRoot = temporaryDirectory.appending(path: "external-claude-projects")
+    let linkedRoot = temporaryDirectory.appending(path: "linked-claude-projects")
+    try write(
+      [claudeLine(messageID: "external-root", requestID: "external-root", output: 99)],
+      to: externalRoot.appending(path: "project/session.jsonl")
+    )
+    try FileManager.default.createSymbolicLink(at: linkedRoot, withDestinationURL: externalRoot)
+    let linkedScanner = LocalUsageScanner(claudeRoot: linkedRoot, codexRoot: codexRoot)
+
+    let result = try linkedScanner.scan(cache: LocalUsageCache(), now: fixedNow)
+
+    XCTAssertTrue(result.failedProviders.contains(.claude))
+    XCTAssertNil(result.observedTotals[.claude])
+  }
+
+  func testNestedDirectorySymbolicLinkIsNotTraversed() throws {
+    let externalDirectory = temporaryDirectory.appending(path: "external-project")
+    try write(
+      [claudeLine(messageID: "nested-external", requestID: "nested-external", output: 77)],
+      to: externalDirectory.appending(path: "session.jsonl")
+    )
+    let linkedDirectory = claudeRoot.appending(path: "linked-project")
+    try FileManager.default.createSymbolicLink(
+      at: linkedDirectory, withDestinationURL: externalDirectory)
+
+    let result = try scanner.scan(cache: LocalUsageCache(), now: fixedNow)
+
+    XCTAssertNil(result.observedTotals[.claude])
+    XCTAssertTrue(result.cache.claudeMaximums.isEmpty)
+  }
+
+  func testClaudeQuotaCacheRejectsSymbolicLinkAndOversizedFile() throws {
+    let claudeConfig = claudeRoot.deletingLastPathComponent()
+    let quotaURL = claudeConfig
+      .appending(path: "plugins/oh-my-claudecode/.usage-cache-anthropic.json")
+    let external = temporaryDirectory.appending(path: "external-quota.json")
+    let validQuota = Data(
+      #"{"timestamp":1785747600000,"data":{"weeklyPercent":42,"weeklyResetsAt":null}}"#.utf8
+    )
+    try FileManager.default.createDirectory(
+      at: quotaURL.deletingLastPathComponent(), withIntermediateDirectories: true)
+    try validQuota.write(to: external)
+    try FileManager.default.createSymbolicLink(at: quotaURL, withDestinationURL: external)
+
+    let linked = try scanner.scan(cache: LocalUsageCache(), now: fixedNow)
+    XCTAssertNil(linked.quotaSnapshots[.claude])
+
+    try FileManager.default.removeItem(at: quotaURL)
+    XCTAssertTrue(FileManager.default.createFile(atPath: quotaURL.path, contents: nil))
+    let handle = try FileHandle(forWritingTo: quotaURL)
+    try handle.truncate(atOffset: 256 * 1_024 + 1)
+    try handle.close()
+
+    let oversized = try scanner.scan(cache: LocalUsageCache(), now: fixedNow)
+    XCTAssertNil(oversized.quotaSnapshots[.claude])
+
+    try FileManager.default.removeItem(at: quotaURL)
+    try validQuota.write(to: quotaURL)
+    let valid = try scanner.scan(cache: LocalUsageCache(), now: fixedNow)
+    XCTAssertEqual(valid.quotaSnapshots[.claude]?.usedPercent, 42)
+  }
+
+  func testCodexQuotaSkipsFilesAtOrBeforeCachedSnapshotCutoff() throws {
+    let before = codexRoot.appending(path: "2026/08/before.jsonl")
+    let boundary = codexRoot.appending(path: "2026/08/boundary.jsonl")
+    try write([codexQuotaLine(timestamp: "2026-08-03T09:30:06.000Z", usedPercent: 91)], to: before)
+    try write([codexQuotaLine(timestamp: "2026-08-03T09:30:07.000Z", usedPercent: 92)], to: boundary)
+    try setModificationDate(fixedNow.addingTimeInterval(4), for: before)
+    try setModificationDate(fixedNow.addingTimeInterval(5), for: boundary)
+    var cache = try scanner.scan(
+      cache: LocalUsageCache(), now: fixedNow.addingTimeInterval(10)
+    ).cache
+    cache.quotaSnapshots = [
+      .codex: ProviderQuotaSnapshot(usedPercent: 40, resetsAt: nil, observedAt: fixedNow)
+    ]
+    let probe = QuotaTailReadProbe()
+    let observedScanner = LocalUsageScanner(
+      claudeRoot: claudeRoot, codexRoot: codexRoot,
+      quotaTailReadObserver: { probe.record(fileKey: $0) })
+
+    let result = try observedScanner.scan(cache: cache, now: fixedNow.addingTimeInterval(10))
+
+    XCTAssertEqual(probe.count, 0)
+    XCTAssertEqual(result.quotaSnapshots[.codex]?.usedPercent, 40)
+  }
+
+  func testCodexQuotaReadsOnlyFilesStrictlyAfterCachedSnapshotCutoff() throws {
+    let boundary = codexRoot.appending(path: "2026/08/boundary.jsonl")
+    let after = codexRoot.appending(path: "2026/08/after.jsonl")
+    try write([codexQuotaLine(timestamp: "2026-08-03T09:30:06.000Z", usedPercent: 91)], to: boundary)
+    try write([codexQuotaLine(timestamp: "2026-08-03T09:30:07.000Z", usedPercent: 12)], to: after)
+    try setModificationDate(fixedNow.addingTimeInterval(5), for: boundary)
+    try setModificationDate(fixedNow.addingTimeInterval(6), for: after)
+    var cache = try scanner.scan(
+      cache: LocalUsageCache(), now: fixedNow.addingTimeInterval(10)
+    ).cache
+    cache.quotaSnapshots = [
+      .codex: ProviderQuotaSnapshot(usedPercent: 80, resetsAt: nil, observedAt: fixedNow)
+    ]
+    let probe = QuotaTailReadProbe()
+    let observedScanner = LocalUsageScanner(
+      claudeRoot: claudeRoot, codexRoot: codexRoot,
+      quotaTailReadObserver: { probe.record(fileKey: $0) })
+
+    let result = try observedScanner.scan(cache: cache, now: fixedNow.addingTimeInterval(10))
+
+    XCTAssertEqual(probe.count, 1)
+    XCTAssertEqual(result.quotaSnapshots[.codex]?.usedPercent, 12)
+    XCTAssertEqual(result.quotaSnapshots[.codex]?.observedAt, fixedNow.addingTimeInterval(7))
+  }
+
+  func testCodexQuotaWithoutCachedSnapshotReadsOnlyNewest32Files() throws {
+    let probe = QuotaTailReadProbe()
+    for index in 0..<33 {
+      let file = codexRoot.appending(path: "2026/08/quota-\(index).jsonl")
+      let percent = index == 0 ? 99 : Double(index)
+      let eventSecond = index == 0 ? 59 : index
+      try write(
+        [codexQuotaLine(
+          timestamp: String(format: "2026-08-03T09:30:%02d.000Z", eventSecond),
+          usedPercent: percent)],
+        to: file)
+      try setModificationDate(fixedNow.addingTimeInterval(TimeInterval(index)), for: file)
+    }
+    var cache = try scanner.scan(
+      cache: LocalUsageCache(), now: fixedNow.addingTimeInterval(60)
+    ).cache
+    cache.quotaSnapshots = nil
+    let observedScanner = LocalUsageScanner(
+      claudeRoot: claudeRoot, codexRoot: codexRoot,
+      quotaTailReadObserver: { probe.record(fileKey: $0) })
+
+    let result = try observedScanner.scan(cache: cache, now: fixedNow.addingTimeInterval(60))
+
+    XCTAssertEqual(probe.count, 32)
+    XCTAssertEqual(result.quotaSnapshots[.codex]?.usedPercent, 32)
+  }
+
+  func testCodexQuotaChoosesNewestEventTimestampAcrossCandidates() throws {
+    let newerFile = codexRoot.appending(path: "2026/08/newer-file.jsonl")
+    let olderFile = codexRoot.appending(path: "2026/08/older-file.jsonl")
+    try write(
+      [codexQuotaLine(timestamp: "2026-08-03T09:30:08.000Z", usedPercent: 25)],
+      to: newerFile)
+    try write(
+      [codexQuotaLine(timestamp: "2026-08-03T09:30:09.000Z", usedPercent: 55)],
+      to: olderFile)
+    try setModificationDate(fixedNow.addingTimeInterval(20), for: newerFile)
+    try setModificationDate(fixedNow.addingTimeInterval(10), for: olderFile)
+
+    var cache = try scanner.scan(
+      cache: LocalUsageCache(), now: fixedNow.addingTimeInterval(30)
+    ).cache
+    cache.quotaSnapshots = nil
+    let result = try scanner.scan(cache: cache, now: fixedNow.addingTimeInterval(30))
+
+    XCTAssertEqual(result.quotaSnapshots[.codex]?.usedPercent, 55)
+    XCTAssertEqual(result.quotaSnapshots[.codex]?.observedAt, fixedNow.addingTimeInterval(9))
+  }
+
   func testPersistedCacheContainsNoPromptsResponsesOrRawFilePaths() throws {
     let secretPathComponent = "private-project-super-secret"
     let secretPrompt = "DO_NOT_PERSIST_PROMPT_\(UUID().uuidString)"
@@ -747,6 +925,71 @@ final class LocalUsageReaderTests: XCTestCase {
     XCTAssertFalse(persisted.contains(log.path))
     XCTAssertFalse(persisted.contains("message-a"))
     XCTAssertFalse(persisted.contains("request-a"))
+  }
+
+  func testCachePersistenceUsesCompactJSONAndReadsLegacyPrettyJSON() throws {
+    let preciseNow = fixedNow.addingTimeInterval(0.123_456_7)
+    var cache = LocalUsageCache()
+    cache.baselineCompleted = true
+    cache.quotaSnapshots = [
+      .claude: ProviderQuotaSnapshot(
+        usedPercent: 42,
+        resetsAt: preciseNow.addingTimeInterval(3_600),
+        observedAt: preciseNow)
+    ]
+    let cacheFile = temporaryDirectory.appending(path: "usage-cache.json")
+    let persistence = LocalUsageCachePersistence(fileURL: cacheFile)
+
+    try persistence.save(cache)
+
+    let compactData = try Data(contentsOf: cacheFile)
+    let compactJSON = String(decoding: compactData, as: UTF8.self)
+    XCTAssertFalse(compactJSON.contains("\n"))
+    XCTAssertFalse(compactJSON.contains(": "))
+    XCTAssertEqual(try persistence.load(), cache)
+
+    var legacyCache = cache
+    legacyCache.quotaSnapshots = [
+      .claude: ProviderQuotaSnapshot(
+        usedPercent: 42,
+        resetsAt: fixedNow.addingTimeInterval(3_600),
+        observedAt: fixedNow)
+    ]
+    let legacyPrettyData = try JSONEncoder.punchGrow.encode(legacyCache)
+    XCTAssertTrue(String(decoding: legacyPrettyData, as: UTF8.self).contains("\n"))
+    try legacyPrettyData.write(to: cacheFile)
+
+    XCTAssertEqual(try persistence.load(), legacyCache)
+  }
+
+  func testScannerCacheRoundTripKeepsUnchangedFileCacheOnDisk() throws {
+    let log = claudeRoot.appending(path: "project/session.jsonl")
+    try write(
+      [claudeLine(messageID: "round-trip", requestID: "round-trip", output: 25)],
+      to: log)
+    try setModificationDate(fixedNow.addingTimeInterval(0.123_456_7), for: log)
+    let cacheFile = temporaryDirectory.appending(path: "usage-cache.json")
+    let persistence = LocalUsageCachePersistence(fileURL: cacheFile)
+    let baseline = try scanner.scan(cache: LocalUsageCache(), now: fixedNow)
+    try persistence.save(baseline.cache)
+    let originalFileNumber = try XCTUnwrap(
+      FileManager.default.attributesOfItem(atPath: cacheFile.path)[.systemFileNumber] as? NSNumber
+    ).uint64Value
+
+    let loadedCache = try persistence.load()
+    let unchanged = try scanner.scan(
+      cache: loadedCache, now: fixedNow.addingTimeInterval(10))
+    if unchanged.cache != loadedCache {
+      try persistence.save(unchanged.cache)
+    }
+
+    XCTAssertEqual(unchanged.cache, loadedCache)
+    XCTAssertEqual(
+      try XCTUnwrap(
+        FileManager.default.attributesOfItem(atPath: cacheFile.path)[.systemFileNumber] as? NSNumber
+      ).uint64Value,
+      originalFileNumber,
+      "an unchanged real scan must not replace the cache file")
   }
 
   func testCorruptCacheRecoversByEstablishingANewBaselineWithoutWindfall() throws {
@@ -854,6 +1097,12 @@ final class LocalUsageReaderTests: XCTestCase {
     """
   }
 
+  private func codexQuotaLine(timestamp: String, usedPercent: Double) -> String {
+    """
+    {"type":"event_msg","timestamp":"\(timestamp)","payload":{"type":"token_count","rate_limits":{"primary":{"used_percent":\(usedPercent)}}}}
+    """
+  }
+
   private func codexCumulativeLine(
     timestamp: String,
     lastInput: Int,
@@ -902,6 +1151,10 @@ final class LocalUsageReaderTests: XCTestCase {
     try handle.write(contentsOf: Data(value.utf8))
   }
 
+  private func setModificationDate(_ date: Date, for file: URL) throws {
+    try FileManager.default.setAttributes([.modificationDate: date], ofItemAtPath: file.path)
+  }
+
   private func writeOversizedIrrelevantRecord(
     payloadByteCount: Int,
     followedBy line: String? = nil,
@@ -944,6 +1197,77 @@ final class LocalUsageServiceConsentTests: XCTestCase {
       LocalUsageService.nextScanDelay(
         activeDuration: 2, hasDrainableBacklog: false, idleInterval: 12),
       12)
+  }
+
+  @MainActor
+  func testScanPersistsOnlyWhenCacheChanges() async throws {
+    let directory = FileManager.default.temporaryDirectory
+      .appending(path: "punchgrow-cache-write-skip-\(UUID().uuidString)")
+    let cacheURL = directory.appending(path: "cache.json")
+    try FileManager.default.createDirectory(at: directory, withIntermediateDirectories: true)
+    defer { try? FileManager.default.removeItem(at: directory) }
+    let persistence = LocalUsageCachePersistence(fileURL: cacheURL)
+    var persistedCache = LocalUsageCache()
+    persistedCache.baselineCompleted = true
+    try persistence.save(persistedCache)
+    let originalFileNumber = try XCTUnwrap(
+      FileManager.default.attributesOfItem(atPath: cacheURL.path)[.systemFileNumber] as? NSNumber
+    ).uint64Value
+    let suiteName = "LocalUsageCacheWriteSkipTests-\(UUID().uuidString)"
+    let defaults = UserDefaults(suiteName: suiteName)!
+    defer { defaults.removePersistentDomain(forName: suiteName) }
+    let unchangedService = LocalUsageService(
+      persistence: persistence,
+      interval: 60,
+      defaults: defaults,
+      scanOperation: { _, cache in
+        LocalUsageScanResult(
+          cache: cache,
+          observedTotals: [:], observedWeeklyTotals: [:], observedWeeklyBreakdown: [:],
+          quotaSnapshots: [:], creditEvents: [], successfulProviders: [],
+          failedProviders: [], hasDrainableBacklog: false)
+      },
+      onEvents: { _ in .duplicate }
+    )
+
+    unchangedService.start()
+    for _ in 0..<200 where unchangedService.lastScanAt == nil {
+      try await Task.sleep(for: .milliseconds(5))
+    }
+    unchangedService.stop()
+
+    XCTAssertNotNil(unchangedService.lastScanAt)
+    XCTAssertEqual(
+      try XCTUnwrap(
+        FileManager.default.attributesOfItem(atPath: cacheURL.path)[.systemFileNumber] as? NSNumber
+      ).uint64Value,
+      originalFileNumber,
+      "an unchanged scan must not replace the cache file")
+
+    let changedService = LocalUsageService(
+      persistence: persistence,
+      interval: 60,
+      defaults: defaults,
+      scanOperation: { _, cache in
+        var changedCache = cache
+        changedCache.baselineCompleted = false
+        return LocalUsageScanResult(
+          cache: changedCache,
+          observedTotals: [:], observedWeeklyTotals: [:], observedWeeklyBreakdown: [:],
+          quotaSnapshots: [:], creditEvents: [], successfulProviders: [],
+          failedProviders: [], hasDrainableBacklog: false)
+      },
+      onEvents: { _ in .duplicate }
+    )
+
+    changedService.start()
+    for _ in 0..<200 where changedService.lastScanAt == nil {
+      try await Task.sleep(for: .milliseconds(5))
+    }
+    changedService.stop()
+
+    XCTAssertNotNil(changedService.lastScanAt)
+    XCTAssertFalse(try persistence.load().baselineCompleted)
   }
 
   @MainActor
