@@ -1354,6 +1354,7 @@ final class LocalUsageServiceConsentTests: XCTestCase {
   func testDisconnectDeletesOnlyPunchGrowCacheAndResetsObservedState() throws {
     let directory = FileManager.default.temporaryDirectory
       .appending(path: "punchgrow-consent-cache-\(UUID().uuidString)")
+    try FileManager.default.createDirectory(at: directory, withIntermediateDirectories: true)
     defer { try? FileManager.default.removeItem(at: directory) }
     let cacheURL = directory.appending(path: "local-usage-cache.json")
     let persistence = LocalUsageCachePersistence(fileURL: cacheURL)

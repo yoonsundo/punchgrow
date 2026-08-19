@@ -72,17 +72,20 @@ final class G001StateTests: XCTestCase {
     let representative = store.state.representativeCreatureID
     store.selectNextCreature()
     let current = try XCTUnwrap(store.currentCreatureID)
-    let priorCurrentXP = try XCTUnwrap(store.state.ownedCreatures.first { $0.id == current })
-      .experience
+    let priorCurrent = try XCTUnwrap(
+      store.state.ownedCreatures.first { $0.id == current })
     let priorRepresentativeXP = try XCTUnwrap(
       store.state.ownedCreatures.first { $0.id == representative }
     ).experience
 
     store.feedLargeCurrent()
 
-    XCTAssertTrue(
-      store.state.ownedCreatures.first { $0.id == current }?.experience
-        == priorCurrentXP + GameState.largeFoodExperience)
+    let fedCurrent = try XCTUnwrap(
+      store.state.ownedCreatures.first { $0.id == current })
+    XCTAssertEqual(fedCurrent.level, priorCurrent.level + 1)
+    XCTAssertEqual(
+      fedCurrent.experience,
+      priorCurrent.experience + GameState.largeFoodExperience - priorCurrent.level * 100)
     XCTAssertTrue(
       store.state.ownedCreatures.first { $0.id == representative }?.experience
         == priorRepresentativeXP)
@@ -266,8 +269,10 @@ final class G001StateTests: XCTestCase {
     XCTAssertNil(store.errorMessage)
     XCTAssertEqual(store.currentCreatureID, fixture.group[1].id)
     XCTAssertEqual(
+      store.state.ownedCreatures.first { $0.id == fixture.group[1].id }?.level, 2)
+    XCTAssertEqual(
       store.state.ownedCreatures.first { $0.id == fixture.group[1].id }?.experience,
-      GameState.largeFoodExperience)
+      GameState.largeFoodExperience - 100)
     XCTAssertEqual(
       store.state.ownedCreatures.first { $0.id == fixture.group[0].id }?.experience, 0)
     XCTAssertEqual(

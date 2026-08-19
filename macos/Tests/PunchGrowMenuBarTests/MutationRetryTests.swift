@@ -473,7 +473,9 @@ final class MutationRetryTests: XCTestCase {
     store.feedLargeCurrent()
 
     XCTAssertNil(store.errorMessage)
-    XCTAssertEqual(store.state.ownedCreatures[1].experience, GameState.largeFoodExperience)
+    XCTAssertEqual(store.state.ownedCreatures[1].level, 2)
+    XCTAssertEqual(
+      store.state.ownedCreatures[1].experience, GameState.largeFoodExperience - 100)
     XCTAssertEqual(store.state.ownedCreatures[0], subject)
   }
 
@@ -498,7 +500,9 @@ final class MutationRetryTests: XCTestCase {
     store.feedLargeCurrent()
 
     XCTAssertNil(store.errorMessage)
-    XCTAssertEqual(store.state.ownedCreatures[1].experience, GameState.largeFoodExperience)
+    XCTAssertEqual(store.state.ownedCreatures[1].level, 2)
+    XCTAssertEqual(
+      store.state.ownedCreatures[1].experience, GameState.largeFoodExperience - 100)
     XCTAssertEqual(store.state.ownedCreatures[0], terminal)
   }
 

@@ -1128,7 +1128,8 @@ final class GameEngineTests: XCTestCase {
     initial.inventory.largeFood = 2
     initial.tokenBalance = 2_000_000
     try persistence.save(initial)
-    var backupState = initial
+    let persistedInitial = try persistence.load()
+    var backupState = persistedInitial
     backupState.inventory.largeFood = 9
     backupState.tokenBalance = 9_000_000
     try persistence.export(backupState, to: backup)
@@ -1143,15 +1144,15 @@ final class GameEngineTests: XCTestCase {
     store.restoreBackup(from: backup)
 
     XCTAssertEqual(store.errorMessage, GameStore.persistenceBusyActionMessage)
-    XCTAssertEqual(store.state, initial)
-    XCTAssertEqual(try persistence.load(), initial)
+    XCTAssertEqual(store.state, persistedInitial)
+    XCTAssertEqual(try persistence.load(), persistedInitial)
 
     await writer.completeBySaving(to: persistence)
     let repeatSucceeded = await repeatTask.value
 
     XCTAssertTrue(repeatSucceeded)
     XCTAssertEqual(store.state.inventory.largeFood, 1)
-    XCTAssertEqual(store.state.tokenBalance, initial.tokenBalance)
+    XCTAssertEqual(store.state.tokenBalance, persistedInitial.tokenBalance)
     XCTAssertEqual(try persistence.load(), store.state)
   }
 
@@ -1359,7 +1360,7 @@ final class GameEngineTests: XCTestCase {
     let file = directory.appending(path: "state.json")
     let json = """
       {"schemaVersion":2,"tokenBalance":1000000,"usageEvents":[],"creditedUsageEventKeys":[],
-      "lifetimeUsage":{},"codexCheckpoints":{},"ownedCreatures":[],"discoveredSpeciesIDs":[],
+      "lifetimeUsage":[],"codexCheckpoints":{},"ownedCreatures":[],"discoveredSpeciesIDs":[],
       "inventory":{"food":12,"largeFood":3,"trainingTools":1,"evolutionMaterials":0},
       "pullsSinceOrigin":0,"representativeCreatureID":null}
       """
