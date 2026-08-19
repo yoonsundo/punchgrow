@@ -8,6 +8,9 @@ Current source version label: **v0.4.0** (`CFBundleShortVersionString` in
 `homebrew/Info.plist` is the single source the update check compares against).
 The published Homebrew v0.4.0 release and current `main` both contain 64
 starting lineages and 256 creatures.
+The shared version label and catalog do not imply binary feature parity. Unless
+a bullet explicitly names the release, implementation details below describe
+current `main`.
 For player-facing instructions, see the
 [Korean user guide](../docs/USAGE.md) or [English user guide](../docs/USAGE.en.md).
 
@@ -32,9 +35,13 @@ Claude Code or Codex logs.
   local cache exists; Codex comes from `rate_limits.primary.used_percent`.
   Missing values remain pending rather than being estimated, so Claude stays
   pending when the oh-my-claudecode cache has not been created.
-- Normal food costs 100,000 tokens and grants XP +25 / affinity +3. Large food
-  is stored separately, costs 500,000 tokens, and grants XP +200 / affinity +10.
-  Feed and purchase buttons support one click or accelerating press-and-hold.
+- On current `main`, large food occupies the first food slot, costs 500,000
+  tokens, and grants XP +200 / affinity +10. Extra-large food costs 2,500,000 tokens and grants XP
+  +1,000 / affinity +50, an exact 5x bundle with the same token efficiency.
+  Legacy normal food converts 5:1 into large food, with each remainder refunding
+  100,000 tokens. Feed and purchase buttons repeat after a 240ms hold, starting
+  at 80ms intervals, subtracting 8ms per action to a 35ms minimum, and stopping
+  on release or when the action becomes blocked.
 - Current `main` and the published Homebrew v0.4.0 release both draw uniformly
   from 64 PROCESS stage-one species. Direct draw rarity is PROCESS 100% in
   both. Feeding automatically

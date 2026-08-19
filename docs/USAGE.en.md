@@ -94,12 +94,20 @@ The first scan creates a **non-crediting baseline**. Current-week activity found
 
 ### Buy and feed food
 
+> **Version note:** Homebrew `v0.4.0` provides normal food at 100,000 tokens for XP +25 / affinity +3 and large food at 500,000 tokens for XP +200 / affinity +10. Its hold repeat arms after 360ms, starts at 110ms intervals, and accelerates to a 45ms minimum. The large/extra-large model below is available only on current `main` and is planned for the next release.
+
 | Item | Purchase | Growth |
 | --- | ---: | --- |
-| Normal food | 100,000 tokens | XP +25, affinity +3 |
 | Large food | 500,000 tokens | XP +200, affinity +10 |
+| Extra-large food | 2,500,000 tokens | XP +1,000, affinity +50 |
 
-Use **일반 구매** or **대형 구매** to add food to inventory, then use **일반 먹이** or **대형 먹이** on the currently displayed creature. A click performs one action. Press and hold a purchase or feed button to repeat the action at an accelerating rate; release to stop.
+Use **대형 구매 · 500K** or **특대형 구매 · 250만** to add food to inventory, then use **대형 먹이** or **특대형 먹이** on the currently displayed creature. Extra-large food costs and grants exactly five times as much as large food, so both tiers have the same token efficiency.
+
+A click performs one action. Holding starts repetition after 240ms. The repeat interval starts at 80ms, decreases by 8ms after each action, and stops decreasing at 35ms. Releasing the button immediately cancels further repeats. If one action is already being saved, that one save finishes and publishes its result, but no additional action runs. Each repeated result appears only after its save finishes.
+
+Repeating stops when tokens or food run out, or when a level-50 creature reaches 100 affinity. A level-50 creature with affinity remaining can still be fed. Feeding is blocked while a level-50 creature awaits an evolution choice.
+
+When current `main` loads a legacy save, every five normal-food items become one large food. Each remaining normal-food item refunds 100,000 tokens, preserving its original purchase value.
 
 ### Current rarity and maximum reachable rarity
 
@@ -168,6 +176,8 @@ In **Data & Settings**:
 - Select **백업 복원** (Restore backup) to load a compatible `.pgrow` file.
 
 A backup includes creatures, tokens, progression, inventory, and normalized usage numbers. It does not include prompts, responses, source code, commands, or raw local log content. Keep your `.pgrow` file before moving to another Mac or erasing local app data.
+
+If PunchGrow replaces the state file but cannot confirm the final directory sync, it keeps the already-committed result visible and shows a warning. Further game changes remain locked until you restore a backup from **Data & Settings**.
 
 ## Update checks and notifications
 

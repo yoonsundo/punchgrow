@@ -3,7 +3,7 @@
 ## Source of truth
 
 - Status: Active
-- Last refreshed: 2026-08-14
+- Last refreshed: 2026-08-19
 - Primary product surfaces: macOS ambient menu-bar badge and popup, macOS large window, dedicated ORIGIN reveal window, public website (`/`, `/en/`), public creature dex (`/dex/`, `/en/dex/`), and retained mobile exploration
 - Evidence reviewed: `.omx/plans/prd-macos-ux-redesign.md`, `.omx/plans/test-spec-macos-ux-redesign.md`, `문서/WIREFRAMES.md`, `문서/DECISIONS.md`, the existing SwiftUI views, evolution catalog, creature assets, 398×670 populated/fresh-state menu snapshots, `website/` source and build contracts, public README/community files, and the deployed GitHub Pages response
 - Scope note: the approved PRD and wireframes remain authoritative for product behavior. This file summarizes their design contract.
@@ -17,7 +17,7 @@
 ## Product goals
 
 - Goals: make the current creature and grow/draw loop immediately understandable; distinguish current rarity from automatic-evolution potential at a glance; make integration state trustworthy; keep collection and data management easy to find; let a public visitor install, inspect source, understand privacy, explore the dex, or start contributing without guessing
-- Non-goals: shop, detailed statistics, combat, evolution, or economy changes in this macOS iteration
+- Non-goals: shop, detailed statistics, combat, evolution changes, or economy changes beyond the two-tier food redesign in this macOS iteration
 - Success signals: users can distinguish balance from usage, navigate creatures, choose a representative, understand disabled actions, and configure Claude/Codex without guessing; public visitors can identify the supported Mac, current alpha/release status, Homebrew and source-build paths, license boundary, and correct support/security route from the first page
 
 ## Personas and jobs
@@ -45,7 +45,7 @@
 
 ## Visual language
 
-- Color: near-black violet background, layered plum surfaces, lime growth accent, cyan Claude accent, magenta Codex accent; rarity tokens progress through slate PROCESS, cyan AGENT, violet DAEMON, magenta ORACLE, metallic amber ARCHITECT, and lime-cyan iridescent ORIGIN. The compact action deck uses muted, medium-dark semantic fills rather than full-bright provider/rarity accents: moss for normal food, violet for large food, rose for draw, amber for purchases, indigo for mutation retry, and teal for inheritance. All action labels use white for consistent contrast. The public website uses the same palette as a restrained digital-familiar specimen terminal, with readable muted text rather than decorative low-contrast gray.
+- Color: near-black violet background, layered plum surfaces, lime growth accent, cyan Claude accent, magenta Codex accent; rarity tokens progress through slate PROCESS, cyan AGENT, violet DAEMON, magenta ORACLE, metallic amber ARCHITECT, and lime-cyan iridescent ORIGIN. The compact action deck uses muted, medium-dark semantic fills rather than full-bright provider/rarity accents: moss for large food in the first slot, violet for extra-large food, rose for draw, amber for purchases, indigo for mutation retry, and teal for inheritance. All action labels use white for consistent contrast. The public website uses the same palette as a restrained digital-familiar specimen terminal, with readable muted text rather than decorative low-contrast gray.
 - Typography: strong geometric headings, monospaced micro-labels and values, readable Korean body copy; the dependency-free website uses truthful system sans/monospace stacks instead of naming fonts it does not ship
 - Spacing/layout rhythm: compact 8–16 point rhythm; large-window 12–24 point rhythm
 - Shape/radius/elevation: soft 10–18 point radii, subtle one-pixel borders, restrained colored glows for hierarchy
@@ -55,7 +55,7 @@
 ## Components
 
 - Existing components to reuse: SwiftUI navigation, buttons, progress views, AppKit file panels, bundled creature PNGs; website shell/header, hero, metrics, screenshots, ORIGIN cards, privacy terminal, code window, dex filters/cards/dialog, and shared CSS tokens
-- New/changed components: ambient menu-bar status label, compact presentation projection, one-line integration status chips, rarity-token creature hero with overlaid navigation and unified badge/frame/aura, automatic-evolution potential label, compact rarity/probability popover, three-row normal/large food, draw, retry, and inheritance action deck with press-and-hold acceleration, collection cards, settings panels, rarity feedback, ORIGIN-lineage feedback, ORIGIN reveal
+- New/changed components: ambient menu-bar status label, compact presentation projection, one-line integration status chips, rarity-token creature hero with overlaid navigation and unified badge/frame/aura, automatic-evolution potential label, compact rarity/probability popover, three-row large/extra-large food, draw, retry, and inheritance action deck with press-and-hold acceleration, collection cards, settings panels, rarity feedback, ORIGIN-lineage feedback, ORIGIN reveal
 - Menu-bar status label: a native-height, single-row ambient pet HUD with an 18-point representative creature plus independent cyan `C n%` and magenta `X n%` actual plan-limit percentages; unavailable provider quota data renders as an em dash rather than an estimate.
 - Variants and states: empty/one/many creatures; enabled/disabled actions; stopped/listening/recent/error integrations; ordinary pull, ORIGIN-lineage pull, and actual ORIGIN reveal feedback
 - Token/component ownership: macOS visual tokens and components remain in `macos/Sources/PunchGrowMenuBar/Views.swift`
@@ -73,7 +73,7 @@
 
 - Supported breakpoints/devices: macOS 14+; fixed compact popup and resizable large/reveal windows; website breakpoints target desktop, tablet, 390px mobile, and a 320px minimum and receive static source/build review when browser capture is unavailable
 - Layout adaptations: the 398×670 popup stays below the menu bar and its main play surface contains no scroll container. The populated and fresh states must show the complete hero, both provider percentages, both connection states, all seven actions, and all five dock destinations without clipping or action/dock overlap. Creature navigation overlays the artwork zone, mutation/evolution attention shares one priority slot, provider controls share one row, setup clarification stays to one visible line with full text in help, and compact labels remain at least 9.5 points while actionable/supporting copy remains at least 10.5 points. Detailed collection, rarity, evolution, and settings surfaces may use their own appropriately bounded scrolling.
-- Touch/hover differences: desktop-native focus, hover help, tooltips, and pointer-sized controls; normal/large feed and purchase use one click for one action and continuous press for accelerating repeat, with release stopping immediately
+- Touch/hover differences: desktop-native focus, hover help, tooltips, and pointer-sized controls; large/extra-large feed and purchase use one click for one action. A 240ms continuous press arms repeat at an 80ms interval, subtracting 8ms after each action to a 35ms minimum. Release immediately cancels further repeats; if one action is already committing, that commit finishes without scheduling another action.
 - Website adaptations: the 980px and 720px breakpoints collapse grids without horizontal overflow; touch targets remain at least 44px where compact controls are used; mobile navigation remains readable without JavaScript and becomes a controlled menu when JavaScript is present
 
 ## Interaction states
@@ -83,7 +83,7 @@
 - Error: visible text and symbol accompany error color
 - Success: a successful draw focuses the acquired creature and reports both `현재 <등급>` and `성장 잠재력 <최종 자동 진화 등급>`; an ORIGIN lineage receives distinct compact feedback without invoking the actual-ORIGIN reveal window
 - Disabled: cost or prerequisite explanations remain visible beside disabled actions
-- Repeated action: hold feedback remains native and stops immediately on pointer release, disable, inventory exhaustion, or insufficient balance
+- Repeated action: hold feedback remains native. Each repeated action is serialized through a persistence actor and reaches the visible state only after its save finishes, keeping file synchronization off the main actor. Pointer release, disable, inventory exhaustion, insufficient balance, or another blocked result prevents another repeat; an already-started commit may finish once.
 - Offline/slow network: integrations are local; stopped, listening, recent, and error states derive from the shared projection
 
 ## Content voice
@@ -96,11 +96,11 @@
 
 - Framework/styling system: SwiftUI plus existing AppKit bridges; dependency-free static HTML/CSS/JavaScript for the GitHub Pages website
 - Design-token constraints: extend repo-native constants; add no UI dependency or parallel design-system package
-- Performance constraints: reuse the bounded creature image cache for the menu-bar thumbnail, keep popup animation brief, and honor reduced motion; keep the website dependency-free, lazy-load non-hero images, debounce dex search, and allow off-screen lineage rendering to be skipped by the browser
-- Compatibility constraints: preserve G001 APIs, schema version 2 saves, probabilities, pity, and local-first security boundaries; older saves decode the new large-food inventory as zero. Preserve GitHub Pages routes, custom domain, locale parity, and direct asset/link validity.
+- Performance constraints: reuse the bounded creature image cache for the menu-bar thumbnail, keep popup animation brief, and honor reduced motion; serialize hold-repeat persistence on a dedicated actor so encoding, replacement, and `fsync` do not block the main actor; keep the website dependency-free, lazy-load non-hero images, debounce dex search, and allow off-screen lineage rendering to be skipped by the browser
+- Compatibility constraints: preserve G001 APIs, schema version 2 save compatibility, probabilities, pity, and local-first security boundaries. Legacy normal-food inventory converts deterministically: each group of five becomes one large food and every remainder refunds 100,000 tokens; older saves decode extra-large inventory as zero. Preserve GitHub Pages routes, custom domain, locale parity, and direct asset/link validity.
 - Test/screenshot expectations: deterministic presentation helpers cover semantic state; populated and fresh 398×670 menu snapshots reject any main-surface `NSScrollView` and verify that the complete third action row and five-item dock occupy their fixed bands; release build, full tests, and all 256 assets are verification gates when the Xcode/CLT toolchain is valid. Website changes must pass both build validators, metadata/content contracts, 320px static layout review, keyboard/reduced-motion review, and a browser capture when a browser session is available.
 - Compact popup bottom safety: retain at least 26 points of outer bottom breathing room plus 6 points inside the footer; keep the footer fixed at the bottom, place every play action fully above it, and open rarity/probability/evolution details in dedicated popovers rather than increasing the fixed 398×670 surface height or reintroducing main-surface scrolling
-- Food action deck: keep the draw action in the first row beside normal and large feeding; place normal and large purchases in a second compact row. Large food uses a distinct purple treatment and grants XP +200 / affection +10 for 500,000 tokens.
+- Food action deck: keep the draw action in the first row beside large and extra-large feeding; place large and extra-large purchases in a second compact row. Existing large food moves into the first slot unchanged at 500,000 tokens for XP +200 / affection +10. Extra-large food occupies the second slot at 2,500,000 tokens for XP +1,000 / affection +50, preserving exactly the same token efficiency.
 - Action color ownership: action-deck fills are dedicated `PunchGrowColors` tokens in `Views.swift`; do not reuse the brighter global provider, rarity, warning, or progress accents as solid button backgrounds.
 - Evolution potential contract: derive one automatic path from `EvolutionCatalog`'s production candidate order; never hard-code ORIGIN roots. A newly drawn start computes from that start, while an owned or branched creature computes forward from its actual current species; the root is used only to show the full Evolution Dex tree. The hero uses a separate one-line potential label, pull feedback distinguishes lineage potential from actual rarity, Evolution Dex visibly marks every current-forward automatic-path card, and the rarity guide separates `PROCESS 100% direct pull` from `ORIGIN lineage n/64`.
 

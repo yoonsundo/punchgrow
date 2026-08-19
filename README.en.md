@@ -46,7 +46,7 @@
 
 | Release v0.4.0 | Current main |
 | --- | --- |
-| **2026-08-18 Homebrew release**<br />64 starting lineages · 256 creatures · 7 of 64 lineages can reach ORIGIN (about 10.9%)<br />Ad-hoc signed · Developer ID signing and Apple notarization pending | **Current source and public dex**<br />64 starting lineages · 256 creatures · 7 of 64 lineages can reach ORIGIN (about 10.9%)<br />Catalog matches the release |
+| **2026-08-18 Homebrew release**<br />64 starting lineages · 256 creatures · 7 of 64 lineages can reach ORIGIN (about 10.9%)<br />Normal and large food · ad-hoc signed | **Current source and public dex**<br />The same 64 starting lineages · 256 creatures<br />Large and extra-large food with faster press-and-hold · planned for the next release |
 
 - **CI:** Full Xcode verifies the Swift test suite, Release build, 256-creature resource assembly, and ad-hoc signature.
 - **Website:** [`punchgrow.thundo.kr`](https://punchgrow.thundo.kr/en/) is a static product site and dex deployed from `website/` through GitHub Pages. It has no backend or usage collection.
@@ -145,13 +145,17 @@ These are captures rendered by the current SwiftUI app. They use fixed documenta
 <a name="game-engine"></a>
 ## Game rules
 
-| Rule | Alpha value |
+> [!NOTE]
+> The food tiers and legacy normal-food conversion below describe current `main` after `v0.4.0`. Homebrew `v0.4.0` provides normal and large food.
+
+| Rule | Current main |
 | --- | --- |
 | One draw | `500,000` tokens |
 | Draw result | One of 64 PROCESS stage-one creatures · PROCESS 100% |
 | ORIGIN lineage | 7 of 64 starts · about 10.9% maximum reachable rarity, not a direct ORIGIN pull |
-| Normal food | Costs `100,000` tokens · XP `+25` · affinity `+3` |
 | Large food | Costs `500,000` tokens · XP `+200` · affinity `+10` |
+| Extra-large food | Costs `2,500,000` tokens · XP `+1,000` · affinity `+50` (exactly 5× large food) |
+| Legacy normal-food conversion | 5 items become 1 large food; each remainder refunds `100,000` tokens |
 | Unique color | Independent `0.1%` chance per draw, with no stat advantage |
 | Duplicate creatures | Kept as separate individuals that can be raised differently |
 | Evolution levels | Level 15 → stage 2 · level 25 → stage 3 · level 40 → stage 4 |
