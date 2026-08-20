@@ -3656,6 +3656,7 @@ struct MainWindowView: View {
   @ObservedObject var integrationStatus: IntegrationStatusProjection
   @ObservedObject var navigation: MainWindowNavigation
   @ObservedObject var updates: UpdateService
+  @ObservedObject var desktopPet: DesktopPetController
 
   var body: some View {
     NavigationSplitView {
@@ -3678,7 +3679,8 @@ struct MainWindowView: View {
         case .connections:
           ConnectionsView(
             store: store, localUsage: localUsage, integrationStatus: integrationStatus)
-        case .settings: DataSettingsView(store: store, updates: updates)
+        case .settings:
+          DataSettingsView(store: store, updates: updates, desktopPet: desktopPet)
         }
       }
       .background(DigitalMythBackground())
@@ -3922,6 +3924,7 @@ private struct IntegrationPanel<Content: View>: View {
 private struct DataSettingsView: View {
   @ObservedObject var store: GameStore
   @ObservedObject var updates: UpdateService
+  @ObservedObject var desktopPet: DesktopPetController
   @State private var reduceEffects = UserDefaults.standard.bool(forKey: "reduceEffects")
   @State private var notifications =
     UserDefaults.standard.object(forKey: "notifications") as? Bool ?? true
@@ -3946,6 +3949,11 @@ private struct DataSettingsView: View {
             UserDefaults.standard.set(value, forKey: "reduceEffects")
           }
           Text("시스템의 ‘동작 줄이기’ 설정도 ORIGIN 연출에 자동 반영됩니다.").font(.caption).foregroundStyle(.secondary)
+        }
+        SettingsPanel(title: "데스크톱 펫", symbol: "sparkles.rectangle.stack") {
+          Toggle("화면에 펫 표시", isOn: $desktopPet.isVisible)
+          Text("대표 크리처를 다른 앱 위에 띄웁니다. 펫을 드래그해 위치를 옮길 수 있습니다.")
+            .font(.caption).foregroundStyle(.secondary)
         }
         SettingsPanel(title: "업데이트", symbol: "arrow.down.circle") {
           UpdateSettingsPanelBody(updates: updates)
