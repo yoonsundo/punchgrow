@@ -57,6 +57,20 @@ final class DesktopPetCutoutTests: XCTestCase {
     XCTAssertFalse(DesktopPetCutoutCache.isEffectivelyBlank(half))
   }
 
+  /// 커버리지가 실제 비율을 돌려주는지. 절반을 채운 그림은 0.5 근처여야 한다.
+  @MainActor
+  func testCoverageReportsTheOpaqueRatio() {
+    let half = NSImage(size: NSSize(width: 200, height: 200), flipped: false) { _ in
+      NSColor.white.setFill()
+      NSRect(x: 0, y: 0, width: 200, height: 100).fill()
+      return true
+    }
+
+    XCTAssertEqual(DesktopPetCutoutCache.opaqueCoverage(of: half), 0.5, accuracy: 0.05)
+    XCTAssertEqual(DesktopPetCutoutCache.opaqueCoverage(of: filledImage(.white)), 1, accuracy: 0.05)
+    XCTAssertEqual(DesktopPetCutoutCache.opaqueCoverage(of: filledImage(.clear)), 0, accuracy: 0.01)
+  }
+
   /// 번들에 든 실제 크리처 그림은 어느 경로로 만들어지든 비어 있으면 안 된다. 어떤 경로가
   /// 이겼는지도 함께 남겨, 화면 없는 머신에서 원인을 좁힐 수 있게 한다.
   @MainActor
@@ -71,9 +85,10 @@ final class DesktopPetCutoutTests: XCTestCase {
         speciesID)
       let source = DesktopPetCutoutCache.shared.lastMaskSource
 
-      XCTAssertFalse(
-        DesktopPetCutoutCache.isEffectivelyBlank(image),
-        "\(speciesID) source=\(source?.rawValue ?? "none")")
+      let coverage = DesktopPetCutoutCache.opaqueCoverage(of: image)
+      XCTAssertGreaterThan(
+        coverage, 0.1,
+        "\(speciesID) source=\(source?.rawValue ?? "none") coverage=\(coverage)")
       XCTAssertNotNil(source, speciesID)
     }
   }

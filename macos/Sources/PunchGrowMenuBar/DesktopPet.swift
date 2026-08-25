@@ -124,14 +124,22 @@ final class DesktopPetCutoutCache {
     return nil
   }
 
-  /// 알파가 남은 픽셀이 표본의 1%도 안 되면 마스크가 실패한 것으로 본다. 격자 표본만
-  /// 보므로 그림이 커져도 비용이 일정하다.
-  static func isEffectivelyBlank(_ image: NSImage, samplesPerAxis: Int = 24) -> Bool {
+  private static func bitmap(of image: NSImage) -> NSBitmapImageRep? {
     var proposedRect = NSRect(origin: .zero, size: image.size)
     guard let cgImage = image.cgImage(forProposedRect: &proposedRect, context: nil, hints: nil)
-    else { return true }
-    let bitmap = NSBitmapImageRep(cgImage: cgImage)
-    guard bitmap.pixelsWide > 0, bitmap.pixelsHigh > 0 else { return true }
+    else { return nil }
+    return NSBitmapImageRep(cgImage: cgImage)
+  }
+
+  /// 그림에서 알파가 남은 비율. 격자 표본만 보므로 그림이 커져도 비용이 일정하다.
+  ///
+  /// 정중앙 한 픽셀이 아니라 비율을 보는 이유가 있다. 크리처 모양과 Vision 버전에 따라
+  /// 잘라낸 결과의 정중앙은 비어 있을 수 있다 — 날개를 펼친 개체가 그렇다. 그래도
+  /// 크리처는 멀쩡히 남아 있다. "크리처가 살아남았는가"를 물으려면 비율을 봐야 한다.
+  static func opaqueCoverage(of image: NSImage, samplesPerAxis: Int = 24) -> Double {
+    guard let bitmap = Self.bitmap(of: image),
+          bitmap.pixelsWide > 0, bitmap.pixelsHigh > 0
+    else { return 0 }
     var opaque = 0
     for row in 0..<samplesPerAxis {
       for column in 0..<samplesPerAxis {
@@ -140,8 +148,11 @@ final class DesktopPetCutoutCache {
         if (bitmap.colorAt(x: x, y: y)?.alphaComponent ?? 0) > 0.5 { opaque += 1 }
       }
     }
-    return opaque * 100 < samplesPerAxis * samplesPerAxis
+    return Double(opaque) / Double(samplesPerAxis * samplesPerAxis)
   }
+
+  /// 알파가 남은 비율이 1%도 안 되면 마스크가 실패한 것으로 본다.
+  static func isEffectivelyBlank(_ image: NSImage) -> Bool { opaqueCoverage(of: image) < 0.01 }
 
   private func visionCutout(for url: URL, points: CGFloat) -> NSImage? {
     let request = VNGenerateForegroundInstanceMaskRequest()

@@ -148,11 +148,11 @@ final class DesktopPetTests: XCTestCase {
       }
 
       XCTAssertGreaterThanOrEqual(transparentCorners.count, 3, diagnosis)
-      XCTAssertGreaterThan(
-        bitmap.colorAt(x: bitmap.pixelsWide / 2, y: bitmap.pixelsHigh / 2)?.alphaComponent ?? 0,
-        0.5,
-        diagnosis
-      )
+      // 정중앙 한 픽셀이 아니라 남은 비율을 본다. 크리처 모양과 Vision 버전에 따라 잘라낸
+      // 결과의 정중앙은 비어 있을 수 있다 — PG-001 처럼 날개를 펼친 개체가 그렇다. 그래도
+      // 크리처는 멀쩡히 남는다. 정중앙을 고집하면 기계가 바뀔 때마다 이 테스트가 깨진다.
+      let coverage = DesktopPetCutoutCache.opaqueCoverage(of: image)
+      XCTAssertGreaterThan(coverage, 0.1, "\(diagnosis) coverage=\(coverage)")
       if let outputDirectory = ProcessInfo.processInfo.environment["PUNCHGROW_CUTOUT_OUTPUT"],
          let png = bitmap.representation(using: .png, properties: [:])
       {
