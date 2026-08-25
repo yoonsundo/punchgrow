@@ -3,6 +3,7 @@ import SwiftUI
 
 @MainActor
 final class AppDelegate: NSObject, NSApplicationDelegate {
+  static var onDidFinishLaunching: (() -> Void)?
   static var onTerminate: (() -> Void)?
 #if DEBUG
   static var renderMenuPopoverSnapshot: (() throws -> Void)?
@@ -22,6 +23,7 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
 
   func applicationDidFinishLaunching(_ notification: Notification) {
     NSApp.setActivationPolicy(.accessory)
+    Self.onDidFinishLaunching?()
   }
 
   func applicationWillTerminate(_ notification: Notification) {
@@ -40,6 +42,7 @@ struct PunchGrowApp: App {
   @StateObject private var originReveal: OriginRevealCoordinator
   @StateObject private var mainNavigation: MainWindowNavigation
   @StateObject private var updates: UpdateService
+  @StateObject private var desktopPet: DesktopPetController
 
   init() {
     let integrationStatus = IntegrationStatusProjection()
@@ -125,6 +128,7 @@ struct PunchGrowApp: App {
 #endif
     _integrationStatus = StateObject(wrappedValue: integrationStatus)
     _store = StateObject(wrappedValue: store)
+    let desktopPet = DesktopPetController(store: store)
     let collector = LocalCollectorService(
       autoStart: false,
       onLifecycleState: { status in Self.apply(status, source: .claude, to: integrationStatus) },
@@ -167,20 +171,27 @@ struct PunchGrowApp: App {
     _codex = StateObject(wrappedValue: codex)
     _localUsage = StateObject(wrappedValue: localUsage)
     _updates = StateObject(wrappedValue: updates)
+    _desktopPet = StateObject(wrappedValue: desktopPet)
 #if DEBUG
     if snapshotRequest == nil {
       localUsage.resumeIfEnabled()
       updates.resumeIfEnabled()
+      AppDelegate.onDidFinishLaunching = { [weak desktopPet] in desktopPet?.start() }
+    } else {
+      AppDelegate.onDidFinishLaunching = nil
     }
 #else
     localUsage.resumeIfEnabled()
     updates.resumeIfEnabled()
+    AppDelegate.onDidFinishLaunching = { [weak desktopPet] in desktopPet?.start() }
 #endif
-    AppDelegate.onTerminate = { [weak collector, weak codex, weak localUsage, weak updates] in
+    AppDelegate.onTerminate = {
+      [weak collector, weak codex, weak localUsage, weak updates, weak desktopPet] in
       collector?.stop()
       codex?.stop()
       localUsage?.shutdown()
       updates?.shutdown()
+      desktopPet?.stop()
     }
   }
 
@@ -204,7 +215,8 @@ struct PunchGrowApp: App {
         localUsage: localUsage,
         integrationStatus: integrationStatus,
         navigation: mainNavigation,
-        updates: updates
+        updates: updates,
+        desktopPet: desktopPet
       )
     }
     .defaultSize(width: 960, height: 680)

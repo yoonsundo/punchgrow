@@ -53,6 +53,8 @@ The build script creates an ad-hoc signed app at `macos/.build/PunchGrow.app`. Y
 
 PunchGrow runs as a menu-bar app and does not show a Dock icon. After launch, select its creature icon in the macOS menu bar to open the play surface.
 
+On first launch, a small background-free desktop pet also appears near the lower-right of the screen. It shows a first-draw prompt until you own a creature.
+
 ![PunchGrow menu popover showing the creature card, weekly usage, token balance, food controls, draw button, and footer actions](screenshots/menu-popover.png)
 
 The screenshot is rendered by the current `main` SwiftUI app with deterministic documentation data. It does not contain private user logs.
@@ -168,10 +170,11 @@ The large window contains three areas:
 
 - **Collection**: owned and discovered counts, search, discovered cards, and undiscovered silhouettes.
 - **Connections**: collection consent, per-provider status, last scan time, errors, stop, and disconnect controls.
-- **Data & Settings**: notifications, sound, reduced effects, backup, and restore.
+- **Data & Settings**: notifications, sound, reduced effects, desktop-pet visibility, backup, and restore.
 
 In **Data & Settings**:
 
+- Turn **데스크톱 펫 → 화면에 펫 표시** off to hide the pet immediately, or on to restore it at its saved position. Drag the creature to move it. It follows the representative creature and its pinned display form, falling back to the current creature only when no representative exists. Position and visibility stay local to this Mac, and reduced-motion settings stop its idle movement.
 - Select **백업 내보내기** (Export backup) to save a `.pgrow` file.
 - Select **백업 복원** (Restore backup) to load a compatible `.pgrow` file.
 

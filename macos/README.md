@@ -92,8 +92,11 @@ on that destination; **Connections** remains available from its sidebar:
 - **Connections**: consent and controls for automatic local JSONL collection,
   per-provider status, the most recent scan time, collection errors, and local
   incremental-cache deletion.
-- **Data & Settings**: notification, sound, reduced-effects, `.pgrow` export,
-  and restore controls.
+- **Data & Settings**: notification, sound, reduced-effects, desktop-pet
+  visibility, `.pgrow` export, and restore controls. The optional nonactivating
+  desktop pet shows a background-free cutout of the representative creature (or
+  the current creature when no representative exists), can be dragged between
+  positions, and remembers both its position and visibility locally.
 
 Shop and detailed statistics are intentionally deferred.
 
