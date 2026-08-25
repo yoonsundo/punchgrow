@@ -123,6 +123,13 @@ final class DesktopPetTests: XCTestCase {
         DesktopPetCutoutCache.shared.image(for: url, points: 164),
         DesktopPetCutoutCache.shared.lastErrorDescription ?? "전경 마스크 결과 없음"
       )
+      // 실패했을 때 어느 경로가 만든 그림인지 모르면, 화면 없는 CI 에서 원인을 좁힐 수
+      // 없다. 모든 단언 메시지에 경로와 마지막 오류를 함께 싣는다.
+      let diagnosis = [
+        speciesID,
+        "source=\(DesktopPetCutoutCache.shared.lastMaskSource?.rawValue ?? "none")",
+        "error=\(DesktopPetCutoutCache.shared.lastErrorDescription ?? "none")",
+      ].joined(separator: " ")
       var proposedRect = NSRect(origin: .zero, size: image.size)
       let cgImage = try XCTUnwrap(
         image.cgImage(forProposedRect: &proposedRect, context: nil, hints: nil))
@@ -140,11 +147,11 @@ final class DesktopPetTests: XCTestCase {
         (bitmap.colorAt(x: Int($0.x), y: Int($0.y))?.alphaComponent ?? 1) < 0.1
       }
 
-      XCTAssertGreaterThanOrEqual(transparentCorners.count, 3, speciesID)
+      XCTAssertGreaterThanOrEqual(transparentCorners.count, 3, diagnosis)
       XCTAssertGreaterThan(
         bitmap.colorAt(x: bitmap.pixelsWide / 2, y: bitmap.pixelsHigh / 2)?.alphaComponent ?? 0,
         0.5,
-        speciesID
+        diagnosis
       )
       if let outputDirectory = ProcessInfo.processInfo.environment["PUNCHGROW_CUTOUT_OUTPUT"],
          let png = bitmap.representation(using: .png, properties: [:])

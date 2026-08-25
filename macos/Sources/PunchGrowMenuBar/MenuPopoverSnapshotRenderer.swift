@@ -729,6 +729,30 @@ enum MenuPopoverSnapshotRenderer {
           visible.contains(grown)
     else { throw SnapshotError.desktopPetSizeContractBroken }
 
+    // 잘라내기가 통째로 투명해도 그대로 캐시되면 펫 자리가 빈칸으로 남는다. 화면 없는
+    // 머신에서 실제로 일어나는 일이라, 비었는지 판정하는 쪽을 먼저 고정한다.
+    let blank = NSImage(size: NSSize(width: 40, height: 40))
+    guard DesktopPetCutoutCache.isEffectivelyBlank(blank) else {
+      throw SnapshotError.desktopPetSizeContractBroken
+    }
+    let filled = NSImage(size: NSSize(width: 40, height: 40), flipped: false) { rect in
+      NSColor.white.setFill()
+      rect.fill()
+      return true
+    }
+    guard !DesktopPetCutoutCache.isEffectivelyBlank(filled) else {
+      throw SnapshotError.desktopPetSizeContractBroken
+    }
+    // 실제 크리처 그림은 어느 경로로 만들어지든 비어 있으면 안 된다.
+    guard let species = try CreatureCatalog.load().first(where: { $0.id == "PG-001" }),
+          let url = CreatureAssetLocator.imageURL(for: species),
+          let cutout = DesktopPetCutoutCache.shared.image(
+            for: url, points: DesktopPetSize.artworkPoints),
+          !DesktopPetCutoutCache.isEffectivelyBlank(cutout),
+          let maskSource = DesktopPetCutoutCache.shared.lastMaskSource
+    else { throw SnapshotError.desktopPetSizeContractBroken }
+    FileHandle.standardOutput.write(Data("DESKTOP-PET-MASK PG-001 source=\(maskSource.rawValue)\n".utf8))
+
     // 우클릭 메뉴. 항목 하나만 빠져도 사용자는 크기를 바꾸거나 펫을 숨길 방법을 잃는다.
     let menu = controller.contextMenu()
     let sizeItems = menu.items.filter { $0.representedObject is DesktopPetSize }

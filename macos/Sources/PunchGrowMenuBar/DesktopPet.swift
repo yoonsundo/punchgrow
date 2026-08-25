@@ -80,7 +80,17 @@ enum DesktopPetMotionPolicy {
 @MainActor
 final class DesktopPetCutoutCache {
   static let shared = DesktopPetCutoutCache()
+
+  /// 잘라내기를 어느 경로가 만들어 냈는지. 마스크가 조용히 실패하면 펫 자리가 빈칸으로
+  /// 남는데, 화면 없는 머신(CI)과 실제 Mac 이 서로 다른 경로를 타므로 기록해 둔다.
+  enum MaskSource: String {
+    case vision
+    case localFallback
+    case rawSource
+  }
+
   private(set) var lastErrorDescription: String?
+  private(set) var lastMaskSource: MaskSource?
   private let cache = NSCache<NSString, NSImage>()
   private let context = CIContext(options: [.cacheIntermediates: false])
 
@@ -89,43 +99,83 @@ final class DesktopPetCutoutCache {
     cache.totalCostLimit = 32 * 1_024 * 1_024
   }
 
+  /// 좋은 경로부터 차례로 시도하고, 결과가 사실상 비어 있으면 다음 경로로 넘어간다.
+  /// Vision 이 예외 없이 성공하고도 투명한 비트맵을 돌려주는 머신이 있다. 그걸 그대로
+  /// 캐시하면 펫 자리가 빈칸으로 남고, 캐시 때문에 앱을 다시 켜도 낫지 않는다.
   func image(for url: URL, points: CGFloat) -> NSImage? {
     let key = "\(url.path)#\(points)" as NSString
     if let cached = cache.object(forKey: key) { return cached }
 
+    lastErrorDescription = nil
+    let attempts: [(MaskSource, () -> NSImage?)] = [
+      (.vision, { self.visionCutout(for: url, points: points) }),
+      (.localFallback, { self.fallbackImage(for: url, points: points) }),
+      // 마스크가 둘 다 비면 카드 배경이 남더라도 크리처가 보이는 편이 낫다.
+      (.rawSource, { self.rawImage(for: url, points: points) }),
+    ]
+    for (source, make) in attempts {
+      guard let image = make(), !Self.isEffectivelyBlank(image) else { continue }
+      image.isTemplate = false
+      lastMaskSource = source
+      cache.setObject(image, forKey: key, cost: max(1, Int(points * points * 4)))
+      return image
+    }
+    lastMaskSource = nil
+    return nil
+  }
+
+  /// 알파가 남은 픽셀이 표본의 1%도 안 되면 마스크가 실패한 것으로 본다. 격자 표본만
+  /// 보므로 그림이 커져도 비용이 일정하다.
+  static func isEffectivelyBlank(_ image: NSImage, samplesPerAxis: Int = 24) -> Bool {
+    var proposedRect = NSRect(origin: .zero, size: image.size)
+    guard let cgImage = image.cgImage(forProposedRect: &proposedRect, context: nil, hints: nil)
+    else { return true }
+    let bitmap = NSBitmapImageRep(cgImage: cgImage)
+    guard bitmap.pixelsWide > 0, bitmap.pixelsHigh > 0 else { return true }
+    var opaque = 0
+    for row in 0..<samplesPerAxis {
+      for column in 0..<samplesPerAxis {
+        let x = bitmap.pixelsWide * column / samplesPerAxis
+        let y = bitmap.pixelsHigh * row / samplesPerAxis
+        if (bitmap.colorAt(x: x, y: y)?.alphaComponent ?? 0) > 0.5 { opaque += 1 }
+      }
+    }
+    return opaque * 100 < samplesPerAxis * samplesPerAxis
+  }
+
+  private func visionCutout(for url: URL, points: CGFloat) -> NSImage? {
     let request = VNGenerateForegroundInstanceMaskRequest()
     let handler = VNImageRequestHandler(url: url, options: [:])
     do {
-      lastErrorDescription = nil
       try handler.perform([request])
       guard let observation = request.results?.first,
             !observation.allInstances.isEmpty
-      else { return nil }
+      else {
+        lastErrorDescription = "전경 인스턴스를 찾지 못했습니다"
+        return nil
+      }
       let pixelBuffer = try observation.generateMaskedImage(
         ofInstances: observation.allInstances,
         from: handler,
         croppedToInstancesExtent: true
       )
       let source = CIImage(cvPixelBuffer: pixelBuffer)
-      guard let cgImage = context.createCGImage(source, from: source.extent) else { return nil }
-      let image = scaledImage(cgImage, points: points)
-      image.isTemplate = false
-      cache.setObject(
-        image,
-        forKey: key,
-        cost: max(1, Int(points * points * 4))
-      )
-      return image
+      guard let cgImage = context.createCGImage(source, from: source.extent) else {
+        lastErrorDescription = "마스크를 비트맵으로 옮기지 못했습니다"
+        return nil
+      }
+      return scaledImage(cgImage, points: points)
     } catch {
       lastErrorDescription = error.localizedDescription
-      guard let image = fallbackImage(for: url, points: points) else { return nil }
-      cache.setObject(
-        image,
-        forKey: key,
-        cost: max(1, Int(points * points * 4))
-      )
-      return image
+      return nil
     }
+  }
+
+  private func rawImage(for url: URL, points: CGFloat) -> NSImage? {
+    guard let source = CGImageSourceCreateWithURL(url as CFURL, nil),
+          let cgImage = CGImageSourceCreateImageAtIndex(source, 0, nil)
+    else { return nil }
+    return scaledImage(cgImage, points: points)
   }
 
   private func fallbackImage(for url: URL, points: CGFloat) -> NSImage? {
