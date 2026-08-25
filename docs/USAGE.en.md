@@ -174,7 +174,7 @@ The large window contains three areas:
 
 In **Data & Settings**:
 
-- Turn **데스크톱 펫 → 화면에 펫 표시** off to hide the pet immediately, or on to restore it at its saved position. Drag the creature to move it. It follows the representative creature and its pinned display form, falling back to the current creature only when no representative exists. Position and visibility stay local to this Mac, and reduced-motion settings stop its idle movement.
+- Turn **데스크톱 펫 → 화면에 펫 표시** off to hide the pet immediately, or on to restore it at its saved position. Pick one of four sizes below it — `아주 작게` / `작게` / `보통` / `크게` — where `보통` matches the previous fixed size. Right-clicking the pet itself offers the same four sizes plus **펫 숨기기**. Resizing keeps the pet standing where it was and pulls it back inside the screen if it would be clipped. Drag the creature to move it. It follows the representative creature and its pinned display form, falling back to the current creature only when no representative exists. Position and visibility stay local to this Mac, and reduced-motion settings stop its idle movement.
 - Select **백업 내보내기** (Export backup) to save a `.pgrow` file.
 - Select **백업 복원** (Restore backup) to load a compatible `.pgrow` file.
 
