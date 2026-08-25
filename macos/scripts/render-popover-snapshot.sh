@@ -72,6 +72,11 @@ case "$SNAPSHOT_KIND" in
     EXPECTED_WIDTH=398
     EXPECTED_HEIGHT=670
     ;;
+  desktop-pet)
+    SNAPSHOT_FLAG=--snapshot-desktop-pet
+    EXPECTED_WIDTH=dynamic
+    EXPECTED_HEIGHT=dynamic
+    ;;
   menu-group)
     SNAPSHOT_FLAG=--snapshot-menu-group
     EXPECTED_WIDTH=398
@@ -88,6 +93,13 @@ esac
 [[ -f "$OUTPUT_PATH" ]]
 PIXEL_WIDTH=$(sips -g pixelWidth "$OUTPUT_PATH" | awk '/pixelWidth/ { print $2 }')
 PIXEL_HEIGHT=$(sips -g pixelHeight "$OUTPUT_PATH" | awk '/pixelHeight/ { print $2 }')
+if [[ "$EXPECTED_WIDTH" == dynamic ]]; then
+  # 크기 프리셋에서 폭이 계산되는 몽타주라 상수로 못 박지 않는다. 렌더러 안의 하드 단언이
+  # 실제 판정을 맡고, 여기서는 빈 이미지가 아닌지만 본다.
+  (( PIXEL_WIDTH > 0 && PIXEL_HEIGHT > 0 ))
+  EXPECTED_WIDTH=$PIXEL_WIDTH
+  EXPECTED_HEIGHT=$PIXEL_HEIGHT
+fi
 [[ "$PIXEL_WIDTH" == "$EXPECTED_WIDTH" && "$PIXEL_HEIGHT" == "$EXPECTED_HEIGHT" ]] || {
   echo "Unexpected snapshot dimensions: ${PIXEL_WIDTH}x${PIXEL_HEIGHT}" >&2
   exit 1

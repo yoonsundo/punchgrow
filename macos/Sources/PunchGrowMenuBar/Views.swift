@@ -3951,9 +3951,7 @@ private struct DataSettingsView: View {
           Text("시스템의 ‘동작 줄이기’ 설정도 ORIGIN 연출에 자동 반영됩니다.").font(.caption).foregroundStyle(.secondary)
         }
         SettingsPanel(title: "데스크톱 펫", symbol: "sparkles.rectangle.stack") {
-          Toggle("화면에 펫 표시", isOn: $desktopPet.isVisible)
-          Text("대표 크리처를 다른 앱 위에 띄웁니다. 펫을 드래그해 위치를 옮길 수 있습니다.")
-            .font(.caption).foregroundStyle(.secondary)
+          DesktopPetSettingsPanelBody(desktopPet: desktopPet)
         }
         SettingsPanel(title: "업데이트", symbol: "arrow.down.circle") {
           UpdateSettingsPanelBody(updates: updates)
@@ -3990,6 +3988,28 @@ private struct DataSettingsView: View {
     panel.canChooseDirectories = false
     guard panel.runModal() == .OK, let url = panel.url else { return }
     store.restoreBackup(from: url)
+  }
+}
+
+/// 설정 화면의 데스크톱 펫 본문. 우클릭 메뉴와 같은 컨트롤러를 그대로 바인딩해, 어느 쪽에서
+/// 바꾸든 같은 값이 되도록 한다. 스냅샷에서 따로 그릴 수 있게 별도 뷰로 둔다.
+struct DesktopPetSettingsPanelBody: View {
+  @ObservedObject var desktopPet: DesktopPetController
+
+  var body: some View {
+    VStack(alignment: .leading, spacing: 10) {
+      Toggle("화면에 펫 표시", isOn: $desktopPet.isVisible)
+      Picker("크기", selection: $desktopPet.size) {
+        ForEach(DesktopPetSize.allCases) { size in
+          Text(size.koLabel).tag(size)
+        }
+      }
+      .pickerStyle(.segmented)
+      // 펫이 꺼져 있으면 크기를 바꿔도 보이는 변화가 없어 고장으로 읽힌다.
+      .disabled(!desktopPet.isVisible)
+      Text("대표 크리처를 다른 앱 위에 띄웁니다. 펫을 드래그해 옮기고, 펫 위에서 오른쪽 클릭하면 크기를 바꾸거나 숨길 수 있습니다.")
+        .font(.caption).foregroundStyle(.secondary)
+    }
   }
 }
 

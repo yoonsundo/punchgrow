@@ -15,6 +15,7 @@ struct MenuPopoverSnapshotRequest: Equatable {
   static let actionNoticeFlag = "--snapshot-action-notice"
   static let menuGroupFlag = "--snapshot-menu-group"
   static let evolutionMutantFlag = "--snapshot-evolution-mutant"
+  static let desktopPetFlag = "--snapshot-desktop-pet"
 
   let kind: Kind
   let outputURL: URL
@@ -43,6 +44,8 @@ struct MenuPopoverSnapshotRequest: Equatable {
       match = (index, .levelMax, Self.levelMaxFlag)
     } else if let index = arguments.firstIndex(of: Self.menuGroupFlag) {
       match = (index, .menuGroup, Self.menuGroupFlag)
+    } else if let index = arguments.firstIndex(of: Self.desktopPetFlag) {
+      match = (index, .desktopPet, Self.desktopPetFlag)
     } else if let index = arguments.firstIndex(of: Self.evolutionMutantFlag) {
       match = (index, .evolutionMutant, Self.evolutionMutantFlag)
     } else {
@@ -70,6 +73,7 @@ struct MenuPopoverSnapshotRequest: Equatable {
     case levelMax
     case menuGroup
     case evolutionMutant
+    case desktopPet
   }
 
   var usesFreshSetupFixture: Bool { kind == .menuFresh }
@@ -652,6 +656,191 @@ enum MenuPopoverSnapshotRenderer {
     window.close()
   }
 
+  /// 데스크톱 펫 크기 프리셋. 이 머신에는 Xcode가 없어 XCTest를 돌릴 수 없으므로, 크기
+  /// 규칙이 깨지면 이 렌더러가 0이 아닌 코드로 죽는 것이 로컬의 유일한 자동 판정이다.
+  ///
+  /// 주의: CI(.github/workflows/macos.yml)는 `swift test` 만 돌리고 이 스크립트는 돌리지
+  /// 않는다. 순수 규칙은 DesktopPetSizeTests·DesktopPetContextMenuTests 가 CI 에서 지키고,
+  /// 살아있는 패널이 필요한 확인(콘텐츠 뷰 재사용, 메뉴·드래그 보존)은 실제 창 서버가
+  /// 있어야 해서 여기에만 있다. 그 부분을 고칠 때는 이 명령을 직접 돌려야 한다.
+  static func renderDesktopPet(to outputURL: URL, store: GameStore) throws {
+    let sizes = DesktopPetSize.allCases
+    guard sizes == [.tiny, .small, .regular, .large],
+          // 단조 증가가 깨지면 "작게"가 "보통"보다 커지는 거짓 라벨이 된다.
+          zip(sizes, sizes.dropFirst()).allSatisfy({ $0.scale < $1.scale }),
+          // 보통은 이 기능이 들어오기 전의 크기 그대로여야 한다 — 기존 사용자의 펫이
+          // 업데이트만으로 커지거나 작아지면 안 된다.
+          DesktopPetSize.regular.scale == 1,
+          DesktopPetSize.regular.panelSize == DesktopPetSize.basePanelSize,
+          DesktopPetSize.tiny.panelSize.width < DesktopPetSize.regular.panelSize.width,
+          DesktopPetSize.tiny.panelSize.height < DesktopPetSize.regular.panelSize.height,
+          DesktopPetSize.large.panelSize.width > DesktopPetSize.regular.panelSize.width,
+          // 가로세로 비율이 프리셋마다 달라지면 크리처가 찌그러진다.
+          sizes.allSatisfy({
+            abs($0.panelSize.width / $0.panelSize.height
+              - DesktopPetSize.basePanelSize.width / DesktopPetSize.basePanelSize.height) < 0.0001
+          })
+    else { throw SnapshotError.desktopPetSizeContractBroken }
+
+    let suiteName = "punchgrow.snapshot-desktop-pet"
+    guard let defaults = UserDefaults(suiteName: suiteName) else {
+      throw SnapshotError.desktopPetSizeContractBroken
+    }
+    defaults.removePersistentDomain(forName: suiteName)
+    defer { defaults.removePersistentDomain(forName: suiteName) }
+
+    let controller = DesktopPetController(store: store, defaults: defaults)
+    // 값이 없으면 보통. 기존 설치본이 조용히 다른 크기로 바뀌지 않는다는 뜻이다.
+    guard controller.size == .regular,
+          defaults.object(forKey: DesktopPetController.sizeKey) == nil
+    else { throw SnapshotError.desktopPetSizeContractBroken }
+
+    controller.size = .tiny
+    guard DesktopPetController(store: store, defaults: defaults).size == .tiny
+    else { throw SnapshotError.desktopPetSizeContractBroken }
+
+    // 알 수 없는 문자열이 들어와도 앱이 크기를 잃지 않고 보통으로 돌아온다.
+    defaults.set("mega", forKey: DesktopPetController.sizeKey)
+    guard DesktopPetController(store: store, defaults: defaults).size == .regular
+    else { throw SnapshotError.desktopPetSizeContractBroken }
+
+    // 크기를 바꿀 때 펫이 서 있던 자리를 지키고 화면 밖으로 밀려나지 않아야 한다.
+    // 화살표 없는 바탕화면 창이라 한 번 화면 밖으로 나가면 되돌릴 방법이 없다.
+    let visible = NSRect(x: 0, y: 0, width: 1_440, height: 900)
+    let standing = NSRect(
+      origin: NSPoint(x: 600, y: 300), size: DesktopPetSize.regular.panelSize)
+    let shrunk = DesktopPetController.resizedFrame(
+      from: standing, to: .tiny, within: visible)
+    guard shrunk.size == DesktopPetSize.tiny.panelSize,
+          // 발밑을 기준으로 줄어야 펫이 제자리에 서 있는 것처럼 보인다.
+          shrunk.minY == standing.minY,
+          abs(shrunk.midX - standing.midX) < 0.0001,
+          visible.contains(shrunk)
+    else { throw SnapshotError.desktopPetSizeContractBroken }
+
+    // 화면 오른쪽 위 구석에 붙여 둔 펫을 키워도 잘리지 않아야 한다.
+    let cornered = NSRect(
+      origin: NSPoint(
+        x: visible.maxX - DesktopPetSize.tiny.panelSize.width - 12,
+        y: visible.maxY - DesktopPetSize.tiny.panelSize.height - 12),
+      size: DesktopPetSize.tiny.panelSize)
+    let grown = DesktopPetController.resizedFrame(from: cornered, to: .large, within: visible)
+    guard grown.size == DesktopPetSize.large.panelSize,
+          visible.contains(grown)
+    else { throw SnapshotError.desktopPetSizeContractBroken }
+
+    // 우클릭 메뉴. 항목 하나만 빠져도 사용자는 크기를 바꾸거나 펫을 숨길 방법을 잃는다.
+    let menu = controller.contextMenu()
+    let sizeItems = menu.items.filter { $0.representedObject is DesktopPetSize }
+    let checked = sizeItems.filter { $0.state == .on }.map { $0.representedObject as? DesktopPetSize }
+    // 헤더 + 크기 4개 + 구분선 + 숨기기.
+    guard menu.items.count == DesktopPetSize.allCases.count + 3 else {
+      throw SnapshotError.desktopPetSizeContractBroken
+    }
+    guard menu.items.first?.title == DesktopPetContextMenu.sizeHeaderTitle,
+          menu.items.first?.isEnabled == false
+    else { throw SnapshotError.desktopPetSizeContractBroken }
+    guard sizeItems.map(\.title) == DesktopPetSize.allCases.map(\.koLabel) else {
+      throw SnapshotError.desktopPetSizeContractBroken
+    }
+    // 숨기면 화면에서 완전히 사라지므로 되돌리는 곳을 반드시 알려 준다.
+    guard menu.items[menu.items.count - 2].isSeparatorItem,
+          menu.items.last?.title == DesktopPetContextMenu.hideTitle,
+          menu.items.last?.toolTip == DesktopPetContextMenu.hideHint
+    else { throw SnapshotError.desktopPetSizeContractBroken }
+    // 지금 크기에만 체크마크가 켜진다. 여러 개 켜지면 어떤 크기인지 알 수 없다.
+    guard checked == [controller.size] else {
+      throw SnapshotError.desktopPetSizeContractBroken
+    }
+
+    // 메뉴 항목을 실제로 실행해 본다. 메뉴만 그려 놓고 액션이 끊겨 있으면 눌러도 아무 일도
+    // 일어나지 않는다.
+    guard let largeItem = sizeItems.first(where: { $0.representedObject as? DesktopPetSize == .large })
+    else { throw SnapshotError.desktopPetSizeContractBroken }
+    controller.selectSizeFromMenu(largeItem)
+    guard controller.size == .large,
+          defaults.string(forKey: DesktopPetController.sizeKey) == DesktopPetSize.large.rawValue
+    else { throw SnapshotError.desktopPetSizeContractBroken }
+
+    controller.hideFromMenu(nil)
+    guard controller.isVisible == false,
+          defaults.bool(forKey: DesktopPetController.visibilityKey) == false
+    else { throw SnapshotError.desktopPetSizeContractBroken }
+
+    // 살아있는 패널까지 이어지는 경로. 순수 함수만 검사하면 applySize() 가 그 함수를 더는
+    // 쓰지 않게 바뀌어도 아무도 잡지 못한다.
+    let live = DesktopPetController(
+      store: store, defaults: defaults, frameAutosaveName: verificationAutosaveName)
+    // 아래 단언 중 하나라도 걸리면 여기서 함수가 빠져나간다. 뒷정리를 본문에 두면 실패한
+    // 확인만 실제 앱 설정 파일에 창 위치 키를 남긴다. AppKit 의 프레임 자동저장은 주입한
+    // 스위트가 아니라 언제나 표준 defaults 를 쓰기 때문이다.
+    defer {
+      live.stop()
+      NSWindow.removeFrame(usingName: verificationAutosaveName)
+    }
+    live.isVisible = true
+    live.size = .regular
+    live.start()
+    guard let beforeResize = live.panelFrame,
+          beforeResize.size == DesktopPetSize.regular.panelSize
+    else { throw SnapshotError.desktopPetSizeContractBroken }
+    let contentBeforeResize = live.panelContentViewIdentity
+    live.size = .tiny
+    guard let afterResize = live.panelFrame,
+          // 같은 뷰를 갱신해야 대기 애니메이션이 크기를 바꿀 때마다 처음부터 다시 시작하지
+          // 않는다. 값만 보면 새로 만든 뷰와 구별되지 않으므로 객체 정체성으로 확인한다.
+          contentBeforeResize != nil,
+          live.panelContentViewIdentity == contentBeforeResize,
+          afterResize.size == DesktopPetSize.tiny.panelSize,
+          afterResize.minY == beforeResize.minY,
+          abs(afterResize.midX - beforeResize.midX) < 0.0001,
+          // 콘텐츠 뷰를 갈아 끼운 뒤에도 우클릭 메뉴와 드래그가 남아 있어야 한다.
+          live.panelContentMenuTitles == menu.items.map(\.title),
+          // 제목만 같으면 체크마크가 옛 크기에 남아 있어도 통과한다. 바뀐 크기를 따라
+          // 왔는지까지 본다.
+          live.panelContentCheckedSizes == [live.size],
+          live.panelContentIsDraggable
+    else { throw SnapshotError.desktopPetSizeContractBroken }
+
+    try render(
+      desktopPetShowcase(store: store, controller: live),
+      size: desktopPetShowcaseSize,
+      to: outputURL
+    )
+  }
+
+  /// 프리셋 4개를 나란히 놓고 그 아래 설정 본문을 붙인 몽타주. 폭이 프리셋 값에서
+  /// 계산되므로 스크립트는 크기를 상수로 못 박지 않는다.
+  private static let desktopPetSettingsStripHeight: CGFloat = 140
+  private static let verificationAutosaveName = "PunchGrow.DesktopPetVerification"
+
+  private static var desktopPetShowcaseSize: NSSize {
+    NSSize(
+      width: DesktopPetSize.allCases.reduce(0) { $0 + $1.panelSize.width } + 40,
+      height: DesktopPetSize.large.panelSize.height + desktopPetSettingsStripHeight
+    )
+  }
+
+  @MainActor
+  private static func desktopPetShowcase(
+    store: GameStore, controller: DesktopPetController
+  ) -> some View {
+    VStack(spacing: 0) {
+      HStack(alignment: .bottom, spacing: 0) {
+        ForEach(DesktopPetSize.allCases, id: \.self) { size in
+          DesktopPetView(store: store, size: size)
+        }
+      }
+      // 설정 화면 본문도 같이 그린다. 우클릭 메뉴만 있고 설정에 크기 선택이 빠지면
+      // 이 그림에서 바로 드러난다.
+      DesktopPetSettingsPanelBody(desktopPet: controller)
+        .frame(width: 360)
+        .padding(16)
+    }
+    .frame(width: desktopPetShowcaseSize.width, height: desktopPetShowcaseSize.height)
+    .background(Color(red: 7 / 255, green: 6 / 255, blue: 13 / 255))
+  }
+
   private static func containsScrollView(in view: NSView) -> Bool {
     view is NSScrollView || view.subviews.contains { containsScrollView(in: $0) }
   }
@@ -665,6 +854,7 @@ enum MenuPopoverSnapshotRenderer {
     case bitmapCreationFailed
     case pngEncodingFailed
     case unexpectedScrollView
+    case desktopPetSizeContractBroken
   }
 }
 

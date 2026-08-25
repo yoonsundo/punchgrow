@@ -89,6 +89,11 @@ struct PunchGrowApp: App {
             )
           case .menuBarHUD:
             try MenuPopoverSnapshotRenderer.renderMenuBarHUD(to: snapshotRequest.outputURL)
+          case .desktopPet:
+            try MenuPopoverSnapshotRenderer.renderDesktopPet(
+              to: snapshotRequest.outputURL,
+              store: store
+            )
           case .grantToast:
             try MenuPopoverSnapshotRenderer.renderGrantToast(to: snapshotRequest.outputURL)
           case .actionNotice:

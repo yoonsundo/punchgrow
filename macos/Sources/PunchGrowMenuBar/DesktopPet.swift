@@ -15,6 +15,59 @@ enum DesktopPetSpeciesResolver {
   }
 }
 
+/// 데스크톱 펫의 크기 프리셋. 자유 슬라이더 대신 4단계로 못 박아, 어떤 값을 골라도
+/// 크리처가 알아볼 수 있는 크기로 남고 화면 배치가 예측 가능하게 유지된다.
+enum DesktopPetSize: String, CaseIterable, Identifiable, Sendable {
+  case tiny
+  case small
+  case regular
+  case large
+
+  /// 크기 조절이 들어오기 전의 펫 크기. `regular`가 이 값과 같아야 기존 사용자의 펫이
+  /// 업데이트만으로 달라지지 않는다.
+  static let basePanelSize = NSSize(width: 200, height: 220)
+
+  var id: String { rawValue }
+
+  var scale: CGFloat {
+    switch self {
+    case .tiny: 0.6
+    case .small: 0.8
+    case .regular: 1
+    case .large: 1.3
+    }
+  }
+
+  var koLabel: String {
+    switch self {
+    case .tiny: "아주 작게"
+    case .small: "작게"
+    case .regular: "보통"
+    case .large: "크게"
+    }
+  }
+
+  /// 원본 비율을 그대로 곱한다. 단계마다 비율이 달라지면 크리처가 찌그러진다.
+  var panelSize: NSSize {
+    NSSize(
+      width: Self.basePanelSize.width * scale,
+      height: Self.basePanelSize.height * scale
+    )
+  }
+
+  /// 크리처 그림이 차지하는 정사각 영역.
+  var stagePoints: CGFloat { 176 * scale }
+
+  /// 잘라낸 비트맵은 프리셋과 무관하게 가장 큰 단계 기준으로 한 장만 만든다. 잘라내기
+  /// 캐시가 크기를 키로 쓰기 때문에, 프리셋마다 따로 만들면 크기를 처음 고를 때마다
+  /// Vision 전경 분리가 주 스레드에서 다시 돌아 화면이 멈칫한다. 축소는 SwiftUI 가 한다.
+  static let artworkPoints: CGFloat = 164 * DesktopPetSize.large.scale
+
+  /// 글자와 여백처럼 프리셋을 따라 함께 줄어야 하는 값에 쓴다. 그림만 줄고 이름표가
+  /// 그대로면 작은 펫에서 글자가 크리처보다 커진다.
+  func scaled(_ value: CGFloat) -> CGFloat { value * scale }
+}
+
 enum DesktopPetMotionPolicy {
   static func allowsIdleMotion(
     appReduceEffects: Bool,
@@ -229,11 +282,53 @@ final class DesktopPetCutoutCache {
   }
 }
 
+/// 펫 위 오른쪽 클릭 메뉴. 컨트롤러 밖의 순수 생성 함수로 두어, 실제 패널을 띄우지 않고도
+/// 항목 구성과 체크마크를 검사할 수 있게 한다.
+@MainActor
+enum DesktopPetContextMenu {
+  static let sizeHeaderTitle = "크기"
+  static let hideTitle = "펫 숨기기"
+  /// 펫을 숨기면 화면에서 완전히 사라진다. 다시 켜는 곳을 알려주지 않으면 되돌릴 방법을
+  /// 사용자가 찾지 못한다.
+  static let hideHint = "다시 켜기: 설정 → Data & Settings → 데스크톱 펫"
+
+  static func make(
+    selected: DesktopPetSize,
+    target: AnyObject?,
+    sizeAction: Selector,
+    hideAction: Selector
+  ) -> NSMenu {
+    let menu = NSMenu()
+    menu.autoenablesItems = false
+
+    let header = NSMenuItem(title: sizeHeaderTitle, action: nil, keyEquivalent: "")
+    header.isEnabled = false
+    menu.addItem(header)
+
+    for size in DesktopPetSize.allCases {
+      let item = NSMenuItem(title: size.koLabel, action: sizeAction, keyEquivalent: "")
+      item.target = target
+      item.representedObject = size
+      item.state = size == selected ? .on : .off
+      item.indentationLevel = 1
+      menu.addItem(item)
+    }
+
+    menu.addItem(.separator())
+
+    let hide = NSMenuItem(title: hideTitle, action: hideAction, keyEquivalent: "")
+    hide.target = target
+    hide.toolTip = hideHint
+    menu.addItem(hide)
+    return menu
+  }
+}
+
 @MainActor
 final class DesktopPetController: NSObject, ObservableObject {
   static let visibilityKey = "desktopPetVisible"
+  static let sizeKey = "desktopPetSize"
   static let frameAutosaveName = "PunchGrow.DesktopPet"
-  static let panelSize = NSSize(width: 200, height: 220)
 
   @Published var isVisible: Bool {
     didSet {
@@ -244,19 +339,59 @@ final class DesktopPetController: NSObject, ObservableObject {
     }
   }
 
+  @Published var size: DesktopPetSize {
+    didSet {
+      guard oldValue != size else { return }
+      defaults.set(size.rawValue, forKey: Self.sizeKey)
+      guard hasStarted else { return }
+      applySize()
+    }
+  }
+
+  /// 검증용 이음새. 크기 변경이 실제 패널까지 도달했는지, 콘텐츠 뷰를 갈아 끼운 뒤에도
+  /// 우클릭 메뉴가 살아 있는지 순수 함수만으로는 확인할 수 없다.
+  var panelFrame: NSRect? { panel?.frame }
+  var panelContentMenuTitles: [String]? { panel?.contentView?.menu?.items.map(\.title) }
+  /// 크기를 바꿀 때 콘텐츠 뷰를 통째로 갈아 끼우므로, 드래그를 처리하지 않는 뷰로 바뀌면
+  /// 펫을 옮길 수 없게 된다. 우클릭 메뉴와 달리 눈에 띄지 않아 더 오래 방치된다.
+  var panelContentIsDraggable: Bool {
+    panel?.contentView is DesktopPetDraggableContent && panel?.isMovableByWindowBackground == true
+  }
+  /// 크기를 바꿀 때 콘텐츠 뷰를 재사용했는지 판별하려면 값이 아니라 객체 정체성을 봐야 한다.
+  var panelContentViewIdentity: ObjectIdentifier? { panel?.contentView.map(ObjectIdentifier.init) }
+  /// 붙어 있는 메뉴에서 체크된 크기. 제목만 비교하면 체크마크가 옛 크기에 남아 있어도
+  /// 눈치채지 못한다.
+  var panelContentCheckedSizes: [DesktopPetSize]? {
+    panel?.contentView?.menu?.items
+      .filter { $0.state == .on }
+      .compactMap { $0.representedObject as? DesktopPetSize }
+  }
+
   private let store: GameStore
   private let defaults: UserDefaults
+  /// 기본값은 실제 앱이 쓰는 이름. 검증에서는 다른 이름을 넘겨, 확인 작업이 사용자가
+  /// 옮겨 둔 펫 위치를 덮어쓰지 않게 한다.
+  private let frameAutosaveName: String
   private var panel: DesktopPetPanel?
   private var hasStarted = false
 
-  init(store: GameStore, defaults: UserDefaults = .standard, defaultVisible: Bool = true) {
+  init(
+    store: GameStore,
+    defaults: UserDefaults = .standard,
+    defaultVisible: Bool = true,
+    frameAutosaveName: String = DesktopPetController.frameAutosaveName
+  ) {
     self.store = store
     self.defaults = defaults
+    self.frameAutosaveName = frameAutosaveName
     if defaults.object(forKey: Self.visibilityKey) == nil {
       isVisible = defaultVisible
     } else {
       isVisible = defaults.bool(forKey: Self.visibilityKey)
     }
+    // 알 수 없는 값이 저장돼 있어도 펫을 잃지 않고 보통으로 돌아온다.
+    size = defaults.string(forKey: Self.sizeKey)
+      .flatMap(DesktopPetSize.init(rawValue:)) ?? .regular
     super.init()
   }
 
@@ -300,6 +435,28 @@ final class DesktopPetController: NSObject, ObservableObject {
     )
   }
 
+  /// 프리셋을 바꿨을 때의 새 프레임. 발밑 가운데를 고정점으로 삼아 펫이 서 있던 자리를
+  /// 지키고, 커진 경우에도 가시영역 안으로 밀어 넣는다. 테두리도 스크롤도 없는 바탕화면
+  /// 창이라 한 번 화면 밖으로 나가면 사용자가 되돌릴 방법이 없다.
+  static func resizedFrame(
+    from frame: NSRect,
+    to size: DesktopPetSize,
+    within visibleFrame: NSRect,
+    margin: CGFloat = 12
+  ) -> NSRect {
+    let panelSize = size.panelSize
+    let anchored = NSRect(
+      x: frame.midX - panelSize.width / 2,
+      y: frame.minY,
+      width: panelSize.width,
+      height: panelSize.height
+    )
+    return NSRect(
+      origin: clampedOrigin(for: anchored, within: visibleFrame, margin: margin),
+      size: panelSize
+    )
+  }
+
   private func syncVisibility() {
     guard isVisible else {
       destroyPanel()
@@ -311,9 +468,55 @@ final class DesktopPetController: NSObject, ObservableObject {
     panel.orderFrontRegardless()
   }
 
+  /// 메뉴에서 고른 크기. 항목에 실어 둔 프리셋을 그대로 쓴다.
+  @objc func selectSizeFromMenu(_ sender: NSMenuItem) {
+    guard let selected = sender.representedObject as? DesktopPetSize else { return }
+    size = selected
+  }
+
+  @objc func hideFromMenu(_ sender: Any?) {
+    isVisible = false
+  }
+
+  func contextMenu() -> NSMenu {
+    DesktopPetContextMenu.make(
+      selected: size,
+      target: self,
+      sizeAction: #selector(selectSizeFromMenu(_:)),
+      hideAction: #selector(hideFromMenu(_:))
+    )
+  }
+
+  private func applySize() {
+    guard isVisible, let panel else { return }
+    // 콘텐츠를 먼저 갈아 끼운 뒤 크기를 바꾼다. 순서가 반대면 새 크기의 창에 이전 크기의
+    // 그림이 한 프레임 그려져 화면이 튄다.
+    let target = Self.resizedFrame(
+      from: panel.frame, to: size, within: visibleFrame(nearest: panel.frame))
+    installContentView(on: panel)
+    panel.setFrame(target, display: false)
+    panel.displayIfNeeded()
+    panel.saveFrame(usingName: frameAutosaveName)
+  }
+
+  /// 콘텐츠 뷰를 만들거나 갱신하는 유일한 자리. 우클릭 메뉴 부착도 여기 한 곳에만 두어,
+  /// 크기 변경 뒤에만 메뉴가 사라지는 결함이 생기지 않게 한다.
+  private func installContentView(on panel: NSPanel) {
+    // 이미 같은 뷰가 붙어 있으면 내용만 갈아 끼운다. 통째로 새로 만들면 대기 애니메이션이
+    // 크기를 바꿀 때마다 처음부터 다시 시작해 펫이 한 번 튄다.
+    if let existing = panel.contentView as? DesktopPetHostingView<DesktopPetView> {
+      existing.rootView = DesktopPetView(store: store, size: size)
+      existing.menu = contextMenu()
+      return
+    }
+    let view = DesktopPetHostingView(rootView: DesktopPetView(store: store, size: size))
+    view.menu = contextMenu()
+    panel.contentView = view
+  }
+
   private func destroyPanel() {
     guard let panel else { return }
-    panel.saveFrame(usingName: Self.frameAutosaveName)
+    panel.saveFrame(usingName: frameAutosaveName)
     panel.orderOut(nil)
     panel.contentView = nil
     panel.close()
@@ -330,10 +533,10 @@ final class DesktopPetController: NSObject, ObservableObject {
       ?? NSScreen.screens.first?.visibleFrame
       ?? NSRect(x: 0, y: 0, width: 1_440, height: 900)
     let initialFrame = NSRect(
-      x: initialVisibleFrame.maxX - Self.panelSize.width - 24,
+      x: initialVisibleFrame.maxX - size.panelSize.width - 24,
       y: initialVisibleFrame.minY + 24,
-      width: Self.panelSize.width,
-      height: Self.panelSize.height
+      width: size.panelSize.width,
+      height: size.panelSize.height
     )
     let panel = DesktopPetPanel(
       contentRect: initialFrame,
@@ -354,25 +557,38 @@ final class DesktopPetController: NSObject, ObservableObject {
     panel.isMovableByWindowBackground = true
     panel.animationBehavior = .utilityWindow
     panel.becomesKeyOnlyIfNeeded = true
-    panel.contentView = DesktopPetHostingView(rootView: DesktopPetView(store: store))
+    installContentView(on: panel)
 
-    _ = panel.setFrameUsingName(Self.frameAutosaveName, force: true)
+    // 저장된 프레임에는 이전 프리셋의 크기가 들어 있다. 위치만 살리고 크기는 지금 프리셋으로
+    // 다시 맞춰야 프리셋마다 위치가 갈라지지 않는다.
+    _ = panel.setFrameUsingName(frameAutosaveName, force: true)
+    panel.setFrame(
+      Self.resizedFrame(from: panel.frame, to: size, within: visibleFrame(nearest: panel.frame)),
+      display: false
+    )
     clampToAvailableScreen(panel)
-    panel.setFrameAutosaveName(Self.frameAutosaveName)
+    panel.setFrameAutosaveName(frameAutosaveName)
     return panel
   }
 
-  private func clampToAvailableScreen(_ panel: NSPanel) {
+  /// 주어진 프레임이 가장 많이 걸쳐 있는 화면의 가시영역. 화면이 없으면 마지막으로 알려진
+  /// 기본 크기를 쓴다.
+  private func visibleFrame(nearest frame: NSRect) -> NSRect {
     let screens = NSScreen.screens
-    guard !screens.isEmpty else { return }
-    let frame = panel.frame
+    guard !screens.isEmpty else { return NSRect(x: 0, y: 0, width: 1_440, height: 900) }
     let target = screens.max { lhs, rhs in
       Self.screenScore(lhs.visibleFrame, for: frame) < Self.screenScore(rhs.visibleFrame, for: frame)
     } ?? screens[0]
-    let origin = Self.clampedOrigin(for: frame, within: target.visibleFrame)
+    return target.visibleFrame
+  }
+
+  private func clampToAvailableScreen(_ panel: NSPanel) {
+    guard !NSScreen.screens.isEmpty else { return }
+    let frame = panel.frame
+    let origin = Self.clampedOrigin(for: frame, within: visibleFrame(nearest: frame))
     guard origin != frame.origin else { return }
     panel.setFrameOrigin(origin)
-    panel.saveFrame(usingName: Self.frameAutosaveName)
+    panel.saveFrame(usingName: frameAutosaveName)
   }
 
   private static func screenScore(_ visibleFrame: NSRect, for windowFrame: NSRect) -> CGFloat {
@@ -386,21 +602,36 @@ final class DesktopPetController: NSObject, ObservableObject {
   }
 }
 
+/// 창 배경 드래그로 펫을 옮기는 콘텐츠 뷰라는 표시.
+protocol DesktopPetDraggableContent {}
+
 private final class DesktopPetPanel: NSPanel {
   override var canBecomeKey: Bool { false }
   override var canBecomeMain: Bool { false }
 }
 
-private final class DesktopPetHostingView<Content: View>: NSHostingView<Content> {
+private final class DesktopPetHostingView<Content: View>: NSHostingView<Content>,
+  DesktopPetDraggableContent
+{
   override func acceptsFirstMouse(for event: NSEvent?) -> Bool { true }
 
   override func mouseDown(with event: NSEvent) {
     window?.performDrag(with: event)
   }
+
+  /// 활성화되지 않는 패널이라 기본 우클릭 경로를 믿을 수 없다. 직접 띄운다.
+  override func rightMouseDown(with event: NSEvent) {
+    guard let menu else {
+      super.rightMouseDown(with: event)
+      return
+    }
+    NSMenu.popUpContextMenu(menu, with: event, for: self)
+  }
 }
 
-private struct DesktopPetView: View {
+struct DesktopPetView: View {
   @ObservedObject var store: GameStore
+  var size: DesktopPetSize = .regular
   @AppStorage("reduceEffects") private var reduceEffects = false
   @Environment(\.accessibilityReduceMotion) private var systemReduceMotion
   @State private var isFloating = false
@@ -422,7 +653,7 @@ private struct DesktopPetView: View {
 
   private var creatureImage: NSImage? {
     guard let species, let url = CreatureAssetLocator.imageURL(for: species) else { return nil }
-    return DesktopPetCutoutCache.shared.image(for: url, points: 164)
+    return DesktopPetCutoutCache.shared.image(for: url, points: DesktopPetSize.artworkPoints)
   }
 
   private var reducesMotion: Bool {
@@ -433,7 +664,7 @@ private struct DesktopPetView: View {
   }
 
   var body: some View {
-    VStack(spacing: 8) {
+    VStack(spacing: size.scaled(8)) {
       ZStack {
         if let creatureImage {
           Image(nsImage: creatureImage)
@@ -445,16 +676,16 @@ private struct DesktopPetView: View {
         } else {
           VStack(spacing: 10) {
             Image(systemName: "sparkles")
-              .font(.system(size: 44, weight: .semibold))
+              .font(.system(size: size.scaled(44), weight: .semibold))
               .foregroundStyle(calm)
             Text("첫 크리처를\n뽑아 주세요")
-              .font(.system(size: 14, weight: .bold, design: .rounded))
+              .font(.system(size: size.scaled(14), weight: .bold, design: .rounded))
               .multilineTextAlignment(.center)
               .foregroundStyle(.white.opacity(0.88))
           }
         }
       }
-      .frame(width: 176, height: 176)
+      .frame(width: size.stagePoints, height: size.stagePoints)
       .offset(y: reducesMotion ? 0 : (isFloating ? -3 : 3))
 
       HStack(spacing: 6) {
@@ -464,10 +695,10 @@ private struct DesktopPetView: View {
           .lineLimit(1)
           .foregroundStyle(.white.opacity(0.92))
       }
-      .font(.system(size: 11, weight: .bold, design: .rounded))
+      .font(.system(size: size.scaled(11), weight: .bold, design: .rounded))
       .shadow(color: .black.opacity(0.95), radius: 3, y: 1)
     }
-    .frame(width: DesktopPetController.panelSize.width, height: DesktopPetController.panelSize.height)
+    .frame(width: size.panelSize.width, height: size.panelSize.height)
     .contentShape(Rectangle())
     .onAppear { updateMotion() }
     .onChange(of: reducesMotion) { _, _ in updateMotion() }
